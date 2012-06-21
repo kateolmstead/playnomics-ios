@@ -1,0 +1,490 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		D1D922741590F59700EDDE17 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1D922731590F59600EDDE17 /* Foundation.framework */; };
+		D1D9227A1590F59700EDDE17 /* iosapi.m in Sources */ = {isa = PBXBuildFile; fileRef = D1D922791590F59700EDDE17 /* iosapi.m */; };
+		D1D922821590F59700EDDE17 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1D922811590F59700EDDE17 /* SenTestingKit.framework */; };
+		D1D922841590F59700EDDE17 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1D922831590F59700EDDE17 /* UIKit.framework */; };
+		D1D922851590F59700EDDE17 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1D922731590F59600EDDE17 /* Foundation.framework */; };
+		D1D922881590F59700EDDE17 /* libiosapi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D1D922701590F59600EDDE17 /* libiosapi.a */; };
+		D1D9228E1590F59700EDDE17 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D1D9228C1590F59700EDDE17 /* InfoPlist.strings */; };
+		D1D922911590F59700EDDE17 /* iosapiTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D1D922901590F59700EDDE17 /* iosapiTests.m */; };
+		D1D922A31591124700EDDE17 /* PlaynomicsSession.h in Headers */ = {isa = PBXBuildFile; fileRef = D1D922A11591124700EDDE17 /* PlaynomicsSession.h */; };
+		D1D922A41591124700EDDE17 /* PlaynomicsSession.m in Sources */ = {isa = PBXBuildFile; fileRef = D1D922A21591124700EDDE17 /* PlaynomicsSession.m */; };
+		D1D922A71591125700EDDE17 /* PlaynomicsEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = D1D922A51591125700EDDE17 /* PlaynomicsEvent.h */; };
+		D1D922A81591125700EDDE17 /* PlaynomicsEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = D1D922A61591125700EDDE17 /* PlaynomicsEvent.m */; };
+		D1D922AF159112A300EDDE17 /* SocialEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = D1D922A9159112A200EDDE17 /* SocialEvent.h */; };
+		D1D922B0159112A300EDDE17 /* SocialEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = D1D922AA159112A200EDDE17 /* SocialEvent.m */; };
+		D1D922B1159112A300EDDE17 /* TransactionEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = D1D922AB159112A200EDDE17 /* TransactionEvent.h */; };
+		D1D922B2159112A300EDDE17 /* TransactionEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = D1D922AC159112A200EDDE17 /* TransactionEvent.m */; };
+		D1D922B3159112A300EDDE17 /* UserInfoEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = D1D922AD159112A200EDDE17 /* UserInfoEvent.h */; };
+		D1D922B4159112A300EDDE17 /* UserInfoEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = D1D922AE159112A300EDDE17 /* UserInfoEvent.m */; };
+		D1D922BD159112C100EDDE17 /* BasicEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = D1D922B5159112C100EDDE17 /* BasicEvent.h */; };
+		D1D922BE159112C100EDDE17 /* BasicEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = D1D922B6159112C100EDDE17 /* BasicEvent.m */; };
+		D1D922BF159112C100EDDE17 /* ErrorEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = D1D922B7159112C100EDDE17 /* ErrorEvent.h */; };
+		D1D922C0159112C100EDDE17 /* ErrorEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = D1D922B8159112C100EDDE17 /* ErrorEvent.m */; };
+		D1D922C1159112C100EDDE17 /* EventSender.h in Headers */ = {isa = PBXBuildFile; fileRef = D1D922B9159112C100EDDE17 /* EventSender.h */; };
+		D1D922C2159112C100EDDE17 /* EventSender.m in Sources */ = {isa = PBXBuildFile; fileRef = D1D922BA159112C100EDDE17 /* EventSender.m */; };
+		D1D922C3159112C100EDDE17 /* GameEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = D1D922BB159112C100EDDE17 /* GameEvent.h */; };
+		D1D922C4159112C100EDDE17 /* GameEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = D1D922BC159112C100EDDE17 /* GameEvent.m */; };
+		D1D922C7159112E100EDDE17 /* RandomGenerator.h in Headers */ = {isa = PBXBuildFile; fileRef = D1D922C5159112E100EDDE17 /* RandomGenerator.h */; };
+		D1D922C8159112E100EDDE17 /* RandomGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = D1D922C6159112E100EDDE17 /* RandomGenerator.m */; };
+		D1D922CB159112F400EDDE17 /* PlaynomicsConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = D1D922C9159112F400EDDE17 /* PlaynomicsConstants.h */; };
+		D1D922CC159112F400EDDE17 /* PlaynomicsConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = D1D922CA159112F400EDDE17 /* PlaynomicsConstants.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		D1D922861590F59700EDDE17 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D1D922671590F59500EDDE17 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D1D9226F1590F59600EDDE17;
+			remoteInfo = iosapi;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		D1D922701590F59600EDDE17 /* libiosapi.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libiosapi.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		D1D922731590F59600EDDE17 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		D1D922771590F59700EDDE17 /* iosapi-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "iosapi-Prefix.pch"; sourceTree = "<group>"; };
+		D1D922781590F59700EDDE17 /* iosapi.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iosapi.h; sourceTree = "<group>"; };
+		D1D922791590F59700EDDE17 /* iosapi.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = iosapi.m; sourceTree = "<group>"; };
+		D1D922801590F59700EDDE17 /* iosapiTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iosapiTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D1D922811590F59700EDDE17 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		D1D922831590F59700EDDE17 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
+		D1D9228B1590F59700EDDE17 /* iosapiTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "iosapiTests-Info.plist"; sourceTree = "<group>"; };
+		D1D9228D1590F59700EDDE17 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		D1D9228F1590F59700EDDE17 /* iosapiTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iosapiTests.h; sourceTree = "<group>"; };
+		D1D922901590F59700EDDE17 /* iosapiTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = iosapiTests.m; sourceTree = "<group>"; };
+		D1D922A11591124700EDDE17 /* PlaynomicsSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaynomicsSession.h; sourceTree = "<group>"; };
+		D1D922A21591124700EDDE17 /* PlaynomicsSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaynomicsSession.m; sourceTree = "<group>"; };
+		D1D922A51591125700EDDE17 /* PlaynomicsEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaynomicsEvent.h; sourceTree = "<group>"; };
+		D1D922A61591125700EDDE17 /* PlaynomicsEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaynomicsEvent.m; sourceTree = "<group>"; };
+		D1D922A9159112A200EDDE17 /* SocialEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocialEvent.h; sourceTree = "<group>"; };
+		D1D922AA159112A200EDDE17 /* SocialEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocialEvent.m; sourceTree = "<group>"; };
+		D1D922AB159112A200EDDE17 /* TransactionEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransactionEvent.h; sourceTree = "<group>"; };
+		D1D922AC159112A200EDDE17 /* TransactionEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransactionEvent.m; sourceTree = "<group>"; };
+		D1D922AD159112A200EDDE17 /* UserInfoEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfoEvent.h; sourceTree = "<group>"; };
+		D1D922AE159112A300EDDE17 /* UserInfoEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfoEvent.m; sourceTree = "<group>"; };
+		D1D922B5159112C100EDDE17 /* BasicEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BasicEvent.h; sourceTree = "<group>"; };
+		D1D922B6159112C100EDDE17 /* BasicEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BasicEvent.m; sourceTree = "<group>"; };
+		D1D922B7159112C100EDDE17 /* ErrorEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ErrorEvent.h; sourceTree = "<group>"; };
+		D1D922B8159112C100EDDE17 /* ErrorEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ErrorEvent.m; sourceTree = "<group>"; };
+		D1D922B9159112C100EDDE17 /* EventSender.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventSender.h; sourceTree = "<group>"; };
+		D1D922BA159112C100EDDE17 /* EventSender.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventSender.m; sourceTree = "<group>"; };
+		D1D922BB159112C100EDDE17 /* GameEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameEvent.h; sourceTree = "<group>"; };
+		D1D922BC159112C100EDDE17 /* GameEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameEvent.m; sourceTree = "<group>"; };
+		D1D922C5159112E100EDDE17 /* RandomGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RandomGenerator.h; sourceTree = "<group>"; };
+		D1D922C6159112E100EDDE17 /* RandomGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RandomGenerator.m; sourceTree = "<group>"; };
+		D1D922C9159112F400EDDE17 /* PlaynomicsConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaynomicsConstants.h; sourceTree = "<group>"; };
+		D1D922CA159112F400EDDE17 /* PlaynomicsConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaynomicsConstants.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D1D9226D1590F59600EDDE17 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D1D922741590F59700EDDE17 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D1D9227C1590F59700EDDE17 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D1D922821590F59700EDDE17 /* SenTestingKit.framework in Frameworks */,
+				D1D922841590F59700EDDE17 /* UIKit.framework in Frameworks */,
+				D1D922851590F59700EDDE17 /* Foundation.framework in Frameworks */,
+				D1D922881590F59700EDDE17 /* libiosapi.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		D1D922651590F59500EDDE17 = {
+			isa = PBXGroup;
+			children = (
+				D1D922751590F59700EDDE17 /* iosapi */,
+				D1D922891590F59700EDDE17 /* iosapiTests */,
+				D1D922721590F59600EDDE17 /* Frameworks */,
+				D1D922711590F59600EDDE17 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		D1D922711590F59600EDDE17 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D1D922701590F59600EDDE17 /* libiosapi.a */,
+				D1D922801590F59700EDDE17 /* iosapiTests.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D1D922721590F59600EDDE17 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D1D922731590F59600EDDE17 /* Foundation.framework */,
+				D1D922811590F59700EDDE17 /* SenTestingKit.framework */,
+				D1D922831590F59700EDDE17 /* UIKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D1D922751590F59700EDDE17 /* iosapi */ = {
+			isa = PBXGroup;
+			children = (
+				D1D922C5159112E100EDDE17 /* RandomGenerator.h */,
+				D1D922C6159112E100EDDE17 /* RandomGenerator.m */,
+				D1D922A51591125700EDDE17 /* PlaynomicsEvent.h */,
+				D1D922A61591125700EDDE17 /* PlaynomicsEvent.m */,
+				D1D922A9159112A200EDDE17 /* SocialEvent.h */,
+				D1D922AA159112A200EDDE17 /* SocialEvent.m */,
+				D1D922AB159112A200EDDE17 /* TransactionEvent.h */,
+				D1D922AC159112A200EDDE17 /* TransactionEvent.m */,
+				D1D922AD159112A200EDDE17 /* UserInfoEvent.h */,
+				D1D922AE159112A300EDDE17 /* UserInfoEvent.m */,
+				D1D922B5159112C100EDDE17 /* BasicEvent.h */,
+				D1D922B6159112C100EDDE17 /* BasicEvent.m */,
+				D1D922B7159112C100EDDE17 /* ErrorEvent.h */,
+				D1D922B8159112C100EDDE17 /* ErrorEvent.m */,
+				D1D922B9159112C100EDDE17 /* EventSender.h */,
+				D1D922BA159112C100EDDE17 /* EventSender.m */,
+				D1D922BB159112C100EDDE17 /* GameEvent.h */,
+				D1D922BC159112C100EDDE17 /* GameEvent.m */,
+				D1D922A11591124700EDDE17 /* PlaynomicsSession.h */,
+				D1D922A21591124700EDDE17 /* PlaynomicsSession.m */,
+				D1D922C9159112F400EDDE17 /* PlaynomicsConstants.h */,
+				D1D922CA159112F400EDDE17 /* PlaynomicsConstants.m */,
+				D1D922781590F59700EDDE17 /* iosapi.h */,
+				D1D922791590F59700EDDE17 /* iosapi.m */,
+				D1D922761590F59700EDDE17 /* Supporting Files */,
+			);
+			path = iosapi;
+			sourceTree = "<group>";
+		};
+		D1D922761590F59700EDDE17 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				D1D922771590F59700EDDE17 /* iosapi-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		D1D922891590F59700EDDE17 /* iosapiTests */ = {
+			isa = PBXGroup;
+			children = (
+				D1D9228F1590F59700EDDE17 /* iosapiTests.h */,
+				D1D922901590F59700EDDE17 /* iosapiTests.m */,
+				D1D9228A1590F59700EDDE17 /* Supporting Files */,
+			);
+			path = iosapiTests;
+			sourceTree = "<group>";
+		};
+		D1D9228A1590F59700EDDE17 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				D1D9228B1590F59700EDDE17 /* iosapiTests-Info.plist */,
+				D1D9228C1590F59700EDDE17 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		D1D9226E1590F59600EDDE17 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D1D922A31591124700EDDE17 /* PlaynomicsSession.h in Headers */,
+				D1D922A71591125700EDDE17 /* PlaynomicsEvent.h in Headers */,
+				D1D922AF159112A300EDDE17 /* SocialEvent.h in Headers */,
+				D1D922B1159112A300EDDE17 /* TransactionEvent.h in Headers */,
+				D1D922B3159112A300EDDE17 /* UserInfoEvent.h in Headers */,
+				D1D922BD159112C100EDDE17 /* BasicEvent.h in Headers */,
+				D1D922BF159112C100EDDE17 /* ErrorEvent.h in Headers */,
+				D1D922C1159112C100EDDE17 /* EventSender.h in Headers */,
+				D1D922C3159112C100EDDE17 /* GameEvent.h in Headers */,
+				D1D922C7159112E100EDDE17 /* RandomGenerator.h in Headers */,
+				D1D922CB159112F400EDDE17 /* PlaynomicsConstants.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		D1D9226F1590F59600EDDE17 /* iosapi */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D1D922941590F59700EDDE17 /* Build configuration list for PBXNativeTarget "iosapi" */;
+			buildPhases = (
+				D1D9226C1590F59600EDDE17 /* Sources */,
+				D1D9226D1590F59600EDDE17 /* Frameworks */,
+				D1D9226E1590F59600EDDE17 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = iosapi;
+			productName = iosapi;
+			productReference = D1D922701590F59600EDDE17 /* libiosapi.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		D1D9227F1590F59700EDDE17 /* iosapiTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D1D922971590F59700EDDE17 /* Build configuration list for PBXNativeTarget "iosapiTests" */;
+			buildPhases = (
+				D1D9227B1590F59700EDDE17 /* Sources */,
+				D1D9227C1590F59700EDDE17 /* Frameworks */,
+				D1D9227D1590F59700EDDE17 /* Resources */,
+				D1D9227E1590F59700EDDE17 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D1D922871590F59700EDDE17 /* PBXTargetDependency */,
+			);
+			name = iosapiTests;
+			productName = iosapiTests;
+			productReference = D1D922801590F59700EDDE17 /* iosapiTests.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D1D922671590F59500EDDE17 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+			};
+			buildConfigurationList = D1D9226A1590F59500EDDE17 /* Build configuration list for PBXProject "iosapi" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = D1D922651590F59500EDDE17;
+			productRefGroup = D1D922711590F59600EDDE17 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D1D9226F1590F59600EDDE17 /* iosapi */,
+				D1D9227F1590F59700EDDE17 /* iosapiTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		D1D9227D1590F59700EDDE17 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D1D9228E1590F59700EDDE17 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		D1D9227E1590F59700EDDE17 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		D1D9226C1590F59600EDDE17 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D1D9227A1590F59700EDDE17 /* iosapi.m in Sources */,
+				D1D922A41591124700EDDE17 /* PlaynomicsSession.m in Sources */,
+				D1D922A81591125700EDDE17 /* PlaynomicsEvent.m in Sources */,
+				D1D922B0159112A300EDDE17 /* SocialEvent.m in Sources */,
+				D1D922B2159112A300EDDE17 /* TransactionEvent.m in Sources */,
+				D1D922B4159112A300EDDE17 /* UserInfoEvent.m in Sources */,
+				D1D922BE159112C100EDDE17 /* BasicEvent.m in Sources */,
+				D1D922C0159112C100EDDE17 /* ErrorEvent.m in Sources */,
+				D1D922C2159112C100EDDE17 /* EventSender.m in Sources */,
+				D1D922C4159112C100EDDE17 /* GameEvent.m in Sources */,
+				D1D922C8159112E100EDDE17 /* RandomGenerator.m in Sources */,
+				D1D922CC159112F400EDDE17 /* PlaynomicsConstants.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D1D9227B1590F59700EDDE17 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D1D922911590F59700EDDE17 /* iosapiTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		D1D922871590F59700EDDE17 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D1D9226F1590F59600EDDE17 /* iosapi */;
+			targetProxy = D1D922861590F59700EDDE17 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		D1D9228C1590F59700EDDE17 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D1D9228D1590F59700EDDE17 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		D1D922921590F59700EDDE17 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		D1D922931590F59700EDDE17 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		D1D922951590F59700EDDE17 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/iosapi.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "iosapi/iosapi-Prefix.pch";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		D1D922961590F59700EDDE17 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/iosapi.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "iosapi/iosapi-Prefix.pch";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		D1D922981590F59700EDDE17 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "iosapi/iosapi-Prefix.pch";
+				INFOPLIST_FILE = "iosapiTests/iosapiTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		D1D922991590F59700EDDE17 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "iosapi/iosapi-Prefix.pch";
+				INFOPLIST_FILE = "iosapiTests/iosapiTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		D1D9226A1590F59500EDDE17 /* Build configuration list for PBXProject "iosapi" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D1D922921590F59700EDDE17 /* Debug */,
+				D1D922931590F59700EDDE17 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D1D922941590F59700EDDE17 /* Build configuration list for PBXNativeTarget "iosapi" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D1D922951590F59700EDDE17 /* Debug */,
+				D1D922961590F59700EDDE17 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		D1D922971590F59700EDDE17 /* Build configuration list for PBXNativeTarget "iosapiTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D1D922981590F59700EDDE17 /* Debug */,
+				D1D922991590F59700EDDE17 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D1D922671590F59500EDDE17 /* Project object */;
+}
