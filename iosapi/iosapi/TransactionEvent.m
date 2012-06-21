@@ -1,53 +1,65 @@
+#import "PlaynomicsEvent.h"
 #import "TransactionEvent.h"
-
-long const serialVersionUID = 1L;
 
 @implementation TransactionEvent
 
-@synthesize transactionId;
-@synthesize itemId;
-@synthesize quantity;
-@synthesize type;
-@synthesize otherUserId;
-@synthesize currencyTypes;
-@synthesize currencyValues;
-@synthesize currencyCategories;
+@synthesize transactionId=_transactionId;
+@synthesize itemId=_itemId;
+@synthesize quantity=_quantity;
+@synthesize type=_type;
+@synthesize otherUserId=_otherUserId;
+@synthesize currencyTypes=_currencyTypes;
+@synthesize currencyValues=_currencyValues;
+@synthesize currencyCategories=_currencyCategories;
 
-- (id) init:(EventType *)eventType applicationId:(NSNumber *)applicationId userId:(NSString *)userId transactionId:(long)transactionId itemId:(NSString *)itemId quantity:(double)quantity type:(TransactionType *)type otherUserId:(NSString *)otherUserId currencyTypes:(NSArray *)currencyTypes currencyValues:(NSArray *)currencyValues currencyCategories:(NSArray *)currencyCategories {
-  if (self = [super init:eventType param1:applicationId param2:userId]) {
-    transactionId = transactionId;
-    itemId = itemId;
-    quantity = quantity;
-    type = type;
-    otherUserId = otherUserId;
-    currencyTypes = currencyTypes;
-    currencyValues = currencyValues;
-    currencyCategories = currencyCategories;
-  }
-  return self;
+- (id) init:(EventType) eventType 
+              applicationId:(NSNumber *) applicationId 
+                     userId:(NSString *) userId 
+              transactionId:(long) transactionId 
+                     itemId:(NSString *) itemId 
+                   quantity:(double) quantity 
+                       type:(TransactionType) type 
+                otherUserId:(NSString *) otherUserId 
+              currencyTypes:(NSArray *) currencyTypes
+             currencyValues:(NSArray *) currencyValues 
+         currencyCategories:(NSArray *) currencyCategories {
+    if (self = [super init: eventType applicationId:applicationId userId:userId]) {
+        _transactionId = transactionId;
+        _itemId = [itemId retain];
+        _quantity = quantity;
+        _type = type;
+        _otherUserId = [otherUserId retain];
+        _currencyTypes = [currencyTypes retain];
+        _currencyValues = [currencyValues retain];
+        _currencyCategories = [currencyCategories retain];
+    }
+    return self;
 }
 
 - (NSString *) toQueryString {
-  NSString * queryString = [[[[[self eventType] stringByAppendingString:@"?t="] + [[self eventTime] time] stringByAppendingString:@"&a="] + [self applicationId] stringByAppendingString:@"&u="] + [self userId] stringByAppendingString:@"&tt="] + [self type];
-
-  for (int i = 0; i < [self currencyTypes].length; i++) {
-    queryString = [queryString stringByAppendingString:[[[[[[@"&tc" stringByAppendingString:i] stringByAppendingString:@"="] + [self currencyTypes][i] stringByAppendingString:@"&tv"] + i stringByAppendingString:@"="] + [self currencyValues][i] stringByAppendingString:@"&ta"] + i stringByAppendingString:@"="] + [self currencyCategories][i]];
-  }
-
-  queryString = [self addOptionalParam:queryString param1:@"i" param2:[self itemId]];
-  queryString = [self addOptionalParam:queryString param1:@"tq" param2:[self quantity]];
-  queryString = [self addOptionalParam:queryString param1:@"to" param2:[self otherUserId]];
-  return queryString;
+    NSString * queryString = [[super toQueryString] stringByAppendingFormat: @"&tt=%@", [self type]];
+    
+    for (int i = 0; i < [[self currencyTypes] count] ; i++) {
+        queryString = [queryString stringByAppendingFormat:@"&tc%d=%@,&tv%d=%@&ta%d=%@", 
+                       i, [[self currencyTypes] objectAtIndex:i], 
+                       i, [[self currencyValues] objectAtIndex:i],
+                       i, [[self currencyCategories] objectAtIndex: i]];
+    }
+    
+    queryString = [self addOptionalParam:queryString name:@"i" value:[self itemId]];
+    queryString = [self addOptionalParam:queryString name:@"tq" value: [NSString stringWithFormat:@"%d", [self quantity]]];
+    queryString = [self addOptionalParam:queryString name:@"to" value:[self otherUserId]];
+    return queryString;
 }
 
 - (void) dealloc {
-  [itemId release];
-  [type release];
-  [otherUserId release];
-  [currencyTypes release];
-  [currencyValues release];
-  [currencyCategories release];
-  [super dealloc];
+    [_itemId release];
+    [_otherUserId release];
+    [_currencyTypes release];
+    [_currencyValues release];
+    [_currencyCategories release];
+    
+    [super dealloc];
 }
 
 @end

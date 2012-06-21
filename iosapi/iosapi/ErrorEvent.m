@@ -6,28 +6,29 @@ long const serialVersionUID = 1L;
 
 - (id) initWithE:(NSException *)e {
   if (self = [super init]) {
-    e = e;
+    _e = e;
   }
   return self;
 }
 
 - (NSString *) toQueryString {
-  NSString * queryString = nil;
+    return nil;
+//    NSString * queryString = nil;
 
-  @try {
-    StringWriter * sw = [[[StringWriter alloc] init] autorelease];
-    PrintWriter * pw = [[[PrintWriter alloc] init:sw] autorelease];
-    [e printStackTrace:pw];
-    queryString = [@"ajlog?m=" stringByAppendingString:[URLEncoder encode:[sw description] param1:@"US-ASCII"]];
-  }
-  @catch (UnsupportedEncodingException * e) {
-    [e printStackTrace];
-  }
-  return queryString;
+//  @try {
+//    StringWriter * sw = [[[StringWriter alloc] init] autorelease];
+//    PrintWriter * pw = [[[PrintWriter alloc] init:sw] autorelease];
+//    [e printStackTrace:pw];
+//    queryString = [@"ajlog?m=" stringByAppendingString:[URLEncoder encode:[sw description] param1:@"US-ASCII"]];
+//  }
+//  @catch (UnsupportedEncodingException * e) {
+//    [e printStackTrace];
+//  }
+//  return queryString;
 }
 
 - (void) dealloc {
-  [e release];
+  [_e release];
   [super dealloc];
 }
 

@@ -109,6 +109,27 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5B6C6E141593CC480088EF5E /* Event */ = {
+			isa = PBXGroup;
+			children = (
+				D1D922A51591125700EDDE17 /* PlaynomicsEvent.h */,
+				D1D922A61591125700EDDE17 /* PlaynomicsEvent.m */,
+				D1D922A9159112A200EDDE17 /* SocialEvent.h */,
+				D1D922AA159112A200EDDE17 /* SocialEvent.m */,
+				D1D922AB159112A200EDDE17 /* TransactionEvent.h */,
+				D1D922AC159112A200EDDE17 /* TransactionEvent.m */,
+				D1D922AD159112A200EDDE17 /* UserInfoEvent.h */,
+				D1D922AE159112A300EDDE17 /* UserInfoEvent.m */,
+				D1D922B5159112C100EDDE17 /* BasicEvent.h */,
+				D1D922B6159112C100EDDE17 /* BasicEvent.m */,
+				D1D922B7159112C100EDDE17 /* ErrorEvent.h */,
+				D1D922B8159112C100EDDE17 /* ErrorEvent.m */,
+				D1D922BB159112C100EDDE17 /* GameEvent.h */,
+				D1D922BC159112C100EDDE17 /* GameEvent.m */,
+			);
+			name = Event;
+			sourceTree = "<group>";
+		};
 		D1D922651590F59500EDDE17 = {
 			isa = PBXGroup;
 			children = (
@@ -141,24 +162,11 @@
 		D1D922751590F59700EDDE17 /* iosapi */ = {
 			isa = PBXGroup;
 			children = (
+				5B6C6E141593CC480088EF5E /* Event */,
 				D1D922C5159112E100EDDE17 /* RandomGenerator.h */,
 				D1D922C6159112E100EDDE17 /* RandomGenerator.m */,
-				D1D922A51591125700EDDE17 /* PlaynomicsEvent.h */,
-				D1D922A61591125700EDDE17 /* PlaynomicsEvent.m */,
-				D1D922A9159112A200EDDE17 /* SocialEvent.h */,
-				D1D922AA159112A200EDDE17 /* SocialEvent.m */,
-				D1D922AB159112A200EDDE17 /* TransactionEvent.h */,
-				D1D922AC159112A200EDDE17 /* TransactionEvent.m */,
-				D1D922AD159112A200EDDE17 /* UserInfoEvent.h */,
-				D1D922AE159112A300EDDE17 /* UserInfoEvent.m */,
-				D1D922B5159112C100EDDE17 /* BasicEvent.h */,
-				D1D922B6159112C100EDDE17 /* BasicEvent.m */,
-				D1D922B7159112C100EDDE17 /* ErrorEvent.h */,
-				D1D922B8159112C100EDDE17 /* ErrorEvent.m */,
 				D1D922B9159112C100EDDE17 /* EventSender.h */,
 				D1D922BA159112C100EDDE17 /* EventSender.m */,
-				D1D922BB159112C100EDDE17 /* GameEvent.h */,
-				D1D922BC159112C100EDDE17 /* GameEvent.m */,
 				D1D922A11591124700EDDE17 /* PlaynomicsSession.h */,
 				D1D922A21591124700EDDE17 /* PlaynomicsSession.m */,
 				D1D922C9159112F400EDDE17 /* PlaynomicsConstants.h */,
@@ -365,7 +373,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_ARC = NO;
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -389,7 +397,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_ARC = NO;
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
@@ -475,6 +483,7 @@
 				D1D922961590F59700EDDE17 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		D1D922971590F59700EDDE17 /* Build configuration list for PBXNativeTarget "iosapiTests" */ = {
 			isa = XCConfigurationList;
@@ -483,6 +492,7 @@
 				D1D922991590F59700EDDE17 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

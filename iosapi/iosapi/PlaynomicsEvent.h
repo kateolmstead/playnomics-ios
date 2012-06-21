@@ -1,44 +1,40 @@
 #import <Foundation/Foundation.h>
 
-
+// TODO revisit naming
 typedef enum {
-  appStart,
-  appPage,
-  appRunning,
-  appPause,
-  appResume,
-  appStop,
-  userInfo,
-  sessionStart,
-  sessionEnd,
-  gameStart,
-  gameEnd,
-  transaction,
-  invitationSent,
-  invitationResponse
+    ET_appStart,
+    ET_appPage,
+    ET_appRunning,
+    ET_appPause,
+    ET_appResume,
+    ET_appStop,
+    ET_userInfo,
+    ET_sessionStart,
+    ET_sessionEnd,
+    ET_gameStart,
+    ET_gameEnd,
+    ET_transaction,
+    ET_invitationSent,
+    ET_invitationResponse
 } EventType;
 
 EventType EventTypeValueOf(NSString *text);
 NSString* EventTypeDescription(EventType value);
 
 @interface PlaynomicsEvent : NSObject {
-  EventType eventType;
-  NSDate * eventTime;
-  NSNumber * applicationId;
-  NSString * userId;
+    EventType _eventType;
+    NSDate * _eventTime;
+    NSNumber * _applicationId;
+    NSString * _userId;
 }
 
+@property (nonatomic, assign) EventType eventType;
+@property (nonatomic, retain) NSDate *eventTime;
+@property (nonatomic, retain) NSNumber *applicationId;
+@property (nonatomic, retain) NSString *userId;
+
 - (id) init:(EventType)eventType applicationId:(NSNumber *)applicationId userId:(NSString *)userId;
-- (id) init;
-- (EventType) getEventType;
-- (void) setEventType:(EventType)eventType;
-- (NSDate *) getEventTime;
-- (void) setEventTime:(NSDate *)eventTime;
-- (NSNumber *) getApplicationId;
-- (void) setApplicationId:(NSNumber *)applicationId;
-- (NSString *) getUserId;
-- (void) setUserId:(NSString *)userId;
 - (NSString *) description;
-- (NSString *) addOptionalParam:(NSString *)url param:(NSString *)param value:(NSObject *)value;
+- (NSString *) addOptionalParam:(NSString *)url name:(NSString *)name value:(NSObject *)value;
 - (NSString *) toQueryString;
 @end

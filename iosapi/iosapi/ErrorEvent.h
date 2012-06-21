@@ -1,9 +1,10 @@
 #import <Foundation/Foundation.h>
 
+#import "PlaynomicsEvent.h"
+
 @interface ErrorEvent : PlaynomicsEvent {
-  NSException * e;
+  NSException * _e;
 }
 
-- (id) initWithE:(NSException *)e;
-- (NSString *) toQueryString;
+- (id) initWithE:(NSException *)_e;
 @end

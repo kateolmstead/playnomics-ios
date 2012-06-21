@@ -1,138 +1,111 @@
 #import "PlaynomicsEvent.h"
 
 EventType EventTypeValueOf(NSString *text) {
-  if (text) {
-    if ([text isEqualToString:@"appStart"])
-      return appStart;
-    else if ([text isEqualToString:@"appPage"])
-      return appPage;
-    else if ([text isEqualToString:@"appRunning"])
-      return appRunning;
-    else if ([text isEqualToString:@"appPause"])
-      return appPause;
-    else if ([text isEqualToString:@"appResume"])
-      return appResume;
-    else if ([text isEqualToString:@"appStop"])
-      return appStop;
-    else if ([text isEqualToString:@"userInfo"])
-      return userInfo;
-    else if ([text isEqualToString:@"sessionStart"])
-      return sessionStart;
-    else if ([text isEqualToString:@"sessionEnd"])
-      return sessionEnd;
-    else if ([text isEqualToString:@"gameStart"])
-      return gameStart;
-    else if ([text isEqualToString:@"gameEnd"])
-      return gameEnd;
-    else if ([text isEqualToString:@"transaction"])
-      return transaction;
-    else if ([text isEqualToString:@"invitationSent"])
-      return invitationSent;
-    else if ([text isEqualToString:@"invitationResponse"])
-      return invitationResponse;
-  }
-  return -1;
+    if (text) {
+        if ([text isEqualToString:@"appStart"])
+            return ET_appStart;
+        else if ([text isEqualToString:@"appPage"])
+            return ET_appPage;
+        else if ([text isEqualToString:@"appRunning"])
+            return ET_appRunning;
+        else if ([text isEqualToString:@"appPause"])
+            return ET_appPause;
+        else if ([text isEqualToString:@"appResume"])
+            return ET_appResume;
+        else if ([text isEqualToString:@"appStop"])
+            return ET_appStop;
+        else if ([text isEqualToString:@"userInfo"])
+            return ET_userInfo;
+        else if ([text isEqualToString:@"sessionStart"])
+            return ET_sessionStart;
+        else if ([text isEqualToString:@"sessionEnd"])
+            return ET_sessionEnd;
+        else if ([text isEqualToString:@"gameStart"])
+            return ET_gameStart;
+        else if ([text isEqualToString:@"gameEnd"])
+            return ET_gameEnd;
+        else if ([text isEqualToString:@"transaction"])
+            return ET_transaction;
+        else if ([text isEqualToString:@"invitationSent"])
+            return ET_invitationSent;
+        else if ([text isEqualToString:@"invitationResponse"])
+            return ET_invitationResponse;
+    }
+    return -1;
 }
 
 NSString* EventTypeDescription(EventType value) {
-  switch (value) {
-    case appStart:
-      return @"appStart";
-    case appPage:
-      return @"appPage";
-    case appRunning:
-      return @"appRunning";
-    case appPause:
-      return @"appPause";
-    case appResume:
-      return @"appResume";
-    case appStop:
-      return @"appStop";
-    case userInfo:
-      return @"userInfo";
-    case sessionStart:
-      return @"sessionStart";
-    case sessionEnd:
-      return @"sessionEnd";
-    case gameStart:
-      return @"gameStart";
-    case gameEnd:
-      return @"gameEnd";
-    case transaction:
-      return @"transaction";
-    case invitationSent:
-      return @"invitationSent";
-    case invitationResponse:
-      return @"invitationResponse";
-  }
-  return nil;
+    switch (value) {
+        case ET_appStart:
+            return @"appStart";
+        case ET_appPage:
+            return @"appPage";
+        case ET_appRunning:
+            return @"appRunning";
+        case ET_appPause:
+            return @"appPause";
+        case ET_appResume:
+            return @"appResume";
+        case ET_appStop:
+            return @"appStop";
+        case ET_userInfo:
+            return @"userInfo";
+        case ET_sessionStart:
+            return @"sessionStart";
+        case ET_sessionEnd:
+            return @"sessionEnd";
+        case ET_gameStart:
+            return @"gameStart";
+        case ET_gameEnd:
+            return @"gameEnd";
+        case ET_transaction:
+            return @"transaction";
+        case ET_invitationSent:
+            return @"invitationSent";
+        case ET_invitationResponse:
+            return @"invitationResponse";
+    }
+    return nil;
 }
 
 long const serialVersionUID = 1L;
 
 @implementation PlaynomicsEvent
+@synthesize eventType=_eventType;
+@synthesize eventTime=_eventTime;
+@synthesize applicationId=_applicationId;
+@synthesize userId=_userId;
 
 - (id) init:(EventType)eventType applicationId:(NSNumber *)applicationId userId:(NSString *)userId {
-  if (self = [super init]) {
-    self.eventTime = [[NSDate alloc] init];
-    self.eventType = eventType;
-    self.applicationId = applicationId;
-    self.userId = userId;
-  }
-  return self;
-}
-
-- (id) init {
-  if (self = [super init]) {
-  }
-  return self;
-}
-
-- (EventType) getEventType {
-  return eventType;
-}
-
-- (void) setEventType:(EventType)eventType {
-  self.eventType = eventType;
-}
-
-- (NSDate *) getEventTime {
-  return eventTime;
-}
-
-- (void) setEventTime:(NSDate *)eventTime {
-  self.eventTime = eventTime;
-}
-
-- (NSNumber *) getApplicationId {
-  return applicationId;
-}
-
-- (void) setApplicationId:(NSNumber *)applicationId {
-  self.applicationId = applicationId;
-}
-
-- (NSString *) getUserId {
-  return userId;
-}
-
-- (void) setUserId:(NSString *)userId {
-  self.userId = userId;
+    if ((self = [super init])) {
+        _eventTime = [[NSDate alloc] init];
+        _eventType = eventType;
+        _applicationId = [applicationId retain];
+        _userId = [userId retain];
+    }
+    return self;
 }
 
 - (NSString *) description {
-    return [[[eventTime description] stringByAppendingString:@": "] stringByAppendingString: [EventTypeDescription(eventType) description]];
+    return [NSString stringWithFormat:@"%@: %@", [_eventTime description], EventTypeDescription(_eventType)];
 }
 
-- (NSString *) addOptionalParam:(NSString *)url param:(NSString *)param value:(NSObject *)value {
-  if (value != nil) {
-    url = [url stringByAppendingString:[[@"&" stringByAppendingString:param] stringByAppendingString:[@"=" stringByAppendingString:[value description]]];
-  }
-  return url;
+- (NSString *) addOptionalParam:(NSString *)url name:(NSString *)name value:(NSObject *)value {
+    if (value != nil) {
+        url = [url stringByAppendingFormat:@"&%@=%@", name, [value description]];
+    }
+    return url;
 }
 
 - (NSString *) toQueryString {
+    return [NSString stringWithFormat:@"%@?t=%@&a=%@&u=%@", [self eventType], [[self eventTime] timeIntervalSince1970], [self applicationId]];
 }
 
-
+- (void) dealloc {
+    [_eventTime release];
+    [_applicationId release];
+    [_userId release];
+    
+    [super dealloc];
+}
 @end
