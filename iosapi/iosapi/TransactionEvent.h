@@ -1,12 +1,10 @@
-#import "PlaynomicsConstants.h"
-
-@class PlaynomicsEvent;
+#import "PlaynomicsEvent.h"
 
 @interface TransactionEvent : PlaynomicsEvent {
     long _transactionId;
     NSString * _itemId;
     double _quantity;
-    TransactionType _type;
+    PLTransactionType _type;
     NSString * _otherUserId;
     NSArray * _currencyTypes;
     NSArray * _currencyValues;
@@ -16,19 +14,19 @@
 @property(nonatomic, assign) long transactionId;
 @property(nonatomic, retain) NSString * itemId;
 @property(nonatomic, assign) double quantity;
-@property(nonatomic, assign) TransactionType type;
+@property(nonatomic, assign) PLTransactionType type;
 @property(nonatomic, retain) NSString * otherUserId;
 @property(nonatomic, retain) NSArray * currencyTypes;
 @property(nonatomic, retain) NSArray * currencyValues;
 @property(nonatomic, retain) NSArray * currencyCategories;
 
-- (id) init: (EventType) eventType 
+- (id) init:  (PLEventType) eventType 
               applicationId: (NSNumber *) applicationId 
                      userId: (NSString *) userId 
               transactionId: (long) transactionId 
                      itemId: (NSString *) itemId 
                    quantity: (double) quantity 
-                       type: (TransactionType) type 
+                       type: (PLTransactionType) type 
                 otherUserId: (NSString *) otherUserId 
               currencyTypes: (NSArray *) currencyTypes
              currencyValues: (NSArray *) currencyValues 

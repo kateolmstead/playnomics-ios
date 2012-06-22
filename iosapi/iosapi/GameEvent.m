@@ -11,7 +11,7 @@ long const serialVersionUID = 1L;
 @synthesize reason=_reason;
 @synthesize site=_site;
 
-- (id) init: (EventType)eventType 
+- (id) init:  (PLEventType)eventType 
         applicationId: (NSNumber *) applicationId 
              userId:(NSString *)userId
           sessionId:(NSString *)sessionId
@@ -34,7 +34,7 @@ long const serialVersionUID = 1L;
 
 - (NSString *) toQueryString {
     NSString * queryString = [super toQueryString];
-    if ([self eventType] == ET_gameStart || [self eventType] == ET_gameEnd)
+    if ([self eventType] == PLEventGameStart || [self eventType] == PLEventGameEnd)
         queryString = [self addOptionalParam:queryString name:@"s" value:[self sessionId]];
     else
         queryString = [queryString stringByAppendingFormat:@"&s=%@", [self sessionId]];

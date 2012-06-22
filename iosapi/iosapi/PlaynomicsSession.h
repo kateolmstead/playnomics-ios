@@ -9,25 +9,12 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-typedef enum {
-    SENT,
-    QUEUED,
-    SWITCHED,
-    STOPPED,
-    ALREADY_STARTED,
-    ALREADY_SWITCHED,
-    ALREADY_STOPPED,
-    SESSION_RESUMED,
-    START_NOT_CALLED,
-    NO_INTERNET_PERMISSION,
-    MISSING_REQ_PARAM,
-    FAIL_UNKNOWN
-} APIResult;
+#import "PLConstants.h"
 
 @interface PlaynomicsSession : NSObject
 
-+ (APIResult) start: (UIViewController*) controller applicationId:(long) applicationId;
-+ (APIResult) stop;
-+ (APIResult) userInfo;
++ (PLAPIResult) start: (UIViewController*) controller applicationId:(long) applicationId;
++ (PLAPIResult) stop;
++ (PLAPIResult) userInfo;
 
 @end

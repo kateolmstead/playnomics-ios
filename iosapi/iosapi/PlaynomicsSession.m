@@ -10,4 +10,14 @@
 
 @implementation PlaynomicsSession
 
++ (PLAPIResult) start: (UIViewController*) controller applicationId:(long) applicationId {
+    return PLAPIResultFailUnkown;
+}
++ (PLAPIResult) stop {
+    return PLAPIResultFailUnkown;    
+}
++ (PLAPIResult) userInfo {
+    return PLAPIResultFailUnkown;
+}
+
 @end

@@ -1,4 +1,3 @@
-#import "PlaynomicsEvent.h"
 #import "TransactionEvent.h"
 
 @implementation TransactionEvent
@@ -12,13 +11,13 @@
 @synthesize currencyValues=_currencyValues;
 @synthesize currencyCategories=_currencyCategories;
 
-- (id) init:(EventType) eventType 
+- (id) init: (PLEventType) eventType 
               applicationId:(NSNumber *) applicationId 
                      userId:(NSString *) userId 
               transactionId:(long) transactionId 
                      itemId:(NSString *) itemId 
                    quantity:(double) quantity 
-                       type:(TransactionType) type 
+                       type:(PLTransactionType) type 
                 otherUserId:(NSString *) otherUserId 
               currencyTypes:(NSArray *) currencyTypes
              currencyValues:(NSArray *) currencyValues 

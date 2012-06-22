@@ -1,4 +1,3 @@
-#import "PlaynomicsEvent.h"
 #import "UserInfoEvent.h"
 
 long const serialVersionUID = 1L;
@@ -15,27 +14,31 @@ long const serialVersionUID = 1L;
 @synthesize installTime=_installTime;
 
 
-- (id) init:(NSNumber *)applicationId 
+- (id) initUserInfoEvent:(NSNumber *)applicationId 
      userId:(NSString *)userId 
-       type:(UserInfoType) type {
-    if (self = [super init:ET_userInfo applicationId:applicationId userId:userId]) {
-        type = type;
+       type:(PLUserInfoType) type {
+    
+    PLEventType eType = PLEventUserInfo;
+    
+    if (self = [super init:eType applicationId:applicationId userId:userId]) {
+        _type = type;
     }
+    
     return self;
 }
 
 - (id) init:(NSNumber *) applicationId 
              userId: (NSString *) userId 
-               type: (UserInfoType) type 
+               type: (PLUserInfoType) type 
             country: (NSString *) country 
         subdivision: (NSString *) subdivision 
-                sex: (UserInfoSex) sex 
+                sex: (PLUserInfoSex) sex 
            birthday: (NSDate *) birthday
              source: (NSString *) source
      sourceCampaign: (NSString *) sourceCampaign
         installTime: (NSDate *) installTime {
     
-    if (self = [self init:applicationId userId:userId type:type]) {
+    if (self = [self initUserInfoEvent:applicationId userId:userId type:type]) {
         _country = [country retain];
         _subdivision = [subdivision retain];
         _sex = sex;

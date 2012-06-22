@@ -46,4 +46,7 @@
     return nil;
 }
 
++ (NSString *) createRandomHex {
+    return nil;
+}
 @end

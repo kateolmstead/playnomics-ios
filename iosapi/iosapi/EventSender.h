@@ -1,17 +1,15 @@
-#import "HttpURLConnection.h"
-#import "URL.h"
-#import "ResourceBundle.h"
-#import "Log.h"
+#import <Foundation/Foundation.h>
+
+#import "PlaynomicsEvent.h"
 
 @interface EventSender : NSObject {
-  NSString * version;
-  NSString * baseUrl;
-  int connectTimeout;
-  BOOL testMode;
+  NSString * _version;
+  NSString * _baseUrl;
+  NSTimeInterval _connectTimeout;
+  BOOL _testMode;
 }
 
-- (id) init;
 - (id) initWithTestMode:(BOOL)testMode;
 - (BOOL) sendToServer:(NSString *)eventUrl;
-- (BOOL) sendToServer:(PlaynomicsEvent *)pe;
+- (BOOL) sendEventToServer:(PlaynomicsEvent *)pe;
 @end

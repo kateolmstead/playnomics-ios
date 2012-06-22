@@ -17,7 +17,7 @@ int const UPDATE_INTERVAL = 60000;
 @synthesize totalKeys=_totalKeys;
 @synthesize collectMode=_collectMode;
 
-- (id) init: (EventType) eventType
+- (id) init:  (PLEventType) eventType
         applicationId: (NSNumber *) applicationId
              userId:(NSString *)userId
            cookieId:(NSString *)cookieId
@@ -46,7 +46,7 @@ int const UPDATE_INTERVAL = 60000;
     return self;
 }
 
-- (id) init: (EventType) eventType 
+- (id) init:  (PLEventType) eventType 
         applicationId:(NSNumber *)applicationId
              userId:(NSString *)userId
            cookieId:(NSString *)cookieId
@@ -67,11 +67,11 @@ int const UPDATE_INTERVAL = 60000;
     NSString * queryString = [[super toQueryString] stringByAppendingFormat:@"&b=%@&s=%@&i=%@", [self cookieId], [self sessionId], [self instanceId]];
     
     switch ([self eventType]) {
-        case ET_appStart:
-        case ET_appPage:
+        case PLEventAppStart:
+        case PLEventAppPage:
             queryString = [queryString stringByAppendingFormat:@"&z=%d", [self timeZoneOffset]];
             break;
-        case ET_appRunning:
+        case PLEventAppRunning:
             queryString = [queryString stringByAppendingFormat: @"&r=%d&q=%d&d=%d&c=%d&e=%d&k=%d&l=%d&m=%d", 
                            [[self sessionStartTime] timeIntervalSince1970], 
                            [self sequence],
@@ -82,13 +82,13 @@ int const UPDATE_INTERVAL = 60000;
                            [self totalKeys],
                            [self collectMode]];
             break;
-        case ET_appResume:
+        case PLEventAppResume:
             queryString = [queryString stringByAppendingFormat:@"&p=%d", [[self pauseTime] timeIntervalSince1970]];
-        case ET_appPause:
+        case PLEventAppPause:
             queryString = [queryString stringByAppendingFormat:@"&r=%d&q=%d", [[self sessionStartTime] timeIntervalSince1970], [self sequence]];
             break;
         default:
-            NSLog(@"BasicEvent: %@ not handled", EventTypeDescription([self eventType]));
+            NSLog(@"BasicEvent: %@ not handled", [PLUtil PLEventTypeDescription:[self eventType]]);
     }
     return queryString;
 }

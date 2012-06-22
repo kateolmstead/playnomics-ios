@@ -10,14 +10,14 @@ long const serialVersionUID = 1L;
 @synthesize method=_method;
 @synthesize response=_response;
 
-- (id) init: (EventType) eventType 
+- (id) init:  (PLEventType) eventType 
          applicationId: (NSNumber *) applicationId 
                 userId: (NSString *) userId 
           invitationId: (NSString *) invitationId 
        recipientUserId: (NSString *) recipientUserId 
       recipientAddress: (NSString *) recipientAddress 
                 method: (NSString *) method 
-              response: (ResponseType) response {
+              response: (PLResponseType) response {
     
     if ((self = [super init:eventType applicationId:applicationId userId:userId])) {
         _invitationId = invitationId;
@@ -32,7 +32,7 @@ long const serialVersionUID = 1L;
 - (NSString *) toQueryString {
     NSString * queryString = [[super toQueryString] stringByAppendingFormat:@"&ii=%@", [self invitationId]];
     
-    if ([self eventType] == ET_invitationResponse) {
+    if ([self eventType] == PLEventInvitationResponse) {
         queryString = [queryString stringByAppendingFormat:@"&ie=%@&ir=%@", [self response], [self recipientUserId]];
     }
     else {

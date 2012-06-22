@@ -1,5 +1,3 @@
-#import "PlaynomicsConstants.h"
-
 #import "PlaynomicsEvent.h"
 
 @interface BasicEvent : PlaynomicsEvent {
@@ -30,7 +28,7 @@
 @property (nonatomic, assign) int totalKeys;
 @property (nonatomic, assign) int collectMode;
 
-- (id) init: (EventType) eventType
+- (id) init:  (PLEventType) eventType
         applicationId: (NSNumber *) applicationId
      userId:(NSString *)userId
    cookieId:(NSString *)cookieId
@@ -44,7 +42,7 @@ totalClicks:(int)totalClicks
   totalKeys:(int)totalKeys
 collectMode:(int)collectMode;
 
-- (id) init: (EventType) eventType 
+- (id) init:  (PLEventType) eventType 
 applicationId:(NSNumber *)applicationId
      userId:(NSString *)userId
    cookieId:(NSString *)cookieId
