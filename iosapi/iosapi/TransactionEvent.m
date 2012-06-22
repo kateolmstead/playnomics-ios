@@ -12,7 +12,7 @@
 @synthesize currencyCategories=_currencyCategories;
 
 - (id) init: (PLEventType) eventType 
-              applicationId:(NSNumber *) applicationId 
+              applicationId:(long) applicationId 
                      userId:(NSString *) userId 
               transactionId:(long) transactionId 
                      itemId:(NSString *) itemId 

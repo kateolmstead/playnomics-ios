@@ -6,11 +6,11 @@
 @synthesize applicationId=_applicationId;
 @synthesize userId=_userId;
 
-- (id) init: (PLEventType) eventType applicationId:(NSNumber *)applicationId userId:(NSString *)userId {
+- (id) init: (PLEventType) eventType applicationId:(long) applicationId userId:(NSString *)userId {
     if ((self = [super init])) {
         _eventTime = [[NSDate alloc] init];
         _eventType = eventType;
-        _applicationId = [applicationId retain];
+        _applicationId = applicationId;
         _userId = [userId retain];
     }
     return self;
@@ -33,7 +33,6 @@
 
 - (void) dealloc {
     [_eventTime release];
-    [_applicationId release];
     [_userId release];
     
     [super dealloc];

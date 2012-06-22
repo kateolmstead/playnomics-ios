@@ -12,7 +12,7 @@ long const serialVersionUID = 1L;
 @synthesize site=_site;
 
 - (id) init:  (PLEventType)eventType 
-        applicationId: (NSNumber *) applicationId 
+        applicationId: (long) applicationId 
              userId:(NSString *)userId
           sessionId:(NSString *)sessionId
                site:(NSString *)site

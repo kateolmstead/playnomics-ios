@@ -11,9 +11,15 @@
 
 #import "PLConstants.h"
 
-@interface PlaynomicsSession : NSObject
+@protocol PlaynomicsApiDelegate <NSObject>
 
-+ (PLAPIResult) start: (UIViewController*) controller applicationId:(long) applicationId;
+@end
+
+@interface PlaynomicsSession : NSObject {
+    PLSessionState _sessionState;
+}
+
++ (PLAPIResult) start: (id<PlaynomicsApiDelegate>) delegate applicationId:(long) applicationId;
 + (PLAPIResult) stop;
 + (PLAPIResult) userInfo;
 

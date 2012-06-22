@@ -11,7 +11,7 @@ long const serialVersionUID = 1L;
 @synthesize response=_response;
 
 - (id) init:  (PLEventType) eventType 
-         applicationId: (NSNumber *) applicationId 
+         applicationId: (long) applicationId 
                 userId: (NSString *) userId 
           invitationId: (NSString *) invitationId 
        recipientUserId: (NSString *) recipientUserId 

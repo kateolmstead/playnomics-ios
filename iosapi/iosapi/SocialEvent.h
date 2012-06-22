@@ -15,7 +15,7 @@
 @property(nonatomic, assign) PLResponseType response;
 
 - (id) init:  (PLEventType) eventType 
-         applicationId: (NSNumber *) applicationId 
+         applicationId: (long) applicationId 
                 userId: (NSString *) userId 
           invitationId: (NSString *) invitationId 
        recipientUserId: (NSString *) recipientUserId 

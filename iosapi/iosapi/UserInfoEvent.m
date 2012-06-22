@@ -14,7 +14,7 @@ long const serialVersionUID = 1L;
 @synthesize installTime=_installTime;
 
 
-- (id) initUserInfoEvent:(NSNumber *)applicationId 
+- (id) initUserInfoEvent:(long) applicationId 
      userId:(NSString *)userId 
        type:(PLUserInfoType) type {
     
@@ -27,7 +27,7 @@ long const serialVersionUID = 1L;
     return self;
 }
 
-- (id) init:(NSNumber *) applicationId 
+- (id) init:(long) applicationId 
              userId: (NSString *) userId 
                type: (PLUserInfoType) type 
             country: (NSString *) country 

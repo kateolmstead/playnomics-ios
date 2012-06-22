@@ -18,7 +18,7 @@
 @property(nonatomic, retain) NSString * site;
 
 - (id) init:  (PLEventType)eventType 
-            applicationId: (NSNumber *) applicationId 
+            applicationId: (long) applicationId 
                  userId:(NSString *)userId
               sessionId:(NSString *)sessionId
                    site:(NSString *)site

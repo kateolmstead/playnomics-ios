@@ -18,12 +18,12 @@ int const UPDATE_INTERVAL = 60000;
 @synthesize collectMode=_collectMode;
 
 - (id) init:  (PLEventType) eventType
-        applicationId: (NSNumber *) applicationId
+        applicationId:(long) applicationId
              userId:(NSString *)userId
            cookieId:(NSString *)cookieId
           sessionId:(NSString *)sessionId
          instanceId:(NSString *)instanceId
-        sessionStartTime:(NSDate *)sessionStartTime 
+        sessionStartTime:(NSTimeInterval)sessionStartTime 
            sequence:(int)sequence
              clicks:(int)clicks
         totalClicks:(int)totalClicks
@@ -35,7 +35,7 @@ int const UPDATE_INTERVAL = 60000;
         _cookieId = [cookieId retain];
         _sessionId = [sessionId retain];
         _instanceId = [instanceId retain];
-        _sessionStartTime = [sessionStartTime retain];
+        _sessionStartTime = sessionStartTime;
         _sequence = sequence;
         _clicks = clicks;
         _totalClicks = totalClicks;
@@ -47,7 +47,7 @@ int const UPDATE_INTERVAL = 60000;
 }
 
 - (id) init:  (PLEventType) eventType 
-        applicationId:(NSNumber *)applicationId
+        applicationId:(long) applicationId
              userId:(NSString *)userId
            cookieId:(NSString *)cookieId
           sessionId:(NSString *)sessionId
@@ -55,10 +55,10 @@ int const UPDATE_INTERVAL = 60000;
         timeZoneOffset:(int)timeZoneOffset {
     
     if ((self = [super init:eventType applicationId:applicationId userId:userId])) {
-        cookieId = cookieId;
-        sessionId = sessionId;
-        instanceId = instanceId;
-        timeZoneOffset = timeZoneOffset;
+        _cookieId = cookieId;
+        _sessionId = sessionId;
+        _instanceId = instanceId;
+        _timeZoneOffset = timeZoneOffset;
     }
     return self;
 }
@@ -73,7 +73,7 @@ int const UPDATE_INTERVAL = 60000;
             break;
         case PLEventAppRunning:
             queryString = [queryString stringByAppendingFormat: @"&r=%d&q=%d&d=%d&c=%d&e=%d&k=%d&l=%d&m=%d", 
-                           [[self sessionStartTime] timeIntervalSince1970], 
+                           [self sessionStartTime], 
                            [self sequence],
                            UPDATE_INTERVAL,
                            [self clicks],
@@ -83,9 +83,9 @@ int const UPDATE_INTERVAL = 60000;
                            [self collectMode]];
             break;
         case PLEventAppResume:
-            queryString = [queryString stringByAppendingFormat:@"&p=%d", [[self pauseTime] timeIntervalSince1970]];
+            queryString = [queryString stringByAppendingFormat:@"&p=%d", [self pauseTime]];
         case PLEventAppPause:
-            queryString = [queryString stringByAppendingFormat:@"&r=%d&q=%d", [[self sessionStartTime] timeIntervalSince1970], [self sequence]];
+            queryString = [queryString stringByAppendingFormat:@"&r=%d&q=%d", [self sessionStartTime], [self sequence]];
             break;
         default:
             NSLog(@"BasicEvent: %@ not handled", [PLUtil PLEventTypeDescription:[self eventType]]);
@@ -97,8 +97,6 @@ int const UPDATE_INTERVAL = 60000;
     [_cookieId release];
     [_sessionId release];
     [_instanceId release];
-    [_sessionStartTime release];
-    [_pauseTime release];
     
     [super dealloc];
 }

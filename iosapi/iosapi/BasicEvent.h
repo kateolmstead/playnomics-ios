@@ -4,8 +4,8 @@
   NSString * _cookieId;
   NSString * _sessionId;
   NSString * _instanceId;
-  NSDate * _sessionStartTime;
-  NSDate * _pauseTime;
+  NSTimeInterval _sessionStartTime;
+  NSTimeInterval _pauseTime;
   int _sequence;
   int _timeZoneOffset;
   int _clicks;
@@ -18,8 +18,8 @@
 @property (nonatomic, retain) NSString * cookieId;
 @property (nonatomic, retain) NSString * sessionId;
 @property (nonatomic, retain) NSString * instanceId;
-@property (nonatomic, retain) NSDate * sessionStartTime;
-@property (nonatomic, retain) NSDate * pauseTime;
+@property (nonatomic, assign) NSTimeInterval sessionStartTime;
+@property (nonatomic, assign) NSTimeInterval pauseTime;
 @property (nonatomic, assign) int sequence;
 @property (nonatomic, assign) int timeZoneOffset;
 @property (nonatomic, assign) int clicks;
@@ -29,12 +29,12 @@
 @property (nonatomic, assign) int collectMode;
 
 - (id) init:  (PLEventType) eventType
-        applicationId: (NSNumber *) applicationId
+        applicationId:(long) applicationId
      userId:(NSString *)userId
    cookieId:(NSString *)cookieId
   sessionId:(NSString *)sessionId
  instanceId:(NSString *)instanceId
-sessionStartTime:(NSDate *)sessionStartTime 
+sessionStartTime:(NSTimeInterval)sessionStartTime 
    sequence:(int)sequence
      clicks:(int)clicks
 totalClicks:(int)totalClicks
@@ -43,7 +43,7 @@ totalClicks:(int)totalClicks
 collectMode:(int)collectMode;
 
 - (id) init:  (PLEventType) eventType 
-applicationId:(NSNumber *)applicationId
+applicationId:(long) applicationId
      userId:(NSString *)userId
    cookieId:(NSString *)cookieId
   sessionId:(NSString *)sessionId
