@@ -25,6 +25,9 @@
 +(PLCurrencyCategory) PLCurrencyCategoryValueOf: (NSString *) text;
 +(NSString *) PLCurrencyCategoryDescription: (PLCurrencyCategory) value;
 
++(PLCurrencyType) PLCurrencyTypeValueOf:(NSString *) text;
++ (NSString *) PLCurrencyTypeDescription:(PLCurrencyType) value;
+
 +(PLUserInfoSex) PLUserInfoSexValueOf: (NSString *) text;
 +(NSString *) PLUserInfoSexDescription: (PLUserInfoSex) value;
 
