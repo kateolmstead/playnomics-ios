@@ -89,9 +89,9 @@
 
 + (PLCurrencyCategory) PLCurrencyCategoryValueOf:(NSString *) text {
     if (text) {
-        if ([text isEqualToString:@"Real"])
+        if ([text isEqualToString:@"r"])
             return PLCurrencyCategoryReal;
-        else if ([text isEqualToString:@"Virtual"])
+        else if ([text isEqualToString:@"v"])
             return PLCurrencyCategoryVirtual;
     }
     return -1;
@@ -100,9 +100,9 @@
 + (NSString *) PLCurrencyCategoryDescription:(PLCurrencyCategory) value {
     switch (value) {
         case PLCurrencyCategoryReal:
-            return @"Real";
+            return @"r";
         case PLCurrencyCategoryVirtual:
-            return @"Virtual";
+            return @"v";
     }
     return nil;
 }
@@ -153,11 +153,11 @@
 
 +(PLUserInfoSex) PLUserInfoSexValueOf:(NSString *) text {
     if (text) {
-        if ([text isEqualToString:@"Male"])
+        if ([text isEqualToString:@"M"])
             return PLUserInfoSexMale;
-        else if ([text isEqualToString:@"Female"])
+        else if ([text isEqualToString:@"F"])
             return PLUserInfoSexFemale;
-        else if ([text isEqualToString:@"Unknown"])
+        else if ([text isEqualToString:@"U"])
             return PLUserInfoSexUnknown;
     }
     return -1;
@@ -166,11 +166,11 @@
 + (NSString *) PLUserInfoSexDescription:(PLUserInfoSex) value {
     switch (value) {
         case PLUserInfoSexMale:
-            return @"Male";
+            return @"M";
         case PLUserInfoSexFemale:
-            return @"Female";
+            return @"F";
         case PLUserInfoSexUnknown:
-            return @"Unknown";
+            return @"U";
     }
     return nil;
 }
