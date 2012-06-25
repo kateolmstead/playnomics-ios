@@ -2,6 +2,11 @@
 
 @implementation RandomGenerator
 
+const char HEX_DIGIT[] = {
+    '0', '1', '2', '3', '4', '5', '6', '7',
+    '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'
+};
+
 + (void) initialize {
 
 }
@@ -17,9 +22,20 @@
  * @throws IllegalArgumentException
  * if the arg isn't divisible by eight
  */
-+ (NSArray *) getNextSecureRandom:(int)bits {
-   NSArray * bytes = [NSArray array];
-  return bytes;
++ (const char *) getNextSecureRandom:(int)bits {
+    if ((bits%8) != 0) {
+        bits = bits - bits%8;
+    }
+    
+    int count = (bits / 8);
+    char *bytes = (char *) malloc((count + 1) * sizeof(char)); 
+    
+    for (int i = 0; i < count; i++) {
+        *(bytes + i) = arc4random(); // We want the maximum range possible
+    }
+    *(bytes + count) = '\0';
+    
+    return bytes;
 }
 
 
@@ -29,10 +45,14 @@
  * @param bytes
  * @return
  */
-+ (NSString *) toHex:(NSArray *)bytes {
-
-
-  return nil;
++ (NSString *) toHex: (const char *) bytes {
+    char *c = (char *) *bytes;
+    NSString *str = [NSString string];
+    while (*c != '\0') {
+        str = [str stringByAppendingFormat:@"%x", *c ];
+        c++;
+    }
+    return str;
 }
 
 
@@ -43,10 +63,15 @@
  * @return
  */
 + (NSString *) byteToHex:(char)b {
-    return nil;
+//    char array = { HEX_DIGIT[(b >> 4) & 0x0f], HEX_DIGIT[b & 0x0f] };
+    
+    return [NSString stringWithFormat:@"%x", b];
 }
 
 + (NSString *) createRandomHex {
-    return nil;
+    const char * randBytes = [RandomGenerator getNextSecureRandom:64];
+    NSString *str = [RandomGenerator toHex: randBytes];
+    free((char *) randBytes);
+    return str;
 }
 @end

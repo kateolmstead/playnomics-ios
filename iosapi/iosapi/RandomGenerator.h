@@ -3,8 +3,7 @@
 @interface RandomGenerator : NSObject {
 }
 
-+ (void) initialize;
-+ (NSArray *) getNextSecureRandom:(int)bits;
-+ (NSString *) toHex:(NSArray *)bytes;
++ (const char *) getNextSecureRandom:(int)bits;
++ (NSString *) toHex: (const char *) bytes;
 + (NSString *) createRandomHex;
 @end

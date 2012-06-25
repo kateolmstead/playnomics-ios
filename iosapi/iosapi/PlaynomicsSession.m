@@ -18,8 +18,10 @@
 #import "GameEvent.h"
 
 // TODO update PLCollectionMode to that of iOS
-int const PLSettingCollectionMode = 7;
+int const PLSettingCollectionMode = 8;
 const NSTimeInterval UPDATE_INTERVAL = 60;
+
+#define PLFileEventArchive [[NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent: @"PlaynomicsEvents.archive"]
 
 @interface PlaynomicsSession () {
     id<PlaynomicsApiDelegate> _delegate;
@@ -146,7 +148,7 @@ const NSTimeInterval UPDATE_INTERVAL = 60;
     _totalKeys = 0;
     
     _sessionStartTime = [[NSDate date] timeIntervalSince1970];
-
+    
     // Calc to conform to minute offset format
     _timeZoneOffset = 60 * [[NSTimeZone localTimeZone] secondsFromGMT];
     // Collection mode for Android
@@ -154,8 +156,11 @@ const NSTimeInterval UPDATE_INTERVAL = 60;
     
     PLEventType eventType;
     
-    // TODO retrieve stored Event List
-
+    // Retrieve stored Event List
+    NSArray *storedEvents = (NSArray *) [NSKeyedUnarchiver unarchiveObjectWithFile:PLFileEventArchive];
+    if ([storedEvents count] > 0) {
+        [_playnomicsEventList addObjectsFromArray:storedEvents];
+    }
     
     // TODO check to see if we have to register the defaults first for it to work.
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
@@ -231,10 +236,10 @@ const NSTimeInterval UPDATE_INTERVAL = 60;
     for (PlaynomicsEvent *ev in self.playnomicsEventList) {
         if ([_eventSender sendEventToServer:ev]) {
             [sentEvents addObject:ev];
+            continue;
         }
-        else {
-            break;
-        }
+        // If we fail to send an event. Cancel the whole loop
+        break;
     }
     [self.playnomicsEventList removeObjectsInArray:sentEvents];
 }
@@ -244,10 +249,10 @@ const NSTimeInterval UPDATE_INTERVAL = 60;
  */
 - (void) pause {
     NSLog(@"pause called");
-
+    
     if (_sessionState == PLSessionStatePaused)
         return;
-
+    
     _sessionState = PLSessionStatePaused;
 	
     BasicEvent *ev = [[BasicEvent alloc] init:PLEventAppPause
@@ -311,7 +316,7 @@ const NSTimeInterval UPDATE_INTERVAL = 60;
     if (_sessionState == PLSessionStateStopped) {
         return PLAPIResultAlreadyStopped;
     }
-
+    
     // TODO check that the app is closing
     if (YES) {
         _sessionState = PLSessionStateStopped;
@@ -324,7 +329,10 @@ const NSTimeInterval UPDATE_INTERVAL = 60;
         
         // TODO: Unregister observers
         
-        // TODO: Save event list
+        // Store Event List
+        if (![NSKeyedArchiver archiveRootObject:_playnomicsEventList toFile:PLFileEventArchive]) {
+            NSLog(@"Playnomics: Could not save event list");
+        }
         
         _delegate = nil;
     }
@@ -448,9 +456,9 @@ const NSTimeInterval UPDATE_INTERVAL = 60;
                                  quantity:quantity
                                      type:type
                               otherUserId:otherUserId
-                          currencyTypesStr:currencyTypes
-                            currencyValues:currencyValues
-                         currencyCategories:currencyCategories];
+                         currencyTypesStr:currencyTypes
+                           currencyValues:currencyValues
+                       currencyCategories:currencyCategories];
 }
 
 + (PLAPIResult) transaction:(long) transactionId 
@@ -492,7 +500,7 @@ const NSTimeInterval UPDATE_INTERVAL = 60;
                                           method:method 
                                         response:0] autorelease];
     return [s sendOrQueueEvent:ev];
-
+    
 }
 
 + (PLAPIResult) invitationSent: (NSString *) invitationId responseType: (PLResponseType) responseType {
@@ -526,7 +534,7 @@ const NSTimeInterval UPDATE_INTERVAL = 60;
     
     return result;
 }
-                      
+
 
 /*  The Pasteboard is kept in memory even if the app is deleted.
  *  This provides a suitable means for having a unique device ID
