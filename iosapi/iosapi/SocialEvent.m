@@ -43,4 +43,24 @@ long const serialVersionUID = 1L;
     return queryString;
 }
 
+- (void)encodeWithCoder:(NSCoder *)encoder {
+    [super encodeWithCoder:encoder];
+    
+    [encoder encodeObject:_invitationId forKey:@"PLSocialEvent._invitationId"];
+    [encoder encodeObject:_recipientUserId forKey:@"PLSocialEvent._recipientUserId"];
+    [encoder encodeObject:_recipientAddress forKey:@"PLSocialEvent._recipientAddress"];
+    [encoder encodeObject:_method forKey:@"PLSocialEvent._method"];
+    [encoder encodeInt:_response forKey:@"PLSocialEvent._response"];
+}
+
+- (id)initWithCoder:(NSCoder *)decoder {
+    if ((self = [super initWithCoder:decoder])) {
+        _invitationId = (NSString *) [[decoder decodeObjectForKey:@"PLSocialEvent._invitationId"] retain];
+        _recipientUserId= (NSString *) [[decoder decodeObjectForKey:@"PLSocialEvent._recipientUserId"] retain];
+        _recipientAddress = (NSString *) [[decoder decodeObjectForKey:@"PLSocialEvent._recipientAddress"] retain];
+        _method = (NSString *) [[decoder decodeObjectForKey:@"PLSocialEvent._method"] retain];
+        _response = [decoder decodeIntForKey:@"PLSocialEvent._response"];
+    }
+    return self;
+}
 @end

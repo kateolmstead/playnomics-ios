@@ -51,6 +51,33 @@
     return queryString;
 }
 
+- (void)encodeWithCoder:(NSCoder *)encoder {
+    [super encodeWithCoder:encoder];
+    
+    [encoder encodeInt64:_transactionId forKey:@"PLTransactionEvent._transactionId"];
+    [encoder encodeObject:_itemId forKey:@"PLTransactionEvent._itemId"];
+    [encoder encodeDouble:_quantity forKey:@"PLTransactionEvent._quantity"];
+    [encoder encodeInt:_type forKey:@"PLTransactionEvent._type"];
+    [encoder encodeObject:_otherUserId forKey:@"PLTransactionEvent._otherUserId"];
+    [encoder encodeObject:_currencyTypes forKey:@"PLTransactionEvent._currencyTypes"];
+    [encoder encodeObject:_currencyValues forKey:@"PLTransactionEvent._currencyValues"];
+    [encoder encodeObject:_currencyCategories forKey:@"PLTransactionEvent._currencyCategories"];
+}
+
+- (id)initWithCoder:(NSCoder *)decoder {
+    if ((self = [super initWithCoder:decoder])) {
+        _transactionId = [decoder decodeInt64ForKey:@"PLTransactionEvent._transactionId"]; 
+        _itemId = [(NSString *)[decoder decodeObjectForKey:@"PLTransactionEvent._itemId"] retain]; 
+        _quantity = [decoder decodeDoubleForKey:@"PLTransactionEvent._quantity"]; 
+        _type = [decoder decodeIntForKey:@"PLTransactionEvent._type"]; 
+        _otherUserId = [(NSString *)[decoder decodeObjectForKey:@"PLTransactionEvent._otherUserId"] retain]; 
+        _currencyTypes = [(NSArray *)[decoder decodeObjectForKey:@"PLTransactionEvent._currencyTypes"] retain]; 
+        _currencyValues = [(NSArray *)[decoder decodeObjectForKey:@"PLTransactionEvent._currencyValues"] retain]; 
+        _currencyCategories = [(NSArray *)[decoder decodeObjectForKey:@"PLTransactionEvent._currencyCategories"] retain]; 
+    }
+    return self;
+}
+
 - (void) dealloc {
     [_itemId release];
     [_otherUserId release];

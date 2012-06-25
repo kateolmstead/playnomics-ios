@@ -133,3 +133,8 @@ dispatch_once(&pred, ^{ \
 _sharedObject = block(); \
 }); \
 return _sharedObject;
+
+// User Default Keys
+#define PLUserDefaultsLastSessionStartTime @"com.playnomics.lastSessionStartTime"
+#define PLUserDefaultsLastSessionID @"com.playnomics.lastSessionId"
+#define PLUserDefaultsLastUserID @"com.playnomics.lastUserId"

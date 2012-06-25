@@ -137,6 +137,8 @@ const NSTimeInterval UPDATE_INTERVAL = 60;
     // See http://stackoverflow.com/questions/1267560/iphone-keyboard-event
     // >>>>>>>>>>>>> http://stackoverflow.com/questions/5073293/what-are-all-the-types-of-nsnotifications
     
+    
+    
     _sequence = 1;
     _clicks = 0;
     _totalClicks = 0;
@@ -153,9 +155,12 @@ const NSTimeInterval UPDATE_INTERVAL = 60;
     PLEventType eventType;
     
     // TODO retrieve stored Event List
-    // TODO retrieve last session time
-    NSTimeInterval lastSessionStartTime = 0;
-    NSString *lastUserId = @"333";
+
+    
+    // TODO check to see if we have to register the defaults first for it to work.
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSTimeInterval lastSessionStartTime = [userDefaults doubleForKey:PLUserDefaultsLastSessionStartTime];
+    NSString *lastUserId = [[userDefaults stringForKey:PLUserDefaultsLastUserID] retain];
     
     // Send an appStart if it has been > 3 min since the last session or
     // a
@@ -165,24 +170,26 @@ const NSTimeInterval UPDATE_INTERVAL = 60;
         || ![_userId isEqualToString:lastUserId]) {
         _sessionId = [[RandomGenerator createRandomHex] retain];
         
-        // TODO save new Session Id
-        _instanceId = _sessionId;
+        [userDefaults setObject:_userId forKey:PLUserDefaultsLastSessionID];        
+        
+        _instanceId = [_sessionId retain];
         eventType = PLEventAppStart;
     }
     else {
-        _sessionId = [lastUserId retain];
+        _sessionId = [[userDefaults stringForKey:PLUserDefaultsLastSessionID] retain];
         eventType = PLEventAppPage;
     }
     
-    // TODO: Save userId
-    // TODO: Save _sessionStartType
+    [userDefaults setDouble:_sessionStartTime forKey:PLUserDefaultsLastSessionStartTime];
+    [userDefaults setObject:_userId forKey:PLUserDefaultsLastUserID];
+    [userDefaults synchronize];
     
-    _cookieId = [self getDeviceUniqueIdentifier];
+    _cookieId = [[self getDeviceUniqueIdentifier] retain];
     
     
     // Set userId to cookieId if it isn't present
     if (![_userId length]) {
-        _userId = _cookieId;
+        _userId = [_cookieId retain];
     }
     
     BasicEvent *ev = [[BasicEvent alloc] init:eventType 
@@ -331,7 +338,7 @@ const NSTimeInterval UPDATE_INTERVAL = 60;
     return [PlaynomicsSession userInfoForType:PLUserInfoTypeUpdate
                                       country:nil
                                   subdivision:nil
-                                          sex:nil
+                                          sex:0
                                      birthday:nil
                                     sourceStr:@""
                                sourceCampaign:nil
@@ -367,7 +374,7 @@ const NSTimeInterval UPDATE_INTERVAL = 60;
     
     PlaynomicsSession * s =[PlaynomicsSession sharedInstance];
     
-    UserInfoEvent *ev = [[[UserInfoEvent alloc] init:s.applicationId userId:s.userId type:type country:country subdivision:subdivision sex:sex birthday:birthday source:sourceStr sourceCampaign:sourceCampaign installTime:installTime] autorelease];
+    UserInfoEvent *ev = [[[UserInfoEvent alloc] init:s.applicationId userId:s.userId type:type country:country subdivision:subdivision sex:sex birthday:[birthday timeIntervalSince1970] source:sourceStr sourceCampaign:sourceCampaign installTime:[installTime timeIntervalSince1970]] autorelease];
     
     return [s sendOrQueueEvent:ev];
 }
@@ -483,7 +490,7 @@ const NSTimeInterval UPDATE_INTERVAL = 60;
                                  recipientUserId:recipientUserId 
                                 recipientAddress:recipientAddress 
                                           method:method 
-                                        response:nil] autorelease];
+                                        response:0] autorelease];
     return [s sendOrQueueEvent:ev];
 
 }

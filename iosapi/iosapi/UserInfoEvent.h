@@ -6,20 +6,20 @@
   NSString * _country;
   NSString * _subdivision;
   PLUserInfoSex _sex;
-  NSDate * _birthday;
+  NSTimeInterval _birthday;
   NSString * _source;
   NSString * _sourceCampaign;
-  NSDate * _installTime;
+  NSTimeInterval _installTime;
 }
 
 @property(nonatomic, assign) PLUserInfoType type;
 @property(nonatomic, retain) NSString * country;
 @property(nonatomic, retain) NSString * subdivision;
 @property(nonatomic, assign) PLUserInfoSex sex;
-@property(nonatomic, retain) NSDate * birthday;
+@property(nonatomic, assign) NSTimeInterval birthday;
 @property(nonatomic, retain) NSString * source;
 @property(nonatomic, retain) NSString * sourceCampaign;
-@property(nonatomic, retain) NSDate * installTime;
+@property(nonatomic, assign) NSTimeInterval installTime;
 
 - (id) initUserInfoEvent: (long) applicationId 
              userId: (NSString *) userId 
@@ -31,8 +31,8 @@
             country: (NSString *) country 
         subdivision: (NSString *) subdivision 
                 sex: (PLUserInfoSex) sex 
-           birthday: (NSDate *) birthday
+           birthday: (NSTimeInterval) birthday
              source: (NSString *) source
-        sourceCampaign: (NSString *) sourceCampaign
-        installTime: (NSDate *) installTime;
+     sourceCampaign: (NSString *) sourceCampaign
+        installTime: (NSTimeInterval) installTime;
 @end

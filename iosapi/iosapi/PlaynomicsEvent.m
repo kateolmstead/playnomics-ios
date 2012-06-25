@@ -8,7 +8,7 @@
 
 - (id) init: (PLEventType) eventType applicationId:(long) applicationId userId:(NSString *)userId {
     if ((self = [super init])) {
-        _eventTime = [[NSDate alloc] init];
+        _eventTime = [[NSDate date] timeIntervalSince1970];
         _eventType = eventType;
         _applicationId = applicationId;
         _userId = [userId retain];
@@ -17,7 +17,7 @@
 }
 
 - (NSString *) description {
-    return [NSString stringWithFormat:@"%@: %@", [_eventTime description], [PLUtil PLEventTypeDescription: _eventType]];
+    return [NSString stringWithFormat:@"%@: %@", [[NSDate dateWithTimeIntervalSince1970:_eventTime] description], [PLUtil PLEventTypeDescription: _eventType]];
 }
 
 - (NSString *) addOptionalParam:(NSString *)url name:(NSString *)name value:(NSObject *)value {
@@ -28,11 +28,27 @@
 }
 
 - (NSString *) toQueryString {
-    return [NSString stringWithFormat:@"%@?t=%@&a=%@&u=%@", [self eventType], [[self eventTime] timeIntervalSince1970], [self applicationId]];
+    return [NSString stringWithFormat:@"%@?t=%@&a=%@&u=%@", [self eventType], [self eventTime], [self applicationId]];
+}
+
+- (void)encodeWithCoder:(NSCoder *)encoder {
+    [encoder encodeObject:_userId forKey:@"PLEvent._userId"];
+    [encoder encodeInt64:_applicationId forKey:@"PLEvent._applicationId"];
+    [encoder encodeInt:_eventType forKey:@"PLEvent._eventType"];
+    [encoder encodeDouble:_eventTime forKey:@"PLEvent._eventTime"];
+}
+
+- (id)initWithCoder:(NSCoder *)decoder {
+    if ((self = [super init])) {
+        _userId = (NSString *)[[decoder decodeObjectForKey:@"PLEvent._userId"] retain];
+        _applicationId = [decoder decodeInt64ForKey:@"PLEvent._userId"];
+        _eventType = [decoder decodeIntForKey:@"PLEvent._eventType"];
+        _eventTime = [decoder decodeDoubleForKey:@"PLEvent._eventTime"];
+    }
+    return self;
 }
 
 - (void) dealloc {
-    [_eventTime release];
     [_userId release];
     
     [super dealloc];

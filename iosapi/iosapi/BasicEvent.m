@@ -93,6 +93,41 @@ int const UPDATE_INTERVAL = 60000;
     return queryString;
 }
 
+- (void)encodeWithCoder:(NSCoder *)encoder {
+    [super encodeWithCoder:encoder];
+    
+    [encoder encodeObject: _cookieId forKey:@"PLBasicEvent._cookieId"]; 
+    [encoder encodeObject: _sessionId forKey:@"PLBasicEvent._sessionId"]; 
+    [encoder encodeObject: _instanceId forKey:@"PLBasicEvent._instanceId"];  
+    [encoder encodeDouble: _sessionStartTime forKey:@"PLBasicEvent._sessionStartTime"];  
+    [encoder encodeDouble: _pauseTime forKey:@"PLBasicEvent._pauseTime"];  
+    [encoder encodeInt: _sequence forKey:@"PLBasicEvent._sequence"];  
+    [encoder encodeInt: _clicks forKey:@"PLBasicEvent._clicks"];  
+    [encoder encodeInt: _totalClicks forKey:@"PLBasicEvent._totalClicks"];  
+    [encoder encodeInt: _keys forKey:@"PLBasicEvent._keys"];  
+    [encoder encodeInt: _totalKeys forKey:@"PLBasicEvent._totalKeys"];  
+    [encoder encodeInt: _collectMode forKey:@"PLBasicEvent._collectMode"];  
+}
+
+
+- (id)initWithCoder:(NSCoder *)decoder {
+    if ((self = [super initWithCoder:decoder])) {
+        _cookieId = [(NSString *)[decoder decodeObjectForKey:@"PLBasicEvent._cookieId"] retain]; 
+        _sessionId = [(NSString *)[decoder decodeObjectForKey:@"PLBasicEvent._sessionId"] retain]; 
+        _instanceId = [(NSString *)[decoder decodeObjectForKey:@"PLBasicEvent._instanceId"] retain]; 
+        _sessionStartTime = [decoder decodeDoubleForKey:@"PLBasicEvent._sessionStartTime"]; 
+        _sequence = [decoder decodeDoubleForKey:@"PLBasicEvent._sequence"]; 
+        _pauseTime = [decoder decodeIntForKey:@"PLBasicEvent._pauseTime"];
+        _clicks = [decoder decodeIntForKey:@"PLBasicEvent._clicks"]; 
+        _totalClicks = [decoder decodeIntForKey:@"PLBasicEvent._totalClicks"]; 
+        _keys = [decoder decodeIntForKey:@"PLBasicEvent._keys"]; 
+        _totalKeys = [decoder decodeIntForKey:@"PLBasicEvent._totalKeys"]; 
+        _collectMode = [decoder decodeIntForKey:@"PLBasicEvent._collectMode"]; 
+    }
+    return self;
+}
+
+
 - (void) dealloc {
     [_cookieId release];
     [_sessionId release];

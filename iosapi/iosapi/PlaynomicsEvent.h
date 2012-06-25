@@ -1,15 +1,15 @@
 #import <Foundation/Foundation.h>
 #import "PLConstants.h"
 
-@interface PlaynomicsEvent : NSObject {
+@interface PlaynomicsEvent : NSObject <NSCoding> {
     PLEventType _eventType;
-    NSDate * _eventTime;
+    NSTimeInterval  _eventTime;
     long _applicationId;
     NSString * _userId;
 }
 
 @property (nonatomic, assign) PLEventType eventType;
-@property (nonatomic, retain) NSDate *eventTime;
+@property (nonatomic, assign) NSTimeInterval eventTime;
 @property (nonatomic, assign) long applicationId;
 @property (nonatomic, retain) NSString *userId;
 

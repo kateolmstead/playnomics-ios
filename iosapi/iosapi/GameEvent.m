@@ -47,6 +47,29 @@ long const serialVersionUID = 1L;
     return queryString;
 }
 
+- (void)encodeWithCoder:(NSCoder *)encoder {
+    [super encodeWithCoder:encoder];
+        [encoder encodeObject: _sessionId forKey:@"PLGameEvent._sessionId"];  
+        [encoder encodeObject: _site forKey:@"PLGameEvent._site"];  
+        [encoder encodeObject: _instanceId forKey:@"PLGameEvent._instanceId"];  
+        [encoder encodeObject: _type forKey:@"PLGameEvent._type"];  
+        [encoder encodeObject: _gameId forKey:@"PLGameEvent._gameId"];  
+        [encoder encodeObject: _reason forKey:@"PLGameEvent._reason"];  
+}
+
+
+- (id)initWithCoder:(NSCoder *)decoder {
+    if ((self = [super initWithCoder:decoder])) {
+        _sessionId = [(NSString *)[decoder decodeObjectForKey:@"PLGameEvent._sessionId"] retain]; 
+        _site = [(NSString *)[decoder decodeObjectForKey:@"PLGameEvent._site"] retain]; 
+        _instanceId = [(NSString *)[decoder decodeObjectForKey:@"PLGameEvent._instanceId"] retain]; 
+        _type = [(NSString *)[decoder decodeObjectForKey:@"PLGameEvent._type"] retain]; 
+        _gameId = [(NSString *)[decoder decodeObjectForKey:@"PLGameEvent._gameId"] retain]; 
+        _reason = [(NSString *)[decoder decodeObjectForKey:@"PLGameEvent._reason"] retain]; 
+    }
+    return self;
+}
+
 - (void) dealloc {
   [_sessionId release];
   [_site release];
