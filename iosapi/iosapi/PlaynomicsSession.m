@@ -48,6 +48,8 @@ const NSTimeInterval UPDATE_INTERVAL = 60;
 	int _totalClicks;
 	int _keys;
 	int _totalKeys;
+    
+    bool _isTouchDown;
 }
 @property (atomic, readonly) NSMutableArray *   playnomicsEventList;
 @property (nonatomic, readonly) long            applicationId;
@@ -109,6 +111,8 @@ const NSTimeInterval UPDATE_INTERVAL = 60;
         _userId = @"";
         _playnomicsEventList = [[NSMutableArray alloc] init];
         _eventSender = [[EventSender alloc] init];
+        
+        _isTouchDown = true;
     }
     return self;
 }
@@ -139,7 +143,11 @@ const NSTimeInterval UPDATE_INTERVAL = 60;
     // See http://stackoverflow.com/questions/1267560/iphone-keyboard-event
     // >>>>>>>>>>>>> http://stackoverflow.com/questions/5073293/what-are-all-the-types-of-nsnotifications
     
-    
+    NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
+    [defaultCenter addObserver: self selector: @selector(onKeyPressed:) name: UITextFieldTextDidChangeNotification object: nil];
+    [defaultCenter addObserver: self selector: @selector(onKeyPressed:) name: UITextViewTextDidChangeNotification object: nil];
+    [defaultCenter addObserver: self selector: @selector(onKeyPressed:) name: @"_UIApplicationSystemGestureStateChangedNotification" object: nil];
+
     
     _sequence = 1;
     _clicks = 0;
@@ -327,7 +335,7 @@ const NSTimeInterval UPDATE_INTERVAL = 60;
         [_eventTimer release];
         _eventTimer = nil;
         
-        // TODO: Unregister observers
+        [[NSNotificationCenter defaultCenter] removeObserver: self];
         
         // Store Event List
         if (![NSKeyedArchiver archiveRootObject:_playnomicsEventList toFile:PLFileEventArchive]) {
@@ -340,6 +348,20 @@ const NSTimeInterval UPDATE_INTERVAL = 60;
     return PLAPIResultStopped;
 }
 
+- (void) onKeyPressed: (NSNotification *) notification {
+    _keys += 1;
+    _totalKeys += 1;
+}
+
+
+- (void) onGestureStateChanged: (NSNotification *) notification {
+    if (_isTouchDown) {
+        _clicks += 1;
+        _totalClicks += 1;
+        
+        _isTouchDown = false;
+    }
+}
 
 
 + (PLAPIResult) userInfo {
