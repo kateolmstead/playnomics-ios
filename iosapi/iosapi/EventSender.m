@@ -37,9 +37,9 @@
     
     if (error) {
         NSLog(@"Send failed:%@", [error localizedDescription]);
-        return false;
+        return NO;
     }
-    return true;
+    return TRUE;
 }
 
 - (BOOL) sendEventToServer:(PlaynomicsEvent *)pe {

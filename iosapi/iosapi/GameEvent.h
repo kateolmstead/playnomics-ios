@@ -1,6 +1,5 @@
 #import "PlaynomicsEvent.h"
 
-// TODO look if we need to have Playnomics be serialized
 @interface GameEvent : PlaynomicsEvent {
   NSString * _sessionId;
   NSString * _site;
