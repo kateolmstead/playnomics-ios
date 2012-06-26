@@ -46,10 +46,10 @@ const char HEX_DIGIT[] = {
  * @return
  */
 + (NSString *) toHex: (const char *) bytes {
-    char *c = (char *) *bytes;
+    char *c = (char *) bytes;
     NSString *str = [NSString string];
     while (*c != '\0') {
-        str = [str stringByAppendingFormat:@"%x", *c ];
+        str = [str stringByAppendingFormat:@"%c%c", HEX_DIGIT[(*c >> 4) & 0x0f], HEX_DIGIT[*c & 0x0f]];
         c++;
     }
     return str;
