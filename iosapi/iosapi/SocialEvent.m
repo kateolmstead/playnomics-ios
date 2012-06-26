@@ -1,7 +1,5 @@
 #import "SocialEvent.h"
 
-long const serialVersionUID = 1L;
-
 @implementation SocialEvent
 
 @synthesize invitationId=_invitationId;
@@ -20,10 +18,10 @@ long const serialVersionUID = 1L;
               response: (PLResponseType) response {
     
     if ((self = [super init:eventType applicationId:applicationId userId:userId])) {
-        _invitationId = invitationId;
-        _recipientUserId = recipientUserId;
-        _recipientAddress = recipientAddress;
-        _method = method;
+        _invitationId = [invitationId retain];
+        _recipientUserId = [recipientUserId retain];
+        _recipientAddress = [recipientAddress retain];
+        _method = [method retain];
         _response = response;
     }
     return self;
@@ -33,7 +31,7 @@ long const serialVersionUID = 1L;
     NSString * queryString = [[super toQueryString] stringByAppendingFormat:@"&ii=%@", [self invitationId]];
     
     if ([self eventType] == PLEventInvitationResponse) {
-        queryString = [queryString stringByAppendingFormat:@"&ie=%@&ir=%@", [self response], [self recipientUserId]];
+        queryString = [queryString stringByAppendingFormat:@"&ie=%@&ir=%@", [PLUtil PLResponseTypeDescription:[self response]], [self recipientUserId]];
     }
     else {
         queryString = [self addOptionalParam:queryString name:@"ir" value:[self recipientUserId]];

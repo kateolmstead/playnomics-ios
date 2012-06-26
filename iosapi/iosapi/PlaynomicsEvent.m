@@ -20,7 +20,7 @@
     return [NSString stringWithFormat:@"%@: %@", [[NSDate dateWithTimeIntervalSince1970:_eventTime] description], [PLUtil PLEventTypeDescription: _eventType]];
 }
 
-- (NSString *) addOptionalParam:(NSString *)url name:(NSString *)name value:(NSObject *)value {
+- (NSString *) addOptionalParam:(NSString *)url name:(NSString *)name value:(NSString *)value {
     if (value != nil) {
         url = [url stringByAppendingFormat:@"&%@=%@", name, [value description]];
     }
@@ -28,7 +28,7 @@
 }
 
 - (NSString *) toQueryString {
-    return [NSString stringWithFormat:@"%@?t=%@&a=%@&u=%@", [self eventType], [self eventTime], [self applicationId]];
+    return [NSString stringWithFormat:@"%@?t=%f&a=%ld&u=%@", [PLUtil PLEventTypeDescription:[self eventType]], [self eventTime], [self applicationId], [self userId]];
 }
 
 - (void)encodeWithCoder:(NSCoder *)encoder {

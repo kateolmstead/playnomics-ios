@@ -1,5 +1,6 @@
 #import "EventSender.h"
 
+#import "PLConfig.h"
 #import "PlaynomicsEvent.h"
 
 @implementation EventSender
@@ -14,11 +15,10 @@
     if (self = [super init]) {
         _testMode = testMode;
         
-        NSBundle *mainBundle = [NSBundle mainBundle];
         
-        _version = [[mainBundle objectForInfoDictionaryKey:@"CFBundleShortVersionString"] retain];
-        _baseUrl = [[mainBundle objectForInfoDictionaryKey:@"PLBaseURL"] retain];
-        _connectTimeout = [[mainBundle objectForInfoDictionaryKey:@"PLConnectionTimeout"] doubleValue];
+        _version = [PLPropertyVersion retain];
+        _baseUrl = [PLPropertyBaseUrl retain];
+        _connectTimeout = PLPropertyConnectionTimeout;
     }
     return self;
 }

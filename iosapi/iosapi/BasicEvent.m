@@ -1,7 +1,6 @@
 #import "BasicEvent.h"
 
-long const serialVersionUID = 1L;
-int const UPDATE_INTERVAL = 60000;
+int const PL_UPDATE_INTERVAL = 60000;
 
 @implementation BasicEvent
 @synthesize cookieId=_cookieId;
@@ -31,6 +30,8 @@ int const UPDATE_INTERVAL = 60000;
           totalKeys:(int)totalKeys
         collectMode:(int)collectMode {
     
+    [self setup];
+    
     if ((self = [super init:eventType applicationId:applicationId userId:userId])) {
         _cookieId = [cookieId retain];
         _sessionId = [sessionId retain];
@@ -54,13 +55,22 @@ int const UPDATE_INTERVAL = 60000;
          instanceId:(NSString *)instanceId
         timeZoneOffset:(int)timeZoneOffset {
     
+    [self setup];
+    
     if ((self = [super init:eventType applicationId:applicationId userId:userId])) {
-        _cookieId = cookieId;
-        _sessionId = sessionId;
-        _instanceId = instanceId;
+        _cookieId = [cookieId retain];
+        _sessionId = [sessionId retain];
+        _instanceId = [instanceId retain];
         _timeZoneOffset = timeZoneOffset;
     }
     return self;
+}
+
+- (void) setup {
+    _clicks = 0;
+    _totalClicks = 0;
+    _keys = 0;
+    _totalKeys = 0;
 }
 
 - (NSString *) toQueryString {
@@ -72,10 +82,10 @@ int const UPDATE_INTERVAL = 60000;
             queryString = [queryString stringByAppendingFormat:@"&z=%d", [self timeZoneOffset]];
             break;
         case PLEventAppRunning:
-            queryString = [queryString stringByAppendingFormat: @"&r=%d&q=%d&d=%d&c=%d&e=%d&k=%d&l=%d&m=%d", 
+            queryString = [queryString stringByAppendingFormat: @"&r=%f&q=%d&d=%d&c=%d&e=%d&k=%d&l=%d&m=%d", 
                            [self sessionStartTime], 
                            [self sequence],
-                           UPDATE_INTERVAL,
+                           PL_UPDATE_INTERVAL,
                            [self clicks],
                            [self totalClicks],
                            [self keys],

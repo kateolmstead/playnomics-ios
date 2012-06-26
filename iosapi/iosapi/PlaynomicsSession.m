@@ -19,7 +19,7 @@
 
 // TODO update PLCollectionMode to that of iOS
 int const PLSettingCollectionMode = 8;
-const NSTimeInterval UPDATE_INTERVAL = 60;
+const NSTimeInterval UPDATE_INTERVAL = 5;
 
 #define PLFileEventArchive [[NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent: @"PlaynomicsEvents.archive"]
 
@@ -68,6 +68,9 @@ const NSTimeInterval UPDATE_INTERVAL = 60;
 @end
 
 @interface PlaynomicsSession (EventsPrivate)
+- (void) onKeyPressed: (NSNotification *) notification;
+- (void) onGestureStateChanged: (NSNotification *) notification;
+
 - (PLAPIResult) sendOrQueueEvent: (PlaynomicsEvent *) pe;
 @end
 
@@ -112,7 +115,7 @@ const NSTimeInterval UPDATE_INTERVAL = 60;
         _playnomicsEventList = [[NSMutableArray alloc] init];
         _eventSender = [[EventSender alloc] init];
         
-        _isTouchDown = true;
+        _isTouchDown = YES;
     }
     return self;
 }
@@ -146,7 +149,7 @@ const NSTimeInterval UPDATE_INTERVAL = 60;
     NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
     [defaultCenter addObserver: self selector: @selector(onKeyPressed:) name: UITextFieldTextDidChangeNotification object: nil];
     [defaultCenter addObserver: self selector: @selector(onKeyPressed:) name: UITextViewTextDidChangeNotification object: nil];
-    [defaultCenter addObserver: self selector: @selector(onKeyPressed:) name: @"_UIApplicationSystemGestureStateChangedNotification" object: nil];
+    [defaultCenter addObserver: self selector: @selector(onGestureStateChanged:) name: @"_UIApplicationSystemGestureStateChangedNotification" object: nil];
 
     
     _sequence = 1;
@@ -167,18 +170,19 @@ const NSTimeInterval UPDATE_INTERVAL = 60;
     // Retrieve stored Event List
     NSArray *storedEvents = (NSArray *) [NSKeyedUnarchiver unarchiveObjectWithFile:PLFileEventArchive];
     if ([storedEvents count] > 0) {
-        [_playnomicsEventList addObjectsFromArray:storedEvents];
+        [self.playnomicsEventList addObjectsFromArray:storedEvents];
     }
     
     // TODO check to see if we have to register the defaults first for it to work.
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSTimeInterval lastSessionStartTime = [userDefaults doubleForKey:PLUserDefaultsLastSessionStartTime];
-    NSString *lastUserId = [[userDefaults stringForKey:PLUserDefaultsLastUserID] retain];
-    
+    NSString *lastUserId = [userDefaults stringForKey:PLUserDefaultsLastUserID];
+    lastSessionStartTime = 0;
     // Send an appStart if it has been > 3 min since the last session or
     // a
     // different user
     // otherwise send an appPage
+    
     if (_sessionStartTime - lastSessionStartTime > 18000
         || ![_userId isEqualToString:lastUserId]) {
         _sessionId = [[RandomGenerator createRandomHex] retain];
@@ -189,7 +193,8 @@ const NSTimeInterval UPDATE_INTERVAL = 60;
         eventType = PLEventAppStart;
     }
     else {
-        _sessionId = [[userDefaults stringForKey:PLUserDefaultsLastSessionID] retain];
+        _sessionId = [lastUserId retain];
+        _sessionStartTime = lastSessionStartTime; // TODO confirm with doug that this is desired and a bug in the Java code.
         eventType = PLEventAppPage;
     }
     
@@ -213,6 +218,15 @@ const NSTimeInterval UPDATE_INTERVAL = 60;
                                    instanceId:_instanceId 
                                timeZoneOffset:_timeZoneOffset];
     
+    NSLog(@"userId:%@", _userId);
+    NSLog(@"_applicationId:%ld", _applicationId);
+    NSLog(@"eventType:%d", eventType);
+    NSLog(@"eventTypeStr:%@", [PLUtil PLEventTypeDescription:eventType]);
+    NSLog(@"_sessionId:%@", _sessionId);
+    NSLog(@"_instanceId:%@", _instanceId);
+    
+    NSLog(@"_timeZoneOffset:%d", _timeZoneOffset);
+    
     // Try to send and queue if unsuccessful
     if ([_eventSender sendEventToServer:ev]) {
         result = PLAPIResultSent;
@@ -229,11 +243,27 @@ const NSTimeInterval UPDATE_INTERVAL = 60;
 }
 
 - (void) consumeQueue {
+    NSLog(@"consumeQueue");
     if (_sessionState == PLSessionStateStarted) {
         _sequence++;
         
-        BasicEvent *ev = [[BasicEvent alloc] init:PLEventAppRunning applicationId:_applicationId userId:_userId cookieId:_cookieId sessionId:_sessionId instanceId:_instanceId timeZoneOffset:_timeZoneOffset];
+        BasicEvent *ev = [[BasicEvent alloc] init:PLEventAppRunning 
+                                    applicationId:_applicationId
+                                           userId:_userId
+                                         cookieId:_cookieId
+                                        sessionId:_sessionId
+                                       instanceId:_instanceId
+                                 sessionStartTime:_sessionStartTime
+                                         sequence:_sequence
+                                           clicks:_clicks
+                                      totalClicks:_totalClicks
+                                             keys:_keys
+                                        totalKeys:_totalKeys
+                                      collectMode:_collectMode];
         [self.playnomicsEventList addObject:ev];
+        
+        NSLog(@"ev:%@", ev);
+        NSLog(@"self.playnomicsEventList:%@", self.playnomicsEventList);
         
         // Reset keys/clicks
         _keys = 0;
@@ -338,7 +368,7 @@ const NSTimeInterval UPDATE_INTERVAL = 60;
         [[NSNotificationCenter defaultCenter] removeObserver: self];
         
         // Store Event List
-        if (![NSKeyedArchiver archiveRootObject:_playnomicsEventList toFile:PLFileEventArchive]) {
+        if (![NSKeyedArchiver archiveRootObject:self.playnomicsEventList toFile:PLFileEventArchive]) {
             NSLog(@"Playnomics: Could not save event list");
         }
         
@@ -351,6 +381,7 @@ const NSTimeInterval UPDATE_INTERVAL = 60;
 - (void) onKeyPressed: (NSNotification *) notification {
     _keys += 1;
     _totalKeys += 1;
+    NSLog(@"onKeyPressed. keys=%d, totalKeys=%d", _keys, _totalKeys);
 }
 
 
@@ -358,9 +389,10 @@ const NSTimeInterval UPDATE_INTERVAL = 60;
     if (_isTouchDown) {
         _clicks += 1;
         _totalClicks += 1;
-        
-        _isTouchDown = false;
+        NSLog(@"onGestureStateChanged. _clicks=%d, _totalClicks=%d", _clicks, _totalClicks);
     }
+    
+    _isTouchDown = !_isTouchDown;
 }
 
 
@@ -550,7 +582,7 @@ const NSTimeInterval UPDATE_INTERVAL = 60;
         result = PLAPIResultSent;
     }
     else {
-        [_playnomicsEventList addObject:pe];
+        [self.playnomicsEventList addObject:pe];
         result = PLAPIResultQueued;
     }
     

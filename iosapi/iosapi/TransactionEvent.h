@@ -20,6 +20,11 @@
 @property(nonatomic, retain) NSArray * currencyValues;
 @property(nonatomic, retain) NSArray * currencyCategories;
 
+/**
+ *  currencyTypes: Array of PLCurrencyType String values
+ *  currencyValues: Array of NSNumbers containing a double
+ *  currencyCategories: Array of PLCurrencyCategory String values
+ */
 - (id) init:  (PLEventType) eventType 
               applicationId: (long) applicationId 
                      userId: (NSString *) userId 

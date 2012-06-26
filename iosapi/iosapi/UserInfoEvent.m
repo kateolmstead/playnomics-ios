@@ -1,7 +1,5 @@
 #import "UserInfoEvent.h"
 
-long const serialVersionUID = 1L;
-
 @implementation UserInfoEvent
 
 @synthesize type=_type;
@@ -51,7 +49,7 @@ long const serialVersionUID = 1L;
 }
 
 - (NSString *) toQueryString {
-    NSString *queryString = [[super toQueryString] stringByAppendingFormat:@"&pt=%@", [self type]];
+    NSString *queryString = [[super toQueryString] stringByAppendingFormat:@"&pt=%@", [PLUtil PLUserInfoTypeDescription:[self type]]];
     
     queryString = [self addOptionalParam:queryString name:@"pc" value:[self country]];
     queryString = [self addOptionalParam:queryString name:@"ps" value:[self subdivision]];

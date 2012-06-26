@@ -28,6 +28,9 @@
 +(PLCurrencyType) PLCurrencyTypeValueOf:(NSString *) text;
 + (NSString *) PLCurrencyTypeDescription:(PLCurrencyType) value;
 
++(PLUserInfoType) PLUserInfoTypeValueOf: (NSString *) text;
++(NSString *) PLUserInfoTypeDescription: (PLUserInfoType) value;
+
 +(PLUserInfoSex) PLUserInfoSexValueOf: (NSString *) text;
 +(NSString *) PLUserInfoSexDescription: (PLUserInfoSex) value;
 

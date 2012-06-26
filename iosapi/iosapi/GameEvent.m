@@ -1,7 +1,5 @@
 #import "GameEvent.h"
 
-long const serialVersionUID = 1L;
-
 @implementation GameEvent
 
 @synthesize sessionId=_sessionId;

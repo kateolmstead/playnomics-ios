@@ -49,4 +49,6 @@ applicationId:(long) applicationId
   sessionId:(NSString *)sessionId
  instanceId:(NSString *)instanceId
 timeZoneOffset:(int)timeZoneOffset;
+
+- (void) setup;
 @end

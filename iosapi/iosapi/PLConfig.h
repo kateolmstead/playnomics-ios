@@ -9,6 +9,16 @@
 #ifndef iosapi_PLConfig_h
 #define iosapi_PLConfig_h
 
+#ifdef DEBUG
 
+#define PLPropertyVersion @"0.0.1"
+#define PLPropertyBaseUrl @"https://test.b.playnomics.net/v1/"
+#define PLPropertyConnectionTimeout 5000
+
+#elif
+
+
+
+#endif
 
 #endif

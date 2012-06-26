@@ -50,11 +50,6 @@ typedef struct {
   NSString * name;
 } PLCurrencyCategory_Fields;
 
-static PLCurrencyCategory_Fields PLCurrencyCategory_Data[2] = {
-  { @"r"}
-  , { @"v"}
-};
-
 typedef enum {
   PLCurrencyUSD,
   PLCurrencyFBC,
@@ -75,12 +70,6 @@ typedef enum {
 typedef struct {
   NSString * name;
 } PLUserInfoSex_Fields;
-
-static PLUserInfoSex_Fields PLUserInfoSex_Data[3] = {
-  { @"M"}
-  , { @"F"}
-  , { @"U"}
-};
 
 typedef enum {
   PLUserInfoSourceAdwords,

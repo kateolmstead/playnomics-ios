@@ -15,6 +15,6 @@
 
 - (id) init: (PLEventType)eventType applicationId:(long) applicationId userId:(NSString *)userId;
 - (NSString *) description;
-- (NSString *) addOptionalParam:(NSString *)url name:(NSString *)name value:(NSObject *)value;
+- (NSString *) addOptionalParam:(NSString *)url name:(NSString *)name value:(NSString *)value;
 - (NSString *) toQueryString;
 @end

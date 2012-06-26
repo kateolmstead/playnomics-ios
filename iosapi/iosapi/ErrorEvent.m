@@ -1,7 +1,5 @@
 #import "ErrorEvent.h"
 
-long const serialVersionUID = 1L;
-
 @implementation ErrorEvent
 
 - (id) initWithE:(NSException *)e {
