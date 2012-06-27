@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 #import "PLConstants.h"
+#import "PlaynomicsSession.h"
 
 
 @interface PLUtil : NSObject

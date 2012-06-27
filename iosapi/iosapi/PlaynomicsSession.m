@@ -7,7 +7,7 @@
 //
 
 #import "PlaynomicsSession.h"
-
+#import "PLConstants.h"
 #import "EventSender.h"
 #import "RandomGenerator.h"
 
@@ -19,7 +19,7 @@
 
 // TODO update PLCollectionMode to that of iOS
 int const PLSettingCollectionMode = 8;
-const NSTimeInterval UPDATE_INTERVAL = 5;
+const NSTimeInterval UPDATE_INTERVAL = 60;
 
 #define PLFileEventArchive [[NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent: @"PlaynomicsEvents.archive"]
 
@@ -51,7 +51,7 @@ const NSTimeInterval UPDATE_INTERVAL = 5;
     
     bool _isTouchDown;
 }
-@property (atomic, readonly) NSMutableArray *   playnomicsEventList;
+@property (atomic, readonly)    NSMutableArray *   playnomicsEventList;
 @property (nonatomic, readonly) long            applicationId;
 @property (nonatomic, readonly) NSString *      userId;
 
@@ -145,7 +145,7 @@ const NSTimeInterval UPDATE_INTERVAL = 5;
     NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
     [defaultCenter addObserver: self selector: @selector(onKeyPressed:) name: UITextFieldTextDidChangeNotification object: nil];
     [defaultCenter addObserver: self selector: @selector(onKeyPressed:) name: UITextViewTextDidChangeNotification object: nil];
-    [defaultCenter addObserver: self selector: @selector(onGestureStateChanged:) name: @"_UIApplicationSystemGestureStateChangedNotification" object: nil];
+    [defaultCenter addObserver: self selector: @selector(onGestureStateChanged:) name: @"_UIApplicationSystemGestureStateChangedNotification" object: nil]; // Touch event. Comes in pairs
     [defaultCenter addObserver: self selector: @selector(onApplicationDidBecomeActive:) name: UIApplicationDidBecomeActiveNotification object: nil];
     [defaultCenter addObserver: self selector: @selector(onApplicationWillResignActive:) name: UIApplicationWillResignActiveNotification object: nil];
     [defaultCenter addObserver: self selector: @selector(onApplicationWillTerminate:) name: UIApplicationWillTerminateNotification object: nil];

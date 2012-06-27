@@ -9,7 +9,124 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-#import "PLConstants.h"
+/** 
+ *  PLAPIResult
+ *
+ *  Possible results for PlaynomicsSession messages
+ */
+typedef enum {
+    PLAPIResultSent,
+    PLAPIResultQueued,
+    PLAPIResultSwitched,
+    PLAPIResultStopped,
+    PLAPIResultAlreadyStarted,
+    PLAPIResultAlreadySwitched,
+    PLAPIResultAlreadyStopped,
+    PLAPIResultSessionResumed,
+    PLAPIResultStartNotCalled,
+    PLAPIResultNoInternetPermission,
+    PLAPIResultMissingReqParam,
+    PLAPIResultFailUnkown
+} PLAPIResult;
+
+
+/** 
+ *  PLResponseType
+ *
+ *  Possible responses for the invitations/SocialEvents
+ */
+typedef enum {
+    PLResponseTypeAccepted
+} PLResponseType;
+
+/**
+ *  PLTransactionType
+ *
+ *  Possible Transaction Types
+ */
+typedef enum {
+    PLTransactionBuyItem,
+    PLTransactionSellItem,
+    PLTransactionReturnItem,
+    PLTransactionBuyService,
+    PLTransactionSellService,
+    PLTransactionReturnService,
+    PLTransactionCurrencyConvert,
+    PLTransactionInitial,
+    PLTransactionFree,
+    PLTransactionReward,
+    PLTransactionGiftSend,
+    PLTransactionGiftReceive
+} PLTransactionType;
+
+/**
+ *  PLCurrencyCategory
+ *  
+ *  Possible currency Categories for transactions
+ */
+typedef enum {
+    PLCurrencyCategoryReal,
+    PLCurrencyCategoryVirtual
+} PLCurrencyCategory;
+
+/**
+ *  PLCurrencyType
+ *
+ *  Possible currency Types for transactions
+ */
+typedef enum {
+    PLCurrencyUSD,
+    PLCurrencyFBC,
+    PLCurrencyOFD,
+    PLCurrencyOFF
+} PLCurrencyType;
+
+/**
+ *  PLUserInfoType
+ *
+ *  Possible User Info requests types
+ */
+typedef enum {
+    PLUserInfoTypeUpdate
+} PLUserInfoType;
+
+/**
+ *  PLUserInfoSex
+ *
+ *  Possible Sex types.
+ *  Sent in a user update request.
+ */
+typedef enum {
+    PLUserInfoSexMale,
+    PLUserInfoSexFemale,
+    PLUserInfoSexUnknown
+} PLUserInfoSex;
+
+/**
+ *  PLUserInfoSource
+ *
+ *  Where the User Info comes from.
+ *  Sent in a user update request.
+ */
+typedef enum {
+    PLUserInfoSourceAdwords,
+    PLUserInfoSourceDoubleClick,
+    PLUserInfoSourceYahooAds,
+    PLUserInfoSourceMSNAds,
+    PLUserInfoSourceAOLAds,
+    PLUserInfoSourceAdbrite,
+    PLUserInfoSourceFacebookAds,
+    PLUserInfoSourceGoogleSearch,
+    PLUserInfoSourceYahooSearch,
+    PLUserInfoSourceBingSearch,
+    PLUserInfoSourceFacebookSearch,
+    PLUserInfoSourceApplifier,
+    PLUserInfoSourceAppStrip,
+    PLUserInfoSourceVIPGamesNetwork,
+    PLUserInfoSourceUserReferral,
+    PLUserInfoSourceInterGame,
+    PLUserInfoSourceOther
+} PLUserInfoSource;
 
 @interface PlaynomicsSession : NSObject
 /**
@@ -46,8 +163,6 @@
  * User info.
  * 
  * @return the API Result
- * @throws StartNotCalledException
- *             the start not called exception
  */
 + (PLAPIResult) userInfo;
 

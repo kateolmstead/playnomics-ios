@@ -1,13 +1,7 @@
-/**
- *  PLResponseType for the SocialEvent
- */
-typedef enum {
-    PLResponseTypeAccepted
-} PLResponseType;
-
+/************** PRIVATE *****************/
 /**
  *  PLEventType
- *  Type of event to be sent to the API
+ *  Type of event to be sent to the Server API
  */
 typedef enum {
     PLEventAppStart,
@@ -26,79 +20,10 @@ typedef enum {
     PLEventInvitationResponse
 } PLEventType;
 
-typedef enum {
-  PLTransactionBuyItem,
-  PLTransactionSellItem,
-  PLTransactionReturnItem,
-  PLTransactionBuyService,
-  PLTransactionSellService,
-  PLTransactionReturnService,
-  PLTransactionCurrencyConvert,
-  PLTransactionInitial,
-  PLTransactionFree,
-  PLTransactionReward,
-  PLTransactionGiftSend,
-  PLTransactionGiftReceive
-} PLTransactionType;
-
-typedef enum {
-  PLCurrencyCategoryReal,
-  PLCurrencyCategoryVirtual
-} PLCurrencyCategory;
-
-typedef enum {
-  PLCurrencyUSD,
-  PLCurrencyFBC,
-  PLCurrencyOFD,
-  PLCurrencyOFF
-} PLCurrencyType;
-
-typedef enum {
-  PLUserInfoTypeUpdate
-} PLUserInfoType;
-
-typedef enum {
-  PLUserInfoSexMale,
-  PLUserInfoSexFemale,
-  PLUserInfoSexUnknown
-} PLUserInfoSex;
-
-typedef enum {
-  PLUserInfoSourceAdwords,
-  PLUserInfoSourceDoubleClick,
-  PLUserInfoSourceYahooAds,
-  PLUserInfoSourceMSNAds,
-  PLUserInfoSourceAOLAds,
-  PLUserInfoSourceAdbrite,
-  PLUserInfoSourceFacebookAds,
-  PLUserInfoSourceGoogleSearch,
-  PLUserInfoSourceYahooSearch,
-  PLUserInfoSourceBingSearch,
-  PLUserInfoSourceFacebookSearch,
-  PLUserInfoSourceApplifier,
-  PLUserInfoSourceAppStrip,
-  PLUserInfoSourceVIPGamesNetwork,
-  PLUserInfoSourceUserReferral,
-  PLUserInfoSourceInterGame,
-  PLUserInfoSourceOther
-} PLUserInfoSource;
-
-
-typedef enum {
-    PLAPIResultSent,
-    PLAPIResultQueued,
-    PLAPIResultSwitched,
-    PLAPIResultStopped,
-    PLAPIResultAlreadyStarted,
-    PLAPIResultAlreadySwitched,
-    PLAPIResultAlreadyStopped,
-    PLAPIResultSessionResumed,
-    PLAPIResultStartNotCalled,
-    PLAPIResultNoInternetPermission,
-    PLAPIResultMissingReqParam,
-    PLAPIResultFailUnkown
-} PLAPIResult;
-
+/**
+ *  PLSessionState
+ *  Possible states for the Playnomics Session
+ */
 typedef enum {
     PLSessionStateUnkown,
     PLSessionStateStarted,

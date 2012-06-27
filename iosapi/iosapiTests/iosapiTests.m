@@ -41,7 +41,7 @@
     long applicationId = 4L;
     NSString *userId = @"userIdTest";
     
-    [PlaynomicsSession start:nil applicationId:applicationId userId:userId];
+    [PlaynomicsSession startWithApplicationId:applicationId userId:userId];
 }
 
 - (void)tearDown
