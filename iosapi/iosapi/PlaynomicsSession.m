@@ -23,9 +23,9 @@ const NSTimeInterval UPDATE_INTERVAL = 5;
 
 #define PLFileEventArchive [[NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent: @"PlaynomicsEvents.archive"]
 
-@interface PlaynomicsSession () {
-    id<PlaynomicsApiDelegate> _delegate;
-    
+@interface PlaynomicsSession () {    
+    PLSessionState _sessionState;
+
     NSTimer *_eventTimer;
     EventSender *_eventSender;
     NSMutableArray *_playnomicsEventList;
@@ -55,11 +55,11 @@ const NSTimeInterval UPDATE_INTERVAL = 5;
 @property (nonatomic, readonly) long            applicationId;
 @property (nonatomic, readonly) NSString *      userId;
 
-+ (PlaynomicsSession *)sharedInstance;
 
-- (PLAPIResult) start: (id<PlaynomicsApiDelegate>) delegate applicationId:(long) applicationId;
-- (PLAPIResult) start: (id<PlaynomicsApiDelegate>) delegate 
-        applicationId:(long) applicationId userId: (NSString *) userId;
+- (PLAPIResult) startWithApplicationId:(long) applicationId;
+- (PLAPIResult) startWithApplicationId:(long) applicationId userId: (NSString *) userId;
+- (PLAPIResult) sendOrQueueEvent: (PlaynomicsEvent *) pe;
+
 - (PLAPIResult) stop;
 - (void) pause;
 - (void) resume;
@@ -70,11 +70,13 @@ const NSTimeInterval UPDATE_INTERVAL = 5;
 @interface PlaynomicsSession (EventsPrivate)
 - (void) onKeyPressed: (NSNotification *) notification;
 - (void) onGestureStateChanged: (NSNotification *) notification;
-
-- (PLAPIResult) sendOrQueueEvent: (PlaynomicsEvent *) pe;
+- (void) onApplicationWillResignActive: (NSNotification *) notification;
+- (void) onApplicationDidBecomeActive: (NSNotification *) notification;
+- (void) onApplicationWillTerminate: (NSNotification *) notification;
 @end
 
 @interface PlaynomicsSession (Util) 
+// TODO test that method
 - (NSString *) getDeviceUniqueIdentifier;
 @end
 
@@ -90,13 +92,12 @@ const NSTimeInterval UPDATE_INTERVAL = 5;
     });
 }
 
-+ (PLAPIResult) start: (id<PlaynomicsApiDelegate>) delegate 
-        applicationId:(long) applicationId userId: (NSString *) userId {
-    return [[PlaynomicsSession sharedInstance] start:delegate applicationId:applicationId userId:userId];
++ (PLAPIResult) startWithApplicationId:(long) applicationId userId: (NSString *) userId {
+    return [[PlaynomicsSession sharedInstance] startWithApplicationId:applicationId userId:userId];
 }
 
-+ (PLAPIResult) start: (id<PlaynomicsApiDelegate>) delegate applicationId:(long) applicationId {
-    return [[PlaynomicsSession sharedInstance] start:delegate applicationId:applicationId];
++ (PLAPIResult) startWithApplicationId:(long) applicationId {
+    return [[PlaynomicsSession sharedInstance] startWithApplicationId:applicationId];
 }
 
 + (PLAPIResult) stop {
@@ -120,12 +121,12 @@ const NSTimeInterval UPDATE_INTERVAL = 5;
     return self;
 }
 
-- (PLAPIResult) start: (id<PlaynomicsApiDelegate>) delegate applicationId:(long) applicationId userId: (NSString *) userId {
+- (PLAPIResult) startWithApplicationId:(long) applicationId userId: (NSString *) userId {
     _userId = [userId retain];
-    return [self start:delegate applicationId:applicationId];
+    return [self startWithApplicationId:applicationId];
 }
 
-- (PLAPIResult) start: (id<PlaynomicsApiDelegate>) delegate applicationId:(long) applicationId {
+- (PLAPIResult) startWithApplicationId:(long) applicationId {
     if (_sessionState == PLSessionStateStarted)
         return PLAPIResultAlreadyStarted;
     
@@ -139,18 +140,15 @@ const NSTimeInterval UPDATE_INTERVAL = 5;
     
     _sessionState = PLSessionStateStarted;
     
-    _delegate = delegate;
     _applicationId = applicationId;
-    
-    // TODO: register observers
-    // See http://stackoverflow.com/questions/1267560/iphone-keyboard-event
-    // >>>>>>>>>>>>> http://stackoverflow.com/questions/5073293/what-are-all-the-types-of-nsnotifications
     
     NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
     [defaultCenter addObserver: self selector: @selector(onKeyPressed:) name: UITextFieldTextDidChangeNotification object: nil];
     [defaultCenter addObserver: self selector: @selector(onKeyPressed:) name: UITextViewTextDidChangeNotification object: nil];
     [defaultCenter addObserver: self selector: @selector(onGestureStateChanged:) name: @"_UIApplicationSystemGestureStateChangedNotification" object: nil];
-
+    [defaultCenter addObserver: self selector: @selector(onApplicationDidBecomeActive:) name: UIApplicationDidBecomeActiveNotification object: nil];
+    [defaultCenter addObserver: self selector: @selector(onApplicationWillResignActive:) name: UIApplicationWillResignActiveNotification object: nil];
+    [defaultCenter addObserver: self selector: @selector(onApplicationWillTerminate:) name: UIApplicationWillTerminateNotification object: nil];
     
     _sequence = 1;
     _clicks = 0;
@@ -161,6 +159,7 @@ const NSTimeInterval UPDATE_INTERVAL = 5;
     _sessionStartTime = [[NSDate date] timeIntervalSince1970];
     
     // Calc to conform to minute offset format
+    // TODO: might need to (* -1)
     _timeZoneOffset = 60 * [[NSTimeZone localTimeZone] secondsFromGMT];
     // Collection mode for Android
     _collectMode = PLSettingCollectionMode;
@@ -177,13 +176,13 @@ const NSTimeInterval UPDATE_INTERVAL = 5;
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSTimeInterval lastSessionStartTime = [userDefaults doubleForKey:PLUserDefaultsLastSessionStartTime];
     NSString *lastUserId = [userDefaults stringForKey:PLUserDefaultsLastUserID];
-    lastSessionStartTime = 0;
+
     // Send an appStart if it has been > 3 min since the last session or
     // a
     // different user
     // otherwise send an appPage
     
-    if (_sessionStartTime - lastSessionStartTime > 18000
+    if (_sessionStartTime - lastSessionStartTime > 180
         || ![_userId isEqualToString:lastUserId]) {
         _sessionId = [[RandomGenerator createRandomHex] retain];
         
@@ -194,6 +193,7 @@ const NSTimeInterval UPDATE_INTERVAL = 5;
     }
     else {
         _sessionId = [lastUserId retain];
+        _instanceId = [[RandomGenerator createRandomHex] retain];
         _sessionStartTime = lastSessionStartTime; // TODO confirm with doug that this is desired and a bug in the Java code.
         eventType = PLEventAppPage;
     }
@@ -217,15 +217,6 @@ const NSTimeInterval UPDATE_INTERVAL = 5;
                                     sessionId:_sessionId 
                                    instanceId:_instanceId 
                                timeZoneOffset:_timeZoneOffset];
-    
-    NSLog(@"userId:%@", _userId);
-    NSLog(@"_applicationId:%ld", _applicationId);
-    NSLog(@"eventType:%d", eventType);
-    NSLog(@"eventTypeStr:%@", [PLUtil PLEventTypeDescription:eventType]);
-    NSLog(@"_sessionId:%@", _sessionId);
-    NSLog(@"_instanceId:%@", _instanceId);
-    
-    NSLog(@"_timeZoneOffset:%d", _timeZoneOffset);
     
     // Try to send and queue if unsuccessful
     if ([_eventSender sendEventToServer:ev]) {
@@ -355,7 +346,8 @@ const NSTimeInterval UPDATE_INTERVAL = 5;
         return PLAPIResultAlreadyStopped;
     }
     
-    // TODO check that the app is closing
+    // TODO check that the app is closing ?
+    // Currently Session is only stopped when the application quits.
     if (YES) {
         _sessionState = PLSessionStateStopped;
         
@@ -371,8 +363,6 @@ const NSTimeInterval UPDATE_INTERVAL = 5;
         if (![NSKeyedArchiver archiveRootObject:self.playnomicsEventList toFile:PLFileEventArchive]) {
             NSLog(@"Playnomics: Could not save event list");
         }
-        
-        _delegate = nil;
     }
     
     return PLAPIResultStopped;
@@ -381,7 +371,6 @@ const NSTimeInterval UPDATE_INTERVAL = 5;
 - (void) onKeyPressed: (NSNotification *) notification {
     _keys += 1;
     _totalKeys += 1;
-    NSLog(@"onKeyPressed. keys=%d, totalKeys=%d", _keys, _totalKeys);
 }
 
 
@@ -389,10 +378,19 @@ const NSTimeInterval UPDATE_INTERVAL = 5;
     if (_isTouchDown) {
         _clicks += 1;
         _totalClicks += 1;
-        NSLog(@"onGestureStateChanged. _clicks=%d, _totalClicks=%d", _clicks, _totalClicks);
     }
     
     _isTouchDown = !_isTouchDown;
+}
+
+- (void) onApplicationWillResignActive: (NSNotification *) notification {
+    [self pause];
+}
+- (void) onApplicationDidBecomeActive: (NSNotification *) notification {
+    [self resume];
+}
+- (void) onApplicationWillTerminate: (NSNotification *) notification {
+    [self stop];
 }
 
 
@@ -402,7 +400,7 @@ const NSTimeInterval UPDATE_INTERVAL = 5;
                                   subdivision:nil
                                           sex:0
                                      birthday:nil
-                                    sourceStr:@""
+                                       source:0
                                sourceCampaign:nil
                                   installTime:nil];
 }
@@ -412,36 +410,19 @@ const NSTimeInterval UPDATE_INTERVAL = 5;
                     subdivision: (NSString *) subdivision
                             sex: (PLUserInfoSex) sex
                        birthday: (NSDate *) birthday
-                         source: (PLUserInfoSource) source 
+                         source: (PLUserInfoSource) source
                  sourceCampaign: (NSString *) sourceCampaign 
                     installTime: (NSDate *) installTime {
-    return [PlaynomicsSession userInfoForType:type
-                                      country:country
-                                  subdivision:subdivision
-                                          sex:sex
-                                     birthday:birthday
-                                    sourceStr:[PLUtil PLUserInfoSourceDescription:source]
-                               sourceCampaign:sourceCampaign
-                                  installTime:installTime];
-}
-
-+ (PLAPIResult) userInfoForType: (PLUserInfoType) type 
-                        country: (NSString *) country 
-                    subdivision: (NSString *) subdivision
-                            sex: (PLUserInfoSex) sex
-                       birthday: (NSDate *) birthday
-                      sourceStr: (NSString *) sourceStr 
-                 sourceCampaign: (NSString *) sourceCampaign 
-                    installTime: (NSDate *) installTime {
-    
+    // TODO: do field checks
     PlaynomicsSession * s =[PlaynomicsSession sharedInstance];
     
-    UserInfoEvent *ev = [[[UserInfoEvent alloc] init:s.applicationId userId:s.userId type:type country:country subdivision:subdivision sex:sex birthday:[birthday timeIntervalSince1970] source:sourceStr sourceCampaign:sourceCampaign installTime:[installTime timeIntervalSince1970]] autorelease];
+    UserInfoEvent *ev = [[[UserInfoEvent alloc] init:s.applicationId userId:s.userId type:type country:country subdivision:subdivision sex:sex birthday:[birthday timeIntervalSince1970] source:source sourceCampaign:sourceCampaign installTime:[installTime timeIntervalSince1970]] autorelease];
     
     return [s sendOrQueueEvent:ev];
 }
 
-+ (PLAPIResult) sessionStart: (NSString *) sessionId site: (NSString *) site {
++ (PLAPIResult) sessionStartWithId: (NSString *) sessionId site: (NSString *) site {
+    // TODO: do field checks
     PlaynomicsSession * s =[PlaynomicsSession sharedInstance];
     
     GameEvent *ev = [[[GameEvent alloc] init:PLEventSessionStart applicationId:s.applicationId userId:s.userId sessionId:sessionId site:site instanceId:nil type:nil gameId:nil reason:nil] autorelease];
@@ -449,7 +430,8 @@ const NSTimeInterval UPDATE_INTERVAL = 5;
     return [s sendOrQueueEvent:ev];
 }
 
-+ (PLAPIResult) sessionEnd: (NSString *) sessionId reason: (NSString *) reason {
++ (PLAPIResult) sessionEndWithId: (NSString *) sessionId reason: (NSString *) reason {
+    // TODO: do field checks
     PlaynomicsSession * s =[PlaynomicsSession sharedInstance];
     
     GameEvent *ev = [[[GameEvent alloc] init:PLEventSessionEnd applicationId:s.applicationId userId:s.userId sessionId:sessionId site:nil instanceId:nil type:nil gameId:nil reason:reason] autorelease];
@@ -458,6 +440,7 @@ const NSTimeInterval UPDATE_INTERVAL = 5;
 }
 
 + (PLAPIResult) gameStartWithInstanceId: (NSString *) instanceId sessionId: (NSString *) sessionId site: (NSString *) site type: (NSString *) type gameId: (NSString *) gameId {
+    // TODO: do field checks
     PlaynomicsSession * s =[PlaynomicsSession sharedInstance];
     
     GameEvent *ev = [[[GameEvent alloc] init:PLEventGameStart applicationId:s.applicationId userId:s.userId sessionId:sessionId site:site instanceId:instanceId type:type gameId:gameId reason:nil] autorelease];
@@ -465,7 +448,8 @@ const NSTimeInterval UPDATE_INTERVAL = 5;
     return [s sendOrQueueEvent:ev];
 }
 
-+ (PLAPIResult) gameStartWithInstanceId: (NSString *) instanceId sessionId: (NSString *) sessionId reason: (NSString *) reason {
++ (PLAPIResult) gameEndWithInstanceId: (NSString *) instanceId sessionId: (NSString *) sessionId reason: (NSString *) reason {
+    // TODO: do field checks
     PlaynomicsSession * s =[PlaynomicsSession sharedInstance];
     
     GameEvent *ev = [[[GameEvent alloc] init:PLEventGameEnd applicationId:s.applicationId userId:s.userId sessionId:sessionId site:nil instanceId:instanceId type:nil gameId:nil reason:reason] autorelease];
@@ -474,55 +458,39 @@ const NSTimeInterval UPDATE_INTERVAL = 5;
 }
 
 
-+ (PLAPIResult) transaction:(long) transactionId 
-                     itemId: (NSString *) itemId
-                   quantity: (double) quantity
-                       type: (PLTransactionType) type
-                otherUserId: (NSString *) otherUserId
-               currencyType: (PLCurrencyType) currencyType
-              currencyValue: (double) currencyValue
-           currencyCategory: (PLCurrencyCategory) currencyCategory {
-    return [PlaynomicsSession transaction:transactionId 
-                                   itemId:itemId 
-                                 quantity:quantity
-                                     type:type
-                              otherUserId:otherUserId
-                          currencyTypeStr:[PLUtil PLCurrencyTypeDescription:currencyType]
-                            currencyValue:currencyValue
-                         currencyCategory:currencyCategory];
-}
-
-
-+ (PLAPIResult) transaction:(long) transactionId 
-                     itemId: (NSString *) itemId
-                   quantity: (double) quantity
-                       type: (PLTransactionType) type
-                otherUserId: (NSString *) otherUserId
-            currencyTypeStr: (NSString *) currencyType
-              currencyValue: (double) currencyValue
-           currencyCategory: (PLCurrencyCategory) currencyCategory {
-    NSArray *currencyTypes = [NSArray arrayWithObject:currencyType];
++ (PLAPIResult) transactionWithId:(long) transactionId 
+                           itemId: (NSString *) itemId
+                         quantity: (double) quantity
+                             type: (PLTransactionType) type
+                      otherUserId: (NSString *) otherUserId
+                     currencyType: (PLCurrencyType) currencyType
+                    currencyValue: (double) currencyValue
+                 currencyCategory: (PLCurrencyCategory) currencyCategory {
+    // TODO: do field checks
+    NSArray *currencyTypes = [NSArray arrayWithObject: [NSNumber numberWithInt: currencyType]];
     NSArray *currencyValues = [NSArray arrayWithObject:[NSNumber numberWithDouble:currencyValue]];
-    NSArray *currencyCategories = [NSArray arrayWithObject:[PLUtil PLCurrencyCategoryDescription:currencyCategory]];
-    
-    return [PlaynomicsSession transaction:transactionId 
-                                   itemId:itemId 
-                                 quantity:quantity
-                                     type:type
-                              otherUserId:otherUserId
-                         currencyTypesStr:currencyTypes
-                           currencyValues:currencyValues
-                       currencyCategories:currencyCategories];
+    NSArray *currencyCategories = [NSArray arrayWithObject: [NSNumber numberWithInt:currencyCategory]];
+
+    return [PlaynomicsSession transactionWithId:transactionId 
+                                         itemId:itemId 
+                                       quantity:quantity
+                                           type:type
+                                    otherUserId:otherUserId
+                                  currencyTypes:currencyTypes
+                                 currencyValues:currencyValues
+                             currencyCategories:currencyCategories];
 }
 
-+ (PLAPIResult) transaction:(long) transactionId 
-                     itemId: (NSString *) itemId
-                   quantity: (double) quantity
-                       type: (PLTransactionType) type
-                otherUserId: (NSString *) otherUserId
-           currencyTypesStr: (NSArray *) currencyTypes
-             currencyValues: (NSArray *) currencyValues
-         currencyCategories: (NSArray *) currencyCategories {
+
++ (PLAPIResult) transactionWithId:(long) transactionId 
+                           itemId: (NSString *) itemId
+                         quantity: (double) quantity
+                             type: (PLTransactionType) type
+                      otherUserId: (NSString *) otherUserId
+                    currencyTypes: (NSArray *) currencyTypes
+                   currencyValues: (NSArray *) currencyValues
+               currencyCategories: (NSArray *) currencyCategories {
+    // TODO: do field checks
     PlaynomicsSession * s =[PlaynomicsSession sharedInstance];
     
     TransactionEvent *ev = [[[TransactionEvent alloc] init:PLEventTransaction 
@@ -540,10 +508,11 @@ const NSTimeInterval UPDATE_INTERVAL = 5;
     return [s sendOrQueueEvent:ev];
 }
 
-+ (PLAPIResult) invitationSent: (NSString *) invitationId 
-               recipientUserId: (NSString *) recipientUserId 
-              recipientAddress: (NSString *) recipientAddress 
-                        method: (NSString *) method {
++ (PLAPIResult) invitationSentWithId: (NSString *) invitationId 
+                     recipientUserId: (NSString *) recipientUserId 
+                    recipientAddress: (NSString *) recipientAddress 
+                              method: (NSString *) method {
+    // TODO: do field checks
     PlaynomicsSession * s =[PlaynomicsSession sharedInstance];
     
     SocialEvent *ev = [[[SocialEvent alloc] init:PLEventInvitationSent 
@@ -557,12 +526,16 @@ const NSTimeInterval UPDATE_INTERVAL = 5;
     
 }
 
-+ (PLAPIResult) invitationSent: (NSString *) invitationId responseType: (PLResponseType) responseType {
++ (PLAPIResult) invitationResponseWithId: (NSString *) invitationId 
+                            responseType: (PLResponseType) responseType {
+    // TODO: do field checks
+    // TODO: recipientUserId should not be nil
     PlaynomicsSession * s =[PlaynomicsSession sharedInstance];
     
     SocialEvent *ev = [[[SocialEvent alloc] init:PLEventInvitationResponse 
                                    applicationId:s.applicationId
-                                          userId:s.userId invitationId:invitationId 
+                                          userId:s.userId 
+                                    invitationId:invitationId 
                                  recipientUserId:nil 
                                 recipientAddress:nil 
                                           method:nil 
@@ -595,13 +568,15 @@ const NSTimeInterval UPDATE_INTERVAL = 5;
  */
 - (NSString *) getDeviceUniqueIdentifier {
     UIPasteboard *pasteBoard = [UIPasteboard pasteboardWithName:@"com.playnomics.uniqueDeviceId" create:YES];
+    pasteBoard.persistent = YES;
+    NSLog(@"numberOfItems:%d", pasteBoard.numberOfItems);
     NSString *storedUUID = [pasteBoard string];
     
-    if (![storedUUID length]) {
+    if ([storedUUID length] == 0) {
         CFUUIDRef uuidRef = CFUUIDCreate(kCFAllocatorDefault);
         storedUUID = (NSString *)CFUUIDCreateString(NULL,uuidRef);
         CFRelease(uuidRef);
-        pasteBoard.string = storedUUID;
+//        pasteBoard.string = storedUUID; TODO this is very slow.
     }
     return storedUUID;
 }

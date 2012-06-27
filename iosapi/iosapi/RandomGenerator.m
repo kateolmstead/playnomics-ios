@@ -21,8 +21,6 @@ const char HEX_DIGIT[] = {
         char c = arc4random(); // We want the maximum range possible
         str = [str stringByAppendingFormat:@"%c%c", HEX_DIGIT[(c >> 4) & 0x0f], HEX_DIGIT[c & 0x0f]];
     }
-    NSLog(@"COUNT OK:%@", str);
-    
     return str;
 }
 @end

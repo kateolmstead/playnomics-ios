@@ -7,7 +7,7 @@
   NSString * _subdivision;
   PLUserInfoSex _sex;
   NSTimeInterval _birthday;
-  NSString * _source;
+  PLUserInfoSource _source;
   NSString * _sourceCampaign;
   NSTimeInterval _installTime;
 }
@@ -17,7 +17,7 @@
 @property(nonatomic, retain) NSString * subdivision;
 @property(nonatomic, assign) PLUserInfoSex sex;
 @property(nonatomic, assign) NSTimeInterval birthday;
-@property(nonatomic, retain) NSString * source;
+@property(nonatomic, assign) PLUserInfoSource source;
 @property(nonatomic, retain) NSString * sourceCampaign;
 @property(nonatomic, assign) NSTimeInterval installTime;
 
@@ -32,7 +32,7 @@
         subdivision: (NSString *) subdivision 
                 sex: (PLUserInfoSex) sex 
            birthday: (NSTimeInterval) birthday
-             source: (NSString *) source
+             source: (PLUserInfoSource) source
      sourceCampaign: (NSString *) sourceCampaign
         installTime: (NSTimeInterval) installTime;
 @end

@@ -46,10 +46,6 @@ typedef enum {
   PLCurrencyCategoryVirtual
 } PLCurrencyCategory;
 
-typedef struct {
-  NSString * name;
-} PLCurrencyCategory_Fields;
-
 typedef enum {
   PLCurrencyUSD,
   PLCurrencyFBC,
@@ -66,10 +62,6 @@ typedef enum {
   PLUserInfoSexFemale,
   PLUserInfoSexUnknown
 } PLUserInfoSex;
-
-typedef struct {
-  NSString * name;
-} PLUserInfoSex_Fields;
 
 typedef enum {
   PLUserInfoSourceAdwords,
@@ -114,6 +106,10 @@ typedef enum {
     PLSessionStateStopped
 } PLSessionState;
 
+/*************** MACROS *****************/
+/** Converts the NSTimeInterval (seconds) to Milliseconds for the server API */
+#define TO_LONG_MILLISECONDS(timeInterval) (unsigned long long) ((NSTimeInterval)timeInterval * 1000)
+
 // Singleton Macro
 #define DEFINE_SHARED_INSTANCE_USING_BLOCK(block) \
 static dispatch_once_t pred = 0; \
@@ -122,6 +118,7 @@ dispatch_once(&pred, ^{ \
 _sharedObject = block(); \
 }); \
 return _sharedObject;
+
 
 // User Default Keys
 #define PLUserDefaultsLastSessionStartTime @"com.playnomics.lastSessionStartTime"

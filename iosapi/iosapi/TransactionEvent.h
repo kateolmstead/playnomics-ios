@@ -13,7 +13,7 @@
 
 @property(nonatomic, assign) long transactionId;
 @property(nonatomic, retain) NSString * itemId;
-@property(nonatomic, assign) double quantity;
+@property(nonatomic, assign) double quantity; // TODO: why is quantity a double?
 @property(nonatomic, assign) PLTransactionType type;
 @property(nonatomic, retain) NSString * otherUserId;
 @property(nonatomic, retain) NSArray * currencyTypes;
@@ -21,9 +21,9 @@
 @property(nonatomic, retain) NSArray * currencyCategories;
 
 /**
- *  currencyTypes: Array of PLCurrencyType String values
+ *  currencyTypes: Array of PLCurrencyType NSNumbers
  *  currencyValues: Array of NSNumbers containing a double
- *  currencyCategories: Array of PLCurrencyCategory String values
+ *  currencyCategories: Array of PLCurrencyCategory NSNumbers
  */
 - (id) init:  (PLEventType) eventType 
               applicationId: (long) applicationId 

@@ -11,37 +11,26 @@
 
 #import "PLConstants.h"
 
-@protocol PlaynomicsApiDelegate <NSObject>
-
-@end
-
-@interface PlaynomicsSession : NSObject {
-    PLSessionState _sessionState;
-}
-
+@interface PlaynomicsSession : NSObject
 /**
  * Start.
  * 
- * @param activity
- *            the activity
  * @param applicationId
  *            the application id
  * @param userId
  *            the user id
  * @return the API Result
  */
-+ (PLAPIResult) start: (id<PlaynomicsApiDelegate>) delegate applicationId:(long) applicationId userId: (NSString *) userId;
++ (PLAPIResult) startWithApplicationId:(long) applicationId userId: (NSString *) userId;
 
 /**
  * Start.
  * 
- * @param activity
- *            the activity
  * @param applicationId
  *            the application id
  * @return the API Result
  */
-+ (PLAPIResult) start: (id<PlaynomicsApiDelegate>) delegate applicationId:(long) applicationId;
++ (PLAPIResult) startWithApplicationId:(long) applicationId;
 
 /**
  * Stop.
@@ -93,36 +82,6 @@
                     installTime: (NSDate *) installTime;
 
 /**
- * User info.
- * 
- * @param type
- *            the type
- * @param country
- *            the country
- * @param subdivision
- *            the subdivision
- * @param sex
- *            the sex
- * @param birthday
- *            the birthday
- * @param source
- *            the source
- * @param sourceCampaign
- *            the source campaign
- * @param installTime
- *            the install time
- * @return the API Result
- */
-+ (PLAPIResult) userInfoForType: (PLUserInfoType) type 
-                        country: (NSString *) country 
-                    subdivision: (NSString *) subdivision
-                            sex: (PLUserInfoSex) sex
-                       birthday: (NSDate *) birthday
-                      sourceStr: (NSString *) sourceStr 
-                 sourceCampaign: (NSString *) sourceCampaign 
-                    installTime: (NSDate *) installTime;
-
-/**
  * Session start.
  * 
  * @param sessionId
@@ -131,7 +90,7 @@
  *            the site
  * @return the API Result
  */
-+ (PLAPIResult) sessionStart: (NSString *) sessionId site: (NSString *) site;
++ (PLAPIResult) sessionStartWithId: (NSString *) sessionId site: (NSString *) site;
 
 /**
  * Session end.
@@ -142,7 +101,7 @@
  *            the reason
  * @return the API Result
  */
-+ (PLAPIResult) sessionEnd: (NSString *) sessionId reason: (NSString *) reason;
++ (PLAPIResult) sessionEndWithId: (NSString *) sessionId reason: (NSString *) reason;
 
 /**
  * Game start.
@@ -172,7 +131,7 @@
  *            the reason
  * @return the API Result
  */
-+ (PLAPIResult) gameStartWithInstanceId: (NSString *) instanceId sessionId: (NSString *) sessionId reason: (NSString *) reason;
++ (PLAPIResult) gameEndWithInstanceId: (NSString *) instanceId sessionId: (NSString *) sessionId reason: (NSString *) reason;
 
 /**
  * Transaction.
@@ -195,44 +154,14 @@
  *            the currency category
  * @return the API Result
  */
-+ (PLAPIResult) transaction:(long) transactionId 
-                     itemId: (NSString *) itemId
-                   quantity: (double) quantity
-                       type: (PLTransactionType) type
-                otherUserId: (NSString *) otherUserId
-               currencyType: (PLCurrencyType) currencyType
-              currencyValue: (double) currencyValue
-           currencyCategory: (PLCurrencyCategory) currencyCategory;
-    
-/**
- * Transaction.
- * 
- * @param transactionId
- *            the transaction id
- * @param itemId
- *            the item id
- * @param quantity
- *            the quantity
- * @param type
- *            the type
- * @param otherUserId
- *            the other user id
- * @param currencyType
- *            the currency type
- * @param currencyValue
- *            the currency value
- * @param currencyCategory
- *            the currency category
- * @return the API Result
- */
-+ (PLAPIResult) transaction:(long) transactionId 
-                     itemId: (NSString *) itemId
-                   quantity: (double) quantity
-                       type: (PLTransactionType) type
-                otherUserId: (NSString *) otherUserId
-            currencyTypeStr: (NSString *) currencyType
-              currencyValue: (double) currencyValue
-           currencyCategory: (PLCurrencyCategory) currencyCategory;    
++ (PLAPIResult) transactionWithId:(long) transactionId 
+                           itemId: (NSString *) itemId
+                         quantity: (double) quantity
+                             type: (PLTransactionType) type
+                      otherUserId: (NSString *) otherUserId
+                     currencyType: (PLCurrencyType) currencyType
+                    currencyValue: (double) currencyValue
+                 currencyCategory: (PLCurrencyCategory) currencyCategory;
 
 /**
  * Transaction.
@@ -255,14 +184,14 @@
  *            the currency categories
  * @return the API Result
  */
-+ (PLAPIResult) transaction:(long) transactionId 
-                     itemId: (NSString *) itemId
-                   quantity: (double) quantity
-                       type: (PLTransactionType) type
-                otherUserId: (NSString *) otherUserId
-           currencyTypesStr: (NSArray *) currencyTypes
-             currencyValues: (NSArray *) currencyValues
-         currencyCategories: (NSArray *) currencyCategories; 
++ (PLAPIResult) transactionWithId:(long) transactionId 
+                           itemId: (NSString *) itemId
+                         quantity: (double) quantity
+                             type: (PLTransactionType) type
+                      otherUserId: (NSString *) otherUserId
+                    currencyTypes: (NSArray *) currencyTypes
+                   currencyValues: (NSArray *) currencyValues
+               currencyCategories: (NSArray *) currencyCategories; 
 
 /**
  * Invitation sent.
@@ -277,10 +206,10 @@
  *            the method
  * @return the API Result
  */
-+ (PLAPIResult) invitationSent: (NSString *) invitationId 
-               recipientUserId: (NSString *) recipientUserId 
-              recipientAddress: (NSString *) recipientAddress 
-                        method: (NSString *) method;
++ (PLAPIResult) invitationSentWithId: (NSString *) invitationId 
+                     recipientUserId: (NSString *) recipientUserId 
+                    recipientAddress: (NSString *) recipientAddress 
+                              method: (NSString *) method;
 
 /**
  * Invitation response.
@@ -291,5 +220,6 @@
  *            the response
  * @return the API Result
  */
-+ (PLAPIResult) invitationSent: (NSString *) invitationId responseType: (PLResponseType) responseType;
++ (PLAPIResult) invitationResponseWithId: (NSString *) invitationId 
+                            responseType: (PLResponseType) responseType;
 @end

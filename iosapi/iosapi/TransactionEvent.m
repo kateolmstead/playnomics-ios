@@ -39,14 +39,14 @@
     NSString * queryString = [[super toQueryString] stringByAppendingFormat: @"&tt=%@", [PLUtil PLTransactionTypeDescription:[self type]]];
     
     for (int i = 0; i < [[self currencyTypes] count] ; i++) {
-        queryString = [queryString stringByAppendingFormat:@"&tc%d=%@,&tv%d=%f&ta%d=%@", 
-                       i, [[self currencyTypes] objectAtIndex:i], 
+        queryString = [queryString stringByAppendingFormat:@"&tc%d=%@,&tv%d=%lf&ta%d=%@", 
+                       i, [PLUtil PLCurrencyTypeDescription: [(NSNumber *) [[self currencyTypes] objectAtIndex:i] intValue]], 
                        i, [(NSNumber *) [[self currencyValues] objectAtIndex:i] doubleValue],
-                       i, [[self currencyCategories] objectAtIndex: i]];
+                       i, [PLUtil PLCurrencyCategoryDescription:[(NSNumber *) [[self currencyCategories] objectAtIndex: i] intValue]]];
     }
     
     queryString = [self addOptionalParam:queryString name:@"i" value:[self itemId]];
-    queryString = [self addOptionalParam:queryString name:@"tq" value: [NSString stringWithFormat:@"%d", [self quantity]]];
+    queryString = [self addOptionalParam:queryString name:@"tq" value: [NSString stringWithFormat:@"%lf", [self quantity]]];
     queryString = [self addOptionalParam:queryString name:@"to" value:[self otherUserId]];
     return queryString;
 }

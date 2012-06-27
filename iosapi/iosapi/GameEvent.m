@@ -39,7 +39,7 @@
     queryString = [self addOptionalParam:queryString name:@"ss" value:[self site]];
     queryString = [self addOptionalParam:queryString name:@"r" value:[self reason]];
     queryString = [self addOptionalParam:queryString name:@"g" value:[self instanceId]];
-    queryString = [self addOptionalParam:queryString name:@"ss" value:[self site]];
+//    queryString = [self addOptionalParam:queryString name:@"ss" value:[self site]]; TODO: Fix duplicate on Android
     queryString = [self addOptionalParam:queryString name:@"gt" value:[self type]];
     queryString = [self addOptionalParam:queryString name:@"gi" value:[self gameId]];
     return queryString;

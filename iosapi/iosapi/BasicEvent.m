@@ -82,8 +82,8 @@ int const PL_UPDATE_INTERVAL = 60000;
             queryString = [queryString stringByAppendingFormat:@"&z=%d", [self timeZoneOffset]];
             break;
         case PLEventAppRunning:
-            queryString = [queryString stringByAppendingFormat: @"&r=%f&q=%d&d=%d&c=%d&e=%d&k=%d&l=%d&m=%d", 
-                           [self sessionStartTime], 
+            queryString = [queryString stringByAppendingFormat: @"&r=%llu&q=%d&d=%d&c=%d&e=%d&k=%d&l=%d&m=%d", 
+                           TO_LONG_MILLISECONDS([self sessionStartTime]), 
                            [self sequence],
                            PL_UPDATE_INTERVAL,
                            [self clicks],
@@ -93,9 +93,9 @@ int const PL_UPDATE_INTERVAL = 60000;
                            [self collectMode]];
             break;
         case PLEventAppResume:
-            queryString = [queryString stringByAppendingFormat:@"&p=%d", [self pauseTime]];
+            queryString = [queryString stringByAppendingFormat:@"&p=%llu", TO_LONG_MILLISECONDS([self pauseTime])];
         case PLEventAppPause:
-            queryString = [queryString stringByAppendingFormat:@"&r=%d&q=%d", [self sessionStartTime], [self sequence]];
+            queryString = [queryString stringByAppendingFormat:@"&r=%llu&q=%d", TO_LONG_MILLISECONDS([self sessionStartTime]), [self sequence]];
             break;
         default:
             NSLog(@"BasicEvent: %@ not handled", [PLUtil PLEventTypeDescription:[self eventType]]);

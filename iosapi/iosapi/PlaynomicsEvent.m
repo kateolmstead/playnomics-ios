@@ -21,14 +21,14 @@
 }
 
 - (NSString *) addOptionalParam:(NSString *)url name:(NSString *)name value:(NSString *)value {
-    if (value != nil) {
+    if ([value length] > 0) {
         url = [url stringByAppendingFormat:@"&%@=%@", name, [value description]];
     }
     return url;
 }
 
 - (NSString *) toQueryString {
-    return [NSString stringWithFormat:@"%@?t=%f&a=%ld&u=%@", [PLUtil PLEventTypeDescription:[self eventType]], [self eventTime], [self applicationId], [self userId]];
+    return [NSString stringWithFormat:@"%@?t=%llu&a=%ld&u=%@", [PLUtil PLEventTypeDescription:[self eventType]], TO_LONG_MILLISECONDS([self eventTime]), [self applicationId], [self userId]];
 }
 
 - (void)encodeWithCoder:(NSCoder *)encoder {
