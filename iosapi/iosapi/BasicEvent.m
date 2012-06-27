@@ -1,6 +1,5 @@
 #import "BasicEvent.h"
-
-int const PL_UPDATE_INTERVAL = 60000;
+#import "PLConfig.h"
 
 @implementation BasicEvent
 @synthesize cookieId=_cookieId;
@@ -85,7 +84,7 @@ int const PL_UPDATE_INTERVAL = 60000;
             queryString = [queryString stringByAppendingFormat: @"&r=%llu&q=%d&d=%d&c=%d&e=%d&k=%d&l=%d&m=%d", 
                            TO_LONG_MILLISECONDS([self sessionStartTime]), 
                            [self sequence],
-                           PL_UPDATE_INTERVAL,
+                           (int) (PLUpdateTimeInterval * 1000),
                            [self clicks],
                            [self totalClicks],
                            [self keys],

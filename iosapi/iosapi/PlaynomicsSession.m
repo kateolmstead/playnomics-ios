@@ -7,21 +7,19 @@
 //
 
 #import "PlaynomicsSession.h"
+
+#import "PLConfig.h"
 #import "PLConstants.h"
-#import "EventSender.h"
+
 #import "RandomGenerator.h"
+
+#import "EventSender.h"
 
 #import "BasicEvent.h"
 #import "UserInfoEvent.h"
 #import "SocialEvent.h"
 #import "TransactionEvent.h"
 #import "GameEvent.h"
-
-// TODO update PLCollectionMode to that of iOS
-int const PLSettingCollectionMode = 8;
-const NSTimeInterval UPDATE_INTERVAL = 60;
-
-#define PLFileEventArchive [[NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent: @"PlaynomicsEvents.archive"]
 
 @interface PlaynomicsSession () {    
     PLSessionState _sessionState;
@@ -36,7 +34,7 @@ const NSTimeInterval UPDATE_INTERVAL = 60;
 	int _sequence;
     long _applicationId;
     NSString *_userId;
-	NSString *_cookieId;
+	NSString *_cookieId; // TODO: Doc says this should be a 64 bit number
 	NSString *_sessionId;
 	NSString *_instanceId;
 	
@@ -168,8 +166,7 @@ const NSTimeInterval UPDATE_INTERVAL = 60;
     _sessionStartTime = [[NSDate date] timeIntervalSince1970];
     
     // Calc to conform to minute offset format
-    // TODO: might need to (* -1)
-    _timeZoneOffset = 60 * [[NSTimeZone localTimeZone] secondsFromGMT];
+    _timeZoneOffset = -60 * [[NSTimeZone localTimeZone] secondsFromGMT];
     // Collection mode for Android
     _collectMode = PLSettingCollectionMode;
     
@@ -237,7 +234,7 @@ const NSTimeInterval UPDATE_INTERVAL = 60;
     }
     [ev release];
     
-    _eventTimer = [[NSTimer scheduledTimerWithTimeInterval:UPDATE_INTERVAL target:self selector:@selector(consumeQueue) userInfo:nil repeats:YES] retain];
+    _eventTimer = [[NSTimer scheduledTimerWithTimeInterval:PLUpdateTimeInterval target:self selector:@selector(consumeQueue) userInfo:nil repeats:YES] retain];
     
     return PLAPIResultFailUnkown;    
 }
