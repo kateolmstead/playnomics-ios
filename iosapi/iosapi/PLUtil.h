@@ -14,6 +14,8 @@
 
 @interface PLUtil : NSObject
 
++ (NSString *) getDeviceUniqueIdentifier;
+
 +(PLEventType) PLEventTypeValueOf: (NSString *) text;
 +(NSString *) PLEventTypeDescription:  (PLEventType) value;
 

@@ -75,11 +75,6 @@ const NSTimeInterval UPDATE_INTERVAL = 60;
 - (void) onApplicationWillTerminate: (NSNotification *) notification;
 @end
 
-@interface PlaynomicsSession (Util) 
-// TODO test that method
-- (NSString *) getDeviceUniqueIdentifier;
-@end
-
 @implementation PlaynomicsSession
 @synthesize playnomicsEventList=_playnomicsEventList;
 @synthesize applicationId=_applicationId;
@@ -121,6 +116,20 @@ const NSTimeInterval UPDATE_INTERVAL = 60;
     return self;
 }
 
+- (void) dealloc {
+    [_eventSender release];
+	[self.playnomicsEventList release];
+    
+    /** Tracking values */
+    [_userId release];
+	[_cookieId release];
+	[_sessionId release];
+	[_instanceId release];
+    
+    [super dealloc];
+}
+
+#pragma mark - Session Control Methods
 - (PLAPIResult) startWithApplicationId:(long) applicationId userId: (NSString *) userId {
     _userId = [userId retain];
     return [self startWithApplicationId:applicationId];
@@ -202,7 +211,7 @@ const NSTimeInterval UPDATE_INTERVAL = 60;
     [userDefaults setObject:_userId forKey:PLUserDefaultsLastUserID];
     [userDefaults synchronize];
     
-    _cookieId = [[self getDeviceUniqueIdentifier] retain];
+    _cookieId = [[PLUtil getDeviceUniqueIdentifier] retain];
     
     
     // Set userId to cookieId if it isn't present
@@ -231,46 +240,6 @@ const NSTimeInterval UPDATE_INTERVAL = 60;
     _eventTimer = [[NSTimer scheduledTimerWithTimeInterval:UPDATE_INTERVAL target:self selector:@selector(consumeQueue) userInfo:nil repeats:YES] retain];
     
     return PLAPIResultFailUnkown;    
-}
-
-- (void) consumeQueue {
-    NSLog(@"consumeQueue");
-    if (_sessionState == PLSessionStateStarted) {
-        _sequence++;
-        
-        BasicEvent *ev = [[BasicEvent alloc] init:PLEventAppRunning 
-                                    applicationId:_applicationId
-                                           userId:_userId
-                                         cookieId:_cookieId
-                                        sessionId:_sessionId
-                                       instanceId:_instanceId
-                                 sessionStartTime:_sessionStartTime
-                                         sequence:_sequence
-                                           clicks:_clicks
-                                      totalClicks:_totalClicks
-                                             keys:_keys
-                                        totalKeys:_totalKeys
-                                      collectMode:_collectMode];
-        [self.playnomicsEventList addObject:ev];
-        
-        NSLog(@"ev:%@", ev);
-        NSLog(@"self.playnomicsEventList:%@", self.playnomicsEventList);
-        
-        // Reset keys/clicks
-        _keys = 0;
-        _clicks = 0;
-    }
-    
-    NSMutableArray *sentEvents = [[NSMutableArray alloc] init];
-    for (PlaynomicsEvent *ev in self.playnomicsEventList) {
-        if ([_eventSender sendEventToServer:ev]) {
-            [sentEvents addObject:ev];
-            continue;
-        }
-        // If we fail to send an event. Cancel the whole loop
-        break;
-    }
-    [self.playnomicsEventList removeObjectsInArray:sentEvents];
 }
 
 /**
@@ -368,6 +337,67 @@ const NSTimeInterval UPDATE_INTERVAL = 60;
     return PLAPIResultStopped;
 }
 
+#pragma mark - Timed Event Sending
+- (void) consumeQueue {
+    NSLog(@"consumeQueue");
+    if (_sessionState == PLSessionStateStarted) {
+        _sequence++;
+        
+        BasicEvent *ev = [[BasicEvent alloc] init:PLEventAppRunning 
+                                    applicationId:_applicationId
+                                           userId:_userId
+                                         cookieId:_cookieId
+                                        sessionId:_sessionId
+                                       instanceId:_instanceId
+                                 sessionStartTime:_sessionStartTime
+                                         sequence:_sequence
+                                           clicks:_clicks
+                                      totalClicks:_totalClicks
+                                             keys:_keys
+                                        totalKeys:_totalKeys
+                                      collectMode:_collectMode];
+        [self.playnomicsEventList addObject:ev];
+        
+        NSLog(@"ev:%@", ev);
+        NSLog(@"self.playnomicsEventList:%@", self.playnomicsEventList);
+        
+        // Reset keys/clicks
+        _keys = 0;
+        _clicks = 0;
+    }
+    
+    NSMutableArray *sentEvents = [[NSMutableArray alloc] init];
+    for (PlaynomicsEvent *ev in self.playnomicsEventList) {
+        if ([_eventSender sendEventToServer:ev]) {
+            [sentEvents addObject:ev];
+            continue;
+        }
+        // If we fail to send an event. Cancel the whole loop
+        break;
+    }
+    [self.playnomicsEventList removeObjectsInArray:sentEvents];
+}
+
+- (PLAPIResult) sendOrQueueEvent:(PlaynomicsEvent *)pe {
+    if (_sessionState != PLSessionStateStarted) {
+        return PLAPIResultStartNotCalled;
+    }
+    
+    
+    PLAPIResult result;
+    // Try to send and queue if unsuccessful
+    if ([_eventSender sendEventToServer:pe]) {
+        result = PLAPIResultSent;
+    }
+    else {
+        [self.playnomicsEventList addObject:pe];
+        result = PLAPIResultQueued;
+    }
+    
+    return result;
+}
+
+#pragma mark - Application Event Handlers
 - (void) onKeyPressed: (NSNotification *) notification {
     _keys += 1;
     _totalKeys += 1;
@@ -393,7 +423,7 @@ const NSTimeInterval UPDATE_INTERVAL = 60;
     [self stop];
 }
 
-
+#pragma mark - API request methods
 + (PLAPIResult) userInfo {
     return [PlaynomicsSession userInfoForType:PLUserInfoTypeUpdate
                                       country:nil
@@ -541,57 +571,6 @@ const NSTimeInterval UPDATE_INTERVAL = 60;
                                           method:nil 
                                         response:responseType] autorelease];
     return [s sendOrQueueEvent:ev];    
-}
-
-- (PLAPIResult) sendOrQueueEvent:(PlaynomicsEvent *)pe {
-    if (_sessionState != PLSessionStateStarted) {
-        return PLAPIResultStartNotCalled;
-    }
-    
-    
-    PLAPIResult result;
-    // Try to send and queue if unsuccessful
-    if ([_eventSender sendEventToServer:pe]) {
-        result = PLAPIResultSent;
-    }
-    else {
-        [self.playnomicsEventList addObject:pe];
-        result = PLAPIResultQueued;
-    }
-    
-    return result;
-}
-
-
-/*  The Pasteboard is kept in memory even if the app is deleted.
- *  This provides a suitable means for having a unique device ID
- */
-- (NSString *) getDeviceUniqueIdentifier {
-    UIPasteboard *pasteBoard = [UIPasteboard pasteboardWithName:@"com.playnomics.uniqueDeviceId" create:YES];
-    pasteBoard.persistent = YES;
-    NSLog(@"numberOfItems:%d", pasteBoard.numberOfItems);
-    NSString *storedUUID = [pasteBoard string];
-    
-    if ([storedUUID length] == 0) {
-        CFUUIDRef uuidRef = CFUUIDCreate(kCFAllocatorDefault);
-        storedUUID = (NSString *)CFUUIDCreateString(NULL,uuidRef);
-        CFRelease(uuidRef);
-//        pasteBoard.string = storedUUID; TODO this is very slow.
-    }
-    return storedUUID;
-}
-
-- (void) dealloc {
-    [_eventSender release];
-	[self.playnomicsEventList release];
-    
-    /** Tracking values */
-    [_userId release];
-	[_cookieId release];
-	[_sessionId release];
-	[_instanceId release];
-    
-    [super dealloc];
 }
 @end
 

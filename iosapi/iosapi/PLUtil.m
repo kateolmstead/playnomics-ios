@@ -11,6 +11,23 @@
 
 @implementation PLUtil
 
+/*  The Pasteboard is kept in memory even if the app is deleted.
+ *  This provides a suitable means for having a unique device ID
+ */
++ (NSString *) getDeviceUniqueIdentifier {
+    UIPasteboard *pasteBoard = [UIPasteboard pasteboardWithName:@"com.playnomics.uniqueDeviceId" create:YES];
+    pasteBoard.persistent = YES;
+    NSString *storedUUID = [pasteBoard string];
+    
+    if ([storedUUID length] == 0) {
+        CFUUIDRef uuidRef = CFUUIDCreate(kCFAllocatorDefault);
+        storedUUID = (NSString *)CFUUIDCreateString(NULL,uuidRef);
+        CFRelease(uuidRef);
+        pasteBoard.string = storedUUID; //TODO: this is too slow.
+    }
+    return storedUUID;
+}
+
 +(PLResponseType) PLResponseTypeValueOf:(NSString *) text {
     if (text) {
         if ([text isEqualToString:@"accepted"])

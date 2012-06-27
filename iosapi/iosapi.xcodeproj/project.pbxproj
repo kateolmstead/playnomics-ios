@@ -38,7 +38,7 @@
 		D1D922C4159112C100EDDE17 /* GameEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = D1D922BC159112C100EDDE17 /* GameEvent.m */; };
 		D1D922C7159112E100EDDE17 /* RandomGenerator.h in Headers */ = {isa = PBXBuildFile; fileRef = D1D922C5159112E100EDDE17 /* RandomGenerator.h */; };
 		D1D922C8159112E100EDDE17 /* RandomGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = D1D922C6159112E100EDDE17 /* RandomGenerator.m */; };
-		D1D922CB159112F400EDDE17 /* PLConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = D1D922C9159112F400EDDE17 /* PLConstants.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D1D922CB159112F400EDDE17 /* PLConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = D1D922C9159112F400EDDE17 /* PLConstants.h */; settings = {ATTRIBUTES = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
