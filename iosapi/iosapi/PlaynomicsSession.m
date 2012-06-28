@@ -61,7 +61,10 @@
 - (PLAPIResult) stop;
 - (void) pause;
 - (void) resume;
+- (PLAPIResult) startSessionWithApplicationId: (long) applicationId;
 
+- (void) startEventTimer;
+- (void) stopEventTimer;
 - (void) consumeQueue;
 @end
 
@@ -87,10 +90,6 @@
 
 + (PLAPIResult) stop {
     return [[PlaynomicsSession sharedInstance] stop];
-}
-
-+ (void) pause {
-    [[PlaynomicsSession sharedInstance] pause];
 }
 
 - (id) init {
@@ -124,8 +123,10 @@
 }
 
 - (PLAPIResult) startWithApplicationId:(long) applicationId {
-    if (_sessionState == PLSessionStateStarted)
+    NSLog(@"startWithApplicationId");
+    if (_sessionState == PLSessionStateStarted) {
         return PLAPIResultAlreadyStarted;
+    }
     
     // If paused, resume and get out of here
     if (_sessionState == PLSessionStatePaused) {
@@ -133,79 +134,92 @@
         return PLAPIResultSessionResumed;
     }
     
-    PLAPIResult result;
-    
-    _sessionState = PLSessionStateStarted;
-    
     _applicationId = applicationId;
+
+    PLAPIResult resval = [self startSessionWithApplicationId: applicationId];
+    
+    [self startEventTimer];
     
     NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
     [defaultCenter addObserver: self selector: @selector(onKeyPressed:) name: UITextFieldTextDidChangeNotification object: nil];
     [defaultCenter addObserver: self selector: @selector(onKeyPressed:) name: UITextViewTextDidChangeNotification object: nil];
-    [defaultCenter addObserver: self selector: @selector(onGestureStateChanged:) name: @"_UIApplicationSystemGestureStateChangedNotification" object: nil]; // Touch event. Comes in pairs
     [defaultCenter addObserver: self selector: @selector(onApplicationDidBecomeActive:) name: UIApplicationDidBecomeActiveNotification object: nil];
     [defaultCenter addObserver: self selector: @selector(onApplicationWillResignActive:) name: UIApplicationWillResignActiveNotification object: nil];
     [defaultCenter addObserver: self selector: @selector(onApplicationWillTerminate:) name: UIApplicationWillTerminateNotification object: nil];
     
+    
+    // Retrieve stored Event List
+    NSArray *storedEvents = (NSArray *) [NSKeyedUnarchiver unarchiveObjectWithFile:PLFileEventArchive];
+    if ([storedEvents count] > 0) {
+        [self.playnomicsEventList addObjectsFromArray:storedEvents];
+        
+        // Remove archive so as not to pick up bad events when starting up next time.
+        NSFileManager *fm = [NSFileManager defaultManager];
+        [fm removeItemAtPath:PLFileEventArchive error:nil];
+    }
+    
+    return resval;
+}
+
+- (PLAPIResult) startSessionWithApplicationId: (long) applicationId {
+    NSLog(@"startSessionWithApplicationId");
+    PLAPIResult result;
+    
+    /** Setting Session variables */
+    
+    _sessionState = PLSessionStateStarted;
+    _applicationId = applicationId;
+    
+    _cookieId = [[PLUtil getDeviceUniqueIdentifier] retain];
+    
+    // Set userId to cookieId if it isn't present
+    if ([_userId length] == 0) {
+        _userId = [_cookieId retain];
+    }
+    
+    _collectMode = PLSettingCollectionMode;
+    
+    _timeZoneOffset = -60 * [[NSTimeZone localTimeZone] secondsFromGMT];
     _sequence = 1;
     _clicks = 0;
     _totalClicks = 0;
     _keys = 0;
     _totalKeys = 0;
     
-    _sessionStartTime = [[NSDate date] timeIntervalSince1970];
-    
-    // Calc to conform to minute offset format
-    _timeZoneOffset = -60 * [[NSTimeZone localTimeZone] secondsFromGMT];
-    // Collection mode for Android
-    _collectMode = PLSettingCollectionMode;
+    // TODO check to see if we have to register the defaults first for it to work.
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *lastUserId = [userDefaults stringForKey:PLUserDefaultsLastUserID];
+    NSTimeInterval lastSessionStartTime = [[NSUserDefaults standardUserDefaults] doubleForKey:PLUserDefaultsLastSessionStartTime];
     
     PLEventType eventType;
     
-    // Retrieve stored Event List
-    NSArray *storedEvents = (NSArray *) [NSKeyedUnarchiver unarchiveObjectWithFile:PLFileEventArchive];
-    if ([storedEvents count] > 0) {
-        [self.playnomicsEventList addObjectsFromArray:storedEvents];
-    }
-    
-    // TODO check to see if we have to register the defaults first for it to work.
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    NSTimeInterval lastSessionStartTime = [userDefaults doubleForKey:PLUserDefaultsLastSessionStartTime];
-    NSString *lastUserId = [userDefaults stringForKey:PLUserDefaultsLastUserID];
-
+    NSTimeInterval currentTime = [[NSDate date] timeIntervalSince1970];
     // Send an appStart if it has been > 3 min since the last session or
     // a
     // different user
-    // otherwise send an appPage
-    
-    if (_sessionStartTime - lastSessionStartTime > 180
+    // otherwise send an appPage    
+    if ((currentTime - lastSessionStartTime > PLSessionTimeout)
         || ![_userId isEqualToString:lastUserId]) {
         _sessionId = [[RandomGenerator createRandomHex] retain];
-        
-        [userDefaults setObject:_userId forKey:PLUserDefaultsLastSessionID];        
-        
         _instanceId = [_sessionId retain];
+        _sessionStartTime = currentTime;
+        
         eventType = PLEventAppStart;
+        
+        [userDefaults setDouble:_sessionStartTime forKey:PLUserDefaultsLastSessionStartTime];
+        [userDefaults setObject:_userId forKey:PLUserDefaultsLastUserID];
+        [userDefaults synchronize];
     }
     else {
         _sessionId = [lastUserId retain];
+        // Always create a new Instance Id
         _instanceId = [[RandomGenerator createRandomHex] retain];
-        _sessionStartTime = lastSessionStartTime; // TODO confirm with doug that this is desired and a bug in the Java code.
+        _sessionStartTime = [userDefaults doubleForKey:PLUserDefaultsLastSessionStartTime];
+        
         eventType = PLEventAppPage;
     }
     
-    [userDefaults setDouble:_sessionStartTime forKey:PLUserDefaultsLastSessionStartTime];
-    [userDefaults setObject:_userId forKey:PLUserDefaultsLastUserID];
-    [userDefaults synchronize];
-    
-    _cookieId = [[PLUtil getDeviceUniqueIdentifier] retain];
-    
-    
-    // Set userId to cookieId if it isn't present
-    if (![_userId length]) {
-        _userId = [_cookieId retain];
-    }
-    
+    /** Send appStart or appPage event */
     BasicEvent *ev = [[BasicEvent alloc] init:eventType 
                                 applicationId:_applicationId 
                                        userId:_userId 
@@ -224,9 +238,7 @@
     }
     [ev release];
     
-    _eventTimer = [[NSTimer scheduledTimerWithTimeInterval:PLUpdateTimeInterval target:self selector:@selector(consumeQueue) userInfo:nil repeats:YES] retain];
-    
-    return PLAPIResultFailUnkown;    
+    return result;
 }
 
 /**
@@ -238,7 +250,9 @@
     if (_sessionState == PLSessionStatePaused)
         return;
     
-    _sessionState = PLSessionStatePaused;
+    _sessionState = PLSessionStatePaused;    
+    
+    [self stopEventTimer];
 	
     BasicEvent *ev = [[BasicEvent alloc] init:PLEventAppPause
                                 applicationId:_applicationId
@@ -247,7 +261,7 @@
                                     sessionId:_sessionId
                                    instanceId:_instanceId
                                timeZoneOffset:_timeZoneOffset];
-    _pauseTime = [[NSDate date] timeIntervalSince1970];    
+    _pauseTime = [[NSDate date] timeIntervalSince1970];
     
     [ev setSequence:_sequence];
     [ev setSessionStartTime:_sessionStartTime];
@@ -257,6 +271,7 @@
         [self.playnomicsEventList addObject:ev];
     }
     [ev release];
+    
 }
 
 /**
@@ -264,9 +279,12 @@
  */
 - (void) resume {
     NSLog(@"resume called");
+    
     if (_sessionState == PLSessionStateStarted) {
         return;
     }
+    
+    [self startEventTimer];
     
     _sessionState = PLSessionStateStarted;
     
@@ -295,7 +313,6 @@
  * 
  * @return the API Result
  */
-// TODO: Stop is not always called when the app is close. Perhaps store the Event list on pause event instead.
 - (PLAPIResult) stop {
     NSLog(@"stop called");
     
@@ -303,29 +320,36 @@
         return PLAPIResultAlreadyStopped;
     }
     
-    // TODO check that the app is closing ?
     // Currently Session is only stopped when the application quits.
-    if (YES) {
-        _sessionState = PLSessionStateStopped;
-        
-        if ([_eventTimer isValid]) {
-            [_eventTimer invalidate];
-        }
-        [_eventTimer release];
-        _eventTimer = nil;
-        
-        [[NSNotificationCenter defaultCenter] removeObserver: self];
-        
-        // Store Event List
-        if (![NSKeyedArchiver archiveRootObject:self.playnomicsEventList toFile:PLFileEventArchive]) {
-            NSLog(@"Playnomics: Could not save event list");
-        }
+    _sessionState = PLSessionStateStopped;
+    
+    [self stopEventTimer];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver: self];
+    
+    // Store Event List
+    if (![NSKeyedArchiver archiveRootObject:self.playnomicsEventList toFile:PLFileEventArchive]) {
+        NSLog(@"Playnomics: Could not save event list");
     }
     
     return PLAPIResultStopped;
 }
 
 #pragma mark - Timed Event Sending
+- (void) startEventTimer {
+    [self stopEventTimer];
+        
+    _eventTimer = [[NSTimer scheduledTimerWithTimeInterval:PLUpdateTimeInterval target:self selector:@selector(consumeQueue) userInfo:nil repeats:YES] retain];
+}
+
+- (void) stopEventTimer {
+    if ([_eventTimer isValid]) {
+        [_eventTimer invalidate];
+    }
+    [_eventTimer release];
+    _eventTimer = nil;
+}
+
 - (void) consumeQueue {
     NSLog(@"consumeQueue");
     if (_sessionState == PLSessionStateStarted) {
@@ -427,7 +451,6 @@
                          source: (PLUserInfoSource) source
                  sourceCampaign: (NSString *) sourceCampaign 
                     installTime: (NSDate *) installTime {
-    // TODO: do field checks
     PlaynomicsSession * s =[PlaynomicsSession sharedInstance];
     
     UserInfoEvent *ev = [[[UserInfoEvent alloc] init:s.applicationId userId:s.userId type:type country:country subdivision:subdivision sex:sex birthday:[birthday timeIntervalSince1970] source:source sourceCampaign:sourceCampaign installTime:[installTime timeIntervalSince1970]] autorelease];
@@ -436,7 +459,6 @@
 }
 
 + (PLAPIResult) sessionStartWithId: (NSString *) sessionId site: (NSString *) site {
-    // TODO: do field checks
     PlaynomicsSession * s =[PlaynomicsSession sharedInstance];
     
     GameEvent *ev = [[[GameEvent alloc] init:PLEventSessionStart applicationId:s.applicationId userId:s.userId sessionId:sessionId site:site instanceId:nil type:nil gameId:nil reason:nil] autorelease];
@@ -445,7 +467,6 @@
 }
 
 + (PLAPIResult) sessionEndWithId: (NSString *) sessionId reason: (NSString *) reason {
-    // TODO: do field checks
     PlaynomicsSession * s =[PlaynomicsSession sharedInstance];
     
     GameEvent *ev = [[[GameEvent alloc] init:PLEventSessionEnd applicationId:s.applicationId userId:s.userId sessionId:sessionId site:nil instanceId:nil type:nil gameId:nil reason:reason] autorelease];
@@ -454,17 +475,14 @@
 }
 
 + (PLAPIResult) gameStartWithInstanceId: (NSString *) instanceId sessionId: (NSString *) sessionId site: (NSString *) site type: (NSString *) type gameId: (NSString *) gameId {
-    // TODO: do field checks
     PlaynomicsSession * s =[PlaynomicsSession sharedInstance];
 
-    // TODO check what to do with the instance id and the session id. Perhaps we should populated them ourselves.
     GameEvent *ev = [[[GameEvent alloc] init:PLEventGameStart applicationId:s.applicationId userId:s.userId sessionId:sessionId site:site instanceId:instanceId type:type gameId:gameId reason:nil] autorelease];
     
     return [s sendOrQueueEvent:ev];
 }
 
 + (PLAPIResult) gameEndWithInstanceId: (NSString *) instanceId sessionId: (NSString *) sessionId reason: (NSString *) reason {
-    // TODO: do field checks
     PlaynomicsSession * s =[PlaynomicsSession sharedInstance];
     
     GameEvent *ev = [[[GameEvent alloc] init:PLEventGameEnd applicationId:s.applicationId userId:s.userId sessionId:sessionId site:nil instanceId:instanceId type:nil gameId:nil reason:reason] autorelease];
@@ -481,7 +499,6 @@
                      currencyType: (PLCurrencyType) currencyType
                     currencyValue: (double) currencyValue
                  currencyCategory: (PLCurrencyCategory) currencyCategory {
-    // TODO: do field checks
     NSArray *currencyTypes = [NSArray arrayWithObject: [NSNumber numberWithInt: currencyType]];
     NSArray *currencyValues = [NSArray arrayWithObject:[NSNumber numberWithDouble:currencyValue]];
     NSArray *currencyCategories = [NSArray arrayWithObject: [NSNumber numberWithInt:currencyCategory]];
@@ -505,7 +522,6 @@
                     currencyTypes: (NSArray *) currencyTypes
                    currencyValues: (NSArray *) currencyValues
                currencyCategories: (NSArray *) currencyCategories {
-    // TODO: do field checks
     PlaynomicsSession * s =[PlaynomicsSession sharedInstance];
     
     TransactionEvent *ev = [[[TransactionEvent alloc] init:PLEventTransaction 
@@ -527,7 +543,6 @@
                      recipientUserId: (NSString *) recipientUserId 
                     recipientAddress: (NSString *) recipientAddress 
                               method: (NSString *) method {
-    // TODO: do field checks
     PlaynomicsSession * s =[PlaynomicsSession sharedInstance];
     
     SocialEvent *ev = [[[SocialEvent alloc] init:PLEventInvitationSent 
@@ -543,7 +558,6 @@
 
 + (PLAPIResult) invitationResponseWithId: (NSString *) invitationId 
                             responseType: (PLResponseType) responseType {
-    // TODO: do field checks
     // TODO: recipientUserId should not be nil
     PlaynomicsSession * s =[PlaynomicsSession sharedInstance];
     

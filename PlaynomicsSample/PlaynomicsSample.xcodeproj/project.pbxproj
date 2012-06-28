@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5B753E2A159D25CB00E698F9 /* libiosapi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B753E29159D25CB00E698F9 /* libiosapi.a */; };
 		5BBAA079159BAF0000AA4993 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BBAA078159BAF0000AA4993 /* UIKit.framework */; };
 		5BBAA07B159BAF0000AA4993 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BBAA07A159BAF0000AA4993 /* Foundation.framework */; };
 		5BBAA07D159BAF0000AA4993 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BBAA07C159BAF0000AA4993 /* CoreGraphics.framework */; };
@@ -16,11 +17,11 @@
 		5BBAA08C159BAF0000AA4993 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BBAA08B159BAF0000AA4993 /* ViewController.m */; };
 		5BBAA08F159BAF0000AA4993 /* ViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BBAA08D159BAF0000AA4993 /* ViewController_iPhone.xib */; };
 		5BBAA092159BAF0000AA4993 /* ViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BBAA090159BAF0000AA4993 /* ViewController_iPad.xib */; };
-		5BBAA0A1159BB70100AA4993 /* libiosapi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BBAA0A0159BB70100AA4993 /* libiosapi.a */; };
-		5BBAA0A3159BC5CB00AA4993 /* libiosapi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BBAA0A2159BC5CB00AA4993 /* libiosapi.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5B463A4E159D249B00CC0790 /* PlaynomicsSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlaynomicsSession.h; path = "../../../../../Library/Developer/Xcode/DerivedData/iosapi-bjkqyrtlyjtbiqfjtdqrczayducv/Build/Products/Debug-iphoneos/usr/local/include/PlaynomicsSession.h"; sourceTree = "<group>"; };
+		5B753E29159D25CB00E698F9 /* libiosapi.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libiosapi.a; path = "../../../../Library/Developer/Xcode/DerivedData/iosapi-bjkqyrtlyjtbiqfjtdqrczayducv/Build/Products/Debug-iphoneos/libiosapi.a"; sourceTree = "<group>"; };
 		5BBAA074159BAEFF00AA4993 /* PlaynomicsSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PlaynomicsSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5BBAA078159BAF0000AA4993 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		5BBAA07A159BAF0000AA4993 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -35,9 +36,6 @@
 		5BBAA08B159BAF0000AA4993 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		5BBAA08E159BAF0000AA4993 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController_iPhone.xib; sourceTree = "<group>"; };
 		5BBAA091159BAF0000AA4993 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController_iPad.xib; sourceTree = "<group>"; };
-		5BBAA0A0159BB70100AA4993 /* libiosapi.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libiosapi.a; path = "../../../../Library/Developer/Xcode/DerivedData/iosapi-bjkqyrtlyjtbiqfjtdqrczayducv/Build/Products/Debug-iphonesimulator/libiosapi.a"; sourceTree = "<group>"; };
-		5BBAA0A2159BC5CB00AA4993 /* libiosapi.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libiosapi.a; path = "../../../../Library/Developer/Xcode/DerivedData/iosapi-bjkqyrtlyjtbiqfjtdqrczayducv/Build/Products/Debug-iphoneos/libiosapi.a"; sourceTree = "<group>"; };
-		5BBAA230159BD8E200AA4993 /* PlaynomicsSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlaynomicsSession.h; path = "../../../../../Library/Developer/Xcode/DerivedData/iosapi-bjkqyrtlyjtbiqfjtdqrczayducv/Build/Products/Debug-iphonesimulator/usr/local/include/PlaynomicsSession.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -48,8 +46,7 @@
 				5BBAA079159BAF0000AA4993 /* UIKit.framework in Frameworks */,
 				5BBAA07B159BAF0000AA4993 /* Foundation.framework in Frameworks */,
 				5BBAA07D159BAF0000AA4993 /* CoreGraphics.framework in Frameworks */,
-				5BBAA0A1159BB70100AA4993 /* libiosapi.a in Frameworks */,
-				5BBAA0A3159BC5CB00AA4993 /* libiosapi.a in Frameworks */,
+				5B753E2A159D25CB00E698F9 /* libiosapi.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -76,8 +73,7 @@
 		5BBAA077159BAF0000AA4993 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				5BBAA0A2159BC5CB00AA4993 /* libiosapi.a */,
-				5BBAA0A0159BB70100AA4993 /* libiosapi.a */,
+				5B753E29159D25CB00E698F9 /* libiosapi.a */,
 				5BBAA078159BAF0000AA4993 /* UIKit.framework */,
 				5BBAA07A159BAF0000AA4993 /* Foundation.framework */,
 				5BBAA07C159BAF0000AA4993 /* CoreGraphics.framework */,
@@ -114,7 +110,7 @@
 		5BBAA09C159BB60600AA4993 /* Playnomics API */ = {
 			isa = PBXGroup;
 			children = (
-				5BBAA230159BD8E200AA4993 /* PlaynomicsSession.h */,
+				5B463A4E159D249B00CC0790 /* PlaynomicsSession.h */,
 			);
 			name = "Playnomics API";
 			sourceTree = "<group>";
@@ -272,7 +268,6 @@
 				INFOPLIST_FILE = "PlaynomicsSample/PlaynomicsSample-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/../../../../Library/Developer/Xcode/DerivedData/iosapi-bjkqyrtlyjtbiqfjtdqrczayducv/Build/Products/Debug-iphonesimulator\"",
 					"\"$(SRCROOT)/../../../../Library/Developer/Xcode/DerivedData/iosapi-bjkqyrtlyjtbiqfjtdqrczayducv/Build/Products/Debug-iphoneos\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -288,7 +283,6 @@
 				INFOPLIST_FILE = "PlaynomicsSample/PlaynomicsSample-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/../../../../Library/Developer/Xcode/DerivedData/iosapi-bjkqyrtlyjtbiqfjtdqrczayducv/Build/Products/Debug-iphonesimulator\"",
 					"\"$(SRCROOT)/../../../../Library/Developer/Xcode/DerivedData/iosapi-bjkqyrtlyjtbiqfjtdqrczayducv/Build/Products/Debug-iphoneos\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";

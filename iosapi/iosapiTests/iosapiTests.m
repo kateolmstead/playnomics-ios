@@ -191,7 +191,6 @@
     NSLog(@"****** testSocialEvents **********");
     for (int i = 0;i < 10; i++) {
         [PlaynomicsSession invitationSentWithId:@"TEST_INVITATIONID" recipientUserId:@"TEST_RECIPIENTID" recipientAddress:@"TEST_RECIPIENT_ADDRESS" method:@"TEST_METHOD"];
-        // TODO: Only Response Accepted?
         [PlaynomicsSession invitationResponseWithId:@"TEST_INVITATIONID" responseType:PLResponseTypeAccepted];
     }
 }

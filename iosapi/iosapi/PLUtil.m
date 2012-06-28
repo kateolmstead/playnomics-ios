@@ -23,7 +23,7 @@
         CFUUIDRef uuidRef = CFUUIDCreate(kCFAllocatorDefault);
         storedUUID = (NSString *)CFUUIDCreateString(NULL,uuidRef);
         CFRelease(uuidRef);
-        pasteBoard.string = storedUUID; //TODO: this is too slow.
+        pasteBoard.string = storedUUID;
     }
     return storedUUID;
 }

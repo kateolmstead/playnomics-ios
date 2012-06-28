@@ -13,7 +13,7 @@
 
 @property(nonatomic, assign) long transactionId;
 @property(nonatomic, retain) NSString * itemId;
-@property(nonatomic, assign) double quantity; // TODO: why is quantity a double?
+@property(nonatomic, assign) double quantity;
 @property(nonatomic, assign) PLTransactionType type;
 @property(nonatomic, retain) NSString * otherUserId;
 @property(nonatomic, retain) NSArray * currencyTypes;

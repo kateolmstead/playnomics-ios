@@ -125,8 +125,8 @@
         _sessionId = [(NSString *)[decoder decodeObjectForKey:@"PLBasicEvent._sessionId"] retain]; 
         _instanceId = [(NSString *)[decoder decodeObjectForKey:@"PLBasicEvent._instanceId"] retain]; 
         _sessionStartTime = [decoder decodeDoubleForKey:@"PLBasicEvent._sessionStartTime"]; 
-        _sequence = [decoder decodeDoubleForKey:@"PLBasicEvent._sequence"]; 
-        _pauseTime = [decoder decodeIntForKey:@"PLBasicEvent._pauseTime"];
+        _pauseTime = [decoder decodeDoubleForKey:@"PLBasicEvent._pauseTime"];
+        _sequence = [decoder decodeIntForKey:@"PLBasicEvent._sequence"]; 
         _clicks = [decoder decodeIntForKey:@"PLBasicEvent._clicks"]; 
         _totalClicks = [decoder decodeIntForKey:@"PLBasicEvent._totalClicks"]; 
         _keys = [decoder decodeIntForKey:@"PLBasicEvent._keys"]; 

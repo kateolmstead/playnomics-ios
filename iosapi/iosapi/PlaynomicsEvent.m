@@ -41,7 +41,7 @@
 - (id)initWithCoder:(NSCoder *)decoder {
     if ((self = [super init])) {
         _userId = (NSString *)[[decoder decodeObjectForKey:@"PLEvent._userId"] retain];
-        _applicationId = [decoder decodeInt64ForKey:@"PLEvent._userId"];
+        _applicationId = [decoder decodeInt64ForKey:@"PLEvent._applicationId"];
         _eventType = [decoder decodeIntForKey:@"PLEvent._eventType"];
         _eventTime = [decoder decodeDoubleForKey:@"PLEvent._eventTime"];
     }
