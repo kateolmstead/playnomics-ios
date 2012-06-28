@@ -21,6 +21,8 @@
 #import "TransactionEvent.h"
 #import "GameEvent.h"
 
+#import "PlaynomicsSession+Exposed.h"
+
 @interface PlaynomicsSession () {    
     PLSessionState _sessionState;
 
@@ -46,8 +48,6 @@
 	int _totalClicks;
 	int _keys;
 	int _totalKeys;
-    
-    bool _isTouchDown;
 }
 @property (atomic, readonly)    NSMutableArray *   playnomicsEventList;
 @property (nonatomic, readonly) long            applicationId;
@@ -63,14 +63,6 @@
 - (void) resume;
 
 - (void) consumeQueue;
-@end
-
-@interface PlaynomicsSession (EventsPrivate)
-- (void) onKeyPressed: (NSNotification *) notification;
-- (void) onGestureStateChanged: (NSNotification *) notification;
-- (void) onApplicationWillResignActive: (NSNotification *) notification;
-- (void) onApplicationDidBecomeActive: (NSNotification *) notification;
-- (void) onApplicationWillTerminate: (NSNotification *) notification;
 @end
 
 @implementation PlaynomicsSession
@@ -108,8 +100,6 @@
         _userId = @"";
         _playnomicsEventList = [[NSMutableArray alloc] init];
         _eventSender = [[EventSender alloc] init];
-        
-        _isTouchDown = YES;
     }
     return self;
 }
@@ -305,6 +295,7 @@
  * 
  * @return the API Result
  */
+// TODO: Stop is not always called when the app is close. Perhaps store the Event list on pause event instead.
 - (PLAPIResult) stop {
     NSLog(@"stop called");
     
@@ -401,13 +392,9 @@
 }
 
 
-- (void) onGestureStateChanged: (NSNotification *) notification {
-    if (_isTouchDown) {
-        _clicks += 1;
-        _totalClicks += 1;
-    }
-    
-    _isTouchDown = !_isTouchDown;
+- (void) onTouchDown: (UIEvent *) event {
+    _clicks += 1;
+    _totalClicks += 1;
 }
 
 - (void) onApplicationWillResignActive: (NSNotification *) notification {

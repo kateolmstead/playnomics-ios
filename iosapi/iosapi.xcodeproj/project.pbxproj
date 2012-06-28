@@ -10,6 +10,9 @@
 		5B589DBF15993764002B6251 /* PLConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 5B589DBE15993764002B6251 /* PLConfig.h */; };
 		5B6C6E1C1593F0F30088EF5E /* PLUtil.h in Headers */ = {isa = PBXBuildFile; fileRef = 5B6C6E1A1593F0F20088EF5E /* PLUtil.h */; };
 		5B6C6E1D1593F0F30088EF5E /* PLUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B6C6E1B1593F0F20088EF5E /* PLUtil.m */; };
+		5BBAA22E159BD87300AA4993 /* PLApplication.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BBAA22C159BD87200AA4993 /* PLApplication.h */; };
+		5BBAA22F159BD87300AA4993 /* PLApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BBAA22D159BD87300AA4993 /* PLApplication.m */; };
+		5BBAA238159BE4CD00AA4993 /* PlaynomicsSession+Exposed.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BBAA237159BE4CD00AA4993 /* PlaynomicsSession+Exposed.h */; };
 		D1D922741590F59700EDDE17 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1D922731590F59600EDDE17 /* Foundation.framework */; };
 		D1D9227A1590F59700EDDE17 /* iosapi.m in Sources */ = {isa = PBXBuildFile; fileRef = D1D922791590F59700EDDE17 /* iosapi.m */; };
 		D1D922821590F59700EDDE17 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1D922811590F59700EDDE17 /* SenTestingKit.framework */; };
@@ -55,6 +58,9 @@
 		5B589DBE15993764002B6251 /* PLConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLConfig.h; sourceTree = "<group>"; };
 		5B6C6E1A1593F0F20088EF5E /* PLUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = PLUtil.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		5B6C6E1B1593F0F20088EF5E /* PLUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = PLUtil.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		5BBAA22C159BD87200AA4993 /* PLApplication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLApplication.h; sourceTree = "<group>"; };
+		5BBAA22D159BD87300AA4993 /* PLApplication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLApplication.m; sourceTree = "<group>"; };
+		5BBAA237159BE4CD00AA4993 /* PlaynomicsSession+Exposed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PlaynomicsSession+Exposed.h"; sourceTree = "<group>"; };
 		D1D922701590F59600EDDE17 /* libiosapi.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libiosapi.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		D1D922731590F59600EDDE17 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D1D922771590F59700EDDE17 /* iosapi-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "iosapi-Prefix.pch"; sourceTree = "<group>"; };
@@ -171,6 +177,7 @@
 				D1D922C6159112E100EDDE17 /* RandomGenerator.m */,
 				D1D922B9159112C100EDDE17 /* EventSender.h */,
 				D1D922BA159112C100EDDE17 /* EventSender.m */,
+				5BBAA237159BE4CD00AA4993 /* PlaynomicsSession+Exposed.h */,
 				D1D922A11591124700EDDE17 /* PlaynomicsSession.h */,
 				D1D922A21591124700EDDE17 /* PlaynomicsSession.m */,
 				D1D922C9159112F400EDDE17 /* PLConstants.h */,
@@ -180,6 +187,8 @@
 				5B6C6E1A1593F0F20088EF5E /* PLUtil.h */,
 				5B6C6E1B1593F0F20088EF5E /* PLUtil.m */,
 				D1D922761590F59700EDDE17 /* Supporting Files */,
+				5BBAA22C159BD87200AA4993 /* PLApplication.h */,
+				5BBAA22D159BD87300AA4993 /* PLApplication.m */,
 			);
 			path = iosapi;
 			sourceTree = "<group>";
@@ -231,6 +240,8 @@
 				D1D922CB159112F400EDDE17 /* PLConstants.h in Headers */,
 				5B6C6E1C1593F0F30088EF5E /* PLUtil.h in Headers */,
 				5B589DBF15993764002B6251 /* PLConfig.h in Headers */,
+				5BBAA22E159BD87300AA4993 /* PLApplication.h in Headers */,
+				5BBAA238159BE4CD00AA4993 /* PlaynomicsSession+Exposed.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -343,6 +354,7 @@
 				D1D922C4159112C100EDDE17 /* GameEvent.m in Sources */,
 				D1D922C8159112E100EDDE17 /* RandomGenerator.m in Sources */,
 				5B6C6E1D1593F0F30088EF5E /* PLUtil.m in Sources */,
+				5BBAA22F159BD87300AA4993 /* PLApplication.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

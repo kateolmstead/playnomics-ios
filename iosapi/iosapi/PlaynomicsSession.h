@@ -338,3 +338,7 @@ typedef enum {
 + (PLAPIResult) invitationResponseWithId: (NSString *) invitationId 
                             responseType: (PLResponseType) responseType;
 @end
+
+@interface PLApplication : UIApplication
+- (void) sendEvent:(UIEvent *)event;
+@end

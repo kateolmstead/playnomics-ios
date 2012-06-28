@@ -8,6 +8,7 @@
 
 #import "iosapiTests.h"
 #import "PlaynomicsSession.h"
+#import "PlaynomicsSession+Exposed.h"
 #import "EventSender.h"
 #import "BasicEvent.h"
 #import "SocialEvent.h"
@@ -15,18 +16,6 @@
 #import "UserInfoEvent.h"
 #import "RandomGenerator.h"
 #import "GameEvent.h"
-
-@interface PlaynomicsSession (Exposed)
-+ (PlaynomicsSession *)sharedInstance;
-
-- (void) consumeQueue;
-
-- (void) onKeyPressed: (NSNotification *) notification;
-- (void) onGestureStateChanged: (NSNotification *) notification;
-- (void) onApplicationWillResignActive: (NSNotification *) notification;
-- (void) onApplicationDidBecomeActive: (NSNotification *) notification;
-- (void) onApplicationWillTerminate: (NSNotification *) notification;
-@end
 
 @implementation iosapiTests
 
@@ -64,7 +53,7 @@
     }
 }
 
-- (void) _testPlaynomicsSession {
+- (void) testPlaynomicsSession {
     
     BOOL simulateClick = NO;
     BOOL simulateKey = NO;
@@ -104,8 +93,7 @@
 }
 
 - (void) sendClickEvent {
-    [s onGestureStateChanged:nil];
-    [s onGestureStateChanged:nil];
+    [s onTouchDown:nil];
 }
 
 - (void) sendKeyEvent {
@@ -122,7 +110,9 @@
 }
 
 - (void) triggerTimer {
-    [s consumeQueue];
+    if ([s respondsToSelector:@selector(consumeQueue)]) {
+        [s consumeQueue];
+    }
 }
 
 - (void) testBasicEvents
