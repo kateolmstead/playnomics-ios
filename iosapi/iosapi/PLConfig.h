@@ -12,7 +12,7 @@
 // TODO update PLCollectionMode to that of iOS
 #define PLSettingCollectionMode (int) 8;
 
-#define PLUpdateTimeInterval (NSTimeInterval) 10
+#define PLUpdateTimeInterval (NSTimeInterval) 60
 
 #define PLFileEventArchive [[NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent: @"PlaynomicsEvents.archive"]
 

@@ -39,7 +39,7 @@
     NSString * queryString = [[super toQueryString] stringByAppendingFormat: @"&tt=%@", [PLUtil PLTransactionTypeDescription:[self type]]];
     
     for (int i = 0; i < [[self currencyTypes] count] ; i++) {
-        queryString = [queryString stringByAppendingFormat:@"&tc%d=%@,&tv%d=%lf&ta%d=%@", 
+        queryString = [queryString stringByAppendingFormat:@"&tc%d=%@&tv%d=%lf&ta%d=%@", 
                        i, [PLUtil PLCurrencyTypeDescription: [(NSNumber *) [[self currencyTypes] objectAtIndex:i] intValue]], 
                        i, [(NSNumber *) [[self currencyValues] objectAtIndex:i] doubleValue],
                        i, [PLUtil PLCurrencyCategoryDescription:[(NSNumber *) [[self currencyCategories] objectAtIndex: i] intValue]]];

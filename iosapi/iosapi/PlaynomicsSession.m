@@ -456,7 +456,8 @@
 + (PLAPIResult) gameStartWithInstanceId: (NSString *) instanceId sessionId: (NSString *) sessionId site: (NSString *) site type: (NSString *) type gameId: (NSString *) gameId {
     // TODO: do field checks
     PlaynomicsSession * s =[PlaynomicsSession sharedInstance];
-    
+
+    // TODO check what to do with the instance id and the session id. Perhaps we should populated them ourselves.
     GameEvent *ev = [[[GameEvent alloc] init:PLEventGameStart applicationId:s.applicationId userId:s.userId sessionId:sessionId site:site instanceId:instanceId type:type gameId:gameId reason:nil] autorelease];
     
     return [s sendOrQueueEvent:ev];
