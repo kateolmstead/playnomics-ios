@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5B753E2A159D25CB00E698F9 /* libiosapi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B753E29159D25CB00E698F9 /* libiosapi.a */; };
+		5BACFC14159D3B8A00F95507 /* libiosapi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BACFC13159D3B8A00F95507 /* libiosapi.a */; };
 		5BBAA079159BAF0000AA4993 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BBAA078159BAF0000AA4993 /* UIKit.framework */; };
 		5BBAA07B159BAF0000AA4993 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BBAA07A159BAF0000AA4993 /* Foundation.framework */; };
 		5BBAA07D159BAF0000AA4993 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BBAA07C159BAF0000AA4993 /* CoreGraphics.framework */; };
@@ -20,8 +20,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		5B463A4E159D249B00CC0790 /* PlaynomicsSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlaynomicsSession.h; path = "../../../../../Library/Developer/Xcode/DerivedData/iosapi-bjkqyrtlyjtbiqfjtdqrczayducv/Build/Products/Debug-iphoneos/usr/local/include/PlaynomicsSession.h"; sourceTree = "<group>"; };
-		5B753E29159D25CB00E698F9 /* libiosapi.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libiosapi.a; path = "../../../../Library/Developer/Xcode/DerivedData/iosapi-bjkqyrtlyjtbiqfjtdqrczayducv/Build/Products/Debug-iphoneos/libiosapi.a"; sourceTree = "<group>"; };
+		5BACFC13159D3B8A00F95507 /* libiosapi.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libiosapi.a; path = "../../../../Library/Developer/Xcode/DerivedData/iosapi-bjkqyrtlyjtbiqfjtdqrczayducv/Build/Products/Debug-iphonesimulator/libiosapi.a"; sourceTree = "<group>"; };
 		5BBAA074159BAEFF00AA4993 /* PlaynomicsSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PlaynomicsSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5BBAA078159BAF0000AA4993 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		5BBAA07A159BAF0000AA4993 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -36,6 +35,7 @@
 		5BBAA08B159BAF0000AA4993 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = ViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		5BBAA08E159BAF0000AA4993 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController_iPhone.xib; sourceTree = "<group>"; };
 		5BBAA091159BAF0000AA4993 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController_iPad.xib; sourceTree = "<group>"; };
+		5BF38FCA159D389B00DDD957 /* PlaynomicsSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlaynomicsSession.h; path = "../../../../../Library/Developer/Xcode/DerivedData/iosapi-bjkqyrtlyjtbiqfjtdqrczayducv/Build/Products/Debug-iphoneos/usr/local/include/PlaynomicsSession.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -46,7 +46,7 @@
 				5BBAA079159BAF0000AA4993 /* UIKit.framework in Frameworks */,
 				5BBAA07B159BAF0000AA4993 /* Foundation.framework in Frameworks */,
 				5BBAA07D159BAF0000AA4993 /* CoreGraphics.framework in Frameworks */,
-				5B753E2A159D25CB00E698F9 /* libiosapi.a in Frameworks */,
+				5BACFC14159D3B8A00F95507 /* libiosapi.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -73,7 +73,7 @@
 		5BBAA077159BAF0000AA4993 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				5B753E29159D25CB00E698F9 /* libiosapi.a */,
+				5BACFC13159D3B8A00F95507 /* libiosapi.a */,
 				5BBAA078159BAF0000AA4993 /* UIKit.framework */,
 				5BBAA07A159BAF0000AA4993 /* Foundation.framework */,
 				5BBAA07C159BAF0000AA4993 /* CoreGraphics.framework */,
@@ -110,7 +110,7 @@
 		5BBAA09C159BB60600AA4993 /* Playnomics API */ = {
 			isa = PBXGroup;
 			children = (
-				5B463A4E159D249B00CC0790 /* PlaynomicsSession.h */,
+				5BF38FCA159D389B00DDD957 /* PlaynomicsSession.h */,
 			);
 			name = "Playnomics API";
 			sourceTree = "<group>";
@@ -234,7 +234,7 @@
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -252,7 +252,7 @@
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -268,7 +268,7 @@
 				INFOPLIST_FILE = "PlaynomicsSample/PlaynomicsSample-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/../../../../Library/Developer/Xcode/DerivedData/iosapi-bjkqyrtlyjtbiqfjtdqrczayducv/Build/Products/Debug-iphoneos\"",
+					"\"$(SRCROOT)/../../../../Library/Developer/Xcode/DerivedData/iosapi-bjkqyrtlyjtbiqfjtdqrczayducv/Build/Products/Debug-iphonesimulator\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
@@ -283,7 +283,7 @@
 				INFOPLIST_FILE = "PlaynomicsSample/PlaynomicsSample-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/../../../../Library/Developer/Xcode/DerivedData/iosapi-bjkqyrtlyjtbiqfjtdqrczayducv/Build/Products/Debug-iphoneos\"",
+					"\"$(SRCROOT)/../../../../Library/Developer/Xcode/DerivedData/iosapi-bjkqyrtlyjtbiqfjtdqrczayducv/Build/Products/Debug-iphonesimulator\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
