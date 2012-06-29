@@ -62,7 +62,7 @@
     
     queryString = [self addOptionalParam:queryString name:@"po" value:[PLUtil PLUserInfoSourceDescription:[self source]]];
     queryString = [self addOptionalParam:queryString name:@"pm" value:[self sourceCampaign]];
-    queryString = [self addOptionalParam:queryString name:@"pi" value:[NSString stringWithFormat:@"%llu", TO_LONG_MILLISECONDS([self installTime])]];
+    queryString = [self addOptionalParam:queryString name:@"pi" value:[NSString stringWithFormat:@"%fd", [self installTime]]];
     return queryString;
 }
 

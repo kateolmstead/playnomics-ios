@@ -115,7 +115,7 @@
     }
 }
 
-- (void) testBasicEvents
+- (void) _testBasicEvents
 {
     long applicationId = 4L;
     NSString *userId = @"userIdTest";
@@ -178,7 +178,7 @@
     
 }
 
-- (void) _testGameEvents {
+- (void) testGameEvents {
     NSLog(@"****** testGameEvents **********");
     NSString *hex = [RandomGenerator createRandomHex];
     for (int i = 0;i < 10; i++) {
@@ -187,7 +187,7 @@
     }
 }
 
-- (void) _testSocialEvents {
+- (void) testSocialEvents {
     NSLog(@"****** testSocialEvents **********");
     for (int i = 0;i < 10; i++) {
         [PlaynomicsSession invitationSentWithId:@"TEST_INVITATIONID" recipientUserId:@"TEST_RECIPIENTID" recipientAddress:@"TEST_RECIPIENT_ADDRESS" method:@"TEST_METHOD"];
@@ -195,7 +195,7 @@
     }
 }
 
-- (void) _testTransactionEvents {
+- (void) testTransactionEvents {
     NSLog(@"****** testTransactionEvents **********");
     NSMutableArray *tTypes = [NSMutableArray arrayWithObjects:
                        [NSNumber numberWithInt:PLTransactionBuyItem], 
@@ -244,7 +244,7 @@
     }
 }
 
-- (void) _testSessionEvents {
+- (void) testSessionEvents {
     
     NSLog(@"****** testSessionEvents **********");
     
@@ -255,7 +255,7 @@
     
 }
 
-- (void) _testUserInfo {
+- (void) testUserInfo {
     
     NSLog(@"****** testUserInfo **********");
     

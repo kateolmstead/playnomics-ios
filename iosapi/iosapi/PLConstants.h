@@ -32,9 +32,6 @@ typedef enum {
 } PLSessionState;
 
 /*************** MACROS *****************/
-/** Converts the NSTimeInterval (seconds) to Milliseconds for the server API */
-#define TO_LONG_MILLISECONDS(timeInterval) (unsigned long long) ((NSTimeInterval)timeInterval * 1000)
-
 // Singleton Macro
 #define DEFINE_SHARED_INSTANCE_USING_BLOCK(block) \
 static dispatch_once_t pred = 0; \

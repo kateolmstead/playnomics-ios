@@ -28,7 +28,7 @@
 }
 
 - (NSString *) toQueryString {
-    return [NSString stringWithFormat:@"%@?t=%llu&a=%ld&u=%@", [PLUtil PLEventTypeDescription:[self eventType]], TO_LONG_MILLISECONDS([self eventTime]), [self applicationId], [self userId]];
+    return [NSString stringWithFormat:@"%@?t=%lf&a=%ld&u=%@", [PLUtil PLEventTypeDescription:[self eventType]], [self eventTime], [self applicationId], [self userId]];
 }
 
 - (void)encodeWithCoder:(NSCoder *)encoder {
