@@ -1,8 +1,8 @@
 #import <Foundation/Foundation.h>
 
-#import "PlaynomicsEvent.h"
+#import "PNEvent.h"
 
-@interface EventSender : NSObject {
+@interface PNEventSender : NSObject {
   NSString * _version;
   NSString * _baseUrl;
   NSTimeInterval _connectTimeout;
@@ -11,5 +11,5 @@
 
 - (id) initWithTestMode:(BOOL)testMode;
 - (BOOL) sendToServer:(NSString *)eventUrl;
-- (BOOL) sendEventToServer:(PlaynomicsEvent *)pe;
+- (BOOL) sendEventToServer:(PNEvent *)pe;
 @end

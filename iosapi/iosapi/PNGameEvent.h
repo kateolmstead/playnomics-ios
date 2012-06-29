@@ -1,6 +1,6 @@
-#import "PlaynomicsEvent.h"
+#import "PNEvent.h"
 
-@interface GameEvent : PlaynomicsEvent {
+@interface PNGameEvent : PNEvent {
   NSString * _sessionId;
   NSString * _site;
   NSString * _instanceId;
@@ -16,7 +16,7 @@
 @property(nonatomic, retain) NSString * reason;
 @property(nonatomic, retain) NSString * site;
 
-- (id) init:  (PLEventType)eventType 
+- (id) init:  (PNEventType)eventType 
             applicationId: (long) applicationId 
                  userId:(NSString *)userId
               sessionId:(NSString *)sessionId

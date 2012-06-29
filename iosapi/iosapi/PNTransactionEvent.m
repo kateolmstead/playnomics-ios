@@ -1,6 +1,6 @@
-#import "TransactionEvent.h"
+#import "PNTransactionEvent.h"
 
-@implementation TransactionEvent
+@implementation PNTransactionEvent
 
 @synthesize transactionId=_transactionId;
 @synthesize itemId=_itemId;
@@ -11,13 +11,13 @@
 @synthesize currencyValues=_currencyValues;
 @synthesize currencyCategories=_currencyCategories;
 
-- (id) init: (PLEventType) eventType 
+- (id) init: (PNEventType) eventType 
               applicationId:(long) applicationId 
                      userId:(NSString *) userId 
               transactionId:(long) transactionId 
                      itemId:(NSString *) itemId 
                    quantity:(double) quantity 
-                       type:(PLTransactionType) type 
+                       type:(PNTransactionType) type 
                 otherUserId:(NSString *) otherUserId 
               currencyTypes:(NSArray *) currencyTypes
              currencyValues:(NSArray *) currencyValues 
@@ -36,13 +36,13 @@
 }
 
 - (NSString *) toQueryString {
-    NSString * queryString = [[super toQueryString] stringByAppendingFormat: @"&tt=%@", [PLUtil PLTransactionTypeDescription:[self type]]];
+    NSString * queryString = [[super toQueryString] stringByAppendingFormat: @"&tt=%@", [PNUtil PNTransactionTypeDescription:[self type]]];
     
     for (int i = 0; i < [[self currencyTypes] count] ; i++) {
         queryString = [queryString stringByAppendingFormat:@"&tc%d=%@&tv%d=%lf&ta%d=%@", 
-                       i, [PLUtil PLCurrencyTypeDescription: [(NSNumber *) [[self currencyTypes] objectAtIndex:i] intValue]], 
+                       i, [PNUtil PNCurrencyTypeDescription: [(NSNumber *) [[self currencyTypes] objectAtIndex:i] intValue]], 
                        i, [(NSNumber *) [[self currencyValues] objectAtIndex:i] doubleValue],
-                       i, [PLUtil PLCurrencyCategoryDescription:[(NSNumber *) [[self currencyCategories] objectAtIndex: i] intValue]]];
+                       i, [PNUtil PNCurrencyCategoryDescription:[(NSNumber *) [[self currencyCategories] objectAtIndex: i] intValue]]];
     }
     
     queryString = [self addOptionalParam:queryString name:@"i" value:[self itemId]];
@@ -54,26 +54,26 @@
 - (void)encodeWithCoder:(NSCoder *)encoder {
     [super encodeWithCoder:encoder];
     
-    [encoder encodeInt64:_transactionId forKey:@"PLTransactionEvent._transactionId"];
-    [encoder encodeObject:_itemId forKey:@"PLTransactionEvent._itemId"];
-    [encoder encodeDouble:_quantity forKey:@"PLTransactionEvent._quantity"];
-    [encoder encodeInt:_type forKey:@"PLTransactionEvent._type"];
-    [encoder encodeObject:_otherUserId forKey:@"PLTransactionEvent._otherUserId"];
-    [encoder encodeObject:_currencyTypes forKey:@"PLTransactionEvent._currencyTypes"];
-    [encoder encodeObject:_currencyValues forKey:@"PLTransactionEvent._currencyValues"];
-    [encoder encodeObject:_currencyCategories forKey:@"PLTransactionEvent._currencyCategories"];
+    [encoder encodeInt64:_transactionId forKey:@"PNTransactionEvent._transactionId"];
+    [encoder encodeObject:_itemId forKey:@"PNTransactionEvent._itemId"];
+    [encoder encodeDouble:_quantity forKey:@"PNTransactionEvent._quantity"];
+    [encoder encodeInt:_type forKey:@"PNTransactionEvent._type"];
+    [encoder encodeObject:_otherUserId forKey:@"PNTransactionEvent._otherUserId"];
+    [encoder encodeObject:_currencyTypes forKey:@"PNTransactionEvent._currencyTypes"];
+    [encoder encodeObject:_currencyValues forKey:@"PNTransactionEvent._currencyValues"];
+    [encoder encodeObject:_currencyCategories forKey:@"PNTransactionEvent._currencyCategories"];
 }
 
 - (id)initWithCoder:(NSCoder *)decoder {
     if ((self = [super initWithCoder:decoder])) {
-        _transactionId = [decoder decodeInt64ForKey:@"PLTransactionEvent._transactionId"]; 
-        _itemId = [(NSString *)[decoder decodeObjectForKey:@"PLTransactionEvent._itemId"] retain]; 
-        _quantity = [decoder decodeDoubleForKey:@"PLTransactionEvent._quantity"]; 
-        _type = [decoder decodeIntForKey:@"PLTransactionEvent._type"]; 
-        _otherUserId = [(NSString *)[decoder decodeObjectForKey:@"PLTransactionEvent._otherUserId"] retain]; 
-        _currencyTypes = [(NSArray *)[decoder decodeObjectForKey:@"PLTransactionEvent._currencyTypes"] retain]; 
-        _currencyValues = [(NSArray *)[decoder decodeObjectForKey:@"PLTransactionEvent._currencyValues"] retain]; 
-        _currencyCategories = [(NSArray *)[decoder decodeObjectForKey:@"PLTransactionEvent._currencyCategories"] retain]; 
+        _transactionId = [decoder decodeInt64ForKey:@"PNTransactionEvent._transactionId"]; 
+        _itemId = [(NSString *)[decoder decodeObjectForKey:@"PNTransactionEvent._itemId"] retain]; 
+        _quantity = [decoder decodeDoubleForKey:@"PNTransactionEvent._quantity"]; 
+        _type = [decoder decodeIntForKey:@"PNTransactionEvent._type"]; 
+        _otherUserId = [(NSString *)[decoder decodeObjectForKey:@"PNTransactionEvent._otherUserId"] retain]; 
+        _currencyTypes = [(NSArray *)[decoder decodeObjectForKey:@"PNTransactionEvent._currencyTypes"] retain]; 
+        _currencyValues = [(NSArray *)[decoder decodeObjectForKey:@"PNTransactionEvent._currencyValues"] retain]; 
+        _currencyCategories = [(NSArray *)[decoder decodeObjectForKey:@"PNTransactionEvent._currencyCategories"] retain]; 
     }
     return self;
 }

@@ -6,10 +6,10 @@
 //  Copyright (c) 2012 Grio. All rights reserved.
 //
 
-#import "PLUtil.h"
+#import "PNUtil.h"
 
 
-@implementation PLUtil
+@implementation PNUtil
 
 /*  The Pasteboard is kept in memory even if the app is deleted.
  *  This provides a suitable means for having a unique device ID
@@ -28,313 +28,313 @@
     return storedUUID;
 }
 
-+(PLResponseType) PLResponseTypeValueOf:(NSString *) text {
++(PNResponseType) PNResponseTypeValueOf:(NSString *) text {
     if (text) {
         if ([text isEqualToString:@"accepted"])
-            return PLResponseTypeAccepted;
+            return PNResponseTypeAccepted;
     }
     return -1;
 }
 
-+(NSString*) PLResponseTypeDescription:(PLResponseType) value {
++(NSString*) PNResponseTypeDescription:(PNResponseType) value {
     switch (value) {
-        case PLResponseTypeAccepted:
+        case PNResponseTypeAccepted:
             return @"accepted";
     }
     return nil;
 }
 
-+(PLTransactionType) PLTransactionTypeValueOf:(NSString *) text {
++(PNTransactionType) PNTransactionTypeValueOf:(NSString *) text {
     if (text) {
         if ([text isEqualToString:@"BuyItem"])
-            return PLTransactionBuyItem;
+            return PNTransactionBuyItem;
         else if ([text isEqualToString:@"SellItem"])
-            return PLTransactionSellItem;
+            return PNTransactionSellItem;
         else if ([text isEqualToString:@"ReturnItem"])
-            return PLTransactionReturnItem;
+            return PNTransactionReturnItem;
         else if ([text isEqualToString:@"BuyService"])
-            return PLTransactionBuyService;
+            return PNTransactionBuyService;
         else if ([text isEqualToString:@"SellService"])
-            return PLTransactionSellService;
+            return PNTransactionSellService;
         else if ([text isEqualToString:@"ReturnService"])
-            return PLTransactionReturnService;
+            return PNTransactionReturnService;
         else if ([text isEqualToString:@"CurrencyConvert"])
-            return PLTransactionCurrencyConvert;
+            return PNTransactionCurrencyConvert;
         else if ([text isEqualToString:@"Initial"])
-            return PLTransactionInitial;
+            return PNTransactionInitial;
         else if ([text isEqualToString:@"Free"])
-            return PLTransactionFree;
+            return PNTransactionFree;
         else if ([text isEqualToString:@"Reward"])
-            return PLTransactionReward;
+            return PNTransactionReward;
         else if ([text isEqualToString:@"GiftSend"])
-            return PLTransactionGiftSend;
+            return PNTransactionGiftSend;
         else if ([text isEqualToString:@"GiftReceive"])
-            return PLTransactionGiftReceive;
+            return PNTransactionGiftReceive;
     }
     return -1;
 }
 
-+(NSString*) PLTransactionTypeDescription:(PLTransactionType) value {
++(NSString*) PNTransactionTypeDescription:(PNTransactionType) value {
     switch (value) {
-        case PLTransactionBuyItem:
+        case PNTransactionBuyItem:
             return @"BuyItem";
-        case PLTransactionSellItem:
+        case PNTransactionSellItem:
             return @"SellItem";
-        case PLTransactionReturnItem:
+        case PNTransactionReturnItem:
             return @"ReturnItem";
-        case PLTransactionBuyService:
+        case PNTransactionBuyService:
             return @"BuyService";
-        case PLTransactionSellService:
+        case PNTransactionSellService:
             return @"SellService";
-        case PLTransactionReturnService:
+        case PNTransactionReturnService:
             return @"ReturnService";
-        case PLTransactionCurrencyConvert:
+        case PNTransactionCurrencyConvert:
             return @"CurrencyConvert";
-        case PLTransactionInitial:
+        case PNTransactionInitial:
             return @"Initial";
-        case PLTransactionFree:
+        case PNTransactionFree:
             return @"Free";
-        case PLTransactionReward:
+        case PNTransactionReward:
             return @"Reward";
-        case PLTransactionGiftSend:
+        case PNTransactionGiftSend:
             return @"GiftSend";
-        case PLTransactionGiftReceive:
+        case PNTransactionGiftReceive:
             return @"GiftReceive";
     }
     return nil;
 }
 
-+ (PLCurrencyCategory) PLCurrencyCategoryValueOf:(NSString *) text {
++ (PNCurrencyCategory) PNCurrencyCategoryValueOf:(NSString *) text {
     if (text) {
         if ([text isEqualToString:@"r"])
-            return PLCurrencyCategoryReal;
+            return PNCurrencyCategoryReal;
         else if ([text isEqualToString:@"v"])
-            return PLCurrencyCategoryVirtual;
+            return PNCurrencyCategoryVirtual;
     }
     return -1;
 }
 
-+ (NSString *) PLCurrencyCategoryDescription:(PLCurrencyCategory) value {
++ (NSString *) PNCurrencyCategoryDescription:(PNCurrencyCategory) value {
     switch (value) {
-        case PLCurrencyCategoryReal:
+        case PNCurrencyCategoryReal:
             return @"r";
-        case PLCurrencyCategoryVirtual:
+        case PNCurrencyCategoryVirtual:
             return @"v";
     }
     return nil;
 }
 
-+(PLCurrencyType) PLCurrencyTypeValueOf:(NSString *) text {
++(PNCurrencyType) PNCurrencyTypeValueOf:(NSString *) text {
     if (text) {
         if ([text isEqualToString:@"USD"])
-            return PLCurrencyUSD;
+            return PNCurrencyUSD;
         else if ([text isEqualToString:@"FBC"])
-            return PLCurrencyFBC;
+            return PNCurrencyFBC;
         else if ([text isEqualToString:@"OFD"])
-            return PLCurrencyOFD;
+            return PNCurrencyOFD;
         else if ([text isEqualToString:@"OFF"])
-            return PLCurrencyOFF;
+            return PNCurrencyOFF;
     }
     return -1;
 }
 
-+ (NSString *) PLCurrencyTypeDescription:(PLCurrencyType) value {
++ (NSString *) PNCurrencyTypeDescription:(PNCurrencyType) value {
     switch (value) {
-        case PLCurrencyUSD:
+        case PNCurrencyUSD:
             return @"USD";
-        case PLCurrencyFBC:
+        case PNCurrencyFBC:
             return @"FBC";
-        case PLCurrencyOFD:
+        case PNCurrencyOFD:
             return @"OFD";
-        case PLCurrencyOFF:
+        case PNCurrencyOFF:
             return @"OFF";
     }
     return nil;
 }
 
-+(PLUserInfoType) PLUserInfoTypeValueOf:(NSString *) text {
++(PNUserInfoType) PNUserInfoTypeValueOf:(NSString *) text {
     if (text) {
         if ([text isEqualToString:@"update"])
-            return PLUserInfoTypeUpdate;
+            return PNUserInfoTypeUpdate;
     }
     return -1;
 }
 
-+ (NSString *) PLUserInfoTypeDescription:(PLUserInfoType) value {
++ (NSString *) PNUserInfoTypeDescription:(PNUserInfoType) value {
     switch (value) {
-        case PLUserInfoTypeUpdate:
+        case PNUserInfoTypeUpdate:
             return @"update";
     }
     return nil;
 }
 
-+(PLUserInfoSex) PLUserInfoSexValueOf:(NSString *) text {
++(PNUserInfoSex) PNUserInfoSexValueOf:(NSString *) text {
     if (text) {
         if ([text isEqualToString:@"M"])
-            return PLUserInfoSexMale;
+            return PNUserInfoSexMale;
         else if ([text isEqualToString:@"F"])
-            return PLUserInfoSexFemale;
+            return PNUserInfoSexFemale;
         else if ([text isEqualToString:@"U"])
-            return PLUserInfoSexUnknown;
+            return PNUserInfoSexUnknown;
     }
     return -1;
 }
 
-+ (NSString *) PLUserInfoSexDescription:(PLUserInfoSex) value {
++ (NSString *) PNUserInfoSexDescription:(PNUserInfoSex) value {
     switch (value) {
-        case PLUserInfoSexMale:
+        case PNUserInfoSexMale:
             return @"M";
-        case PLUserInfoSexFemale:
+        case PNUserInfoSexFemale:
             return @"F";
-        case PLUserInfoSexUnknown:
+        case PNUserInfoSexUnknown:
             return @"U";
     }
     return nil;
 }
 
-+(PLUserInfoSource) PLUserInfoSourceValueOf:(NSString *) text {
++(PNUserInfoSource) PNUserInfoSourceValueOf:(NSString *) text {
     if (text) {
         if ([text isEqualToString:@"Adwords"])
-            return PLUserInfoSourceAdwords;
+            return PNUserInfoSourceAdwords;
         else if ([text isEqualToString:@"DoubleClick"])
-            return PLUserInfoSourceDoubleClick;
+            return PNUserInfoSourceDoubleClick;
         else if ([text isEqualToString:@"YahooAds"])
-            return PLUserInfoSourceYahooAds;
+            return PNUserInfoSourceYahooAds;
         else if ([text isEqualToString:@"MSNAds"])
-            return PLUserInfoSourceMSNAds;
+            return PNUserInfoSourceMSNAds;
         else if ([text isEqualToString:@"AOLAds"])
-            return PLUserInfoSourceAOLAds;
+            return PNUserInfoSourceAOLAds;
         else if ([text isEqualToString:@"Adbrite"])
-            return PLUserInfoSourceAdbrite;
+            return PNUserInfoSourceAdbrite;
         else if ([text isEqualToString:@"FacebookAds"])
-            return PLUserInfoSourceFacebookAds;
+            return PNUserInfoSourceFacebookAds;
         else if ([text isEqualToString:@"GoogleSearch"])
-            return PLUserInfoSourceGoogleSearch;
+            return PNUserInfoSourceGoogleSearch;
         else if ([text isEqualToString:@"YahooSearch"])
-            return PLUserInfoSourceYahooSearch;
+            return PNUserInfoSourceYahooSearch;
         else if ([text isEqualToString:@"BingSearch"])
-            return PLUserInfoSourceBingSearch;
+            return PNUserInfoSourceBingSearch;
         else if ([text isEqualToString:@"FacebookSearch"])
-            return PLUserInfoSourceFacebookSearch;
+            return PNUserInfoSourceFacebookSearch;
         else if ([text isEqualToString:@"Applifier"])
-            return PLUserInfoSourceApplifier;
+            return PNUserInfoSourceApplifier;
         else if ([text isEqualToString:@"AppStrip"])
-            return PLUserInfoSourceAppStrip;
+            return PNUserInfoSourceAppStrip;
         else if ([text isEqualToString:@"VIPGamesNetwork"])
-            return PLUserInfoSourceVIPGamesNetwork;
+            return PNUserInfoSourceVIPGamesNetwork;
         else if ([text isEqualToString:@"UserReferral"])
-            return PLUserInfoSourceUserReferral;
+            return PNUserInfoSourceUserReferral;
         else if ([text isEqualToString:@"InterGame"])
-            return PLUserInfoSourceInterGame;
+            return PNUserInfoSourceInterGame;
         else if ([text isEqualToString:@"Other"])
-            return PLUserInfoSourceOther;
+            return PNUserInfoSourceOther;
     }
     return -1;
 }
 
-+ (NSString *) PLUserInfoSourceDescription:(PLUserInfoSource) value {
++ (NSString *) PNUserInfoSourceDescription:(PNUserInfoSource) value {
     switch (value) {
-        case PLUserInfoSourceAdwords:
+        case PNUserInfoSourceAdwords:
             return @"Adwords";
-        case PLUserInfoSourceDoubleClick:
+        case PNUserInfoSourceDoubleClick:
             return @"DoubleClick";
-        case PLUserInfoSourceYahooAds:
+        case PNUserInfoSourceYahooAds:
             return @"YahooAds";
-        case PLUserInfoSourceMSNAds:
+        case PNUserInfoSourceMSNAds:
             return @"MSNAds";
-        case PLUserInfoSourceAOLAds:
+        case PNUserInfoSourceAOLAds:
             return @"AOLAds";
-        case PLUserInfoSourceAdbrite:
+        case PNUserInfoSourceAdbrite:
             return @"Adbrite";
-        case PLUserInfoSourceFacebookAds:
+        case PNUserInfoSourceFacebookAds:
             return @"FacebookAds";
-        case PLUserInfoSourceGoogleSearch:
+        case PNUserInfoSourceGoogleSearch:
             return @"GoogleSearch";
-        case PLUserInfoSourceYahooSearch:
+        case PNUserInfoSourceYahooSearch:
             return @"YahooSearch";
-        case PLUserInfoSourceBingSearch:
+        case PNUserInfoSourceBingSearch:
             return @"BingSearch";
-        case PLUserInfoSourceFacebookSearch:
+        case PNUserInfoSourceFacebookSearch:
             return @"FacebookSearch";
-        case PLUserInfoSourceApplifier:
+        case PNUserInfoSourceApplifier:
             return @"Applifier";
-        case PLUserInfoSourceAppStrip:
+        case PNUserInfoSourceAppStrip:
             return @"AppStrip";
-        case PLUserInfoSourceVIPGamesNetwork:
+        case PNUserInfoSourceVIPGamesNetwork:
             return @"VIPGamesNetwork";
-        case PLUserInfoSourceUserReferral:
+        case PNUserInfoSourceUserReferral:
             return @"UserReferral";
-        case PLUserInfoSourceInterGame:
+        case PNUserInfoSourceInterGame:
             return @"InterGame";
-        case PLUserInfoSourceOther:
+        case PNUserInfoSourceOther:
             return @"Other";
     }
     return nil;
 }
 
-+(PLEventType) PLEventTypeValueOf:(NSString *) text {
++(PNEventType) PNEventTypeValueOf:(NSString *) text {
     if (text) {
         if ([text isEqualToString:@"appStart"])
-            return PLEventAppStart;
+            return PNEventAppStart;
         else if ([text isEqualToString:@"appPage"])
-            return PLEventAppPage;
+            return PNEventAppPage;
         else if ([text isEqualToString:@"appRunning"])
-            return PLEventAppRunning;
+            return PNEventAppRunning;
         else if ([text isEqualToString:@"appPause"])
-            return PLEventAppPause;
+            return PNEventAppPause;
         else if ([text isEqualToString:@"appResume"])
-            return PLEventAppResume;
+            return PNEventAppResume;
         else if ([text isEqualToString:@"appStop"])
-            return PLEventAppStop;
+            return PNEventAppStop;
         else if ([text isEqualToString:@"userInfo"])
-            return PLEventUserInfo;
+            return PNEventUserInfo;
         else if ([text isEqualToString:@"sessionStart"])
-            return PLEventSessionStart;
+            return PNEventSessionStart;
         else if ([text isEqualToString:@"sessionEnd"])
-            return PLEventSessionEnd;
+            return PNEventSessionEnd;
         else if ([text isEqualToString:@"gameStart"])
-            return PLEventGameStart;
+            return PNEventGameStart;
         else if ([text isEqualToString:@"gameEnd"])
-            return PLEventGameEnd;
+            return PNEventGameEnd;
         else if ([text isEqualToString:@"transaction"])
-            return PLEventTransaction;
+            return PNEventTransaction;
         else if ([text isEqualToString:@"invitationSent"])
-            return PLEventInvitationSent;
+            return PNEventInvitationSent;
         else if ([text isEqualToString:@"invitationResponse"])
-            return PLEventInvitationResponse;
+            return PNEventInvitationResponse;
     }
     return -1;
 }
 
-+(NSString*) PLEventTypeDescription: (PLEventType) value {
++(NSString*) PNEventTypeDescription: (PNEventType) value {
     switch (value) {
-        case PLEventAppStart:
+        case PNEventAppStart:
             return @"appStart";
-        case PLEventAppPage:
+        case PNEventAppPage:
             return @"appPage";
-        case PLEventAppRunning:
+        case PNEventAppRunning:
             return @"appRunning";
-        case PLEventAppPause:
+        case PNEventAppPause:
             return @"appPause";
-        case PLEventAppResume:
+        case PNEventAppResume:
             return @"appResume";
-        case PLEventAppStop:
+        case PNEventAppStop:
             return @"appStop";
-        case PLEventUserInfo:
+        case PNEventUserInfo:
             return @"userInfo";
-        case PLEventSessionStart:
+        case PNEventSessionStart:
             return @"sessionStart";
-        case PLEventSessionEnd:
+        case PNEventSessionEnd:
             return @"sessionEnd";
-        case PLEventGameStart:
+        case PNEventGameStart:
             return @"gameStart";
-        case PLEventGameEnd:
+        case PNEventGameEnd:
             return @"gameEnd";
-        case PLEventTransaction:
+        case PNEventTransaction:
             return @"transaction";
-        case PLEventInvitationSent:
+        case PNEventInvitationSent:
             return @"invitationSent";
-        case PLEventInvitationResponse:
+        case PNEventInvitationResponse:
             return @"invitationResponse";
     }
     return nil;

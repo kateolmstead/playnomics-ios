@@ -10,123 +10,123 @@
 #import <UIKit/UIKit.h>
 
 /** 
- *  PLAPIResult
+ *  PNAPIResult
  *
  *  Possible results for PlaynomicsSession messages
  */
 typedef enum {
-    PLAPIResultSent,
-    PLAPIResultQueued,
-    PLAPIResultSwitched,
-    PLAPIResultStopped,
-    PLAPIResultAlreadyStarted,
-    PLAPIResultAlreadySwitched,
-    PLAPIResultAlreadyStopped,
-    PLAPIResultSessionResumed,
-    PLAPIResultStartNotCalled,
-    PLAPIResultNoInternetPermission,
-    PLAPIResultMissingReqParam,
-    PLAPIResultFailUnkown
-} PLAPIResult;
+    PNAPIResultSent,
+    PNAPIResultQueued,
+    PNAPIResultSwitched,
+    PNAPIResultStopped,
+    PNAPIResultAlreadyStarted,
+    PNAPIResultAlreadySwitched,
+    PNAPIResultAlreadyStopped,
+    PNAPIResultSessionResumed,
+    PNAPIResultStartNotCalled,
+    PNAPIResultNoInternetPermission,
+    PNAPIResultMissingReqParam,
+    PNAPIResultFailUnkown
+} PNAPIResult;
 
 
 /** 
- *  PLResponseType
+ *  PNResponseType
  *
  *  Possible responses for the invitations/SocialEvents
  */
 typedef enum {
-    PLResponseTypeAccepted
-} PLResponseType;
+    PNResponseTypeAccepted
+} PNResponseType;
 
 /**
- *  PLTransactionType
+ *  PNTransactionType
  *
  *  Possible Transaction Types
  */
 typedef enum {
-    PLTransactionBuyItem,
-    PLTransactionSellItem,
-    PLTransactionReturnItem,
-    PLTransactionBuyService,
-    PLTransactionSellService,
-    PLTransactionReturnService,
-    PLTransactionCurrencyConvert,
-    PLTransactionInitial,
-    PLTransactionFree,
-    PLTransactionReward,
-    PLTransactionGiftSend,
-    PLTransactionGiftReceive
-} PLTransactionType;
+    PNTransactionBuyItem,
+    PNTransactionSellItem,
+    PNTransactionReturnItem,
+    PNTransactionBuyService,
+    PNTransactionSellService,
+    PNTransactionReturnService,
+    PNTransactionCurrencyConvert,
+    PNTransactionInitial,
+    PNTransactionFree,
+    PNTransactionReward,
+    PNTransactionGiftSend,
+    PNTransactionGiftReceive
+} PNTransactionType;
 
 /**
- *  PLCurrencyCategory
+ *  PNCurrencyCategory
  *  
  *  Possible currency Categories for transactions
  */
 typedef enum {
-    PLCurrencyCategoryReal,
-    PLCurrencyCategoryVirtual
-} PLCurrencyCategory;
+    PNCurrencyCategoryReal,
+    PNCurrencyCategoryVirtual
+} PNCurrencyCategory;
 
 /**
- *  PLCurrencyType
+ *  PNCurrencyType
  *
  *  Possible currency Types for transactions
  */
 typedef enum {
-    PLCurrencyUSD,
-    PLCurrencyFBC,
-    PLCurrencyOFD,
-    PLCurrencyOFF
-} PLCurrencyType;
+    PNCurrencyUSD,
+    PNCurrencyFBC,
+    PNCurrencyOFD,
+    PNCurrencyOFF
+} PNCurrencyType;
 
 /**
- *  PLUserInfoType
+ *  PNUserInfoType
  *
  *  Possible User Info requests types
  */
 typedef enum {
-    PLUserInfoTypeUpdate
-} PLUserInfoType;
+    PNUserInfoTypeUpdate
+} PNUserInfoType;
 
 /**
- *  PLUserInfoSex
+ *  PNUserInfoSex
  *
  *  Possible Sex types.
  *  Sent in a user update request.
  */
 typedef enum {
-    PLUserInfoSexMale,
-    PLUserInfoSexFemale,
-    PLUserInfoSexUnknown
-} PLUserInfoSex;
+    PNUserInfoSexMale,
+    PNUserInfoSexFemale,
+    PNUserInfoSexUnknown
+} PNUserInfoSex;
 
 /**
- *  PLUserInfoSource
+ *  PNUserInfoSource
  *
  *  Where the User Info comes from.
  *  Sent in a user update request.
  */
 typedef enum {
-    PLUserInfoSourceAdwords,
-    PLUserInfoSourceDoubleClick,
-    PLUserInfoSourceYahooAds,
-    PLUserInfoSourceMSNAds,
-    PLUserInfoSourceAOLAds,
-    PLUserInfoSourceAdbrite,
-    PLUserInfoSourceFacebookAds,
-    PLUserInfoSourceGoogleSearch,
-    PLUserInfoSourceYahooSearch,
-    PLUserInfoSourceBingSearch,
-    PLUserInfoSourceFacebookSearch,
-    PLUserInfoSourceApplifier,
-    PLUserInfoSourceAppStrip,
-    PLUserInfoSourceVIPGamesNetwork,
-    PLUserInfoSourceUserReferral,
-    PLUserInfoSourceInterGame,
-    PLUserInfoSourceOther
-} PLUserInfoSource;
+    PNUserInfoSourceAdwords,
+    PNUserInfoSourceDoubleClick,
+    PNUserInfoSourceYahooAds,
+    PNUserInfoSourceMSNAds,
+    PNUserInfoSourceAOLAds,
+    PNUserInfoSourceAdbrite,
+    PNUserInfoSourceFacebookAds,
+    PNUserInfoSourceGoogleSearch,
+    PNUserInfoSourceYahooSearch,
+    PNUserInfoSourceBingSearch,
+    PNUserInfoSourceFacebookSearch,
+    PNUserInfoSourceApplifier,
+    PNUserInfoSourceAppStrip,
+    PNUserInfoSourceVIPGamesNetwork,
+    PNUserInfoSourceUserReferral,
+    PNUserInfoSourceInterGame,
+    PNUserInfoSourceOther
+} PNUserInfoSource;
 
 @interface PlaynomicsSession : NSObject
 /**
@@ -138,7 +138,7 @@ typedef enum {
  *            the user id
  * @return the API Result
  */
-+ (PLAPIResult) startWithApplicationId:(long) applicationId userId: (NSString *) userId;
++ (PNAPIResult) startWithApplicationId:(long) applicationId userId: (NSString *) userId;
 
 /**
  * Start.
@@ -147,14 +147,14 @@ typedef enum {
  *            the application id
  * @return the API Result
  */
-+ (PLAPIResult) startWithApplicationId:(long) applicationId;
++ (PNAPIResult) startWithApplicationId:(long) applicationId;
 
 /**
  * Stop.
  * 
  * @return the API Result
  */
-+ (PLAPIResult) stop;
++ (PNAPIResult) stop;
 
 @end
 
@@ -164,7 +164,7 @@ typedef enum {
  * 
  * @return the API Result
  */
-+ (PLAPIResult) userInfo;
++ (PNAPIResult) userInfo;
 
 /**
  * User info.
@@ -187,12 +187,12 @@ typedef enum {
  *            the install time
  * @return the API Result
  */
-+ (PLAPIResult) userInfoForType: (PLUserInfoType) type 
++ (PNAPIResult) userInfoForType: (PNUserInfoType) type 
                         country: (NSString *) country 
                     subdivision: (NSString *) subdivision
-                            sex: (PLUserInfoSex) sex
+                            sex: (PNUserInfoSex) sex
                        birthday: (NSDate *) birthday
-                         source: (PLUserInfoSource) source 
+                         source: (PNUserInfoSource) source 
                  sourceCampaign: (NSString *) sourceCampaign 
                     installTime: (NSDate *) installTime;
 
@@ -205,7 +205,7 @@ typedef enum {
  *            the site
  * @return the API Result
  */
-+ (PLAPIResult) sessionStartWithId: (NSString *) sessionId site: (NSString *) site;
++ (PNAPIResult) sessionStartWithId: (NSString *) sessionId site: (NSString *) site;
 
 /**
  * Session end.
@@ -216,7 +216,7 @@ typedef enum {
  *            the reason
  * @return the API Result
  */
-+ (PLAPIResult) sessionEndWithId: (NSString *) sessionId reason: (NSString *) reason;
++ (PNAPIResult) sessionEndWithId: (NSString *) sessionId reason: (NSString *) reason;
 
 /**
  * Game start.
@@ -233,7 +233,7 @@ typedef enum {
  *            the game id
  * @return the API Result
  */
-+ (PLAPIResult) gameStartWithInstanceId: (NSString *) instanceId sessionId: (NSString *) sessionId site: (NSString *) site type: (NSString *) type gameId: (NSString *) gameId;
++ (PNAPIResult) gameStartWithInstanceId: (NSString *) instanceId sessionId: (NSString *) sessionId site: (NSString *) site type: (NSString *) type gameId: (NSString *) gameId;
 
 /**
  * Game end.
@@ -246,7 +246,7 @@ typedef enum {
  *            the reason
  * @return the API Result
  */
-+ (PLAPIResult) gameEndWithInstanceId: (NSString *) instanceId sessionId: (NSString *) sessionId reason: (NSString *) reason;
++ (PNAPIResult) gameEndWithInstanceId: (NSString *) instanceId sessionId: (NSString *) sessionId reason: (NSString *) reason;
 
 /**
  * Transaction.
@@ -269,14 +269,14 @@ typedef enum {
  *            the currency category
  * @return the API Result
  */
-+ (PLAPIResult) transactionWithId:(long) transactionId 
++ (PNAPIResult) transactionWithId:(long) transactionId 
                            itemId: (NSString *) itemId
                          quantity: (double) quantity
-                             type: (PLTransactionType) type
+                             type: (PNTransactionType) type
                       otherUserId: (NSString *) otherUserId
-                     currencyType: (PLCurrencyType) currencyType
+                     currencyType: (PNCurrencyType) currencyType
                     currencyValue: (double) currencyValue
-                 currencyCategory: (PLCurrencyCategory) currencyCategory;
+                 currencyCategory: (PNCurrencyCategory) currencyCategory;
 
 /**
  * Transaction.
@@ -299,10 +299,10 @@ typedef enum {
  *            the currency categories
  * @return the API Result
  */
-+ (PLAPIResult) transactionWithId:(long) transactionId 
++ (PNAPIResult) transactionWithId:(long) transactionId 
                            itemId: (NSString *) itemId
                          quantity: (double) quantity
-                             type: (PLTransactionType) type
+                             type: (PNTransactionType) type
                       otherUserId: (NSString *) otherUserId
                     currencyTypes: (NSArray *) currencyTypes
                    currencyValues: (NSArray *) currencyValues
@@ -321,7 +321,7 @@ typedef enum {
  *            the method
  * @return the API Result
  */
-+ (PLAPIResult) invitationSentWithId: (NSString *) invitationId 
++ (PNAPIResult) invitationSentWithId: (NSString *) invitationId 
                      recipientUserId: (NSString *) recipientUserId 
                     recipientAddress: (NSString *) recipientAddress 
                               method: (NSString *) method;
@@ -335,10 +335,10 @@ typedef enum {
  *            the response
  * @return the API Result
  */
-+ (PLAPIResult) invitationResponseWithId: (NSString *) invitationId 
-                            responseType: (PLResponseType) responseType;
++ (PNAPIResult) invitationResponseWithId: (NSString *) invitationId 
+                            responseType: (PNResponseType) responseType;
 @end
 
-@interface PLApplication : UIApplication
+@interface PNApplication : UIApplication
 - (void) sendEvent:(UIEvent *)event;
 @end

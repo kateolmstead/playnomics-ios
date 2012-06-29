@@ -1,5 +1,5 @@
 //
-//  PLApplication.m
+//  PNApplication.m
 //  iosapi
 //
 //  Created by Martin Harkins on 6/27/12.
@@ -12,7 +12,7 @@
 #import "PlaynomicsSession.h"
 #import "PlaynomicsSession+Exposed.h"
 
-@implementation PLApplication
+@implementation PNApplication
 - (void) sendEvent: (UIEvent *) event {
     if (event.type == UIEventTypeTouches) {
         UITouch *touch = [event allTouches].anyObject;

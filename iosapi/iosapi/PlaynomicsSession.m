@@ -8,26 +8,26 @@
 
 #import "PlaynomicsSession.h"
 
-#import "PLConfig.h"
-#import "PLConstants.h"
+#import "PNConfig.h"
+#import "PNConstants.h"
 
-#import "RandomGenerator.h"
+#import "PNRandomGenerator.h"
 
-#import "EventSender.h"
+#import "PNEventSender.h"
 
-#import "BasicEvent.h"
-#import "UserInfoEvent.h"
-#import "SocialEvent.h"
-#import "TransactionEvent.h"
-#import "GameEvent.h"
+#import "PNBasicEvent.h"
+#import "PNUserInfoEvent.h"
+#import "PNSocialEvent.h"
+#import "PNTransactionEvent.h"
+#import "PNGameEvent.h"
 
 #import "PlaynomicsSession+Exposed.h"
 
 @interface PlaynomicsSession () {    
-    PLSessionState _sessionState;
+    PNSessionState _sessionState;
 
     NSTimer *_eventTimer;
-    EventSender *_eventSender;
+    PNEventSender *_eventSender;
     NSMutableArray *_playnomicsEventList;
     
     
@@ -54,14 +54,14 @@
 @property (nonatomic, readonly) NSString *      userId;
 
 
-- (PLAPIResult) startWithApplicationId:(long) applicationId;
-- (PLAPIResult) startWithApplicationId:(long) applicationId userId: (NSString *) userId;
-- (PLAPIResult) sendOrQueueEvent: (PlaynomicsEvent *) pe;
+- (PNAPIResult) startWithApplicationId:(long) applicationId;
+- (PNAPIResult) startWithApplicationId:(long) applicationId userId: (NSString *) userId;
+- (PNAPIResult) sendOrQueueEvent: (PNEvent *) pe;
 
-- (PLAPIResult) stop;
+- (PNAPIResult) stop;
 - (void) pause;
 - (void) resume;
-- (PLAPIResult) startSessionWithApplicationId: (long) applicationId;
+- (PNAPIResult) startSessionWithApplicationId: (long) applicationId;
 
 - (void) startEventTimer;
 - (void) stopEventTimer;
@@ -80,25 +80,25 @@
     });
 }
 
-+ (PLAPIResult) startWithApplicationId:(long) applicationId userId: (NSString *) userId {
++ (PNAPIResult) startWithApplicationId:(long) applicationId userId: (NSString *) userId {
     return [[PlaynomicsSession sharedInstance] startWithApplicationId:applicationId userId:userId];
 }
 
-+ (PLAPIResult) startWithApplicationId:(long) applicationId {
++ (PNAPIResult) startWithApplicationId:(long) applicationId {
     return [[PlaynomicsSession sharedInstance] startWithApplicationId:applicationId];
 }
 
-+ (PLAPIResult) stop {
++ (PNAPIResult) stop {
     return [[PlaynomicsSession sharedInstance] stop];
 }
 
 - (id) init {
     if ((self = [super init])) {
-        _collectMode = PLSettingCollectionMode;
+        _collectMode = PNSettingCollectionMode;
         _sequence = 0;
         _userId = @"";
         _playnomicsEventList = [[NSMutableArray alloc] init];
-        _eventSender = [[EventSender alloc] init];
+        _eventSender = [[PNEventSender alloc] init];
     }
     return self;
 }
@@ -117,26 +117,26 @@
 }
 
 #pragma mark - Session Control Methods
-- (PLAPIResult) startWithApplicationId:(long) applicationId userId: (NSString *) userId {
+- (PNAPIResult) startWithApplicationId:(long) applicationId userId: (NSString *) userId {
     _userId = [userId retain];
     return [self startWithApplicationId:applicationId];
 }
 
-- (PLAPIResult) startWithApplicationId:(long) applicationId {
+- (PNAPIResult) startWithApplicationId:(long) applicationId {
     NSLog(@"startWithApplicationId");
-    if (_sessionState == PLSessionStateStarted) {
-        return PLAPIResultAlreadyStarted;
+    if (_sessionState == PNSessionStateStarted) {
+        return PNAPIResultAlreadyStarted;
     }
     
     // If paused, resume and get out of here
-    if (_sessionState == PLSessionStatePaused) {
+    if (_sessionState == PNSessionStatePaused) {
         [self resume];
-        return PLAPIResultSessionResumed;
+        return PNAPIResultSessionResumed;
     }
     
     _applicationId = applicationId;
 
-    PLAPIResult resval = [self startSessionWithApplicationId: applicationId];
+    PNAPIResult resval = [self startSessionWithApplicationId: applicationId];
     
     [self startEventTimer];
     
@@ -149,35 +149,35 @@
     
     
     // Retrieve stored Event List
-    NSArray *storedEvents = (NSArray *) [NSKeyedUnarchiver unarchiveObjectWithFile:PLFileEventArchive];
+    NSArray *storedEvents = (NSArray *) [NSKeyedUnarchiver unarchiveObjectWithFile:PNFileEventArchive];
     if ([storedEvents count] > 0) {
         [self.playnomicsEventList addObjectsFromArray:storedEvents];
         
         // Remove archive so as not to pick up bad events when starting up next time.
         NSFileManager *fm = [NSFileManager defaultManager];
-        [fm removeItemAtPath:PLFileEventArchive error:nil];
+        [fm removeItemAtPath:PNFileEventArchive error:nil];
     }
     
     return resval;
 }
 
-- (PLAPIResult) startSessionWithApplicationId: (long) applicationId {
+- (PNAPIResult) startSessionWithApplicationId: (long) applicationId {
     NSLog(@"startSessionWithApplicationId");
-    PLAPIResult result;
+    PNAPIResult result;
     
     /** Setting Session variables */
     
-    _sessionState = PLSessionStateStarted;
+    _sessionState = PNSessionStateStarted;
     _applicationId = applicationId;
     
-    _cookieId = [[PLUtil getDeviceUniqueIdentifier] retain];
+    _cookieId = [[PNUtil getDeviceUniqueIdentifier] retain];
     
     // Set userId to cookieId if it isn't present
     if ([_userId length] == 0) {
         _userId = [_cookieId retain];
     }
     
-    _collectMode = PLSettingCollectionMode;
+    _collectMode = PNSettingCollectionMode;
     
     _timeZoneOffset = -60 * [[NSTimeZone localTimeZone] secondsFromGMT];
     _sequence = 1;
@@ -188,39 +188,39 @@
     
     // TODO check to see if we have to register the defaults first for it to work.
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    NSString *lastUserId = [userDefaults stringForKey:PLUserDefaultsLastUserID];
-    NSTimeInterval lastSessionStartTime = [[NSUserDefaults standardUserDefaults] doubleForKey:PLUserDefaultsLastSessionStartTime];
+    NSString *lastUserId = [userDefaults stringForKey:PNUserDefaultsLastUserID];
+    NSTimeInterval lastSessionStartTime = [[NSUserDefaults standardUserDefaults] doubleForKey:PNUserDefaultsLastSessionStartTime];
     
-    PLEventType eventType;
+    PNEventType eventType;
     
     NSTimeInterval currentTime = [[NSDate date] timeIntervalSince1970];
     // Send an appStart if it has been > 3 min since the last session or
     // a
     // different user
     // otherwise send an appPage    
-    if ((currentTime - lastSessionStartTime > PLSessionTimeout)
+    if ((currentTime - lastSessionStartTime > PNSessionTimeout)
         || ![_userId isEqualToString:lastUserId]) {
-        _sessionId = [[RandomGenerator createRandomHex] retain];
+        _sessionId = [[PNRandomGenerator createRandomHex] retain];
         _instanceId = [_sessionId retain];
         _sessionStartTime = currentTime;
         
-        eventType = PLEventAppStart;
+        eventType = PNEventAppStart;
         
-        [userDefaults setDouble:_sessionStartTime forKey:PLUserDefaultsLastSessionStartTime];
-        [userDefaults setObject:_userId forKey:PLUserDefaultsLastUserID];
+        [userDefaults setDouble:_sessionStartTime forKey:PNUserDefaultsLastSessionStartTime];
+        [userDefaults setObject:_userId forKey:PNUserDefaultsLastUserID];
         [userDefaults synchronize];
     }
     else {
         _sessionId = [lastUserId retain];
         // Always create a new Instance Id
-        _instanceId = [[RandomGenerator createRandomHex] retain];
-        _sessionStartTime = [userDefaults doubleForKey:PLUserDefaultsLastSessionStartTime];
+        _instanceId = [[PNRandomGenerator createRandomHex] retain];
+        _sessionStartTime = [userDefaults doubleForKey:PNUserDefaultsLastSessionStartTime];
         
-        eventType = PLEventAppPage;
+        eventType = PNEventAppPage;
     }
     
     /** Send appStart or appPage event */
-    BasicEvent *ev = [[BasicEvent alloc] init:eventType 
+    PNBasicEvent *ev = [[PNBasicEvent alloc] init:eventType 
                                 applicationId:_applicationId 
                                        userId:_userId 
                                      cookieId:_cookieId 
@@ -230,11 +230,11 @@
     
     // Try to send and queue if unsuccessful
     if ([_eventSender sendEventToServer:ev]) {
-        result = PLAPIResultSent;
+        result = PNAPIResultSent;
     }
     else {
         [self.playnomicsEventList addObject:ev];
-        result = PLAPIResultQueued;
+        result = PNAPIResultQueued;
     }
     [ev release];
     
@@ -247,14 +247,14 @@
 - (void) pause {
     NSLog(@"pause called");
     
-    if (_sessionState == PLSessionStatePaused)
+    if (_sessionState == PNSessionStatePaused)
         return;
     
-    _sessionState = PLSessionStatePaused;    
+    _sessionState = PNSessionStatePaused;    
     
     [self stopEventTimer];
 	
-    BasicEvent *ev = [[BasicEvent alloc] init:PLEventAppPause
+    PNBasicEvent *ev = [[PNBasicEvent alloc] init:PNEventAppPause
                                 applicationId:_applicationId
                                        userId:_userId
                                      cookieId:_cookieId
@@ -280,15 +280,15 @@
 - (void) resume {
     NSLog(@"resume called");
     
-    if (_sessionState == PLSessionStateStarted) {
+    if (_sessionState == PNSessionStateStarted) {
         return;
     }
     
     [self startEventTimer];
     
-    _sessionState = PLSessionStateStarted;
+    _sessionState = PNSessionStateStarted;
     
-    BasicEvent *ev = [[BasicEvent alloc] init:PLEventAppResume
+    PNBasicEvent *ev = [[PNBasicEvent alloc] init:PNEventAppResume
                                 applicationId:_applicationId
                                        userId:_userId
                                      cookieId:_cookieId
@@ -313,33 +313,33 @@
  * 
  * @return the API Result
  */
-- (PLAPIResult) stop {
+- (PNAPIResult) stop {
     NSLog(@"stop called");
     
-    if (_sessionState == PLSessionStateStopped) {
-        return PLAPIResultAlreadyStopped;
+    if (_sessionState == PNSessionStateStopped) {
+        return PNAPIResultAlreadyStopped;
     }
     
     // Currently Session is only stopped when the application quits.
-    _sessionState = PLSessionStateStopped;
+    _sessionState = PNSessionStateStopped;
     
     [self stopEventTimer];
     
     [[NSNotificationCenter defaultCenter] removeObserver: self];
     
     // Store Event List
-    if (![NSKeyedArchiver archiveRootObject:self.playnomicsEventList toFile:PLFileEventArchive]) {
+    if (![NSKeyedArchiver archiveRootObject:self.playnomicsEventList toFile:PNFileEventArchive]) {
         NSLog(@"Playnomics: Could not save event list");
     }
     
-    return PLAPIResultStopped;
+    return PNAPIResultStopped;
 }
 
 #pragma mark - Timed Event Sending
 - (void) startEventTimer {
     [self stopEventTimer];
         
-    _eventTimer = [[NSTimer scheduledTimerWithTimeInterval:PLUpdateTimeInterval target:self selector:@selector(consumeQueue) userInfo:nil repeats:YES] retain];
+    _eventTimer = [[NSTimer scheduledTimerWithTimeInterval:PNUpdateTimeInterval target:self selector:@selector(consumeQueue) userInfo:nil repeats:YES] retain];
 }
 
 - (void) stopEventTimer {
@@ -352,10 +352,10 @@
 
 - (void) consumeQueue {
     NSLog(@"consumeQueue");
-    if (_sessionState == PLSessionStateStarted) {
+    if (_sessionState == PNSessionStateStarted) {
         _sequence++;
         
-        BasicEvent *ev = [[BasicEvent alloc] init:PLEventAppRunning 
+        PNBasicEvent *ev = [[PNBasicEvent alloc] init:PNEventAppRunning 
                                     applicationId:_applicationId
                                            userId:_userId
                                          cookieId:_cookieId
@@ -379,7 +379,7 @@
     }
     
     NSMutableArray *sentEvents = [[NSMutableArray alloc] init];
-    for (PlaynomicsEvent *ev in self.playnomicsEventList) {
+    for (PNEvent *ev in self.playnomicsEventList) {
         if ([_eventSender sendEventToServer:ev]) {
             [sentEvents addObject:ev];
             continue;
@@ -390,20 +390,20 @@
     [self.playnomicsEventList removeObjectsInArray:sentEvents];
 }
 
-- (PLAPIResult) sendOrQueueEvent:(PlaynomicsEvent *)pe {
-    if (_sessionState != PLSessionStateStarted) {
-        return PLAPIResultStartNotCalled;
+- (PNAPIResult) sendOrQueueEvent:(PNEvent *)pe {
+    if (_sessionState != PNSessionStateStarted) {
+        return PNAPIResultStartNotCalled;
     }
     
     
-    PLAPIResult result;
+    PNAPIResult result;
     // Try to send and queue if unsuccessful
     if ([_eventSender sendEventToServer:pe]) {
-        result = PLAPIResultSent;
+        result = PNAPIResultSent;
     }
     else {
         [self.playnomicsEventList addObject:pe];
-        result = PLAPIResultQueued;
+        result = PNAPIResultQueued;
     }
     
     return result;
@@ -432,8 +432,8 @@
 }
 
 #pragma mark - API request methods
-+ (PLAPIResult) userInfo {
-    return [PlaynomicsSession userInfoForType:PLUserInfoTypeUpdate
++ (PNAPIResult) userInfo {
+    return [PlaynomicsSession userInfoForType:PNUserInfoTypeUpdate
                                       country:nil
                                   subdivision:nil
                                           sex:0
@@ -443,62 +443,62 @@
                                   installTime:nil];
 }
 
-+ (PLAPIResult) userInfoForType: (PLUserInfoType) type 
++ (PNAPIResult) userInfoForType: (PNUserInfoType) type 
                         country: (NSString *) country 
                     subdivision: (NSString *) subdivision
-                            sex: (PLUserInfoSex) sex
+                            sex: (PNUserInfoSex) sex
                        birthday: (NSDate *) birthday
-                         source: (PLUserInfoSource) source
+                         source: (PNUserInfoSource) source
                  sourceCampaign: (NSString *) sourceCampaign 
                     installTime: (NSDate *) installTime {
     PlaynomicsSession * s =[PlaynomicsSession sharedInstance];
     
-    UserInfoEvent *ev = [[[UserInfoEvent alloc] init:s.applicationId userId:s.userId type:type country:country subdivision:subdivision sex:sex birthday:[birthday timeIntervalSince1970] source:source sourceCampaign:sourceCampaign installTime:[installTime timeIntervalSince1970]] autorelease];
+    PNUserInfoEvent *ev = [[[PNUserInfoEvent alloc] init:s.applicationId userId:s.userId type:type country:country subdivision:subdivision sex:sex birthday:[birthday timeIntervalSince1970] source:source sourceCampaign:sourceCampaign installTime:[installTime timeIntervalSince1970]] autorelease];
     
     return [s sendOrQueueEvent:ev];
 }
 
-+ (PLAPIResult) sessionStartWithId: (NSString *) sessionId site: (NSString *) site {
++ (PNAPIResult) sessionStartWithId: (NSString *) sessionId site: (NSString *) site {
     PlaynomicsSession * s =[PlaynomicsSession sharedInstance];
     
-    GameEvent *ev = [[[GameEvent alloc] init:PLEventSessionStart applicationId:s.applicationId userId:s.userId sessionId:sessionId site:site instanceId:nil type:nil gameId:nil reason:nil] autorelease];
+    PNGameEvent *ev = [[[PNGameEvent alloc] init:PNEventSessionStart applicationId:s.applicationId userId:s.userId sessionId:sessionId site:site instanceId:nil type:nil gameId:nil reason:nil] autorelease];
     
     return [s sendOrQueueEvent:ev];
 }
 
-+ (PLAPIResult) sessionEndWithId: (NSString *) sessionId reason: (NSString *) reason {
++ (PNAPIResult) sessionEndWithId: (NSString *) sessionId reason: (NSString *) reason {
     PlaynomicsSession * s =[PlaynomicsSession sharedInstance];
     
-    GameEvent *ev = [[[GameEvent alloc] init:PLEventSessionEnd applicationId:s.applicationId userId:s.userId sessionId:sessionId site:nil instanceId:nil type:nil gameId:nil reason:reason] autorelease];
+    PNGameEvent *ev = [[[PNGameEvent alloc] init:PNEventSessionEnd applicationId:s.applicationId userId:s.userId sessionId:sessionId site:nil instanceId:nil type:nil gameId:nil reason:reason] autorelease];
     
     return [s sendOrQueueEvent:ev];
 }
 
-+ (PLAPIResult) gameStartWithInstanceId: (NSString *) instanceId sessionId: (NSString *) sessionId site: (NSString *) site type: (NSString *) type gameId: (NSString *) gameId {
++ (PNAPIResult) gameStartWithInstanceId: (NSString *) instanceId sessionId: (NSString *) sessionId site: (NSString *) site type: (NSString *) type gameId: (NSString *) gameId {
     PlaynomicsSession * s =[PlaynomicsSession sharedInstance];
 
-    GameEvent *ev = [[[GameEvent alloc] init:PLEventGameStart applicationId:s.applicationId userId:s.userId sessionId:sessionId site:site instanceId:instanceId type:type gameId:gameId reason:nil] autorelease];
+    PNGameEvent *ev = [[[PNGameEvent alloc] init:PNEventGameStart applicationId:s.applicationId userId:s.userId sessionId:sessionId site:site instanceId:instanceId type:type gameId:gameId reason:nil] autorelease];
     
     return [s sendOrQueueEvent:ev];
 }
 
-+ (PLAPIResult) gameEndWithInstanceId: (NSString *) instanceId sessionId: (NSString *) sessionId reason: (NSString *) reason {
++ (PNAPIResult) gameEndWithInstanceId: (NSString *) instanceId sessionId: (NSString *) sessionId reason: (NSString *) reason {
     PlaynomicsSession * s =[PlaynomicsSession sharedInstance];
     
-    GameEvent *ev = [[[GameEvent alloc] init:PLEventGameEnd applicationId:s.applicationId userId:s.userId sessionId:sessionId site:nil instanceId:instanceId type:nil gameId:nil reason:reason] autorelease];
+    PNGameEvent *ev = [[[PNGameEvent alloc] init:PNEventGameEnd applicationId:s.applicationId userId:s.userId sessionId:sessionId site:nil instanceId:instanceId type:nil gameId:nil reason:reason] autorelease];
     
     return [s sendOrQueueEvent:ev];
 }
 
 
-+ (PLAPIResult) transactionWithId:(long) transactionId 
++ (PNAPIResult) transactionWithId:(long) transactionId 
                            itemId: (NSString *) itemId
                          quantity: (double) quantity
-                             type: (PLTransactionType) type
+                             type: (PNTransactionType) type
                       otherUserId: (NSString *) otherUserId
-                     currencyType: (PLCurrencyType) currencyType
+                     currencyType: (PNCurrencyType) currencyType
                     currencyValue: (double) currencyValue
-                 currencyCategory: (PLCurrencyCategory) currencyCategory {
+                 currencyCategory: (PNCurrencyCategory) currencyCategory {
     NSArray *currencyTypes = [NSArray arrayWithObject: [NSNumber numberWithInt: currencyType]];
     NSArray *currencyValues = [NSArray arrayWithObject:[NSNumber numberWithDouble:currencyValue]];
     NSArray *currencyCategories = [NSArray arrayWithObject: [NSNumber numberWithInt:currencyCategory]];
@@ -514,17 +514,17 @@
 }
 
 
-+ (PLAPIResult) transactionWithId:(long) transactionId 
++ (PNAPIResult) transactionWithId:(long) transactionId 
                            itemId: (NSString *) itemId
                          quantity: (double) quantity
-                             type: (PLTransactionType) type
+                             type: (PNTransactionType) type
                       otherUserId: (NSString *) otherUserId
                     currencyTypes: (NSArray *) currencyTypes
                    currencyValues: (NSArray *) currencyValues
                currencyCategories: (NSArray *) currencyCategories {
     PlaynomicsSession * s =[PlaynomicsSession sharedInstance];
     
-    TransactionEvent *ev = [[[TransactionEvent alloc] init:PLEventTransaction 
+    PNTransactionEvent *ev = [[[PNTransactionEvent alloc] init:PNEventTransaction 
                                              applicationId:s.applicationId
                                                     userId:s.userId
                                              transactionId:transactionId 
@@ -539,13 +539,13 @@
     return [s sendOrQueueEvent:ev];
 }
 
-+ (PLAPIResult) invitationSentWithId: (NSString *) invitationId 
++ (PNAPIResult) invitationSentWithId: (NSString *) invitationId 
                      recipientUserId: (NSString *) recipientUserId 
                     recipientAddress: (NSString *) recipientAddress 
                               method: (NSString *) method {
     PlaynomicsSession * s =[PlaynomicsSession sharedInstance];
     
-    SocialEvent *ev = [[[SocialEvent alloc] init:PLEventInvitationSent 
+    PNSocialEvent *ev = [[[PNSocialEvent alloc] init:PNEventInvitationSent 
                                    applicationId:s.applicationId
                                           userId:s.userId invitationId:invitationId 
                                  recipientUserId:recipientUserId 
@@ -556,12 +556,12 @@
     
 }
 
-+ (PLAPIResult) invitationResponseWithId: (NSString *) invitationId 
-                            responseType: (PLResponseType) responseType {
++ (PNAPIResult) invitationResponseWithId: (NSString *) invitationId 
+                            responseType: (PNResponseType) responseType {
     // TODO: recipientUserId should not be nil
     PlaynomicsSession * s =[PlaynomicsSession sharedInstance];
     
-    SocialEvent *ev = [[[SocialEvent alloc] init:PLEventInvitationResponse 
+    PNSocialEvent *ev = [[[PNSocialEvent alloc] init:PNEventInvitationResponse 
                                    applicationId:s.applicationId
                                           userId:s.userId 
                                     invitationId:invitationId 

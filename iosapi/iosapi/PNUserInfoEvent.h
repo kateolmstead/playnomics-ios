@@ -1,38 +1,38 @@
-#import "PLConstants.h"
-#import "PlaynomicsEvent.h"
+#import "PNConstants.h"
+#import "PNEvent.h"
 
-@interface UserInfoEvent : PlaynomicsEvent {
-  PLUserInfoType _type;
+@interface PNUserInfoEvent : PNEvent {
+  PNUserInfoType _type;
   NSString * _country;
   NSString * _subdivision;
-  PLUserInfoSex _sex;
+  PNUserInfoSex _sex;
   NSTimeInterval _birthday;
-  PLUserInfoSource _source;
+  PNUserInfoSource _source;
   NSString * _sourceCampaign;
   NSTimeInterval _installTime;
 }
 
-@property(nonatomic, assign) PLUserInfoType type;
+@property(nonatomic, assign) PNUserInfoType type;
 @property(nonatomic, retain) NSString * country;
 @property(nonatomic, retain) NSString * subdivision;
-@property(nonatomic, assign) PLUserInfoSex sex;
+@property(nonatomic, assign) PNUserInfoSex sex;
 @property(nonatomic, assign) NSTimeInterval birthday;
-@property(nonatomic, assign) PLUserInfoSource source;
+@property(nonatomic, assign) PNUserInfoSource source;
 @property(nonatomic, retain) NSString * sourceCampaign;
 @property(nonatomic, assign) NSTimeInterval installTime;
 
 - (id) initUserInfoEvent: (long) applicationId 
              userId: (NSString *) userId 
-               type: (PLUserInfoType) type;
+               type: (PNUserInfoType) type;
 
 - (id) init: (long) applicationId 
              userId: (NSString *) userId 
-               type: (PLUserInfoType) type 
+               type: (PNUserInfoType) type 
             country: (NSString *) country 
         subdivision: (NSString *) subdivision 
-                sex: (PLUserInfoSex) sex 
+                sex: (PNUserInfoSex) sex 
            birthday: (NSTimeInterval) birthday
-             source: (PLUserInfoSource) source
+             source: (PNUserInfoSource) source
      sourceCampaign: (NSString *) sourceCampaign
         installTime: (NSTimeInterval) installTime;
 @end

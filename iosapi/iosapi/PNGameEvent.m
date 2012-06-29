@@ -1,6 +1,6 @@
-#import "GameEvent.h"
+#import "PNGameEvent.h"
 
-@implementation GameEvent
+@implementation PNGameEvent
 
 @synthesize sessionId=_sessionId;
 @synthesize instanceId=_instanceId;
@@ -9,7 +9,7 @@
 @synthesize reason=_reason;
 @synthesize site=_site;
 
-- (id) init:  (PLEventType)eventType 
+- (id) init:  (PNEventType)eventType 
         applicationId: (long) applicationId 
              userId:(NSString *)userId
           sessionId:(NSString *)sessionId
@@ -32,7 +32,7 @@
 
 - (NSString *) toQueryString {
     NSString * queryString = [super toQueryString];
-    if ([self eventType] == PLEventGameStart || [self eventType] == PLEventGameEnd)
+    if ([self eventType] == PNEventGameStart || [self eventType] == PNEventGameEnd)
         queryString = [self addOptionalParam:queryString name:@"s" value:[self sessionId]];
     else
         queryString = [queryString stringByAppendingFormat:@"&s=%@", [self sessionId]];
@@ -46,23 +46,23 @@
 
 - (void)encodeWithCoder:(NSCoder *)encoder {
     [super encodeWithCoder:encoder];
-        [encoder encodeObject: _sessionId forKey:@"PLGameEvent._sessionId"];  
-        [encoder encodeObject: _site forKey:@"PLGameEvent._site"];  
-        [encoder encodeObject: _instanceId forKey:@"PLGameEvent._instanceId"];  
-        [encoder encodeObject: _type forKey:@"PLGameEvent._type"];  
-        [encoder encodeObject: _gameId forKey:@"PLGameEvent._gameId"];  
-        [encoder encodeObject: _reason forKey:@"PLGameEvent._reason"];  
+        [encoder encodeObject: _sessionId forKey:@"PNGameEvent._sessionId"];  
+        [encoder encodeObject: _site forKey:@"PNGameEvent._site"];  
+        [encoder encodeObject: _instanceId forKey:@"PNGameEvent._instanceId"];  
+        [encoder encodeObject: _type forKey:@"PNGameEvent._type"];  
+        [encoder encodeObject: _gameId forKey:@"PNGameEvent._gameId"];  
+        [encoder encodeObject: _reason forKey:@"PNGameEvent._reason"];  
 }
 
 
 - (id)initWithCoder:(NSCoder *)decoder {
     if ((self = [super initWithCoder:decoder])) {
-        _sessionId = [(NSString *)[decoder decodeObjectForKey:@"PLGameEvent._sessionId"] retain]; 
-        _site = [(NSString *)[decoder decodeObjectForKey:@"PLGameEvent._site"] retain]; 
-        _instanceId = [(NSString *)[decoder decodeObjectForKey:@"PLGameEvent._instanceId"] retain]; 
-        _type = [(NSString *)[decoder decodeObjectForKey:@"PLGameEvent._type"] retain]; 
-        _gameId = [(NSString *)[decoder decodeObjectForKey:@"PLGameEvent._gameId"] retain]; 
-        _reason = [(NSString *)[decoder decodeObjectForKey:@"PLGameEvent._reason"] retain]; 
+        _sessionId = [(NSString *)[decoder decodeObjectForKey:@"PNGameEvent._sessionId"] retain]; 
+        _site = [(NSString *)[decoder decodeObjectForKey:@"PNGameEvent._site"] retain]; 
+        _instanceId = [(NSString *)[decoder decodeObjectForKey:@"PNGameEvent._instanceId"] retain]; 
+        _type = [(NSString *)[decoder decodeObjectForKey:@"PNGameEvent._type"] retain]; 
+        _gameId = [(NSString *)[decoder decodeObjectForKey:@"PNGameEvent._gameId"] retain]; 
+        _reason = [(NSString *)[decoder decodeObjectForKey:@"PNGameEvent._reason"] retain]; 
     }
     return self;
 }

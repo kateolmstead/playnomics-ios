@@ -1,6 +1,6 @@
-#import "UserInfoEvent.h"
+#import "PNUserInfoEvent.h"
 
-@implementation UserInfoEvent
+@implementation PNUserInfoEvent
 
 @synthesize type=_type;
 @synthesize country=_country;
@@ -14,9 +14,9 @@
 
 - (id) initUserInfoEvent:(long) applicationId 
      userId:(NSString *)userId 
-       type:(PLUserInfoType) type {
+       type:(PNUserInfoType) type {
     
-    PLEventType eType = PLEventUserInfo;
+    PNEventType eType = PNEventUserInfo;
     
     if (self = [super init:eType applicationId:applicationId userId:userId]) {
         _type = type;
@@ -27,12 +27,12 @@
 
 - (id) init:(long) applicationId 
              userId: (NSString *) userId 
-               type: (PLUserInfoType) type 
+               type: (PNUserInfoType) type 
             country: (NSString *) country 
         subdivision: (NSString *) subdivision 
-                sex: (PLUserInfoSex) sex 
+                sex: (PNUserInfoSex) sex 
            birthday: (NSTimeInterval) birthday
-             source: (PLUserInfoSource) source
+             source: (PNUserInfoSource) source
      sourceCampaign: (NSString *) sourceCampaign
         installTime: (NSTimeInterval) installTime {
     
@@ -49,18 +49,18 @@
 }
 
 - (NSString *) toQueryString {
-    NSString *queryString = [[super toQueryString] stringByAppendingFormat:@"&pt=%@", [PLUtil PLUserInfoTypeDescription:[self type]]];
+    NSString *queryString = [[super toQueryString] stringByAppendingFormat:@"&pt=%@", [PNUtil PNUserInfoTypeDescription:[self type]]];
     
     queryString = [self addOptionalParam:queryString name:@"pc" value:[self country]];
     queryString = [self addOptionalParam:queryString name:@"ps" value:[self subdivision]];
-    queryString = [self addOptionalParam:queryString name:@"px" value:[PLUtil PLUserInfoSexDescription:[self sex]]];
+    queryString = [self addOptionalParam:queryString name:@"px" value:[PNUtil PNUserInfoSexDescription:[self sex]]];
     
     NSDateFormatter *df = [[NSDateFormatter  alloc] init]; 
     [df setDateFormat: @"MM-dd-yyyy"];
     queryString = [self addOptionalParam:queryString name:@"pb" value:[df stringFromDate: [NSDate dateWithTimeIntervalSince1970:[self birthday]]]];
     [df release];
     
-    queryString = [self addOptionalParam:queryString name:@"po" value:[PLUtil PLUserInfoSourceDescription:[self source]]];
+    queryString = [self addOptionalParam:queryString name:@"po" value:[PNUtil PNUserInfoSourceDescription:[self source]]];
     queryString = [self addOptionalParam:queryString name:@"pm" value:[self sourceCampaign]];
     queryString = [self addOptionalParam:queryString name:@"pi" value:[NSString stringWithFormat:@"%fd", [self installTime]]];
     return queryString;
@@ -68,26 +68,26 @@
 
 - (void)encodeWithCoder:(NSCoder *)encoder {
     [super encodeWithCoder:encoder];
-   	[encoder encodeInt: _type forKey:@"PLUserInfoEvent._type"];  
-    [encoder encodeObject: _country forKey:@"PLUserInfoEvent._country"];  
-    [encoder encodeObject: _subdivision forKey:@"PLUserInfoEvent._subdivision"];  
-    [encoder encodeInt: _sex forKey:@"PLUserInfoEvent._sex"];  
-    [encoder encodeDouble: _birthday forKey:@"PLUserInfoEvent._birthday"];  
-    [encoder encodeInt: _source forKey:@"PLUserInfoEvent._source"];  
-    [encoder encodeObject: _sourceCampaign forKey:@"PLUserInfoEvent._sourceCampaign"];  
-    [encoder encodeDouble: _installTime forKey:@"PLUserInfoEvent._installTime"];  
+   	[encoder encodeInt: _type forKey:@"PNUserInfoEvent._type"];  
+    [encoder encodeObject: _country forKey:@"PNUserInfoEvent._country"];  
+    [encoder encodeObject: _subdivision forKey:@"PNUserInfoEvent._subdivision"];  
+    [encoder encodeInt: _sex forKey:@"PNUserInfoEvent._sex"];  
+    [encoder encodeDouble: _birthday forKey:@"PNUserInfoEvent._birthday"];  
+    [encoder encodeInt: _source forKey:@"PNUserInfoEvent._source"];  
+    [encoder encodeObject: _sourceCampaign forKey:@"PNUserInfoEvent._sourceCampaign"];  
+    [encoder encodeDouble: _installTime forKey:@"PNUserInfoEvent._installTime"];  
 }
 
 - (id)initWithCoder:(NSCoder *)decoder {
     if ((self = [super initWithCoder:decoder])) {
-        _type= [decoder decodeIntForKey:@"PLUserInfoEvent._type"];
-        _country = [(NSString *)[decoder decodeObjectForKey:@"PLUserInfoEvent._country"] retain]; 
-        _subdivision = [(NSString *)[decoder decodeObjectForKey:@"PLUserInfoEvent._subdivision"] retain]; 
-        _sex = [decoder decodeIntForKey:@"PLUserInfoEvent._sex"]; 
-        _birthday = [decoder decodeDoubleForKey:@"PLUserInfoEvent._birthday"]; 
-        _source = [decoder decodeIntForKey:@"PLUserInfoEvent._source"]; 
-        _sourceCampaign = [(NSString *)[decoder decodeObjectForKey:@"PLUserInfoEvent._sourceCampaign"] retain]; 
-        _installTime = [decoder decodeDoubleForKey:@"PLUserInfoEvent._installTime"]; 
+        _type= [decoder decodeIntForKey:@"PNUserInfoEvent._type"];
+        _country = [(NSString *)[decoder decodeObjectForKey:@"PNUserInfoEvent._country"] retain]; 
+        _subdivision = [(NSString *)[decoder decodeObjectForKey:@"PNUserInfoEvent._subdivision"] retain]; 
+        _sex = [decoder decodeIntForKey:@"PNUserInfoEvent._sex"]; 
+        _birthday = [decoder decodeDoubleForKey:@"PNUserInfoEvent._birthday"]; 
+        _source = [decoder decodeIntForKey:@"PNUserInfoEvent._source"]; 
+        _sourceCampaign = [(NSString *)[decoder decodeObjectForKey:@"PNUserInfoEvent._sourceCampaign"] retain]; 
+        _installTime = [decoder decodeDoubleForKey:@"PNUserInfoEvent._installTime"]; 
     }
     return self;
 }

@@ -1,7 +1,7 @@
-#import "BasicEvent.h"
-#import "PLConfig.h"
+#import "PNBasicEvent.h"
+#import "PNConfig.h"
 
-@implementation BasicEvent
+@implementation PNBasicEvent
 @synthesize cookieId=_cookieId;
 @synthesize sessionId=_sessionId;
 @synthesize instanceId=_instanceId;
@@ -15,7 +15,7 @@
 @synthesize totalKeys=_totalKeys;
 @synthesize collectMode=_collectMode;
 
-- (id) init:  (PLEventType) eventType
+- (id) init:  (PNEventType) eventType
         applicationId:(long) applicationId
              userId:(NSString *)userId
            cookieId:(NSString *)cookieId
@@ -46,7 +46,7 @@
     return self;
 }
 
-- (id) init:  (PLEventType) eventType 
+- (id) init:  (PNEventType) eventType 
         applicationId:(long) applicationId
              userId:(NSString *)userId
            cookieId:(NSString *)cookieId
@@ -76,28 +76,28 @@
     NSString * queryString = [[super toQueryString] stringByAppendingFormat:@"&b=%@&s=%@&i=%@", [self cookieId], [self sessionId], [self instanceId]];
     
     switch ([self eventType]) {
-        case PLEventAppStart:
-        case PLEventAppPage:
+        case PNEventAppStart:
+        case PNEventAppPage:
             queryString = [queryString stringByAppendingFormat:@"&z=%d", [self timeZoneOffset]];
             break;
-        case PLEventAppRunning:
+        case PNEventAppRunning:
             queryString = [queryString stringByAppendingFormat: @"&r=%fd&q=%d&d=%d&c=%d&e=%d&k=%d&l=%d&m=%d", 
                            [self sessionStartTime], 
                            [self sequence],
-                           (int) (PLUpdateTimeInterval * 1000),
+                           (int) (PNUpdateTimeInterval * 1000),
                            [self clicks],
                            [self totalClicks],
                            [self keys],
                            [self totalKeys],
                            [self collectMode]];
             break;
-        case PLEventAppResume:
+        case PNEventAppResume:
             queryString = [queryString stringByAppendingFormat:@"&p=%fd", [self pauseTime]];
-        case PLEventAppPause:
+        case PNEventAppPause:
             queryString = [queryString stringByAppendingFormat:@"&r=%fd&q=%d", [self sessionStartTime], [self sequence]];
             break;
         default:
-            NSLog(@"BasicEvent: %@ not handled", [PLUtil PLEventTypeDescription:[self eventType]]);
+            NSLog(@"BasicEvent: %@ not handled", [PNUtil PNEventTypeDescription:[self eventType]]);
     }
     return queryString;
 }
@@ -105,33 +105,33 @@
 - (void)encodeWithCoder:(NSCoder *)encoder {
     [super encodeWithCoder:encoder];
     
-    [encoder encodeObject: _cookieId forKey:@"PLBasicEvent._cookieId"]; 
-    [encoder encodeObject: _sessionId forKey:@"PLBasicEvent._sessionId"]; 
-    [encoder encodeObject: _instanceId forKey:@"PLBasicEvent._instanceId"];  
-    [encoder encodeDouble: _sessionStartTime forKey:@"PLBasicEvent._sessionStartTime"];  
-    [encoder encodeDouble: _pauseTime forKey:@"PLBasicEvent._pauseTime"];  
-    [encoder encodeInt: _sequence forKey:@"PLBasicEvent._sequence"];  
-    [encoder encodeInt: _clicks forKey:@"PLBasicEvent._clicks"];  
-    [encoder encodeInt: _totalClicks forKey:@"PLBasicEvent._totalClicks"];  
-    [encoder encodeInt: _keys forKey:@"PLBasicEvent._keys"];  
-    [encoder encodeInt: _totalKeys forKey:@"PLBasicEvent._totalKeys"];  
-    [encoder encodeInt: _collectMode forKey:@"PLBasicEvent._collectMode"];  
+    [encoder encodeObject: _cookieId forKey:@"PNBasicEvent._cookieId"]; 
+    [encoder encodeObject: _sessionId forKey:@"PNBasicEvent._sessionId"]; 
+    [encoder encodeObject: _instanceId forKey:@"PNBasicEvent._instanceId"];  
+    [encoder encodeDouble: _sessionStartTime forKey:@"PNBasicEvent._sessionStartTime"];  
+    [encoder encodeDouble: _pauseTime forKey:@"PNBasicEvent._pauseTime"];  
+    [encoder encodeInt: _sequence forKey:@"PNBasicEvent._sequence"];  
+    [encoder encodeInt: _clicks forKey:@"PNBasicEvent._clicks"];  
+    [encoder encodeInt: _totalClicks forKey:@"PNBasicEvent._totalClicks"];  
+    [encoder encodeInt: _keys forKey:@"PNBasicEvent._keys"];  
+    [encoder encodeInt: _totalKeys forKey:@"PNBasicEvent._totalKeys"];  
+    [encoder encodeInt: _collectMode forKey:@"PNBasicEvent._collectMode"];  
 }
 
 
 - (id)initWithCoder:(NSCoder *)decoder {
     if ((self = [super initWithCoder:decoder])) {
-        _cookieId = [(NSString *)[decoder decodeObjectForKey:@"PLBasicEvent._cookieId"] retain]; 
-        _sessionId = [(NSString *)[decoder decodeObjectForKey:@"PLBasicEvent._sessionId"] retain]; 
-        _instanceId = [(NSString *)[decoder decodeObjectForKey:@"PLBasicEvent._instanceId"] retain]; 
-        _sessionStartTime = [decoder decodeDoubleForKey:@"PLBasicEvent._sessionStartTime"]; 
-        _pauseTime = [decoder decodeDoubleForKey:@"PLBasicEvent._pauseTime"];
-        _sequence = [decoder decodeIntForKey:@"PLBasicEvent._sequence"]; 
-        _clicks = [decoder decodeIntForKey:@"PLBasicEvent._clicks"]; 
-        _totalClicks = [decoder decodeIntForKey:@"PLBasicEvent._totalClicks"]; 
-        _keys = [decoder decodeIntForKey:@"PLBasicEvent._keys"]; 
-        _totalKeys = [decoder decodeIntForKey:@"PLBasicEvent._totalKeys"]; 
-        _collectMode = [decoder decodeIntForKey:@"PLBasicEvent._collectMode"]; 
+        _cookieId = [(NSString *)[decoder decodeObjectForKey:@"PNBasicEvent._cookieId"] retain]; 
+        _sessionId = [(NSString *)[decoder decodeObjectForKey:@"PNBasicEvent._sessionId"] retain]; 
+        _instanceId = [(NSString *)[decoder decodeObjectForKey:@"PNBasicEvent._instanceId"] retain]; 
+        _sessionStartTime = [decoder decodeDoubleForKey:@"PNBasicEvent._sessionStartTime"]; 
+        _pauseTime = [decoder decodeDoubleForKey:@"PNBasicEvent._pauseTime"];
+        _sequence = [decoder decodeIntForKey:@"PNBasicEvent._sequence"]; 
+        _clicks = [decoder decodeIntForKey:@"PNBasicEvent._clicks"]; 
+        _totalClicks = [decoder decodeIntForKey:@"PNBasicEvent._totalClicks"]; 
+        _keys = [decoder decodeIntForKey:@"PNBasicEvent._keys"]; 
+        _totalKeys = [decoder decodeIntForKey:@"PNBasicEvent._totalKeys"]; 
+        _collectMode = [decoder decodeIntForKey:@"PNBasicEvent._collectMode"]; 
     }
     return self;
 }

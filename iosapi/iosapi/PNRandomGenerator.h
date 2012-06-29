@@ -1,6 +1,6 @@
 #import <Foundation/Foundation.h>
 
-@interface RandomGenerator : NSObject {
+@interface PNRandomGenerator : NSObject {
 }
 
 + (NSString *) createRandomHex;

@@ -1,9 +1,9 @@
-#import "EventSender.h"
+#import "PNEventSender.h"
 
-#import "PLConfig.h"
-#import "PlaynomicsEvent.h"
+#import "PNConfig.h"
+#import "PNEvent.h"
 
-@implementation EventSender
+@implementation PNEventSender
 
 - (id) init {
     if (self = [self initWithTestMode: NO]) {
@@ -16,9 +16,9 @@
         _testMode = testMode;
         
         
-        _version = [PLPropertyVersion retain];
-        _baseUrl = [PLPropertyBaseUrl retain];
-        _connectTimeout = PLPropertyConnectionTimeout;
+        _version = [PNPropertyVersion retain];
+        _baseUrl = [PNPropertyBaseUrl retain];
+        _connectTimeout = PNPropertyConnectionTimeout;
     }
     return self;
 }
@@ -42,7 +42,7 @@
     return TRUE;
 }
 
-- (BOOL) sendEventToServer:(PlaynomicsEvent *)pe {
+- (BOOL) sendEventToServer:(PNEvent *)pe {
     return [self sendToServer:[_baseUrl stringByAppendingString:[pe toQueryString]]];
 }
 

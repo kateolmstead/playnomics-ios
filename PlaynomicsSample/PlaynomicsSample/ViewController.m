@@ -67,22 +67,22 @@
 
 
 - (IBAction) onGameStartClick:(id)sender {
-    PLAPIResult resval = [PlaynomicsSession gameStartWithInstanceId:@"INSTANCE_ID" sessionId:@"SESSION_ID" site:@"TEST_SITE" type:@"TEST_TYPE" gameId:@"TEST_GAMEID"];
+    PNAPIResult resval = [PlaynomicsSession gameStartWithInstanceId:@"INSTANCE_ID" sessionId:@"SESSION_ID" site:@"TEST_SITE" type:@"TEST_TYPE" gameId:@"TEST_GAMEID"];
     [self handlePLAPIRResult:resval];
 }
 
 - (IBAction) onGameEndClick:(id)sender {
-    PLAPIResult resval = [PlaynomicsSession gameEndWithInstanceId:@"INSTANCE_ID" sessionId:@"SESSION_ID" reason:@"TEST_REASON"];
+    PNAPIResult resval = [PlaynomicsSession gameEndWithInstanceId:@"INSTANCE_ID" sessionId:@"SESSION_ID" reason:@"TEST_REASON"];
     [self handlePLAPIRResult:resval];
 }
 
 - (IBAction) onSendInvitationClick:(id)sender {
-    PLAPIResult resval = [PlaynomicsSession invitationSentWithId:@"TEST_INVITATIONID" recipientUserId:@"TEST_RECIPIENTID" recipientAddress:@"TEST_RECIPIENT_ADDRESS" method:@"TEST_METHOD"];
+    PNAPIResult resval = [PlaynomicsSession invitationSentWithId:@"TEST_INVITATIONID" recipientUserId:@"TEST_RECIPIENTID" recipientAddress:@"TEST_RECIPIENT_ADDRESS" method:@"TEST_METHOD"];
     [self handlePLAPIRResult:resval];
 }
 
 - (IBAction) onRespondToInvitationClick:(id)sender {
-    PLAPIResult resval = [PlaynomicsSession invitationResponseWithId:@"TEST_INVITATIONID" responseType:PLResponseTypeAccepted];
+    PNAPIResult resval = [PlaynomicsSession invitationResponseWithId:@"TEST_INVITATIONID" responseType:PNResponseTypeAccepted];
     [self handlePLAPIRResult:resval];
 }
 
@@ -92,7 +92,7 @@
         count = [transactionCount.text integerValue];
     }
     
-    PLAPIResult resval;
+    PNAPIResult resval;
     if (count > 0) {
         NSMutableArray *tStack = [NSMutableArray array];
         NSMutableArray *vStack = [NSMutableArray array];
@@ -126,17 +126,17 @@
 }
 
 - (IBAction) onSessionStartClick:(id)sender {
-    PLAPIResult resval = [PlaynomicsSession sessionStartWithId:@"TEST_SESSION_ID" site:@"TEST_SITE"];
+    PNAPIResult resval = [PlaynomicsSession sessionStartWithId:@"TEST_SESSION_ID" site:@"TEST_SITE"];
     [self handlePLAPIRResult:resval];
 }
 
 - (IBAction) onSessionEndClick:(id)sender {
-    PLAPIResult resval = [PlaynomicsSession sessionEndWithId:@"TEST_SESSION_ID" reason:@"TEST_REASON"];
+    PNAPIResult resval = [PlaynomicsSession sessionEndWithId:@"TEST_SESSION_ID" reason:@"TEST_REASON"];
     [self handlePLAPIRResult:resval];
 }
 
 - (IBAction) onUserInfoClick:(id)sender {
-    PLAPIResult resval = [PlaynomicsSession userInfoForType:PLUserInfoTypeUpdate
+    PNAPIResult resval = [PlaynomicsSession userInfoForType:PNUserInfoTypeUpdate
                                                     country:@"TEST_COUNTRY"
                                                 subdivision:@"TEST_SUBDIVISION"
                                                         sex:(arc4random() % 3)
@@ -150,8 +150,8 @@
 
 
 
-- (void) handlePLAPIRResult: (PLAPIResult) result {
-    if (result == PLAPIResultSent) {
+- (void) handlePLAPIRResult: (PNAPIResult) result {
+    if (result == PNAPIResultSent) {
         [[[[UIAlertView alloc] initWithTitle:@"Result" message:@"Event Sent !" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil] autorelease] show];
     }
     else {

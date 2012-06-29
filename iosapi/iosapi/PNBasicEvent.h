@@ -1,6 +1,6 @@
-#import "PlaynomicsEvent.h"
+#import "PNEvent.h"
 
-@interface BasicEvent : PlaynomicsEvent {
+@interface PNBasicEvent : PNEvent {
   NSString * _cookieId;
   NSString * _sessionId;
   NSString * _instanceId;
@@ -28,7 +28,7 @@
 @property (nonatomic, assign) int totalKeys;
 @property (nonatomic, assign) int collectMode;
 
-- (id) init:  (PLEventType) eventType
+- (id) init:  (PNEventType) eventType
         applicationId:(long) applicationId
      userId:(NSString *)userId
    cookieId:(NSString *)cookieId
@@ -42,7 +42,7 @@ totalClicks:(int)totalClicks
   totalKeys:(int)totalKeys
 collectMode:(int)collectMode;
 
-- (id) init:  (PLEventType) eventType 
+- (id) init:  (PNEventType) eventType 
 applicationId:(long) applicationId
      userId:(NSString *)userId
    cookieId:(NSString *)cookieId

@@ -7,12 +7,12 @@
 //
 
 #import <SenTestingKit/SenTestingKit.h>
-#import "EventSender.h"
+#import "PNEventSender.h"
 #import "PlaynomicsSession.h"
 
 @interface iosapiTests : SenTestCase {
     NSArray *v;
-    EventSender *eventSender;
+    PNEventSender *eventSender;
     
     PlaynomicsSession *s;
 }

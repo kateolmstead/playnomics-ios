@@ -7,11 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5B589DBF15993764002B6251 /* PLConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 5B589DBE15993764002B6251 /* PLConfig.h */; };
-		5B6C6E1C1593F0F30088EF5E /* PLUtil.h in Headers */ = {isa = PBXBuildFile; fileRef = 5B6C6E1A1593F0F20088EF5E /* PLUtil.h */; };
-		5B6C6E1D1593F0F30088EF5E /* PLUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B6C6E1B1593F0F20088EF5E /* PLUtil.m */; };
-		5BBAA22E159BD87300AA4993 /* PLApplication.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BBAA22C159BD87200AA4993 /* PLApplication.h */; };
-		5BBAA22F159BD87300AA4993 /* PLApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BBAA22D159BD87300AA4993 /* PLApplication.m */; };
+		5B589DBF15993764002B6251 /* PNConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 5B589DBE15993764002B6251 /* PNConfig.h */; };
+		5B6C6E1C1593F0F30088EF5E /* PNUtil.h in Headers */ = {isa = PBXBuildFile; fileRef = 5B6C6E1A1593F0F20088EF5E /* PNUtil.h */; };
+		5B6C6E1D1593F0F30088EF5E /* PNUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B6C6E1B1593F0F20088EF5E /* PNUtil.m */; };
+		5B753E30159D2D5000E698F9 /* PNRandomGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B753E2F159D2D5000E698F9 /* PNRandomGenerator.m */; };
+		5BBAA22F159BD87300AA4993 /* PNApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BBAA22D159BD87300AA4993 /* PNApplication.m */; };
 		5BBAA238159BE4CD00AA4993 /* PlaynomicsSession+Exposed.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BBAA237159BE4CD00AA4993 /* PlaynomicsSession+Exposed.h */; };
 		D1D922741590F59700EDDE17 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1D922731590F59600EDDE17 /* Foundation.framework */; };
 		D1D9227A1590F59700EDDE17 /* iosapi.m in Sources */ = {isa = PBXBuildFile; fileRef = D1D922791590F59700EDDE17 /* iosapi.m */; };
@@ -23,25 +23,22 @@
 		D1D922911590F59700EDDE17 /* iosapiTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D1D922901590F59700EDDE17 /* iosapiTests.m */; };
 		D1D922A31591124700EDDE17 /* PlaynomicsSession.h in Headers */ = {isa = PBXBuildFile; fileRef = D1D922A11591124700EDDE17 /* PlaynomicsSession.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D1D922A41591124700EDDE17 /* PlaynomicsSession.m in Sources */ = {isa = PBXBuildFile; fileRef = D1D922A21591124700EDDE17 /* PlaynomicsSession.m */; };
-		D1D922A71591125700EDDE17 /* PlaynomicsEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = D1D922A51591125700EDDE17 /* PlaynomicsEvent.h */; };
-		D1D922A81591125700EDDE17 /* PlaynomicsEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = D1D922A61591125700EDDE17 /* PlaynomicsEvent.m */; };
-		D1D922AF159112A300EDDE17 /* SocialEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = D1D922A9159112A200EDDE17 /* SocialEvent.h */; };
-		D1D922B0159112A300EDDE17 /* SocialEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = D1D922AA159112A200EDDE17 /* SocialEvent.m */; };
-		D1D922B1159112A300EDDE17 /* TransactionEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = D1D922AB159112A200EDDE17 /* TransactionEvent.h */; };
-		D1D922B2159112A300EDDE17 /* TransactionEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = D1D922AC159112A200EDDE17 /* TransactionEvent.m */; };
-		D1D922B3159112A300EDDE17 /* UserInfoEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = D1D922AD159112A200EDDE17 /* UserInfoEvent.h */; };
-		D1D922B4159112A300EDDE17 /* UserInfoEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = D1D922AE159112A300EDDE17 /* UserInfoEvent.m */; };
-		D1D922BD159112C100EDDE17 /* BasicEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = D1D922B5159112C100EDDE17 /* BasicEvent.h */; };
-		D1D922BE159112C100EDDE17 /* BasicEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = D1D922B6159112C100EDDE17 /* BasicEvent.m */; };
-		D1D922BF159112C100EDDE17 /* ErrorEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = D1D922B7159112C100EDDE17 /* ErrorEvent.h */; };
-		D1D922C0159112C100EDDE17 /* ErrorEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = D1D922B8159112C100EDDE17 /* ErrorEvent.m */; };
-		D1D922C1159112C100EDDE17 /* EventSender.h in Headers */ = {isa = PBXBuildFile; fileRef = D1D922B9159112C100EDDE17 /* EventSender.h */; };
-		D1D922C2159112C100EDDE17 /* EventSender.m in Sources */ = {isa = PBXBuildFile; fileRef = D1D922BA159112C100EDDE17 /* EventSender.m */; };
-		D1D922C3159112C100EDDE17 /* GameEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = D1D922BB159112C100EDDE17 /* GameEvent.h */; };
-		D1D922C4159112C100EDDE17 /* GameEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = D1D922BC159112C100EDDE17 /* GameEvent.m */; };
-		D1D922C7159112E100EDDE17 /* RandomGenerator.h in Headers */ = {isa = PBXBuildFile; fileRef = D1D922C5159112E100EDDE17 /* RandomGenerator.h */; };
-		D1D922C8159112E100EDDE17 /* RandomGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = D1D922C6159112E100EDDE17 /* RandomGenerator.m */; };
-		D1D922CB159112F400EDDE17 /* PLConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = D1D922C9159112F400EDDE17 /* PLConstants.h */; settings = {ATTRIBUTES = (); }; };
+		D1D922A71591125700EDDE17 /* PNEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = D1D922A51591125700EDDE17 /* PNEvent.h */; };
+		D1D922A81591125700EDDE17 /* PNEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = D1D922A61591125700EDDE17 /* PNEvent.m */; };
+		D1D922AF159112A300EDDE17 /* PNSocialEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = D1D922A9159112A200EDDE17 /* PNSocialEvent.h */; };
+		D1D922B0159112A300EDDE17 /* PNSocialEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = D1D922AA159112A200EDDE17 /* PNSocialEvent.m */; };
+		D1D922B1159112A300EDDE17 /* PNTransactionEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = D1D922AB159112A200EDDE17 /* PNTransactionEvent.h */; };
+		D1D922B2159112A300EDDE17 /* PNTransactionEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = D1D922AC159112A200EDDE17 /* PNTransactionEvent.m */; };
+		D1D922B3159112A300EDDE17 /* PNUserInfoEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = D1D922AD159112A200EDDE17 /* PNUserInfoEvent.h */; };
+		D1D922B4159112A300EDDE17 /* PNUserInfoEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = D1D922AE159112A300EDDE17 /* PNUserInfoEvent.m */; };
+		D1D922BD159112C100EDDE17 /* PNBasicEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = D1D922B5159112C100EDDE17 /* PNBasicEvent.h */; };
+		D1D922BE159112C100EDDE17 /* PNBasicEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = D1D922B6159112C100EDDE17 /* PNBasicEvent.m */; };
+		D1D922C1159112C100EDDE17 /* PNEventSender.h in Headers */ = {isa = PBXBuildFile; fileRef = D1D922B9159112C100EDDE17 /* PNEventSender.h */; };
+		D1D922C2159112C100EDDE17 /* PNEventSender.m in Sources */ = {isa = PBXBuildFile; fileRef = D1D922BA159112C100EDDE17 /* PNEventSender.m */; };
+		D1D922C3159112C100EDDE17 /* PNGameEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = D1D922BB159112C100EDDE17 /* PNGameEvent.h */; };
+		D1D922C4159112C100EDDE17 /* PNGameEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = D1D922BC159112C100EDDE17 /* PNGameEvent.m */; };
+		D1D922C7159112E100EDDE17 /* PNRandomGenerator.h in Headers */ = {isa = PBXBuildFile; fileRef = D1D922C5159112E100EDDE17 /* PNRandomGenerator.h */; };
+		D1D922CB159112F400EDDE17 /* PNConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = D1D922C9159112F400EDDE17 /* PNConstants.h */; settings = {ATTRIBUTES = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,11 +52,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		5B589DBE15993764002B6251 /* PLConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLConfig.h; sourceTree = "<group>"; };
-		5B6C6E1A1593F0F20088EF5E /* PLUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = PLUtil.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		5B6C6E1B1593F0F20088EF5E /* PLUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = PLUtil.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		5BBAA22C159BD87200AA4993 /* PLApplication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLApplication.h; sourceTree = "<group>"; };
-		5BBAA22D159BD87300AA4993 /* PLApplication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLApplication.m; sourceTree = "<group>"; };
+		5B589DBE15993764002B6251 /* PNConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = PNConfig.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		5B6C6E1A1593F0F20088EF5E /* PNUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = PNUtil.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		5B6C6E1B1593F0F20088EF5E /* PNUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = PNUtil.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		5B753E2F159D2D5000E698F9 /* PNRandomGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNRandomGenerator.m; sourceTree = "<group>"; };
+		5BBAA22D159BD87300AA4993 /* PNApplication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = PNApplication.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		5BBAA237159BE4CD00AA4993 /* PlaynomicsSession+Exposed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PlaynomicsSession+Exposed.h"; sourceTree = "<group>"; };
 		D1D922701590F59600EDDE17 /* libiosapi.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libiosapi.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		D1D922731590F59600EDDE17 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -72,28 +69,25 @@
 		D1D9228B1590F59700EDDE17 /* iosapiTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "iosapiTests-Info.plist"; sourceTree = "<group>"; };
 		D1D9228D1590F59700EDDE17 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D1D9228F1590F59700EDDE17 /* iosapiTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iosapiTests.h; sourceTree = "<group>"; };
-		D1D922901590F59700EDDE17 /* iosapiTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = iosapiTests.m; sourceTree = "<group>"; };
-		D1D922A11591124700EDDE17 /* PlaynomicsSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaynomicsSession.h; sourceTree = "<group>"; };
-		D1D922A21591124700EDDE17 /* PlaynomicsSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaynomicsSession.m; sourceTree = "<group>"; };
-		D1D922A51591125700EDDE17 /* PlaynomicsEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = PlaynomicsEvent.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		D1D922A61591125700EDDE17 /* PlaynomicsEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = PlaynomicsEvent.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		D1D922A9159112A200EDDE17 /* SocialEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = SocialEvent.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		D1D922AA159112A200EDDE17 /* SocialEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SocialEvent.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		D1D922AB159112A200EDDE17 /* TransactionEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = TransactionEvent.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		D1D922AC159112A200EDDE17 /* TransactionEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = TransactionEvent.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		D1D922AD159112A200EDDE17 /* UserInfoEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfoEvent.h; sourceTree = "<group>"; };
-		D1D922AE159112A300EDDE17 /* UserInfoEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfoEvent.m; sourceTree = "<group>"; };
-		D1D922B5159112C100EDDE17 /* BasicEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = BasicEvent.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		D1D922B6159112C100EDDE17 /* BasicEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = BasicEvent.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		D1D922B7159112C100EDDE17 /* ErrorEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ErrorEvent.h; sourceTree = "<group>"; };
-		D1D922B8159112C100EDDE17 /* ErrorEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ErrorEvent.m; sourceTree = "<group>"; };
-		D1D922B9159112C100EDDE17 /* EventSender.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventSender.h; sourceTree = "<group>"; };
-		D1D922BA159112C100EDDE17 /* EventSender.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventSender.m; sourceTree = "<group>"; };
-		D1D922BB159112C100EDDE17 /* GameEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = GameEvent.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		D1D922BC159112C100EDDE17 /* GameEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = GameEvent.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		D1D922C5159112E100EDDE17 /* RandomGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RandomGenerator.h; sourceTree = "<group>"; };
-		D1D922C6159112E100EDDE17 /* RandomGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RandomGenerator.m; sourceTree = "<group>"; };
-		D1D922C9159112F400EDDE17 /* PLConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = PLConstants.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		D1D922901590F59700EDDE17 /* iosapiTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = iosapiTests.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		D1D922A11591124700EDDE17 /* PlaynomicsSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = PlaynomicsSession.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		D1D922A21591124700EDDE17 /* PlaynomicsSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = PlaynomicsSession.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		D1D922A51591125700EDDE17 /* PNEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = PNEvent.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		D1D922A61591125700EDDE17 /* PNEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = PNEvent.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		D1D922A9159112A200EDDE17 /* PNSocialEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = PNSocialEvent.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		D1D922AA159112A200EDDE17 /* PNSocialEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = PNSocialEvent.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		D1D922AB159112A200EDDE17 /* PNTransactionEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = PNTransactionEvent.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		D1D922AC159112A200EDDE17 /* PNTransactionEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = PNTransactionEvent.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		D1D922AD159112A200EDDE17 /* PNUserInfoEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = PNUserInfoEvent.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		D1D922AE159112A300EDDE17 /* PNUserInfoEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = PNUserInfoEvent.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		D1D922B5159112C100EDDE17 /* PNBasicEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = PNBasicEvent.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		D1D922B6159112C100EDDE17 /* PNBasicEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = PNBasicEvent.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		D1D922B9159112C100EDDE17 /* PNEventSender.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNEventSender.h; sourceTree = "<group>"; };
+		D1D922BA159112C100EDDE17 /* PNEventSender.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = PNEventSender.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		D1D922BB159112C100EDDE17 /* PNGameEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = PNGameEvent.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		D1D922BC159112C100EDDE17 /* PNGameEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = PNGameEvent.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		D1D922C5159112E100EDDE17 /* PNRandomGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNRandomGenerator.h; sourceTree = "<group>"; };
+		D1D922C9159112F400EDDE17 /* PNConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = PNConstants.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,20 +116,18 @@
 		5B6C6E141593CC480088EF5E /* Event */ = {
 			isa = PBXGroup;
 			children = (
-				D1D922A51591125700EDDE17 /* PlaynomicsEvent.h */,
-				D1D922A61591125700EDDE17 /* PlaynomicsEvent.m */,
-				D1D922A9159112A200EDDE17 /* SocialEvent.h */,
-				D1D922AA159112A200EDDE17 /* SocialEvent.m */,
-				D1D922AB159112A200EDDE17 /* TransactionEvent.h */,
-				D1D922AC159112A200EDDE17 /* TransactionEvent.m */,
-				D1D922AD159112A200EDDE17 /* UserInfoEvent.h */,
-				D1D922AE159112A300EDDE17 /* UserInfoEvent.m */,
-				D1D922B5159112C100EDDE17 /* BasicEvent.h */,
-				D1D922B6159112C100EDDE17 /* BasicEvent.m */,
-				D1D922B7159112C100EDDE17 /* ErrorEvent.h */,
-				D1D922B8159112C100EDDE17 /* ErrorEvent.m */,
-				D1D922BB159112C100EDDE17 /* GameEvent.h */,
-				D1D922BC159112C100EDDE17 /* GameEvent.m */,
+				D1D922A51591125700EDDE17 /* PNEvent.h */,
+				D1D922A61591125700EDDE17 /* PNEvent.m */,
+				D1D922A9159112A200EDDE17 /* PNSocialEvent.h */,
+				D1D922AA159112A200EDDE17 /* PNSocialEvent.m */,
+				D1D922AB159112A200EDDE17 /* PNTransactionEvent.h */,
+				D1D922AC159112A200EDDE17 /* PNTransactionEvent.m */,
+				D1D922AD159112A200EDDE17 /* PNUserInfoEvent.h */,
+				D1D922AE159112A300EDDE17 /* PNUserInfoEvent.m */,
+				D1D922B5159112C100EDDE17 /* PNBasicEvent.h */,
+				D1D922B6159112C100EDDE17 /* PNBasicEvent.m */,
+				D1D922BB159112C100EDDE17 /* PNGameEvent.h */,
+				D1D922BC159112C100EDDE17 /* PNGameEvent.m */,
 			);
 			name = Event;
 			sourceTree = "<group>";
@@ -173,22 +165,21 @@
 			isa = PBXGroup;
 			children = (
 				5B6C6E141593CC480088EF5E /* Event */,
-				D1D922C5159112E100EDDE17 /* RandomGenerator.h */,
-				D1D922C6159112E100EDDE17 /* RandomGenerator.m */,
-				D1D922B9159112C100EDDE17 /* EventSender.h */,
-				D1D922BA159112C100EDDE17 /* EventSender.m */,
+				D1D922C5159112E100EDDE17 /* PNRandomGenerator.h */,
+				5B753E2F159D2D5000E698F9 /* PNRandomGenerator.m */,
+				D1D922B9159112C100EDDE17 /* PNEventSender.h */,
+				D1D922BA159112C100EDDE17 /* PNEventSender.m */,
 				5BBAA237159BE4CD00AA4993 /* PlaynomicsSession+Exposed.h */,
 				D1D922A11591124700EDDE17 /* PlaynomicsSession.h */,
 				D1D922A21591124700EDDE17 /* PlaynomicsSession.m */,
-				D1D922C9159112F400EDDE17 /* PLConstants.h */,
-				5B589DBE15993764002B6251 /* PLConfig.h */,
+				D1D922C9159112F400EDDE17 /* PNConstants.h */,
+				5B589DBE15993764002B6251 /* PNConfig.h */,
 				D1D922781590F59700EDDE17 /* iosapi.h */,
 				D1D922791590F59700EDDE17 /* iosapi.m */,
-				5B6C6E1A1593F0F20088EF5E /* PLUtil.h */,
-				5B6C6E1B1593F0F20088EF5E /* PLUtil.m */,
+				5B6C6E1A1593F0F20088EF5E /* PNUtil.h */,
+				5B6C6E1B1593F0F20088EF5E /* PNUtil.m */,
 				D1D922761590F59700EDDE17 /* Supporting Files */,
-				5BBAA22C159BD87200AA4993 /* PLApplication.h */,
-				5BBAA22D159BD87300AA4993 /* PLApplication.m */,
+				5BBAA22D159BD87300AA4993 /* PNApplication.m */,
 			);
 			path = iosapi;
 			sourceTree = "<group>";
@@ -228,19 +219,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				D1D922A31591124700EDDE17 /* PlaynomicsSession.h in Headers */,
-				D1D922A71591125700EDDE17 /* PlaynomicsEvent.h in Headers */,
-				D1D922AF159112A300EDDE17 /* SocialEvent.h in Headers */,
-				D1D922B1159112A300EDDE17 /* TransactionEvent.h in Headers */,
-				D1D922B3159112A300EDDE17 /* UserInfoEvent.h in Headers */,
-				D1D922BD159112C100EDDE17 /* BasicEvent.h in Headers */,
-				D1D922BF159112C100EDDE17 /* ErrorEvent.h in Headers */,
-				D1D922C1159112C100EDDE17 /* EventSender.h in Headers */,
-				D1D922C3159112C100EDDE17 /* GameEvent.h in Headers */,
-				D1D922C7159112E100EDDE17 /* RandomGenerator.h in Headers */,
-				D1D922CB159112F400EDDE17 /* PLConstants.h in Headers */,
-				5B6C6E1C1593F0F30088EF5E /* PLUtil.h in Headers */,
-				5B589DBF15993764002B6251 /* PLConfig.h in Headers */,
-				5BBAA22E159BD87300AA4993 /* PLApplication.h in Headers */,
+				D1D922A71591125700EDDE17 /* PNEvent.h in Headers */,
+				D1D922AF159112A300EDDE17 /* PNSocialEvent.h in Headers */,
+				D1D922B1159112A300EDDE17 /* PNTransactionEvent.h in Headers */,
+				D1D922B3159112A300EDDE17 /* PNUserInfoEvent.h in Headers */,
+				D1D922BD159112C100EDDE17 /* PNBasicEvent.h in Headers */,
+				D1D922C1159112C100EDDE17 /* PNEventSender.h in Headers */,
+				D1D922C3159112C100EDDE17 /* PNGameEvent.h in Headers */,
+				D1D922C7159112E100EDDE17 /* PNRandomGenerator.h in Headers */,
+				D1D922CB159112F400EDDE17 /* PNConstants.h in Headers */,
+				5B6C6E1C1593F0F30088EF5E /* PNUtil.h in Headers */,
+				5B589DBF15993764002B6251 /* PNConfig.h in Headers */,
 				5BBAA238159BE4CD00AA4993 /* PlaynomicsSession+Exposed.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -344,17 +333,16 @@
 			files = (
 				D1D9227A1590F59700EDDE17 /* iosapi.m in Sources */,
 				D1D922A41591124700EDDE17 /* PlaynomicsSession.m in Sources */,
-				D1D922A81591125700EDDE17 /* PlaynomicsEvent.m in Sources */,
-				D1D922B0159112A300EDDE17 /* SocialEvent.m in Sources */,
-				D1D922B2159112A300EDDE17 /* TransactionEvent.m in Sources */,
-				D1D922B4159112A300EDDE17 /* UserInfoEvent.m in Sources */,
-				D1D922BE159112C100EDDE17 /* BasicEvent.m in Sources */,
-				D1D922C0159112C100EDDE17 /* ErrorEvent.m in Sources */,
-				D1D922C2159112C100EDDE17 /* EventSender.m in Sources */,
-				D1D922C4159112C100EDDE17 /* GameEvent.m in Sources */,
-				D1D922C8159112E100EDDE17 /* RandomGenerator.m in Sources */,
-				5B6C6E1D1593F0F30088EF5E /* PLUtil.m in Sources */,
-				5BBAA22F159BD87300AA4993 /* PLApplication.m in Sources */,
+				D1D922A81591125700EDDE17 /* PNEvent.m in Sources */,
+				D1D922B0159112A300EDDE17 /* PNSocialEvent.m in Sources */,
+				D1D922B2159112A300EDDE17 /* PNTransactionEvent.m in Sources */,
+				D1D922B4159112A300EDDE17 /* PNUserInfoEvent.m in Sources */,
+				D1D922BE159112C100EDDE17 /* PNBasicEvent.m in Sources */,
+				D1D922C2159112C100EDDE17 /* PNEventSender.m in Sources */,
+				D1D922C4159112C100EDDE17 /* PNGameEvent.m in Sources */,
+				5B6C6E1D1593F0F30088EF5E /* PNUtil.m in Sources */,
+				5BBAA22F159BD87300AA4993 /* PNApplication.m in Sources */,
+				5B753E30159D2D5000E698F9 /* PNRandomGenerator.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
