@@ -132,6 +132,17 @@
 			name = Event;
 			sourceTree = "<group>";
 		};
+		5BC947E9159E259F00BE180B /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				D1D922C5159112E100EDDE17 /* PNRandomGenerator.h */,
+				5B753E2F159D2D5000E698F9 /* PNRandomGenerator.m */,
+				5B6C6E1A1593F0F20088EF5E /* PNUtil.h */,
+				5B6C6E1B1593F0F20088EF5E /* PNUtil.m */,
+			);
+			name = Util;
+			sourceTree = "<group>";
+		};
 		D1D922651590F59500EDDE17 = {
 			isa = PBXGroup;
 			children = (
@@ -164,22 +175,19 @@
 		D1D922751590F59700EDDE17 /* iosapi */ = {
 			isa = PBXGroup;
 			children = (
-				5B6C6E141593CC480088EF5E /* Event */,
-				D1D922C5159112E100EDDE17 /* PNRandomGenerator.h */,
-				5B753E2F159D2D5000E698F9 /* PNRandomGenerator.m */,
-				D1D922B9159112C100EDDE17 /* PNEventSender.h */,
-				D1D922BA159112C100EDDE17 /* PNEventSender.m */,
-				5BBAA237159BE4CD00AA4993 /* PlaynomicsSession+Exposed.h */,
-				D1D922A11591124700EDDE17 /* PlaynomicsSession.h */,
-				D1D922A21591124700EDDE17 /* PlaynomicsSession.m */,
 				D1D922C9159112F400EDDE17 /* PNConstants.h */,
 				5B589DBE15993764002B6251 /* PNConfig.h */,
+				D1D922A11591124700EDDE17 /* PlaynomicsSession.h */,
+				5BBAA237159BE4CD00AA4993 /* PlaynomicsSession+Exposed.h */,
+				D1D922A21591124700EDDE17 /* PlaynomicsSession.m */,
+				D1D922B9159112C100EDDE17 /* PNEventSender.h */,
+				D1D922BA159112C100EDDE17 /* PNEventSender.m */,
+				5BBAA22D159BD87300AA4993 /* PNApplication.m */,
+				5B6C6E141593CC480088EF5E /* Event */,
+				5BC947E9159E259F00BE180B /* Util */,
 				D1D922781590F59700EDDE17 /* iosapi.h */,
 				D1D922791590F59700EDDE17 /* iosapi.m */,
-				5B6C6E1A1593F0F20088EF5E /* PNUtil.h */,
-				5B6C6E1B1593F0F20088EF5E /* PNUtil.m */,
 				D1D922761590F59700EDDE17 /* Supporting Files */,
-				5BBAA22D159BD87300AA4993 /* PNApplication.m */,
 			);
 			path = iosapi;
 			sourceTree = "<group>";

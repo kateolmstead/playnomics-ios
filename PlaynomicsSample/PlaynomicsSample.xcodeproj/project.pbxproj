@@ -84,13 +84,12 @@
 		5BBAA07E159BAF0000AA4993 /* PlaynomicsSample */ = {
 			isa = PBXGroup;
 			children = (
-				5BBAA09C159BB60600AA4993 /* Playnomics API */,
 				5BBAA087159BAF0000AA4993 /* AppDelegate.h */,
 				5BBAA088159BAF0000AA4993 /* AppDelegate.m */,
 				5BBAA08A159BAF0000AA4993 /* ViewController.h */,
 				5BBAA08B159BAF0000AA4993 /* ViewController.m */,
-				5BBAA08D159BAF0000AA4993 /* ViewController_iPhone.xib */,
-				5BBAA090159BAF0000AA4993 /* ViewController_iPad.xib */,
+				5BBAA09C159BB60600AA4993 /* Tools */,
+				5BC947EA159E2A1E00BE180B /* xib */,
 				5BBAA07F159BAF0000AA4993 /* Supporting Files */,
 			);
 			path = PlaynomicsSample;
@@ -107,12 +106,21 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		5BBAA09C159BB60600AA4993 /* Playnomics API */ = {
+		5BBAA09C159BB60600AA4993 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
 				5BF38FCA159D389B00DDD957 /* PlaynomicsSession.h */,
 			);
-			name = "Playnomics API";
+			name = Tools;
+			sourceTree = "<group>";
+		};
+		5BC947EA159E2A1E00BE180B /* xib */ = {
+			isa = PBXGroup;
+			children = (
+				5BBAA08D159BAF0000AA4993 /* ViewController_iPhone.xib */,
+				5BBAA090159BAF0000AA4993 /* ViewController_iPad.xib */,
+			);
+			name = xib;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
