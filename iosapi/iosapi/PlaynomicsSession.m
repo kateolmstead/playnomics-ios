@@ -186,7 +186,6 @@
     _keys = 0;
     _totalKeys = 0;
     
-    // TODO check to see if we have to register the defaults first for it to work.
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSString *lastUserId = [userDefaults stringForKey:PNUserDefaultsLastUserID];
     NSTimeInterval lastSessionStartTime = [[NSUserDefaults standardUserDefaults] doubleForKey:PNUserDefaultsLastSessionStartTime];
@@ -451,11 +450,29 @@
                          source: (PNUserInfoSource) source
                  sourceCampaign: (NSString *) sourceCampaign 
                     installTime: (NSDate *) installTime {
+    return [PlaynomicsSession userInfoForType:type
+                               country:country
+                           subdivision:subdivision
+                                   sex:sex 
+                              birthday:birthday
+                        sourceAsString:[PNUtil PNUserInfoSourceDescription:source]
+                        sourceCampaign:sourceCampaign
+                           installTime:installTime];
+}
+
++ (PNAPIResult) userInfoForType: (PNUserInfoType) type 
+                        country: (NSString *) country 
+                    subdivision: (NSString *) subdivision
+                            sex: (PNUserInfoSex) sex
+                       birthday: (NSDate *) birthday
+                 sourceAsString: (NSString *) source 
+                 sourceCampaign: (NSString *) sourceCampaign 
+                    installTime: (NSDate *) installTime {
     PlaynomicsSession * s =[PlaynomicsSession sharedInstance];
     
     PNUserInfoEvent *ev = [[[PNUserInfoEvent alloc] init:s.applicationId userId:s.userId type:type country:country subdivision:subdivision sex:sex birthday:[birthday timeIntervalSince1970] source:source sourceCampaign:sourceCampaign installTime:[installTime timeIntervalSince1970]] autorelease];
     
-    return [s sendOrQueueEvent:ev];
+    return [s sendOrQueueEvent:ev];    
 }
 
 + (PNAPIResult) sessionStartWithId: (NSString *) sessionId site: (NSString *) site {
@@ -502,7 +519,29 @@
     NSArray *currencyTypes = [NSArray arrayWithObject: [NSNumber numberWithInt: currencyType]];
     NSArray *currencyValues = [NSArray arrayWithObject:[NSNumber numberWithDouble:currencyValue]];
     NSArray *currencyCategories = [NSArray arrayWithObject: [NSNumber numberWithInt:currencyCategory]];
+    
+    return [PlaynomicsSession transactionWithId:transactionId 
+                                         itemId:itemId 
+                                       quantity:quantity
+                                           type:type
+                                    otherUserId:otherUserId
+                                  currencyTypes:currencyTypes
+                                 currencyValues:currencyValues
+                             currencyCategories:currencyCategories];
+}
 
++ (PNAPIResult) transactionWithId:(long) transactionId 
+                           itemId: (NSString *) itemId
+                         quantity: (double) quantity
+                             type: (PNTransactionType) type
+                      otherUserId: (NSString *) otherUserId
+             currencyTypeAsString: (NSString *) currencyType
+                    currencyValue: (double) currencyValue
+                 currencyCategory: (PNCurrencyCategory) currencyCategory {
+    NSArray *currencyTypes = [NSArray arrayWithObject: currencyType];
+    NSArray *currencyValues = [NSArray arrayWithObject:[NSNumber numberWithDouble:currencyValue]];
+    NSArray *currencyCategories = [NSArray arrayWithObject: [NSNumber numberWithInt:currencyCategory]];
+    
     return [PlaynomicsSession transactionWithId:transactionId 
                                          itemId:itemId 
                                        quantity:quantity

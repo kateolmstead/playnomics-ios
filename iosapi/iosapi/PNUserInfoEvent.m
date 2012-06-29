@@ -7,7 +7,7 @@
 @synthesize subdivision=_subdivision;
 @synthesize sex=_sex;
 @synthesize birthday=_birthday;
-@synthesize source=_source;
+@synthesize sourceStr=_sourceStr;
 @synthesize sourceCampaign=_sourceCampaign;
 @synthesize installTime=_installTime;
 
@@ -32,7 +32,7 @@
         subdivision: (NSString *) subdivision 
                 sex: (PNUserInfoSex) sex 
            birthday: (NSTimeInterval) birthday
-             source: (PNUserInfoSource) source
+             source: (NSString *) source
      sourceCampaign: (NSString *) sourceCampaign
         installTime: (NSTimeInterval) installTime {
     
@@ -41,7 +41,7 @@
         _subdivision = [subdivision retain];
         _sex = sex;
         _birthday = birthday;
-        _source = source;
+        _sourceStr = [source retain];
         _sourceCampaign = [sourceCampaign retain];
         _installTime = installTime;
     }
@@ -56,11 +56,11 @@
     queryString = [self addOptionalParam:queryString name:@"px" value:[PNUtil PNUserInfoSexDescription:[self sex]]];
     
     NSDateFormatter *df = [[NSDateFormatter  alloc] init]; 
-    [df setDateFormat: @"MM-dd-yyyy"];
+    [df setDateFormat: @"MM-dd-yyyy"]; // TODO: Details API says this should be of format: YYYY/MM || YYY-MM || MM/YYYY || YYYY
     queryString = [self addOptionalParam:queryString name:@"pb" value:[df stringFromDate: [NSDate dateWithTimeIntervalSince1970:[self birthday]]]];
     [df release];
     
-    queryString = [self addOptionalParam:queryString name:@"po" value:[PNUtil PNUserInfoSourceDescription:[self source]]];
+    queryString = [self addOptionalParam:queryString name:@"po" value:[self sourceStr]];
     queryString = [self addOptionalParam:queryString name:@"pm" value:[self sourceCampaign]];
     queryString = [self addOptionalParam:queryString name:@"pi" value:[NSString stringWithFormat:@"%fd", [self installTime]]];
     return queryString;
@@ -73,7 +73,7 @@
     [encoder encodeObject: _subdivision forKey:@"PNUserInfoEvent._subdivision"];  
     [encoder encodeInt: _sex forKey:@"PNUserInfoEvent._sex"];  
     [encoder encodeDouble: _birthday forKey:@"PNUserInfoEvent._birthday"];  
-    [encoder encodeInt: _source forKey:@"PNUserInfoEvent._source"];  
+    [encoder encodeObject: _sourceStr forKey:@"PNUserInfoEvent._sourceStr"];  
     [encoder encodeObject: _sourceCampaign forKey:@"PNUserInfoEvent._sourceCampaign"];  
     [encoder encodeDouble: _installTime forKey:@"PNUserInfoEvent._installTime"];  
 }
@@ -85,7 +85,7 @@
         _subdivision = [(NSString *)[decoder decodeObjectForKey:@"PNUserInfoEvent._subdivision"] retain]; 
         _sex = [decoder decodeIntForKey:@"PNUserInfoEvent._sex"]; 
         _birthday = [decoder decodeDoubleForKey:@"PNUserInfoEvent._birthday"]; 
-        _source = [decoder decodeIntForKey:@"PNUserInfoEvent._source"]; 
+        _sourceStr = (NSString *)[decoder decodeObjectForKey:@"PNUserInfoEvent._sourceStr"]; 
         _sourceCampaign = [(NSString *)[decoder decodeObjectForKey:@"PNUserInfoEvent._sourceCampaign"] retain]; 
         _installTime = [decoder decodeDoubleForKey:@"PNUserInfoEvent._installTime"]; 
     }
@@ -96,6 +96,8 @@
     [_country release];
     [_subdivision release];
     [_sourceCampaign release];
+    [_sourceStr release];
+    
     [super dealloc];
 }
 

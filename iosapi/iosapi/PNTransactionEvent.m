@@ -39,8 +39,16 @@
     NSString * queryString = [[super toQueryString] stringByAppendingFormat: @"&tt=%@", [PNUtil PNTransactionTypeDescription:[self type]]];
     
     for (int i = 0; i < [[self currencyTypes] count] ; i++) {
+        id obj = [[self currencyTypes] objectAtIndex:i];
+        NSString *currentTypeStr = nil;
+        if ([obj isKindOfClass:[NSNumber class]]) {
+            currentTypeStr = [PNUtil PNCurrencyTypeDescription: [(NSNumber *) [[self currencyTypes] objectAtIndex:i] intValue]];
+        }
+        else if ([obj isKindOfClass:[NSString class]]) {
+            currentTypeStr = (NSString *) obj;
+        }
         queryString = [queryString stringByAppendingFormat:@"&tc%d=%@&tv%d=%lf&ta%d=%@", 
-                       i, [PNUtil PNCurrencyTypeDescription: [(NSNumber *) [[self currencyTypes] objectAtIndex:i] intValue]], 
+                       i, currentTypeStr, 
                        i, [(NSNumber *) [[self currencyValues] objectAtIndex:i] doubleValue],
                        i, [PNUtil PNCurrencyCategoryDescription:[(NSNumber *) [[self currencyCategories] objectAtIndex: i] intValue]]];
     }

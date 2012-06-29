@@ -180,7 +180,7 @@ typedef enum {
  * @param birthday
  *            the birthday
  * @param source
- *            the source
+ *            the source must be a PNUserInfoSource
  * @param sourceCampaign
  *            the source campaign
  * @param installTime
@@ -193,6 +193,35 @@ typedef enum {
                             sex: (PNUserInfoSex) sex
                        birthday: (NSDate *) birthday
                          source: (PNUserInfoSource) source 
+                 sourceCampaign: (NSString *) sourceCampaign 
+                    installTime: (NSDate *) installTime;
+/**
+ * User info.
+ * 
+ * @param type
+ *            the type
+ * @param country
+ *            the country
+ * @param subdivision
+ *            the subdivision
+ * @param sex
+ *            the sex
+ * @param birthday
+ *            the birthday
+ * @param source
+ *            the source can be any String
+ * @param sourceCampaign
+ *            the source campaign
+ * @param installTime
+ *            the install time
+ * @return the API Result
+ */
++ (PNAPIResult) userInfoForType: (PNUserInfoType) type 
+                        country: (NSString *) country 
+                    subdivision: (NSString *) subdivision
+                            sex: (PNUserInfoSex) sex
+                       birthday: (NSDate *) birthday
+                 sourceAsString: (NSString *) source 
                  sourceCampaign: (NSString *) sourceCampaign 
                     installTime: (NSDate *) installTime;
 
@@ -262,7 +291,7 @@ typedef enum {
  * @param otherUserId
  *            the other user id
  * @param currencyType
- *            the currency type
+ *            the currency type must be of PNCurrencyType
  * @param currencyValue
  *            the currency value
  * @param currencyCategory
@@ -291,8 +320,38 @@ typedef enum {
  *            the type
  * @param otherUserId
  *            the other user id
+ * @param currencyType
+ *            the currency type, can be any string
+ * @param currencyValue
+ *            the currency value
+ * @param currencyCategory
+ *            the currency category
+ * @return the API Result
+ */
++ (PNAPIResult) transactionWithId:(long) transactionId 
+                           itemId: (NSString *) itemId
+                         quantity: (double) quantity
+                             type: (PNTransactionType) type
+                      otherUserId: (NSString *) otherUserId
+             currencyTypeAsString: (NSString *) currencyType
+                    currencyValue: (double) currencyValue
+                 currencyCategory: (PNCurrencyCategory) currencyCategory;
+
+/**
+ * Transaction.
+ * 
+ * @param transactionId
+ *            the transaction id
+ * @param itemId
+ *            the item id
+ * @param quantity
+ *            the quantity
+ * @param type
+ *            the type
+ * @param otherUserId
+ *            the other user id
  * @param currencyTypes
- *            the currency types NSString objects
+ *            the currency types NSNumber (intValue of PLCurrencyType) or NSString
  * @param currencyValues
  *            the currency values
  * @param currencyCategories

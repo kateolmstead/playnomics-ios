@@ -270,6 +270,14 @@
                             sourceCampaign:@"TEST_SRC_CAMPAIGN"
                                installTime:[[NSDate date] dateByAddingTimeInterval:(- (double)(arc4random() % 1000000))]];
     }
+    [PlaynomicsSession userInfoForType:PNUserInfoTypeUpdate
+                               country:@"TEST_COUNTRY"
+                           subdivision:@"TEST_SUBDIVISION"
+                                   sex:2
+                              birthday:[NSDate date]
+                        sourceAsString:@"CUSTOM_SOURCE"
+                        sourceCampaign:@"TEST_SRC_CAMPAIGN"
+                           installTime:[[NSDate date] dateByAddingTimeInterval:(- (double)(arc4random() % 1000000))]];
 }
 
 - (void) testSendingEvents: (NSArray *) events {

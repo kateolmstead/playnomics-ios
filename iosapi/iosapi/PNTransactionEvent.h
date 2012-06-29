@@ -21,7 +21,7 @@
 @property(nonatomic, retain) NSArray * currencyCategories;
 
 /**
- *  currencyTypes: Array of PNCurrencyType NSNumbers
+ *  currencyTypes: Array of PNCurrencyType Can be NSNumbers or NSString
  *  currencyValues: Array of NSNumbers containing a double
  *  currencyCategories: Array of PNCurrencyCategory NSNumbers
  */
