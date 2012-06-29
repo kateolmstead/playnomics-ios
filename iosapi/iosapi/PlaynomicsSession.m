@@ -105,7 +105,7 @@
 
 - (void) dealloc {
     [_eventSender release];
-	[self.playnomicsEventList release];
+	[_playnomicsEventList release];
     
     /** Tracking values */
     [_userId release];
@@ -354,7 +354,7 @@
     if (_sessionState == PNSessionStateStarted) {
         _sequence++;
         
-        PNBasicEvent *ev = [[PNBasicEvent alloc] init:PNEventAppRunning 
+        PNBasicEvent *ev = [[[PNBasicEvent alloc] init:PNEventAppRunning 
                                     applicationId:_applicationId
                                            userId:_userId
                                          cookieId:_cookieId
@@ -366,7 +366,7 @@
                                       totalClicks:_totalClicks
                                              keys:_keys
                                         totalKeys:_totalKeys
-                                      collectMode:_collectMode];
+                                      collectMode:_collectMode] autorelease];
         [self.playnomicsEventList addObject:ev];
         
         NSLog(@"ev:%@", ev);
@@ -387,6 +387,7 @@
         break;
     }
     [self.playnomicsEventList removeObjectsInArray:sentEvents];
+    [sentEvents release];
 }
 
 - (PNAPIResult) sendOrQueueEvent:(PNEvent *)pe {

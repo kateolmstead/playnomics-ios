@@ -87,9 +87,11 @@
 }
 
 - (IBAction) onTransactionClick:(id)sender {
+    [self.view endEditing:YES];
+    
     NSInteger count = 1;
     if ([transactionCount.text length] > 0) {
-        count = [transactionCount.text integerValue];
+        count = MIN(100, [transactionCount.text integerValue]);
     }
     
     PNAPIResult resval;

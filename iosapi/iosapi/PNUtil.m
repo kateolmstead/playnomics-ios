@@ -21,7 +21,7 @@
     
     if ([storedUUID length] == 0) {
         CFUUIDRef uuidRef = CFUUIDCreate(kCFAllocatorDefault);
-        storedUUID = (NSString *)CFUUIDCreateString(NULL,uuidRef);
+        storedUUID = [(NSString *)CFUUIDCreateString(NULL,uuidRef) autorelease];
         CFRelease(uuidRef);
         pasteBoard.string = storedUUID;
     }
