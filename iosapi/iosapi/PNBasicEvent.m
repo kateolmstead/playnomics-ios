@@ -80,9 +80,14 @@
         case PNEventAppPage:
             queryString = [queryString stringByAppendingFormat:@"&z=%d", [self timeZoneOffset]];
             break;
+        // Note fallthrough
+        case PNEventAppResume:
+            queryString = [queryString stringByAppendingFormat:@"&p=%fd", [self pauseTime]];
+        case PNEventAppPause:
+            queryString = [queryString stringByAppendingFormat:@"&r=%fd&q=%d", [self sessionStartTime], [self sequence]];
         case PNEventAppRunning:
             queryString = [queryString stringByAppendingFormat: @"&r=%fd&q=%d&d=%d&c=%d&e=%d&k=%d&l=%d&m=%d", 
-                           [self sessionStartTime], 
+                           (int) ([self sessionStartTime] * 1000), 
                            [self sequence],
                            (int) (PNUpdateTimeInterval * 1000),
                            [self clicks],
@@ -90,11 +95,6 @@
                            [self keys],
                            [self totalKeys],
                            [self collectMode]];
-            break;
-        case PNEventAppResume:
-            queryString = [queryString stringByAppendingFormat:@"&p=%fd", [self pauseTime]];
-        case PNEventAppPause:
-            queryString = [queryString stringByAppendingFormat:@"&r=%fd&q=%d", [self sessionStartTime], [self sequence]];
             break;
         default:
             NSLog(@"BasicEvent: %@ not handled", [PNUtil PNEventTypeDescription:[self eventType]]);
