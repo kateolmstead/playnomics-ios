@@ -262,6 +262,7 @@
                                timeZoneOffset:_timeZoneOffset];
     _pauseTime = [[NSDate date] timeIntervalSince1970];
     
+    _sequence += 1;    
     [ev setSequence:_sequence];
     [ev setSessionStartTime:_sessionStartTime];
     
@@ -296,7 +297,6 @@
                                timeZoneOffset:_timeZoneOffset];
     [ev setPauseTime:_pauseTime];
     [ev setSessionStartTime:_sessionStartTime];
-    _sequence += 1;
     [ev setSequence:_sequence];
     
     
