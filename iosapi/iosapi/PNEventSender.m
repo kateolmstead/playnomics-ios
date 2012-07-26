@@ -24,7 +24,7 @@
 }
 
 - (BOOL) sendToServer: (NSString *) eventUrl {
-    eventUrl = [eventUrl stringByAppendingFormat:@"&esrc=aj&ever=%@", _version];
+    eventUrl = [eventUrl stringByAppendingFormat:@"&esrc=ios&ever=%@", _version];
     NSLog(@"Sending event to server: %@", eventUrl);
     
     NSURL *url = [NSURL URLWithString:eventUrl];
