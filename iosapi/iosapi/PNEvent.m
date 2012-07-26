@@ -28,7 +28,8 @@
 }
 
 - (NSString *) toQueryString {
-    return [NSString stringWithFormat:@"%@?t=%lf&a=%ld&u=%@", [PNUtil PNEventTypeDescription:[self eventType]], (int) ([self eventTime] * 1000), [self applicationId], [self userId]];
+    long eventTime = lround([self eventTime] * 1000.0f);
+    return [NSString stringWithFormat:@"%@?t=%ld&a=%ld&u=%@", [PNUtil PNEventTypeDescription:[self eventType]], eventTime, [self applicationId], [self userId]];
 }
 
 - (void)encodeWithCoder:(NSCoder *)encoder {

@@ -82,14 +82,14 @@
             break;
         // Note fallthrough
         case PNEventAppResume:
-            queryString = [queryString stringByAppendingFormat:@"&p=%fd", [self pauseTime]];
+            queryString = [queryString stringByAppendingFormat:@"&p=%ld", lround([self pauseTime] * 1000)];
         case PNEventAppPause:
-            queryString = [queryString stringByAppendingFormat:@"&r=%fd&q=%d", [self sessionStartTime], [self sequence]];
+            queryString = [queryString stringByAppendingFormat:@"&q=%d", [self sequence]];
         case PNEventAppRunning:
-            queryString = [queryString stringByAppendingFormat: @"&r=%fd&q=%d&d=%d&c=%d&e=%d&k=%d&l=%d&m=%d", 
-                           (int) ([self sessionStartTime] * 1000), 
+            queryString = [queryString stringByAppendingFormat: @"&r=%ld&q=%d&d=%d&c=%d&e=%d&k=%d&l=%d&m=%d", 
+                           lround([self sessionStartTime] * 1000), 
                            [self sequence],
-                           (int) (PNUpdateTimeInterval * 1000),
+                           PNUpdateTimeInterval * 1000,
                            [self clicks],
                            [self totalClicks],
                            [self keys],
