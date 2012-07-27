@@ -129,6 +129,9 @@ typedef enum {
 } PNUserInfoSource;
 
 @interface PlaynomicsSession : NSObject
+
++ (void) setTestMode: (bool) testMode;
+
 /**
  * Start.
  * 

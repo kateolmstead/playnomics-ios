@@ -27,9 +27,10 @@
     // Set-up code here.
     eventSender = [[PNEventSender alloc] initWithTestMode:YES];
     s = [[PlaynomicsSession sharedInstance] retain];
+
     long applicationId = 4L;
     NSString *userId = @"userIdTest";
-    
+    [PlaynomicsSession setTestMode:YES];
     [PlaynomicsSession startWithApplicationId:applicationId userId:userId];
 }
 

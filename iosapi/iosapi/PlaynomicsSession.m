@@ -30,7 +30,7 @@
     PNEventSender *_eventSender;
     NSMutableArray *_playnomicsEventList;
     
-    
+    bool _testMode; 
     /** Tracking values */
     int _collectMode;
 	int _sequence;
@@ -53,6 +53,8 @@
 @property (nonatomic, readonly) long            applicationId;
 @property (nonatomic, readonly) NSString *      userId;
 @property (nonatomic, readonly) NSString *      sessionId;
+@property (nonatomic, assign) bool      testMode;
+@property (atomic, readonly) PNEventSender * eventSender;
 
 
 - (PNAPIResult) startWithApplicationId:(long) applicationId;
@@ -74,6 +76,8 @@
 @synthesize applicationId=_applicationId;
 @synthesize userId=_userId;
 @synthesize sessionId=_sessionId;
+@synthesize testMode=_testMode;
+@synthesize eventSender=_eventSender;
 
 //Singleton
 + (PlaynomicsSession *)sharedInstance{
@@ -82,6 +86,10 @@
     });
 }
 
++ (void) setTestMode: (bool) testMode {
+    [[PlaynomicsSession sharedInstance] eventSender].testMode = testMode;
+}
+     
 + (PNAPIResult) startWithApplicationId:(long) applicationId userId: (NSString *) userId {
     return [[PlaynomicsSession sharedInstance] startWithApplicationId:applicationId userId:userId];
 }

@@ -5,6 +5,8 @@
 
 @implementation PNEventSender
 
+@synthesize testMode=_testMode;
+
 - (id) init {
     if (self = [self initWithTestMode: NO]) {
     }
@@ -17,7 +19,12 @@
         
         
         _version = [PNPropertyVersion retain];
-        _baseUrl = [PNPropertyBaseUrl retain];
+        
+        if (_testMode)
+            _baseUrl = [PNPropertyBaseTestUrl retain];
+        else
+            _baseUrl = [PNPropertyBaseProdUrl retain];
+
         _connectTimeout = PNPropertyConnectionTimeout;
     }
     return self;
