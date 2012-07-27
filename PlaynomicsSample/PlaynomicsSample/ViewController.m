@@ -67,12 +67,12 @@
 
 
 - (IBAction) onGameStartClick:(id)sender {
-    PNAPIResult resval = [PlaynomicsSession gameStartWithInstanceId:@"INSTANCE_ID" sessionId:@"SESSION_ID" site:@"TEST_SITE" type:@"TEST_TYPE" gameId:@"TEST_GAMEID"];
+    PNAPIResult resval = [PlaynomicsSession gameStartWithInstanceId:@"INSTANCE_ID" gameSessionId:@"SESSION_ID" site:@"TEST_SITE" type:@"TEST_TYPE" gameId:@"TEST_GAMEID"];
     [self handlePLAPIRResult:resval];
 }
 
 - (IBAction) onGameEndClick:(id)sender {
-    PNAPIResult resval = [PlaynomicsSession gameEndWithInstanceId:@"INSTANCE_ID" sessionId:@"SESSION_ID" reason:@"TEST_REASON"];
+    PNAPIResult resval = [PlaynomicsSession gameEndWithInstanceId:@"INSTANCE_ID" gameSessionId:@"SESSION_ID" reason:@"TEST_REASON"];
     [self handlePLAPIRResult:resval];
 }
 
@@ -128,12 +128,12 @@
 }
 
 - (IBAction) onSessionStartClick:(id)sender {
-    PNAPIResult resval = [PlaynomicsSession sessionStartWithId:@"TEST_SESSION_ID" site:@"TEST_SITE"];
+    PNAPIResult resval = [PlaynomicsSession gameSessionStartWithId:@"TEST_SESSION_ID" site:@"TEST_SITE"];
     [self handlePLAPIRResult:resval];
 }
 
 - (IBAction) onSessionEndClick:(id)sender {
-    PNAPIResult resval = [PlaynomicsSession sessionEndWithId:@"TEST_SESSION_ID" reason:@"TEST_REASON"];
+    PNAPIResult resval = [PlaynomicsSession gameSessionEndWithId:@"TEST_SESSION_ID" reason:@"TEST_REASON"];
     [self handlePLAPIRResult:resval];
 }
 

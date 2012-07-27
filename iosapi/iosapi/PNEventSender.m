@@ -20,11 +20,6 @@
         
         _version = [PNPropertyVersion retain];
         
-        if (_testMode)
-            _baseUrl = [PNPropertyBaseTestUrl retain];
-        else
-            _baseUrl = [PNPropertyBaseProdUrl retain];
-
         _connectTimeout = PNPropertyConnectionTimeout;
     }
     return self;
@@ -50,6 +45,12 @@
 }
 
 - (BOOL) sendEventToServer:(PNEvent *)pe {
+
+    if (_testMode)
+        _baseUrl = [PNPropertyBaseTestUrl retain];
+    else
+        _baseUrl = [PNPropertyBaseProdUrl retain];
+
     return [self sendToServer:[_baseUrl stringByAppendingString:[pe toQueryString]]];
 }
 

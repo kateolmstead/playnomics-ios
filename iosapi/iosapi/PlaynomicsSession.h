@@ -132,6 +132,16 @@ typedef enum {
 
 + (void) setTestMode: (bool) testMode;
 
+
+/**
+ * Change User.
+ * 
+ * @param userId
+ *            the user id
+ * @return the API Result
+ */
++ (PNAPIResult) changeUserWithUserId: (NSString *) userId;
+
 /**
  * Start.
  * 

@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5BACFC14159D3B8A00F95507 /* libiosapi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BACFC13159D3B8A00F95507 /* libiosapi.a */; };
 		5BBAA079159BAF0000AA4993 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BBAA078159BAF0000AA4993 /* UIKit.framework */; };
 		5BBAA07B159BAF0000AA4993 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BBAA07A159BAF0000AA4993 /* Foundation.framework */; };
 		5BBAA07D159BAF0000AA4993 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BBAA07C159BAF0000AA4993 /* CoreGraphics.framework */; };
@@ -17,10 +16,10 @@
 		5BBAA08C159BAF0000AA4993 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BBAA08B159BAF0000AA4993 /* ViewController.m */; };
 		5BBAA08F159BAF0000AA4993 /* ViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BBAA08D159BAF0000AA4993 /* ViewController_iPhone.xib */; };
 		5BBAA092159BAF0000AA4993 /* ViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BBAA090159BAF0000AA4993 /* ViewController_iPad.xib */; };
+		D107507C15C31B6D00A88D41 /* libiosapi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D107507B15C31B6D00A88D41 /* libiosapi.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		5BACFC13159D3B8A00F95507 /* libiosapi.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libiosapi.a; path = "../../../../Library/Developer/Xcode/DerivedData/iosapi-bjkqyrtlyjtbiqfjtdqrczayducv/Build/Products/Debug-iphonesimulator/libiosapi.a"; sourceTree = "<group>"; };
 		5BBAA074159BAEFF00AA4993 /* PlaynomicsSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PlaynomicsSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5BBAA078159BAF0000AA4993 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		5BBAA07A159BAF0000AA4993 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -31,11 +30,13 @@
 		5BBAA086159BAF0000AA4993 /* PlaynomicsSample-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PlaynomicsSample-Prefix.pch"; sourceTree = "<group>"; };
 		5BBAA087159BAF0000AA4993 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		5BBAA088159BAF0000AA4993 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		5BBAA08A159BAF0000AA4993 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = ViewController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		5BBAA08B159BAF0000AA4993 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = ViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		5BBAA08A159BAF0000AA4993 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = ViewController.h; sourceTree = "<group>"; };
+		5BBAA08B159BAF0000AA4993 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = ViewController.m; sourceTree = "<group>"; };
 		5BBAA08E159BAF0000AA4993 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController_iPhone.xib; sourceTree = "<group>"; };
 		5BBAA091159BAF0000AA4993 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController_iPad.xib; sourceTree = "<group>"; };
 		5BF38FCA159D389B00DDD957 /* PlaynomicsSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlaynomicsSession.h; path = "../../../../../Library/Developer/Xcode/DerivedData/iosapi-bjkqyrtlyjtbiqfjtdqrczayducv/Build/Products/Debug-iphoneos/usr/local/include/PlaynomicsSession.h"; sourceTree = "<group>"; };
+		D107507B15C31B6D00A88D41 /* libiosapi.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libiosapi.a; path = "../../../../../Library/Developer/Xcode/DerivedData/iosapi-fkksjzzewixnvbbvsfdttiakbmec/Build/Products/Debug-iphonesimulator/libiosapi.a"; sourceTree = "<group>"; };
+		D107507D15C31B8500A88D41 /* PlaynomicsSession.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PlaynomicsSession.h; path = "../../../../../../Library/Developer/Xcode/DerivedData/iosapi-fkksjzzewixnvbbvsfdttiakbmec/Build/Products/Debug-iphonesimulator/usr/local/include/PlaynomicsSession.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -46,7 +47,7 @@
 				5BBAA079159BAF0000AA4993 /* UIKit.framework in Frameworks */,
 				5BBAA07B159BAF0000AA4993 /* Foundation.framework in Frameworks */,
 				5BBAA07D159BAF0000AA4993 /* CoreGraphics.framework in Frameworks */,
-				5BACFC14159D3B8A00F95507 /* libiosapi.a in Frameworks */,
+				D107507C15C31B6D00A88D41 /* libiosapi.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -73,7 +74,7 @@
 		5BBAA077159BAF0000AA4993 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				5BACFC13159D3B8A00F95507 /* libiosapi.a */,
+				D107507B15C31B6D00A88D41 /* libiosapi.a */,
 				5BBAA078159BAF0000AA4993 /* UIKit.framework */,
 				5BBAA07A159BAF0000AA4993 /* Foundation.framework */,
 				5BBAA07C159BAF0000AA4993 /* CoreGraphics.framework */,
@@ -84,6 +85,7 @@
 		5BBAA07E159BAF0000AA4993 /* PlaynomicsSample */ = {
 			isa = PBXGroup;
 			children = (
+				D107507D15C31B8500A88D41 /* PlaynomicsSession.h */,
 				5BBAA087159BAF0000AA4993 /* AppDelegate.h */,
 				5BBAA088159BAF0000AA4993 /* AppDelegate.m */,
 				5BBAA08A159BAF0000AA4993 /* ViewController.h */,
@@ -277,6 +279,8 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../../../../Library/Developer/Xcode/DerivedData/iosapi-bjkqyrtlyjtbiqfjtdqrczayducv/Build/Products/Debug-iphonesimulator\"",
+					"\"$(SRCROOT)\"",
+					"\"$(SRCROOT)/../../../../../Library/Developer/Xcode/DerivedData/iosapi-fkksjzzewixnvbbvsfdttiakbmec/Build/Products/Debug-iphonesimulator\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
@@ -292,6 +296,8 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../../../../Library/Developer/Xcode/DerivedData/iosapi-bjkqyrtlyjtbiqfjtdqrczayducv/Build/Products/Debug-iphonesimulator\"",
+					"\"$(SRCROOT)\"",
+					"\"$(SRCROOT)/../../../../../Library/Developer/Xcode/DerivedData/iosapi-fkksjzzewixnvbbvsfdttiakbmec/Build/Products/Debug-iphonesimulator\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;

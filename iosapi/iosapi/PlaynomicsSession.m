@@ -89,7 +89,14 @@
 + (void) setTestMode: (bool) testMode {
     [[PlaynomicsSession sharedInstance] eventSender].testMode = testMode;
 }
-     
+ 
++ (PNAPIResult) changeUserWithUserId:(NSString *)userId {
+    
+    [[PlaynomicsSession sharedInstance] stop];
+    long appId = [PlaynomicsSession sharedInstance].applicationId;
+    return [[PlaynomicsSession sharedInstance] startWithApplicationId:appId userId:userId];    
+}
+
 + (PNAPIResult) startWithApplicationId:(long) applicationId userId: (NSString *) userId {
     return [[PlaynomicsSession sharedInstance] startWithApplicationId:applicationId userId:userId];
 }
@@ -126,6 +133,7 @@
     
     [super dealloc];
 }
+
 
 #pragma mark - Session Control Methods
 - (PNAPIResult) startWithApplicationId:(long) applicationId userId: (NSString *) userId {

@@ -25,8 +25,9 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    long appId = 4L;
+    long appId = 3L;
     NSString *userId = @"SampleUserId1234";
+    [PlaynomicsSession setTestMode:YES];
     [PlaynomicsSession startWithApplicationId:appId userId:userId];
     
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
