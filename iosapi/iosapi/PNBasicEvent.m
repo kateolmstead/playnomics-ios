@@ -34,6 +34,7 @@
         _cookieId = [cookieId retain];
         _instanceId = [instanceId retain];
         _sessionStartTime = sessionStartTime;
+        self.sessionId = [sessionId retain];
         _sequence = sequence;
         _clicks = clicks;
         _totalClicks = totalClicks;
@@ -56,7 +57,7 @@
     
     if ((self = [super init:eventType applicationId:applicationId userId:userId])) {
         _cookieId = [cookieId retain];
-        _sessionId = [sessionId retain];
+        self.sessionId = [sessionId retain];
         _instanceId = [instanceId retain];
         _timeZoneOffset = timeZoneOffset;
     }
@@ -71,7 +72,7 @@
 }
 
 - (NSString *) toQueryString {
-    NSString * queryString = [[super toQueryString] stringByAppendingFormat:@"&b=%@&s=%@&i=%@", self.cookieId, _sessionId, self.instanceId];
+    NSString * queryString = [[super toQueryString] stringByAppendingFormat:@"&b=%@&s=%@&i=%@", self.cookieId, self.sessionId, self.instanceId];
     
     switch ([self eventType]) {
         case PNEventAppStart:
