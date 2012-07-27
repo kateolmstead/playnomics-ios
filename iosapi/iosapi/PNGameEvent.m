@@ -2,7 +2,7 @@
 
 @implementation PNGameEvent
 
-@synthesize sessionId=_sessionId;
+@synthesize gameSessionId=_gameSessionId;
 @synthesize instanceId=_instanceId;
 @synthesize type=_type;
 @synthesize gameId=_gameId;
@@ -12,7 +12,7 @@
 - (id) init:  (PNEventType)eventType 
         applicationId: (long) applicationId 
              userId:(NSString *)userId
-          sessionId:(NSString *)sessionId
+          gameSessionId:(NSString *)gameSessionId
                site:(NSString *)site
          instanceId:(NSString *)instanceId
                type:(NSString *)type
@@ -20,7 +20,7 @@
              reason:(NSString *)reason {
     
     if (self = [super init:eventType applicationId:applicationId userId:userId]) {
-        _sessionId = [sessionId retain];
+        _gameSessionId = [gameSessionId retain];
         _site = [site retain];
         _instanceId = [instanceId retain];
         _type = [type retain];
@@ -31,11 +31,12 @@
 }
 
 - (NSString *) toQueryString {
-    NSString * queryString = [super toQueryString];
+    NSString * queryString = [[super toQueryString] stringByAppendingFormat:@"&jsh=%@", [self sessionId]];;
     if ([self eventType] == PNEventGameStart || [self eventType] == PNEventGameEnd)
-        queryString = [self addOptionalParam:queryString name:@"s" value:[self sessionId]];
+        queryString = [self addOptionalParam:queryString name:@"s" value:[self gameSessionId]];
     else
-        queryString = [queryString stringByAppendingFormat:@"&s=%@", [self sessionId]];
+        queryString = [queryString stringByAppendingFormat:@"&s=%@", [self gameSessionId]];
+    
     queryString = [self addOptionalParam:queryString name:@"ss" value:[self site]];
     queryString = [self addOptionalParam:queryString name:@"r" value:[self reason]];
     queryString = [self addOptionalParam:queryString name:@"g" value:[self instanceId]];
@@ -46,7 +47,7 @@
 
 - (void)encodeWithCoder:(NSCoder *)encoder {
     [super encodeWithCoder:encoder];
-        [encoder encodeObject: _sessionId forKey:@"PNGameEvent._sessionId"];  
+        [encoder encodeObject: _gameSessionId forKey:@"PNGameEvent._gameSessionId"];  
         [encoder encodeObject: _site forKey:@"PNGameEvent._site"];  
         [encoder encodeObject: _instanceId forKey:@"PNGameEvent._instanceId"];  
         [encoder encodeObject: _type forKey:@"PNGameEvent._type"];  
@@ -57,7 +58,7 @@
 
 - (id)initWithCoder:(NSCoder *)decoder {
     if ((self = [super initWithCoder:decoder])) {
-        _sessionId = [(NSString *)[decoder decodeObjectForKey:@"PNGameEvent._sessionId"] retain]; 
+        _gameSessionId = [(NSString *)[decoder decodeObjectForKey:@"PNGameEvent._gameSessionId"] retain]; 
         _site = [(NSString *)[decoder decodeObjectForKey:@"PNGameEvent._site"] retain]; 
         _instanceId = [(NSString *)[decoder decodeObjectForKey:@"PNGameEvent._instanceId"] retain]; 
         _type = [(NSString *)[decoder decodeObjectForKey:@"PNGameEvent._type"] retain]; 
@@ -68,7 +69,7 @@
 }
 
 - (void) dealloc {
-  [_sessionId release];
+  [_gameSessionId release];
   [_site release];
   [_instanceId release];
   [_type release];

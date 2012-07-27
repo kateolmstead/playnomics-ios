@@ -36,7 +36,7 @@
 }
 
 - (NSString *) toQueryString {
-    NSString * queryString = [[super toQueryString] stringByAppendingFormat: @"&tt=%@", [PNUtil PNTransactionTypeDescription:[self type]]];
+    NSString * queryString = [[super toQueryString] stringByAppendingFormat: @"&tt=%@&jsh=%@", [PNUtil PNTransactionTypeDescription:[self type]], [self sessionId]];
     
     for (int i = 0; i < [[self currencyTypes] count] ; i++) {
         id obj = [[self currencyTypes] objectAtIndex:i];

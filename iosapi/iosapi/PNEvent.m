@@ -5,6 +5,7 @@
 @synthesize eventTime=_eventTime;
 @synthesize applicationId=_applicationId;
 @synthesize userId=_userId;
+@synthesize sessionId=_sessionId;
 
 - (id) init: (PNEventType) eventType applicationId:(long) applicationId userId:(NSString *)userId {
     if ((self = [super init])) {
@@ -51,6 +52,7 @@
 
 - (void) dealloc {
     [_userId release];
+    [_sessionId release];
     
     [super dealloc];
 }

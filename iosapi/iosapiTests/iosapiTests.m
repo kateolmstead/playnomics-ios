@@ -182,8 +182,8 @@
     NSLog(@"****** testGameEvents **********");
     NSString *hex = [PNRandomGenerator createRandomHex];
     for (int i = 0;i < 10; i++) {
-        [PlaynomicsSession gameStartWithInstanceId:hex sessionId:hex site:@"TEST_SITE" type:@"TEST_TYPE" gameId:@"TEST_GAMEID"];
-        [PlaynomicsSession gameEndWithInstanceId:hex sessionId:hex reason:@"TEST_REASON"];
+        [PlaynomicsSession gameStartWithInstanceId:hex gameSessionId:hex site:@"TEST_SITE" type:@"TEST_TYPE" gameId:@"TEST_GAMEID"];
+        [PlaynomicsSession gameEndWithInstanceId:hex gameSessionId:hex reason:@"TEST_REASON"];
     }
 }
 
@@ -249,8 +249,8 @@
     NSLog(@"****** testSessionEvents **********");
     
     for (int i = 0;i < 10; i++) {
-        [PlaynomicsSession sessionStartWithId:[NSString stringWithFormat:@"TEST_SESSION_ID(%d)",i] site:@"TEST_SITE"];
-        [PlaynomicsSession sessionEndWithId:[NSString stringWithFormat:@"TEST_SESSION_ID(%d)",i] reason:@"TEST_REASON"];
+        [PlaynomicsSession gameSessionStartWithId:[NSString stringWithFormat:@"TEST_SESSION_ID(%d)",i] site:@"TEST_SITE"];
+        [PlaynomicsSession gameSessionEndWithId:[NSString stringWithFormat:@"TEST_SESSION_ID(%d)",i] reason:@"TEST_REASON"];
     }
     
 }

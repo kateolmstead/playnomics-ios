@@ -52,6 +52,7 @@
 @property (atomic, readonly)    NSMutableArray *   playnomicsEventList;
 @property (nonatomic, readonly) long            applicationId;
 @property (nonatomic, readonly) NSString *      userId;
+@property (nonatomic, readonly) NSString *      sessionId;
 
 
 - (PNAPIResult) startWithApplicationId:(long) applicationId;
@@ -72,6 +73,7 @@
 @synthesize playnomicsEventList=_playnomicsEventList;
 @synthesize applicationId=_applicationId;
 @synthesize userId=_userId;
+@synthesize sessionId=_sessionId;
 
 //Singleton
 + (PlaynomicsSession *)sharedInstance{
@@ -97,6 +99,7 @@
         _collectMode = PNSettingCollectionMode;
         _sequence = 0;
         _userId = @"";
+        _sessionId = @"";
         _playnomicsEventList = [[NSMutableArray alloc] init];
         _eventSender = [[PNEventSender alloc] init];
     }
@@ -210,7 +213,9 @@
         [userDefaults synchronize];
     }
     else {
-        _sessionId = [lastUserId retain];
+        if (_sessionId == nil)
+            _sessionId = [[PNRandomGenerator createRandomHex] retain];
+
         // Always create a new Instance Id
         _instanceId = [[PNRandomGenerator createRandomHex] retain];
         _sessionStartTime = [userDefaults doubleForKey:PNUserDefaultsLastSessionStartTime];
@@ -253,13 +258,19 @@
     
     [self stopEventTimer];
 	
-    PNBasicEvent *ev = [[PNBasicEvent alloc] init:PNEventAppPause
-                                applicationId:_applicationId
-                                       userId:_userId
-                                     cookieId:_cookieId
-                                    sessionId:_sessionId
-                                   instanceId:_instanceId
-                               timeZoneOffset:_timeZoneOffset];
+    PNBasicEvent *ev = [[[PNBasicEvent alloc] init:PNEventAppPause
+                                     applicationId:_applicationId
+                                            userId:_userId
+                                          cookieId:_cookieId
+                                         sessionId:_sessionId
+                                        instanceId:_instanceId
+                                  sessionStartTime:_sessionStartTime
+                                          sequence:_sequence
+                                            clicks:_clicks
+                                       totalClicks:_totalClicks
+                                              keys:_keys
+                                         totalKeys:_totalKeys
+                                       collectMode:_collectMode] autorelease];
     _pauseTime = [[NSDate date] timeIntervalSince1970];
     
     _sequence += 1;    
@@ -269,9 +280,7 @@
     // Try to send and queue if unsuccessful
     if (![_eventSender sendEventToServer:ev]) {
         [self.playnomicsEventList addObject:ev];
-    }
-    [ev release];
-    
+    }    
 }
 
 /**
@@ -288,13 +297,19 @@
     
     _sessionState = PNSessionStateStarted;
     
-    PNBasicEvent *ev = [[PNBasicEvent alloc] init:PNEventAppResume
-                                applicationId:_applicationId
-                                       userId:_userId
-                                     cookieId:_cookieId
-                                    sessionId:_sessionId
-                                   instanceId:_instanceId
-                               timeZoneOffset:_timeZoneOffset];
+    PNBasicEvent *ev = [[[PNBasicEvent alloc] init:PNEventAppResume 
+                                     applicationId:_applicationId
+                                            userId:_userId
+                                          cookieId:_cookieId
+                                         sessionId:_sessionId
+                                        instanceId:_instanceId
+                                  sessionStartTime:_sessionStartTime
+                                          sequence:_sequence
+                                            clicks:_clicks
+                                       totalClicks:_totalClicks
+                                              keys:_keys
+                                         totalKeys:_totalKeys
+                                       collectMode:_collectMode] autorelease];
     [ev setPauseTime:_pauseTime];
     [ev setSessionStartTime:_sessionStartTime];
     [ev setSequence:_sequence];
@@ -304,7 +319,6 @@
     if (![_eventSender sendEventToServer:ev]) {
         [self.playnomicsEventList addObject:ev];
     }
-    [ev release];
 }
 
 /**
@@ -473,38 +487,43 @@
     
     PNUserInfoEvent *ev = [[[PNUserInfoEvent alloc] init:s.applicationId userId:s.userId type:type country:country subdivision:subdivision sex:sex birthday:[birthday timeIntervalSince1970] source:source sourceCampaign:sourceCampaign installTime:[installTime timeIntervalSince1970]] autorelease];
     
+    ev.sessionId = [[PlaynomicsSession sharedInstance] sessionId];
     return [s sendOrQueueEvent:ev];    
 }
 
-+ (PNAPIResult) sessionStartWithId: (NSString *) sessionId site: (NSString *) site {
++ (PNAPIResult) gameSessionStartWithId: (NSString *) gameSessionId site: (NSString *) site {
     PlaynomicsSession * s =[PlaynomicsSession sharedInstance];
     
-    PNGameEvent *ev = [[[PNGameEvent alloc] init:PNEventSessionStart applicationId:s.applicationId userId:s.userId sessionId:sessionId site:site instanceId:nil type:nil gameId:nil reason:nil] autorelease];
+    PNGameEvent *ev = [[[PNGameEvent alloc] init:PNEventSessionStart applicationId:s.applicationId userId:s.userId gameSessionId:gameSessionId site:site instanceId:nil type:nil gameId:nil reason:nil] autorelease];
     
+    ev.sessionId = [[PlaynomicsSession sharedInstance] sessionId];
     return [s sendOrQueueEvent:ev];
 }
 
-+ (PNAPIResult) sessionEndWithId: (NSString *) sessionId reason: (NSString *) reason {
++ (PNAPIResult) gameSessionEndWithId: (NSString *) gameSessionId reason: (NSString *) reason {
     PlaynomicsSession * s =[PlaynomicsSession sharedInstance];
     
-    PNGameEvent *ev = [[[PNGameEvent alloc] init:PNEventSessionEnd applicationId:s.applicationId userId:s.userId sessionId:sessionId site:nil instanceId:nil type:nil gameId:nil reason:reason] autorelease];
+    PNGameEvent *ev = [[[PNGameEvent alloc] init:PNEventSessionEnd applicationId:s.applicationId userId:s.userId gameSessionId:gameSessionId site:nil instanceId:nil type:nil gameId:nil reason:reason] autorelease];
     
+    ev.sessionId = [[PlaynomicsSession sharedInstance] sessionId];
     return [s sendOrQueueEvent:ev];
 }
 
-+ (PNAPIResult) gameStartWithInstanceId: (NSString *) instanceId sessionId: (NSString *) sessionId site: (NSString *) site type: (NSString *) type gameId: (NSString *) gameId {
++ (PNAPIResult) gameStartWithInstanceId: (NSString *) instanceId gameSessionId: (NSString *) gameSessionId site: (NSString *) site type: (NSString *) type gameId: (NSString *) gameId {
     PlaynomicsSession * s =[PlaynomicsSession sharedInstance];
 
-    PNGameEvent *ev = [[[PNGameEvent alloc] init:PNEventGameStart applicationId:s.applicationId userId:s.userId sessionId:sessionId site:site instanceId:instanceId type:type gameId:gameId reason:nil] autorelease];
+    PNGameEvent *ev = [[[PNGameEvent alloc] init:PNEventGameStart applicationId:s.applicationId userId:s.userId gameSessionId:gameSessionId site:site instanceId:instanceId type:type gameId:gameId reason:nil] autorelease];
     
+    ev.sessionId = [[PlaynomicsSession sharedInstance] sessionId];
     return [s sendOrQueueEvent:ev];
 }
 
-+ (PNAPIResult) gameEndWithInstanceId: (NSString *) instanceId sessionId: (NSString *) sessionId reason: (NSString *) reason {
++ (PNAPIResult) gameEndWithInstanceId: (NSString *) instanceId gameSessionId: (NSString *) gameSessionId reason: (NSString *) reason {
     PlaynomicsSession * s =[PlaynomicsSession sharedInstance];
     
-    PNGameEvent *ev = [[[PNGameEvent alloc] init:PNEventGameEnd applicationId:s.applicationId userId:s.userId sessionId:sessionId site:nil instanceId:instanceId type:nil gameId:nil reason:reason] autorelease];
+    PNGameEvent *ev = [[[PNGameEvent alloc] init:PNEventGameEnd applicationId:s.applicationId userId:s.userId gameSessionId:gameSessionId site:nil instanceId:instanceId type:nil gameId:nil reason:reason] autorelease];
     
+    ev.sessionId = [[PlaynomicsSession sharedInstance] sessionId];
     return [s sendOrQueueEvent:ev];
 }
 
@@ -576,6 +595,7 @@
                                             currencyValues:currencyValues
                                         currencyCategories:currencyCategories] autorelease];
     
+    ev.sessionId = [[PlaynomicsSession sharedInstance] sessionId];
     return [s sendOrQueueEvent:ev];
 }
 
@@ -592,6 +612,7 @@
                                 recipientAddress:recipientAddress 
                                           method:method 
                                         response:0] autorelease];
+    ev.sessionId = [[PlaynomicsSession sharedInstance] sessionId];
     return [s sendOrQueueEvent:ev];
     
 }
@@ -609,6 +630,7 @@
                                 recipientAddress:nil 
                                           method:nil 
                                         response:responseType] autorelease];
+    ev.sessionId = [[PlaynomicsSession sharedInstance] sessionId];
     return [s sendOrQueueEvent:ev];    
 }
 @end

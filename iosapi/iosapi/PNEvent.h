@@ -8,6 +8,7 @@
     NSString * _userId;
 }
 
+@property (nonatomic, retain) NSString * sessionId;
 @property (nonatomic, assign) PNEventType eventType;
 @property (nonatomic, assign) NSTimeInterval eventTime;
 @property (nonatomic, assign) long applicationId;

@@ -3,7 +3,6 @@
 
 @implementation PNBasicEvent
 @synthesize cookieId=_cookieId;
-@synthesize sessionId=_sessionId;
 @synthesize instanceId=_instanceId;
 @synthesize sessionStartTime=_sessionStartTime;
 @synthesize pauseTime=_pauseTime;
@@ -33,7 +32,6 @@
     
     if ((self = [super init:eventType applicationId:applicationId userId:userId])) {
         _cookieId = [cookieId retain];
-        _sessionId = [sessionId retain];
         _instanceId = [instanceId retain];
         _sessionStartTime = sessionStartTime;
         _sequence = sequence;
@@ -73,7 +71,7 @@
 }
 
 - (NSString *) toQueryString {
-    NSString * queryString = [[super toQueryString] stringByAppendingFormat:@"&b=%@&s=%@&i=%@", [self cookieId], [self sessionId], [self instanceId]];
+    NSString * queryString = [[super toQueryString] stringByAppendingFormat:@"&b=%@&s=%@&i=%@", self.cookieId, _sessionId, self.instanceId];
     
     switch ([self eventType]) {
         case PNEventAppStart:
@@ -139,7 +137,6 @@
 
 - (void) dealloc {
     [_cookieId release];
-    [_sessionId release];
     [_instanceId release];
     
     [super dealloc];

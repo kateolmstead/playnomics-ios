@@ -49,7 +49,7 @@
 }
 
 - (NSString *) toQueryString {
-    NSString *queryString = [[super toQueryString] stringByAppendingFormat:@"&pt=%@", [PNUtil PNUserInfoTypeDescription:[self type]]];
+    NSString *queryString = [[super toQueryString] stringByAppendingFormat:@"&pt=%@&jsh=%@", [PNUtil PNUserInfoTypeDescription:[self type]], [self sessionId]];
     
     queryString = [self addOptionalParam:queryString name:@"pc" value:[self country]];
     queryString = [self addOptionalParam:queryString name:@"ps" value:[self subdivision]];

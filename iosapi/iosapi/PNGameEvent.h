@@ -1,7 +1,7 @@
 #import "PNEvent.h"
 
 @interface PNGameEvent : PNEvent {
-  NSString * _sessionId;
+  NSString * _gameSessionId;
   NSString * _site;
   NSString * _instanceId;
   NSString * _type;
@@ -9,7 +9,7 @@
   NSString * _reason;
 }
 
-@property(nonatomic, retain) NSString * sessionId;
+@property(nonatomic, retain) NSString * gameSessionId;
 @property(nonatomic, retain) NSString * instanceId;
 @property(nonatomic, retain) NSString * type;
 @property(nonatomic, retain) NSString * gameId;
@@ -19,7 +19,7 @@
 - (id) init:  (PNEventType)eventType 
             applicationId: (long) applicationId 
                  userId:(NSString *)userId
-              sessionId:(NSString *)sessionId
+              gameSessionId:(NSString *)gameSessionId
                    site:(NSString *)site
              instanceId:(NSString *)instanceId
                    type:(NSString *)type

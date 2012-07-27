@@ -226,33 +226,33 @@ typedef enum {
                     installTime: (NSDate *) installTime;
 
 /**
- * Session start.
+ * Game Session start.
  * 
- * @param sessionId
- *            the session id
+ * @param gameSessionId
+ *            the game session id
  * @param site
  *            the site
  * @return the API Result
  */
-+ (PNAPIResult) sessionStartWithId: (NSString *) sessionId site: (NSString *) site;
++ (PNAPIResult) gameSessionStartWithId: (NSString *) gameSessionId site: (NSString *) site;
 
 /**
- * Session end.
+ * Game Session end.
  * 
- * @param sessionId
- *            the session id
+ * @param gameSessionId
+ *            the game session id
  * @param reason
  *            the reason
  * @return the API Result
  */
-+ (PNAPIResult) sessionEndWithId: (NSString *) sessionId reason: (NSString *) reason;
++ (PNAPIResult) gameSessionEndWithId: (NSString *) gameSessionId reason: (NSString *) reason;
 
 /**
  * Game start.
  * 
  * @param instanceId
  *            the instance id
- * @param sessionId
+ * @param gameSessionId
  *            the session id
  * @param site
  *            the site
@@ -262,7 +262,7 @@ typedef enum {
  *            the game id
  * @return the API Result
  */
-+ (PNAPIResult) gameStartWithInstanceId: (NSString *) instanceId sessionId: (NSString *) sessionId site: (NSString *) site type: (NSString *) type gameId: (NSString *) gameId;
++ (PNAPIResult) gameStartWithInstanceId: (NSString *) instanceId gameSessionId: (NSString *) gameSessionId site: (NSString *) site type: (NSString *) type gameId: (NSString *) gameId;
 
 /**
  * Game end.
@@ -270,12 +270,12 @@ typedef enum {
  * @param instanceId
  *            the instance id
  * @param sessionId
- *            the session id
+ *            the gameSession id
  * @param reason
  *            the reason
  * @return the API Result
  */
-+ (PNAPIResult) gameEndWithInstanceId: (NSString *) instanceId sessionId: (NSString *) sessionId reason: (NSString *) reason;
++ (PNAPIResult) gameEndWithInstanceId: (NSString *) instanceId gameSessionId: (NSString *) gameSessionId reason: (NSString *) reason;
 
 /**
  * Transaction.

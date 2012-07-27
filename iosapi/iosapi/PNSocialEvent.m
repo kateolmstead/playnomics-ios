@@ -31,7 +31,7 @@
     NSString * queryString = [[super toQueryString] stringByAppendingFormat:@"&ii=%@", [self invitationId]];
     
     if ([self eventType] == PNEventInvitationResponse) {
-        queryString = [queryString stringByAppendingFormat:@"&ie=%@&ir=%@", [PNUtil PNResponseTypeDescription:[self response]], [self recipientUserId]];
+        queryString = [queryString stringByAppendingFormat:@"&ie=%@&ir=%@&jsh=%@", [PNUtil PNResponseTypeDescription:[self response]], [self recipientUserId], [self sessionId]];
     }
     else {
         queryString = [self addOptionalParam:queryString name:@"ir" value:[self recipientUserId]];

@@ -16,7 +16,6 @@
 }
 
 @property (nonatomic, retain) NSString * cookieId;
-@property (nonatomic, retain) NSString * sessionId;
 @property (nonatomic, retain) NSString * instanceId;
 @property (nonatomic, assign) NSTimeInterval sessionStartTime;
 @property (nonatomic, assign) NSTimeInterval pauseTime;
