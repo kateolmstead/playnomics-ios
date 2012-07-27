@@ -150,6 +150,12 @@
     
 }
 
+- (IBAction)onChangeUserClick:(id)sender {
+    
+    PNAPIResult resval = [PlaynomicsSession changeUserWithUserId: @"testChangeUserId"];
+    [self handlePLAPIRResult:resval];
+}
+
 
 
 - (void) handlePLAPIRResult: (PNAPIResult) result {
