@@ -17,7 +17,7 @@
 #define PNPropertyBaseTestUrl @"https://test.b.playnomics.net/v1/"
 #define PNPropertyBaseProdUrl @"https://d2gfi8ctn6kki7.cloudfront.net/"
 #define PNPropertyVersion @"0.0.1"
-#define PNPropertyConnectionTimeout 5000
+#define PNPropertyConnectionTimeout 2000
 
 #ifdef DEBUG
 

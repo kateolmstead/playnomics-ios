@@ -12,6 +12,5 @@
 @property (atomic, assign) BOOL testMode;
 
 - (id) initWithTestMode:(BOOL)testMode;
-- (BOOL) sendToServer:(NSString *)eventUrl;
-- (BOOL) sendEventToServer:(PNEvent *)pe;
+- (void) sendEventToServer:(PNEvent *)pe withEventQueue: (NSMutableArray *) eventQueue;
 @end

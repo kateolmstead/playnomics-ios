@@ -14,6 +14,7 @@
  */
 
 @interface PlaynomicsSession (Exposed)
+
 + (PlaynomicsSession *)sharedInstance;
 
 - (void) onKeyPressed: (NSNotification *) notification;

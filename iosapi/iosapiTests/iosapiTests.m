@@ -282,9 +282,11 @@
 }
 
 - (void) testSendingEvents: (NSArray *) events {
+    NSMutableArray * queue = [NSMutableArray alloc];
     for (PNEvent *ev in events) {
-        STAssertTrue([eventSender sendEventToServer:ev], @"Failed to send event to server");
+        [eventSender sendEventToServer:ev withEventQueue:queue];
     }
+    [queue release];
 }
 
 @end

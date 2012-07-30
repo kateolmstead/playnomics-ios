@@ -49,12 +49,13 @@
 	int _keys;
 	int _totalKeys;
 }
-@property (atomic, readonly)    NSMutableArray *   playnomicsEventList;
 @property (nonatomic, readonly) long            applicationId;
 @property (nonatomic, readonly) NSString *      userId;
 @property (nonatomic, readonly) NSString *      sessionId;
 @property (nonatomic, assign) bool      testMode;
 @property (atomic, readonly) PNEventSender * eventSender;
+@property (atomic, readonly)    NSMutableArray *   playnomicsEventList;
+
 
 
 - (PNAPIResult) startWithApplicationId:(long) applicationId;
@@ -72,12 +73,12 @@
 @end
 
 @implementation PlaynomicsSession
-@synthesize playnomicsEventList=_playnomicsEventList;
 @synthesize applicationId=_applicationId;
 @synthesize userId=_userId;
 @synthesize sessionId=_sessionId;
 @synthesize testMode=_testMode;
 @synthesize eventSender=_eventSender;
+@synthesize playnomicsEventList=_playnomicsEventList;
 
 //Singleton
 + (PlaynomicsSession *)sharedInstance{
@@ -182,7 +183,6 @@
 
 - (PNAPIResult) startSessionWithApplicationId: (long) applicationId {
     NSLog(@"startSessionWithApplicationId");
-    PNAPIResult result;
     
     /** Setting Session variables */
     
@@ -249,16 +249,10 @@
                                timeZoneOffset:_timeZoneOffset];
     
     // Try to send and queue if unsuccessful
-    if ([_eventSender sendEventToServer:ev]) {
-        result = PNAPIResultSent;
-    }
-    else {
-        [self.playnomicsEventList addObject:ev];
-        result = PNAPIResultQueued;
-    }
+    [_eventSender sendEventToServer:ev withEventQueue:_playnomicsEventList];
     [ev release];
     
-    return result;
+    return PNAPIResultSent;
 }
 
 /**
@@ -294,9 +288,7 @@
     [ev setSessionStartTime:_sessionStartTime];
     
     // Try to send and queue if unsuccessful
-    if (![_eventSender sendEventToServer:ev]) {
-        [self.playnomicsEventList addObject:ev];
-    }    
+    [_eventSender sendEventToServer:ev withEventQueue:_playnomicsEventList];
 }
 
 /**
@@ -332,9 +324,7 @@
     
     
     // Try to send and queue if unsuccessful
-    if (![_eventSender sendEventToServer:ev]) {
-        [self.playnomicsEventList addObject:ev];
-    }
+    [_eventSender sendEventToServer:ev withEventQueue:_playnomicsEventList];
 }
 
 /**
@@ -407,36 +397,19 @@
         _clicks = 0;
     }
     
-    NSMutableArray *sentEvents = [[NSMutableArray alloc] init];
     for (PNEvent *ev in self.playnomicsEventList) {
-        if ([_eventSender sendEventToServer:ev]) {
-            [sentEvents addObject:ev];
-            continue;
-        }
-        // If we fail to send an event. Cancel the whole loop
-        break;
+        [_eventSender sendEventToServer:ev withEventQueue:_playnomicsEventList];
     }
-    [self.playnomicsEventList removeObjectsInArray:sentEvents];
-    [sentEvents release];
 }
 
 - (PNAPIResult) sendOrQueueEvent:(PNEvent *)pe {
     if (_sessionState != PNSessionStateStarted) {
         return PNAPIResultStartNotCalled;
     }
-    
-    
-    PNAPIResult result;
+        
     // Try to send and queue if unsuccessful
-    if ([_eventSender sendEventToServer:pe]) {
-        result = PNAPIResultSent;
-    }
-    else {
-        [self.playnomicsEventList addObject:pe];
-        result = PNAPIResultQueued;
-    }
-    
-    return result;
+    [_eventSender sendEventToServer:pe withEventQueue:_playnomicsEventList];    
+    return PNAPIResultSent;
 }
 
 #pragma mark - Application Event Handlers

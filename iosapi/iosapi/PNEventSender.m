@@ -25,33 +25,33 @@
     return self;
 }
 
-- (BOOL) sendToServer: (NSString *) eventUrl {
-    eventUrl = [eventUrl stringByAppendingFormat:@"&esrc=ios&ever=%@", _version];
-    NSLog(@"Sending event to server: %@", eventUrl);
-    
-    NSURL *url = [NSURL URLWithString:eventUrl];
-    NSURLRequest *request = [[[NSURLRequest alloc] initWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:_connectTimeout] autorelease];
-    
-    NSURLResponse *response = nil;
-    NSError *error = nil;
-    
-    [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
-    
-    if (error) {
-        NSLog(@"Send failed:%@", [error localizedDescription]);
-        return NO;
-    }
-    return TRUE;
-}
 
-- (BOOL) sendEventToServer:(PNEvent *)pe {
+- (void) sendEventToServer:(PNEvent *)pe withEventQueue: (NSMutableArray *) eventQueue {
 
     if (_testMode)
         _baseUrl = [PNPropertyBaseTestUrl retain];
     else
         _baseUrl = [PNPropertyBaseProdUrl retain];
 
-    return [self sendToServer:[_baseUrl stringByAppendingString:[pe toQueryString]]];
+   NSString * eventUrl = [_baseUrl stringByAppendingString:[pe toQueryString]];
+    eventUrl = [eventUrl stringByAppendingFormat:@"&esrc=ios&ever=%@", _version];
+    NSLog(@"Sending event to server: %@", eventUrl);
+    
+    NSURL *url = [NSURL URLWithString:eventUrl];
+    NSURLRequest *request = [[[NSURLRequest alloc] initWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:_connectTimeout] autorelease];
+    
+    [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
+        if (error) {
+            if (![eventQueue containsObject:pe])
+                [eventQueue addObject:pe];
+             NSLog(@"Send failed:%@", [error localizedDescription]);
+        }
+        else {
+            if ([eventQueue containsObject:pe])
+                [eventQueue removeObject:pe];
+            NSLog(@"Send succeeded!");
+        }
+    }];
 }
 
 - (void) dealloc {
