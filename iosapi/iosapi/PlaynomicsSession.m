@@ -34,7 +34,7 @@
     /** Tracking values */
     int _collectMode;
 	int _sequence;
-    long _applicationId;
+    unsigned long long _applicationId;
     NSString *_userId;
 	NSString *_cookieId; // TODO: Doc says this should be a 64 bit number
 	NSString *_sessionId;
@@ -49,17 +49,17 @@
 	int _keys;
 	int _totalKeys;
 }
-@property (nonatomic, readonly) long            applicationId;
-@property (nonatomic, readonly) NSString *      userId;
-@property (nonatomic, readonly) NSString *      sessionId;
-@property (nonatomic, assign) bool      testMode;
+@property (nonatomic, readonly) unsigned long long applicationId;
+@property (nonatomic, readonly) NSString * userId;
+@property (nonatomic, readonly) NSString * sessionId;
+@property (nonatomic, assign) bool testMode;
 @property (atomic, readonly) PNEventSender * eventSender;
-@property (atomic, readonly)    NSMutableArray *   playnomicsEventList;
+@property (atomic, readonly) NSMutableArray * playnomicsEventList;
 
 
 
-- (PNAPIResult) startWithApplicationId:(long) applicationId;
-- (PNAPIResult) startWithApplicationId:(long) applicationId userId: (NSString *) userId;
+- (PNAPIResult) startWithApplicationId:(unsigned long long) applicationId;
+- (PNAPIResult) startWithApplicationId:(unsigned long long) applicationId userId: (NSString *) userId;
 - (PNAPIResult) sendOrQueueEvent: (PNEvent *) pe;
 
 - (PNAPIResult) stop;
@@ -98,11 +98,11 @@
     return [[PlaynomicsSession sharedInstance] startWithApplicationId:appId userId:userId];    
 }
 
-+ (PNAPIResult) startWithApplicationId:(long) applicationId userId: (NSString *) userId {
++ (PNAPIResult) startWithApplicationId:(unsigned long long) applicationId userId: (NSString *) userId {
     return [[PlaynomicsSession sharedInstance] startWithApplicationId:applicationId userId:userId];
 }
 
-+ (PNAPIResult) startWithApplicationId:(long) applicationId {
++ (PNAPIResult) startWithApplicationId:(unsigned long long) applicationId {
     return [[PlaynomicsSession sharedInstance] startWithApplicationId:applicationId];
 }
 
@@ -137,12 +137,12 @@
 
 
 #pragma mark - Session Control Methods
-- (PNAPIResult) startWithApplicationId:(long) applicationId userId: (NSString *) userId {
+- (PNAPIResult) startWithApplicationId:(unsigned long long) applicationId userId: (NSString *) userId {
     _userId = [userId retain];
     return [self startWithApplicationId:applicationId];
 }
 
-- (PNAPIResult) startWithApplicationId:(long) applicationId {
+- (PNAPIResult) startWithApplicationId:(unsigned long long) applicationId {
     NSLog(@"startWithApplicationId");
     if (_sessionState == PNSessionStateStarted) {
         return PNAPIResultAlreadyStarted;

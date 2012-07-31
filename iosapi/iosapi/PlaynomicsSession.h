@@ -151,7 +151,7 @@ typedef enum {
  *            the user id
  * @return the API Result
  */
-+ (PNAPIResult) startWithApplicationId:(long) applicationId userId: (NSString *) userId;
++ (PNAPIResult) startWithApplicationId:(unsigned long long) applicationId userId: (NSString *) userId;
 
 /**
  * Start.
@@ -160,7 +160,7 @@ typedef enum {
  *            the application id
  * @return the API Result
  */
-+ (PNAPIResult) startWithApplicationId:(long) applicationId;
++ (PNAPIResult) startWithApplicationId:(unsigned long long) applicationId;
 
 /**
  * Stop.

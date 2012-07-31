@@ -73,6 +73,8 @@
 
 - (NSString *) toQueryString {
     NSString * queryString = [[super toQueryString] stringByAppendingFormat:@"&b=%@&s=%@&i=%@", self.cookieId, self.sessionId, self.instanceId];
+    unsigned long long rTime = [self sessionStartTime] * 1000;
+    unsigned long long pTime = [self pauseTime] * 1000;
     
     switch ([self eventType]) {
         case PNEventAppStart:
@@ -81,12 +83,12 @@
             break;
         // Note fallthrough
         case PNEventAppResume:
-            queryString = [queryString stringByAppendingFormat:@"&p=%ld", lround([self pauseTime] * 1000)];
+            queryString = [queryString stringByAppendingFormat:@"&p=%ld", pTime];
         case PNEventAppPause:
             queryString = [queryString stringByAppendingFormat:@"&q=%d", [self sequence]];
         case PNEventAppRunning:
             queryString = [queryString stringByAppendingFormat: @"&r=%ld&q=%d&d=%d&c=%d&e=%d&k=%d&l=%d&m=%d", 
-                           lround([self sessionStartTime] * 1000), 
+                           rTime, 
                            [self sequence],
                            PNUpdateTimeInterval * 1000,
                            [self clicks],
