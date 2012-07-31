@@ -15,7 +15,7 @@
 @synthesize collectMode=_collectMode;
 
 - (id) init:  (PNEventType) eventType
-        applicationId:(unsigned long long) applicationId
+        applicationId:(signed long long) applicationId
              userId:(NSString *)userId
            cookieId:(NSString *)cookieId
           sessionId:(NSString *)sessionId
@@ -46,7 +46,7 @@
 }
 
 - (id) init:  (PNEventType) eventType 
-        applicationId:(unsigned long long) applicationId
+        applicationId:(signed long long) applicationId
              userId:(NSString *)userId
            cookieId:(NSString *)cookieId
           sessionId:(NSString *)sessionId
@@ -73,8 +73,8 @@
 
 - (NSString *) toQueryString {
     NSString * queryString = [[super toQueryString] stringByAppendingFormat:@"&b=%@&s=%@&i=%@", self.cookieId, self.sessionId, self.instanceId];
-    unsigned long long rTime = [self sessionStartTime] * 1000;
-    unsigned long long pTime = [self pauseTime] * 1000;
+    signed long long rTime = [self sessionStartTime] * 1000;
+    signed long long pTime = [self pauseTime] * 1000;
     
     switch ([self eventType]) {
         case PNEventAppStart:
@@ -83,11 +83,11 @@
             break;
         // Note fallthrough
         case PNEventAppResume:
-            queryString = [queryString stringByAppendingFormat:@"&p=%llu", pTime];
+            queryString = [queryString stringByAppendingFormat:@"&p=%lld", pTime];
         case PNEventAppPause:
             queryString = [queryString stringByAppendingFormat:@"&q=%d", [self sequence]];
         case PNEventAppRunning:
-            queryString = [queryString stringByAppendingFormat: @"&r=%llu&q=%d&d=%d&c=%d&e=%d&k=%d&l=%d&m=%d", 
+            queryString = [queryString stringByAppendingFormat: @"&r=%lld&q=%d&d=%d&c=%d&e=%d&k=%d&l=%d&m=%d", 
                            rTime, 
                            [self sequence],
                            PNUpdateTimeInterval * 1000,

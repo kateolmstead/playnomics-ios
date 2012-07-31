@@ -132,7 +132,6 @@ typedef enum {
 
 + (void) setTestMode: (bool) testMode;
 
-
 /**
  * Change User.
  * 
@@ -151,7 +150,7 @@ typedef enum {
  *            the user id
  * @return the API Result
  */
-+ (PNAPIResult) startWithApplicationId:(unsigned long long) applicationId userId: (NSString *) userId;
++ (PNAPIResult) startWithApplicationId:(signed long long) applicationId userId: (NSString *) userId;
 
 /**
  * Start.
@@ -160,7 +159,7 @@ typedef enum {
  *            the application id
  * @return the API Result
  */
-+ (PNAPIResult) startWithApplicationId:(unsigned long long) applicationId;
++ (PNAPIResult) startWithApplicationId:(signed long long) applicationId;
 
 /**
  * Stop.

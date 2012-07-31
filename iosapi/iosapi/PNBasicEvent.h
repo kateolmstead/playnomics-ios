@@ -28,7 +28,7 @@
 @property (nonatomic, assign) int collectMode;
 
 - (id) init:  (PNEventType) eventType
-        applicationId:(unsigned long long) applicationId
+        applicationId:(signed long long) applicationId
      userId:(NSString *)userId
    cookieId:(NSString *)cookieId
   sessionId:(NSString *)sessionId
@@ -42,7 +42,7 @@ totalClicks:(int)totalClicks
 collectMode:(int)collectMode;
 
 - (id) init:  (PNEventType) eventType 
-applicationId:(unsigned long long) applicationId
+applicationId:(signed long long) applicationId
      userId:(NSString *)userId
    cookieId:(NSString *)cookieId
   sessionId:(NSString *)sessionId

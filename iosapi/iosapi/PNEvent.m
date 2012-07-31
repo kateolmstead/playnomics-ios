@@ -7,7 +7,7 @@
 @synthesize userId=_userId;
 @synthesize sessionId=_sessionId;
 
-- (id) init: (PNEventType) eventType applicationId:(unsigned long long) applicationId userId:(NSString *)userId {
+- (id) init: (PNEventType) eventType applicationId:(signed long long) applicationId userId:(NSString *)userId {
     if ((self = [super init])) {
         _eventTime = [[NSDate date] timeIntervalSince1970];
         _eventType = eventType;
@@ -29,8 +29,8 @@
 }
 
 - (NSString *) toQueryString {
-    unsigned long long eventTime = [self eventTime] * 1000;
-    return [NSString stringWithFormat:@"%@?t=%llu&a=%llu&u=%@", [PNUtil PNEventTypeDescription:[self eventType]], eventTime, [self applicationId], [self userId]];
+    signed long long eventTime = [self eventTime] * 1000;
+    return [NSString stringWithFormat:@"%@?t=%lld&a=%lld&u=%@", [PNUtil PNEventTypeDescription:[self eventType]], eventTime, [self applicationId], [self userId]];
 }
 
 - (void)encodeWithCoder:(NSCoder *)encoder {
