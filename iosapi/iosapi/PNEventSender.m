@@ -28,12 +28,13 @@
 
 - (void) sendEventToServer:(PNEvent *)pe withEventQueue: (NSMutableArray *) eventQueue {
 
-    if (_testMode)
+    if (_testMode) {
         _baseUrl = [PNPropertyBaseTestUrl retain];
+    }
     else
         _baseUrl = [PNPropertyBaseProdUrl retain];
 
-   NSString * eventUrl = [_baseUrl stringByAppendingString:[pe toQueryString]];
+    NSString * eventUrl = [_baseUrl stringByAppendingString:[pe toQueryString]];
     eventUrl = [eventUrl stringByAppendingFormat:@"&esrc=ios&ever=%@", _version];
     NSLog(@"Sending event to server: %@", eventUrl);
     

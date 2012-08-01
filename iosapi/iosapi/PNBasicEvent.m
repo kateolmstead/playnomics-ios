@@ -72,7 +72,11 @@
 }
 
 - (NSString *) toQueryString {
+    
+    NSLog(@"PNBasicEvent: toQueryString");
+    
     NSString * queryString = [[super toQueryString] stringByAppendingFormat:@"&b=%@&s=%@&i=%@", self.cookieId, self.sessionId, self.instanceId];
+    signed long long updateTimeInterval = PNUpdateTimeInterval * 1000;
     signed long long rTime = [self sessionStartTime] * 1000;
     signed long long pTime = [self pauseTime] * 1000;
     
@@ -87,10 +91,10 @@
         case PNEventAppPause:
             queryString = [queryString stringByAppendingFormat:@"&q=%d", [self sequence]];
         case PNEventAppRunning:
-            queryString = [queryString stringByAppendingFormat: @"&r=%lld&q=%d&d=%d&c=%d&e=%d&k=%d&l=%d&m=%d", 
+            queryString = [queryString stringByAppendingFormat: @"&r=%lld&q=%d&d=%lld&c=%d&e=%d&k=%d&l=%d&m=%d", 
                            rTime, 
                            [self sequence],
-                           PNUpdateTimeInterval * 1000,
+                           updateTimeInterval,
                            [self clicks],
                            [self totalClicks],
                            [self keys],
@@ -100,6 +104,8 @@
         default:
             NSLog(@"BasicEvent: %@ not handled", [PNUtil PNEventTypeDescription:[self eventType]]);
     }
+    
+    
     return queryString;
 }
 
