@@ -196,7 +196,7 @@
     
     _collectMode = PNSettingCollectionMode;
     
-    _timeZoneOffset = -60 * [[NSTimeZone localTimeZone] secondsFromGMT];
+    _timeZoneOffset = [[NSTimeZone localTimeZone] secondsFromGMT] / -60;
     _sequence = 1;
     _clicks = 0;
     _totalClicks = 0;
