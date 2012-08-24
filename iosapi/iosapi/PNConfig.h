@@ -9,14 +9,13 @@
 #ifndef iosapi_PNConfig_h
 #define iosapi_PNConfig_h
 
-// TODO update PNCollectionMode to that of iOS
 #define PNSettingCollectionMode (int) 8;
 
 #define PNFileEventArchive [[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent: @"PlaynomicsEvents.archive"]
 
 #define PNPropertyBaseTestUrl @"https://test.b.playnomics.net/v1/"
-#define PNPropertyBaseProdUrl @"https://d2gfi8ctn6kki7.cloudfront.net/"
-#define PNPropertyVersion @"0.0.1"
+#define PNPropertyBaseProdUrl @"https://e.a.playnomics.net/v1/"
+#define PNPropertyVersion @"2"
 #define PNPropertyConnectionTimeout 2000
 
 #ifdef DEBUG

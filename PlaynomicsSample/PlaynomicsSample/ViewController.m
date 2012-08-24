@@ -67,22 +67,22 @@
 
 
 - (IBAction) onGameStartClick:(id)sender {
-    PNAPIResult resval = [PlaynomicsSession gameStartWithInstanceId:@"INSTANCE_ID" gameSessionId:@"SESSION_ID" site:@"TEST_SITE" type:@"TEST_TYPE" gameId:@"TEST_GAMEID"];
+    PNAPIResult resval = [PlaynomicsSession gameStartWithInstanceId:1234567890 sessionId:666 site:@"TEST_SITE" type:@"TEST_TYPE" gameId:@"TEST_GAMEID"];
     [self handlePLAPIRResult:resval];
 }
 
 - (IBAction) onGameEndClick:(id)sender {
-    PNAPIResult resval = [PlaynomicsSession gameEndWithInstanceId:@"INSTANCE_ID" gameSessionId:@"SESSION_ID" reason:@"TEST_REASON"];
+    PNAPIResult resval = [PlaynomicsSession gameEndWithInstanceId:1234567890 sessionId:666 reason:@"TEST_REASON"];
     [self handlePLAPIRResult:resval];
 }
 
 - (IBAction) onSendInvitationClick:(id)sender {
-    PNAPIResult resval = [PlaynomicsSession invitationSentWithId:@"TEST_INVITATIONID" recipientUserId:@"TEST_RECIPIENTID" recipientAddress:@"TEST_RECIPIENT_ADDRESS" method:@"TEST_METHOD"];
+    PNAPIResult resval = [PlaynomicsSession invitationSentWithId:98765432210 recipientUserId:@"TEST_RECIPIENTID" recipientAddress:@"TEST_RECIPIENT_ADDRESS" method:@"TEST_METHOD"];
     [self handlePLAPIRResult:resval];
 }
 
 - (IBAction) onRespondToInvitationClick:(id)sender {
-    PNAPIResult resval = [PlaynomicsSession invitationResponseWithId:@"TEST_INVITATIONID" responseType:PNResponseTypeAccepted];
+    PNAPIResult resval = [PlaynomicsSession invitationResponseWithId:98765432210 recipientUserId:@"TEST_RECIPIENTID" responseType:PNResponseTypeAccepted];
     [self handlePLAPIRResult:resval];
 }
 
@@ -109,15 +109,16 @@
                                       itemId:@"TEST_ITEM_ID"
                                     quantity:(arc4random() % 100) 
                                         type:(arc4random() % 12)
-                                 otherUserId:nil 
+                  otherUserId:nil
                                currencyTypes:tStack 
                               currencyValues:vStack 
-                          currencyCategories:cStack];
+                          currencyCategories:cStack
+                  ];
     }
     else {
         resval = [PlaynomicsSession transactionWithId:(arc4random() & NSUIntegerMax)
                                                itemId:@"TEST_ITEM_ID" 
-                                             quantity:1
+                                             quantity:0
                                                  type:(arc4random() % 12)
                                           otherUserId:nil
                                          currencyType:(arc4random() % 4)
@@ -128,12 +129,12 @@
 }
 
 - (IBAction) onSessionStartClick:(id)sender {
-    PNAPIResult resval = [PlaynomicsSession gameSessionStartWithId:@"TEST_SESSION_ID" site:@"TEST_SITE"];
+    PNAPIResult resval = [PlaynomicsSession sessionStartWithId:5678901234 site:@"TEST_SITE"];
     [self handlePLAPIRResult:resval];
 }
 
 - (IBAction) onSessionEndClick:(id)sender {
-    PNAPIResult resval = [PlaynomicsSession gameSessionEndWithId:@"TEST_SESSION_ID" reason:@"TEST_REASON"];
+    PNAPIResult resval = [PlaynomicsSession sessionEndWithId:5678901234 reason:@"TEST_REASON"];
     [self handlePLAPIRResult:resval];
 }
 

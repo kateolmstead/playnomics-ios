@@ -12,7 +12,7 @@
 @synthesize installTime=_installTime;
 
 
-- (id) initUserInfoEvent:(long) applicationId 
+- (id) initUserInfoEvent:(signed long long) applicationId
      userId:(NSString *)userId 
        type:(PNUserInfoType) type {
     
@@ -25,7 +25,7 @@
     return self;
 }
 
-- (id) init:(long) applicationId 
+- (id) init:(signed long long) applicationId
              userId: (NSString *) userId 
                type: (PNUserInfoType) type 
             country: (NSString *) country 
@@ -49,20 +49,20 @@
 }
 
 - (NSString *) toQueryString {
-    NSString *queryString = [[super toQueryString] stringByAppendingFormat:@"&pt=%@&jsh=%@", [PNUtil PNUserInfoTypeDescription:[self type]], [self sessionId]];
+    NSString *queryString = [[super toQueryString] stringByAppendingFormat:@"&pt=%@&jsh=%@", [PNUtil PNUserInfoTypeDescription:[self type]], [self internalSessionId]];
     
     queryString = [self addOptionalParam:queryString name:@"pc" value:[self country]];
     queryString = [self addOptionalParam:queryString name:@"ps" value:[self subdivision]];
     queryString = [self addOptionalParam:queryString name:@"px" value:[PNUtil PNUserInfoSexDescription:[self sex]]];
     
     NSDateFormatter *df = [[NSDateFormatter  alloc] init]; 
-    [df setDateFormat: @"MM-dd-yyyy"]; // TODO: Details API says this should be of format: YYYY/MM || YYY-MM || MM/YYYY || YYYY
+    [df setDateFormat: @"yyyy"]; // TODO: Details API says this should be of format: YYYY/MM || YYY-MM || MM/YYYY || YYYY
     queryString = [self addOptionalParam:queryString name:@"pb" value:[df stringFromDate: [NSDate dateWithTimeIntervalSince1970:[self birthday]]]];
     [df release];
     
     queryString = [self addOptionalParam:queryString name:@"po" value:[self sourceStr]];
     queryString = [self addOptionalParam:queryString name:@"pm" value:[self sourceCampaign]];
-    queryString = [self addOptionalParam:queryString name:@"pi" value:[NSString stringWithFormat:@"%fd", [self installTime]]];
+    queryString = [self addOptionalParam:queryString name:@"pi" value:[NSString stringWithFormat:@"%f", [self installTime]]];
     return queryString;
 }
 

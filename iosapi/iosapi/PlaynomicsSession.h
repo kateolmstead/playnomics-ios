@@ -1,10 +1,10 @@
-//
+//  Playnomics PlayRM SDK
 //  PlaynomicsSession.h
-//  iosapi
 //
-//  Created by Douglas Kadlecek on 6/19/12.
-//  Copyright (c) 2012 Grio. All rights reserved.
+//  Copyright (c) 2012 Playnomics. All rights reserved.
 //
+//  Please see http://integration.playnomics.com for instructions
+//  Please contact support@playnomics.com for assistance
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
@@ -130,8 +130,6 @@ typedef enum {
 
 @interface PlaynomicsSession : NSObject
 
-+ (void) setTestMode: (bool) testMode;
-
 /**
  * Change User.
  * 
@@ -150,7 +148,8 @@ typedef enum {
  *            the user id
  * @return the API Result
  */
-+ (PNAPIResult) startWithApplicationId:(signed long long) applicationId userId: (NSString *) userId;
++ (PNAPIResult) startWithApplicationId:(signed long long) applicationId
+                                userId: (NSString *) userId;
 
 /**
  * Start.
@@ -168,16 +167,17 @@ typedef enum {
  */
 + (PNAPIResult) stop;
 
+/**
+ * Enables testing mode, should only be used under the direction of Playnomics Support
+ *
+ * @param testMode
+ *             use true to enable sending data to test servers
+ */
++ (void) setTestMode: (bool) testMode;
+
 @end
 
 @interface PlaynomicsSession (Events)
-/**
- * User info.
- * 
- * @return the API Result
- */
-+ (PNAPIResult) userInfo;
-
 /**
  * User info.
  * 
@@ -238,33 +238,35 @@ typedef enum {
                     installTime: (NSDate *) installTime;
 
 /**
- * Game Session start.
+ * Session start.
  * 
- * @param gameSessionId
- *            the game session id
+ * @param sessionId
+ *            the session id
  * @param site
  *            the site
  * @return the API Result
  */
-+ (PNAPIResult) gameSessionStartWithId: (NSString *) gameSessionId site: (NSString *) site;
++ (PNAPIResult) sessionStartWithId: (signed long long) sessionId
+                              site: (NSString *) site;
 
 /**
- * Game Session end.
+ * Session end.
  * 
- * @param gameSessionId
- *            the game session id
+ * @param sessionId
+ *            the session id
  * @param reason
  *            the reason
  * @return the API Result
  */
-+ (PNAPIResult) gameSessionEndWithId: (NSString *) gameSessionId reason: (NSString *) reason;
++ (PNAPIResult) sessionEndWithId: (signed long long) sessionId
+                          reason: (NSString *) reason;
 
 /**
  * Game start.
  * 
  * @param instanceId
  *            the instance id
- * @param gameSessionId
+ * @param sessionId
  *            the session id
  * @param site
  *            the site
@@ -274,7 +276,11 @@ typedef enum {
  *            the game id
  * @return the API Result
  */
-+ (PNAPIResult) gameStartWithInstanceId: (NSString *) instanceId gameSessionId: (NSString *) gameSessionId site: (NSString *) site type: (NSString *) type gameId: (NSString *) gameId;
++ (PNAPIResult) gameStartWithInstanceId: (signed long long) instanceId
+                              sessionId: (signed long long) sessionId
+                                   site: (NSString *) site
+                                   type: (NSString *) type
+                                 gameId: (NSString *) gameId;
 
 /**
  * Game end.
@@ -282,12 +288,14 @@ typedef enum {
  * @param instanceId
  *            the instance id
  * @param sessionId
- *            the gameSession id
+ *            the session id
  * @param reason
  *            the reason
  * @return the API Result
  */
-+ (PNAPIResult) gameEndWithInstanceId: (NSString *) instanceId gameSessionId: (NSString *) gameSessionId reason: (NSString *) reason;
++ (PNAPIResult) gameEndWithInstanceId: (signed long long) instanceId
+                            sessionId: (signed long long) sessionId
+                               reason: (NSString *) reason;
 
 /**
  * Transaction.
@@ -310,7 +318,7 @@ typedef enum {
  *            the currency category
  * @return the API Result
  */
-+ (PNAPIResult) transactionWithId:(long) transactionId 
++ (PNAPIResult) transactionWithId: (signed long long) transactionId
                            itemId: (NSString *) itemId
                          quantity: (double) quantity
                              type: (PNTransactionType) type
@@ -340,7 +348,7 @@ typedef enum {
  *            the currency category
  * @return the API Result
  */
-+ (PNAPIResult) transactionWithId:(long) transactionId 
++ (PNAPIResult) transactionWithId: (signed long long) transactionId
                            itemId: (NSString *) itemId
                          quantity: (double) quantity
                              type: (PNTransactionType) type
@@ -370,7 +378,7 @@ typedef enum {
  *            the currency categories
  * @return the API Result
  */
-+ (PNAPIResult) transactionWithId:(long) transactionId 
++ (PNAPIResult) transactionWithId: (signed long long) transactionId
                            itemId: (NSString *) itemId
                          quantity: (double) quantity
                              type: (PNTransactionType) type
@@ -392,7 +400,7 @@ typedef enum {
  *            the method
  * @return the API Result
  */
-+ (PNAPIResult) invitationSentWithId: (NSString *) invitationId 
++ (PNAPIResult) invitationSentWithId: (signed long long) invitationId
                      recipientUserId: (NSString *) recipientUserId 
                     recipientAddress: (NSString *) recipientAddress 
                               method: (NSString *) method;
@@ -406,7 +414,8 @@ typedef enum {
  *            the response
  * @return the API Result
  */
-+ (PNAPIResult) invitationResponseWithId: (NSString *) invitationId 
++ (PNAPIResult) invitationResponseWithId: (signed long long) invitationId
+                         recipientUserId: (NSString *) recipientUserId
                             responseType: (PNResponseType) responseType;
 @end
 

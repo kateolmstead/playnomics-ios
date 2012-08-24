@@ -1,7 +1,7 @@
 #import "PNEvent.h"
 
 @interface PNTransactionEvent : PNEvent {
-    long _transactionId;
+    signed long long _transactionId;
     NSString * _itemId;
     double _quantity;
     PNTransactionType _type;
@@ -11,7 +11,7 @@
     NSArray * _currencyCategories;
 }
 
-@property(nonatomic, assign) long transactionId;
+@property(nonatomic, assign) signed long long transactionId;
 @property(nonatomic, retain) NSString * itemId;
 @property(nonatomic, assign) double quantity;
 @property(nonatomic, assign) PNTransactionType type;
@@ -26,9 +26,9 @@
  *  currencyCategories: Array of PNCurrencyCategory NSNumbers
  */
 - (id) init:  (PNEventType) eventType 
-              applicationId: (long) applicationId 
+              applicationId: (signed long long) applicationId
                      userId: (NSString *) userId 
-              transactionId: (long) transactionId 
+              transactionId: (signed long long) transactionId
                      itemId: (NSString *) itemId 
                    quantity: (double) quantity 
                        type: (PNTransactionType) type 

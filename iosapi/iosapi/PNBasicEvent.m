@@ -18,7 +18,7 @@
         applicationId:(signed long long) applicationId
              userId:(NSString *)userId
            cookieId:(NSString *)cookieId
-          sessionId:(NSString *)sessionId
+  internalSessionId:(NSString *)internalSessionId
          instanceId:(NSString *)instanceId
         sessionStartTime:(NSTimeInterval)sessionStartTime 
            sequence:(int)sequence
@@ -34,7 +34,7 @@
         _cookieId = [cookieId retain];
         _instanceId = [instanceId retain];
         _sessionStartTime = sessionStartTime;
-        self.sessionId = [sessionId retain];
+        self.internalSessionId = [internalSessionId retain];
         _sequence = sequence;
         _clicks = clicks;
         _totalClicks = totalClicks;
@@ -49,7 +49,7 @@
         applicationId:(signed long long) applicationId
              userId:(NSString *)userId
            cookieId:(NSString *)cookieId
-          sessionId:(NSString *)sessionId
+  internalSessionId:(NSString *)internalSessionId
          instanceId:(NSString *)instanceId
         timeZoneOffset:(int)timeZoneOffset {
     
@@ -57,7 +57,7 @@
     
     if ((self = [super init:eventType applicationId:applicationId userId:userId])) {
         _cookieId = [cookieId retain];
-        self.sessionId = [sessionId retain];
+        self.internalSessionId = [internalSessionId retain];
         _instanceId = [instanceId retain];
         _timeZoneOffset = timeZoneOffset;
     }
@@ -75,7 +75,7 @@
     
     NSLog(@"PNBasicEvent: toQueryString");
     
-    NSString * queryString = [[super toQueryString] stringByAppendingFormat:@"&b=%@&s=%@&i=%@", self.cookieId, self.sessionId, self.instanceId];
+    NSString * queryString = [[super toQueryString] stringByAppendingFormat:@"&b=%@&s=%@&i=%@", self.cookieId, self.internalSessionId, self.instanceId];
     signed long long updateTimeInterval = PNUpdateTimeInterval * 1000;
     signed long long rTime = [self sessionStartTime] * 1000;
     signed long long pTime = [self pauseTime] * 1000;
