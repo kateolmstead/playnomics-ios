@@ -15,7 +15,7 @@
 #define PNFileEventArchive [[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent: @"PlaynomicsEvents.archive"]
 
 #define PNPropertyBaseTestUrl @"https://test.b.playnomics.net/v1/"
-#define PNPropertyBaseProdUrl @"https://e.a.playnomics.net/"
+#define PNPropertyBaseProdUrl @"https://e.a.playnomics.net/v1/"
 #define PNPropertyVersion @"1"
 #define PNPropertyConnectionTimeout 2000
 
