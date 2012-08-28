@@ -31,7 +31,7 @@
         applicationId:(signed long long) applicationId
      userId:(NSString *)userId
    cookieId:(NSString *)cookieId
-  sessionId:(NSString *)sessionId
+internalSessionId:(NSString *)internalSessionId
  instanceId:(NSString *)instanceId
 sessionStartTime:(NSTimeInterval)sessionStartTime 
    sequence:(int)sequence
@@ -45,7 +45,7 @@ collectMode:(int)collectMode;
 applicationId:(signed long long) applicationId
      userId:(NSString *)userId
    cookieId:(NSString *)cookieId
-  sessionId:(NSString *)sessionId
+internalSessionId:(NSString *)internalSessionId
  instanceId:(NSString *)instanceId
 timeZoneOffset:(int)timeZoneOffset;
 

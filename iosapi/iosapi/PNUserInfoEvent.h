@@ -21,11 +21,11 @@
 @property(nonatomic, retain) NSString * sourceCampaign;
 @property(nonatomic, assign) NSTimeInterval installTime;
 
-- (id) initUserInfoEvent: (long) applicationId 
+- (id) initUserInfoEvent: (signed long long) applicationId
              userId: (NSString *) userId 
                type: (PNUserInfoType) type;
 
-- (id) init: (long) applicationId 
+- (id) init: (signed long long) applicationId
              userId: (NSString *) userId 
                type: (PNUserInfoType) type 
             country: (NSString *) country 

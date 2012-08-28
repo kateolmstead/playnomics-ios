@@ -9,7 +9,6 @@
 #ifndef iosapi_PNConfig_h
 #define iosapi_PNConfig_h
 
-// TODO update PNCollectionMode to that of iOS
 #define PNSettingCollectionMode (int) 8;
 
 #define PNFileEventArchive [[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent: @"PlaynomicsEvents.archive"]
@@ -17,8 +16,9 @@
 #define PNPropertyBaseTestUrl @"https://test.b.playnomics.net/v1/"
 #define PNPropertyBaseProdUrl @"https://e.a.playnomics.net/v1/"
 
-#define PNPropertyVersion @"1"
-#define PNPropertyConnectionTimeout 2000
+#define PNPropertyVersion @"2"
+// Connection timeout in seconds
+#define PNPropertyConnectionTimeout 5
 
 #ifdef DEBUG
 
@@ -29,7 +29,7 @@
 
 #define PNUpdateTimeInterval (NSTimeInterval) 60
 #define PNSessionTimeout (NSTimeInterval) 180
-
+// DEBUG
 #endif
-
+// iosapi_PNConfig_h
 #endif

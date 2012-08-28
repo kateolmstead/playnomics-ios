@@ -12,9 +12,9 @@
 @synthesize currencyCategories=_currencyCategories;
 
 - (id) init: (PNEventType) eventType 
-              applicationId:(long) applicationId 
+              applicationId:(signed long long) applicationId
                      userId:(NSString *) userId 
-              transactionId:(long) transactionId 
+              transactionId:(signed long long) transactionId
                      itemId:(NSString *) itemId 
                    quantity:(double) quantity 
                        type:(PNTransactionType) type 
@@ -36,7 +36,7 @@
 }
 
 - (NSString *) toQueryString {
-    NSString * queryString = [[super toQueryString] stringByAppendingFormat: @"&tt=%@&jsh=%@", [PNUtil PNTransactionTypeDescription:[self type]], [self sessionId]];
+    NSString * queryString = [[super toQueryString] stringByAppendingFormat: @"&r=%lld&tt=%@&jsh=%@", [self transactionId], [PNUtil PNTransactionTypeDescription:[self type]], [self internalSessionId]];
     
     for (int i = 0; i < [[self currencyTypes] count] ; i++) {
         id obj = [[self currencyTypes] objectAtIndex:i];
