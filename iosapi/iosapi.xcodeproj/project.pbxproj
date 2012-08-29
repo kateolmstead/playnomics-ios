@@ -287,7 +287,7 @@
 		D1D922671590F59500EDDE17 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0430;
+				LastUpgradeCheck = 0440;
 			};
 			buildConfigurationList = D1D9226A1590F59500EDDE17 /* Build configuration list for PBXProject "iosapi" */;
 			compatibilityVersion = "Xcode 3.2";

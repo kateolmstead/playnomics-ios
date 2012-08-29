@@ -27,7 +27,7 @@
     eventSender = [[PNEventSender alloc] initWithTestMode:YES];
     s = [[PlaynomicsSession sharedInstance] retain];
 
-    long applicationId = 4L;
+    signed long long applicationId = 4L;
     NSString *userId = @"userIdTest";
     [PlaynomicsSession setTestMode:YES];
     [PlaynomicsSession startWithApplicationId:applicationId userId:userId];
@@ -117,7 +117,7 @@
 
 - (void) _testBasicEvents
 {
-    long applicationId = 4L;
+    signed long long applicationId = 4L;
     NSString *userId = @"userIdTest";
     NSString *deviceId = @"deviceId";
     
@@ -126,8 +126,8 @@
     
     NSLog(@"*******Sending Start & Page events *******");
     [self testSendingEvents:[NSArray arrayWithObjects: 
-                             [[[PNBasicEvent alloc] init:PNEventAppStart applicationId:applicationId userId:userId cookieId:deviceId sessionId:hex instanceId:hex timeZoneOffset:timeZoneOffset] autorelease],
-                             [[[PNBasicEvent alloc] init:PNEventAppPage applicationId:applicationId userId:userId cookieId:deviceId sessionId:hex instanceId:hex timeZoneOffset:timeZoneOffset] autorelease], 
+                             [[[PNBasicEvent alloc] init:PNEventAppStart applicationId:applicationId userId:userId cookieId:deviceId internalSessionId:hex instanceId:hex timeZoneOffset:timeZoneOffset] autorelease],
+                             [[[PNBasicEvent alloc] init:PNEventAppPage applicationId:applicationId userId:userId cookieId:deviceId internalSessionId:hex instanceId:hex timeZoneOffset:timeZoneOffset] autorelease], 
                              nil]];
     
     NSLog(@"******Sending Running Events **********");
@@ -145,7 +145,7 @@
         totalClicks += clicks;
         keys = arc4random() & 100;
         totalKeys += keys;
-        PNBasicEvent *evRunning = [[[PNBasicEvent alloc] init:PNEventAppRunning applicationId:applicationId userId:userId cookieId:deviceId sessionId:hex instanceId:hex sessionStartTime:sessionStartTime sequence:sequence clicks:clicks totalClicks:totalClicks keys:keys totalKeys:totalKeys collectMode:8] autorelease];
+        PNBasicEvent *evRunning = [[[PNBasicEvent alloc] init:PNEventAppRunning applicationId:applicationId userId:userId cookieId:deviceId internalSessionId:hex instanceId:hex sessionStartTime:sessionStartTime sequence:sequence clicks:clicks totalClicks:totalClicks keys:keys totalKeys:totalKeys collectMode:8] autorelease];
         [events addObject: evRunning];
     }
     [self testSendingEvents:events];
@@ -158,10 +158,10 @@
         sequence = i;
         pauseTime = sessionStartTime + (arc4random() % 2000);
         
-        PNBasicEvent *evPause = [[[PNBasicEvent alloc] init:PNEventAppPause applicationId:applicationId userId:userId cookieId:deviceId sessionId:hex instanceId:hex timeZoneOffset:timeZoneOffset] autorelease];
+        PNBasicEvent *evPause = [[[PNBasicEvent alloc] init:PNEventAppPause applicationId:applicationId userId:userId cookieId:deviceId internalSessionId:hex instanceId:hex timeZoneOffset:timeZoneOffset] autorelease];
         [evPause setSequence:sequence];
         [evPause setSessionStartTime:sessionStartTime];
-        PNBasicEvent *evResume = [[[PNBasicEvent alloc] init:PNEventAppResume applicationId:applicationId userId:userId cookieId:deviceId sessionId:hex instanceId:hex timeZoneOffset:timeZoneOffset] autorelease];
+        PNBasicEvent *evResume = [[[PNBasicEvent alloc] init:PNEventAppResume applicationId:applicationId userId:userId cookieId:deviceId internalSessionId:hex instanceId:hex timeZoneOffset:timeZoneOffset] autorelease];
         [evResume setSequence:sequence];
         [evResume setSessionStartTime:sessionStartTime];
         [evResume setPauseTime:pauseTime];
@@ -172,7 +172,7 @@
     
     NSLog(@"******Send Stop Event **********");
     [self testSendingEvents:[NSArray arrayWithObjects: 
-                             [[[PNBasicEvent alloc] init:PNEventAppStop applicationId:applicationId userId:userId cookieId:deviceId sessionId:hex instanceId:hex timeZoneOffset:timeZoneOffset] autorelease],
+                             [[[PNBasicEvent alloc] init:PNEventAppStop applicationId:applicationId userId:userId cookieId:deviceId internalSessionId:hex instanceId:hex timeZoneOffset:timeZoneOffset] autorelease],
                              nil]];
 
     
@@ -180,18 +180,19 @@
 
 - (void) testGameEvents {
     NSLog(@"****** testGameEvents **********");
-    NSString *hex = [PNRandomGenerator createRandomHex];
+    signed long long testId = 3L;
+
     for (int i = 0;i < 10; i++) {
-        [PlaynomicsSession gameStartWithInstanceId:hex gameSessionId:hex site:@"TEST_SITE" type:@"TEST_TYPE" gameId:@"TEST_GAMEID"];
-        [PlaynomicsSession gameEndWithInstanceId:hex gameSessionId:hex reason:@"TEST_REASON"];
+        [PlaynomicsSession gameStartWithInstanceId:testId sessionId:testId site:@"TEST_SITE" type:@"TEST_TYPE" gameId:@"TEST_GAMEID"];
+        [PlaynomicsSession gameEndWithInstanceId:testId sessionId:testId reason:@"TEST_REASON"];
     }
 }
 
 - (void) testSocialEvents {
     NSLog(@"****** testSocialEvents **********");
     for (int i = 0;i < 10; i++) {
-        [PlaynomicsSession invitationSentWithId:@"TEST_INVITATIONID" recipientUserId:@"TEST_RECIPIENTID" recipientAddress:@"TEST_RECIPIENT_ADDRESS" method:@"TEST_METHOD"];
-        [PlaynomicsSession invitationResponseWithId:@"TEST_INVITATIONID" responseType:PNResponseTypeAccepted];
+        [PlaynomicsSession invitationSentWithId:4LL recipientUserId:@"TEST_RECIPIENTID" recipientAddress:@"TEST_RECIPIENT_ADDRESS" method:@"TEST_METHOD"];
+        [PlaynomicsSession invitationResponseWithId:4LL recipientUserId:@"TEST_RECIPIENTID" responseType:PNResponseTypeAccepted];
     }
 }
 
@@ -248,9 +249,9 @@
     
     NSLog(@"****** testSessionEvents **********");
     
-    for (int i = 0;i < 10; i++) {
-        [PlaynomicsSession gameSessionStartWithId:[NSString stringWithFormat:@"TEST_SESSION_ID(%d)",i] site:@"TEST_SITE"];
-        [PlaynomicsSession gameSessionEndWithId:[NSString stringWithFormat:@"TEST_SESSION_ID(%d)",i] reason:@"TEST_REASON"];
+    for (signed long long i = 0;i < 10; i++) {
+        [PlaynomicsSession sessionStartWithId:i site:@"TEST_SITE"];
+        [PlaynomicsSession sessionEndWithId:i reason:@"TEST_REASON"];
     }
     
 }
@@ -259,7 +260,6 @@
     
     NSLog(@"****** testUserInfo **********");
     
-    [PlaynomicsSession userInfo];
     for (int i = 0;i < 100; i++) {
         [PlaynomicsSession userInfoForType:PNUserInfoTypeUpdate
                                    country:@"TEST_COUNTRY"
