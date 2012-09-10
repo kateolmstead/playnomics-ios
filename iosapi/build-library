@@ -1,0 +1,16 @@
+TARGET="iosapi"
+ACTION="clean build"
+FILE_NAME="libiosapi.a"
+FINAL_FILE_NAME="libplaynomics.a"
+SYMROOT="build"
+
+DEVICE=iphoneos5.1
+SIMULATOR=iphonesimulator5.1
+
+xcodebuild -configuration Release -target ${TARGET} -sdk ${DEVICE} ${ACTION} RUN_CLANG_STATIC_ANALYZER=NO
+xcodebuild -configuration Release -target ${TARGET} -sdk ${SIMULATOR} ${ACTION} RUN_CLANG_STATIC_ANALYZER=NO
+
+RELEASE_DEVICE_DIR=${SYMROOT}/Release-iphoneos
+RELEASE_SIMULATOR_DIR=${SYMROOT}/Release-iphonesimulator
+
+lipo -create -output "${FINAL_FILE_NAME}" "${RELEASE_DEVICE_DIR}/${FILE_NAME}" "${RELEASE_SIMULATOR_DIR}/${FILE_NAME}"
