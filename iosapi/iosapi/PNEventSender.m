@@ -3,6 +3,11 @@
 #import "PNConfig.h"
 #import "PNEvent.h"
 
+
+@interface PNEventSender ()
++ (void)sendAsynchronousRequest:(NSURLRequest*)request queue:(NSOperationQueue*)queue completionHandler:(void(^)(NSURLResponse *response, NSData *data, NSError *error))handler;
+@end
+
 @implementation PNEventSender
 
 @synthesize testMode=_testMode;
@@ -25,7 +30,6 @@
     return self;
 }
 
-
 - (void) sendEventToServer:(PNEvent *)pe withEventQueue: (NSMutableArray *) eventQueue {
 
     if (_testMode) {
@@ -40,8 +44,8 @@
     
     NSURL *url = [NSURL URLWithString:eventUrl];
     NSURLRequest *request = [[[NSURLRequest alloc] initWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:_connectTimeout] autorelease];
-    
-    [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
+
+    [PNEventSender sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
         if (error) {
             if (![eventQueue containsObject:pe])
                 [eventQueue addObject:pe];
@@ -53,6 +57,37 @@
             NSLog(@"Send succeeded!");
         }
     }];
+}
+
+
++ (void)sendAsynchronousRequest:(NSURLRequest*)request queue:(NSOperationQueue*)queue completionHandler:(void(^)(NSURLResponse *response, NSData *data, NSError *error))handler
+{
+    __block NSURLResponse *response = nil;
+    __block NSError *error = nil;
+    __block NSData *data = nil;
+    
+    // Wrap up synchronous request within a block operation
+    NSBlockOperation *blockOperation = [NSBlockOperation blockOperationWithBlock:^{
+        data = [NSURLConnection sendSynchronousRequest:request 
+                                     returningResponse:&response 
+                                                 error:&error];
+    }];
+    
+    // Set completion block
+    // EDIT: Set completion block, perform on main thread for safety
+    blockOperation.completionBlock = ^{
+        
+        // Perform completion on main queue
+        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+            handler(response, data, error);
+        }];
+    };
+    
+    // (or execute completion block on background thread)
+    // blockOperation.completionBlock = ^{ handler(response, data, error); };
+    
+    // Execute operation
+    [queue addOperation:blockOperation];
 }
 
 - (void) dealloc {
