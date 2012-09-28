@@ -251,14 +251,13 @@
         
         eventType = PNEventAppStart;
         
+        [userDefaults setObject:_sessionId forKey:PNUserDefaultsLastSessionID];
         [userDefaults setDouble:_sessionStartTime forKey:PNUserDefaultsLastSessionStartTime];
         [userDefaults setObject:_userId forKey:PNUserDefaultsLastUserID];
         [userDefaults synchronize];
     }
     else {
-        if (_sessionId == nil)
-            _sessionId = [[PNRandomGenerator createRandomHex] retain];
-
+        _sessionId = [userDefaults objectForKey:PNUserDefaultsLastSessionID];
         // Always create a new Instance Id
         _instanceId = [[PNRandomGenerator createRandomHex] retain];
         _sessionStartTime = [userDefaults doubleForKey:PNUserDefaultsLastSessionStartTime];
