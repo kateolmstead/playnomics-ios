@@ -19,6 +19,30 @@
 		FEEB4BDB15C3290300E236A0 /* libiosapi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FEEB4BDA15C3290300E236A0 /* libiosapi.a */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		EA32098D161B8BD300F8FF8E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EA320985161B8BD300F8FF8E /* iosapi.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D1D922701590F59600EDDE17;
+			remoteInfo = iosapi;
+		};
+		EA32098F161B8BD300F8FF8E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EA320985161B8BD300F8FF8E /* iosapi.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D1D922801590F59700EDDE17;
+			remoteInfo = iosapiTests;
+		};
+		EA320992161B8BE700F8FF8E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EA320985161B8BD300F8FF8E /* iosapi.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = D1D9226F1590F59600EDDE17;
+			remoteInfo = iosapi;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		5BBAA074159BAEFF00AA4993 /* PlaynomicsSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PlaynomicsSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5BBAA078159BAF0000AA4993 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -35,6 +59,7 @@
 		5BBAA08E159BAF0000AA4993 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController_iPhone.xib; sourceTree = "<group>"; };
 		5BBAA091159BAF0000AA4993 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController_iPad.xib; sourceTree = "<group>"; };
 		5BF38FCA159D389B00DDD957 /* PlaynomicsSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlaynomicsSession.h; path = "../../../../../Library/Developer/Xcode/DerivedData/iosapi-bjkqyrtlyjtbiqfjtdqrczayducv/Build/Products/Debug-iphoneos/usr/local/include/PlaynomicsSession.h"; sourceTree = "<group>"; };
+		EA320985161B8BD300F8FF8E /* iosapi.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = iosapi.xcodeproj; path = ../iosapi/iosapi.xcodeproj; sourceTree = "<group>"; };
 		FEEB4BDA15C3290300E236A0 /* libiosapi.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libiosapi.a; path = "../../../Library/Developer/Xcode/DerivedData/iosapi-cebmgsvkkaahzdfmhikzbpwxmpzo/Build/Products/Debug-iphonesimulator/libiosapi.a"; sourceTree = "<group>"; };
 		FEEB4BDC15C3291200E236A0 /* PlaynomicsSession.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PlaynomicsSession.h; path = "../../../../Library/Developer/Xcode/DerivedData/iosapi-cebmgsvkkaahzdfmhikzbpwxmpzo/Build/Products/Debug-iphonesimulator/usr/local/include/PlaynomicsSession.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -57,6 +82,7 @@
 		5BBAA069159BAEFF00AA4993 = {
 			isa = PBXGroup;
 			children = (
+				EA320985161B8BD300F8FF8E /* iosapi.xcodeproj */,
 				5BBAA07E159BAF0000AA4993 /* PlaynomicsSample */,
 				5BBAA077159BAF0000AA4993 /* Frameworks */,
 				5BBAA075159BAEFF00AA4993 /* Products */,
@@ -125,6 +151,15 @@
 			name = xib;
 			sourceTree = "<group>";
 		};
+		EA320986161B8BD300F8FF8E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				EA32098E161B8BD300F8FF8E /* libiosapi.a */,
+				EA320990161B8BD300F8FF8E /* iosapiTests.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -139,6 +174,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				EA320993161B8BE700F8FF8E /* PBXTargetDependency */,
 			);
 			name = PlaynomicsSample;
 			productName = PlaynomicsSample;
@@ -164,12 +200,35 @@
 			mainGroup = 5BBAA069159BAEFF00AA4993;
 			productRefGroup = 5BBAA075159BAEFF00AA4993 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = EA320986161B8BD300F8FF8E /* Products */;
+					ProjectRef = EA320985161B8BD300F8FF8E /* iosapi.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				5BBAA073159BAEFF00AA4993 /* PlaynomicsSample */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		EA32098E161B8BD300F8FF8E /* libiosapi.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libiosapi.a;
+			remoteRef = EA32098D161B8BD300F8FF8E /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		EA320990161B8BD300F8FF8E /* iosapiTests.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = iosapiTests.octest;
+			remoteRef = EA32098F161B8BD300F8FF8E /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		5BBAA072159BAEFF00AA4993 /* Resources */ = {
@@ -196,6 +255,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		EA320993161B8BE700F8FF8E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = iosapi;
+			targetProxy = EA320992161B8BE700F8FF8E /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		5BBAA081159BAF0000AA4993 /* InfoPlist.strings */ = {
