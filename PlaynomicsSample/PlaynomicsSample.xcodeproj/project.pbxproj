@@ -16,7 +16,7 @@
 		5BBAA08C159BAF0000AA4993 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BBAA08B159BAF0000AA4993 /* ViewController.m */; };
 		5BBAA08F159BAF0000AA4993 /* ViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BBAA08D159BAF0000AA4993 /* ViewController_iPhone.xib */; };
 		5BBAA092159BAF0000AA4993 /* ViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BBAA090159BAF0000AA4993 /* ViewController_iPad.xib */; };
-		FEEB4BDB15C3290300E236A0 /* libiosapi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FEEB4BDA15C3290300E236A0 /* libiosapi.a */; };
+		EA3209C8161C99C500F8FF8E /* libiosapi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EA32098E161B8BD300F8FF8E /* libiosapi.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -33,13 +33,6 @@
 			proxyType = 2;
 			remoteGlobalIDString = D1D922801590F59700EDDE17;
 			remoteInfo = iosapiTests;
-		};
-		EA320992161B8BE700F8FF8E /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = EA320985161B8BD300F8FF8E /* iosapi.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = D1D9226F1590F59600EDDE17;
-			remoteInfo = iosapi;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -60,7 +53,6 @@
 		5BBAA091159BAF0000AA4993 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController_iPad.xib; sourceTree = "<group>"; };
 		5BF38FCA159D389B00DDD957 /* PlaynomicsSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlaynomicsSession.h; path = "../../../../../Library/Developer/Xcode/DerivedData/iosapi-bjkqyrtlyjtbiqfjtdqrczayducv/Build/Products/Debug-iphoneos/usr/local/include/PlaynomicsSession.h"; sourceTree = "<group>"; };
 		EA320985161B8BD300F8FF8E /* iosapi.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = iosapi.xcodeproj; path = ../iosapi/iosapi.xcodeproj; sourceTree = "<group>"; };
-		FEEB4BDA15C3290300E236A0 /* libiosapi.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libiosapi.a; path = "../../../Library/Developer/Xcode/DerivedData/iosapi-cebmgsvkkaahzdfmhikzbpwxmpzo/Build/Products/Debug-iphonesimulator/libiosapi.a"; sourceTree = "<group>"; };
 		FEEB4BDC15C3291200E236A0 /* PlaynomicsSession.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PlaynomicsSession.h; path = "../../../../Library/Developer/Xcode/DerivedData/iosapi-cebmgsvkkaahzdfmhikzbpwxmpzo/Build/Products/Debug-iphonesimulator/usr/local/include/PlaynomicsSession.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -69,10 +61,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EA3209C8161C99C500F8FF8E /* libiosapi.a in Frameworks */,
 				5BBAA079159BAF0000AA4993 /* UIKit.framework in Frameworks */,
 				5BBAA07B159BAF0000AA4993 /* Foundation.framework in Frameworks */,
 				5BBAA07D159BAF0000AA4993 /* CoreGraphics.framework in Frameworks */,
-				FEEB4BDB15C3290300E236A0 /* libiosapi.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -100,7 +92,6 @@
 		5BBAA077159BAF0000AA4993 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				FEEB4BDA15C3290300E236A0 /* libiosapi.a */,
 				5BBAA078159BAF0000AA4993 /* UIKit.framework */,
 				5BBAA07A159BAF0000AA4993 /* Foundation.framework */,
 				5BBAA07C159BAF0000AA4993 /* CoreGraphics.framework */,
@@ -174,7 +165,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				EA320993161B8BE700F8FF8E /* PBXTargetDependency */,
 			);
 			name = PlaynomicsSample;
 			productName = PlaynomicsSample;
@@ -256,14 +246,6 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
-/* Begin PBXTargetDependency section */
-		EA320993161B8BE700F8FF8E /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = iosapi;
-			targetProxy = EA320992161B8BE700F8FF8E /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
-
 /* Begin PBXVariantGroup section */
 		5BBAA081159BAF0000AA4993 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
@@ -342,6 +324,7 @@
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PlaynomicsSample/PlaynomicsSample-Prefix.pch";
+				HEADER_SEARCH_PATHS = "$(BUILT_PRODUCTS_DIR)/usr/local/include";
 				INFOPLIST_FILE = "PlaynomicsSample/PlaynomicsSample-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
