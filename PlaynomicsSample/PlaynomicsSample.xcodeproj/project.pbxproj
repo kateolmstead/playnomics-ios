@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		42FBAC1290E4199A78201BA7 /* sample_ad_data.js in Sources */ = {isa = PBXBuildFile; fileRef = 42FBAF73B6A03CC40FE06F33 /* sample_ad_data.js */; };
 		5BBAA079159BAF0000AA4993 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BBAA078159BAF0000AA4993 /* UIKit.framework */; };
 		5BBAA07B159BAF0000AA4993 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BBAA07A159BAF0000AA4993 /* Foundation.framework */; };
 		5BBAA07D159BAF0000AA4993 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BBAA07C159BAF0000AA4993 /* CoreGraphics.framework */; };
@@ -17,6 +18,7 @@
 		5BBAA08F159BAF0000AA4993 /* ViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BBAA08D159BAF0000AA4993 /* ViewController_iPhone.xib */; };
 		5BBAA092159BAF0000AA4993 /* ViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BBAA090159BAF0000AA4993 /* ViewController_iPad.xib */; };
 		EA3209C8161C99C500F8FF8E /* libiosapi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EA32098E161B8BD300F8FF8E /* libiosapi.a */; };
+		EAABF475161EB1AD00253FAE /* sample_ad_data.js in Resources */ = {isa = PBXBuildFile; fileRef = 42FBAF73B6A03CC40FE06F33 /* sample_ad_data.js */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,6 +39,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		42FBAF73B6A03CC40FE06F33 /* sample_ad_data.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = sample_ad_data.js; sourceTree = "<group>"; };
 		5BBAA074159BAEFF00AA4993 /* PlaynomicsSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PlaynomicsSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5BBAA078159BAF0000AA4993 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		5BBAA07A159BAF0000AA4993 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -53,7 +56,6 @@
 		5BBAA091159BAF0000AA4993 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController_iPad.xib; sourceTree = "<group>"; };
 		5BF38FCA159D389B00DDD957 /* PlaynomicsSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlaynomicsSession.h; path = "../../../../../Library/Developer/Xcode/DerivedData/iosapi-bjkqyrtlyjtbiqfjtdqrczayducv/Build/Products/Debug-iphoneos/usr/local/include/PlaynomicsSession.h"; sourceTree = "<group>"; };
 		EA320985161B8BD300F8FF8E /* iosapi.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = iosapi.xcodeproj; path = ../iosapi/iosapi.xcodeproj; sourceTree = "<group>"; };
-		FEEB4BDC15C3291200E236A0 /* PlaynomicsSession.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PlaynomicsSession.h; path = "../../../../Library/Developer/Xcode/DerivedData/iosapi-cebmgsvkkaahzdfmhikzbpwxmpzo/Build/Products/Debug-iphonesimulator/usr/local/include/PlaynomicsSession.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,7 +104,6 @@
 		5BBAA07E159BAF0000AA4993 /* PlaynomicsSample */ = {
 			isa = PBXGroup;
 			children = (
-				FEEB4BDC15C3291200E236A0 /* PlaynomicsSession.h */,
 				5BBAA087159BAF0000AA4993 /* AppDelegate.h */,
 				5BBAA088159BAF0000AA4993 /* AppDelegate.m */,
 				5BBAA08A159BAF0000AA4993 /* ViewController.h */,
@@ -117,6 +118,7 @@
 		5BBAA07F159BAF0000AA4993 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				42FBAF73B6A03CC40FE06F33 /* sample_ad_data.js */,
 				5BBAA080159BAF0000AA4993 /* PlaynomicsSample-Info.plist */,
 				5BBAA081159BAF0000AA4993 /* InfoPlist.strings */,
 				5BBAA084159BAF0000AA4993 /* main.m */,
@@ -225,6 +227,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EAABF475161EB1AD00253FAE /* sample_ad_data.js in Resources */,
 				5BBAA083159BAF0000AA4993 /* InfoPlist.strings in Resources */,
 				5BBAA08F159BAF0000AA4993 /* ViewController_iPhone.xib in Resources */,
 				5BBAA092159BAF0000AA4993 /* ViewController_iPad.xib in Resources */,
@@ -241,6 +244,7 @@
 				5BBAA085159BAF0000AA4993 /* main.m in Sources */,
 				5BBAA089159BAF0000AA4993 /* AppDelegate.m in Sources */,
 				5BBAA08C159BAF0000AA4993 /* ViewController.m in Sources */,
+				42FBAC1290E4199A78201BA7 /* sample_ad_data.js in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -322,6 +326,8 @@
 		5BBAA096159BAF0000AA4993 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer: Julio Mistral (Z8525K5JYR)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Julio Mistral (Z8525K5JYR)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PlaynomicsSample/PlaynomicsSample-Prefix.pch";
 				HEADER_SEARCH_PATHS = "$(BUILT_PRODUCTS_DIR)/usr/local/include";
@@ -334,6 +340,8 @@
 					"\"$(SRCROOT)/../../../Library/Developer/Xcode/DerivedData/iosapi-cebmgsvkkaahzdfmhikzbpwxmpzo/Build/Products/Debug-iphonesimulator\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "6E6DC3F1-36C2-4BFD-A1D9-B1C298C591CB";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "6E6DC3F1-36C2-4BFD-A1D9-B1C298C591CB";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
