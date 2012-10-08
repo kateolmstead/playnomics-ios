@@ -46,3 +46,34 @@ return _sharedObject;
 #define PNUserDefaultsLastSessionStartTime @"com.playnomics.lastSessionStartTime"
 #define PNUserDefaultsLastSessionID @"com.playnomics.lastSessionId"
 #define PNUserDefaultsLastUserID @"com.playnomics.lastUserId"
+
+// Ad Response: Common
+#define FrameResponseHeight @"h"
+#define FrameResponseWidth @"w"
+#define FrameResponseXOffset @"x"
+#define FrameResponseYOffset @"y"
+#define FrameResponseImageUrl @"i"
+
+// Ad Response: Top level keys
+#define FrameResponseAds @"a"
+#define FrameResponseAdLocationInfo @"l"
+#define FrameResponseBackgroundInfo @"b"
+#define FrameResponseCloseButtonInfo @"c"
+#define FrameResponseExpiration @"e"
+#define FrameResponseStatus @"s"
+#define FrameResponseStatusMessage @"m"
+
+// Ad Response: Ad information keys
+#define FrameResponseAd_PrimaryImage @"i"
+#define FrameResponseAd_RolloverImage @"r"
+#define FrameResponseAd_ToolTipText @"x
+#define FrameResponseAd_ClickTarget @"t"
+#define FrameResponseAd_PreExecuteUrl @"u"
+#define FrameResponseAd_PostExecuteUrl @"v"
+#define FrameResponseAd_ImpressionUrl @"s"
+#define FrameResponseAd_FlagUrl @"f"
+#define FrameResponseAd_CloseUrl @"d"
+
+// Ad Response: Background keys
+#define FrameResponseBackground_Landscape @"l"
+#define FrameResponseBackground_Portrait @"p"
