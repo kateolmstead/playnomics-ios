@@ -19,7 +19,7 @@
 //  a frame.  Instead, PlaynomicsMessaging.initFrameWithId should be used.
 - (id)initWithProperties:(NSDictionary *)properties forFrameId:(NSString *)frameId;
 
-// Called to display the ad image and to begin capturing clicks within the ad area.
+// Called to display the ad frame and to begin capturing clicks within the frame.
 - (void)start;
 
 @end

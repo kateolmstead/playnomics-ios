@@ -18,11 +18,16 @@
 @property float yOffset;
 @property float height;
 @property float width;
+@property PlaynomicsFrame *frame;
+@property SEL touchHandler;
 
-- (id)initWithProperties:(NSDictionary *)properties;
+- (id)initWithProperties:(NSDictionary *)aProperties
+                forFrame:(PlaynomicsFrame *)aFrame
+        withTouchHandler:(SEL)aTouchHandler;
 - (id)layoutComponent;
 - (id)addSubComponent:(BaseAdComponent*)subView;
 - (void)display;
+- (void)hide;
 
 @end
 
@@ -40,14 +45,23 @@
 @synthesize height;
 @synthesize width;
 @synthesize parentComponent;
+@synthesize frame;
+@synthesize touchHandler;
 
-- (id)initWithProperties:(NSDictionary *)aProperties {
+#pragma mark - Lifecycle/Memory management
+- (id)initWithProperties:(NSDictionary *)aProperties
+                forFrame:(PlaynomicsFrame *)aFrame
+        withTouchHandler:(SEL)aTouchHandler {
     self = [super init];
     if (self) {
         NSLog(@"Creating ad component with properties: %@", aProperties);
         _subComponents = [[NSMutableArray array] retain];
         self.properties = [aProperties retain];
+        self.frame = aFrame;
+        self.touchHandler = aTouchHandler;
+
         [self layoutComponent];
+        [self _setupTapRecognizer];
     }
     return self;
 }
@@ -58,15 +72,11 @@
     [super dealloc];
 }
 
-- (void)layoutComponent {
-    [self _initCoordinateValues];
-    [self _createBackgroundUI];
-
-    for (BaseAdComponent *subComponent in _subComponents) {
-        [subComponent layoutComponent];
+-(void)_setupTapRecognizer {
+    if (self.touchHandler != nil) {
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self.frame action:self.touchHandler];
+        [self.imageUI addGestureRecognizer:tap];
     }
-
-    [self.imageUI setNeedsDisplay];
 }
 
 - (void)_initCoordinateValues {
@@ -99,6 +109,7 @@
 
     if (self.imageUI == nil) {
         self.imageUI = [[[UIImageView alloc] init] retain];
+        self.imageUI.userInteractionEnabled = YES;
     }
 
     self.imageUI.frame = backgroundRect;
@@ -119,6 +130,19 @@
     return [UIImage imageWithData:imageData];
 }
 
+
+#pragma mark - Public Interface
+- (void)layoutComponent {
+    [self _initCoordinateValues];
+    [self _createBackgroundUI];
+
+    for (BaseAdComponent *subComponent in _subComponents) {
+        [subComponent layoutComponent];
+    }
+
+    [self.imageUI setNeedsDisplay];
+}
+
 - (void)addSubComponent:(BaseAdComponent *)subComponent {
     subComponent.parentComponent = self;
     [_subComponents addObject:subComponent];
@@ -131,9 +155,14 @@
     [topLevelView insertSubview:self.imageUI atIndex:lastDisplayIndex + 1];
 }
 
+- (void)hide {
+    [self.imageUI removeFromSuperview];
+}
+
 @end
 
 
+#pragma mark - PlaynomicsFrame implementation
 @implementation PlaynomicsFrame {
   @private
     NSDictionary *_properties;
@@ -145,6 +174,8 @@
 
 @synthesize frameId;
 
+
+#pragma mark - Lifecycle/Memory management
 - (id)initWithProperties:(NSDictionary *)properties forFrameId:(NSString *)aFrameId {
     if (self = [super init]) {
         self.frameId = aFrameId;
@@ -156,11 +187,24 @@
     return self;
 }
 
+- (void)dealloc {
+    [_properties release];
+    [super dealloc];
+}
+
+#pragma mark - Orientation handlers
 - (void)_setupOrientationChangeObservers {
     [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(_deviceOrientationDidChange:)
-                                                 name:UIDeviceOrientationDidChangeNotification object: nil];
+                                                 name:UIDeviceOrientationDidChangeNotification
+                                               object: nil];
+}
+
+- (void)_destroyOrientationObservers {
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:UIDeviceOrientationDidChangeNotification
+                                                  object:nil];
 }
 
 - (void)_deviceOrientationDidChange:(NSNotification *)notification {
@@ -177,16 +221,18 @@
     [_background layoutComponent];
 }
 
-- (void)dealloc {
-    [_properties release];
-    [super dealloc];
-}
 - (void)_initAdComponents {
-    NSDictionary *adAreaInfo = [self _mergeAdInfoProperties];
+    _background = [[BaseAdComponent alloc] initWithProperties:[_properties objectForKey:FrameResponseBackgroundInfo]
+                                                     forFrame:self
+                                             withTouchHandler:nil];
 
-    _background = [[BaseAdComponent alloc] initWithProperties:[_properties objectForKey:FrameResponseBackgroundInfo]];
-    _adArea = [[BaseAdComponent alloc] initWithProperties:adAreaInfo];
-    _closeButton = [[BaseAdComponent alloc] initWithProperties:[_properties objectForKey:FrameResponseCloseButtonInfo]];
+    _adArea = [[BaseAdComponent alloc] initWithProperties:[self _mergeAdInfoProperties]
+                                                 forFrame:self
+                                         withTouchHandler:@selector(_adClicked)];
+
+    _closeButton = [[BaseAdComponent alloc] initWithProperties:[_properties objectForKey:FrameResponseCloseButtonInfo]
+                                                      forFrame:self
+                                              withTouchHandler:@selector(_stop)];
 
     [_background addSubComponent:_adArea];
     [_background addSubComponent:_closeButton];
@@ -201,6 +247,20 @@
     return mergedDict;
 }
 
+
+#pragma mark - Ad component click handlers
+- (void)_stop {
+    NSLog(@"Close button was pressed...");
+    [_background hide];
+    [self _destroyOrientationObservers];
+}
+
+- (void)_adClicked {
+    NSLog(@"Ad was clicked...");
+}
+
+
+#pragma mark - Public Interface
 - (void)start {
     [_background display];
 }
