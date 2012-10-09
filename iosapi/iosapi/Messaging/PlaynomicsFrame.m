@@ -13,6 +13,7 @@
 @property NSDictionary *properties;
 @property UIImageView *imageUI;
 @property NSString *imageUrl;
+@property BaseAdComponent *parentComponent;
 @property float xOffset;
 @property float yOffset;
 @property float height;
@@ -38,10 +39,12 @@
 @synthesize yOffset;
 @synthesize height;
 @synthesize width;
+@synthesize parentComponent;
 
 - (id)initWithProperties:(NSDictionary *)aProperties {
     self = [super init];
     if (self) {
+        NSLog(@"Creating ad component with properties: %@", aProperties);
         _subComponents = [[NSMutableArray array] retain];
         self.properties = [aProperties retain];
         [self layoutComponent];
@@ -58,9 +61,12 @@
 - (void)layoutComponent {
     [self _initCoordinateValues];
     [self _createBackgroundUI];
+
     for (BaseAdComponent *subComponent in _subComponents) {
         [subComponent layoutComponent];
     }
+
+    [self.imageUI setNeedsDisplay];
 }
 
 - (void)_initCoordinateValues {
@@ -88,7 +94,7 @@
 
 - (void)_createBackgroundUI {
     CGRect backgroundRect = CGRectMake(self.xOffset, self.yOffset, self.width, self.height);
-    NSLog(@"Frame for component image view: %@", NSStringFromCGRect(backgroundRect));
+    NSLog(@"Frame for component image view (%@): %@", self.imageUrl, NSStringFromCGRect(backgroundRect));
     UIImage *image = [self _loadImage];
 
     if (self.imageUI == nil) {
@@ -99,7 +105,6 @@
     if (image) {
         [self.imageUI setImage:image];
     }
-    [self.imageUI setNeedsDisplay];
 }
 
 - (UIImage *)_loadImage {
@@ -114,7 +119,8 @@
     return [UIImage imageWithData:imageData];
 }
 
-- (void)addSubView:(BaseAdComponent *)subComponent {
+- (void)addSubComponent:(BaseAdComponent *)subComponent {
+    subComponent.parentComponent = self;
     [_subComponents addObject:subComponent];
     [self.imageUI addSubview:subComponent.imageUI];
 }
@@ -132,6 +138,8 @@
   @private
     NSDictionary *_properties;
     BaseAdComponent *_background;
+    BaseAdComponent *_adArea;
+    BaseAdComponent *_closeButton;
     UIDeviceOrientation _currentOrientation;
 }
 
@@ -174,7 +182,23 @@
     [super dealloc];
 }
 - (void)_initAdComponents {
+    NSDictionary *adAreaInfo = [self _mergeAdInfoProperties];
+
     _background = [[BaseAdComponent alloc] initWithProperties:[_properties objectForKey:FrameResponseBackgroundInfo]];
+    _adArea = [[BaseAdComponent alloc] initWithProperties:adAreaInfo];
+    _closeButton = [[BaseAdComponent alloc] initWithProperties:[_properties objectForKey:FrameResponseCloseButtonInfo]];
+
+    [_background addSubComponent:_adArea];
+    [_background addSubComponent:_closeButton];
+}
+
+- (NSDictionary *)_mergeAdInfoProperties {
+    NSDictionary *adInfo = [[_properties objectForKey:FrameResponseAds] objectAtIndex:0];
+    NSDictionary *adLocationInfo = [_properties objectForKey:FrameResponseAdLocationInfo];
+
+    NSMutableDictionary *mergedDict = [NSMutableDictionary dictionaryWithDictionary:adInfo];
+    [mergedDict addEntriesFromDictionary:adLocationInfo];
+    return mergedDict;
 }
 
 - (void)start {
