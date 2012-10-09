@@ -4,9 +4,10 @@
 // To change the template use AppCode | Preferences | File Templates.
 //
 #import "PlaynomicsFrame.h"
-#import "PNConstants.h"
+#import "PNUtil.h"
 
-#pragma mark - Sub-View Interfaces
+
+#pragma mark - Base ad component:  UI + properties
 @interface BaseAdComponent : NSObject<NSURLConnectionDelegate>
 
 @property NSDictionary *properties;
@@ -18,22 +19,17 @@
 @property float width;
 
 - (id)initWithProperties:(NSDictionary *)properties;
+- (id)layoutComponent;
+- (id)addSubComponent:(BaseAdComponent*)subView;
 - (void)display;
 
 @end
 
 
-@interface AdArea : BaseAdComponent
-@end
-
-
-@interface Background : BaseAdComponent
-@property AdArea *adArea;
-@end
-
-
-#pragma mark - Sub-View Implementations
-@implementation BaseAdComponent
+@implementation BaseAdComponent {
+    @private
+    NSMutableArray *_subComponents;
+}
 
 @synthesize properties;
 @synthesize imageUI;
@@ -46,32 +42,64 @@
 - (id)initWithProperties:(NSDictionary *)aProperties {
     self = [super init];
     if (self) {
+        _subComponents = [[NSMutableArray array] retain];
         self.properties = [aProperties retain];
-        [self _initCoordinateValues];
-        [self _createBackgroundUI];
+        [self layoutComponent];
     }
     return self;
 }
 
-- (void)_initCoordinateValues {
-    self.xOffset = [[self.properties objectForKey:FrameResponseXOffset] floatValue];
-    self.yOffset = [[self.properties objectForKey:FrameResponseYOffset] floatValue];
+- (void)dealloc {
+    [_subComponents release];
+    [self.properties release];
+    [super dealloc];
+}
 
+- (void)layoutComponent {
+    [self _initCoordinateValues];
+    [self _createBackgroundUI];
+    for (BaseAdComponent *subComponent in _subComponents) {
+        [subComponent layoutComponent];
+    }
+}
+
+- (void)_initCoordinateValues {
+    self.imageUrl = [self.properties objectForKey:FrameResponseImageUrl];
     self.height = [[self.properties objectForKey:FrameResponseHeight] floatValue];
     self.width = [[self.properties objectForKey:FrameResponseWidth] floatValue];
-    self.imageUrl = [self.properties objectForKey:FrameResponseImageUrl];
+
+    NSDictionary *coordinateProps = [self _extractCoordinateProps];
+    self.xOffset = [[coordinateProps objectForKey:FrameResponseXOffset] floatValue];
+    self.yOffset = [[coordinateProps objectForKey:FrameResponseYOffset] floatValue];
+}
+
+- (NSDictionary *)_extractCoordinateProps {
+    if ([self.properties objectForKey:FrameResponseBackground_Landscape] == nil) {
+        return self.properties;
+    }
+
+    UIDeviceOrientation orientation = [PNUtil getCurrentOrientation];
+    if (orientation == 0 || orientation == UIDeviceOrientationPortrait) {
+        return [self.properties objectForKey:FrameResponseBackground_Portrait];
+    } else {
+        return [self.properties objectForKey:FrameResponseBackground_Landscape];
+    }
 }
 
 - (void)_createBackgroundUI {
     CGRect backgroundRect = CGRectMake(self.xOffset, self.yOffset, self.width, self.height);
+    NSLog(@"Frame for component image view: %@", NSStringFromCGRect(backgroundRect));
     UIImage *image = [self _loadImage];
-    NSLog(@"Creating background image UI: [%@] %@", self.imageUrl, backgroundRect);
 
-    self.imageUI = [[[UIImageView alloc] initWithFrame:backgroundRect] retain];
+    if (self.imageUI == nil) {
+        self.imageUI = [[[UIImageView alloc] init] retain];
+    }
+
+    self.imageUI.frame = backgroundRect;
     if (image) {
         [self.imageUI setImage:image];
-        [image release];
     }
+    [self.imageUI setNeedsDisplay];
 }
 
 - (UIImage *)_loadImage {
@@ -86,19 +114,13 @@
     return [UIImage imageWithData:imageData];
 }
 
-- (void)display {
-    // Should be overriden by sub-classes
+- (void)addSubView:(BaseAdComponent *)subComponent {
+    [_subComponents addObject:subComponent];
+    [self.imageUI addSubview:subComponent.imageUI];
 }
 
-@end
-
-
-@implementation Background
-
-@synthesize adArea;
-
 - (void)display {
-    UIView *topLevelView = [[UIApplication sharedApplication] keyWindow];
+    UIView *topLevelView = [[UIApplication sharedApplication] keyWindow].rootViewController.view;
     int lastDisplayIndex = topLevelView.subviews.count;
     [topLevelView insertSubview:self.imageUI atIndex:lastDisplayIndex + 1];
 }
@@ -106,32 +128,59 @@
 @end
 
 
-#pragma mark - Frame Implementation
 @implementation PlaynomicsFrame {
   @private
     NSDictionary *_properties;
-    Background *_background;
-    AdArea *_adArea;
+    BaseAdComponent *_background;
+    UIDeviceOrientation _currentOrientation;
 }
 
 @synthesize frameId;
 
-#pragma mark - Initialization
 - (id)initWithProperties:(NSDictionary *)properties forFrameId:(NSString *)aFrameId {
     if (self = [super init]) {
         self.frameId = aFrameId;
-        _properties = properties;
-        [self _initBackground];
+        _properties = [properties retain];
+
+        [self _setupOrientationChangeObservers];
+        [self _initAdComponents];
     }
     return self;
 }
 
-- (void)_initBackground {
-    _background = [[Background alloc] initWithProperties:[_properties objectForKey:FrameResponseBackgroundInfo]];
+- (void)_setupOrientationChangeObservers {
+    [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(_deviceOrientationDidChange:)
+                                                 name:UIDeviceOrientationDidChangeNotification object: nil];
+}
+
+- (void)_deviceOrientationDidChange:(NSNotification *)notification {
+    UIDeviceOrientation *orientation = [PNUtil getCurrentOrientation];
+    if (orientation == UIDeviceOrientationFaceUp
+            || orientation == UIDeviceOrientationFaceDown
+            || orientation == UIDeviceOrientationUnknown
+            || _currentOrientation == orientation) {
+        return;
+    }
+    _currentOrientation = orientation;
+
+    NSLog(@"Orientation changed to: %i", orientation);
+    [_background layoutComponent];
+}
+
+- (void)dealloc {
+    [_properties release];
+    [super dealloc];
+}
+- (void)_initAdComponents {
+    _background = [[BaseAdComponent alloc] initWithProperties:[_properties objectForKey:FrameResponseBackgroundInfo]];
 }
 
 - (void)start {
     [_background display];
 }
+
+
 
 @end

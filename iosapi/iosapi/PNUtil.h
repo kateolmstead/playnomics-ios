@@ -15,6 +15,7 @@
 @interface PNUtil : NSObject
 
 + (NSString *) getDeviceUniqueIdentifier;
++ (UIInterfaceOrientation) getCurrentOrientation;
 
 +(PNEventType) PNEventTypeValueOf: (NSString *) text;
 +(NSString *) PNEventTypeDescription:  (PNEventType) value;

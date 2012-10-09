@@ -4,9 +4,10 @@
 
 #ifdef __OBJC__
     #import <Foundation/Foundation.h>
+    #import "PNConstants.h"
+    #import "PNUtil.h"
 #endif
 
-#import "PNConstants.h"
-#import "PNUtil.h"
+
 
 

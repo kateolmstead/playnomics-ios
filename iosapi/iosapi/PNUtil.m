@@ -28,6 +28,11 @@
     return storedUUID;
 }
 
++ (UIInterfaceOrientation)getCurrentOrientation {
+    return [UIApplication sharedApplication].statusBarOrientation;
+}
+
+
 +(PNResponseType) PNResponseTypeValueOf:(NSString *) text {
     if (text) {
         if ([text isEqualToString:@"accepted"])
