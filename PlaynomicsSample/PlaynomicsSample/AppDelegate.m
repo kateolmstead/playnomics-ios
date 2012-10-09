@@ -10,6 +10,7 @@
 
 #import "ViewController.h"
 #import "PlaynomicsSession.h"
+#import "PlaynomicsFrame.h"
 
 @implementation AppDelegate
 
@@ -39,7 +40,14 @@
     }
     self.window.rootViewController = self.viewController;
     [self.window makeKeyAndVisible];
-    
+
+    NSError *error;
+    NSString *filePath = [[NSBundle mainBundle] pathForResource:@"sample_ad_data" ofType:@"js"];
+    NSMutableData *adResponse = [NSMutableData dataWithContentsOfFile:filePath];
+    NSMutableDictionary *props = [NSJSONSerialization JSONObjectWithData:adResponse options:kNilOptions error:&error];
+
+    PlaynomicsFrame *frame = [[PlaynomicsFrame alloc] initWithProperties:props forFrameId:@"init_frame"];
+    [frame start];
     return YES;
 }
 
