@@ -43,6 +43,12 @@
 		D1D922C4159112C100EDDE17 /* PNGameEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = D1D922BC159112C100EDDE17 /* PNGameEvent.m */; };
 		D1D922C7159112E100EDDE17 /* PNRandomGenerator.h in Headers */ = {isa = PBXBuildFile; fileRef = D1D922C5159112E100EDDE17 /* PNRandomGenerator.h */; };
 		D1D922CB159112F400EDDE17 /* PNConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = D1D922C9159112F400EDDE17 /* PNConstants.h */; settings = {ATTRIBUTES = (); }; };
+		EADE24E11625F17500914040 /* FSN_categories.h in Headers */ = {isa = PBXBuildFile; fileRef = EADE24DB1625F17500914040 /* FSN_categories.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		EADE24E21625F17500914040 /* FSN_categories.m in Sources */ = {isa = PBXBuildFile; fileRef = EADE24DC1625F17500914040 /* FSN_categories.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		EADE24E31625F17500914040 /* FSNConnection.h in Headers */ = {isa = PBXBuildFile; fileRef = EADE24DD1625F17500914040 /* FSNConnection.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		EADE24E41625F17500914040 /* FSNConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = EADE24DE1625F17500914040 /* FSNConnection.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		EADE24E51625F17500914040 /* FSNData.h in Headers */ = {isa = PBXBuildFile; fileRef = EADE24DF1625F17500914040 /* FSNData.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		EADE24E61625F17500914040 /* FSNData.m in Sources */ = {isa = PBXBuildFile; fileRef = EADE24E01625F17500914040 /* FSNData.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -96,6 +102,12 @@
 		D1D922BC159112C100EDDE17 /* PNGameEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = PNGameEvent.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		D1D922C5159112E100EDDE17 /* PNRandomGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNRandomGenerator.h; sourceTree = "<group>"; };
 		D1D922C9159112F400EDDE17 /* PNConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = PNConstants.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		EADE24DB1625F17500914040 /* FSN_categories.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSN_categories.h; sourceTree = "<group>"; };
+		EADE24DC1625F17500914040 /* FSN_categories.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSN_categories.m; sourceTree = "<group>"; };
+		EADE24DD1625F17500914040 /* FSNConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSNConnection.h; sourceTree = "<group>"; };
+		EADE24DE1625F17500914040 /* FSNConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSNConnection.m; sourceTree = "<group>"; };
+		EADE24DF1625F17500914040 /* FSNData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSNData.h; sourceTree = "<group>"; };
+		EADE24E01625F17500914040 /* FSNData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSNData.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -194,6 +206,7 @@
 		D1D922751590F59700EDDE17 /* iosapi */ = {
 			isa = PBXGroup;
 			children = (
+				EADE24D91625F17500914040 /* Libraries */,
 				D1D922C9159112F400EDDE17 /* PNConstants.h */,
 				5B589DBE15993764002B6251 /* PNConfig.h */,
 				D1D922A11591124700EDDE17 /* PlaynomicsSession.h */,
@@ -239,6 +252,27 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		EADE24D91625F17500914040 /* Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				EADE24DA1625F17500914040 /* FSNetworking */,
+			);
+			path = Libraries;
+			sourceTree = SOURCE_ROOT;
+		};
+		EADE24DA1625F17500914040 /* FSNetworking */ = {
+			isa = PBXGroup;
+			children = (
+				EADE24DB1625F17500914040 /* FSN_categories.h */,
+				EADE24DC1625F17500914040 /* FSN_categories.m */,
+				EADE24DD1625F17500914040 /* FSNConnection.h */,
+				EADE24DE1625F17500914040 /* FSNConnection.m */,
+				EADE24DF1625F17500914040 /* FSNData.h */,
+				EADE24E01625F17500914040 /* FSNData.m */,
+			);
+			path = FSNetworking;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -249,6 +283,9 @@
 				D1D922A31591124700EDDE17 /* PlaynomicsSession.h in Headers */,
 				42FBA45F0CE45688790D1F03 /* PlaynomicsFrame.h in Headers */,
 				42FBA8A8A461BB836E6655EB /* PlaynomicsMessaging.h in Headers */,
+				EADE24E11625F17500914040 /* FSN_categories.h in Headers */,
+				EADE24E31625F17500914040 /* FSNConnection.h in Headers */,
+				EADE24E51625F17500914040 /* FSNData.h in Headers */,
 				D1D922A71591125700EDDE17 /* PNEvent.h in Headers */,
 				D1D922AF159112A300EDDE17 /* PNSocialEvent.h in Headers */,
 				D1D922B1159112A300EDDE17 /* PNTransactionEvent.h in Headers */,
@@ -375,6 +412,9 @@
 				5B753E30159D2D5000E698F9 /* PNRandomGenerator.m in Sources */,
 				42FBA86B3DB5A96A46894B6C /* PlaynomicsFrame.m in Sources */,
 				42FBA77B7E7A8D298A75735B /* PlaynomicsMessaging.m in Sources */,
+				EADE24E21625F17500914040 /* FSN_categories.m in Sources */,
+				EADE24E41625F17500914040 /* FSNConnection.m in Sources */,
+				EADE24E61625F17500914040 /* FSNData.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

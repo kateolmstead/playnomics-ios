@@ -5,6 +5,7 @@
 //
 #import "PlaynomicsFrame.h"
 #import "PNUtil.h"
+#import "FSNConnection.h"
 
 
 #pragma mark - Base ad component:  UI + properties
@@ -170,6 +171,8 @@
     BaseAdComponent *_adArea;
     BaseAdComponent *_closeButton;
     UIDeviceOrientation _currentOrientation;
+
+    FSNConnection *_adImpressionConnection;
 }
 
 @synthesize frameId;
@@ -181,8 +184,9 @@
         self.frameId = aFrameId;
         _properties = [properties retain];
 
-        [self _setupOrientationChangeObservers];
+        [self _initOrientationChangeObservers];
         [self _initAdComponents];
+        [self _initAdImpressionConnection];
     }
     return self;
 }
@@ -190,35 +194,6 @@
 - (void)dealloc {
     [_properties release];
     [super dealloc];
-}
-
-#pragma mark - Orientation handlers
-- (void)_setupOrientationChangeObservers {
-    [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(_deviceOrientationDidChange:)
-                                                 name:UIDeviceOrientationDidChangeNotification
-                                               object: nil];
-}
-
-- (void)_destroyOrientationObservers {
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:UIDeviceOrientationDidChangeNotification
-                                                  object:nil];
-}
-
-- (void)_deviceOrientationDidChange:(NSNotification *)notification {
-    UIDeviceOrientation *orientation = [PNUtil getCurrentOrientation];
-    if (orientation == UIDeviceOrientationFaceUp
-            || orientation == UIDeviceOrientationFaceDown
-            || orientation == UIDeviceOrientationUnknown
-            || _currentOrientation == orientation) {
-        return;
-    }
-    _currentOrientation = orientation;
-
-    NSLog(@"Orientation changed to: %i", orientation);
-    [_background layoutComponent];
 }
 
 - (void)_initAdComponents {
@@ -251,6 +226,56 @@
     return mergedDict;
 }
 
+- (void)_initAdImpressionConnection {
+    NSString *impressionUrl = [_adArea.properties objectForKey:FrameResponseAd_ImpressionUrl];
+    NSURL *url = [NSURL URLWithString:impressionUrl];
+    NSLog(@"Submitting GET request to impression URL: %@", impressionUrl);
+
+    FSNConnection *connection =
+            [FSNConnection withUrl:url
+                            method:FSNRequestMethodGET
+                           headers:nil
+                        parameters:nil
+                        parseBlock:^id(FSNConnection *c, NSError **error) {
+                            return [c.responseData stringFromUTF8];
+                        }
+                   completionBlock:^(FSNConnection *c) {
+                       NSLog(@"Impression URL complete: error: %@, result: %@", c.error, c.parseResult);
+                   }
+                     progressBlock:nil];
+
+    _adImpressionConnection = [connection retain];
+}
+
+
+#pragma mark - Orientation handlers
+- (void)_initOrientationChangeObservers {
+    [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(_deviceOrientationDidChange:)
+                                                 name:UIDeviceOrientationDidChangeNotification
+                                               object: nil];
+}
+
+- (void)_destroyOrientationObservers {
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:UIDeviceOrientationDidChangeNotification
+                                                  object:nil];
+}
+
+- (void)_deviceOrientationDidChange:(NSNotification *)notification {
+    UIDeviceOrientation *orientation = [PNUtil getCurrentOrientation];
+    if (orientation == UIDeviceOrientationFaceUp
+            || orientation == UIDeviceOrientationFaceDown
+            || orientation == UIDeviceOrientationUnknown
+            || _currentOrientation == orientation) {
+        return;
+    }
+    _currentOrientation = orientation;
+
+    NSLog(@"Orientation changed to: %i", orientation);
+    [_background layoutComponent];
+}
 
 #pragma mark - Ad component click handlers
 - (void)_stop {
@@ -267,9 +292,7 @@
 #pragma mark - Public Interface
 - (void)start {
     [_background display];
-    NSLog(@"BG imageUI retain count = %i", _background.imageUI.retainCount);
+    [_adImpressionConnection start];
 }
-
-
 
 @end
