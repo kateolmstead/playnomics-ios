@@ -10,15 +10,16 @@
 #pragma mark - Base ad component:  UI + properties
 @interface BaseAdComponent : NSObject<NSURLConnectionDelegate>
 
-@property NSDictionary *properties;
-@property UIImageView *imageUI;
-@property NSString *imageUrl;
-@property BaseAdComponent *parentComponent;
+@property (retain) NSDictionary *properties;
+@property (retain) UIImageView *imageUI;
+@property (retain) NSString *imageUrl;
+@property (retain) BaseAdComponent *parentComponent;
+@property (retain) PlaynomicsFrame *frame;
+
 @property float xOffset;
 @property float yOffset;
 @property float height;
 @property float width;
-@property PlaynomicsFrame *frame;
 @property SEL touchHandler;
 
 - (id)initWithProperties:(NSDictionary *)aProperties
@@ -33,20 +34,20 @@
 
 
 @implementation BaseAdComponent {
-    @private
+  @private
     NSMutableArray *_subComponents;
 }
 
-@synthesize properties;
-@synthesize imageUI;
-@synthesize imageUrl;
-@synthesize xOffset;
-@synthesize yOffset;
-@synthesize height;
-@synthesize width;
-@synthesize parentComponent;
-@synthesize frame;
-@synthesize touchHandler;
+@synthesize properties = _properties;
+@synthesize imageUI = _imageUI;
+@synthesize imageUrl = _imageUrl;
+@synthesize parentComponent = _parentComponent;
+@synthesize frame = _frame;
+@synthesize xOffset = _xOffset;
+@synthesize yOffset = _yOffset;
+@synthesize height = _height;
+@synthesize width = _width;
+@synthesize touchHandler = _touchHandler;
 
 #pragma mark - Lifecycle/Memory management
 - (id)initWithProperties:(NSDictionary *)aProperties
@@ -55,28 +56,30 @@
     self = [super init];
     if (self) {
         NSLog(@"Creating ad component with properties: %@", aProperties);
-        _subComponents = [[NSMutableArray array] retain];
-        self.properties = [aProperties retain];
-        self.frame = aFrame;
-        self.touchHandler = aTouchHandler;
-
-        [self layoutComponent];
-        [self _setupTapRecognizer];
+        _subComponents = [NSMutableArray array];
+        _properties = aProperties;
+        _frame = aFrame;
+        _touchHandler = aTouchHandler;
     }
     return self;
 }
 
 - (void)dealloc {
     [_subComponents release];
-    [self.properties release];
+    [_properties release];
+    [_imageUI release];
+    [_imageUrl release];
+    [_parentComponent release];
+    [_frame release];
     [super dealloc];
 }
 
--(void)_setupTapRecognizer {
-    if (self.touchHandler != nil) {
-        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self.frame action:self.touchHandler];
-        [self.imageUI addGestureRecognizer:tap];
-    }
+#pragma mark - Public Interface
+- (void)layoutComponent {
+    [self _initCoordinateValues];
+    [self _createBackgroundUI];
+    [self _setupTapRecognizer];
+    [self.imageUI setNeedsDisplay];
 }
 
 - (void)_initCoordinateValues {
@@ -108,8 +111,11 @@
     UIImage *image = [self _loadImage];
 
     if (self.imageUI == nil) {
-        self.imageUI = [[[UIImageView alloc] init] retain];
-        self.imageUI.userInteractionEnabled = YES;
+        UIImageView *newImageView = [[UIImageView alloc] init];
+        newImageView.userInteractionEnabled = YES;
+
+        self.imageUI = newImageView;
+        [newImageView release];
     }
 
     self.imageUI.frame = backgroundRect;
@@ -130,17 +136,11 @@
     return [UIImage imageWithData:imageData];
 }
 
-
-#pragma mark - Public Interface
-- (void)layoutComponent {
-    [self _initCoordinateValues];
-    [self _createBackgroundUI];
-
-    for (BaseAdComponent *subComponent in _subComponents) {
-        [subComponent layoutComponent];
+-(void)_setupTapRecognizer {
+    if (self.touchHandler != nil) {
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self.frame action:self.touchHandler];
+        [self.imageUI addGestureRecognizer:tap];
     }
-
-    [self.imageUI setNeedsDisplay];
 }
 
 - (void)addSubComponent:(BaseAdComponent *)subComponent {
@@ -234,6 +234,10 @@
                                                       forFrame:self
                                               withTouchHandler:@selector(_stop)];
 
+    [_background layoutComponent];
+    [_adArea layoutComponent];
+    [_closeButton layoutComponent];
+
     [_background addSubComponent:_adArea];
     [_background addSubComponent:_closeButton];
 }
@@ -263,6 +267,7 @@
 #pragma mark - Public Interface
 - (void)start {
     [_background display];
+    NSLog(@"BG imageUI retain count = %i", _background.imageUI.retainCount);
 }
 
 
