@@ -58,8 +58,8 @@
     if (self) {
         NSLog(@"Creating ad component with properties: %@", aProperties);
         _subComponents = [NSMutableArray array];
-        _properties = aProperties;
-        _frame = aFrame;
+        _properties = [aProperties retain];
+        _frame = [aFrame retain];
         _touchHandler = aTouchHandler;
     }
     return self;
@@ -163,7 +163,19 @@
 @end
 
 
-#pragma mark - PlaynomicsFrame implementation
+#pragma mark - PlaynomicsFrame
+typedef NS_ENUM(NSInteger, AdAction) {
+    AdActionHTTP,            // Standard HTTP/HTTPS page to open in a browser
+    AdActionDefinedAction,   // Defined selector to execute on a registered delegate
+    AdActionExecuteCode,     // Submit the action on the delegate
+    AdActionUnknown          // Unknown ad action specified
+};
+
+
+const NSString *HTTP_ACTION_PREFIX = @"http";
+const NSString *HTTPS_ACTION_PREFIX = @"https";
+
+
 @implementation PlaynomicsFrame {
   @private
     NSDictionary *_properties;
@@ -201,6 +213,7 @@
     [super dealloc];
 }
 
+
 - (void)_initAdComponents {
     _background = [[BaseAdComponent alloc] initWithProperties:[_properties objectForKey:FrameResponseBackgroundInfo]
                                                      forFrame:self
@@ -223,12 +236,16 @@
 }
 
 - (NSDictionary *)_mergeAdInfoProperties {
-    NSDictionary *adInfo = [[_properties objectForKey:FrameResponseAds] objectAtIndex:0];
+    NSDictionary *adInfo = [self _determineAdInfoToUse];
     NSDictionary *adLocationInfo = [_properties objectForKey:FrameResponseAdLocationInfo];
 
     NSMutableDictionary *mergedDict = [NSMutableDictionary dictionaryWithDictionary:adInfo];
     [mergedDict addEntriesFromDictionary:adLocationInfo];
     return mergedDict;
+}
+
+- (NSDictionary *)_determineAdInfoToUse {
+    return [[_properties objectForKey:FrameResponseAds] objectAtIndex:0];
 }
 
 - (void)_initAdImpressionConnection {
@@ -282,6 +299,7 @@
     [_background layoutComponent];
 }
 
+
 #pragma mark - Ad component click handlers
 - (void)_stop {
     NSLog(@"Close button was pressed...");
@@ -290,9 +308,31 @@
 }
 
 - (void)_adClicked {
-    NSLog(@"Ad was clicked...");
+    NSString *clickTarget = [_adArea.properties objectForKey:FrameResponseAd_ClickTarget];
+    AdAction actionType = [self _determineActionType:clickTarget];
+    NSLog(@"Ad clicked with target (action type %i): %@", actionType, clickTarget);
+
+    switch (actionType) {
+        case AdActionHTTP: {
+            NSURL *clickTargetUrl = [NSURL URLWithString:clickTarget];
+            [[UIApplication sharedApplication] openURL:clickTargetUrl];
+            break;
+        }
+        default: {
+            NSLog(@"Unsupported ad action specified!");
+            break;
+        }
+    }
+
 }
 
+- (AdAction)_determineActionType: (NSString *)actionUrl {
+    if ([actionUrl hasPrefix:HTTP_ACTION_PREFIX] || [actionUrl hasPrefix:HTTPS_ACTION_PREFIX]) {
+        return AdActionHTTP;
+    } else {
+        return AdActionUnknown;
+    }
+}
 
 #pragma mark - Public Interface
 - (void)start {
