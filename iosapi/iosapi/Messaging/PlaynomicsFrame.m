@@ -193,6 +193,11 @@
 
 - (void)dealloc {
     [_properties release];
+    [_background release];
+    [_adArea release];
+    [_closeButton release];
+    [_adImpressionConnection release];
+
     [super dealloc];
 }
 
@@ -244,7 +249,7 @@
                    }
                      progressBlock:nil];
 
-    _adImpressionConnection = [connection retain];
+    _adImpressionConnection = connection;
 }
 
 
