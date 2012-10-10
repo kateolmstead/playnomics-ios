@@ -5,6 +5,7 @@
 //
 #import "PlaynomicsFrame.h"
 #import "PNUtil.h"
+#import "FSNConnection.h"
 
 
 #pragma mark - Base ad component:  UI + properties
@@ -141,6 +142,8 @@
     BaseAdComponent *_adArea;
     BaseAdComponent *_closeButton;
     UIDeviceOrientation _currentOrientation;
+
+    FSNConnection *_adImpressionConnection;
 }
 
 @synthesize frameId;
@@ -150,13 +153,14 @@
         self.frameId = aFrameId;
         _properties = [properties retain];
 
-        [self _setupOrientationChangeObservers];
+        [self _initOrientationChangeObservers];
         [self _initAdComponents];
+        [self _initAdImpressionConnection];
     }
     return self;
 }
 
-- (void)_setupOrientationChangeObservers {
+- (void)_initOrientationChangeObservers {
     [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(_deviceOrientationDidChange:)
@@ -181,6 +185,7 @@
     [_properties release];
     [super dealloc];
 }
+
 - (void)_initAdComponents {
     NSDictionary *adAreaInfo = [self _mergeAdInfoProperties];
 
@@ -190,6 +195,27 @@
 
     [_background addSubComponent:_adArea];
     [_background addSubComponent:_closeButton];
+}
+
+- (void)_initAdImpressionConnection {
+    NSString *impressionUrl = [_adArea.properties objectForKey:FrameResponseAd_ImpressionUrl];
+    NSURL *url = [NSURL URLWithString:impressionUrl];
+    NSLog(@"Submitting GET request to impression URL: %@", impressionUrl);
+
+    FSNConnection *connection =
+            [FSNConnection withUrl:url
+                            method:FSNRequestMethodGET
+                           headers:nil
+                        parameters:nil
+                        parseBlock:^id(FSNConnection *c, NSError **error) {
+                            return [c.responseData stringFromUTF8];
+                        }
+                   completionBlock:^(FSNConnection *c) {
+                       NSLog(@"Impression URL complete: error: %@, result: %@", c.error, c.parseResult);
+                   }
+                     progressBlock:nil];
+
+    _adImpressionConnection = [connection retain];
 }
 
 - (NSDictionary *)_mergeAdInfoProperties {
@@ -203,8 +229,7 @@
 
 - (void)start {
     [_background display];
+    [_adImpressionConnection start];
 }
-
-
 
 @end
