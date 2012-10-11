@@ -11,62 +11,75 @@
 #pragma mark - Base ad component:  UI + properties
 @interface BaseAdComponent : NSObject<NSURLConnectionDelegate>
 
-@property NSDictionary *properties;
-@property UIImageView *imageUI;
-@property NSString *imageUrl;
-@property BaseAdComponent *parentComponent;
+@property (retain) NSDictionary *properties;
+@property (retain) UIImageView *imageUI;
+@property (retain) NSString *imageUrl;
+@property (retain) BaseAdComponent *parentComponent;
+@property (retain) PlaynomicsFrame *frame;
+
 @property float xOffset;
 @property float yOffset;
 @property float height;
 @property float width;
+@property SEL touchHandler;
 
-- (id)initWithProperties:(NSDictionary *)properties;
+- (id)initWithProperties:(NSDictionary *)aProperties
+                forFrame:(PlaynomicsFrame *)aFrame
+        withTouchHandler:(SEL)aTouchHandler;
 - (id)layoutComponent;
 - (id)addSubComponent:(BaseAdComponent*)subView;
 - (void)display;
+- (void)hide;
 
 @end
 
 
 @implementation BaseAdComponent {
-    @private
+  @private
     NSMutableArray *_subComponents;
 }
 
-@synthesize properties;
-@synthesize imageUI;
-@synthesize imageUrl;
-@synthesize xOffset;
-@synthesize yOffset;
-@synthesize height;
-@synthesize width;
-@synthesize parentComponent;
+@synthesize properties = _properties;
+@synthesize imageUI = _imageUI;
+@synthesize imageUrl = _imageUrl;
+@synthesize parentComponent = _parentComponent;
+@synthesize frame = _frame;
+@synthesize xOffset = _xOffset;
+@synthesize yOffset = _yOffset;
+@synthesize height = _height;
+@synthesize width = _width;
+@synthesize touchHandler = _touchHandler;
 
-- (id)initWithProperties:(NSDictionary *)aProperties {
+#pragma mark - Lifecycle/Memory management
+- (id)initWithProperties:(NSDictionary *)aProperties
+                forFrame:(PlaynomicsFrame *)aFrame
+        withTouchHandler:(SEL)aTouchHandler {
     self = [super init];
     if (self) {
         NSLog(@"Creating ad component with properties: %@", aProperties);
-        _subComponents = [[NSMutableArray array] retain];
-        self.properties = [aProperties retain];
-        [self layoutComponent];
+        _subComponents = [NSMutableArray array];
+        _properties = [aProperties retain];
+        _frame = [aFrame retain];
+        _touchHandler = aTouchHandler;
     }
     return self;
 }
 
 - (void)dealloc {
     [_subComponents release];
-    [self.properties release];
+    [_properties release];
+    [_imageUI release];
+    [_imageUrl release];
+    [_parentComponent release];
+    [_frame release];
     [super dealloc];
 }
 
+#pragma mark - Public Interface
 - (void)layoutComponent {
     [self _initCoordinateValues];
     [self _createBackgroundUI];
-
-    for (BaseAdComponent *subComponent in _subComponents) {
-        [subComponent layoutComponent];
-    }
-
+    [self _setupTapRecognizer];
     [self.imageUI setNeedsDisplay];
 }
 
@@ -99,7 +112,11 @@
     UIImage *image = [self _loadImage];
 
     if (self.imageUI == nil) {
-        self.imageUI = [[[UIImageView alloc] init] retain];
+        UIImageView *newImageView = [[UIImageView alloc] init];
+        newImageView.userInteractionEnabled = YES;
+
+        self.imageUI = newImageView;
+        [newImageView release];
     }
 
     self.imageUI.frame = backgroundRect;
@@ -120,6 +137,13 @@
     return [UIImage imageWithData:imageData];
 }
 
+-(void)_setupTapRecognizer {
+    if (self.touchHandler != nil) {
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self.frame action:self.touchHandler];
+        [self.imageUI addGestureRecognizer:tap];
+    }
+}
+
 - (void)addSubComponent:(BaseAdComponent *)subComponent {
     subComponent.parentComponent = self;
     [_subComponents addObject:subComponent];
@@ -132,7 +156,24 @@
     [topLevelView insertSubview:self.imageUI atIndex:lastDisplayIndex + 1];
 }
 
+- (void)hide {
+    [self.imageUI removeFromSuperview];
+}
+
 @end
+
+
+#pragma mark - PlaynomicsFrame
+typedef NS_ENUM(NSInteger, AdAction) {
+    AdActionHTTP,            // Standard HTTP/HTTPS page to open in a browser
+    AdActionDefinedAction,   // Defined selector to execute on a registered delegate
+    AdActionExecuteCode,     // Submit the action on the delegate
+    AdActionUnknown          // Unknown ad action specified
+};
+
+
+const NSString *HTTP_ACTION_PREFIX = @"http";
+const NSString *HTTPS_ACTION_PREFIX = @"https";
 
 
 @implementation PlaynomicsFrame {
@@ -148,6 +189,8 @@
 
 @synthesize frameId;
 
+
+#pragma mark - Lifecycle/Memory management
 - (id)initWithProperties:(NSDictionary *)properties forFrameId:(NSString *)aFrameId {
     if (self = [super init]) {
         self.frameId = aFrameId;
@@ -160,41 +203,49 @@
     return self;
 }
 
-- (void)_initOrientationChangeObservers {
-    [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(_deviceOrientationDidChange:)
-                                                 name:UIDeviceOrientationDidChangeNotification object: nil];
-}
-
-- (void)_deviceOrientationDidChange:(NSNotification *)notification {
-    UIDeviceOrientation *orientation = [PNUtil getCurrentOrientation];
-    if (orientation == UIDeviceOrientationFaceUp
-            || orientation == UIDeviceOrientationFaceDown
-            || orientation == UIDeviceOrientationUnknown
-            || _currentOrientation == orientation) {
-        return;
-    }
-    _currentOrientation = orientation;
-
-    NSLog(@"Orientation changed to: %i", orientation);
-    [_background layoutComponent];
-}
-
 - (void)dealloc {
     [_properties release];
+    [_background release];
+    [_adArea release];
+    [_closeButton release];
+    [_adImpressionConnection release];
+
     [super dealloc];
 }
 
-- (void)_initAdComponents {
-    NSDictionary *adAreaInfo = [self _mergeAdInfoProperties];
 
-    _background = [[BaseAdComponent alloc] initWithProperties:[_properties objectForKey:FrameResponseBackgroundInfo]];
-    _adArea = [[BaseAdComponent alloc] initWithProperties:adAreaInfo];
-    _closeButton = [[BaseAdComponent alloc] initWithProperties:[_properties objectForKey:FrameResponseCloseButtonInfo]];
+- (void)_initAdComponents {
+    _background = [[BaseAdComponent alloc] initWithProperties:[_properties objectForKey:FrameResponseBackgroundInfo]
+                                                     forFrame:self
+                                             withTouchHandler:nil];
+
+    _adArea = [[BaseAdComponent alloc] initWithProperties:[self _mergeAdInfoProperties]
+                                                 forFrame:self
+                                         withTouchHandler:@selector(_adClicked)];
+
+    _closeButton = [[BaseAdComponent alloc] initWithProperties:[_properties objectForKey:FrameResponseCloseButtonInfo]
+                                                      forFrame:self
+                                              withTouchHandler:@selector(_stop)];
+
+    [_background layoutComponent];
+    [_adArea layoutComponent];
+    [_closeButton layoutComponent];
 
     [_background addSubComponent:_adArea];
     [_background addSubComponent:_closeButton];
+}
+
+- (NSDictionary *)_mergeAdInfoProperties {
+    NSDictionary *adInfo = [self _determineAdInfoToUse];
+    NSDictionary *adLocationInfo = [_properties objectForKey:FrameResponseAdLocationInfo];
+
+    NSMutableDictionary *mergedDict = [NSMutableDictionary dictionaryWithDictionary:adInfo];
+    [mergedDict addEntriesFromDictionary:adLocationInfo];
+    return mergedDict;
+}
+
+- (NSDictionary *)_determineAdInfoToUse {
+    return [[_properties objectForKey:FrameResponseAds] objectAtIndex:0];
 }
 
 - (void)_initAdImpressionConnection {
@@ -215,18 +266,75 @@
                    }
                      progressBlock:nil];
 
-    _adImpressionConnection = [connection retain];
+    _adImpressionConnection = connection;
 }
 
-- (NSDictionary *)_mergeAdInfoProperties {
-    NSDictionary *adInfo = [[_properties objectForKey:FrameResponseAds] objectAtIndex:0];
-    NSDictionary *adLocationInfo = [_properties objectForKey:FrameResponseAdLocationInfo];
 
-    NSMutableDictionary *mergedDict = [NSMutableDictionary dictionaryWithDictionary:adInfo];
-    [mergedDict addEntriesFromDictionary:adLocationInfo];
-    return mergedDict;
+#pragma mark - Orientation handlers
+- (void)_initOrientationChangeObservers {
+    [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(_deviceOrientationDidChange:)
+                                                 name:UIDeviceOrientationDidChangeNotification
+                                               object: nil];
 }
 
+- (void)_destroyOrientationObservers {
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:UIDeviceOrientationDidChangeNotification
+                                                  object:nil];
+}
+
+- (void)_deviceOrientationDidChange:(NSNotification *)notification {
+    UIDeviceOrientation *orientation = [PNUtil getCurrentOrientation];
+    if (orientation == UIDeviceOrientationFaceUp
+            || orientation == UIDeviceOrientationFaceDown
+            || orientation == UIDeviceOrientationUnknown
+            || _currentOrientation == orientation) {
+        return;
+    }
+    _currentOrientation = orientation;
+
+    NSLog(@"Orientation changed to: %i", orientation);
+    [_background layoutComponent];
+}
+
+
+#pragma mark - Ad component click handlers
+- (void)_stop {
+    NSLog(@"Close button was pressed...");
+    [_background hide];
+    [self _destroyOrientationObservers];
+}
+
+- (void)_adClicked {
+    NSString *clickTarget = [_adArea.properties objectForKey:FrameResponseAd_ClickTarget];
+    AdAction actionType = [self _determineActionType:clickTarget];
+    NSLog(@"Ad clicked with target (action type %i): %@", actionType, clickTarget);
+
+    switch (actionType) {
+        case AdActionHTTP: {
+            NSURL *clickTargetUrl = [NSURL URLWithString:clickTarget];
+            [[UIApplication sharedApplication] openURL:clickTargetUrl];
+            break;
+        }
+        default: {
+            NSLog(@"Unsupported ad action specified!");
+            break;
+        }
+    }
+
+}
+
+- (AdAction)_determineActionType: (NSString *)actionUrl {
+    if ([actionUrl hasPrefix:HTTP_ACTION_PREFIX] || [actionUrl hasPrefix:HTTPS_ACTION_PREFIX]) {
+        return AdActionHTTP;
+    } else {
+        return AdActionUnknown;
+    }
+}
+
+#pragma mark - Public Interface
 - (void)start {
     [_background display];
     [_adImpressionConnection start];

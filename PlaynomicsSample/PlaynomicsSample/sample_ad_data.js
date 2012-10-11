@@ -3,7 +3,7 @@
     { "i" : "http://www.alltimerecordsstudios.com/Web_Ad_for_WLSK_Banner.jpg",
         "r" : "http://pn-assets-development.s3.amazonaws.com/manual/m1r.png",
         "x" : "Play this game!",
-        "t" : "http://redir.b.playnomics.net/v1/redir?i=1&a=1&b=1234567890",
+        "t" : "http://www.grio.com",
         "s" : "http://ads.b.playnomics.net/v1/impression?i=1&a=1&b=123457890",
         "f" : "http://redir.b.playnomics.net/v1/flag?i=1&a=1&b=1234567890",
         "d" : "http://ads.b.playnomics.net/v1/close?i=1&a=1&b=1234567890" },
