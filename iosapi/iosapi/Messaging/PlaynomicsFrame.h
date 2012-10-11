@@ -12,7 +12,7 @@
 @interface PlaynomicsFrame : NSObject
 
 // Frame ID as provided by the developer when retrieving the frame
-@property NSString *frameId;
+@property (retain) NSString *frameId;
 
 // Initialize a frame with the provided properties describing the ad meta data (images,
 //  action URL's, etc.).  NOTE:  This should NOT BE USED to directly instantiate

@@ -187,13 +187,13 @@ const NSString *HTTPS_ACTION_PREFIX = @"https";
     FSNConnection *_adImpressionConnection;
 }
 
-@synthesize frameId;
+@synthesize frameId = _frameId;
 
 
 #pragma mark - Lifecycle/Memory management
 - (id)initWithProperties:(NSDictionary *)properties forFrameId:(NSString *)aFrameId {
     if (self = [super init]) {
-        self.frameId = aFrameId;
+        _frameId = [aFrameId retain];
         _properties = [properties retain];
 
         [self _initOrientationChangeObservers];
