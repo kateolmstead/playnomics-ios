@@ -3,7 +3,8 @@
 //
 // To change the template use AppCode | Preferences | File Templates.
 //
-#import "PlaynomicsFrame.h"
+#import "PlaynomicsFrame+Exposed.h"
+#import "PlaynomicsMessaging+Exposed.h"
 #import "PNUtil.h"
 #import "FSNConnection.h"
 
@@ -57,7 +58,7 @@
     self = [super init];
     if (self) {
         NSLog(@"Creating ad component with properties: %@", aProperties);
-        _subComponents = [NSMutableArray array];
+        _subComponents = [[NSMutableArray array] retain];
         _properties = [aProperties retain];
         _frame = [aFrame retain];
         _touchHandler = aTouchHandler;
@@ -174,6 +175,8 @@ typedef NS_ENUM(NSInteger, AdAction) {
 
 const NSString *HTTP_ACTION_PREFIX = @"http";
 const NSString *HTTPS_ACTION_PREFIX = @"https";
+const NSString *PNACTION_ACTION_PREFIX = @"pna";
+const NSString *PNEXECUTE_ACTION_PREFIX = @"pnx";
 
 
 @implementation PlaynomicsFrame {
@@ -187,13 +190,13 @@ const NSString *HTTPS_ACTION_PREFIX = @"https";
     FSNConnection *_adImpressionConnection;
 }
 
-@synthesize frameId;
+@synthesize frameId = _frameId;
 
 
 #pragma mark - Lifecycle/Memory management
-- (id)initWithProperties:(NSDictionary *)properties forFrameId:(NSString *)aFrameId {
+- (id)initWithProperties:(NSDictionary *)properties forFrameId:(NSString *)frameId {
     if (self = [super init]) {
-        self.frameId = aFrameId;
+        _frameId = [frameId retain];
         _properties = [properties retain];
 
         [self _initOrientationChangeObservers];
@@ -212,7 +215,6 @@ const NSString *HTTPS_ACTION_PREFIX = @"https";
 
     [super dealloc];
 }
-
 
 - (void)_initAdComponents {
     _background = [[BaseAdComponent alloc] initWithProperties:[_properties objectForKey:FrameResponseBackgroundInfo]
@@ -309,13 +311,23 @@ const NSString *HTTPS_ACTION_PREFIX = @"https";
 
 - (void)_adClicked {
     NSString *clickTarget = [_adArea.properties objectForKey:FrameResponseAd_ClickTarget];
-    AdAction actionType = [self _determineActionType:clickTarget];
-    NSLog(@"Ad clicked with target (action type %i): %@", actionType, clickTarget);
+    NSURL *clickTargetUrl = [NSURL URLWithString:clickTarget];
+
+    AdAction actionType = [self _determineActionType:clickTargetUrl];
+    NSString *actionLabel = [self _determineActionLabel:clickTargetUrl];
+    NSLog(@"Ad clicked with target (action type %i): %@", actionType, actionLabel);
 
     switch (actionType) {
         case AdActionHTTP: {
-            NSURL *clickTargetUrl = [NSURL URLWithString:clickTarget];
             [[UIApplication sharedApplication] openURL:clickTargetUrl];
+            break;
+        }
+        case AdActionDefinedAction: {
+            [[PlaynomicsMessaging sharedInstance] performActionForLabel:actionLabel];
+            break;
+        }
+        case AdActionExecuteCode: {
+            [[PlaynomicsMessaging sharedInstance] executeActionOnDelegate:actionLabel];
             break;
         }
         default: {
@@ -323,16 +335,27 @@ const NSString *HTTPS_ACTION_PREFIX = @"https";
             break;
         }
     }
-
 }
 
-- (AdAction)_determineActionType: (NSString *)actionUrl {
-    if ([actionUrl hasPrefix:HTTP_ACTION_PREFIX] || [actionUrl hasPrefix:HTTPS_ACTION_PREFIX]) {
+- (AdAction)_determineActionType: (NSURL *)clickTargetUrl {
+    NSString *protocol = clickTargetUrl.scheme;
+
+    if ([protocol isEqualToString:HTTP_ACTION_PREFIX] || [protocol isEqualToString:HTTPS_ACTION_PREFIX]) {
         return AdActionHTTP;
+    } else if ([protocol isEqualToString:PNACTION_ACTION_PREFIX]) {
+        return AdActionDefinedAction;
+    } else if ([protocol isEqualToString:PNEXECUTE_ACTION_PREFIX]) {
+        return AdActionExecuteCode;
     } else {
         return AdActionUnknown;
     }
 }
+
+- (NSString *)_determineActionLabel:(NSURL *)url {
+    NSString *resource = url.resourceSpecifier;
+    return [resource stringByReplacingOccurrencesOfString:@"//" withString:@""];
+}
+
 
 #pragma mark - Public Interface
 - (void)start {

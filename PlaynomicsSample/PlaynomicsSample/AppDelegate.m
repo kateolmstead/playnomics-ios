@@ -9,8 +9,7 @@
 #import "AppDelegate.h"
 
 #import "ViewController.h"
-#import "PlaynomicsSession.h"
-#import "PlaynomicsFrame.h"
+
 
 @implementation AppDelegate
 
@@ -41,14 +40,48 @@
     self.window.rootViewController = self.viewController;
     [self.window makeKeyAndVisible];
 
-    NSError *error;
-    NSString *filePath = [[NSBundle mainBundle] pathForResource:@"sample_ad_data" ofType:@"js"];
-    NSMutableData *adResponse = [NSMutableData dataWithContentsOfFile:filePath];
-    NSMutableDictionary *props = [NSJSONSerialization JSONObjectWithData:adResponse options:kNilOptions error:&error];
 
-    PlaynomicsFrame *frame = [[PlaynomicsFrame alloc] initWithProperties:props forFrameId:@"init_frame"];
+
+    // Grab the shared (singleton) instance of the messaging class
+    PlaynomicsMessaging *messaging = [PlaynomicsMessaging sharedInstance];
+
+    // Register an action handler bound to the provided label.  You can set as many handlers as you want, as long
+    //   they are registered with unique names
+    [messaging registerActionHandler:self withLabel:@"test_action"];
+
+    // Set the delegate that execution targets will be called against.
+    messaging.delegate = self;
+
+    // Retrieve the ad frame you need using the provided Frame ID and start it.  Once all of the assets are loaded
+    //   the frame will display itself.
+    PlaynomicsFrame *frame = [messaging initFrameWithId:@"some_frame_id"];
     [frame start];
+
     return YES;
+}
+
+
+- (void)performAction {
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Test Action"
+                                                    message:@"You're performing a test ACTION.  Did I mention that Julio is AWESOME!"
+                                                   delegate:self
+                                          cancelButtonTitle:@"I Agree!"
+                                          otherButtonTitles:nil];
+    [alert show];
+    [alert release];
+}
+
+- (void)someRandomExecution {
+    /*
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Test Executiong"
+                                                    message:@"You're performing a test EXECUTION.  Did I mention that Julio is AWESOME!"
+                                                   delegate:self
+                                          cancelButtonTitle:@"He is!"
+                                          otherButtonTitles:nil];
+    [alert show];
+    [alert release];
+    */
+    @throw [NSException exceptionWithName:@"Test Exception" reason:@"Oopps...I was a bad boy" userInfo:nil];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application

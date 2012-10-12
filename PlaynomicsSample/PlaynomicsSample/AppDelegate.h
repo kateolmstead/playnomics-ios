@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PlaynomicsMessaging.h"
 
 @class ViewController;
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate>
+@interface AppDelegate : UIResponder <UIApplicationDelegate, PNAdClickActionHandler>
 
 @property (strong, nonatomic) UIWindow *window;
 

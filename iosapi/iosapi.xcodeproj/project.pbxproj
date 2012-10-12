@@ -7,10 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		42FBA043A28AE589CA13B57A /* sample_ad_data.js in Sources */ = {isa = PBXBuildFile; fileRef = 42FBA316EB6175A1B6CDF96B /* sample_ad_data.js */; };
 		42FBA45F0CE45688790D1F03 /* PlaynomicsFrame.h in Headers */ = {isa = PBXBuildFile; fileRef = 42FBAE69972626B043E69F63 /* PlaynomicsFrame.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		42FBA7777582C10C8946AC08 /* PlaynomicsFrame+Exposed.h in Headers */ = {isa = PBXBuildFile; fileRef = 42FBA2AFE7443DE409B560CF /* PlaynomicsFrame+Exposed.h */; };
 		42FBA77B7E7A8D298A75735B /* PlaynomicsMessaging.m in Sources */ = {isa = PBXBuildFile; fileRef = 42FBA58FB3169ECD201AF332 /* PlaynomicsMessaging.m */; };
 		42FBA86B3DB5A96A46894B6C /* PlaynomicsFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 42FBA6A45031F4F9AF62E056 /* PlaynomicsFrame.m */; };
 		42FBA8A8A461BB836E6655EB /* PlaynomicsMessaging.h in Headers */ = {isa = PBXBuildFile; fileRef = 42FBA94684FB9EBB0188D52A /* PlaynomicsMessaging.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		42FBA9A183BE219FBAD3FF73 /* PlaynomicsMessaging+Exposed.h in Headers */ = {isa = PBXBuildFile; fileRef = 42FBA83740CF5538D7EBDA36 /* PlaynomicsMessaging+Exposed.h */; };
 		5B589DBF15993764002B6251 /* PNConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 5B589DBE15993764002B6251 /* PNConfig.h */; };
 		5B6C6E1C1593F0F30088EF5E /* PNUtil.h in Headers */ = {isa = PBXBuildFile; fileRef = 5B6C6E1A1593F0F20088EF5E /* PNUtil.h */; };
 		5B6C6E1D1593F0F30088EF5E /* PNUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B6C6E1B1593F0F20088EF5E /* PNUtil.m */; };
@@ -62,8 +65,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		42FBA2AFE7443DE409B560CF /* PlaynomicsFrame+Exposed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PlaynomicsFrame+Exposed.h"; sourceTree = "<group>"; };
+		42FBA316EB6175A1B6CDF96B /* sample_ad_data.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = sample_ad_data.js; sourceTree = "<group>"; };
 		42FBA58FB3169ECD201AF332 /* PlaynomicsMessaging.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaynomicsMessaging.m; sourceTree = "<group>"; };
 		42FBA6A45031F4F9AF62E056 /* PlaynomicsFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaynomicsFrame.m; sourceTree = "<group>"; };
+		42FBA83740CF5538D7EBDA36 /* PlaynomicsMessaging+Exposed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PlaynomicsMessaging+Exposed.h"; sourceTree = "<group>"; };
 		42FBA94684FB9EBB0188D52A /* PlaynomicsMessaging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaynomicsMessaging.h; sourceTree = "<group>"; };
 		42FBAE69972626B043E69F63 /* PlaynomicsFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaynomicsFrame.h; sourceTree = "<group>"; };
 		5B589DBE15993764002B6251 /* PNConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = PNConfig.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
@@ -136,6 +142,8 @@
 		42FBA98924738D15AF3CE573 /* Messaging */ = {
 			isa = PBXGroup;
 			children = (
+				42FBA2AFE7443DE409B560CF /* PlaynomicsFrame+Exposed.h */,
+				42FBA83740CF5538D7EBDA36 /* PlaynomicsMessaging+Exposed.h */,
 				42FBA94684FB9EBB0188D52A /* PlaynomicsMessaging.h */,
 				42FBA58FB3169ECD201AF332 /* PlaynomicsMessaging.m */,
 				42FBAE69972626B043E69F63 /* PlaynomicsFrame.h */,
@@ -228,6 +236,8 @@
 		D1D922761590F59700EDDE17 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				42FBA316EB6175A1B6CDF96B /* sample_ad_data.js */,
+				42FBAF73B6A03CC40FE06F33,
 				D1D922771590F59700EDDE17 /* iosapi-Prefix.pch */,
 			);
 			name = "Supporting Files";
@@ -298,6 +308,8 @@
 				5B6C6E1C1593F0F30088EF5E /* PNUtil.h in Headers */,
 				5B589DBF15993764002B6251 /* PNConfig.h in Headers */,
 				5BBAA238159BE4CD00AA4993 /* PlaynomicsSession+Exposed.h in Headers */,
+				42FBA9A183BE219FBAD3FF73 /* PlaynomicsMessaging+Exposed.h in Headers */,
+				42FBA7777582C10C8946AC08 /* PlaynomicsFrame+Exposed.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -415,6 +427,7 @@
 				EADE24E21625F17500914040 /* FSN_categories.m in Sources */,
 				EADE24E41625F17500914040 /* FSNConnection.m in Sources */,
 				EADE24E61625F17500914040 /* FSNData.m in Sources */,
+				42FBA043A28AE589CA13B57A /* sample_ad_data.js in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
