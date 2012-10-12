@@ -32,14 +32,23 @@ typedef enum {
 } PNSessionState;
 
 /*************** MACROS *****************/
+/*!
+* @function Singleton GCD Macro
+*/
+
+
+
 // Singleton Macro
+#ifndef DEFINE_SHARED_INSTANCE_USING_BLOCK
 #define DEFINE_SHARED_INSTANCE_USING_BLOCK(block) \
-static dispatch_once_t pred = 0; \
-__strong static id _sharedObject = nil; \
-dispatch_once(&pred, ^{ \
-_sharedObject = block(); \
-}); \
-return _sharedObject;
+    static dispatch_once_t pred = 0;              \
+    __strong static id _sharedObject = nil;       \
+                                                  \
+    dispatch_once(&pred, ^{                       \
+        _sharedObject = block();                  \
+    });                                           \
+    return _sharedObject;
+#endif
 
 
 // User Default Keys
