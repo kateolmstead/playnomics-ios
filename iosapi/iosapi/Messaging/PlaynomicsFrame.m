@@ -186,8 +186,6 @@ const NSString *PNEXECUTE_ACTION_PREFIX = @"pnx";
     BaseAdComponent *_adArea;
     BaseAdComponent *_closeButton;
     UIDeviceOrientation _currentOrientation;
-
-    FSNConnection *_adImpressionConnection;
 }
 
 @synthesize frameId = _frameId;
@@ -201,7 +199,6 @@ const NSString *PNEXECUTE_ACTION_PREFIX = @"pnx";
 
         [self _initOrientationChangeObservers];
         [self _initAdComponents];
-        [self _initAdImpressionConnection];
     }
     return self;
 }
@@ -211,7 +208,6 @@ const NSString *PNEXECUTE_ACTION_PREFIX = @"pnx";
     [_background release];
     [_adArea release];
     [_closeButton release];
-    [_adImpressionConnection release];
 
     [super dealloc];
 }
@@ -250,27 +246,6 @@ const NSString *PNEXECUTE_ACTION_PREFIX = @"pnx";
     return [[_properties objectForKey:FrameResponseAds] objectAtIndex:0];
 }
 
-- (void)_initAdImpressionConnection {
-    NSString *impressionUrl = [_adArea.properties objectForKey:FrameResponseAd_ImpressionUrl];
-    NSURL *url = [NSURL URLWithString:impressionUrl];
-    NSLog(@"Submitting GET request to impression URL: %@", impressionUrl);
-
-    FSNConnection *connection =
-            [FSNConnection withUrl:url
-                            method:FSNRequestMethodGET
-                           headers:nil
-                        parameters:nil
-                        parseBlock:^id(FSNConnection *c, NSError **error) {
-                            return [c.responseData stringFromUTF8];
-                        }
-                   completionBlock:^(FSNConnection *c) {
-                       NSLog(@"Impression URL complete: error: %@, result: %@", c.error, c.parseResult);
-                   }
-                     progressBlock:nil];
-
-    _adImpressionConnection = connection;
-}
-
 
 #pragma mark - Orientation handlers
 - (void)_initOrientationChangeObservers {
@@ -305,9 +280,10 @@ const NSString *PNEXECUTE_ACTION_PREFIX = @"pnx";
 #pragma mark - Ad component click handlers
 - (void)_stop {
     NSLog(@"Close button was pressed...");
-    [_background hide];
-    [self _destroyOrientationObservers];
+    [self _closeAd];
+    [self _submitAdImpressionToServer:[_adArea.properties objectForKey:FrameResponseAd_CloseUrl]];
 }
+
 
 - (void)_adClicked {
     NSString *clickTarget = [_adArea.properties objectForKey:FrameResponseAd_ClickTarget];
@@ -335,6 +311,8 @@ const NSString *PNEXECUTE_ACTION_PREFIX = @"pnx";
             break;
         }
     }
+
+    [self _closeAd];
 }
 
 - (AdAction)_determineActionType: (NSURL *)clickTargetUrl {
@@ -356,11 +334,37 @@ const NSString *PNEXECUTE_ACTION_PREFIX = @"pnx";
     return [resource stringByReplacingOccurrencesOfString:@"//" withString:@""];
 }
 
+- (void)_closeAd {
+    [_background hide];
+    [self _destroyOrientationObservers];
+}
+
 
 #pragma mark - Public Interface
 - (void)start {
     [_background display];
-    [_adImpressionConnection start];
+    [self _submitAdImpressionToServer:[_adArea.properties objectForKey:FrameResponseAd_ImpressionUrl]];
 }
+
+- (void)_submitAdImpressionToServer:(NSString *)impressionUrl {
+    NSURL *url = [NSURL URLWithString:impressionUrl];
+    NSLog(@"Submitting GET request to impression URL: %@", impressionUrl);
+
+    FSNConnection *connection =
+            [FSNConnection withUrl:url
+                            method:FSNRequestMethodGET
+                           headers:nil
+                        parameters:nil
+                        parseBlock:^id(FSNConnection *c, NSError **error) {
+                            return [c.responseData stringFromUTF8];
+                        }
+                   completionBlock:^(FSNConnection *c) {
+                       NSLog(@"Impression URL complete: error: %@, result: %@", c.error, c.parseResult);
+                   }
+                     progressBlock:nil];
+
+    [connection start];
+}
+
 
 @end

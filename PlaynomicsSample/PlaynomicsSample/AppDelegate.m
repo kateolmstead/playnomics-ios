@@ -72,7 +72,6 @@
 }
 
 - (void)someRandomExecution {
-    /*
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Test Executiong"
                                                     message:@"You're performing a test EXECUTION.  Did I mention that Julio is AWESOME!"
                                                    delegate:self
@@ -80,8 +79,8 @@
                                           otherButtonTitles:nil];
     [alert show];
     [alert release];
-    */
-    @throw [NSException exceptionWithName:@"Test Exception" reason:@"Oopps...I was a bad boy" userInfo:nil];
+
+    // @throw [NSException exceptionWithName:@"Test Exception" reason:@"Oopps...I was a bad boy" userInfo:nil];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application
