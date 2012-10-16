@@ -100,7 +100,7 @@
     }
 
     UIDeviceOrientation orientation = [PNUtil getCurrentOrientation];
-    if (orientation == 0 || orientation == UIDeviceOrientationPortrait) {
+    if (orientation == UIDeviceOrientationUnknown || UIDeviceOrientationIsPortrait(orientation)) {
         return [self.properties objectForKey:FrameResponseBackground_Portrait];
     } else {
         return [self.properties objectForKey:FrameResponseBackground_Landscape];
