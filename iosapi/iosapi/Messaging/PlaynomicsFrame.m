@@ -190,7 +190,18 @@ const NSString *PNEXECUTE_ACTION_PREFIX = @"pnx";
 - (DisplayResult)start {
     [_background display];
     [self _submitAdImpressionToServer:[_adArea.properties objectForKey:FrameResponseAd_ImpressionUrl]];
-    return DisplayResultDisplayed;
+
+    if ([self _allComponentsLoaded]) {
+        return DisplayResultDisplayed;
+    } else {
+        return DisplayResultDisplayPending;
+    }
+}
+
+- (BOOL)_allComponentsLoaded {
+    return (_background.status == AdComponentStatusCompleted
+            && _adArea.status == AdComponentStatusCompleted
+            && _closeButton.status == AdComponentStatusCompleted);
 }
 
 - (void)_submitAdImpressionToServer:(NSString *)impressionUrl {

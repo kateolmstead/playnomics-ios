@@ -55,8 +55,8 @@
     // Retrieve the ad frame you need using the provided Frame ID and start it.  Once all of the assets are loaded
     //   the frame will display itself.
     PlaynomicsFrame *frame = [messaging initFrameWithId:@"some_frame_id"];
-    [frame start];
-
+    DisplayResult result = [frame start];
+    NSLog(@"Result of calling start: %i", result);
     return YES;
 }
 
