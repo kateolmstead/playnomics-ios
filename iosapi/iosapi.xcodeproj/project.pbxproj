@@ -8,12 +8,16 @@
 
 /* Begin PBXBuildFile section */
 		42FBA043A28AE589CA13B57A /* sample_ad_data.js in Sources */ = {isa = PBXBuildFile; fileRef = 42FBA316EB6175A1B6CDF96B /* sample_ad_data.js */; };
+		42FBA161B545690CAB288778 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 42FBA31723094AA68C66A835 /* Reachability.m */; };
 		42FBA45F0CE45688790D1F03 /* PlaynomicsFrame.h in Headers */ = {isa = PBXBuildFile; fileRef = 42FBAE69972626B043E69F63 /* PlaynomicsFrame.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		42FBA7777582C10C8946AC08 /* PlaynomicsFrame+Exposed.h in Headers */ = {isa = PBXBuildFile; fileRef = 42FBA2AFE7443DE409B560CF /* PlaynomicsFrame+Exposed.h */; };
 		42FBA77B7E7A8D298A75735B /* PlaynomicsMessaging.m in Sources */ = {isa = PBXBuildFile; fileRef = 42FBA58FB3169ECD201AF332 /* PlaynomicsMessaging.m */; };
 		42FBA86B3DB5A96A46894B6C /* PlaynomicsFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 42FBA6A45031F4F9AF62E056 /* PlaynomicsFrame.m */; };
 		42FBA8A8A461BB836E6655EB /* PlaynomicsMessaging.h in Headers */ = {isa = PBXBuildFile; fileRef = 42FBA94684FB9EBB0188D52A /* PlaynomicsMessaging.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		42FBA9A183BE219FBAD3FF73 /* PlaynomicsMessaging+Exposed.h in Headers */ = {isa = PBXBuildFile; fileRef = 42FBA83740CF5538D7EBDA36 /* PlaynomicsMessaging+Exposed.h */; };
+		42FBAA410D82777A5A605276 /* Reachability.h in Headers */ = {isa = PBXBuildFile; fileRef = 42FBA179148E9DA8C082B9C8 /* Reachability.h */; };
+		42FBAA7C5B8DA6655154B980 /* BaseAdComponent.h in Headers */ = {isa = PBXBuildFile; fileRef = 42FBABEA0EE1DB6D101DCBF4 /* BaseAdComponent.h */; };
+		42FBAC6C9B82A5B36D318FE1 /* BaseAdComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = 42FBA43470BA1417AC7381CC /* BaseAdComponent.m */; };
 		5B589DBF15993764002B6251 /* PNConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 5B589DBE15993764002B6251 /* PNConfig.h */; };
 		5B6C6E1C1593F0F30088EF5E /* PNUtil.h in Headers */ = {isa = PBXBuildFile; fileRef = 5B6C6E1A1593F0F20088EF5E /* PNUtil.h */; };
 		5B6C6E1D1593F0F30088EF5E /* PNUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B6C6E1B1593F0F20088EF5E /* PNUtil.m */; };
@@ -65,12 +69,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		42FBA179148E9DA8C082B9C8 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		42FBA2AFE7443DE409B560CF /* PlaynomicsFrame+Exposed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PlaynomicsFrame+Exposed.h"; sourceTree = "<group>"; };
 		42FBA316EB6175A1B6CDF96B /* sample_ad_data.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = sample_ad_data.js; sourceTree = "<group>"; };
+		42FBA31723094AA68C66A835 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		42FBA43470BA1417AC7381CC /* BaseAdComponent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseAdComponent.m; sourceTree = "<group>"; };
 		42FBA58FB3169ECD201AF332 /* PlaynomicsMessaging.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaynomicsMessaging.m; sourceTree = "<group>"; };
 		42FBA6A45031F4F9AF62E056 /* PlaynomicsFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaynomicsFrame.m; sourceTree = "<group>"; };
 		42FBA83740CF5538D7EBDA36 /* PlaynomicsMessaging+Exposed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PlaynomicsMessaging+Exposed.h"; sourceTree = "<group>"; };
 		42FBA94684FB9EBB0188D52A /* PlaynomicsMessaging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaynomicsMessaging.h; sourceTree = "<group>"; };
+		42FBABEA0EE1DB6D101DCBF4 /* BaseAdComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseAdComponent.h; sourceTree = "<group>"; };
 		42FBAE69972626B043E69F63 /* PlaynomicsFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaynomicsFrame.h; sourceTree = "<group>"; };
 		5B589DBE15993764002B6251 /* PNConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = PNConfig.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		5B6C6E1A1593F0F20088EF5E /* PNUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = PNUtil.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
@@ -148,8 +156,18 @@
 				42FBA58FB3169ECD201AF332 /* PlaynomicsMessaging.m */,
 				42FBAE69972626B043E69F63 /* PlaynomicsFrame.h */,
 				42FBA6A45031F4F9AF62E056 /* PlaynomicsFrame.m */,
+				42FBAB19F19EF89A69C6235A /* Support */,
 			);
 			path = Messaging;
+			sourceTree = "<group>";
+		};
+		42FBAB19F19EF89A69C6235A /* Support */ = {
+			isa = PBXGroup;
+			children = (
+				42FBA43470BA1417AC7381CC /* BaseAdComponent.m */,
+				42FBABEA0EE1DB6D101DCBF4 /* BaseAdComponent.h */,
+			);
+			path = Support;
 			sourceTree = "<group>";
 		};
 		5B6C6E141593CC480088EF5E /* Event */ = {
@@ -178,6 +196,8 @@
 				5B753E2F159D2D5000E698F9 /* PNRandomGenerator.m */,
 				5B6C6E1A1593F0F20088EF5E /* PNUtil.h */,
 				5B6C6E1B1593F0F20088EF5E /* PNUtil.m */,
+				42FBA31723094AA68C66A835 /* Reachability.m */,
+				42FBA179148E9DA8C082B9C8 /* Reachability.h */,
 			);
 			name = Util;
 			sourceTree = "<group>";
@@ -310,6 +330,8 @@
 				5BBAA238159BE4CD00AA4993 /* PlaynomicsSession+Exposed.h in Headers */,
 				42FBA9A183BE219FBAD3FF73 /* PlaynomicsMessaging+Exposed.h in Headers */,
 				42FBA7777582C10C8946AC08 /* PlaynomicsFrame+Exposed.h in Headers */,
+				42FBAA7C5B8DA6655154B980 /* BaseAdComponent.h in Headers */,
+				42FBAA410D82777A5A605276 /* Reachability.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -428,6 +450,8 @@
 				EADE24E41625F17500914040 /* FSNConnection.m in Sources */,
 				EADE24E61625F17500914040 /* FSNData.m in Sources */,
 				42FBA043A28AE589CA13B57A /* sample_ad_data.js in Sources */,
+				42FBAC6C9B82A5B36D318FE1 /* BaseAdComponent.m in Sources */,
+				42FBA161B545690CAB288778 /* Reachability.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
