@@ -7,11 +7,13 @@
 
 #import "BaseAdComponent.h"
 #import "PNUtil.h"
+#import "FSNConnection.h"
 
 
 @implementation BaseAdComponent {
-@private
+  @private
     NSMutableArray *_subComponents;
+    UIImage *_image;
 }
 
 @synthesize properties = _properties;
@@ -19,11 +21,14 @@
 @synthesize imageUrl = _imageUrl;
 @synthesize parentComponent = _parentComponent;
 @synthesize frame = _frame;
+
 @synthesize xOffset = _xOffset;
 @synthesize yOffset = _yOffset;
 @synthesize height = _height;
 @synthesize width = _width;
 @synthesize touchHandler = _touchHandler;
+@synthesize status = _status;
+
 
 #pragma mark - Lifecycle/Memory management
 - (id)initWithProperties:(NSDictionary *)aProperties
@@ -36,6 +41,7 @@
         _properties = [aProperties retain];
         _frame = [aFrame retain];
         _touchHandler = aTouchHandler;
+        _status = AdComponentStatusPending;
     }
     return self;
 }
@@ -47,15 +53,16 @@
     [_imageUrl release];
     [_parentComponent release];
     [_frame release];
+    [_image release];
+
     [super dealloc];
 }
 
 #pragma mark - Public Interface
 - (void)layoutComponent {
     [self _initCoordinateValues];
-    [self _createBackgroundUI];
-    [self _setupTapRecognizer];
-    [self.imageUI setNeedsDisplay];
+    [self _createComponentView];
+    [self _startImageDownload];
 }
 
 - (void)_initCoordinateValues {
@@ -81,10 +88,9 @@
     }
 }
 
-- (void)_createBackgroundUI {
+- (void)_createComponentView {
     CGRect backgroundRect = CGRectMake(self.xOffset, self.yOffset, self.width, self.height);
     NSLog(@"Frame for component image view (%@): %@", self.imageUrl, NSStringFromCGRect(backgroundRect));
-    UIImage *image = [self _loadImage];
 
     if (self.imageUI == nil) {
         UIImageView *newImageView = [[UIImageView alloc] init];
@@ -95,21 +101,34 @@
     }
 
     self.imageUI.frame = backgroundRect;
-    if (image) {
-        [self.imageUI setImage:image];
-    }
 }
 
-- (UIImage *)_loadImage {
+- (void)_startImageDownload {
     NSURL *url = [NSURL URLWithString:self.imageUrl];
-    NSError *error = nil;
+    FSNConnection *connection =
+            [FSNConnection withUrl:url
+                            method:FSNRequestMethodGET
+                           headers:nil
+                        parameters:nil
+                        parseBlock:nil
+                   completionBlock:^(FSNConnection *c) { [self _handleImageDownloadCompletion:c]; }
+                     progressBlock:nil];
 
-    NSData *imageData = [NSData dataWithContentsOfURL:url options:NSDataReadingUncached error:&error];
-    if (error) {
-        NSLog(@"Error occurred retrieving image from URL '%@': %@", self.imageUrl, error.description);
-        return nil;
+    [connection start];
+}
+
+- (void)_handleImageDownloadCompletion:(FSNConnection *)connection {
+    if (connection.error) {
+        NSLog(@"Error retrieving image from the internet: %@", connection.error.localizedDescription);
+        self.status = AdComponentStatusError;
+    } else {
+        [self _setupTapRecognizer];
+
+        self.imageUI.image =  [UIImage imageWithData:connection.responseData];
+        [self.imageUI setNeedsDisplay];
+
+        self.status = AdComponentStatusCompleted;
     }
-    return [UIImage imageWithData:imageData];
 }
 
 -(void)_setupTapRecognizer {

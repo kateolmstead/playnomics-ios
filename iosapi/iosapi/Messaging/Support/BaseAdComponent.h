@@ -7,6 +7,11 @@
 #import <Foundation/Foundation.h>
 #import "PlaynomicsFrame+Exposed.h"
 
+typedef NS_ENUM(NSInteger , AdComponentStatus) {
+    AdComponentStatusPending,   // Component is waiting for image download to complete
+    AdComponentStatusCompleted, // Component has completed image download and is ready to be displayed
+    AdComponentStatusError      // Component experienced an error retrieving image
+};
 
 @interface BaseAdComponent : NSObject<NSURLConnectionDelegate>
 
@@ -16,6 +21,8 @@
 @property (retain) BaseAdComponent *parentComponent;
 @property (retain) PlaynomicsFrame *frame;
 
+
+@property AdComponentStatus status;
 @property float xOffset;
 @property float yOffset;
 @property float height;
