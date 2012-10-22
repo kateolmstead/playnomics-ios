@@ -109,7 +109,7 @@ const NSString *PNEXECUTE_ACTION_PREFIX = @"pnx";
 }
 
 - (void)_deviceOrientationDidChange:(NSNotification *)notification {
-    UIDeviceOrientation *orientation = [PNUtil getCurrentOrientation];
+    UIDeviceOrientation orientation = [PNUtil getCurrentOrientation];
     if (orientation == UIDeviceOrientationFaceUp
             || orientation == UIDeviceOrientationFaceDown
             || orientation == UIDeviceOrientationUnknown
