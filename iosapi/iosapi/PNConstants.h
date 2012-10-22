@@ -75,7 +75,7 @@ typedef enum {
 // Ad Response: Ad information keys
 #define FrameResponseAd_PrimaryImage @"i"
 #define FrameResponseAd_RolloverImage @"r"
-#define FrameResponseAd_ToolTipText @"x
+#define FrameResponseAd_ToolTipText @"x"
 #define FrameResponseAd_ClickTarget @"t"
 #define FrameResponseAd_PreExecuteUrl @"u"
 #define FrameResponseAd_PostExecuteUrl @"v"

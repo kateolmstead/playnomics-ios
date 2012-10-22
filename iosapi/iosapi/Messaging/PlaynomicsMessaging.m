@@ -32,6 +32,7 @@
 - (void)dealloc {
     [_actionHandlers release];
     [_delegate release];
+    [super dealloc];
 }
 
 - (void)registerActionHandler:(id <PNAdClickActionHandler>)clickAction withLabel:(NSString *)label {

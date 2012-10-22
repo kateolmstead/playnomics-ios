@@ -109,7 +109,7 @@ const NSString *PNEXECUTE_ACTION_PREFIX = @"pnx";
 }
 
 - (void)_deviceOrientationDidChange:(NSNotification *)notification {
-    UIDeviceOrientation *orientation = [PNUtil getCurrentOrientation];
+    UIDeviceOrientation orientation = [PNUtil getCurrentOrientation];
     if (orientation == UIDeviceOrientationFaceUp
             || orientation == UIDeviceOrientationFaceDown
             || orientation == UIDeviceOrientationUnknown
@@ -171,6 +171,7 @@ const NSString *PNEXECUTE_ACTION_PREFIX = @"pnx";
     } else if ([protocol isEqualToString:PNEXECUTE_ACTION_PREFIX]) {
         return AdActionExecuteCode;
     } else {
+        NSLog(@"An unknown protocol was received, can't determine action type: %@", protocol);
         return AdActionUnknown;
     }
 }
