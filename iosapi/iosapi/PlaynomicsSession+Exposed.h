@@ -13,7 +13,14 @@
  *  Only use this within the Static Lib.
  */
 
-@interface PlaynomicsSession (Exposed)
+@interface PlaynomicsSession ()
+
+@property (nonatomic, assign) bool testMode;
+@property (nonatomic, readonly) signed long long applicationId;
+@property (nonatomic, readonly) NSString * userId;
+@property (nonatomic, readonly) NSString * cookieId;
+@property (nonatomic, readonly) NSString * sessionId;
+@property (nonatomic, readonly) PNSessionState sessionState;
 
 + (PlaynomicsSession *)sharedInstance;
 

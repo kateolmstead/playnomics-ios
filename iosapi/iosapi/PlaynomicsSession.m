@@ -49,10 +49,7 @@
 	int _keys;
 	int _totalKeys;
 }
-@property (nonatomic, readonly) signed long long applicationId;
-@property (nonatomic, readonly) NSString * userId;
-@property (nonatomic, readonly) NSString * sessionId;
-@property (nonatomic, assign) bool testMode;
+
 @property (atomic, readonly) PNEventSender * eventSender;
 @property (atomic, readonly) NSMutableArray * playnomicsEventList;
 
@@ -73,7 +70,9 @@
 @implementation PlaynomicsSession
 @synthesize applicationId=_applicationId;
 @synthesize userId=_userId;
+@synthesize cookieId=_cookieId;
 @synthesize sessionId=_sessionId;
+@synthesize sessionState=_sessionState;
 @synthesize testMode=_testMode;
 @synthesize eventSender=_eventSender;
 @synthesize playnomicsEventList=_playnomicsEventList;
@@ -87,13 +86,14 @@
 
 + (void) setTestMode: (bool) testMode {
     @try {
+        [[PlaynomicsSession sharedInstance] setTestMode: testMode];
         [[PlaynomicsSession sharedInstance] eventSender].testMode = testMode;
     }
     @catch (NSException *exception) {
         NSLog(@"setTestMode error: %@", exception.description);
     }
 }
- 
+
 + (PNAPIResult) changeUserWithUserId:(NSString *)userId {
     @try {
         [[PlaynomicsSession sharedInstance] stop];

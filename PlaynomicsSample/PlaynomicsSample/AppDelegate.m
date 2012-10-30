@@ -50,7 +50,7 @@
     [messaging registerActionHandler:self withLabel:@"test_action"];
 
     // Set the delegate that execution targets will be called against.
-    messaging.delegate = self;
+//    messaging.delegate = self;
 
     // Retrieve the ad frame you need using the provided Frame ID and start it.  Once all of the assets are loaded
     //   the frame will display itself.

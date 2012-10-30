@@ -2,9 +2,11 @@
 // Created by jmistral on 10/3/12.
 //
 
+#import "PlaynomicsSession+Exposed.h"
 #import "PlaynomicsMessaging+Exposed.h"
 #import "PlaynomicsFrame+Exposed.h"
 #import "PNConstants.h"
+#import "PNConfig.h"
 
 
 @implementation PlaynomicsMessaging {
@@ -36,20 +38,43 @@
 }
 
 - (void)registerActionHandler:(id <PNAdClickActionHandler>)clickAction withLabel:(NSString *)label {
+    
     [_actionHandlers setObject:clickAction forKey:label];
 }
 
 - (PlaynomicsFrame *)initFrameWithId:(NSString *)frameId {
-    PlaynomicsFrame *frame = [[PlaynomicsFrame alloc] initWithProperties:[self _retrieveFramePropertiesForId:frameId]
+    // Get caller for debuging purposes
+    NSString *sourceString = [[NSThread callStackSymbols] objectAtIndex:1];
+    NSCharacterSet *separatorSet = [NSCharacterSet characterSetWithCharactersInString:@" -[]+?.,"];
+    NSMutableArray *array = [NSMutableArray arrayWithArray:[sourceString  componentsSeparatedByCharactersInSet:separatorSet]];
+    [array removeObject:@""];
+    
+    NSString *caller = [array objectAtIndex:4];
+    PlaynomicsFrame *frame = [[PlaynomicsFrame alloc] initWithProperties:[self _retrieveFramePropertiesForId:frameId withCaller:caller]
                                                               forFrameId:frameId];
     return [frame autorelease];
 }
 
-- (NSDictionary *)_retrieveFramePropertiesForId:(NSString *)frameId
+- (NSDictionary *)_retrieveFramePropertiesForId:(NSString *)frameId withCaller: (NSString *) caller
 {
     NSError *error;
-    NSString *filePath = [[NSBundle mainBundle] pathForResource:@"sample_ad_data" ofType:@"js"];
-    NSMutableData *adResponse = [NSMutableData dataWithContentsOfFile:filePath];
+    PlaynomicsSession *pn = [PlaynomicsSession sharedInstance];
+    signed long long time = [[NSDate date] timeIntervalSince1970] * 1000;
+    
+    NSString *queryString = [NSString stringWithFormat:@"?a=%lld&u=%@&p=%@&t=%lld&b=%@&f=%@", pn.applicationId, pn.userId, caller, time, pn.cookieId, frameId];
+    NSString *serverUrl;
+    // Check for test mode
+    if ([pn testMode]) {
+        // TODO: switch from debug when server is ready
+        serverUrl = PNPropertyMessagingDebugUrl;
+    } else {
+        serverUrl = PNPropertyMessagingProdUrl;
+    }
+    
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", serverUrl, queryString]];
+    
+    NSLog(@"calling ad server: %@", url.absoluteString);
+    NSMutableData *adResponse = [NSMutableData dataWithContentsOfURL: url];
     NSDictionary *props = [NSJSONSerialization JSONObjectWithData:adResponse options:kNilOptions error:&error];
 
     return props;

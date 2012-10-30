@@ -8,6 +8,7 @@
 #import "BaseAdComponent.h"
 #import "PNUtil.h"
 #import "FSNConnection.h"
+#import "AnimatedGif.h"
 
 
 @implementation BaseAdComponent {
@@ -104,17 +105,23 @@
 }
 
 - (void)_startImageDownload {
+    
     NSURL *url = [NSURL URLWithString:self.imageUrl];
-    FSNConnection *connection =
-            [FSNConnection withUrl:url
-                            method:FSNRequestMethodGET
-                           headers:nil
-                        parameters:nil
-                        parseBlock:nil
-                   completionBlock:^(FSNConnection *c) { [self _handleImageDownloadCompletion:c]; }
-                     progressBlock:nil];
-
-    [connection start];
+    if ([self.imageUrl hasSuffix:@".gif"]) {
+        self.imageUI = [AnimatedGif getAnimationForGifAtUrl:url];
+        [self _finishImageSetup];
+    } else {
+        FSNConnection *connection =
+        [FSNConnection withUrl:url
+                        method:FSNRequestMethodGET
+                       headers:nil
+                    parameters:nil
+                    parseBlock:nil
+               completionBlock:^(FSNConnection *c) { [self _handleImageDownloadCompletion:c]; }
+                 progressBlock:nil];
+        
+        [connection start];        
+    }
 }
 
 - (void)_handleImageDownloadCompletion:(FSNConnection *)connection {
@@ -122,13 +129,15 @@
         NSLog(@"Error retrieving image from the internet: %@", connection.error.localizedDescription);
         self.status = AdComponentStatusError;
     } else {
-        [self _setupTapRecognizer];
-
         self.imageUI.image =  [UIImage imageWithData:connection.responseData];
-        [self.imageUI setNeedsDisplay];
-
-        self.status = AdComponentStatusCompleted;
+        [self _finishImageSetup];
     }
+}
+
+- (void)_finishImageSetup {
+    [self _setupTapRecognizer];    
+    [self.imageUI setNeedsDisplay];    
+    self.status = AdComponentStatusCompleted;
 }
 
 -(void)_setupTapRecognizer {

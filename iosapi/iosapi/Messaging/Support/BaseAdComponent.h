@@ -33,9 +33,9 @@ typedef NS_ENUM(NSInteger , AdComponentStatus) {
                 forFrame:(PlaynomicsFrame *)aFrame
         withTouchHandler:(SEL)aTouchHandler;
 
-- (id)layoutComponent;
+- (void)layoutComponent;
 
-- (id)addSubComponent:(BaseAdComponent*)subView;
+- (void)addSubComponent:(BaseAdComponent*)subView;
 
 - (void)display;
 

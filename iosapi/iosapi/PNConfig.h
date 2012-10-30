@@ -16,6 +16,11 @@
 #define PNPropertyBaseTestUrl @"https://test.b.playnomics.net/v1/"
 #define PNPropertyBaseProdUrl @"https://e.a.playnomics.net/v1/"
 
+//TODO: get correct urls
+#define PNPropertyMessagingDebugUrl @"http://pn-qa.grio.com/sample_ad_data-animated.js"
+#define PNPropertyMessagingTestUrl @"http://pn-qa.grio.com/sample_ad_data.js"
+#define PNPropertyMessagingProdUrl @"http://pn-qa.grio.com/sample_ad_data.js"
+
 #define PNPropertyVersion @"7"
 // Connection timeout in seconds
 #define PNPropertyConnectionTimeout 5
