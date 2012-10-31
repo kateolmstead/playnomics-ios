@@ -12,6 +12,7 @@
 @implementation PlaynomicsMessaging {
   @private
     NSMutableDictionary *_actionHandlers;
+    NSMutableDictionary *_frames;
     id _delegate;
 }
 
@@ -27,6 +28,7 @@
 - (id)init {
     if (self = [super init]) {
         _actionHandlers = [[NSMutableDictionary dictionary] retain];
+        _frames = [[NSMutableDictionary dictionary] retain];
     }
     return self;
 }
@@ -51,7 +53,8 @@
     
     NSString *caller = [array objectAtIndex:4];
     PlaynomicsFrame *frame = [[PlaynomicsFrame alloc] initWithProperties:[self _retrieveFramePropertiesForId:frameId withCaller:caller]
-                                                              forFrameId:frameId];
+                                                              forFrameId:frameId andDelegate: self];
+    [_frames setObject:frame forKey:frameId];
     return [frame autorelease];
 }
 
@@ -67,6 +70,7 @@
     NSString *queryString = [NSString stringWithFormat:@"?a=%lld&u=%@&p=%@&t=%lld&b=%@&f=%@&c=%d&d=%d&esrc=ios&ever=%@",
                              pn.applicationId, pn.userId, caller, time, pn.cookieId, frameId, screenHeight, screenWidth, PNPropertyVersion];
     NSString *serverUrl;
+    
     // Check for test mode
     if ([pn testMode]) {
         serverUrl = PNPropertyMessagingTestUrl;
@@ -108,6 +112,15 @@
     }
     @catch (NSException *e) {
         NSLog(@"There was an exception thrown executing action '%@': [%@] %@", action, e.name, e.reason);
+    }
+}
+
+- (void) refreshFrameWithId: (NSString *) frameId {
+    
+    // refresh ad
+    PlaynomicsFrame *frame = [_frames objectForKey:frameId];
+    if (frame != nil) {
+        [frame refreshProperties:[self _retrieveFramePropertiesForId:frameId withCaller:nil]];
     }
 }
 

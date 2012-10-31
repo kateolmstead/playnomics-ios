@@ -7,8 +7,9 @@
 
 #import <Foundation/Foundation.h>
 #import "PlaynomicsMessaging.h"
+#import "PlaynomicsFrame+Exposed.h"
 
-@interface PlaynomicsMessaging (Exposed)
+@interface PlaynomicsMessaging (Exposed) <PNFrameRefreshHandler>
 
 // Retrieve the action handler bound to the label and perform the action on it.  If no handler is bound
 //   to the provided label, nothing occurrs and no error is sent.

@@ -114,6 +114,7 @@
 - (void)_startImageDownload {
     
     NSURL *url = [NSURL URLWithString:self.imageUrl];
+    
     if ([self.imageUrl hasSuffix:@".gif"]) {
         self.imageUI = [AnimatedGif getAnimationForGifAtUrl:url];
         [self _finishImageSetup];
@@ -158,6 +159,8 @@
     subComponent.parentComponent = self;
     [_subComponents addObject:subComponent];
     [self.imageUI addSubview:subComponent.imageUI];
+    subComponent.imageUI.frame = CGRectMake(subComponent.xOffset, subComponent.yOffset, subComponent.width, subComponent.height);
+
 }
 
 - (void)display {

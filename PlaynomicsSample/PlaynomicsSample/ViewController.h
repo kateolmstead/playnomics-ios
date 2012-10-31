@@ -8,8 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "PlaynomicsSession.h"
+#import "PlaynomicsFrame.h"
+#import "PlaynomicsMessaging.h"
 
-@interface ViewController : UIViewController
+@interface ViewController : UIViewController <PNAdClickActionHandler>
 
 @property (nonatomic, retain) IBOutlet UITextField *transactionCount;
 

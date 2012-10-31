@@ -27,22 +27,26 @@ const NSString *PNEXECUTE_ACTION_PREFIX = @"pnx";
 
 @implementation PlaynomicsFrame {
   @private
+    NSTimer *_expirationTimer;
     NSDictionary *_properties;
     BaseAdComponent *_background;
     BaseAdComponent *_adArea;
     BaseAdComponent *_closeButton;
+    int _expirationSeconds;
     UIDeviceOrientation _currentOrientation;
+    id<PNFrameRefreshHandler> _delegate;
 }
 
 @synthesize frameId = _frameId;
 
 
 #pragma mark - Lifecycle/Memory management
-- (id)initWithProperties:(NSDictionary *)properties forFrameId:(NSString *)frameId {
+- (id)initWithProperties:(NSDictionary *)properties forFrameId:(NSString *)frameId andDelegate: (id<PNFrameRefreshHandler>) delegate {
     if (self = [super init]) {
         _frameId = [frameId retain];
         _properties = [properties retain];
-
+        _delegate = delegate;
+        
         [self _initOrientationChangeObservers];
         [self _initAdComponents];
     }
@@ -54,7 +58,7 @@ const NSString *PNEXECUTE_ACTION_PREFIX = @"pnx";
     [_background release];
     [_adArea release];
     [_closeButton release];
-
+    [_frameId release];
     [super dealloc];
 }
 
@@ -70,7 +74,10 @@ const NSString *PNEXECUTE_ACTION_PREFIX = @"pnx";
     _closeButton = [[BaseAdComponent alloc] initWithProperties:[_properties objectForKey:FrameResponseCloseButtonInfo]
                                                       forFrame:self
                                               withTouchHandler:@selector(_stop)];
-
+    
+    NSNumber *expNum = [_properties objectForKey:FrameResponseExpiration];
+    _expirationSeconds = [expNum intValue];
+    
     [_background layoutComponent];
     [_adArea layoutComponent];
     [_closeButton layoutComponent];
@@ -184,12 +191,14 @@ const NSString *PNEXECUTE_ACTION_PREFIX = @"pnx";
 - (void)_closeAd {
     [_background hide];
     [self _destroyOrientationObservers];
+    [self _stopExpiryTimer];
 }
 
 
 #pragma mark - Public Interface
 - (DisplayResult)start {
     [_background display];
+    [self _startExpiryTimer];
     [self _submitAdImpressionToServer:[_adArea.properties objectForKey:FrameResponseAd_ImpressionUrl]];
 
     if ([self _allComponentsLoaded]) {
@@ -203,6 +212,50 @@ const NSString *PNEXECUTE_ACTION_PREFIX = @"pnx";
     return (_background.status == AdComponentStatusCompleted
             && _adArea.status == AdComponentStatusCompleted
             && _closeButton.status == AdComponentStatusCompleted);
+}
+
+- (void)_startExpiryTimer {
+    @try {
+        [self _stopExpiryTimer];
+        
+        _expirationTimer = [[NSTimer scheduledTimerWithTimeInterval:_expirationSeconds target:self selector:@selector(_notifyDelegate) userInfo:nil repeats:NO] retain];
+    }
+    @catch (NSException *exception) {
+        NSLog(@"error: %@", exception.description);
+    }
+    
+}
+
+- (void)_stopExpiryTimer {
+    
+    @try {
+        if ([_expirationTimer isValid]) {
+            [_expirationTimer invalidate];
+        }
+        [_expirationTimer release];
+        _expirationTimer = nil;
+    }
+    @catch (NSException *exception) {
+        NSLog(@"error: %@", exception.description);
+    }   
+}
+
+- (void)_notifyDelegate {
+    [_delegate refreshFrameWithId:_frameId];
+}
+
+- (void)refreshProperties:(NSDictionary *)properties {
+    [self _closeAd];
+    
+    [_properties release];
+    [_background release];
+    [_adArea release];
+    [_closeButton release];
+    _properties = [properties retain];
+    
+    [self _initOrientationChangeObservers];
+    [self _initAdComponents];
+    [self start];
 }
 
 - (void)_submitAdImpressionToServer:(NSString *)impressionUrl {
