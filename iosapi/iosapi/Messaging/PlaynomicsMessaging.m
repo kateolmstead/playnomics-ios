@@ -60,13 +60,16 @@
     NSError *error;
     PlaynomicsSession *pn = [PlaynomicsSession sharedInstance];
     signed long long time = [[NSDate date] timeIntervalSince1970] * 1000;
+    CGRect screenRect = [[UIScreen mainScreen] bounds];
+    int screenWidth = screenRect.size.width;
+    int screenHeight = screenRect.size.height;
     
-    NSString *queryString = [NSString stringWithFormat:@"?a=%lld&u=%@&p=%@&t=%lld&b=%@&f=%@", pn.applicationId, pn.userId, caller, time, pn.cookieId, frameId];
+    NSString *queryString = [NSString stringWithFormat:@"?a=%lld&u=%@&p=%@&t=%lld&b=%@&f=%@&c=%d&d=%d&esrc=ios&ever=%@",
+                             pn.applicationId, pn.userId, caller, time, pn.cookieId, frameId, screenHeight, screenWidth, PNPropertyVersion];
     NSString *serverUrl;
     // Check for test mode
     if ([pn testMode]) {
-        // TODO: switch from debug when server is ready
-        serverUrl = PNPropertyMessagingDebugUrl;
+        serverUrl = PNPropertyMessagingTestUrl;
     } else {
         serverUrl = PNPropertyMessagingProdUrl;
     }

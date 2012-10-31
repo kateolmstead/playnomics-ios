@@ -63,14 +63,21 @@
 - (void)layoutComponent {
     [self _initCoordinateValues];
     [self _createComponentView];
-    [self _startImageDownload];
+    // make sure image url is not null
+    if (self.imageUrl != (id)[NSNull null] && self.imageUrl.length > 0 )
+        [self _startImageDownload];
 }
 
 - (void)_initCoordinateValues {
+    // TODO: why is this not setting to null correctly?
     self.imageUrl = [self.properties objectForKey:FrameResponseImageUrl];
     self.height = [[self.properties objectForKey:FrameResponseHeight] floatValue];
     self.width = [[self.properties objectForKey:FrameResponseWidth] floatValue];
 
+    // no sense getting image if it has 0 height or width
+    if (self.height == 0 || self.width == 0)
+        self.imageUrl = nil;
+    
     NSDictionary *coordinateProps = [self _extractCoordinateProps];
     self.xOffset = [[coordinateProps objectForKey:FrameResponseXOffset] floatValue];
     self.yOffset = [[coordinateProps objectForKey:FrameResponseYOffset] floatValue];

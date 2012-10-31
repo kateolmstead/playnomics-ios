@@ -18,10 +18,10 @@
 
 //TODO: get correct urls
 #define PNPropertyMessagingDebugUrl @"http://pn-qa.grio.com/sample_ad_data-animated.js"
-#define PNPropertyMessagingTestUrl @"http://pn-qa.grio.com/sample_ad_data.js"
-#define PNPropertyMessagingProdUrl @"http://pn-qa.grio.com/sample_ad_data.js"
+#define PNPropertyMessagingTestUrl @"https://ads.b.playnomics.net/v1/ads"
+#define PNPropertyMessagingProdUrl @"https://ads.a.playnomics.net/v1/ads"
 
-#define PNPropertyVersion @"7"
+#define PNPropertyVersion @"1"
 // Connection timeout in seconds
 #define PNPropertyConnectionTimeout 5
 

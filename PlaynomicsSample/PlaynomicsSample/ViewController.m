@@ -8,6 +8,8 @@
 
 #import "ViewController.h"
 #import "PlaynomicsSession.h"
+#import "PlaynomicsFrame.h"
+#import "PlaynomicsMessaging.h"
 
 @implementation ViewController
 @synthesize transactionCount;
@@ -158,6 +160,32 @@
 }
 
 
+- (IBAction)onMessageTLClick:(id)sender {
+    [self initMsgFrame:@"testTL"];
+}
+- (IBAction)onMessageCCClick:(id)sender {
+    [self initMsgFrame:@"testCC"];    
+}
+- (IBAction)onMessageBRClick:(id)sender {
+    [self initMsgFrame:@"testBR"];    
+}
+- (IBAction)onMessageNoCloseClick:(id)sender {
+    [self initMsgFrame:@"testNoClose"];   
+}
+- (IBAction)onMessageMessOnlyClick:(id)sender {
+    [self initMsgFrame:@"testMessOnly"];  
+}
+
+- (void) initMsgFrame: (NSString *) frameId {
+    // Retrieve the ad frame you need using the provided Frame ID and start it.  Once all of the assets are loaded
+    //   the frame will display itself.
+    PlaynomicsMessaging *messaging = [PlaynomicsMessaging sharedInstance];
+    
+    PlaynomicsFrame *frame = [messaging initFrameWithId:frameId];
+    DisplayResult result = [frame start];
+    NSLog(@"Result of calling start: %i", result);
+
+}
 
 - (void) handlePLAPIRResult: (PNAPIResult) result {
     if (result == PNAPIResultSent) {
