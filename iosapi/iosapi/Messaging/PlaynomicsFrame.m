@@ -229,9 +229,11 @@ NSString *PNEXECUTE_ACTION_PREFIX = @"pnx";
 - (void)_stopExpiryTimer {
     
     @try {
+        
         if ([_expirationTimer isValid]) {
             [_expirationTimer invalidate];
         }
+        
         [_expirationTimer release];
         _expirationTimer = nil;
     }

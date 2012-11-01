@@ -193,6 +193,7 @@
 
 }
 
+#pragma mark Misc Functions
 - (void)performAction {
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Test Action"
                                                     message:@"You're performing a test ACTION.  Did I mention that Julio is AWESOME!"

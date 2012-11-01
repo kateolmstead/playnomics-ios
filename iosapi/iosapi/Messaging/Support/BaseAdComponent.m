@@ -152,6 +152,7 @@
     if (self.touchHandler != nil) {
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self.frame action:self.touchHandler];
         [self.imageUI addGestureRecognizer:tap];
+        self.imageUI.userInteractionEnabled = YES;
     }
 }
 
@@ -160,7 +161,6 @@
     [_subComponents addObject:subComponent];
     [self.imageUI addSubview:subComponent.imageUI];
     subComponent.imageUI.frame = CGRectMake(subComponent.xOffset, subComponent.yOffset, subComponent.width, subComponent.height);
-
 }
 
 - (void)display {
