@@ -19,10 +19,10 @@ typedef NS_ENUM(NSInteger, AdAction) {
 };
 
 
-const NSString *HTTP_ACTION_PREFIX = @"http";
-const NSString *HTTPS_ACTION_PREFIX = @"https";
-const NSString *PNACTION_ACTION_PREFIX = @"pna";
-const NSString *PNEXECUTE_ACTION_PREFIX = @"pnx";
+NSString *HTTP_ACTION_PREFIX = @"http";
+NSString *HTTPS_ACTION_PREFIX = @"https";
+NSString *PNACTION_ACTION_PREFIX = @"pna";
+NSString *PNEXECUTE_ACTION_PREFIX = @"pnx";
 
 
 @implementation PlaynomicsFrame {
@@ -245,8 +245,10 @@ const NSString *PNEXECUTE_ACTION_PREFIX = @"pnx";
 }
 
 - (void)refreshProperties:(NSDictionary *)properties {
-    [self _closeAd];
     
+    // TODO: should we reset all properties, or just the images?
+    NSLog(@"refreshProperties called fro frameId: %@", _frameId);
+    [self _closeAd];
     [_properties release];
     [_background release];
     [_adArea release];

@@ -59,7 +59,7 @@ extern NSString * const FSNConnectionActivityEnded;
 
 // string function for request enum
 NSString* stringForRequestMethod(FSNRequestMethod method);
-
+void logParameter(FSNRequestMethod method, id key, id val);
 
 @interface FSNConnection : NSObject <NSURLConnectionDelegate>
 
