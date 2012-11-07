@@ -16,7 +16,6 @@
 		5BBAA08C159BAF0000AA4993 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BBAA08B159BAF0000AA4993 /* ViewController.m */; };
 		5BBAA08F159BAF0000AA4993 /* ViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BBAA08D159BAF0000AA4993 /* ViewController_iPhone.xib */; };
 		5BBAA092159BAF0000AA4993 /* ViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BBAA090159BAF0000AA4993 /* ViewController_iPad.xib */; };
-		D13B4C731642DC1B007F58BE /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D13B4C721642DC1B007F58BE /* Default-568h@2x.png */; };
 		EA3209C8161C99C500F8FF8E /* libiosapi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EA32098E161B8BD300F8FF8E /* libiosapi.a */; };
 /* End PBXBuildFile section */
 
@@ -53,7 +52,6 @@
 		5BBAA08E159BAF0000AA4993 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController_iPhone.xib; sourceTree = "<group>"; };
 		5BBAA091159BAF0000AA4993 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController_iPad.xib; sourceTree = "<group>"; };
 		5BF38FCA159D389B00DDD957 /* PlaynomicsSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlaynomicsSession.h; path = "../../../../../Library/Developer/Xcode/DerivedData/iosapi-bjkqyrtlyjtbiqfjtdqrczayducv/Build/Products/Debug-iphoneos/usr/local/include/PlaynomicsSession.h"; sourceTree = "<group>"; };
-		D13B4C721642DC1B007F58BE /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		EA320985161B8BD300F8FF8E /* iosapi.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = iosapi.xcodeproj; path = ../iosapi/iosapi.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -75,7 +73,6 @@
 		5BBAA069159BAEFF00AA4993 = {
 			isa = PBXGroup;
 			children = (
-				D13B4C721642DC1B007F58BE /* Default-568h@2x.png */,
 				EA320985161B8BD300F8FF8E /* iosapi.xcodeproj */,
 				5BBAA07E159BAF0000AA4993 /* PlaynomicsSample */,
 				5BBAA077159BAF0000AA4993 /* Frameworks */,
@@ -229,7 +226,6 @@
 				5BBAA083159BAF0000AA4993 /* InfoPlist.strings in Resources */,
 				5BBAA08F159BAF0000AA4993 /* ViewController_iPhone.xib in Resources */,
 				5BBAA092159BAF0000AA4993 /* ViewController_iPad.xib in Resources */,
-				D13B4C731642DC1B007F58BE /* Default-568h@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

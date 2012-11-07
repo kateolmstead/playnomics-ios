@@ -55,6 +55,7 @@
     PlaynomicsFrame *frame = [[PlaynomicsFrame alloc] initWithProperties:[self _retrieveFramePropertiesForId:frameId withCaller:caller]
                                                               forFrameId:frameId andDelegate: self];
     [_frames setObject:frame forKey:frameId];
+    
     return [frame autorelease];
 }
 

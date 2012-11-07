@@ -139,6 +139,12 @@ NSString *PNEXECUTE_ACTION_PREFIX = @"pnx";
 
 
 - (void)_adClicked {
+    int x = [[NSNumber numberWithFloat:_background.imageUI.frame.origin.x] intValue];
+    int y = [[NSNumber numberWithFloat:_background.imageUI.frame.origin.y] intValue];
+    NSString *coordParams = [NSString stringWithFormat:@"&x=%d&y=%d", x, y];
+    NSString *preExecuteUrl = [[_adArea.properties objectForKey:FrameResponseAd_PreExecuteUrl] stringByAppendingString:coordParams];
+    NSString *postExecuteUrl =  [[_adArea.properties objectForKey:FrameResponseAd_PostExecuteUrl] stringByAppendingString:coordParams];
+
     NSString *clickTarget = [_adArea.properties objectForKey:FrameResponseAd_ClickTarget];
     NSURL *clickTargetUrl = [NSURL URLWithString:clickTarget];
 
@@ -148,15 +154,19 @@ NSString *PNEXECUTE_ACTION_PREFIX = @"pnx";
 
     switch (actionType) {
         case AdActionHTTP: {
-            [[UIApplication sharedApplication] openURL:clickTargetUrl];
+           [[UIApplication sharedApplication] openURL:clickTargetUrl];
             break;
         }
         case AdActionDefinedAction: {
+            [self _submitAdImpressionToServer: preExecuteUrl];
             [[PlaynomicsMessaging sharedInstance] performActionForLabel:actionLabel];
+            [self _submitAdImpressionToServer: postExecuteUrl];
             break;
         }
         case AdActionExecuteCode: {
+            [self _submitAdImpressionToServer: preExecuteUrl];
             [[PlaynomicsMessaging sharedInstance] executeActionOnDelegate:actionLabel];
+            [self _submitAdImpressionToServer: postExecuteUrl];
             break;
         }
         default: {

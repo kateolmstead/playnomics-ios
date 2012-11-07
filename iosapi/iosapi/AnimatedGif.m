@@ -75,12 +75,11 @@ static AnimatedGif * instance;
 + (UIImageView *) getAnimationForGifAtUrl:(NSURL *)animationUrl
 {   
     
-    AnimatedGifQueueObject *agqo = [[AnimatedGifQueueObject alloc] init];
-    [agqo setUiv: [[UIImageView alloc] init]]; // 2x retain, alloc and the property.
-    [[agqo uiv] autorelease]; // We expect the user to retain the return object.
+    AnimatedGifQueueObject *agqo = [[[AnimatedGifQueueObject alloc] init] autorelease];
+    UIImageView *iv = [[[UIImageView alloc] init] autorelease];
+    [agqo setUiv: iv]; // 2x retain, alloc and the property.
     [agqo setUrl: animationUrl]; // this object is only retained by the queueobject, which will be released when loading finishes
     [[AnimatedGif sharedInstance] addToQueue: agqo];
-    [agqo release];
     
     if ([[AnimatedGif sharedInstance] busyDecoding] != YES)
     {
@@ -315,7 +314,7 @@ static AnimatedGif * instance;
 			CGContextTranslateCTM(ctx, 0.0, -size.height);
             
             // Check if lastFrame exists
-            CGRect clipRect;
+            CGRect clipRect = CGRectMake(0, 0, 0, 0);
 
             // Disposal Method (Operations before draw frame)
             switch (frame.disposalMethod)
@@ -425,6 +424,7 @@ static AnimatedGif * instance;
 	unsigned char cur[1], prev[1];
     [self GIFGetBytes:1];
     [GIF_buffer getBytes:cur length:1];
+    prev[0] = 0;
     
 	while (cur[0] != 0x00)
     {

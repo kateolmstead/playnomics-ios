@@ -150,7 +150,7 @@
 
 -(void)_setupTapRecognizer {
     if (self.touchHandler != nil) {
-        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self.frame action:self.touchHandler];
+        UITapGestureRecognizer *tap = [[[UITapGestureRecognizer alloc] initWithTarget:self.frame action:self.touchHandler] autorelease];
         [self.imageUI addGestureRecognizer:tap];
         self.imageUI.userInteractionEnabled = YES;
     }
