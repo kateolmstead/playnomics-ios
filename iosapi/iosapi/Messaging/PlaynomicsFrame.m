@@ -11,12 +11,12 @@
 
 
 #pragma mark - PlaynomicsFrame
-typedef NS_ENUM(NSInteger, AdAction) {
+typedef enum {
     AdActionHTTP,            // Standard HTTP/HTTPS page to open in a browser
     AdActionDefinedAction,   // Defined selector to execute on a registered delegate
     AdActionExecuteCode,     // Submit the action on the delegate
     AdActionUnknown          // Unknown ad action specified
-};
+} AdAction;
 
 
 NSString *HTTP_ACTION_PREFIX = @"http";

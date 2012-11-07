@@ -5,14 +5,14 @@
 #import <Foundation/Foundation.h>
 
 
-typedef NS_ENUM(NSInteger, DisplayResult) {
+typedef enum {
     DisplayResultNoInternetPermission,  // Communication with the ad server is impossible
     DisplayResultStartNotCalled,  // Data collection API was not initialized
     DisplayResultUnableToConnect,  // No successful connections to the ad server have occurred
     DisplayResultFailUnknown,  // Any other problem (included bad responses from the ad server)
     DisplayResultDisplayPending,  // Ad server has been reached, but assets not ready yet, will display when ready
     DisplayResultDisplayed  // Success
-};
+} DisplayResult;
 
 // Represents the container for the ad image.
 //

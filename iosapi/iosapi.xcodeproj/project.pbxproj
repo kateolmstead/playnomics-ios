@@ -506,6 +506,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 3.2;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALID_ARCHS = "armv7 armv7s i386";
 			};
 			name = Debug;
 		};
@@ -530,6 +531,7 @@
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
+				VALID_ARCHS = "armv7 armv7s i386";
 			};
 			name = Release;
 		};
@@ -547,7 +549,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				STRIP_INSTALLED_PRODUCT = YES;
-				VALID_ARCHS = "armv7 armv7s armv6";
+				VALID_ARCHS = "armv7 armv7s armv6 i386";
 			};
 			name = Debug;
 		};
@@ -565,7 +567,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				STRIP_INSTALLED_PRODUCT = YES;
-				VALID_ARCHS = "armv7 armv7s armv6";
+				VALID_ARCHS = "armv7 armv7s armv6 i386";
 			};
 			name = Release;
 		};

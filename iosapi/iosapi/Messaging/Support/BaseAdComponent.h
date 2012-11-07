@@ -7,11 +7,11 @@
 #import <Foundation/Foundation.h>
 #import "PlaynomicsFrame+Exposed.h"
 
-typedef NS_ENUM(NSInteger , AdComponentStatus) {
+typedef enum {
     AdComponentStatusPending,   // Component is waiting for image download to complete
     AdComponentStatusCompleted, // Component has completed image download and is ready to be displayed
     AdComponentStatusError      // Component experienced an error retrieving image
-};
+} AdComponentStatus;
 
 @interface BaseAdComponent : NSObject<NSURLConnectionDelegate>
 
