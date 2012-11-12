@@ -320,8 +320,8 @@
 		5BBAA096159BAF0000AA4993 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: Julio Mistral (Z8525K5JYR)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Julio Mistral (Z8525K5JYR)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PlaynomicsSample/PlaynomicsSample-Prefix.pch";
 				HEADER_SEARCH_PATHS = "$(BUILT_PRODUCTS_DIR)/usr/local/include";
@@ -335,8 +335,8 @@
 					"\"$(SRCROOT)/../../../Library/Developer/Xcode/DerivedData/iosapi-cebmgsvkkaahzdfmhikzbpwxmpzo/Build/Products/Debug-iphonesimulator\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "6E6DC3F1-36C2-4BFD-A1D9-B1C298C591CB";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "6E6DC3F1-36C2-4BFD-A1D9-B1C298C591CB";
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;

@@ -11,9 +11,10 @@
 #import "PlaynomicsFrame.h"
 #import "PlaynomicsMessaging.h"
 
-@interface ViewController : UIViewController <PNAdClickActionHandler>
+@interface ViewController : UIViewController <PNAdClickActionHandler, UITextFieldDelegate>
 
 @property (nonatomic, retain) IBOutlet UITextField *transactionCount;
+@property (retain, nonatomic) IBOutlet UITextField *frameIdText;
 
 - (IBAction) onGameStartClick:(id)sender;
 - (IBAction) onGameEndClick:(id)sender;

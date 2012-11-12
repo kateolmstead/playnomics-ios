@@ -32,10 +32,12 @@
     
     // Set the delegate that execution targets will be called against.
     messaging.delegate = self;
+    _frameIdText.delegate = self;
 }
 
 - (void)viewDidUnload
 {
+    [self setFrameIdText:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -69,6 +71,13 @@
     } else {
         return YES;
     }
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [_frameIdText resignFirstResponder];
+    
+    return YES;
 }
 
 #pragma mark - Button receivers
@@ -182,6 +191,11 @@
     [self initMsgFrame:@"testMessOnly"];  
 }
 
+- (IBAction)onMessageGenericClick:(id)sender {
+    [self initMsgFrame:_frameIdText.text];
+}
+
+
 - (void) initMsgFrame: (NSString *) frameId {
     // Retrieve the ad frame you need using the provided Frame ID and start it.  Once all of the assets are loaded
     //   the frame will display itself.
@@ -196,7 +210,7 @@
 #pragma mark Misc Functions
 - (void)performAction {
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Test Action"
-                                                    message:@"You're performing a test ACTION.  Did I mention that Julio is AWESOME!"
+                                                    message:@"You're performing a test ACTION."
                                                    delegate:self
                                           cancelButtonTitle:@"I Agree!"
                                           otherButtonTitles:nil];
@@ -205,8 +219,8 @@
 }
 
 - (void)someRandomExecution {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Test Executiong"
-                                                    message:@"You're performing a test EXECUTION.  Did I mention that Julio is AWESOME!"
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Test Execution"
+                                                    message:@"You're performing a test EXECUTION."
                                                    delegate:self
                                           cancelButtonTitle:@"He is!"
                                           otherButtonTitles:nil];
@@ -223,5 +237,9 @@
     else {
         [[[[UIAlertView alloc] initWithTitle:@"Result" message:@"Event NOT Sent !" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil]autorelease] show];
     }
+}
+- (void)dealloc {
+    [_frameIdText release];
+    [super dealloc];
 }
 @end
