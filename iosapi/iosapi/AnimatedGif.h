@@ -34,6 +34,15 @@
     #import <Cocoa/Cocoa.h>
 #endif //TARGET_OS_IPHONE	
 
+/**
+ * Protocol describing the methods an gif delegate should handle
+ */
+@protocol AnimatedGifDelegate
+
+- (void)gifImageLoaded;
+
+@end
+
 @interface AnimatedGifFrame : NSObject
 {
 	NSData *data;
@@ -87,9 +96,10 @@
 
 @property (nonatomic, retain) UIImageView* imageView;
 @property bool busyDecoding;
+@property (nonatomic, retain) id<AnimatedGifDelegate> gifDelegate;
 
 - (void) addToQueue: (AnimatedGifQueueObject *) agqo;
-+ (UIImageView*) getAnimationForGifAtUrl: (NSURL *) animationUrl;
++ (UIImageView*) getAnimationForGifAtUrl: (NSURL *) animationUrl withDelegate: (id) delegate;
 - (void) decodeGIF:(NSData *)GIF_Data;
 - (void) GIFReadExtensions;
 - (void) GIFReadDescriptor;

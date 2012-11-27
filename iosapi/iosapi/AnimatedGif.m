@@ -72,7 +72,7 @@ static AnimatedGif * instance;
     return instance;
 }
 
-+ (UIImageView *) getAnimationForGifAtUrl:(NSURL *)animationUrl
++ (UIImageView *) getAnimationForGifAtUrl:(NSURL *)animationUrl withDelegate:(id<AnimatedGifDelegate>) delegate
 {   
     
     AnimatedGifQueueObject *agqo = [[[AnimatedGifQueueObject alloc] init] autorelease];
@@ -89,6 +89,7 @@ static AnimatedGif * instance;
         [[AnimatedGif sharedInstance] performSelector:@selector(asynchronousLoading) withObject:nil afterDelay:0.0];
     }
     
+    [AnimatedGif sharedInstance].gifDelegate = delegate;
     return [agqo uiv];
 }
 
@@ -110,6 +111,7 @@ static AnimatedGif * instance;
     }
     
     busyDecoding = NO;
+    [[AnimatedGif sharedInstance].gifDelegate gifImageLoaded];
 }
 
 - (void) addToQueue: (AnimatedGifQueueObject *) agqo

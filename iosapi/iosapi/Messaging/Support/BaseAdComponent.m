@@ -6,10 +6,6 @@
 
 
 #import "BaseAdComponent.h"
-#import "PNUtil.h"
-#import "FSNConnection.h"
-#import "AnimatedGif.h"
-
 
 @implementation BaseAdComponent {
   @private
@@ -116,8 +112,7 @@
     NSURL *url = [NSURL URLWithString:self.imageUrl];
     
     if ([self.imageUrl hasSuffix:@".gif"]) {
-        self.imageUI = [AnimatedGif getAnimationForGifAtUrl:url];
-        [self _finishImageSetup];
+        self.imageUI = [AnimatedGif getAnimationForGifAtUrl:url withDelegate:self];
     } else {
         FSNConnection *connection =
         [FSNConnection withUrl:url
@@ -130,6 +125,10 @@
         
         [connection start];        
     }
+}
+
+- (void) gifImageLoaded {
+    [self _finishImageSetup];  
 }
 
 - (void)_handleImageDownloadCompletion:(FSNConnection *)connection {

@@ -212,7 +212,7 @@
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Test Action"
                                                     message:@"You're performing a test ACTION."
                                                    delegate:self
-                                          cancelButtonTitle:@"I Agree!"
+                                          cancelButtonTitle:@"OK"
                                           otherButtonTitles:nil];
     [alert show];
     [alert release];
@@ -222,7 +222,7 @@
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Test Execution"
                                                     message:@"You're performing a test EXECUTION."
                                                    delegate:self
-                                          cancelButtonTitle:@"He is!"
+                                          cancelButtonTitle:@"OK"
                                           otherButtonTitles:nil];
     [alert show];
     [alert release];

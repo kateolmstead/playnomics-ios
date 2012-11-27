@@ -6,6 +6,9 @@
 
 #import <Foundation/Foundation.h>
 #import "PlaynomicsFrame+Exposed.h"
+#import "PNUtil.h"
+#import "FSNConnection.h"
+#import "AnimatedGif.h"
 
 typedef enum {
     AdComponentStatusPending,   // Component is waiting for image download to complete
@@ -13,7 +16,7 @@ typedef enum {
     AdComponentStatusError      // Component experienced an error retrieving image
 } AdComponentStatus;
 
-@interface BaseAdComponent : NSObject<NSURLConnectionDelegate>
+@interface BaseAdComponent : NSObject<NSURLConnectionDelegate, AnimatedGifDelegate>
 
 @property (retain) NSDictionary *properties;
 @property (retain) UIImageView *imageUI;
