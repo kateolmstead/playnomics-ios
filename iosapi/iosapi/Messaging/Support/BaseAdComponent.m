@@ -6,11 +6,14 @@
 
 
 #import "BaseAdComponent.h"
+#import "PNUtil.h"
+#import "FSNConnection.h"
 
 @implementation BaseAdComponent {
   @private
     NSMutableArray *_subComponents;
     UIImage *_image;
+    id<PNBaseAdComponentDelegate> _delegate;
 }
 
 @synthesize properties = _properties;
@@ -30,7 +33,8 @@
 #pragma mark - Lifecycle/Memory management
 - (id)initWithProperties:(NSDictionary *)aProperties
                 forFrame:(PlaynomicsFrame *)aFrame
-        withTouchHandler:(SEL)aTouchHandler {
+        withTouchHandler:(SEL)aTouchHandler
+             andDelegate:(id<PNBaseAdComponentDelegate>)delegate {
     self = [super init];
     if (self) {
         NSLog(@"Creating ad component with properties: %@", aProperties);
@@ -39,6 +43,7 @@
         _frame = [aFrame retain];
         _touchHandler = aTouchHandler;
         _status = AdComponentStatusPending;
+        _delegate = delegate;
     }
     return self;
 }
@@ -145,6 +150,7 @@
     [self _setupTapRecognizer];    
     [self.imageUI setNeedsDisplay];    
     self.status = AdComponentStatusCompleted;
+    [_delegate componentDidLoad:self];
 }
 
 -(void)_setupTapRecognizer {

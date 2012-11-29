@@ -4,7 +4,6 @@
 
 #import <Foundation/Foundation.h>
 
-
 typedef enum {
     DisplayResultNoInternetPermission,  // Communication with the ad server is impossible
     DisplayResultStartNotCalled,  // Data collection API was not initialized

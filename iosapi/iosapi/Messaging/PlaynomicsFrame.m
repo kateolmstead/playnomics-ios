@@ -9,7 +9,6 @@
 #import "FSNConnection.h"
 #import "BaseAdComponent.h"
 
-
 #pragma mark - PlaynomicsFrame
 typedef enum {
     AdActionHTTP,            // Standard HTTP/HTTPS page to open in a browser
@@ -65,15 +64,18 @@ NSString *PNEXECUTE_ACTION_PREFIX = @"pnx";
 - (void)_initAdComponents {
     _background = [[BaseAdComponent alloc] initWithProperties:[_properties objectForKey:FrameResponseBackgroundInfo]
                                                      forFrame:self
-                                             withTouchHandler:nil];
+                                             withTouchHandler:nil
+                                                  andDelegate:self];
 
     _adArea = [[BaseAdComponent alloc] initWithProperties:[self _mergeAdInfoProperties]
                                                  forFrame:self
-                                         withTouchHandler:@selector(_adClicked)];
+                                         withTouchHandler:@selector(_adClicked)
+                                              andDelegate:self];
 
     _closeButton = [[BaseAdComponent alloc] initWithProperties:[_properties objectForKey:FrameResponseCloseButtonInfo]
                                                       forFrame:self
-                                              withTouchHandler:@selector(_stop)];
+                                              withTouchHandler:@selector(_stop)
+                                                   andDelegate:self];
     
     NSNumber *expNum = [_properties objectForKey:FrameResponseExpiration];
     _expirationSeconds = [expNum intValue];
@@ -84,6 +86,11 @@ NSString *PNEXECUTE_ACTION_PREFIX = @"pnx";
 
     [_background addSubComponent:_adArea];
     [_background addSubComponent:_closeButton];
+    _background.imageUI.hidden = YES;
+}
+
+- (void)componentDidLoad: (id) component {
+    _background.imageUI.hidden = ![self _allComponentsLoaded];
 }
 
 - (NSDictionary *)_mergeAdInfoProperties {

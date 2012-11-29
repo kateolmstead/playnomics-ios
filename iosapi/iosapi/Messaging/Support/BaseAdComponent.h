@@ -5,16 +5,15 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "PlaynomicsFrame+Exposed.h"
-#import "PNUtil.h"
-#import "FSNConnection.h"
 #import "AnimatedGif.h"
+#import "PlaynomicsFrame+Exposed.h"
 
 typedef enum {
     AdComponentStatusPending,   // Component is waiting for image download to complete
     AdComponentStatusCompleted, // Component has completed image download and is ready to be displayed
     AdComponentStatusError      // Component experienced an error retrieving image
 } AdComponentStatus;
+
 
 @interface BaseAdComponent : NSObject<NSURLConnectionDelegate, AnimatedGifDelegate>
 
@@ -34,7 +33,8 @@ typedef enum {
 
 - (id)initWithProperties:(NSDictionary *)aProperties
                 forFrame:(PlaynomicsFrame *)aFrame
-        withTouchHandler:(SEL)aTouchHandler;
+        withTouchHandler:(SEL)aTouchHandler
+             andDelegate:(id<PNBaseAdComponentDelegate>)delegate;
 
 - (void)layoutComponent;
 
