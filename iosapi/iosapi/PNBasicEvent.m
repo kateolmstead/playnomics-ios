@@ -29,7 +29,7 @@
     
     [self setup];
     
-    if ((self = [super init:eventType applicationId:applicationId userId:userId])) {
+    if ((self = [super init:eventType applicationId:applicationId userId:userId cookieId:cookieId])) {
         _cookieId = [cookieId retain];
         _instanceId = [instanceId retain];
         _sessionStartTime = sessionStartTime;
@@ -54,7 +54,7 @@
     
     [self setup];
     
-    if ((self = [super init:eventType applicationId:applicationId userId:userId])) {
+    if ((self = [super init:eventType applicationId:applicationId userId:userId cookieId:cookieId])) {
         _cookieId = [cookieId retain];
         self.internalSessionId = [internalSessionId retain];
         _instanceId = [instanceId retain];
