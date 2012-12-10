@@ -302,6 +302,8 @@
             return PNEventInvitationSent;
         else if ([text isEqualToString:@"invitationResponse"])
             return PNEventInvitationResponse;
+        else if ([text isEqualToString:@"milestone"])
+            return PNEventMilestone;
     }
     return -1;
 }
@@ -336,6 +338,8 @@
             return @"invitationSent";
         case PNEventInvitationResponse:
             return @"invitationResponse";
+        case PNEventMilestone:
+            return @"milestone";
     }
     return nil;
 }

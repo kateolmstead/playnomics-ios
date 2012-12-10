@@ -19,6 +19,7 @@
 - (id) init:  (PNEventType)eventType
           applicationId:(signed long long) applicationId
                  userId:(NSString *)userId
+               cookieId: (NSString *) cookieId
               sessionId:(signed long long)sessionId
              instanceId:(signed long long)instanceId
                    site:(NSString *)site

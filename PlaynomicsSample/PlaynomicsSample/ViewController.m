@@ -157,7 +157,12 @@
     [self handlePLAPIRResult:resval];
 }
 
-
+- (IBAction) onMilestoneClick:(id)sender {
+    
+    PNAPIResult resval = [PlaynomicsSession milestoneWithId:4L
+                                                    andName:@"testMilestone"];
+    [self handlePLAPIRResult:resval];
+}
 
 - (void) handlePLAPIRResult: (PNAPIResult) result {
     if (result == PNAPIResultSent) {

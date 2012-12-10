@@ -6,13 +6,15 @@
 @synthesize applicationId=_applicationId;
 @synthesize userId=_userId;
 @synthesize internalSessionId=_internalSessionId;
+@synthesize cookieId=_cookieId;
 
-- (id) init: (PNEventType) eventType applicationId:(signed long long) applicationId userId:(NSString *)userId {
+- (id) init: (PNEventType) eventType applicationId:(signed long long) applicationId userId:(NSString *)userId cookieId:(NSString *)cookieId {
     if ((self = [super init])) {
         _eventTime = [[NSDate date] timeIntervalSince1970];
         _eventType = eventType;
         _applicationId = applicationId;
         _userId = [userId retain];
+        _cookieId = [cookieId retain];
     }
     return self;
 }
@@ -31,7 +33,7 @@
 - (NSString *) toQueryString {
         
     signed long long eventTime = [self eventTime] * 1000;
-    return [NSString stringWithFormat:@"%@?t=%lld&a=%lld&u=%@", [PNUtil PNEventTypeDescription:[self eventType]], eventTime, [self applicationId], [self userId]];
+    return [NSString stringWithFormat:@"%@?t=%lld&a=%lld&u=%@&b=%@", [PNUtil PNEventTypeDescription:[self eventType]], eventTime, [self applicationId], [self userId], [self cookieId]];
 }
 
 - (void)encodeWithCoder:(NSCoder *)encoder {

@@ -11,13 +11,14 @@
 - (id) init:  (PNEventType) eventType 
          applicationId: (signed long long) applicationId
                 userId: (NSString *) userId 
+              cookieId: (NSString *) cookieId
           invitationId: (signed long long) invitationId
        recipientUserId: (NSString *) recipientUserId 
       recipientAddress: (NSString *) recipientAddress 
                 method: (NSString *) method 
               response: (PNResponseType) response {
     
-    if ((self = [super init:eventType applicationId:applicationId userId:userId])) {
+    if ((self = [super init:eventType applicationId:applicationId userId:userId cookieId:cookieId])) {
         _invitationId = invitationId;
         _recipientUserId = [recipientUserId retain];
         _recipientAddress = [recipientAddress retain];

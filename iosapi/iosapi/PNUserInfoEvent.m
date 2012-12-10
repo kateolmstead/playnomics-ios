@@ -14,11 +14,12 @@
 
 - (id) initUserInfoEvent:(signed long long) applicationId
      userId:(NSString *)userId 
+   cookieId: (NSString *) cookieId
        type:(PNUserInfoType) type {
     
     PNEventType eType = PNEventUserInfo;
     
-    if (self = [super init:eType applicationId:applicationId userId:userId]) {
+    if (self = [super init:eType applicationId:applicationId userId:userId cookieId:cookieId]) {
         _type = type;
     }
     
@@ -27,7 +28,8 @@
 
 - (id) init:(signed long long) applicationId
              userId: (NSString *) userId 
-               type: (PNUserInfoType) type 
+           cookieId: (NSString *) cookieId
+               type: (PNUserInfoType) type
             country: (NSString *) country 
         subdivision: (NSString *) subdivision 
                 sex: (PNUserInfoSex) sex 
@@ -36,7 +38,7 @@
      sourceCampaign: (NSString *) sourceCampaign
         installTime: (NSTimeInterval) installTime {
     
-    if (self = [self initUserInfoEvent:applicationId userId:userId type:type]) {
+    if (self = [self initUserInfoEvent:applicationId userId:userId cookieId:cookieId type:type]) {
         _country = [country retain];
         _subdivision = [subdivision retain];
         _sex = sex;

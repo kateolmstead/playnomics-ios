@@ -1,7 +1,6 @@
 #import "PNEvent.h"
 
 @interface PNBasicEvent : PNEvent {
-  NSString * _cookieId;
   NSString * _sessionId;
   NSString * _instanceId;
   NSTimeInterval _sessionStartTime;
@@ -15,7 +14,6 @@
   int _collectMode;
 }
 
-@property (nonatomic, retain) NSString * cookieId;
 @property (nonatomic, retain) NSString * instanceId;
 @property (nonatomic, assign) NSTimeInterval sessionStartTime;
 @property (nonatomic, assign) NSTimeInterval pauseTime;

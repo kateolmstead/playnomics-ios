@@ -19,6 +19,7 @@
 - (IBAction) onRespondToInvitationClick:(id)sender;
 - (IBAction) onTransactionClick:(id)sender;
 - (IBAction) onUserInfoClick:(id)sender;
-- (IBAction)onChangeUserClick:(id)sender;
+- (IBAction) onChangeUserClick:(id)sender;
+- (IBAction) onMilestoneClick:(id)sender;
 - (void) handlePLAPIRResult: (PNAPIResult) result;
 @end
