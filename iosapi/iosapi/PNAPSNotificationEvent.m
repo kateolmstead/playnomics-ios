@@ -8,6 +8,9 @@
 
 #import "PNAPSNotificationEvent.h"
 
+
+#define kAPSId @"push_id"
+
 @interface PNAPSNotificationEvent()
 @property (nonatomic ) PNAPSNotificationEventType pushEventType;
 @property (nonatomic, retain) NSData *deviceToken;
@@ -54,10 +57,15 @@
         }
             break;
             
+        //decode the pushnotiicaiton and report back
         case PNAPSNotificationEventTypeNotificationReceived:
         {
-            queryString = [[super toQueryString] stringByAppendingFormat:@"&payload=%@&jsh=%@",
-                           @"TESTTESTTEST",
+            NSDictionary *push = self.payload;
+            NSString *pId = [push valueForKeyPath:kAPSId];
+            NSTimeInterval time = [[NSDate date] timeIntervalSince1970];
+            queryString = [[super toQueryString] stringByAppendingFormat:@"&payload_id=%@&time=%f&jsh=%@",
+                           pId,
+                           time,
                            [self internalSessionId]];
         }
             break;

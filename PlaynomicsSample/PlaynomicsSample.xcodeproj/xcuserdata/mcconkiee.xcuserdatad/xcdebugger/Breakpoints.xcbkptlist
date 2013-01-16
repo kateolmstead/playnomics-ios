@@ -8,11 +8,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "../iosapi/iosapi/PNAPSNotificationEvent.m"
-         timestampString = "380055553.961767"
+         timestampString = "380062126.548592"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "59"
-         endingLineNumber = "59"
+         startingLineNumber = "66"
+         endingLineNumber = "66"
          landmarkName = "-toQueryString"
          landmarkType = "5">
       </FileBreakpoint>
@@ -27,19 +27,6 @@
          startingLineNumber = "86"
          endingLineNumber = "86"
          landmarkName = "-application:willFinishLaunchingWithOptions:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "Yes"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "../iosapi/iosapi/PlaynomicsSession.m"
-         timestampString = "380060646.704999"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "475"
-         endingLineNumber = "475"
-         landmarkName = "-sendOrQueueEvent:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
