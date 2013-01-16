@@ -201,7 +201,7 @@
     [defaultCenter addObserver: self selector: @selector(onApplicationDidBecomeActive:) name: UIApplicationDidBecomeActiveNotification object: nil];
     [defaultCenter addObserver: self selector: @selector(onApplicationWillResignActive:) name: UIApplicationWillResignActiveNotification object: nil];
     [defaultCenter addObserver: self selector: @selector(onApplicationWillTerminate:) name: UIApplicationWillTerminateNotification object: nil];
-    [defaultCenter addObserver: self selector: @selector(onApplicationRemoteNotification:) name: UIApplicationLaunchOptionsRemoteNotificationKey object: nil];
+
     
     // Retrieve stored Event List
     NSArray *storedEvents = (NSArray *) [NSKeyedUnarchiver unarchiveObjectWithFile:PNFileEventArchive];
@@ -471,6 +471,7 @@
 
 - (PNAPIResult) sendOrQueueEvent:(PNEvent *)pe {
     if (_sessionState != PNSessionStateStarted) {
+        [self.playnomicsEventList addObject:pe];
         return PNAPIResultStartNotCalled;
     }
         
@@ -501,10 +502,7 @@
     [self stop];
 }
 
-- (void) onApplicationRemoteNotification: (NSNotification *) notification {
-    UIRemoteNotificationType types =[[UIApplication sharedApplication] enabledRemoteNotificationTypes];
-    NSLog(@"types\r\n---> %@",types);
-}
+
 
 
 #pragma mark - API request methods
@@ -798,6 +796,9 @@
 
 + (PNAPIResult) pushNotificationsWithPayload:(NSDictionary*)payload {
     @try {
+        
+
+        
         PlaynomicsSession * s =[PlaynomicsSession sharedInstance];
         
         PNAPSNotificationEvent *ev = [[PNAPSNotificationEvent alloc] init:PNEventPushNotificationPayload

@@ -41,6 +41,7 @@
     NSLog(@"did get remote note\r\n---> %@",userInfo);
     NSLog(@"%d,%s",__LINE__,__FUNCTION__);
     [PlaynomicsSession pushNotificationsWithPayload:userInfo];
+
 }
 
 #pragma mark -
@@ -55,8 +56,18 @@
     
 
     //enable notifications
-    [[UIApplication sharedApplication] registerForRemoteNotificationTypes:
-     (UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
+    UIApplication *app = [UIApplication sharedApplication];
+    UIRemoteNotificationType types = [app enabledRemoteNotificationTypes];
+    if (types<=0) {
+        
+        // we could forego the check for "types" and always "registerForRemoteNotifications" on launch,
+        // however, this way prevents us from calling the notificaion url from the api lib N times
+        
+        // register for notifications
+        [app registerForRemoteNotificationTypes:
+         (UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
+    }
+    
     
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
     // Override point for customization after application launch.
@@ -70,7 +81,10 @@
     
     return YES;
 }
-
+- (BOOL)application:(UIApplication *)application willFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+{
+    return YES;
+}
 - (void)applicationWillResignActive:(UIApplication *)application
 {
     /*
