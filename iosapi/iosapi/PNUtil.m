@@ -304,6 +304,10 @@
             return PNEventInvitationResponse;
         else if ([text isEqualToString:@"milestone"])
             return PNEventMilestone;
+        else if ([text isEqualToString:@"pushNotificationToken"])
+            return PNEventPushNotificationToken;
+        else if ([text isEqualToString:@"pushNotificationPayload"])
+            return PNEventPushNotificationPayload;
     }
     return -1;
 }
@@ -340,6 +344,10 @@
             return @"invitationResponse";
         case PNEventMilestone:
             return @"milestone";
+        case PNEventPushNotificationToken:
+            return @"pushNotificationToken";
+        case PNEventPushNotificationPayload:
+            return @"pushNotificationPayload";
     }
     return nil;
 }

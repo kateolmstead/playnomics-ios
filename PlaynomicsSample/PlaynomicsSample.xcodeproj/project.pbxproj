@@ -16,25 +16,37 @@
 		5BBAA08C159BAF0000AA4993 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BBAA08B159BAF0000AA4993 /* ViewController.m */; };
 		5BBAA08F159BAF0000AA4993 /* ViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BBAA08D159BAF0000AA4993 /* ViewController_iPhone.xib */; };
 		5BBAA092159BAF0000AA4993 /* ViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BBAA090159BAF0000AA4993 /* ViewController_iPad.xib */; };
-		EA3209C8161C99C500F8FF8E /* libiosapi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EA32098E161B8BD300F8FF8E /* libiosapi.a */; };
+		A113314A16A5F85000E48ED0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BBAA07A159BAF0000AA4993 /* Foundation.framework */; };
+		A113314F16A5F85000E48ED0 /* PNLib.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = A113314E16A5F85000E48ED0 /* PNLib.h */; };
+		A113315116A5F85000E48ED0 /* PNLib.m in Sources */ = {isa = PBXBuildFile; fileRef = A113315016A5F85000E48ED0 /* PNLib.m */; };
+		A113317416A5F86B00E48ED0 /* PNEventSender.m in Sources */ = {isa = PBXBuildFile; fileRef = A113315616A5F86B00E48ED0 /* PNEventSender.m */; };
+		A113317516A5F86B00E48ED0 /* PNApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = A113315716A5F86B00E48ED0 /* PNApplication.m */; };
+		A113317616A5F86B00E48ED0 /* PlaynomicsSession.m in Sources */ = {isa = PBXBuildFile; fileRef = A113315816A5F86B00E48ED0 /* PlaynomicsSession.m */; };
+		A113317716A5F86B00E48ED0 /* PNEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = A113315916A5F86B00E48ED0 /* PNEvent.m */; };
+		A113317816A5F86B00E48ED0 /* PNSocialEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = A113315B16A5F86B00E48ED0 /* PNSocialEvent.m */; };
+		A113317916A5F86B00E48ED0 /* PNMilestoneEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = A113315C16A5F86B00E48ED0 /* PNMilestoneEvent.m */; };
+		A113317A16A5F86B00E48ED0 /* PNBasicEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = A113315D16A5F86B00E48ED0 /* PNBasicEvent.m */; };
+		A113317C16A5F86B00E48ED0 /* PNUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = A113316416A5F86B00E48ED0 /* PNUtil.m */; };
+		A113317D16A5F86B00E48ED0 /* PNRandomGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = A113316516A5F86B00E48ED0 /* PNRandomGenerator.m */; };
+		A113317E16A5F86B00E48ED0 /* PNGameEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = A113316C16A5F86B00E48ED0 /* PNGameEvent.m */; };
+		A113317F16A5F86B00E48ED0 /* PNTransactionEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = A113316F16A5F86B00E48ED0 /* PNTransactionEvent.m */; };
+		A113318016A5F86B00E48ED0 /* PNUserInfoEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = A113317116A5F86B00E48ED0 /* PNUserInfoEvent.m */; };
+		A113319616A60C9C00E48ED0 /* libPNLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A113314916A5F85000E48ED0 /* libPNLib.a */; };
+		A1CE644B16A6277200564432 /* PNAPSNotificationEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = A1CE644A16A6277200564432 /* PNAPSNotificationEvent.m */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		EA32098D161B8BD300F8FF8E /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = EA320985161B8BD300F8FF8E /* iosapi.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = D1D922701590F59600EDDE17;
-			remoteInfo = iosapi;
+/* Begin PBXCopyFilesBuildPhase section */
+		A113314716A5F85000E48ED0 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/${PRODUCT_NAME}";
+			dstSubfolderSpec = 16;
+			files = (
+				A113314F16A5F85000E48ED0 /* PNLib.h in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
 		};
-		EA32098F161B8BD300F8FF8E /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = EA320985161B8BD300F8FF8E /* iosapi.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = D1D922801590F59700EDDE17;
-			remoteInfo = iosapiTests;
-		};
-/* End PBXContainerItemProxy section */
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		5BBAA074159BAEFF00AA4993 /* PlaynomicsSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PlaynomicsSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -51,9 +63,38 @@
 		5BBAA08B159BAF0000AA4993 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = ViewController.m; sourceTree = "<group>"; };
 		5BBAA08E159BAF0000AA4993 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController_iPhone.xib; sourceTree = "<group>"; };
 		5BBAA091159BAF0000AA4993 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController_iPad.xib; sourceTree = "<group>"; };
-		5BF38FCA159D389B00DDD957 /* PlaynomicsSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlaynomicsSession.h; path = "../../../../../Library/Developer/Xcode/DerivedData/iosapi-bjkqyrtlyjtbiqfjtdqrczayducv/Build/Products/Debug-iphoneos/usr/local/include/PlaynomicsSession.h"; sourceTree = "<group>"; };
-		D19CBDD516766EF30089B04A /* PlaynomicsSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = PlaynomicsSession.h; path = ../../iosapi/iosapi/PlaynomicsSession.h; sourceTree = "<group>"; };
-		EA320985161B8BD300F8FF8E /* iosapi.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = iosapi.xcodeproj; path = ../iosapi/iosapi.xcodeproj; sourceTree = "<group>"; };
+		A113314916A5F85000E48ED0 /* libPNLib.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPNLib.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		A113314D16A5F85000E48ED0 /* PNLib-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PNLib-Prefix.pch"; sourceTree = "<group>"; };
+		A113314E16A5F85000E48ED0 /* PNLib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PNLib.h; sourceTree = "<group>"; };
+		A113315016A5F85000E48ED0 /* PNLib.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PNLib.m; sourceTree = "<group>"; };
+		A113315516A5F86B00E48ED0 /* PlaynomicsSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlaynomicsSession.h; path = ../../iosapi/iosapi/PlaynomicsSession.h; sourceTree = "<group>"; };
+		A113315616A5F86B00E48ED0 /* PNEventSender.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PNEventSender.m; path = ../../iosapi/iosapi/PNEventSender.m; sourceTree = "<group>"; };
+		A113315716A5F86B00E48ED0 /* PNApplication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PNApplication.m; path = ../../iosapi/iosapi/PNApplication.m; sourceTree = "<group>"; };
+		A113315816A5F86B00E48ED0 /* PlaynomicsSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlaynomicsSession.m; path = ../../iosapi/iosapi/PlaynomicsSession.m; sourceTree = "<group>"; };
+		A113315916A5F86B00E48ED0 /* PNEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PNEvent.m; path = ../../iosapi/iosapi/PNEvent.m; sourceTree = "<group>"; };
+		A113315B16A5F86B00E48ED0 /* PNSocialEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PNSocialEvent.m; path = ../../iosapi/iosapi/PNSocialEvent.m; sourceTree = "<group>"; };
+		A113315C16A5F86B00E48ED0 /* PNMilestoneEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PNMilestoneEvent.m; path = ../../iosapi/iosapi/PNMilestoneEvent.m; sourceTree = "<group>"; };
+		A113315D16A5F86B00E48ED0 /* PNBasicEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PNBasicEvent.m; path = ../../iosapi/iosapi/PNBasicEvent.m; sourceTree = "<group>"; };
+		A113315F16A5F86B00E48ED0 /* PNEventSender.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PNEventSender.h; path = ../../iosapi/iosapi/PNEventSender.h; sourceTree = "<group>"; };
+		A113316016A5F86B00E48ED0 /* PlaynomicsSession+Exposed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "PlaynomicsSession+Exposed.h"; path = "../../iosapi/iosapi/PlaynomicsSession+Exposed.h"; sourceTree = "<group>"; };
+		A113316116A5F86B00E48ED0 /* PNConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PNConstants.h; path = ../../iosapi/iosapi/PNConstants.h; sourceTree = "<group>"; };
+		A113316316A5F86B00E48ED0 /* PNUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PNUtil.h; path = ../../iosapi/iosapi/PNUtil.h; sourceTree = "<group>"; };
+		A113316416A5F86B00E48ED0 /* PNUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PNUtil.m; path = ../../iosapi/iosapi/PNUtil.m; sourceTree = "<group>"; };
+		A113316516A5F86B00E48ED0 /* PNRandomGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PNRandomGenerator.m; path = ../../iosapi/iosapi/PNRandomGenerator.m; sourceTree = "<group>"; };
+		A113316616A5F86B00E48ED0 /* PNRandomGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PNRandomGenerator.h; path = ../../iosapi/iosapi/PNRandomGenerator.h; sourceTree = "<group>"; };
+		A113316716A5F86B00E48ED0 /* PNMilestoneEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PNMilestoneEvent.h; path = ../../iosapi/iosapi/PNMilestoneEvent.h; sourceTree = "<group>"; };
+		A113316816A5F86B00E48ED0 /* PNEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PNEvent.h; path = ../../iosapi/iosapi/PNEvent.h; sourceTree = "<group>"; };
+		A113316916A5F86B00E48ED0 /* PNBasicEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PNBasicEvent.h; path = ../../iosapi/iosapi/PNBasicEvent.h; sourceTree = "<group>"; };
+		A113316A16A5F86B00E48ED0 /* PNConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PNConfig.h; path = ../../iosapi/iosapi/PNConfig.h; sourceTree = "<group>"; };
+		A113316B16A5F86B00E48ED0 /* PNGameEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PNGameEvent.h; path = ../../iosapi/iosapi/PNGameEvent.h; sourceTree = "<group>"; };
+		A113316C16A5F86B00E48ED0 /* PNGameEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PNGameEvent.m; path = ../../iosapi/iosapi/PNGameEvent.m; sourceTree = "<group>"; };
+		A113316D16A5F86B00E48ED0 /* PNSocialEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PNSocialEvent.h; path = ../../iosapi/iosapi/PNSocialEvent.h; sourceTree = "<group>"; };
+		A113316E16A5F86B00E48ED0 /* PNTransactionEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PNTransactionEvent.h; path = ../../iosapi/iosapi/PNTransactionEvent.h; sourceTree = "<group>"; };
+		A113316F16A5F86B00E48ED0 /* PNTransactionEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PNTransactionEvent.m; path = ../../iosapi/iosapi/PNTransactionEvent.m; sourceTree = "<group>"; };
+		A113317016A5F86B00E48ED0 /* PNUserInfoEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PNUserInfoEvent.h; path = ../../iosapi/iosapi/PNUserInfoEvent.h; sourceTree = "<group>"; };
+		A113317116A5F86B00E48ED0 /* PNUserInfoEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PNUserInfoEvent.m; path = ../../iosapi/iosapi/PNUserInfoEvent.m; sourceTree = "<group>"; };
+		A1CE644916A6277200564432 /* PNAPSNotificationEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PNAPSNotificationEvent.h; path = ../../iosapi/iosapi/PNAPSNotificationEvent.h; sourceTree = "<group>"; };
+		A1CE644A16A6277200564432 /* PNAPSNotificationEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PNAPSNotificationEvent.m; path = ../../iosapi/iosapi/PNAPSNotificationEvent.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,10 +102,18 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EA3209C8161C99C500F8FF8E /* libiosapi.a in Frameworks */,
+				A113319616A60C9C00E48ED0 /* libPNLib.a in Frameworks */,
 				5BBAA079159BAF0000AA4993 /* UIKit.framework in Frameworks */,
 				5BBAA07B159BAF0000AA4993 /* Foundation.framework in Frameworks */,
 				5BBAA07D159BAF0000AA4993 /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A113314616A5F85000E48ED0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A113314A16A5F85000E48ED0 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -74,8 +123,8 @@
 		5BBAA069159BAEFF00AA4993 = {
 			isa = PBXGroup;
 			children = (
-				EA320985161B8BD300F8FF8E /* iosapi.xcodeproj */,
 				5BBAA07E159BAF0000AA4993 /* PlaynomicsSample */,
+				A113314B16A5F85000E48ED0 /* PNLib */,
 				5BBAA077159BAF0000AA4993 /* Frameworks */,
 				5BBAA075159BAEFF00AA4993 /* Products */,
 			);
@@ -85,6 +134,7 @@
 			isa = PBXGroup;
 			children = (
 				5BBAA074159BAEFF00AA4993 /* PlaynomicsSample.app */,
+				A113314916A5F85000E48ED0 /* libPNLib.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -102,12 +152,10 @@
 		5BBAA07E159BAF0000AA4993 /* PlaynomicsSample */ = {
 			isa = PBXGroup;
 			children = (
-				D19CBDD516766EF30089B04A /* PlaynomicsSession.h */,
 				5BBAA087159BAF0000AA4993 /* AppDelegate.h */,
 				5BBAA088159BAF0000AA4993 /* AppDelegate.m */,
 				5BBAA08A159BAF0000AA4993 /* ViewController.h */,
 				5BBAA08B159BAF0000AA4993 /* ViewController.m */,
-				5BBAA09C159BB60600AA4993 /* Tools */,
 				5BC947EA159E2A1E00BE180B /* xib */,
 				5BBAA07F159BAF0000AA4993 /* Supporting Files */,
 			);
@@ -125,14 +173,6 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		5BBAA09C159BB60600AA4993 /* Tools */ = {
-			isa = PBXGroup;
-			children = (
-				5BF38FCA159D389B00DDD957 /* PlaynomicsSession.h */,
-			);
-			name = Tools;
-			sourceTree = "<group>";
-		};
 		5BC947EA159E2A1E00BE180B /* xib */ = {
 			isa = PBXGroup;
 			children = (
@@ -142,13 +182,66 @@
 			name = xib;
 			sourceTree = "<group>";
 		};
-		EA320986161B8BD300F8FF8E /* Products */ = {
+		A113314B16A5F85000E48ED0 /* PNLib */ = {
 			isa = PBXGroup;
 			children = (
-				EA32098E161B8BD300F8FF8E /* libiosapi.a */,
-				EA320990161B8BD300F8FF8E /* iosapiTests.octest */,
+				A1CE644516A622EE00564432 /* util */,
+				A1CE644316A622B400564432 /* events */,
+				A113316016A5F86B00E48ED0 /* PlaynomicsSession+Exposed.h */,
+				A113315516A5F86B00E48ED0 /* PlaynomicsSession.h */,
+				A113315816A5F86B00E48ED0 /* PlaynomicsSession.m */,
+				A113315716A5F86B00E48ED0 /* PNApplication.m */,
+				A113316A16A5F86B00E48ED0 /* PNConfig.h */,
+				A113316116A5F86B00E48ED0 /* PNConstants.h */,
+				A113315F16A5F86B00E48ED0 /* PNEventSender.h */,
+				A113315616A5F86B00E48ED0 /* PNEventSender.m */,
+				A113314C16A5F85000E48ED0 /* Supporting Files */,
 			);
-			name = Products;
+			path = PNLib;
+			sourceTree = "<group>";
+		};
+		A113314C16A5F85000E48ED0 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				A113314D16A5F85000E48ED0 /* PNLib-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		A1CE644316A622B400564432 /* events */ = {
+			isa = PBXGroup;
+			children = (
+				A113316916A5F86B00E48ED0 /* PNBasicEvent.h */,
+				A113315D16A5F86B00E48ED0 /* PNBasicEvent.m */,
+				A113316816A5F86B00E48ED0 /* PNEvent.h */,
+				A113315916A5F86B00E48ED0 /* PNEvent.m */,
+				A113316B16A5F86B00E48ED0 /* PNGameEvent.h */,
+				A113316C16A5F86B00E48ED0 /* PNGameEvent.m */,
+				A113316716A5F86B00E48ED0 /* PNMilestoneEvent.h */,
+				A113315C16A5F86B00E48ED0 /* PNMilestoneEvent.m */,
+				A113316D16A5F86B00E48ED0 /* PNSocialEvent.h */,
+				A113315B16A5F86B00E48ED0 /* PNSocialEvent.m */,
+				A113316E16A5F86B00E48ED0 /* PNTransactionEvent.h */,
+				A113316F16A5F86B00E48ED0 /* PNTransactionEvent.m */,
+				A113317016A5F86B00E48ED0 /* PNUserInfoEvent.h */,
+				A113317116A5F86B00E48ED0 /* PNUserInfoEvent.m */,
+				A1CE644916A6277200564432 /* PNAPSNotificationEvent.h */,
+				A1CE644A16A6277200564432 /* PNAPSNotificationEvent.m */,
+			);
+			name = events;
+			sourceTree = "<group>";
+		};
+		A1CE644516A622EE00564432 /* util */ = {
+			isa = PBXGroup;
+			children = (
+				A113314E16A5F85000E48ED0 /* PNLib.h */,
+				A113315016A5F85000E48ED0 /* PNLib.m */,
+				A113316616A5F86B00E48ED0 /* PNRandomGenerator.h */,
+				A113316516A5F86B00E48ED0 /* PNRandomGenerator.m */,
+				A113316316A5F86B00E48ED0 /* PNUtil.h */,
+				A113316416A5F86B00E48ED0 /* PNUtil.m */,
+			);
+			name = util;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -171,6 +264,23 @@
 			productReference = 5BBAA074159BAEFF00AA4993 /* PlaynomicsSample.app */;
 			productType = "com.apple.product-type.application";
 		};
+		A113314816A5F85000E48ED0 /* PNLib */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A113315216A5F85000E48ED0 /* Build configuration list for PBXNativeTarget "PNLib" */;
+			buildPhases = (
+				A113314516A5F85000E48ED0 /* Sources */,
+				A113314616A5F85000E48ED0 /* Frameworks */,
+				A113314716A5F85000E48ED0 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PNLib;
+			productName = PNLib;
+			productReference = A113314916A5F85000E48ED0 /* libPNLib.a */;
+			productType = "com.apple.product-type.library.static";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -190,35 +300,13 @@
 			mainGroup = 5BBAA069159BAEFF00AA4993;
 			productRefGroup = 5BBAA075159BAEFF00AA4993 /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = EA320986161B8BD300F8FF8E /* Products */;
-					ProjectRef = EA320985161B8BD300F8FF8E /* iosapi.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				5BBAA073159BAEFF00AA4993 /* PlaynomicsSample */,
+				A113314816A5F85000E48ED0 /* PNLib */,
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		EA32098E161B8BD300F8FF8E /* libiosapi.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libiosapi.a;
-			remoteRef = EA32098D161B8BD300F8FF8E /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		EA320990161B8BD300F8FF8E /* iosapiTests.octest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = iosapiTests.octest;
-			remoteRef = EA32098F161B8BD300F8FF8E /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		5BBAA072159BAEFF00AA4993 /* Resources */ = {
@@ -241,6 +329,27 @@
 				5BBAA085159BAF0000AA4993 /* main.m in Sources */,
 				5BBAA089159BAF0000AA4993 /* AppDelegate.m in Sources */,
 				5BBAA08C159BAF0000AA4993 /* ViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A113314516A5F85000E48ED0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A113315116A5F85000E48ED0 /* PNLib.m in Sources */,
+				A113317416A5F86B00E48ED0 /* PNEventSender.m in Sources */,
+				A113317516A5F86B00E48ED0 /* PNApplication.m in Sources */,
+				A113317616A5F86B00E48ED0 /* PlaynomicsSession.m in Sources */,
+				A113317716A5F86B00E48ED0 /* PNEvent.m in Sources */,
+				A113317816A5F86B00E48ED0 /* PNSocialEvent.m in Sources */,
+				A113317916A5F86B00E48ED0 /* PNMilestoneEvent.m in Sources */,
+				A113317A16A5F86B00E48ED0 /* PNBasicEvent.m in Sources */,
+				A113317C16A5F86B00E48ED0 /* PNUtil.m in Sources */,
+				A113317D16A5F86B00E48ED0 /* PNRandomGenerator.m in Sources */,
+				A113317E16A5F86B00E48ED0 /* PNGameEvent.m in Sources */,
+				A113317F16A5F86B00E48ED0 /* PNTransactionEvent.m in Sources */,
+				A113318016A5F86B00E48ED0 /* PNUserInfoEvent.m in Sources */,
+				A1CE644B16A6277200564432 /* PNAPSNotificationEvent.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -322,18 +431,19 @@
 		5BBAA096159BAF0000AA4993 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer: Eric McConkie (79334EXNDM)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Eric McConkie (79334EXNDM)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PlaynomicsSample/PlaynomicsSample-Prefix.pch";
 				HEADER_SEARCH_PATHS = "$(BUILT_PRODUCTS_DIR)/usr/local/include";
 				INFOPLIST_FILE = "PlaynomicsSample/PlaynomicsSample-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/../../../../Library/Developer/Xcode/DerivedData/iosapi-bjkqyrtlyjtbiqfjtdqrczayducv/Build/Products/Debug-iphonesimulator\"",
 					"\"$(SRCROOT)\"",
-					"\"$(SRCROOT)/../../../../../Library/Developer/Xcode/DerivedData/iosapi-fkksjzzewixnvbbvsfdttiakbmec/Build/Products/Debug-iphonesimulator\"",
-					"\"$(SRCROOT)/../../../Library/Developer/Xcode/DerivedData/iosapi-cebmgsvkkaahzdfmhikzbpwxmpzo/Build/Products/Debug-iphonesimulator\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "420011D0-AEFB-49B3-9F14-97C382365D5E";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "420011D0-AEFB-49B3-9F14-97C382365D5E";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -346,13 +456,47 @@
 				INFOPLIST_FILE = "PlaynomicsSample/PlaynomicsSample-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/../../../../Library/Developer/Xcode/DerivedData/iosapi-bjkqyrtlyjtbiqfjtdqrczayducv/Build/Products/Debug-iphonesimulator\"",
 					"\"$(SRCROOT)\"",
-					"\"$(SRCROOT)/../../../../../Library/Developer/Xcode/DerivedData/iosapi-fkksjzzewixnvbbvsfdttiakbmec/Build/Products/Debug-iphonesimulator\"",
-					"\"$(SRCROOT)/../../../Library/Developer/Xcode/DerivedData/iosapi-cebmgsvkkaahzdfmhikzbpwxmpzo/Build/Products/Debug-iphonesimulator\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		A113315316A5F85000E48ED0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				DSTROOT = /tmp/PNLib.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "PNLib/PNLib-Prefix.pch";
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		A113315416A5F85000E48ED0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				DSTROOT = /tmp/PNLib.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "PNLib/PNLib-Prefix.pch";
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
 			};
 			name = Release;
 		};
@@ -373,6 +517,15 @@
 			buildConfigurations = (
 				5BBAA096159BAF0000AA4993 /* Debug */,
 				5BBAA097159BAF0000AA4993 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A113315216A5F85000E48ED0 /* Build configuration list for PBXNativeTarget "PNLib" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A113315316A5F85000E48ED0 /* Debug */,
+				A113315416A5F85000E48ED0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

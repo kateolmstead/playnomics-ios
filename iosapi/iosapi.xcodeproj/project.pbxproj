@@ -75,7 +75,7 @@
 		D1D9228F1590F59700EDDE17 /* iosapiTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iosapiTests.h; sourceTree = "<group>"; };
 		D1D922901590F59700EDDE17 /* iosapiTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = iosapiTests.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		D1D922A11591124700EDDE17 /* PlaynomicsSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = PlaynomicsSession.h; sourceTree = "<group>"; };
-		D1D922A21591124700EDDE17 /* PlaynomicsSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = PlaynomicsSession.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		D1D922A21591124700EDDE17 /* PlaynomicsSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = PlaynomicsSession.m; sourceTree = "<group>"; };
 		D1D922A51591125700EDDE17 /* PNEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = PNEvent.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		D1D922A61591125700EDDE17 /* PNEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = PNEvent.m; sourceTree = "<group>"; };
 		D1D922A9159112A200EDDE17 /* PNSocialEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = PNSocialEvent.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };

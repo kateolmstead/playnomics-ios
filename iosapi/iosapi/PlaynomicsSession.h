@@ -175,6 +175,8 @@ typedef enum {
  */
 + (void) setTestMode: (bool) testMode;
 
+
+
 @end
 
 @interface PlaynomicsSession (Events)
@@ -429,8 +431,28 @@ typedef enum {
  */
 + (PNAPIResult) milestoneWithId: (signed long long) milestoneId
                         andName: (NSString *) milestoneName;
+
+
+/**
+ * PushNotificationEnabled
+ *
+ * @param deviceToken
+ *            the device token
+ * @return the API Result
+ */
++ (PNAPIResult) enablePushNotificationsWithToken:(NSData*)deviceToken;
+
+/**
+ * pushNotificationsWithPayload
+ *
+ * @param payload
+ *            the dictionary that was pushed to device 
+ * @return the API Result
+ */
++ (PNAPIResult) pushNotificationsWithPayload:(NSDictionary*)payload ;
+
 @end
 
-@interface PNApplication : UIApplication
+@interface PNApplication : UIApplication<UIApplicationDelegate>
 - (void) sendEvent:(UIEvent *)event;
 @end

@@ -18,7 +18,9 @@ typedef enum {
     PNEventTransaction,
     PNEventInvitationSent,
     PNEventInvitationResponse,
-    PNEventMilestone
+    PNEventMilestone,
+    PNEventPushNotificationToken,
+    PNEventPushNotificationPayload,
 } PNEventType;
 
 /**

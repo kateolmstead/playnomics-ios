@@ -10,7 +10,6 @@
 
 #import "ViewController.h"
 #import "PlaynomicsSession.h"
-
 @implementation AppDelegate
 
 @synthesize window = _window;
@@ -23,12 +22,40 @@
     [super dealloc];
 }
 
+#pragma mark -
+#pragma mark push notifications
+
+-(void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
+{
+    NSLog(@"deviceToken\r\n---> %@",deviceToken);
+    NSLog(@"%d,%s",__LINE__,__FUNCTION__);
+    [PlaynomicsSession enablePushNotificationsWithToken:deviceToken];
+}
+
+-(void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
+{
+    
+}
+-(void) application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
+{
+    NSLog(@"did get remote note\r\n---> %@",userInfo);
+    NSLog(@"%d,%s",__LINE__,__FUNCTION__);
+}
+
+#pragma mark -
+#pragma mark launch
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+
     long appId = 3L;
     NSString *userId = @"SampleUserId1234";
     [PlaynomicsSession setTestMode:YES];
     [PlaynomicsSession startWithApplicationId:appId userId:userId];
+    
+
+    //enable notifications
+    [[UIApplication sharedApplication] registerForRemoteNotificationTypes:
+     (UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
     
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
     // Override point for customization after application launch.
@@ -49,6 +76,9 @@
      Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
      Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
      */
+    
+    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
+    
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
