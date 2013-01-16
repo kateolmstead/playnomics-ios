@@ -9,7 +9,9 @@
 #import "PNAPSNotificationEvent.h"
 
 
+
 #define kAPSId @"push_id"
+
 
 @interface PNAPSNotificationEvent()
 @property (nonatomic ) PNAPSNotificationEventType pushEventType;

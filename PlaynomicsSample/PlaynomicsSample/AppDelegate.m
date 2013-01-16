@@ -27,8 +27,6 @@
 
 -(void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 {
-    NSLog(@"deviceToken\r\n---> %@",deviceToken);
-    NSLog(@"%d,%s",__LINE__,__FUNCTION__);
     [PlaynomicsSession enablePushNotificationsWithToken:deviceToken];
 }
 
@@ -38,9 +36,18 @@
 }
 -(void) application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
 {
-    NSLog(@"did get remote note\r\n---> %@",userInfo);
-    NSLog(@"%d,%s",__LINE__,__FUNCTION__);
     [PlaynomicsSession pushNotificationsWithPayload:userInfo];
+    
+    
+    NSString *noteId = [NSString stringWithFormat:@"Push ID: %@",
+                        [userInfo valueForKeyPath:@"push_id"]];
+    NSString *notemessage = [NSString stringWithFormat:@"%@",
+                        [userInfo valueForKeyPath:@"push_message"]];
+    
+    UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:noteId
+                                                    message:notemessage
+                                                   delegate:nil cancelButtonTitle:@"Yup" otherButtonTitles: nil] autorelease];
+    [alert show];
 
 }
 
