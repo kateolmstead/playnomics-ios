@@ -40,6 +40,7 @@
 {
     NSLog(@"did get remote note\r\n---> %@",userInfo);
     NSLog(@"%d,%s",__LINE__,__FUNCTION__);
+    [PlaynomicsSession pushNotificationsWithPayload:userInfo];
 }
 
 #pragma mark -

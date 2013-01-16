@@ -42,13 +42,14 @@
 
 - (NSString *) toQueryString {
 
-    NSString *tokenToString = [[[NSString alloc] initWithData:_deviceToken encoding:NSUTF8StringEncoding] autorelease];
+    NSString *adeviceToken = [[_deviceToken description] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]];
+    adeviceToken = [adeviceToken stringByReplacingOccurrencesOfString:@" " withString:@""];
     NSString * queryString = nil;
     switch (self.pushEventType) {
         case PNAPSNotificationEventTypeDeviceToken:
         {
             queryString = [[super toQueryString] stringByAppendingFormat:@"&token=%@&jsh=%@",
-                           tokenToString,
+                           adeviceToken,
                            [self internalSessionId]];
         }
             break;
