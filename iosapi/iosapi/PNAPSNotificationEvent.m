@@ -47,11 +47,13 @@
         if ([payload valueForKeyPath:kPushaction]!=nil) {
             NSString *action =  [payload valueForKeyPath:kPushaction];
             NSURL *actionURL = [NSURL URLWithString:action];
+            
+            //if the action is redirect to a url, let the os handle it
             if ([actionURL.scheme isEqualToString:kPushURLSchemeURL]) {
                 NSString *targetURL = actionURL.resourceSpecifier;
                 [[UIApplication sharedApplication]openURL:[NSURL URLWithString:targetURL]];
-                
             }
+            
         }
         
     }

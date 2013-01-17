@@ -32,6 +32,7 @@
 		A118C3DE16A88CDD00DFF63C /* PNTransactionEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = A118C3CC16A88CDD00DFF63C /* PNTransactionEvent.m */; };
 		A118C3DF16A88CDD00DFF63C /* PNUserInfoEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = A118C3CE16A88CDD00DFF63C /* PNUserInfoEvent.m */; };
 		A118C3E116A88CEE00DFF63C /* libiosapi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A118C3A516A88CC900DFF63C /* libiosapi.a */; };
+		A1244D5516A8A38E001A93DD /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A1244D5416A8A38D001A93DD /* Localizable.strings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -93,6 +94,7 @@
 		A118C3CD16A88CDD00DFF63C /* PNUserInfoEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PNUserInfoEvent.h; path = ../../iosapi/iosapi/PNUserInfoEvent.h; sourceTree = "<group>"; };
 		A118C3CE16A88CDD00DFF63C /* PNUserInfoEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PNUserInfoEvent.m; path = ../../iosapi/iosapi/PNUserInfoEvent.m; sourceTree = "<group>"; };
 		A118C3CF16A88CDD00DFF63C /* PNUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PNUtil.h; path = ../../iosapi/iosapi/PNUtil.h; sourceTree = "<group>"; };
+		A1244D5416A8A38D001A93DD /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -167,6 +169,7 @@
 				5BBAA081159BAF0000AA4993 /* InfoPlist.strings */,
 				5BBAA084159BAF0000AA4993 /* main.m */,
 				5BBAA086159BAF0000AA4993 /* PlaynomicsSample-Prefix.pch */,
+				A1244D5416A8A38D001A93DD /* Localizable.strings */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -298,6 +301,7 @@
 				5BBAA083159BAF0000AA4993 /* InfoPlist.strings in Resources */,
 				5BBAA08F159BAF0000AA4993 /* ViewController_iPhone.xib in Resources */,
 				5BBAA092159BAF0000AA4993 /* ViewController_iPad.xib in Resources */,
+				A1244D5516A8A38E001A93DD /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
