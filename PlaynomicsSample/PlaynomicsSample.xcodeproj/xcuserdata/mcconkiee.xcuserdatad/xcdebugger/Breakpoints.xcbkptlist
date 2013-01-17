@@ -8,11 +8,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "../iosapi/iosapi/PNAPSNotificationEvent.m"
-         timestampString = "380067069.988741"
+         timestampString = "380143573.044192"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "68"
-         endingLineNumber = "68"
+         startingLineNumber = "72"
+         endingLineNumber = "72"
          landmarkName = "-toQueryString"
          landmarkType = "5">
       </FileBreakpoint>
@@ -28,27 +28,6 @@
          endingLineNumber = "209"
          landmarkName = "-startWithApplicationId:"
          landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "Yes"
-         ignoreCount = "0"
-         continueAfterRunningActions = "Yes"
-         filePath = "../iosapi/iosapi/PlaynomicsSession.m"
-         timestampString = "380060508.554039"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "462"
-         endingLineNumber = "462"
-         landmarkName = "-consumeQueue"
-         landmarkType = "5">
-         <Actions>
-            <BreakpointActionProxy
-               ActionType = "Xcode.BreakpointAction.DebuggerCommand">
-               <ActionContent
-                  consoleCommand = "po ev">
-               </ActionContent>
-            </BreakpointActionProxy>
-         </Actions>
       </FileBreakpoint>
    </FileBreakpoints>
 </Bucket>

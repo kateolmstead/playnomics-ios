@@ -471,7 +471,10 @@
 
 - (PNAPIResult) sendOrQueueEvent:(PNEvent *)pe {
     if (_sessionState != PNSessionStateStarted) {
-        [self.playnomicsEventList addObject:pe];
+        //add the event to our queue if we are here
+        if(pe!=nil)
+            [self.playnomicsEventList addObject:pe];
+        
         return PNAPIResultStartNotCalled;
     }
         

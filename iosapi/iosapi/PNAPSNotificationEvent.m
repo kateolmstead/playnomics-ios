@@ -10,7 +10,9 @@
 
 
 
-#define kAPSId @"push_id"
+#define kPushId         @"push_id"
+#define kPushMessage    @"push_message"
+#define kPushaction     @"push_action"
 
 
 @interface PNAPSNotificationEvent()
@@ -41,6 +43,8 @@
     _pushEventType = PNAPSNotificationEventTypeNotificationReceived;
     if (self) {
         [self setPayload:payload];
+        
+        
     }
     return self;
 }
@@ -63,7 +67,7 @@
         case PNAPSNotificationEventTypeNotificationReceived:
         {
             NSDictionary *push = self.payload;
-            NSString *pId = [push valueForKeyPath:kAPSId];
+            NSString *pId = [push valueForKeyPath:kPushId];
             NSTimeInterval time = [[NSDate date] timeIntervalSince1970];
             queryString = [[super toQueryString] stringByAppendingFormat:@"&payload_id=%@&time=%f&jsh=%@",
                            pId,

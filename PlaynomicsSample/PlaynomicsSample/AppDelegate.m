@@ -21,9 +21,9 @@
     [_viewController release];
     [super dealloc];
 }
-
 #pragma mark -
-#pragma mark push notifications
+#pragma mark private handlers
+
 -(void)onPushAlert:(NSDictionary*)userInfo
 {
     NSString *noteId = [NSString stringWithFormat:@"Push ID: %@",
@@ -36,6 +36,10 @@
                                                     delegate:nil cancelButtonTitle:@"Yup" otherButtonTitles: nil] autorelease];
     [alert show];
 }
+
+#pragma mark -
+#pragma mark push notifications
+
 -(void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 {
     NSLog(@"device token found\r\nsend to playnomics\r\n---> %@",deviceToken);
@@ -50,6 +54,8 @@
 -(void) application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
 {
     [PlaynomicsSession pushNotificationsWithPayload:userInfo];
+    
+    //demonstates we got the push
     [self performSelector:@selector(onPushAlert:) withObject:userInfo afterDelay:0.6];
 }
 
