@@ -24,9 +24,22 @@
 
 #pragma mark -
 #pragma mark push notifications
-
+-(void)onPushAlert:(NSDictionary*)userInfo
+{
+    NSString *noteId = [NSString stringWithFormat:@"Push ID: %@",
+                        [userInfo valueForKeyPath:@"push_id"]];
+    NSString *notemessage = [NSString stringWithFormat:@"%@",
+                             [userInfo valueForKeyPath:@"push_message"]];
+    
+    UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:noteId
+                                                     message:notemessage
+                                                    delegate:nil cancelButtonTitle:@"Yup" otherButtonTitles: nil] autorelease];
+    [alert show];
+}
 -(void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 {
+    NSLog(@"device token found\r\nsend to playnomics\r\n---> %@",deviceToken);
+
     [PlaynomicsSession enablePushNotificationsWithToken:deviceToken];
 }
 
@@ -37,18 +50,7 @@
 -(void) application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
 {
     [PlaynomicsSession pushNotificationsWithPayload:userInfo];
-    
-    
-    NSString *noteId = [NSString stringWithFormat:@"Push ID: %@",
-                        [userInfo valueForKeyPath:@"push_id"]];
-    NSString *notemessage = [NSString stringWithFormat:@"%@",
-                        [userInfo valueForKeyPath:@"push_message"]];
-    
-    UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:noteId
-                                                    message:notemessage
-                                                   delegate:nil cancelButtonTitle:@"Yup" otherButtonTitles: nil] autorelease];
-    [alert show];
-
+    [self performSelector:@selector(onPushAlert:) withObject:userInfo afterDelay:0.6];
 }
 
 #pragma mark -

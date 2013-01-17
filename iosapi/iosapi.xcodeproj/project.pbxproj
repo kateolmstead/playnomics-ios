@@ -13,6 +13,8 @@
 		5B753E30159D2D5000E698F9 /* PNRandomGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B753E2F159D2D5000E698F9 /* PNRandomGenerator.m */; };
 		5BBAA22F159BD87300AA4993 /* PNApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BBAA22D159BD87300AA4993 /* PNApplication.m */; };
 		5BBAA238159BE4CD00AA4993 /* PlaynomicsSession+Exposed.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BBAA237159BE4CD00AA4993 /* PlaynomicsSession+Exposed.h */; };
+		A118C35316A8825700DFF63C /* PNAPSNotificationEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = A118C35116A8825700DFF63C /* PNAPSNotificationEvent.m */; };
+		A118C35416A8825700DFF63C /* PNAPSNotificationEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = A118C35216A8825700DFF63C /* PNAPSNotificationEvent.h */; };
 		D19CBDC216765ABE0089B04A /* PNMilestoneEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = D19CBDC016765ABE0089B04A /* PNMilestoneEvent.h */; };
 		D19CBDC316765ABE0089B04A /* PNMilestoneEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = D19CBDC116765ABE0089B04A /* PNMilestoneEvent.m */; };
 		D1D922741590F59700EDDE17 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1D922731590F59600EDDE17 /* Foundation.framework */; };
@@ -60,6 +62,8 @@
 		5B753E2F159D2D5000E698F9 /* PNRandomGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNRandomGenerator.m; sourceTree = "<group>"; };
 		5BBAA22D159BD87300AA4993 /* PNApplication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = PNApplication.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		5BBAA237159BE4CD00AA4993 /* PlaynomicsSession+Exposed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PlaynomicsSession+Exposed.h"; sourceTree = "<group>"; };
+		A118C35116A8825700DFF63C /* PNAPSNotificationEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNAPSNotificationEvent.m; sourceTree = "<group>"; };
+		A118C35216A8825700DFF63C /* PNAPSNotificationEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNAPSNotificationEvent.h; sourceTree = "<group>"; };
 		D19CBDC016765ABE0089B04A /* PNMilestoneEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNMilestoneEvent.h; sourceTree = "<group>"; };
 		D19CBDC116765ABE0089B04A /* PNMilestoneEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNMilestoneEvent.m; sourceTree = "<group>"; };
 		D1D922701590F59600EDDE17 /* libiosapi.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libiosapi.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -120,6 +124,8 @@
 		5B6C6E141593CC480088EF5E /* Event */ = {
 			isa = PBXGroup;
 			children = (
+				A118C35116A8825700DFF63C /* PNAPSNotificationEvent.m */,
+				A118C35216A8825700DFF63C /* PNAPSNotificationEvent.h */,
 				D1D922A51591125700EDDE17 /* PNEvent.h */,
 				D1D922A61591125700EDDE17 /* PNEvent.m */,
 				D1D922A9159112A200EDDE17 /* PNSocialEvent.h */,
@@ -246,6 +252,7 @@
 				5B589DBF15993764002B6251 /* PNConfig.h in Headers */,
 				5BBAA238159BE4CD00AA4993 /* PlaynomicsSession+Exposed.h in Headers */,
 				D19CBDC216765ABE0089B04A /* PNMilestoneEvent.h in Headers */,
+				A118C35416A8825700DFF63C /* PNAPSNotificationEvent.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -359,6 +366,7 @@
 				5BBAA22F159BD87300AA4993 /* PNApplication.m in Sources */,
 				5B753E30159D2D5000E698F9 /* PNRandomGenerator.m in Sources */,
 				D19CBDC316765ABE0089B04A /* PNMilestoneEvent.m in Sources */,
+				A118C35316A8825700DFF63C /* PNAPSNotificationEvent.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
