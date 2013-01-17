@@ -16,25 +16,35 @@
 		5BBAA08C159BAF0000AA4993 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BBAA08B159BAF0000AA4993 /* ViewController.m */; };
 		5BBAA08F159BAF0000AA4993 /* ViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BBAA08D159BAF0000AA4993 /* ViewController_iPhone.xib */; };
 		5BBAA092159BAF0000AA4993 /* ViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BBAA090159BAF0000AA4993 /* ViewController_iPad.xib */; };
-		A118C35616A882AF00DFF63C /* libiosapi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A118C34E16A8823E00DFF63C /* libiosapi.a */; };
+		A118C3A616A88CCA00DFF63C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BBAA07A159BAF0000AA4993 /* Foundation.framework */; };
+		A118C3D216A88CDD00DFF63C /* PlaynomicsSession.m in Sources */ = {isa = PBXBuildFile; fileRef = A118C3B116A88CDD00DFF63C /* PlaynomicsSession.m */; };
+		A118C3D316A88CDD00DFF63C /* PNAPSNotificationEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = A118C3B216A88CDD00DFF63C /* PNAPSNotificationEvent.m */; };
+		A118C3D416A88CDD00DFF63C /* PNEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = A118C3B316A88CDD00DFF63C /* PNEvent.m */; };
+		A118C3D516A88CDD00DFF63C /* PNBasicEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = A118C3B416A88CDD00DFF63C /* PNBasicEvent.m */; };
+		A118C3D616A88CDD00DFF63C /* PNUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = A118C3B516A88CDD00DFF63C /* PNUtil.m */; };
+		A118C3D716A88CDD00DFF63C /* PNEventSender.m in Sources */ = {isa = PBXBuildFile; fileRef = A118C3B616A88CDD00DFF63C /* PNEventSender.m */; };
+		A118C3D816A88CDD00DFF63C /* PNApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = A118C3B816A88CDD00DFF63C /* PNApplication.m */; };
+		A118C3D916A88CDD00DFF63C /* iosapi.m in Sources */ = {isa = PBXBuildFile; fileRef = A118C3BD16A88CDD00DFF63C /* iosapi.m */; };
+		A118C3DA16A88CDD00DFF63C /* PNGameEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = A118C3C416A88CDD00DFF63C /* PNGameEvent.m */; };
+		A118C3DB16A88CDD00DFF63C /* PNMilestoneEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = A118C3C616A88CDD00DFF63C /* PNMilestoneEvent.m */; };
+		A118C3DC16A88CDD00DFF63C /* PNRandomGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = A118C3C816A88CDD00DFF63C /* PNRandomGenerator.m */; };
+		A118C3DD16A88CDD00DFF63C /* PNSocialEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = A118C3CA16A88CDD00DFF63C /* PNSocialEvent.m */; };
+		A118C3DE16A88CDD00DFF63C /* PNTransactionEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = A118C3CC16A88CDD00DFF63C /* PNTransactionEvent.m */; };
+		A118C3DF16A88CDD00DFF63C /* PNUserInfoEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = A118C3CE16A88CDD00DFF63C /* PNUserInfoEvent.m */; };
+		A118C3E116A88CEE00DFF63C /* libiosapi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A118C3A516A88CC900DFF63C /* libiosapi.a */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		A118C34D16A8823E00DFF63C /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = A118C34516A8823E00DFF63C /* iosapi.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = D1D922701590F59600EDDE17;
-			remoteInfo = iosapi;
+/* Begin PBXCopyFilesBuildPhase section */
+		A118C3A316A88CC900DFF63C /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/${PRODUCT_NAME}";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
 		};
-		A118C34F16A8823E00DFF63C /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = A118C34516A8823E00DFF63C /* iosapi.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = D1D922801590F59700EDDE17;
-			remoteInfo = iosapiTests;
-		};
-/* End PBXContainerItemProxy section */
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		5BBAA074159BAEFF00AA4993 /* PlaynomicsSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PlaynomicsSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -51,7 +61,38 @@
 		5BBAA08B159BAF0000AA4993 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = ViewController.m; sourceTree = "<group>"; };
 		5BBAA08E159BAF0000AA4993 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController_iPhone.xib; sourceTree = "<group>"; };
 		5BBAA091159BAF0000AA4993 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController_iPad.xib; sourceTree = "<group>"; };
-		A118C34516A8823E00DFF63C /* iosapi.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = iosapi.xcodeproj; path = ../../iosapi/iosapi.xcodeproj; sourceTree = "<group>"; };
+		A118C3A516A88CC900DFF63C /* libiosapi.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libiosapi.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		A118C3B116A88CDD00DFF63C /* PlaynomicsSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlaynomicsSession.m; path = ../../iosapi/iosapi/PlaynomicsSession.m; sourceTree = "<group>"; };
+		A118C3B216A88CDD00DFF63C /* PNAPSNotificationEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PNAPSNotificationEvent.m; path = ../../iosapi/iosapi/PNAPSNotificationEvent.m; sourceTree = "<group>"; };
+		A118C3B316A88CDD00DFF63C /* PNEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PNEvent.m; path = ../../iosapi/iosapi/PNEvent.m; sourceTree = "<group>"; };
+		A118C3B416A88CDD00DFF63C /* PNBasicEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PNBasicEvent.m; path = ../../iosapi/iosapi/PNBasicEvent.m; sourceTree = "<group>"; };
+		A118C3B516A88CDD00DFF63C /* PNUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PNUtil.m; path = ../../iosapi/iosapi/PNUtil.m; sourceTree = "<group>"; };
+		A118C3B616A88CDD00DFF63C /* PNEventSender.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PNEventSender.m; path = ../../iosapi/iosapi/PNEventSender.m; sourceTree = "<group>"; };
+		A118C3B716A88CDD00DFF63C /* PlaynomicsSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlaynomicsSession.h; path = ../../iosapi/iosapi/PlaynomicsSession.h; sourceTree = "<group>"; };
+		A118C3B816A88CDD00DFF63C /* PNApplication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PNApplication.m; path = ../../iosapi/iosapi/PNApplication.m; sourceTree = "<group>"; };
+		A118C3B916A88CDD00DFF63C /* PNAPSNotificationEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PNAPSNotificationEvent.h; path = ../../iosapi/iosapi/PNAPSNotificationEvent.h; sourceTree = "<group>"; };
+		A118C3BA16A88CDD00DFF63C /* PNConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PNConstants.h; path = ../../iosapi/iosapi/PNConstants.h; sourceTree = "<group>"; };
+		A118C3BB16A88CDD00DFF63C /* iosapi-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "iosapi-Prefix.pch"; path = "../../iosapi/iosapi/iosapi-Prefix.pch"; sourceTree = "<group>"; };
+		A118C3BC16A88CDD00DFF63C /* iosapi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = iosapi.h; path = ../../iosapi/iosapi/iosapi.h; sourceTree = "<group>"; };
+		A118C3BD16A88CDD00DFF63C /* iosapi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = iosapi.m; path = ../../iosapi/iosapi/iosapi.m; sourceTree = "<group>"; };
+		A118C3BE16A88CDD00DFF63C /* PlaynomicsSession+Exposed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "PlaynomicsSession+Exposed.h"; path = "../../iosapi/iosapi/PlaynomicsSession+Exposed.h"; sourceTree = "<group>"; };
+		A118C3BF16A88CDD00DFF63C /* PNBasicEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PNBasicEvent.h; path = ../../iosapi/iosapi/PNBasicEvent.h; sourceTree = "<group>"; };
+		A118C3C016A88CDD00DFF63C /* PNConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PNConfig.h; path = ../../iosapi/iosapi/PNConfig.h; sourceTree = "<group>"; };
+		A118C3C116A88CDD00DFF63C /* PNEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PNEvent.h; path = ../../iosapi/iosapi/PNEvent.h; sourceTree = "<group>"; };
+		A118C3C216A88CDD00DFF63C /* PNEventSender.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PNEventSender.h; path = ../../iosapi/iosapi/PNEventSender.h; sourceTree = "<group>"; };
+		A118C3C316A88CDD00DFF63C /* PNGameEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PNGameEvent.h; path = ../../iosapi/iosapi/PNGameEvent.h; sourceTree = "<group>"; };
+		A118C3C416A88CDD00DFF63C /* PNGameEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PNGameEvent.m; path = ../../iosapi/iosapi/PNGameEvent.m; sourceTree = "<group>"; };
+		A118C3C516A88CDD00DFF63C /* PNMilestoneEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PNMilestoneEvent.h; path = ../../iosapi/iosapi/PNMilestoneEvent.h; sourceTree = "<group>"; };
+		A118C3C616A88CDD00DFF63C /* PNMilestoneEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PNMilestoneEvent.m; path = ../../iosapi/iosapi/PNMilestoneEvent.m; sourceTree = "<group>"; };
+		A118C3C716A88CDD00DFF63C /* PNRandomGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PNRandomGenerator.h; path = ../../iosapi/iosapi/PNRandomGenerator.h; sourceTree = "<group>"; };
+		A118C3C816A88CDD00DFF63C /* PNRandomGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PNRandomGenerator.m; path = ../../iosapi/iosapi/PNRandomGenerator.m; sourceTree = "<group>"; };
+		A118C3C916A88CDD00DFF63C /* PNSocialEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PNSocialEvent.h; path = ../../iosapi/iosapi/PNSocialEvent.h; sourceTree = "<group>"; };
+		A118C3CA16A88CDD00DFF63C /* PNSocialEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PNSocialEvent.m; path = ../../iosapi/iosapi/PNSocialEvent.m; sourceTree = "<group>"; };
+		A118C3CB16A88CDD00DFF63C /* PNTransactionEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PNTransactionEvent.h; path = ../../iosapi/iosapi/PNTransactionEvent.h; sourceTree = "<group>"; };
+		A118C3CC16A88CDD00DFF63C /* PNTransactionEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PNTransactionEvent.m; path = ../../iosapi/iosapi/PNTransactionEvent.m; sourceTree = "<group>"; };
+		A118C3CD16A88CDD00DFF63C /* PNUserInfoEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PNUserInfoEvent.h; path = ../../iosapi/iosapi/PNUserInfoEvent.h; sourceTree = "<group>"; };
+		A118C3CE16A88CDD00DFF63C /* PNUserInfoEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PNUserInfoEvent.m; path = ../../iosapi/iosapi/PNUserInfoEvent.m; sourceTree = "<group>"; };
+		A118C3CF16A88CDD00DFF63C /* PNUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PNUtil.h; path = ../../iosapi/iosapi/PNUtil.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,10 +100,18 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A118C35616A882AF00DFF63C /* libiosapi.a in Frameworks */,
+				A118C3E116A88CEE00DFF63C /* libiosapi.a in Frameworks */,
 				5BBAA079159BAF0000AA4993 /* UIKit.framework in Frameworks */,
 				5BBAA07B159BAF0000AA4993 /* Foundation.framework in Frameworks */,
 				5BBAA07D159BAF0000AA4993 /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A118C3A216A88CC900DFF63C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A118C3A616A88CCA00DFF63C /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -73,6 +122,7 @@
 			isa = PBXGroup;
 			children = (
 				5BBAA07E159BAF0000AA4993 /* PlaynomicsSample */,
+				A118C3A716A88CCA00DFF63C /* iosapi */,
 				5BBAA077159BAF0000AA4993 /* Frameworks */,
 				5BBAA075159BAEFF00AA4993 /* Products */,
 			);
@@ -82,6 +132,7 @@
 			isa = PBXGroup;
 			children = (
 				5BBAA074159BAEFF00AA4993 /* PlaynomicsSample.app */,
+				A118C3A516A88CC900DFF63C /* libiosapi.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -99,7 +150,6 @@
 		5BBAA07E159BAF0000AA4993 /* PlaynomicsSample */ = {
 			isa = PBXGroup;
 			children = (
-				A118C34516A8823E00DFF63C /* iosapi.xcodeproj */,
 				5BBAA087159BAF0000AA4993 /* AppDelegate.h */,
 				5BBAA088159BAF0000AA4993 /* AppDelegate.m */,
 				5BBAA08A159BAF0000AA4993 /* ViewController.h */,
@@ -130,13 +180,50 @@
 			name = xib;
 			sourceTree = "<group>";
 		};
-		A118C34616A8823E00DFF63C /* Products */ = {
+		A118C3A716A88CCA00DFF63C /* iosapi */ = {
 			isa = PBXGroup;
 			children = (
-				A118C34E16A8823E00DFF63C /* libiosapi.a */,
-				A118C35016A8823E00DFF63C /* iosapiTests.octest */,
+				A118C3B116A88CDD00DFF63C /* PlaynomicsSession.m */,
+				A118C3B216A88CDD00DFF63C /* PNAPSNotificationEvent.m */,
+				A118C3B316A88CDD00DFF63C /* PNEvent.m */,
+				A118C3B416A88CDD00DFF63C /* PNBasicEvent.m */,
+				A118C3B516A88CDD00DFF63C /* PNUtil.m */,
+				A118C3B616A88CDD00DFF63C /* PNEventSender.m */,
+				A118C3B716A88CDD00DFF63C /* PlaynomicsSession.h */,
+				A118C3B816A88CDD00DFF63C /* PNApplication.m */,
+				A118C3B916A88CDD00DFF63C /* PNAPSNotificationEvent.h */,
+				A118C3BA16A88CDD00DFF63C /* PNConstants.h */,
+				A118C3BC16A88CDD00DFF63C /* iosapi.h */,
+				A118C3BD16A88CDD00DFF63C /* iosapi.m */,
+				A118C3BE16A88CDD00DFF63C /* PlaynomicsSession+Exposed.h */,
+				A118C3BF16A88CDD00DFF63C /* PNBasicEvent.h */,
+				A118C3C016A88CDD00DFF63C /* PNConfig.h */,
+				A118C3C116A88CDD00DFF63C /* PNEvent.h */,
+				A118C3C216A88CDD00DFF63C /* PNEventSender.h */,
+				A118C3C316A88CDD00DFF63C /* PNGameEvent.h */,
+				A118C3C416A88CDD00DFF63C /* PNGameEvent.m */,
+				A118C3C516A88CDD00DFF63C /* PNMilestoneEvent.h */,
+				A118C3C616A88CDD00DFF63C /* PNMilestoneEvent.m */,
+				A118C3C716A88CDD00DFF63C /* PNRandomGenerator.h */,
+				A118C3C816A88CDD00DFF63C /* PNRandomGenerator.m */,
+				A118C3C916A88CDD00DFF63C /* PNSocialEvent.h */,
+				A118C3CA16A88CDD00DFF63C /* PNSocialEvent.m */,
+				A118C3CB16A88CDD00DFF63C /* PNTransactionEvent.h */,
+				A118C3CC16A88CDD00DFF63C /* PNTransactionEvent.m */,
+				A118C3CD16A88CDD00DFF63C /* PNUserInfoEvent.h */,
+				A118C3CE16A88CDD00DFF63C /* PNUserInfoEvent.m */,
+				A118C3CF16A88CDD00DFF63C /* PNUtil.h */,
+				A118C3A816A88CCA00DFF63C /* Supporting Files */,
 			);
-			name = Products;
+			path = iosapi;
+			sourceTree = "<group>";
+		};
+		A118C3A816A88CCA00DFF63C /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				A118C3BB16A88CDD00DFF63C /* iosapi-Prefix.pch */,
+			);
+			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -159,6 +246,23 @@
 			productReference = 5BBAA074159BAEFF00AA4993 /* PlaynomicsSample.app */;
 			productType = "com.apple.product-type.application";
 		};
+		A118C3A416A88CC900DFF63C /* iosapi */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A118C3AE16A88CCA00DFF63C /* Build configuration list for PBXNativeTarget "iosapi" */;
+			buildPhases = (
+				A118C3A116A88CC900DFF63C /* Sources */,
+				A118C3A216A88CC900DFF63C /* Frameworks */,
+				A118C3A316A88CC900DFF63C /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = iosapi;
+			productName = iosapi;
+			productReference = A118C3A516A88CC900DFF63C /* libiosapi.a */;
+			productType = "com.apple.product-type.library.static";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -178,35 +282,13 @@
 			mainGroup = 5BBAA069159BAEFF00AA4993;
 			productRefGroup = 5BBAA075159BAEFF00AA4993 /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = A118C34616A8823E00DFF63C /* Products */;
-					ProjectRef = A118C34516A8823E00DFF63C /* iosapi.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				5BBAA073159BAEFF00AA4993 /* PlaynomicsSample */,
+				A118C3A416A88CC900DFF63C /* iosapi */,
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		A118C34E16A8823E00DFF63C /* libiosapi.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libiosapi.a;
-			remoteRef = A118C34D16A8823E00DFF63C /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		A118C35016A8823E00DFF63C /* iosapiTests.octest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = iosapiTests.octest;
-			remoteRef = A118C34F16A8823E00DFF63C /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		5BBAA072159BAEFF00AA4993 /* Resources */ = {
@@ -229,6 +311,27 @@
 				5BBAA085159BAF0000AA4993 /* main.m in Sources */,
 				5BBAA089159BAF0000AA4993 /* AppDelegate.m in Sources */,
 				5BBAA08C159BAF0000AA4993 /* ViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A118C3A116A88CC900DFF63C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A118C3D216A88CDD00DFF63C /* PlaynomicsSession.m in Sources */,
+				A118C3D316A88CDD00DFF63C /* PNAPSNotificationEvent.m in Sources */,
+				A118C3D416A88CDD00DFF63C /* PNEvent.m in Sources */,
+				A118C3D516A88CDD00DFF63C /* PNBasicEvent.m in Sources */,
+				A118C3D616A88CDD00DFF63C /* PNUtil.m in Sources */,
+				A118C3D716A88CDD00DFF63C /* PNEventSender.m in Sources */,
+				A118C3D816A88CDD00DFF63C /* PNApplication.m in Sources */,
+				A118C3D916A88CDD00DFF63C /* iosapi.m in Sources */,
+				A118C3DA16A88CDD00DFF63C /* PNGameEvent.m in Sources */,
+				A118C3DB16A88CDD00DFF63C /* PNMilestoneEvent.m in Sources */,
+				A118C3DC16A88CDD00DFF63C /* PNRandomGenerator.m in Sources */,
+				A118C3DD16A88CDD00DFF63C /* PNSocialEvent.m in Sources */,
+				A118C3DE16A88CDD00DFF63C /* PNTransactionEvent.m in Sources */,
+				A118C3DF16A88CDD00DFF63C /* PNUserInfoEvent.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -342,6 +445,43 @@
 			};
 			name = Release;
 		};
+		A118C3AF16A88CCA00DFF63C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				DSTROOT = /tmp/iosapi.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "../iosapi/iosapi/iosapi-Prefix.pch";
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		A118C3B016A88CCA00DFF63C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				DSTROOT = /tmp/iosapi.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "../iosapi/iosapi/iosapi-Prefix.pch";
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -359,6 +499,15 @@
 			buildConfigurations = (
 				5BBAA096159BAF0000AA4993 /* Debug */,
 				5BBAA097159BAF0000AA4993 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A118C3AE16A88CCA00DFF63C /* Build configuration list for PBXNativeTarget "iosapi" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A118C3AF16A88CCA00DFF63C /* Debug */,
+				A118C3B016A88CCA00DFF63C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
