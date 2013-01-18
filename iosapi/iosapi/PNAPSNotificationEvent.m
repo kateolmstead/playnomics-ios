@@ -10,10 +10,9 @@
 
 
 
-#define kPushId         @"push_id"
-#define kPushMessage    @"push_message"
-#define kPushaction     @"push_action"
-
+#define kPushId             @"push_id"
+#define kPushaction         @"push_action"
+#define kPushURLSchemeURL   @"url"
 
 @interface PNAPSNotificationEvent()
 @property (nonatomic ) PNAPSNotificationEventType pushEventType;
@@ -44,6 +43,18 @@
     if (self) {
         [self setPayload:payload];
         
+        //do some custom actions
+        if ([payload valueForKeyPath:kPushaction]!=nil) {
+            NSString *action =  [payload valueForKeyPath:kPushaction];
+            NSURL *actionURL = [NSURL URLWithString:action];
+            
+            //if the action is redirect to a url, let the os handle it
+            if ([actionURL.scheme isEqualToString:kPushURLSchemeURL]) {
+                NSString *targetURL = actionURL.resourceSpecifier;
+                [[UIApplication sharedApplication]openURL:[NSURL URLWithString:targetURL]];
+            }
+            
+        }
         
     }
     return self;
@@ -69,9 +80,12 @@
             NSDictionary *push = self.payload;
             NSString *pId = [push valueForKeyPath:kPushId];
             NSTimeInterval time = [[NSDate date] timeIntervalSince1970];
-            queryString = [[super toQueryString] stringByAppendingFormat:@"&payload_id=%@&time=%f&jsh=%@",
+            NSString *preferredLang = [[NSLocale preferredLanguages] objectAtIndex:0];
+
+            queryString = [[super toQueryString] stringByAppendingFormat:@"&payload_id=%@&time=%f&lang=%@&jsh=%@",
                            pId,
                            time,
+                           preferredLang,
                            [self internalSessionId]];
         }
             break;

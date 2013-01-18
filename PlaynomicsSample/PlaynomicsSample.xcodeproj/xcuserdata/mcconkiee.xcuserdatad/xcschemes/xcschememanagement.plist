@@ -4,11 +4,6 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>PNLib.xcscheme</key>
-		<dict>
-			<key>orderHint</key>
-			<integer>2</integer>
-		</dict>
 		<key>PlaynomicsSample.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -33,6 +28,21 @@
 			<true/>
 		</dict>
 		<key>A113314816A5F85000E48ED0</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>A118C38B16A88C6900DFF63C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>A118C39816A88C9A00DFF63C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>A118C3A416A88CC900DFF63C</key>
 		<dict>
 			<key>primary</key>
 			<true/>

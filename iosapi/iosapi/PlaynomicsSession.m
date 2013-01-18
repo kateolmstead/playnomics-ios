@@ -201,8 +201,8 @@
     [defaultCenter addObserver: self selector: @selector(onApplicationDidBecomeActive:) name: UIApplicationDidBecomeActiveNotification object: nil];
     [defaultCenter addObserver: self selector: @selector(onApplicationWillResignActive:) name: UIApplicationWillResignActiveNotification object: nil];
     [defaultCenter addObserver: self selector: @selector(onApplicationWillTerminate:) name: UIApplicationWillTerminateNotification object: nil];
+    [defaultCenter addObserver: self selector: @selector(onApplicationDidLaunch:) name: UIApplicationDidFinishLaunchingNotification object: nil];
 
-    
     // Retrieve stored Event List
     NSArray *storedEvents = (NSArray *) [NSKeyedUnarchiver unarchiveObjectWithFile:PNFileEventArchive];
     if ([storedEvents count] > 0) {
@@ -504,7 +504,17 @@
 - (void) onApplicationWillTerminate: (NSNotification *) notification {
     [self stop];
 }
-
+-(void) onApplicationDidLaunch: (NSNotification *) note
+{
+    
+    //if the application was not running we can  capture the notification here
+    // otherwise, we are dependent on the developer impplementing pushNotificationsWithPayload in the app delegate 
+    if ([note userInfo]!=nil) {
+        NSDictionary *push = [note.userInfo valueForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
+        [PlaynomicsSession pushNotificationsWithPayload:push];
+        
+    }
+}
 
 
 
@@ -800,7 +810,6 @@
 + (PNAPIResult) pushNotificationsWithPayload:(NSDictionary*)payload {
     @try {
         
-
         
         PlaynomicsSession * s =[PlaynomicsSession sharedInstance];
         
