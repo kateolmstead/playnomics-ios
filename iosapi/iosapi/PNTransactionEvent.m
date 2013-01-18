@@ -14,6 +14,7 @@
 - (id) init: (PNEventType) eventType 
               applicationId:(signed long long) applicationId
                      userId:(NSString *) userId 
+                   cookieId: (NSString *) cookieId
               transactionId:(signed long long) transactionId
                      itemId:(NSString *) itemId 
                    quantity:(double) quantity 
@@ -22,7 +23,7 @@
               currencyTypes:(NSArray *) currencyTypes
              currencyValues:(NSArray *) currencyValues 
          currencyCategories:(NSArray *) currencyCategories {
-    if (self = [super init: eventType applicationId:applicationId userId:userId]) {
+    if (self = [super init: eventType applicationId:applicationId userId:userId cookieId:cookieId]) {
         _transactionId = transactionId;
         _itemId = [itemId retain];
         _quantity = quantity;

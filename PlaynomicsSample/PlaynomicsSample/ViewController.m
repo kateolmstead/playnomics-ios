@@ -8,6 +8,7 @@
 //
 
 #import "ViewController.h"
+#import "PlaynomicsSession.h"
 
 @implementation ViewController
 @synthesize transactionCount;
@@ -175,6 +176,12 @@
     [self handlePLAPIRResult:resval];
 }
 
+- (IBAction) onMilestoneClick:(id)sender {
+    
+    PNAPIResult resval = [PlaynomicsSession milestoneWithId:4L
+                                                    andName:@"testMilestone"];
+    [self handlePLAPIRResult:resval];
+}
 
 - (IBAction)onMessageTLClick:(id)sender {
     [self initMsgFrame:@"testTL"];

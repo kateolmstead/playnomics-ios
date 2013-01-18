@@ -30,5 +30,7 @@
 - (IBAction)onMessageNoCloseClick:(id)sender;
 - (IBAction)onMessageMessOnlyClick:(id)sender;
 
+- (IBAction) onChangeUserClick:(id)sender;
+- (IBAction) onMilestoneClick:(id)sender;
 - (void) handlePLAPIRResult: (PNAPIResult) result;
 @end

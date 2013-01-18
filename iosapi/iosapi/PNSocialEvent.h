@@ -16,7 +16,8 @@
 
 - (id) init:  (PNEventType) eventType 
          applicationId: (signed long long) applicationId
-                userId: (NSString *) userId 
+                userId: (NSString *) userId
+              cookieId: (NSString *) cookieId
           invitationId: (signed long long) invitationId
        recipientUserId: (NSString *) recipientUserId 
       recipientAddress: (NSString *) recipientAddress 

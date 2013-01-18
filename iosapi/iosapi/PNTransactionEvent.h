@@ -28,6 +28,7 @@
 - (id) init:  (PNEventType) eventType 
               applicationId: (signed long long) applicationId
                      userId: (NSString *) userId 
+                   cookieId: (NSString *) cookieId
               transactionId: (signed long long) transactionId
                      itemId: (NSString *) itemId 
                    quantity: (double) quantity 

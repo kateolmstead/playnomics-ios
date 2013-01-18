@@ -23,11 +23,13 @@
 
 - (id) initUserInfoEvent: (signed long long) applicationId
              userId: (NSString *) userId 
+           cookieId: (NSString *) cookieId
                type: (PNUserInfoType) type;
 
 - (id) init: (signed long long) applicationId
              userId: (NSString *) userId 
-               type: (PNUserInfoType) type 
+           cookieId: (NSString *) cookieId
+               type: (PNUserInfoType) type
             country: (NSString *) country 
         subdivision: (NSString *) subdivision 
                 sex: (PNUserInfoSex) sex 

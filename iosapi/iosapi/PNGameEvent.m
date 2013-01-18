@@ -12,6 +12,7 @@
 - (id) init:  (PNEventType)eventType 
       applicationId:(signed long long) applicationId
              userId:(NSString *)userId
+           cookieId: (NSString *) cookieId
           sessionId:(signed long long)sessionId
          instanceId:(signed long long)instanceId
                site:(NSString *)site
@@ -19,7 +20,7 @@
              gameId:(NSString *)gameId
              reason:(NSString *)reason {
     
-    if (self = [super init:eventType applicationId:applicationId userId:userId]) {
+    if (self = [super init:eventType applicationId:applicationId userId:userId cookieId:cookieId]) {
         _sessionId = sessionId;
         _instanceId = instanceId;
         _site = [site retain];

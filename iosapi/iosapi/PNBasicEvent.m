@@ -2,7 +2,6 @@
 #import "PNConfig.h"
 
 @implementation PNBasicEvent
-@synthesize cookieId=_cookieId;
 @synthesize instanceId=_instanceId;
 @synthesize sessionStartTime=_sessionStartTime;
 @synthesize pauseTime=_pauseTime;
@@ -30,7 +29,7 @@
     
     [self setup];
     
-    if ((self = [super init:eventType applicationId:applicationId userId:userId])) {
+    if ((self = [super init:eventType applicationId:applicationId userId:userId cookieId:cookieId])) {
         _cookieId = [cookieId retain];
         _instanceId = [instanceId retain];
         _sessionStartTime = sessionStartTime;
@@ -55,7 +54,7 @@
     
     [self setup];
     
-    if ((self = [super init:eventType applicationId:applicationId userId:userId])) {
+    if ((self = [super init:eventType applicationId:applicationId userId:userId cookieId:cookieId])) {
         _cookieId = [cookieId retain];
         self.internalSessionId = [internalSessionId retain];
         _instanceId = [instanceId retain];
@@ -75,7 +74,7 @@
     
     NSLog(@"PNBasicEvent: toQueryString");
     
-    NSString * queryString = [[super toQueryString] stringByAppendingFormat:@"&b=%@&s=%@&i=%@", self.cookieId, self.internalSessionId, self.instanceId];
+    NSString * queryString = [[super toQueryString] stringByAppendingFormat:@"&s=%@&i=%@", self.internalSessionId, self.instanceId];
     signed long long updateTimeInterval = PNUpdateTimeInterval * 1000;
     signed long long rTime = [self sessionStartTime] * 1000;
     signed long long pTime = [self pauseTime] * 1000;

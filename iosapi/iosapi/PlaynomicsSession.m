@@ -20,6 +20,8 @@
 #import "PNSocialEvent.h"
 #import "PNTransactionEvent.h"
 #import "PNGameEvent.h"
+#import "PNMilestoneEvent.h"
+#import "PNAPSNotificationEvent.h"
 
 #import "PlaynomicsSession+Exposed.h"
 
@@ -30,7 +32,8 @@
     PNEventSender *_eventSender;
     NSMutableArray *_playnomicsEventList;
     
-    bool _testMode; 
+    bool _testMode;
+
     /** Tracking values */
     int _collectMode;
 	int _sequence;
@@ -49,7 +52,11 @@
 	int _keys;
 	int _totalKeys;
 }
-
+@property (nonatomic, readonly) signed long long applicationId;
+@property (nonatomic, readonly) NSString * userId;
+@property (nonatomic, readonly) NSString * cookieId;
+@property (nonatomic, readonly) NSString * sessionId;
+@property (nonatomic, assign) bool testMode;
 @property (atomic, readonly) PNEventSender * eventSender;
 @property (atomic, readonly) NSMutableArray * playnomicsEventList;
 
@@ -65,6 +72,7 @@
 - (void) startEventTimer;
 - (void) stopEventTimer;
 - (void) consumeQueue;
+
 @end
 
 @implementation PlaynomicsSession
@@ -125,6 +133,8 @@
         return PNAPIResultFailUnkown;
     }
 }
+
+
 
 + (PNAPIResult) stop {
     @try {
@@ -193,8 +203,8 @@
     [defaultCenter addObserver: self selector: @selector(onApplicationDidBecomeActive:) name: UIApplicationDidBecomeActiveNotification object: nil];
     [defaultCenter addObserver: self selector: @selector(onApplicationWillResignActive:) name: UIApplicationWillResignActiveNotification object: nil];
     [defaultCenter addObserver: self selector: @selector(onApplicationWillTerminate:) name: UIApplicationWillTerminateNotification object: nil];
-    
-    
+    [defaultCenter addObserver: self selector: @selector(onApplicationDidLaunch:) name: UIApplicationDidFinishLaunchingNotification object: nil];
+
     // Retrieve stored Event List
     NSArray *storedEvents = (NSArray *) [NSKeyedUnarchiver unarchiveObjectWithFile:PNFileEventArchive];
     if ([storedEvents count] > 0) {
@@ -459,8 +469,14 @@
     }
 }
 
+
+
 - (PNAPIResult) sendOrQueueEvent:(PNEvent *)pe {
     if (_sessionState != PNSessionStateStarted) {
+        //add the event to our queue if we are here
+        if(pe!=nil)
+            [self.playnomicsEventList addObject:pe];
+        
         return PNAPIResultStartNotCalled;
     }
         
@@ -490,6 +506,19 @@
 - (void) onApplicationWillTerminate: (NSNotification *) notification {
     [self stop];
 }
+-(void) onApplicationDidLaunch: (NSNotification *) note
+{
+    
+    //if the application was not running we can  capture the notification here
+    // otherwise, we are dependent on the developer impplementing pushNotificationsWithPayload in the app delegate 
+    if ([note userInfo]!=nil) {
+        NSDictionary *push = [note.userInfo valueForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
+        [PlaynomicsSession pushNotificationsWithPayload:push];
+        
+    }
+}
+
+
 
 #pragma mark - API request methods
 + (PNAPIResult) userInfoForType: (PNUserInfoType) type
@@ -527,7 +556,7 @@
     @try {
         PlaynomicsSession * s =[PlaynomicsSession sharedInstance];
         
-        PNUserInfoEvent *ev = [[[PNUserInfoEvent alloc] init:s.applicationId userId:s.userId type:type country:country subdivision:subdivision sex:sex birthday:[birthday timeIntervalSince1970] source:source sourceCampaign:sourceCampaign installTime:[installTime timeIntervalSince1970]] autorelease];
+        PNUserInfoEvent *ev = [[[PNUserInfoEvent alloc] init:s.applicationId userId:s.userId cookieId:s.cookieId type:type country:country subdivision:subdivision sex:sex birthday:[birthday timeIntervalSince1970] source:source sourceCampaign:sourceCampaign installTime:[installTime timeIntervalSince1970]] autorelease];
         
         ev.internalSessionId = [[PlaynomicsSession sharedInstance] sessionId];
         return [s sendOrQueueEvent:ev];
@@ -538,11 +567,12 @@
     }   
 }
 
+
 + (PNAPIResult) sessionStartWithId: (signed long long) sessionId site: (NSString *) site {
     @try {
         PlaynomicsSession * s =[PlaynomicsSession sharedInstance];
         
-        PNGameEvent *ev = [[[PNGameEvent alloc] init:PNEventSessionStart applicationId:s.applicationId userId:s.userId sessionId:sessionId instanceId:0 site:nil type:nil gameId:nil reason:nil] autorelease];
+        PNGameEvent *ev = [[[PNGameEvent alloc] init:PNEventSessionStart applicationId:s.applicationId userId:s.userId cookieId:s.cookieId sessionId:sessionId instanceId:0 site:nil type:nil gameId:nil reason:nil] autorelease];
         
         ev.internalSessionId = [[PlaynomicsSession sharedInstance] sessionId];
         return [s sendOrQueueEvent:ev];
@@ -557,7 +587,7 @@
     @try {
         PlaynomicsSession * s =[PlaynomicsSession sharedInstance];
         
-        PNGameEvent *ev = [[[PNGameEvent alloc] init:PNEventSessionEnd applicationId:s.applicationId userId:s.userId sessionId:sessionId instanceId:0 site:nil type:nil gameId:nil reason:reason] autorelease];
+        PNGameEvent *ev = [[[PNGameEvent alloc] init:PNEventSessionEnd applicationId:s.applicationId userId:s.userId cookieId:s.cookieId sessionId:sessionId instanceId:0 site:nil type:nil gameId:nil reason:reason] autorelease];
         
         ev.internalSessionId = [[PlaynomicsSession sharedInstance] sessionId];
         return [s sendOrQueueEvent:ev];
@@ -572,7 +602,7 @@
     @try {
         PlaynomicsSession * s =[PlaynomicsSession sharedInstance];
         
-        PNGameEvent *ev = [[[PNGameEvent alloc] init:PNEventGameStart applicationId:s.applicationId userId:s.userId sessionId:sessionId instanceId:instanceId site:nil type:type gameId:gameId reason:nil] autorelease];
+        PNGameEvent *ev = [[[PNGameEvent alloc] init:PNEventGameStart applicationId:s.applicationId userId:s.userId cookieId:s.cookieId sessionId:sessionId instanceId:instanceId site:nil type:type gameId:gameId reason:nil] autorelease];
         
         ev.internalSessionId = [[PlaynomicsSession sharedInstance] sessionId];
         return [s sendOrQueueEvent:ev];
@@ -587,7 +617,7 @@
     @try {
         PlaynomicsSession * s =[PlaynomicsSession sharedInstance];
         
-        PNGameEvent *ev = [[[PNGameEvent alloc] init:PNEventGameEnd applicationId:s.applicationId userId:s.userId sessionId:sessionId instanceId:instanceId site:nil type:nil gameId:nil reason:reason] autorelease];
+        PNGameEvent *ev = [[[PNGameEvent alloc] init:PNEventGameEnd applicationId:s.applicationId userId:s.userId cookieId:s.cookieId sessionId:sessionId instanceId:instanceId site:nil type:nil gameId:nil reason:reason] autorelease];
         
         ev.internalSessionId = [[PlaynomicsSession sharedInstance] sessionId];
         return [s sendOrQueueEvent:ev];
@@ -670,6 +700,7 @@
         PNTransactionEvent *ev = [[[PNTransactionEvent alloc] init:PNEventTransaction
                                                      applicationId:s.applicationId
                                                             userId:s.userId
+                                                          cookieId:s.cookieId 
                                                      transactionId:transactionId
                                                             itemId:itemId
                                                           quantity:quantity
@@ -697,7 +728,9 @@
         
         PNSocialEvent *ev = [[[PNSocialEvent alloc] init:PNEventInvitationSent
                                            applicationId:s.applicationId
-                                                  userId:s.userId invitationId:invitationId
+                                                  userId:s.userId
+                                                cookieId:s.cookieId
+                                            invitationId:invitationId
                                          recipientUserId:recipientUserId
                                         recipientAddress:recipientAddress
                                                   method:method
@@ -721,17 +754,81 @@
         PNSocialEvent *ev = [[[PNSocialEvent alloc] init:PNEventInvitationResponse
                                            applicationId:s.applicationId
                                                   userId:s.userId
+                                                cookieId:s.cookieId 
                                             invitationId:invitationId
                                          recipientUserId:recipientUserId
                                         recipientAddress:nil
                                                   method:nil
                                                 response:responseType] autorelease];
         ev.internalSessionId = [[PlaynomicsSession sharedInstance] sessionId];
-        return [s sendOrQueueEvent:ev];    }
+        return [s sendOrQueueEvent:ev];
+    }
     @catch (NSException *exception) {
         NSLog(@"error: %@", exception.description);
         return PNAPIResultFailUnkown;
     }    
 }
+
++ (PNAPIResult) milestoneWithId: (signed long long) milestoneId
+                        andName: (NSString *) milestoneName {
+    @try {
+        PlaynomicsSession * s =[PlaynomicsSession sharedInstance];
+        
+        PNMilestoneEvent *ev = [[[PNMilestoneEvent alloc] init:PNEventMilestone
+                                           applicationId:s.applicationId
+                                                  userId:s.userId
+                                                cookieId:s.cookieId  
+                                            milestoneId:milestoneId
+                                            milestoneName:milestoneName] autorelease];
+        ev.internalSessionId = [[PlaynomicsSession sharedInstance] sessionId];
+        return [s sendOrQueueEvent:ev];
+    }
+    @catch (NSException *exception) {
+        NSLog(@"error: %@", exception.description);
+        return PNAPIResultFailUnkown;
+    }
+}
+
+
++ (PNAPIResult) enablePushNotificationsWithToken:(NSData*)deviceToken {
+    @try {
+        PlaynomicsSession * s =[PlaynomicsSession sharedInstance];
+        
+        PNAPSNotificationEvent *ev = [[PNAPSNotificationEvent alloc] init:PNEventPushNotificationToken
+                                                            applicationId:s.applicationId
+                                                                   userId:s.userId
+                                                                 cookieId:s.cookieId
+                                                              deviceToken:deviceToken];
+        
+        ev.internalSessionId = [[PlaynomicsSession sharedInstance] sessionId];
+        return [s sendOrQueueEvent:ev];
+    }
+    @catch (NSException *exception) {
+        NSLog(@"error: %@", exception.description);
+        return PNAPIResultFailUnkown;
+    }
+}
+
++ (PNAPIResult) pushNotificationsWithPayload:(NSDictionary*)payload {
+    @try {
+        
+        
+        PlaynomicsSession * s =[PlaynomicsSession sharedInstance];
+        
+        PNAPSNotificationEvent *ev = [[PNAPSNotificationEvent alloc] init:PNEventPushNotificationPayload
+                                                            applicationId:s.applicationId
+                                                                   userId:s.userId
+                                                                 cookieId:s.cookieId
+                                                              payload:payload];
+        
+        ev.internalSessionId = [[PlaynomicsSession sharedInstance] sessionId];
+        return [s sendOrQueueEvent:ev];
+    }
+    @catch (NSException *exception) {
+        NSLog(@"error: %@", exception.description);
+        return PNAPIResultFailUnkown;
+    }
+}
+
 @end
 

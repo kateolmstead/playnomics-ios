@@ -1,0 +1,9 @@
+/* 
+  Localizable.strings
+  PlaynomicsSample
+
+  Created by Eric McConkie on 1/17/13.
+  Copyright (c) 2013 Grio. All rights reserved.
+*/
+
+"GAME_PLAY_REQUEST_FORMAT" = "%@ and %@ have invited you to play Monopoly";

@@ -16,7 +16,8 @@
 		5BBAA08C159BAF0000AA4993 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BBAA08B159BAF0000AA4993 /* ViewController.m */; };
 		5BBAA08F159BAF0000AA4993 /* ViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BBAA08D159BAF0000AA4993 /* ViewController_iPhone.xib */; };
 		5BBAA092159BAF0000AA4993 /* ViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BBAA090159BAF0000AA4993 /* ViewController_iPad.xib */; };
-		EA3209C8161C99C500F8FF8E /* libiosapi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EA32098E161B8BD300F8FF8E /* libiosapi.a */; };
+		A1244D5516A8A38E001A93DD /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A1244D5416A8A38D001A93DD /* Localizable.strings */; };
+		A1244D7A16A8CB45001A93DD /* libiosapi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A1244D7716A8CB0C001A93DD /* libiosapi.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +54,8 @@
 		5BBAA091159BAF0000AA4993 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController_iPad.xib; sourceTree = "<group>"; };
 		5BF38FCA159D389B00DDD957 /* PlaynomicsSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlaynomicsSession.h; path = "../../../../../Library/Developer/Xcode/DerivedData/iosapi-bjkqyrtlyjtbiqfjtdqrczayducv/Build/Products/Debug-iphoneos/usr/local/include/PlaynomicsSession.h"; sourceTree = "<group>"; };
 		EA320985161B8BD300F8FF8E /* iosapi.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = iosapi.xcodeproj; path = ../iosapi/iosapi.xcodeproj; sourceTree = "<group>"; };
+		A1244D5416A8A38D001A93DD /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
+		A1244D6E16A8CB0B001A93DD /* iosapi.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = iosapi.xcodeproj; path = ../iosapi/iosapi.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,7 +63,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EA3209C8161C99C500F8FF8E /* libiosapi.a in Frameworks */,
+				A1244D7A16A8CB45001A93DD /* libiosapi.a in Frameworks */,
 				5BBAA079159BAF0000AA4993 /* UIKit.framework in Frameworks */,
 				5BBAA07B159BAF0000AA4993 /* Foundation.framework in Frameworks */,
 				5BBAA07D159BAF0000AA4993 /* CoreGraphics.framework in Frameworks */,
@@ -73,7 +76,7 @@
 		5BBAA069159BAEFF00AA4993 = {
 			isa = PBXGroup;
 			children = (
-				EA320985161B8BD300F8FF8E /* iosapi.xcodeproj */,
+				A1244D6E16A8CB0B001A93DD /* iosapi.xcodeproj */,
 				5BBAA07E159BAF0000AA4993 /* PlaynomicsSample */,
 				5BBAA077159BAF0000AA4993 /* Frameworks */,
 				5BBAA075159BAEFF00AA4993 /* Products */,
@@ -105,7 +108,6 @@
 				5BBAA088159BAF0000AA4993 /* AppDelegate.m */,
 				5BBAA08A159BAF0000AA4993 /* ViewController.h */,
 				5BBAA08B159BAF0000AA4993 /* ViewController.m */,
-				5BBAA09C159BB60600AA4993 /* Tools */,
 				5BC947EA159E2A1E00BE180B /* xib */,
 				5BBAA07F159BAF0000AA4993 /* Supporting Files */,
 			);
@@ -119,16 +121,9 @@
 				5BBAA081159BAF0000AA4993 /* InfoPlist.strings */,
 				5BBAA084159BAF0000AA4993 /* main.m */,
 				5BBAA086159BAF0000AA4993 /* PlaynomicsSample-Prefix.pch */,
+				A1244D5416A8A38D001A93DD /* Localizable.strings */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		5BBAA09C159BB60600AA4993 /* Tools */ = {
-			isa = PBXGroup;
-			children = (
-				5BF38FCA159D389B00DDD957 /* PlaynomicsSession.h */,
-			);
-			name = Tools;
 			sourceTree = "<group>";
 		};
 		5BC947EA159E2A1E00BE180B /* xib */ = {
@@ -138,6 +133,15 @@
 				5BBAA090159BAF0000AA4993 /* ViewController_iPad.xib */,
 			);
 			name = xib;
+			sourceTree = "<group>";
+		};
+		A1244D6F16A8CB0B001A93DD /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A1244D7716A8CB0C001A93DD /* libiosapi.a */,
+				A1244D7916A8CB0C001A93DD /* iosapiTests.octest */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		EA320986161B8BD300F8FF8E /* Products */ = {
@@ -190,8 +194,8 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = EA320986161B8BD300F8FF8E /* Products */;
-					ProjectRef = EA320985161B8BD300F8FF8E /* iosapi.xcodeproj */;
+					ProductGroup = A1244D6F16A8CB0B001A93DD /* Products */;
+					ProjectRef = A1244D6E16A8CB0B001A93DD /* iosapi.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -202,18 +206,18 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		EA32098E161B8BD300F8FF8E /* libiosapi.a */ = {
+		A1244D7716A8CB0C001A93DD /* libiosapi.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
 			path = libiosapi.a;
-			remoteRef = EA32098D161B8BD300F8FF8E /* PBXContainerItemProxy */;
+			remoteRef = A1244D7616A8CB0C001A93DD /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		EA320990161B8BD300F8FF8E /* iosapiTests.octest */ = {
+		A1244D7916A8CB0C001A93DD /* iosapiTests.octest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
 			path = iosapiTests.octest;
-			remoteRef = EA32098F161B8BD300F8FF8E /* PBXContainerItemProxy */;
+			remoteRef = A1244D7816A8CB0C001A93DD /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -226,6 +230,7 @@
 				5BBAA083159BAF0000AA4993 /* InfoPlist.strings in Resources */,
 				5BBAA08F159BAF0000AA4993 /* ViewController_iPhone.xib in Resources */,
 				5BBAA092159BAF0000AA4993 /* ViewController_iPad.xib in Resources */,
+				A1244D5516A8A38E001A93DD /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -320,8 +325,8 @@
 		5BBAA096159BAF0000AA4993 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Eric McConkie (79334EXNDM)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Eric McConkie (79334EXNDM)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PlaynomicsSample/PlaynomicsSample-Prefix.pch";
 				HEADER_SEARCH_PATHS = "$(BUILT_PRODUCTS_DIR)/usr/local/include";
@@ -329,14 +334,11 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/../../../../Library/Developer/Xcode/DerivedData/iosapi-bjkqyrtlyjtbiqfjtdqrczayducv/Build/Products/Debug-iphonesimulator\"",
 					"\"$(SRCROOT)\"",
-					"\"$(SRCROOT)/../../../../../Library/Developer/Xcode/DerivedData/iosapi-fkksjzzewixnvbbvsfdttiakbmec/Build/Products/Debug-iphonesimulator\"",
-					"\"$(SRCROOT)/../../../Library/Developer/Xcode/DerivedData/iosapi-cebmgsvkkaahzdfmhikzbpwxmpzo/Build/Products/Debug-iphonesimulator\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				PROVISIONING_PROFILE = "C352A0AF-FCCE-436A-A929-4BEA5435E376";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "C352A0AF-FCCE-436A-A929-4BEA5435E376";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -350,10 +352,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/../../../../Library/Developer/Xcode/DerivedData/iosapi-bjkqyrtlyjtbiqfjtdqrczayducv/Build/Products/Debug-iphonesimulator\"",
 					"\"$(SRCROOT)\"",
-					"\"$(SRCROOT)/../../../../../Library/Developer/Xcode/DerivedData/iosapi-fkksjzzewixnvbbvsfdttiakbmec/Build/Products/Debug-iphonesimulator\"",
-					"\"$(SRCROOT)/../../../Library/Developer/Xcode/DerivedData/iosapi-cebmgsvkkaahzdfmhikzbpwxmpzo/Build/Products/Debug-iphonesimulator\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;

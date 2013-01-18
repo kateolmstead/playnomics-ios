@@ -3,7 +3,7 @@
 //  iosapiTests
 //
 //  Created by Douglas Kadlecek on 6/19/12.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//  Copyright (c) 2012 Grio. All rights reserved.
 //
 
 #import "iosapiTests.h"
@@ -193,6 +193,13 @@
     for (int i = 0;i < 10; i++) {
         [PlaynomicsSession invitationSentWithId:4LL recipientUserId:@"TEST_RECIPIENTID" recipientAddress:@"TEST_RECIPIENT_ADDRESS" method:@"TEST_METHOD"];
         [PlaynomicsSession invitationResponseWithId:4LL recipientUserId:@"TEST_RECIPIENTID" responseType:PNResponseTypeAccepted];
+    }
+}
+
+- (void) testMilestoneEvent {
+    NSLog(@"****** testMilestoneEvents **********");
+    for (int i = 0;i < 10; i++) {
+        [PlaynomicsSession milestoneWithId:4LL andName:@"TEST_MILESTONE"];
     }
 }
 
