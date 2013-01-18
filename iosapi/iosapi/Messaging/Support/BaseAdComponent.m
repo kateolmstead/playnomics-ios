@@ -115,7 +115,9 @@
 - (void)_startImageDownload {
     
     NSURL *url = [NSURL URLWithString:self.imageUrl];
-    
+    if (url==nil || self.imageUrl==nil) {
+        return;//invalid or will crash...stop here
+    }
     if ([self.imageUrl hasSuffix:@".gif"]) {
         self.imageUI = [AnimatedGif getAnimationForGifAtUrl:url withDelegate:self];
     } else {

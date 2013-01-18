@@ -1,3 +1,4 @@
+
 //
 //  ViewController.m
 //  PlaynomicsSample
@@ -201,9 +202,14 @@
     //   the frame will display itself.
     PlaynomicsMessaging *messaging = [PlaynomicsMessaging sharedInstance];
     
+    
+    //FIXME: this needs to be on another thread
     PlaynomicsFrame *frame = [messaging initFrameWithId:frameId];
     DisplayResult result = [frame start];
-    NSLog(@"Result of calling start: %i", result);
+    if (result==DisplayResultFailUnknown) {
+       
+    }else
+        NSLog(@"Result of calling start: %i", result);
 
 }
 

@@ -52,7 +52,9 @@
     [array removeObject:@""];
     
     NSString *caller = [array objectAtIndex:4];
-    PlaynomicsFrame *frame = [[PlaynomicsFrame alloc] initWithProperties:[self _retrieveFramePropertiesForId:frameId withCaller:caller]
+    
+    NSDictionary *propDict = [self _retrieveFramePropertiesForId:frameId withCaller:caller];
+    PlaynomicsFrame *frame = [[PlaynomicsFrame alloc] initWithProperties:propDict
                                                               forFrameId:frameId andDelegate: self];
     [_frames setObject:frame forKey:frameId];
     
@@ -61,7 +63,7 @@
 
 - (NSDictionary *)_retrieveFramePropertiesForId:(NSString *)frameId withCaller: (NSString *) caller
 {
-    NSError *error;
+    NSError *error = nil;
     PlaynomicsSession *pn = [PlaynomicsSession sharedInstance];
     signed long long time = [[NSDate date] timeIntervalSince1970] * 1000;
     CGRect screenRect = [[UIScreen mainScreen] bounds];
@@ -80,11 +82,21 @@
     }
     
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", serverUrl, queryString]];
-    
+    //url = [NSURL fileURLWithPath:@"/Users/mcconkiee/Desktop/invalid.json"];
     NSLog(@"calling ad server: %@", url.absoluteString);
     NSMutableData *adResponse = [NSMutableData dataWithContentsOfURL: url];
+    
+
+    
     NSDictionary *props = [NSJSONSerialization JSONObjectWithData:adResponse options:kNilOptions error:&error];
 
+    if (error!=nil) {
+        NSLog(@"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\r\n---> %@",@"ERROR");
+        NSLog(@"error\r\n---> %@",error);
+        NSLog(@"%d,%s",__LINE__,__FUNCTION__);
+        NSLog(@"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\r\n---> %@",@"ERROR");
+    }
+    
     return props;
 }
 

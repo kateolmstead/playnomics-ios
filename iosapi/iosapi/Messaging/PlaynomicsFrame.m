@@ -71,7 +71,7 @@ NSString *PNEXECUTE_ACTION_PREFIX = @"pnx";
                                                  forFrame:self
                                          withTouchHandler:@selector(_adClicked)
                                               andDelegate:self];
-
+    
     _closeButton = [[BaseAdComponent alloc] initWithProperties:[_properties objectForKey:FrameResponseCloseButtonInfo]
                                                       forFrame:self
                                               withTouchHandler:@selector(_stop)
@@ -214,9 +214,18 @@ NSString *PNEXECUTE_ACTION_PREFIX = @"pnx";
 
 #pragma mark - Public Interface
 - (DisplayResult)start {
+    NSString *frameResponseURL =[_adArea.properties objectForKey:FrameResponseAd_ImpressionUrl];
+    if (frameResponseURL==nil)
+    {
+        //TODO: send error to server
+        return DisplayResultFailUnknown;
+    }
+    
+        
     [_background display];
     [self _startExpiryTimer];
-    [self _submitAdImpressionToServer:[_adArea.properties objectForKey:FrameResponseAd_ImpressionUrl]];
+    
+    [self _submitAdImpressionToServer:frameResponseURL];
 
     if ([self _allComponentsLoaded]) {
         return DisplayResultDisplayed;
@@ -280,6 +289,10 @@ NSString *PNEXECUTE_ACTION_PREFIX = @"pnx";
 }
 
 - (void)_submitAdImpressionToServer:(NSString *)impressionUrl {
+    if (impressionUrl==nil || impressionUrl.length<=0)
+        return;//we will crash here...stop everything
+    
+    
     NSURL *url = [NSURL URLWithString:impressionUrl];
     NSLog(@"Submitting GET request to impression URL: %@", impressionUrl);
 
