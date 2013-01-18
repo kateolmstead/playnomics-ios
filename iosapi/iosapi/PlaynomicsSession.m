@@ -52,11 +52,6 @@
 	int _keys;
 	int _totalKeys;
 }
-@property (nonatomic, readonly) signed long long applicationId;
-@property (nonatomic, readonly) NSString * userId;
-@property (nonatomic, readonly) NSString * cookieId;
-@property (nonatomic, readonly) NSString * sessionId;
-@property (nonatomic, assign) bool testMode;
 @property (atomic, readonly) PNEventSender * eventSender;
 @property (atomic, readonly) NSMutableArray * playnomicsEventList;
 
