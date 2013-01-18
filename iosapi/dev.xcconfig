@@ -1,0 +1,10 @@
+//
+//  dev.xcconfig
+//  PlaynomicsSample
+//
+//  Created by Eric McConkie on 1/18/13.
+//  Copyright (c) 2013 Grio. All rights reserved.
+//
+//:configuration = Debug
+GCC_PREPROCESSOR_DEFINITIONS = DEBUG=1 $(inherited) STUB=1
+

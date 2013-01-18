@@ -82,6 +82,7 @@
 		5B753E2F159D2D5000E698F9 /* PNRandomGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNRandomGenerator.m; sourceTree = "<group>"; };
 		5BBAA22D159BD87300AA4993 /* PNApplication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = PNApplication.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		5BBAA237159BE4CD00AA4993 /* PlaynomicsSession+Exposed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PlaynomicsSession+Exposed.h"; sourceTree = "<group>"; };
+		A1244E0A16A9EADF001A93DD /* dev.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = dev.xcconfig; sourceTree = "<group>"; };
 		D13B4C6E1640777F007F58BE /* AnimatedGif.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnimatedGif.h; sourceTree = "<group>"; };
 		D13B4C6F1640777F007F58BE /* AnimatedGif.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnimatedGif.m; sourceTree = "<group>"; };
 		D1D922701590F59600EDDE17 /* libiosapi.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libiosapi.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -203,6 +204,7 @@
 		D1D922651590F59500EDDE17 = {
 			isa = PBXGroup;
 			children = (
+				A1244E0A16A9EADF001A93DD /* dev.xcconfig */,
 				D1D922751590F59700EDDE17 /* iosapi */,
 				D1D922891590F59700EDDE17 /* iosapiTests */,
 				D1D922721590F59600EDDE17 /* Frameworks */,

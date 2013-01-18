@@ -82,7 +82,9 @@
     }
     
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", serverUrl, queryString]];
-    //url = [NSURL fileURLWithPath:@"/Users/mcconkiee/Desktop/invalid.json"];
+#ifdef STUB
+        url = [NSURL fileURLWithPath:@"/Users/mcconkiee/Desktop/stubs/invalid.json"];
+#endif
     NSLog(@"calling ad server: %@", url.absoluteString);
     NSMutableData *adResponse = [NSMutableData dataWithContentsOfURL: url];
     
