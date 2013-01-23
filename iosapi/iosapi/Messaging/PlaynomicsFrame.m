@@ -198,8 +198,8 @@
         //TODO: send error to server
         // jslog?
         
-        PNErrorDetail *details = [PNErrorDetail pNErrorDetailWithType:PNErrorTypeInvalidJson];
-        [PlaynomicsSession errorReport:details];
+//        PNErrorDetail *details = [PNErrorDetail pNErrorDetailWithType:PNErrorTypeInvalidJson];
+//        [PlaynomicsSession errorReport:details];
         return DisplayResultFailUnknown;
     }
     

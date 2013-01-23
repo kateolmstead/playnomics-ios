@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-#import "PNErrorEvent.h"
+//#import "PNErrorEvent.h"
 
 /** 
  *  PNAPIResult
@@ -459,7 +459,7 @@ typedef enum {
  *            the PNErrorEvent object with error details
  * @return the API Result
  */
-+ (PNAPIResult) errorReport:(PNErrorDetail*)errorDetails;
+//+ (PNAPIResult) errorReport:(PNErrorDetail*)errorDetails;
 
 
 
