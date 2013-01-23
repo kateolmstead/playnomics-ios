@@ -577,7 +577,6 @@
 		};
 		D1D922951590F59700EDDE17 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A1244E0A16A9EADF001A93DD /* dev.xcconfig */;
 			buildSettings = {
 				COPY_PHASE_STRIP = NO;
 				DSTROOT = /tmp/iosapi.dst;
