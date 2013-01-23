@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import "PNErrorEvent.h"
 
 /** 
  *  PNAPIResult
@@ -450,6 +451,17 @@ typedef enum {
  * @return the API Result
  */
 + (PNAPIResult) pushNotificationsWithPayload:(NSDictionary*)payload ;
+
+/**
+ * errorReport
+ *
+ * @param errorEvent
+ *            the PNErrorEvent object with error details
+ * @return the API Result
+ */
++ (PNAPIResult) errorReport:(PNErrorDetail*)errorDetails;
+
+
 
 @end
 

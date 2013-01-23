@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 #import "PNConstants.h"
+
 #import "PlaynomicsSession.h"
 
 
@@ -41,6 +42,7 @@
 
 +(PNUserInfoSource) PNUserInfoSourceValueOf: (NSString *) text;
 +(NSString *) PNUserInfoSourceDescription: (PNUserInfoSource) value;
+
 
 @end
 

@@ -83,7 +83,12 @@
     
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", serverUrl, queryString]];
 #ifdef STUB
+    if ([frameId isEqualToString:@"testCC"]) {
+        url = [NSURL fileURLWithPath:@"/Users/mcconkiee/Desktop/stubs/pnx.json"];
+    }
+    else
         url = [NSURL fileURLWithPath:@"/Users/mcconkiee/Desktop/stubs/invalid.json"];
+    
 #endif
     NSLog(@"calling ad server: %@", url.absoluteString);
     NSMutableData *adResponse = [NSMutableData dataWithContentsOfURL: url];

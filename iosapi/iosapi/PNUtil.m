@@ -309,6 +309,8 @@
             return PNEventInvitationResponse;
         else if ([text isEqualToString:@"milestone"])
             return PNEventMilestone;
+        else if ([text isEqualToString:@"error"])
+            return PNEventError;
         else if ([text isEqualToString:@"pushNotificationToken"])
             return PNEventPushNotificationToken;
         else if ([text isEqualToString:@"pushNotificationPayload"])
@@ -349,6 +351,8 @@
             return @"invitationResponse";
         case PNEventMilestone:
             return @"milestone";
+        case PNEventError:
+            return @"error";
         case PNEventPushNotificationToken:
             return @"pushNotificationToken";
         case PNEventPushNotificationPayload:

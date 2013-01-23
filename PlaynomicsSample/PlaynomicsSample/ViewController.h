@@ -33,4 +33,6 @@
 - (IBAction) onChangeUserClick:(id)sender;
 - (IBAction) onMilestoneClick:(id)sender;
 - (void) handlePLAPIRResult: (PNAPIResult) result;
+
+-(void)onpnx;
 @end

@@ -219,7 +219,10 @@
         NSLog(@"Result of calling start: %i", result);
 
 }
-
+-(void)onpnx
+{
+        [[[[UIAlertView alloc] initWithTitle:@"hola" message:@"message" delegate:nil cancelButtonTitle:@"ok" otherButtonTitles: nil] autorelease]show];
+}
 #pragma mark Misc Functions
 - (void)performAction {
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Test Action"

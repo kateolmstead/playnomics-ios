@@ -5,23 +5,14 @@
 //
 #import "PlaynomicsFrame+Exposed.h"
 #import "PlaynomicsMessaging+Exposed.h"
-#import "PNUtil.h"
 #import "FSNConnection.h"
 #import "BaseAdComponent.h"
+#import "PNActionObjects.h"
 
 #pragma mark - PlaynomicsFrame
-typedef enum {
-    AdActionHTTP,            // Standard HTTP/HTTPS page to open in a browser
-    AdActionDefinedAction,   // Defined selector to execute on a registered delegate
-    AdActionExecuteCode,     // Submit the action on the delegate
-    AdActionUnknown          // Unknown ad action specified
-} AdAction;
 
 
-NSString *HTTP_ACTION_PREFIX = @"http";
-NSString *HTTPS_ACTION_PREFIX = @"https";
-NSString *PNACTION_ACTION_PREFIX = @"pna";
-NSString *PNEXECUTE_ACTION_PREFIX = @"pnx";
+
 
 
 @implementation PlaynomicsFrame {
@@ -153,15 +144,15 @@ NSString *PNEXECUTE_ACTION_PREFIX = @"pnx";
     NSString *postExecuteUrl =  [[_adArea.properties objectForKey:FrameResponseAd_PostExecuteUrl] stringByAppendingString:coordParams];
 
     NSString *clickTarget = [_adArea.properties objectForKey:FrameResponseAd_ClickTarget];
-    NSURL *clickTargetUrl = [NSURL URLWithString:clickTarget];
 
-    AdAction actionType = [self _determineActionType:clickTargetUrl];
-    NSString *actionLabel = [self _determineActionLabel:clickTargetUrl];
+    AdAction actionType = [PNActionObjects adActionTypeForURL:clickTarget];
+    NSString *actionLabel = [PNActionObjects adActionMethodForURLPath:clickTarget];
+    
     NSLog(@"Ad clicked with target (action type %i): %@", actionType, actionLabel);
 
     switch (actionType) {
         case AdActionHTTP: {
-           [[UIApplication sharedApplication] openURL:clickTargetUrl];
+           [[UIApplication sharedApplication] openURL:[NSURL URLWithString:clickTarget]];
             break;
         }
         case AdActionDefinedAction: {
@@ -185,20 +176,7 @@ NSString *PNEXECUTE_ACTION_PREFIX = @"pnx";
     [self _closeAd];
 }
 
-- (AdAction)_determineActionType: (NSURL *)clickTargetUrl {
-    NSString *protocol = clickTargetUrl.scheme;
 
-    if ([protocol isEqualToString:HTTP_ACTION_PREFIX] || [protocol isEqualToString:HTTPS_ACTION_PREFIX]) {
-        return AdActionHTTP;
-    } else if ([protocol isEqualToString:PNACTION_ACTION_PREFIX]) {
-        return AdActionDefinedAction;
-    } else if ([protocol isEqualToString:PNEXECUTE_ACTION_PREFIX]) {
-        return AdActionExecuteCode;
-    } else {
-        NSLog(@"An unknown protocol was received, can't determine action type: %@", protocol);
-        return AdActionUnknown;
-    }
-}
 
 - (NSString *)_determineActionLabel:(NSURL *)url {
     NSString *resource = url.resourceSpecifier;
@@ -218,6 +196,10 @@ NSString *PNEXECUTE_ACTION_PREFIX = @"pnx";
     if (frameResponseURL==nil)
     {
         //TODO: send error to server
+        // jslog?
+        
+        PNErrorDetail *details = [PNErrorDetail pNErrorDetailWithType:PNErrorTypeInvalidJson];
+        [PlaynomicsSession errorReport:details];
         return DisplayResultFailUnknown;
     }
     

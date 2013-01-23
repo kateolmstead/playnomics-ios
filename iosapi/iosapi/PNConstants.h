@@ -19,6 +19,7 @@ typedef enum {
     PNEventInvitationSent,
     PNEventInvitationResponse,
     PNEventMilestone,
+    PNEventError,
     PNEventPushNotificationToken,
     PNEventPushNotificationPayload,
 } PNEventType;

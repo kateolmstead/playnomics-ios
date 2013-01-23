@@ -6,7 +6,6 @@
 
 
 #import "BaseAdComponent.h"
-#import "PNUtil.h"
 #import "FSNConnection.h"
 
 @implementation BaseAdComponent {
