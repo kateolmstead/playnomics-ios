@@ -7,7 +7,20 @@
 //
 
 #import "PNEvent.h"
-#import "PNErrorDetail.h"
+
+typedef enum
+{
+    PNErrorTypeUndefined,
+    PNErrorTypeInvalidJson
+}PNErrorType;
+
+
+
+@interface PNErrorDetail : NSObject
+@property (nonatomic) PNErrorType errorType;
++(PNErrorDetail*)pNErrorDetailWithType:(PNErrorType)errorType;
+@end
+
 
 @interface PNErrorEvent : PNEvent
 

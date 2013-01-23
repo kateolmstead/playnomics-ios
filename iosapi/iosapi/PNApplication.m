@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-
+#import "PNErrorEvent.h"
 #import "PlaynomicsSession.h"
 #import "PlaynomicsSession+Exposed.h"
 

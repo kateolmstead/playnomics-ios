@@ -22,7 +22,7 @@
 #import "PNGameEvent.h"
 #import "PNMilestoneEvent.h"
 #import "PNAPSNotificationEvent.h"
-
+#import "PNErrorEvent.h"
 #import "PlaynomicsSession+Exposed.h"
 
 @interface PlaynomicsSession () {    
@@ -825,27 +825,28 @@
     }
 }
 
-//+ (PNAPIResult) errorReport:(PNErrorDetail*)errorDetails
-//{
-//    @try {
-//        
-//        
-//        PlaynomicsSession * s =[PlaynomicsSession sharedInstance];
-//        
-//        PNErrorEvent *ev = [[PNErrorEvent alloc] init:PNEventError
-//                                        applicationId:s.applicationId
-//                                               userId:s.userId
-//                                             cookieId:s.cookieId
-//                                         errorDetaios:errorDetails];
-//        
-//        ev.internalSessionId = [[PlaynomicsSession sharedInstance] sessionId];
-//        return [s sendOrQueueEvent:ev];
-//    }
-//    @catch (NSException *exception) {
-//        NSLog(@"error: %@", exception.description);
-//        return PNAPIResultFailUnkown;
-//    }
-//}
++ (PNAPIResult) errorReport:(PNErrorDetail*)errorDetails
+{
+    @try {
+        
+        
+        PlaynomicsSession * s =[PlaynomicsSession sharedInstance];
+        
+        PNErrorEvent *ev = [[PNErrorEvent alloc] init:PNEventError
+                                        applicationId:s.applicationId
+                                               userId:s.userId
+                                             cookieId:s.cookieId
+                                         errorDetaios:errorDetails];
+        
+        ev.internalSessionId = [[PlaynomicsSession sharedInstance] sessionId];
+        return [s sendOrQueueEvent:ev];
+    }
+    @catch (NSException *exception) {
+        NSLog(@"error: %@", exception.description);
+        return PNAPIResultFailUnkown;
+    }
+    return PNAPIResultFailUnkown;
+}
 
 @end
 

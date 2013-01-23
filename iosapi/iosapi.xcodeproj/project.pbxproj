@@ -28,8 +28,6 @@
 		A18E5E7016AF371200004F6D /* PNActionObjects.m in Sources */ = {isa = PBXBuildFile; fileRef = A18E5E6E16AF371200004F6D /* PNActionObjects.m */; };
 		A18E5E7B16AF6D5700004F6D /* PNErrorEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = A18E5E7916AF6D5600004F6D /* PNErrorEvent.m */; };
 		A18E5E7C16AF6D5700004F6D /* PNErrorEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = A18E5E7A16AF6D5700004F6D /* PNErrorEvent.h */; };
-		A18E5E7F16AF6D7F00004F6D /* PNErrorDetail.h in Headers */ = {isa = PBXBuildFile; fileRef = A18E5E7D16AF6D7D00004F6D /* PNErrorDetail.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A18E5E8016AF6D7F00004F6D /* PNErrorDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = A18E5E7E16AF6D7E00004F6D /* PNErrorDetail.m */; };
 		D13B4C701640777F007F58BE /* AnimatedGif.h in Headers */ = {isa = PBXBuildFile; fileRef = D13B4C6E1640777F007F58BE /* AnimatedGif.h */; };
 		D13B4C711640777F007F58BE /* AnimatedGif.m in Sources */ = {isa = PBXBuildFile; fileRef = D13B4C6F1640777F007F58BE /* AnimatedGif.m */; };
 		D19CBDC216765ABE0089B04A /* PNMilestoneEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = D19CBDC016765ABE0089B04A /* PNMilestoneEvent.h */; };
@@ -102,8 +100,6 @@
 		A18E5E6E16AF371200004F6D /* PNActionObjects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNActionObjects.m; sourceTree = "<group>"; };
 		A18E5E7916AF6D5600004F6D /* PNErrorEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNErrorEvent.m; sourceTree = "<group>"; };
 		A18E5E7A16AF6D5700004F6D /* PNErrorEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNErrorEvent.h; sourceTree = "<group>"; };
-		A18E5E7D16AF6D7D00004F6D /* PNErrorDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNErrorDetail.h; sourceTree = "<group>"; };
-		A18E5E7E16AF6D7E00004F6D /* PNErrorDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNErrorDetail.m; sourceTree = "<group>"; };
 		D13B4C6E1640777F007F58BE /* AnimatedGif.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnimatedGif.h; sourceTree = "<group>"; };
 		D13B4C6F1640777F007F58BE /* AnimatedGif.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnimatedGif.m; sourceTree = "<group>"; };
 		D19CBDC016765ABE0089B04A /* PNMilestoneEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNMilestoneEvent.h; sourceTree = "<group>"; };
@@ -213,8 +209,6 @@
 				D1D922BC159112C100EDDE17 /* PNGameEvent.m */,
 				D19CBDC016765ABE0089B04A /* PNMilestoneEvent.h */,
 				D19CBDC116765ABE0089B04A /* PNMilestoneEvent.m */,
-				A18E5E7D16AF6D7D00004F6D /* PNErrorDetail.h */,
-				A18E5E7E16AF6D7E00004F6D /* PNErrorDetail.m */,
 			);
 			name = Event;
 			sourceTree = "<group>";
@@ -346,7 +340,6 @@
 				D1D922A31591124700EDDE17 /* PlaynomicsSession.h in Headers */,
 				42FBA45F0CE45688790D1F03 /* PlaynomicsFrame.h in Headers */,
 				42FBA8A8A461BB836E6655EB /* PlaynomicsMessaging.h in Headers */,
-				A18E5E7F16AF6D7F00004F6D /* PNErrorDetail.h in Headers */,
 				EADE24E11625F17500914040 /* FSN_categories.h in Headers */,
 				EADE24E31625F17500914040 /* FSNConnection.h in Headers */,
 				EADE24E51625F17500914040 /* FSNData.h in Headers */,
@@ -493,7 +486,6 @@
 				A118C35316A8825700DFF63C /* PNAPSNotificationEvent.m in Sources */,
 				A18E5E7016AF371200004F6D /* PNActionObjects.m in Sources */,
 				A18E5E7B16AF6D5700004F6D /* PNErrorEvent.m in Sources */,
-				A18E5E8016AF6D7F00004F6D /* PNErrorDetail.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
