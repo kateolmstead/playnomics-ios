@@ -23,6 +23,9 @@
 		5BBAA238159BE4CD00AA4993 /* PlaynomicsSession+Exposed.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BBAA237159BE4CD00AA4993 /* PlaynomicsSession+Exposed.h */; };
 		A118C35316A8825700DFF63C /* PNAPSNotificationEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = A118C35116A8825700DFF63C /* PNAPSNotificationEvent.m */; };
 		A118C35416A8825700DFF63C /* PNAPSNotificationEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = A118C35216A8825700DFF63C /* PNAPSNotificationEvent.h */; };
+		A1822F7A16B065DE00414EF1 /* invalid.json in Resources */ = {isa = PBXBuildFile; fileRef = A1822F7816B065DE00414EF1 /* invalid.json */; };
+		A1822F7B16B065DE00414EF1 /* pnx.json in Resources */ = {isa = PBXBuildFile; fileRef = A1822F7916B065DE00414EF1 /* pnx.json */; };
+		A1822F8416B069B900414EF1 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1822F8316B069B900414EF1 /* CoreGraphics.framework */; };
 		A18E5E6B16AF284C00004F6D /* AdActionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A18E5E6A16AF284C00004F6D /* AdActionTests.m */; };
 		A18E5E6F16AF371200004F6D /* PNActionObjects.h in Headers */ = {isa = PBXBuildFile; fileRef = A18E5E6D16AF371200004F6D /* PNActionObjects.h */; };
 		A18E5E7016AF371200004F6D /* PNActionObjects.m in Sources */ = {isa = PBXBuildFile; fileRef = A18E5E6E16AF371200004F6D /* PNActionObjects.m */; };
@@ -94,6 +97,12 @@
 		A118C35116A8825700DFF63C /* PNAPSNotificationEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNAPSNotificationEvent.m; sourceTree = "<group>"; };
 		A118C35216A8825700DFF63C /* PNAPSNotificationEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNAPSNotificationEvent.h; sourceTree = "<group>"; };
 		A1244E0A16A9EADF001A93DD /* dev.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = dev.xcconfig; sourceTree = "<group>"; };
+		A1822F7816B065DE00414EF1 /* invalid.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = invalid.json; sourceTree = "<group>"; };
+		A1822F7916B065DE00414EF1 /* pnx.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = pnx.json; sourceTree = "<group>"; };
+		A1822F8116B0691300414EF1 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		A1822F8316B069B900414EF1 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		A1822F8516B06A4100414EF1 /* PlaynomicsMessaging+Testing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PlaynomicsMessaging+Testing.h"; sourceTree = "<group>"; };
+		A1822F8D16B06BF800414EF1 /* PlaynomicsFrame+Testing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PlaynomicsFrame+Testing.h"; sourceTree = "<group>"; };
 		A18E5E6916AF284C00004F6D /* AdActionTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdActionTests.h; sourceTree = "<group>"; };
 		A18E5E6A16AF284C00004F6D /* AdActionTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdActionTests.m; sourceTree = "<group>"; };
 		A18E5E6D16AF371200004F6D /* PNActionObjects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNActionObjects.h; sourceTree = "<group>"; };
@@ -155,6 +164,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A1822F8416B069B900414EF1 /* CoreGraphics.framework in Frameworks */,
 				D1D922821590F59700EDDE17 /* SenTestingKit.framework in Frameworks */,
 				D1D922841590F59700EDDE17 /* UIKit.framework in Frameworks */,
 				D1D922851590F59700EDDE17 /* Foundation.framework in Frameworks */,
@@ -228,9 +238,20 @@
 			name = Util;
 			sourceTree = "<group>";
 		};
+		A1822F7C16B065E000414EF1 /* stubs */ = {
+			isa = PBXGroup;
+			children = (
+				A1822F7816B065DE00414EF1 /* invalid.json */,
+				A1822F7916B065DE00414EF1 /* pnx.json */,
+			);
+			name = stubs;
+			sourceTree = "<group>";
+		};
 		D1D922651590F59500EDDE17 = {
 			isa = PBXGroup;
 			children = (
+				A1822F8316B069B900414EF1 /* CoreGraphics.framework */,
+				A1822F8116B0691300414EF1 /* QuartzCore.framework */,
 				A1244E0A16A9EADF001A93DD /* dev.xcconfig */,
 				D1D922751590F59700EDDE17 /* iosapi */,
 				D1D922891590F59700EDDE17 /* iosapiTests */,
@@ -296,6 +317,8 @@
 				D1D9228A1590F59700EDDE17 /* Supporting Files */,
 				A18E5E6916AF284C00004F6D /* AdActionTests.h */,
 				A18E5E6A16AF284C00004F6D /* AdActionTests.m */,
+				A1822F8516B06A4100414EF1 /* PlaynomicsMessaging+Testing.h */,
+				A1822F8D16B06BF800414EF1 /* PlaynomicsFrame+Testing.h */,
 			);
 			path = iosapiTests;
 			sourceTree = "<group>";
@@ -303,6 +326,7 @@
 		D1D9228A1590F59700EDDE17 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				A1822F7C16B065E000414EF1 /* stubs */,
 				D1D9228B1590F59700EDDE17 /* iosapiTests-Info.plist */,
 				D1D9228C1590F59700EDDE17 /* InfoPlist.strings */,
 			);
@@ -437,6 +461,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				D1D9228E1590F59700EDDE17 /* InfoPlist.strings in Resources */,
+				A1822F7A16B065DE00414EF1 /* invalid.json in Resources */,
+				A1822F7B16B065DE00414EF1 /* pnx.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -17,7 +17,7 @@
 }
 
 @synthesize delegate = _delegate;
-
+@synthesize isTesting = _isTesting;
 
 + (PlaynomicsMessaging *)sharedInstance{
     DEFINE_SHARED_INSTANCE_USING_BLOCK(^{
@@ -29,6 +29,10 @@
     if (self = [super init]) {
         _actionHandlers = [[NSMutableDictionary dictionary] retain];
         _frames = [[NSMutableDictionary dictionary] retain];
+        self.isTesting = NO;
+#ifdef STUB
+        self.isTesting = YES;
+#endif
     }
     return self;
 }
@@ -82,14 +86,17 @@
     }
     
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", serverUrl, queryString]];
-#ifdef STUB
-    if ([frameId isEqualToString:@"testCC"]) {
-        url = [NSURL fileURLWithPath:@"/Users/mcconkiee/Desktop/stubs/pnx.json"];
-    }
-    else
-        url = [NSURL fileURLWithPath:@"/Users/mcconkiee/Desktop/stubs/invalid.json"];
     
-#endif
+    //stubbing data here , if isTesting
+    if (self.isTesting) {
+        if ([frameId isEqualToString:@"testCC"]) {
+            url = [NSURL fileURLWithPath:@"/Users/mcconkiee/Desktop/stubs/invalid.json"];
+        }
+        else
+            url = [NSURL fileURLWithPath:@"/Users/mcconkiee/Desktop/stubs/pnx.json"];
+        
+    }
+
     NSLog(@"calling ad server: %@", url.absoluteString);
     NSMutableData *adResponse = [NSMutableData dataWithContentsOfURL: url];
     

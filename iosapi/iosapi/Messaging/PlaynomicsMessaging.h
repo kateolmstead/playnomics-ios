@@ -24,6 +24,7 @@
 // The delegate all Playnomics Execution calls will be forwarded to.  Only one execution delegate can be
 //   set at any given time.
 @property (retain) id delegate;
+@property (nonatomic)BOOL isTesting;
 
 // Return the shared messaging instance used by all clients
 + (PlaynomicsMessaging *)sharedInstance;

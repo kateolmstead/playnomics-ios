@@ -6,14 +6,48 @@
       <FileBreakpoint
          shouldBeEnabled = "Yes"
          ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "../iosapi/iosapi/Messaging/PlaynomicsFrame.m"
-         timestampString = "380598055.08926"
+         continueAfterRunningActions = "Yes"
+         filePath = "../iosapi/iosapi/PNErrorEvent.m"
+         timestampString = "380658337.659131"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "204"
-         endingLineNumber = "204"
-         landmarkName = "-start"
+         startingLineNumber = "49"
+         endingLineNumber = "49"
+         landmarkName = "-toQueryString"
+         landmarkType = "5">
+         <Actions>
+            <BreakpointActionProxy
+               ActionType = "Xcode.BreakpointAction.DebuggerCommand">
+               <ActionContent
+                  consoleCommand = "po queryString">
+               </ActionContent>
+            </BreakpointActionProxy>
+         </Actions>
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../iosapi/iosapi/PlaynomicsSession.m"
+         timestampString = "380659566.798482"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "753"
+         endingLineNumber = "753"
+         landmarkName = "+invitationResponseWithId:recipientUserId:responseType:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../iosapi/iosapiTests/AdActionTests.m"
+         timestampString = "380660975.691384"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "73"
+         endingLineNumber = "73"
+         landmarkName = "-testPNXMessaging"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

@@ -7,7 +7,11 @@
 //
 
 #import <SenTestingKit/SenTestingKit.h>
-
-@interface AdActionTests : SenTestCase
-
+#import "PlaynomicsMessaging.h"
+#import "PlaynomicsMessaging+Testing.h"
+#import "PlaynomicsMessaging+Exposed.h"
+#import "PlaynomicsFrame+Testing.h"
+@interface AdActionTests : SenTestCase<PNAdClickActionHandler,PNFrameRefreshHandler>
+@property (nonatomic) BOOL isDone;
+-(void) onPNXSuccess;//test method to show this works
 @end
