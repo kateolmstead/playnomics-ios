@@ -250,8 +250,6 @@
 		D1D922651590F59500EDDE17 = {
 			isa = PBXGroup;
 			children = (
-				A1822F8316B069B900414EF1 /* CoreGraphics.framework */,
-				A1822F8116B0691300414EF1 /* QuartzCore.framework */,
 				A1244E0A16A9EADF001A93DD /* dev.xcconfig */,
 				D1D922751590F59700EDDE17 /* iosapi */,
 				D1D922891590F59700EDDE17 /* iosapiTests */,
@@ -272,6 +270,8 @@
 		D1D922721590F59600EDDE17 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A1822F8316B069B900414EF1 /* CoreGraphics.framework */,
+				A1822F8116B0691300414EF1 /* QuartzCore.framework */,
 				D1D922731590F59600EDDE17 /* Foundation.framework */,
 				D1D922811590F59700EDDE17 /* SenTestingKit.framework */,
 				D1D922831590F59700EDDE17 /* UIKit.framework */,
@@ -603,6 +603,7 @@
 		};
 		D1D922951590F59700EDDE17 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A1244E0A16A9EADF001A93DD /* dev.xcconfig */;
 			buildSettings = {
 				COPY_PHASE_STRIP = NO;
 				DSTROOT = /tmp/iosapi.dst;

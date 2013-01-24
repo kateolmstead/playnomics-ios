@@ -17,20 +17,20 @@
 		5BBAA08F159BAF0000AA4993 /* ViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BBAA08D159BAF0000AA4993 /* ViewController_iPhone.xib */; };
 		5BBAA092159BAF0000AA4993 /* ViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BBAA090159BAF0000AA4993 /* ViewController_iPad.xib */; };
 		A1244D5516A8A38E001A93DD /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A1244D5416A8A38D001A93DD /* Localizable.strings */; };
-		A1244D7A16A8CB45001A93DD /* libiosapi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A1244D7716A8CB0C001A93DD /* libiosapi.a */; };
+		A14ED62A16B0BFC50061B397 /* libiosapi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A1822FDC16B0BE7900414EF1 /* libiosapi.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		EA32098D161B8BD300F8FF8E /* PBXContainerItemProxy */ = {
+		A1822FDB16B0BE7900414EF1 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = EA320985161B8BD300F8FF8E /* iosapi.xcodeproj */;
+			containerPortal = A1244D6E16A8CB0B001A93DD /* iosapi.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = D1D922701590F59600EDDE17;
 			remoteInfo = iosapi;
 		};
-		EA32098F161B8BD300F8FF8E /* PBXContainerItemProxy */ = {
+		A1822FDD16B0BE7900414EF1 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = EA320985161B8BD300F8FF8E /* iosapi.xcodeproj */;
+			containerPortal = A1244D6E16A8CB0B001A93DD /* iosapi.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = D1D922801590F59700EDDE17;
 			remoteInfo = iosapiTests;
@@ -52,8 +52,6 @@
 		5BBAA08B159BAF0000AA4993 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = ViewController.m; sourceTree = "<group>"; };
 		5BBAA08E159BAF0000AA4993 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController_iPhone.xib; sourceTree = "<group>"; };
 		5BBAA091159BAF0000AA4993 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController_iPad.xib; sourceTree = "<group>"; };
-		5BF38FCA159D389B00DDD957 /* PlaynomicsSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlaynomicsSession.h; path = "../../../../../Library/Developer/Xcode/DerivedData/iosapi-bjkqyrtlyjtbiqfjtdqrczayducv/Build/Products/Debug-iphoneos/usr/local/include/PlaynomicsSession.h"; sourceTree = "<group>"; };
-		EA320985161B8BD300F8FF8E /* iosapi.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = iosapi.xcodeproj; path = ../iosapi/iosapi.xcodeproj; sourceTree = "<group>"; };
 		A1244D5416A8A38D001A93DD /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		A1244D6E16A8CB0B001A93DD /* iosapi.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = iosapi.xcodeproj; path = ../iosapi/iosapi.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -63,7 +61,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A1244D7A16A8CB45001A93DD /* libiosapi.a in Frameworks */,
+				A14ED62A16B0BFC50061B397 /* libiosapi.a in Frameworks */,
 				5BBAA079159BAF0000AA4993 /* UIKit.framework in Frameworks */,
 				5BBAA07B159BAF0000AA4993 /* Foundation.framework in Frameworks */,
 				5BBAA07D159BAF0000AA4993 /* CoreGraphics.framework in Frameworks */,
@@ -138,17 +136,8 @@
 		A1244D6F16A8CB0B001A93DD /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				A1244D7716A8CB0C001A93DD /* libiosapi.a */,
-				A1244D7916A8CB0C001A93DD /* iosapiTests.octest */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		EA320986161B8BD300F8FF8E /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				EA32098E161B8BD300F8FF8E /* libiosapi.a */,
-				EA320990161B8BD300F8FF8E /* iosapiTests.octest */,
+				A1822FDC16B0BE7900414EF1 /* libiosapi.a */,
+				A1822FDE16B0BE7900414EF1 /* iosapiTests.octest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -206,18 +195,18 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		A1244D7716A8CB0C001A93DD /* libiosapi.a */ = {
+		A1822FDC16B0BE7900414EF1 /* libiosapi.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
 			path = libiosapi.a;
-			remoteRef = A1244D7616A8CB0C001A93DD /* PBXContainerItemProxy */;
+			remoteRef = A1822FDB16B0BE7900414EF1 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		A1244D7916A8CB0C001A93DD /* iosapiTests.octest */ = {
+		A1822FDE16B0BE7900414EF1 /* iosapiTests.octest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
 			path = iosapiTests.octest;
-			remoteRef = A1244D7816A8CB0C001A93DD /* PBXContainerItemProxy */;
+			remoteRef = A1822FDD16B0BE7900414EF1 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -337,8 +326,6 @@
 					"\"$(SRCROOT)\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "C352A0AF-FCCE-436A-A929-4BEA5435E376";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "C352A0AF-FCCE-436A-A929-4BEA5435E376";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;

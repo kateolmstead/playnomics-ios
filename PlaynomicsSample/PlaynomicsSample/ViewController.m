@@ -221,7 +221,7 @@
 }
 -(void)onpnx
 {
-        [[[[UIAlertView alloc] initWithTitle:@"hola" message:@"message" delegate:nil cancelButtonTitle:@"ok" otherButtonTitles: nil] autorelease]show];
+        [[[[UIAlertView alloc] initWithTitle:@"pnx success!" message:@"i am the call back from pnx" delegate:nil cancelButtonTitle:@"ok" otherButtonTitles: nil] autorelease]show];
 }
 #pragma mark Misc Functions
 - (void)performAction {

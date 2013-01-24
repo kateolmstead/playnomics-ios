@@ -26,15 +26,15 @@
 
 -(void)onPushAlert:(NSDictionary*)userInfo
 {
-    NSString *noteId = [NSString stringWithFormat:@"Push ID: %@",
-                        [userInfo valueForKeyPath:@"push_id"]];
-    NSString *notemessage = [NSString stringWithFormat:@"%@",
-                             [userInfo valueForKeyPath:@"push_message"]];
-    
-    UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:noteId
-                                                     message:notemessage
-                                                    delegate:nil cancelButtonTitle:@"Yup" otherButtonTitles: nil] autorelease];
-    [alert show];
+//    NSString *noteId = [NSString stringWithFormat:@"Push ID: %@",
+//                        [userInfo valueForKeyPath:@"push_id"]];
+//    NSString *notemessage = [NSString stringWithFormat:@"%@",
+//                             [userInfo valueForKeyPath:@"push_message"]];
+//    
+//    UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:noteId
+//                                                     message:notemessage
+//                                                    delegate:nil cancelButtonTitle:@"Yup" otherButtonTitles: nil] autorelease];
+//    [alert show];
 }
 
 #pragma mark -

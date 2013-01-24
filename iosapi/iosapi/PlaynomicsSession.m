@@ -24,7 +24,8 @@
 #import "PNAPSNotificationEvent.h"
 #import "PNErrorEvent.h"
 #import "PlaynomicsSession+Exposed.h"
-
+#import "PNActionObjects.h"
+#import "PlaynomicsMessaging+Exposed.h"
 @interface PlaynomicsSession () {    
     PNSessionState _sessionState;
 
@@ -815,6 +816,11 @@
                                                                    userId:s.userId
                                                                  cookieId:s.cookieId
                                                               payload:payload];
+        
+        
+        NSString *actionLabel = [payload valueForKey:@"pnx"];
+        if (actionLabel!=nil)
+            [[PlaynomicsMessaging sharedInstance] executeActionOnDelegate:actionLabel];
         
         ev.internalSessionId = [[PlaynomicsSession sharedInstance] sessionId];
         return [s sendOrQueueEvent:ev];
