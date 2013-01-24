@@ -40,12 +40,22 @@ errorDetaios:(PNErrorDetail*)errorDetails
 
 - (NSString *) toQueryString {
     
-    
+    //define the message here for sending back the error
+    NSString *errorMessage = nil;
+    switch (self.errorDetailObject.errorType) {
+        case PNErrorTypeInvalidJson:
+            errorMessage = @"invalid_json";
+            break;
+            
+        default:
+            errorMessage = @"unknown";
+            break;
+    }
     
     NSString * queryString = nil;
-    queryString = [[super toQueryString] stringByAppendingFormat:@"&errorType=%d&jsh=%@",
-                   self.errorDetailObject.errorType,
-                   [self internalSessionId]];
+    queryString = [[super toQueryString] stringByAppendingFormat:@"&m=%@",
+                   errorMessage
+                   ];
     return queryString;
 }
 
