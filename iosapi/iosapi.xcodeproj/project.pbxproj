@@ -30,7 +30,7 @@
 		A18E5E6F16AF371200004F6D /* PNActionObjects.h in Headers */ = {isa = PBXBuildFile; fileRef = A18E5E6D16AF371200004F6D /* PNActionObjects.h */; };
 		A18E5E7016AF371200004F6D /* PNActionObjects.m in Sources */ = {isa = PBXBuildFile; fileRef = A18E5E6E16AF371200004F6D /* PNActionObjects.m */; };
 		A18E5E7B16AF6D5700004F6D /* PNErrorEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = A18E5E7916AF6D5600004F6D /* PNErrorEvent.m */; };
-		A18E5E7C16AF6D5700004F6D /* PNErrorEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = A18E5E7A16AF6D5700004F6D /* PNErrorEvent.h */; };
+		A18E5E7C16AF6D5700004F6D /* PNErrorEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = A18E5E7A16AF6D5700004F6D /* PNErrorEvent.h */; settings = {ATTRIBUTES = (); }; };
 		D13B4C701640777F007F58BE /* AnimatedGif.h in Headers */ = {isa = PBXBuildFile; fileRef = D13B4C6E1640777F007F58BE /* AnimatedGif.h */; };
 		D13B4C711640777F007F58BE /* AnimatedGif.m in Sources */ = {isa = PBXBuildFile; fileRef = D13B4C6F1640777F007F58BE /* AnimatedGif.m */; };
 		D19CBDC216765ABE0089B04A /* PNMilestoneEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = D19CBDC016765ABE0089B04A /* PNMilestoneEvent.h */; };
@@ -368,6 +368,7 @@
 				EADE24E31625F17500914040 /* FSNConnection.h in Headers */,
 				EADE24E51625F17500914040 /* FSNData.h in Headers */,
 				D1D922A71591125700EDDE17 /* PNEvent.h in Headers */,
+				A18E5E7C16AF6D5700004F6D /* PNErrorEvent.h in Headers */,
 				D1D922AF159112A300EDDE17 /* PNSocialEvent.h in Headers */,
 				D1D922B1159112A300EDDE17 /* PNTransactionEvent.h in Headers */,
 				D1D922B3159112A300EDDE17 /* PNUserInfoEvent.h in Headers */,
@@ -386,7 +387,6 @@
 				D19CBDC216765ABE0089B04A /* PNMilestoneEvent.h in Headers */,
 				A118C35416A8825700DFF63C /* PNAPSNotificationEvent.h in Headers */,
 				A18E5E6F16AF371200004F6D /* PNActionObjects.h in Headers */,
-				A18E5E7C16AF6D5700004F6D /* PNErrorEvent.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -195,11 +195,7 @@
 - (DisplayResult)start {
     NSString *frameResponseURL =[_adArea.properties objectForKey:FrameResponseAd_ImpressionUrl];
     if (frameResponseURL==nil)
-    {
-        //TODO: send error to server with jslog?
-        
-        PNErrorDetail *details = [PNErrorDetail pNErrorDetailWithType:PNErrorTypeInvalidJson];
-        [PlaynomicsSession errorReport:details];
+    {        
         return DisplayResultFailUnknown;
     }
     

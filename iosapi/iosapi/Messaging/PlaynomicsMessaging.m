@@ -7,6 +7,7 @@
 #import "PlaynomicsFrame+Exposed.h"
 #import "PNConstants.h"
 #import "PNConfig.h"
+#import "PNErrorEvent.h"
 
 
 @implementation PlaynomicsMessaging {
@@ -105,10 +106,10 @@
     NSDictionary *props = [NSJSONSerialization JSONObjectWithData:adResponse options:kNilOptions error:&error];
 
     if (error!=nil) {
-        NSLog(@"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\r\n---> %@",@"ERROR");
-        NSLog(@"error\r\n---> %@",error);
-        NSLog(@"%d,%s",__LINE__,__FUNCTION__);
-        NSLog(@"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\r\n---> %@",@"ERROR");
+        
+        PNErrorDetail *details = [PNErrorDetail pNErrorDetailWithType:PNErrorTypeInvalidJson];
+        [PlaynomicsSession errorReport:details];
+        
     }
     
     return props;
