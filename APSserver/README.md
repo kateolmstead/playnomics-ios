@@ -33,8 +33,11 @@ It is not possible to intercept push notifications discreetly as we have with st
 if the user accepts the alert to allow APS, this method will pass the deviceToken necessary for the backend server to psuh notifications. We need to pass this using our library using 
 
 ```
-	[PlaynomicsSession
-		enablePushNotificationsWithToken:deviceToken];
+-(void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
+{
+    [PlaynomicsSession enablePushNotificationsWithToken:deviceToken];
+} 
+
 ```
 
 (For this demo, take note of the token, as it will be needed for testing with the push server)
@@ -42,11 +45,15 @@ if the user accepts the alert to allow APS, this method will pass the deviceToke
 * implement app delegate method: `didReceiveRemoteNotification`. To confirm receipt we confirm with 
 
 ```
-	[PlaynomicsSession 							
-		pushNotificationsWithPayload:userInfo];	
+	-(void) application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
+{
+    [PlaynomicsSession pushNotificationsWithPayload:userInfo];    
+}
+	
 ```
 	
 * The `pushNotificationsWithPayload` method notifies Playnomics api that the user has received the notification and indeed returned to the app by way of the notification. For this demo, we include a sample notification id # with a timestamp to demonstrate the time passed from push, and to what notifiaction the user has responded.
+* **NOTE:** `pushNotificationsWithPayload` will parse the payload (JSON). If there is a pnx method url in the payload, it is here that the delegate (likely a view controller) will be invoked with the pnx method .
 * place the app in the background
 * push a message with the python framework (more on that below)
 
