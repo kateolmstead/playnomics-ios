@@ -195,7 +195,8 @@
 - (DisplayResult)start {
     NSString *frameResponseURL =[_adArea.properties objectForKey:FrameResponseAd_ImpressionUrl];
     if (frameResponseURL==nil)
-    {        
+    {
+        //this may happen due to broken JSON
         return DisplayResultFailUnknown;
     }
     
