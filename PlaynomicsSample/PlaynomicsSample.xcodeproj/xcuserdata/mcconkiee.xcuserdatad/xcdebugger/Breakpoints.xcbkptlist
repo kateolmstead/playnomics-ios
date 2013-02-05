@@ -28,19 +28,6 @@
          shouldBeEnabled = "Yes"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "../iosapi/iosapi/PlaynomicsSession.m"
-         timestampString = "380659566.798482"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "753"
-         endingLineNumber = "753"
-         landmarkName = "+invitationResponseWithId:recipientUserId:responseType:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "Yes"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
          filePath = "../iosapi/iosapiTests/AdActionTests.m"
          timestampString = "380660975.691384"
          startingColumnNumber = "9223372036854775807"
@@ -48,19 +35,6 @@
          startingLineNumber = "73"
          endingLineNumber = "73"
          landmarkName = "-testPNXMessaging"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "Yes"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "../iosapi/iosapi/PlaynomicsSession.m"
-         timestampString = "380681746.002993"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "822"
-         endingLineNumber = "822"
-         landmarkName = "+pushNotificationsWithPayload:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>
