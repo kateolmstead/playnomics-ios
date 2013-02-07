@@ -101,7 +101,12 @@
     NSLog(@"calling ad server: %@", url.absoluteString);
     NSMutableData *adResponse = [NSMutableData dataWithContentsOfURL: url];
     
-
+    if (adResponse==nil)
+    {
+        PNErrorDetail *detail = [PNErrorDetail pNErrorDetailWithType:PNErrorTypeInvalidJson];
+        [PlaynomicsSession errorReport:detail];
+        return nil;
+    }
     
     NSDictionary *props = [NSJSONSerialization JSONObjectWithData:adResponse options:kNilOptions error:&error];
 

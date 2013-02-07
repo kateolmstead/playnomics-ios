@@ -73,16 +73,9 @@
     //enable notifications
     UIApplication *app = [UIApplication sharedApplication];
     UIRemoteNotificationType types = [app enabledRemoteNotificationTypes];
-    if (types<=0) {
-        
-        // we could forego the check for "types" and always "registerForRemoteNotifications" on launch,
-        // however, this way prevents us from calling the notificaion url from the api lib N times
-        
-        // register for notifications
-        [app registerForRemoteNotificationTypes:
-         (UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
-    }
-    
+   
+    [app registerForRemoteNotificationTypes:
+     (UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
     
     
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
