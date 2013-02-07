@@ -75,6 +75,8 @@
             break;
             
         //decode the pushnotiicaiton and report back
+         
+            // not sure if we need to use user info string?
         case PNAPSNotificationEventTypeNotificationReceived:
         {
             NSDictionary *push = self.payload;
@@ -97,8 +99,6 @@
 
 - (void)encodeWithCoder:(NSCoder *)encoder {
     [super encodeWithCoder:encoder];
-    
-    
     [encoder encodeObject:_deviceToken forKey:@"PNAPSNotificationEvent._deviceToken"];
 }
 

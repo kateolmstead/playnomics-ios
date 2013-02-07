@@ -219,10 +219,12 @@
         NSLog(@"Result of calling start: %i", result);
 
 }
+
 -(void)onpnx
 {
         [[[[UIAlertView alloc] initWithTitle:@"pnx success!" message:@"i am the call back from pnx" delegate:nil cancelButtonTitle:@"ok" otherButtonTitles: nil] autorelease]show];
 }
+
 #pragma mark Misc Functions
 - (void)performAction {
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Test Action"

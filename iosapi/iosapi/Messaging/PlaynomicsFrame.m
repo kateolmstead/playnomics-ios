@@ -61,7 +61,7 @@
 
     _adArea = [[BaseAdComponent alloc] initWithProperties:[self _mergeAdInfoProperties]
                                                  forFrame:self
-                                         withTouchHandler:@selector(_adClicked)
+                                         withTouchHandler:@selector(_adClicked:)
                                               andDelegate:self];
     
     _closeButton = [[BaseAdComponent alloc] initWithProperties:[_properties objectForKey:FrameResponseCloseButtonInfo]
@@ -128,7 +128,6 @@
     [_background layoutComponent];
 }
 
-
 #pragma mark - Ad component click handlers
 - (void)_stop {
     NSLog(@"Close button was pressed...");
@@ -136,11 +135,15 @@
     [self _submitAdImpressionToServer:[_adArea.properties objectForKey:FrameResponseAd_CloseUrl]];
 }
 
+- (void)_adClicked:(UITapGestureRecognizer *)recognizer {
+    
+    CGPoint location = [recognizer locationInView:_adArea.imageUI];
+    
+    int x = location.x;
+    int y = location.y;
 
-- (void)_adClicked {
-    int x = [[NSNumber numberWithFloat:_background.imageUI.frame.origin.x] intValue];
-    int y = [[NSNumber numberWithFloat:_background.imageUI.frame.origin.y] intValue];
     NSString *coordParams = [NSString stringWithFormat:@"&x=%d&y=%d", x, y];
+    
     NSString *preExecuteUrl = [[_adArea.properties objectForKey:FrameResponseAd_PreExecuteUrl] stringByAppendingString:coordParams];
     NSString *postExecuteUrl =  [[_adArea.properties objectForKey:FrameResponseAd_PostExecuteUrl] stringByAppendingString:coordParams];
 
@@ -149,23 +152,58 @@
     AdAction actionType = [PNActionObjects adActionTypeForURL:clickTarget];
     NSString *actionLabel = [PNActionObjects adActionMethodForURLPath:clickTarget];
     
+    NSLog(@"%@", preExecuteUrl);
+    NSLog(@"%@", postExecuteUrl);
+    
     NSLog(@"Ad clicked with target (action type %i): %@", actionType, actionLabel);
 
+    NSInteger c;
+    NSString *exc;
+    
     switch (actionType) {
         case AdActionHTTP: {
            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:clickTarget]];
             break;
         }
+            
+        // each call (exe, perf) should be in a try catch
+            
         case AdActionDefinedAction: {
-            [self _submitAdImpressionToServer: preExecuteUrl];
-            [[PlaynomicsMessaging sharedInstance] performActionForLabel:actionLabel];
+            
+            NSString *pre = [NSString stringWithFormat:@"%@&x=%d&y=%d", preExecuteUrl, x, y];
+            [self _submitAdImpressionToServer: pre];
+            
+            @try {
+                [[PlaynomicsMessaging sharedInstance] performActionForLabel:actionLabel];
+                c = 2;
+                exc = @"";
+            }
+            @catch (NSException *e) {
+                c = -6;
+                exc = [NSString stringWithFormat:@"%@+%@", e.name, e.reason];
+            }
+                        
             [self _submitAdImpressionToServer: postExecuteUrl];
+            
             break;
         }
         case AdActionExecuteCode: {
-            [self _submitAdImpressionToServer: preExecuteUrl];
-            [[PlaynomicsMessaging sharedInstance] executeActionOnDelegate:actionLabel];
-            [self _submitAdImpressionToServer: postExecuteUrl];
+            NSString *pre = [NSString stringWithFormat:@"%@&x=%d&y=%d", preExecuteUrl, x, y];
+            [self _submitAdImpressionToServer: pre];
+            
+            @try {
+                [[PlaynomicsMessaging sharedInstance] executeActionOnDelegate:actionLabel];
+                c = 1;
+                exc = @"";
+            }
+            @catch (NSException *e) {
+                c = -4;
+                exc = [NSString stringWithFormat:@"%@+%@", e.name, e.reason];
+            }
+            
+            NSString *post = [NSString stringWithFormat:@"%@&c=%d&e=%@", postExecuteUrl, c, exc];
+            [self _submitAdImpressionToServer: post];
+            
             break;
         }
         default: {

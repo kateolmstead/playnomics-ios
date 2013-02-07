@@ -27,8 +27,8 @@
 
 #ifdef DEBUG
 
-#define PNUpdateTimeInterval (NSTimeInterval) 10
-#define PNSessionTimeout (NSTimeInterval) 20
+#define PNUpdateTimeInterval (NSTimeInterval) 60
+#define PNSessionTimeout (NSTimeInterval) 180
 
 #else
 

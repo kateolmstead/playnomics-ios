@@ -354,9 +354,11 @@
         case PNEventError:
             return @"jslog";
         case PNEventPushNotificationToken:
-            return @"pushNotificationToken";
+            return @"userInfo";
+//            return @"pushNotificationToken";//change here to user info (string)
         case PNEventPushNotificationPayload:
-            return @"pushNotificationPayload";
+            return @"userInfo";
+//            return @"pushNotificationPayload";
     }
     return nil;
 }
