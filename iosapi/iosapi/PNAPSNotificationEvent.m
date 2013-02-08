@@ -68,17 +68,18 @@
     switch (self.pushEventType) {
         case PNAPSNotificationEventTypeDeviceToken:
         {
-            queryString = [[super toQueryString] stringByAppendingFormat:@"&token=%@&jsh=%@",
+            queryString = [[super toQueryString] stringByAppendingFormat:@"&dTok=%@&jsh=%@",
                            adeviceToken,
                            [self internalSessionId]];
         }
             break;
             
         //decode the pushnotiicaiton and report back
-         
-            // not sure if we need to use user info string?
+        //not sure if we need to use user info string?
         case PNAPSNotificationEventTypeNotificationReceived:
         {
+            
+            //this is all fluff
             NSDictionary *push = self.payload;
             NSString *pId = [push valueForKeyPath:kPushId];
             NSTimeInterval time = [[NSDate date] timeIntervalSince1970];
@@ -89,6 +90,8 @@
                            time,
                            preferredLang,
                            [self internalSessionId]];
+            //this is all fluff
+            
         }
             break;
         default:

@@ -45,7 +45,6 @@
 }
 
 - (void)registerActionHandler:(id <PNAdClickActionHandler>)clickAction withLabel:(NSString *)label {
-    
     [_actionHandlers setObject:clickAction forKey:label];
 }
 
@@ -110,7 +109,7 @@
     
     NSDictionary *props = [NSJSONSerialization JSONObjectWithData:adResponse options:kNilOptions error:&error];
 
-//    NSLog(@"NSDictionary %@", props);
+    NSLog(@"NSDictionary %@", props);
     
     if (error!=nil) {
         

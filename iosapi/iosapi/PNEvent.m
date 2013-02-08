@@ -31,7 +31,6 @@
 }
 
 - (NSString *) toQueryString {
-        
     signed long long eventTime = [self eventTime] * 1000;
     return [NSString stringWithFormat:@"%@?t=%lld&a=%lld&u=%@&b=%@", [PNUtil PNEventTypeDescription:[self eventType]], eventTime, [self applicationId], [self userId], [self cookieId]];
 }

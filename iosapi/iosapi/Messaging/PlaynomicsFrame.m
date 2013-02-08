@@ -12,10 +12,6 @@
 
 #pragma mark - PlaynomicsFrame
 
-
-
-
-
 @implementation PlaynomicsFrame {
   @private
     NSTimer *_expirationTimer;
@@ -29,7 +25,6 @@
 }
 
 @synthesize frameId = _frameId;
-
 
 #pragma mark - Lifecycle/Memory management
 - (id)initWithProperties:(NSDictionary *)properties forFrameId:(NSString *)frameId andDelegate: (id<PNFrameRefreshHandler>) delegate {
@@ -215,8 +210,6 @@
     [self _closeAd];
 }
 
-
-
 - (NSString *)_determineActionLabel:(NSURL *)url {
     NSString *resource = url.resourceSpecifier;
     return [resource stringByReplacingOccurrencesOfString:@"//" withString:@""];
@@ -228,7 +221,6 @@
     [self _stopExpiryTimer];
 }
 
-
 #pragma mark - Public Interface
 - (DisplayResult)start {
     NSString *frameResponseURL =[_adArea.properties objectForKey:FrameResponseAd_ImpressionUrl];
@@ -238,7 +230,6 @@
         return DisplayResultFailUnknown;
     }
     
-        
     [_background display];
     [self _startExpiryTimer];
     
@@ -308,7 +299,6 @@
 - (void)_submitAdImpressionToServer:(NSString *)impressionUrl {
     if (impressionUrl==nil || impressionUrl.length<=0)
         return;//we will crash here...stop everything
-    
     
     NSURL *url = [NSURL URLWithString:impressionUrl];
     NSLog(@"Submitting GET request to impression URL: %@", impressionUrl);
