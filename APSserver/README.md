@@ -59,7 +59,7 @@ if the user accepts the alert to allow APS, this method will pass the deviceToke
 
 ### Python Push
 
-* open *push.py* in text editor, and replace the `token_hex` varaibale with the token from step 2.b above. * Save the file (For demonstration, we’ve added an example of a custom message. This message, with a push_id key will populate a message in an alert upon user interaction. The push id we will use to pass back to the api. )
+* open *push.py* in text editor, and replace the `token_hex` varaibale with the token from step 2.b above. * Save the file (For demonstration, we’ve added an example of a custom message. This message, with a push_id key will populate a message in an alert upon user interaction. The push id we will use to pass back to the api. We have also added a sound file that is bundled in the app. The push.py declares this sound file, and thus the app uses a custom alert tone. More can be understood about that [here](http://developer.apple.com/library/mac/#documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/IPhoneOSClientImp/IPhoneOSClientImp.html#//apple_ref/doc/uid/TP40008194-CH103-SW6))
 * **cd** to the python library
 
 ```

@@ -1,4 +1,4 @@
-//
+    //
 //  AppDelegate.m
 //  PlaynomicsSample
 //
@@ -72,7 +72,7 @@
 
     //enable notifications
     UIApplication *app = [UIApplication sharedApplication];
-    UIRemoteNotificationType types = [app enabledRemoteNotificationTypes];
+    
    
     [app registerForRemoteNotificationTypes:
      (UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
