@@ -68,7 +68,7 @@
     switch (self.pushEventType) {
         case PNAPSNotificationEventTypeDeviceToken:
         {
-            queryString = [[super toQueryString] stringByAppendingFormat:@"&dTok=%@&jsh=%@",
+            queryString = [[super toQueryString] stringByAppendingFormat:@"&pushTok=%@&jsh=%@",
                            adeviceToken,
                            [self internalSessionId]];
         }
