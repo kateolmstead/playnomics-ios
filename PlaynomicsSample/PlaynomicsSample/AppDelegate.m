@@ -49,7 +49,7 @@
 
 -(void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
 {
-    
+    NSLog(@"FAILED TO CAPTURE DEVICE TOKEN\r\nERROR STATES:\r\n%@ ",error);
 }
 -(void) application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
 {
