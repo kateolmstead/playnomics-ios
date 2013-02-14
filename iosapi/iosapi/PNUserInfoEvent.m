@@ -64,7 +64,7 @@
     
     queryString = [self addOptionalParam:queryString name:@"po" value:[self sourceStr]];
     queryString = [self addOptionalParam:queryString name:@"pm" value:[self sourceCampaign]];
-    queryString = [self addOptionalParam:queryString name:@"pi" value:[NSString stringWithFormat:@"%f", [self installTime]]];
+    queryString = [self addOptionalParam:queryString name:@"pi" value:[NSString stringWithFormat:@"%.0f", [self installTime]]];//remove the decimal
     return queryString;
 }
 

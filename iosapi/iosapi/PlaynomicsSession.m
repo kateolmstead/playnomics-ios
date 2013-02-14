@@ -552,7 +552,17 @@
     @try {
         PlaynomicsSession * s =[PlaynomicsSession sharedInstance];
         
-        PNUserInfoEvent *ev = [[[PNUserInfoEvent alloc] init:s.applicationId userId:s.userId cookieId:s.cookieId type:type country:country subdivision:subdivision sex:sex birthday:[birthday timeIntervalSince1970] source:source sourceCampaign:sourceCampaign installTime:[installTime timeIntervalSince1970]] autorelease];
+        PNUserInfoEvent *ev = [[[PNUserInfoEvent alloc] init:s.applicationId
+                                                      userId:s.userId
+                                                    cookieId:s.cookieId
+                                                        type:type
+                                                     country:country
+                                                 subdivision:subdivision
+                                                         sex:sex
+                                                    birthday:[birthday timeIntervalSince1970]
+                                                      source:source
+                                              sourceCampaign:sourceCampaign
+                                                 installTime:[installTime timeIntervalSince1970]] autorelease];
         
         ev.internalSessionId = [[PlaynomicsSession sharedInstance] sessionId];
         return [s sendOrQueueEvent:ev];
