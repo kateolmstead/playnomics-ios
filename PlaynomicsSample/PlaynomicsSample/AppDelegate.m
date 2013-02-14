@@ -53,8 +53,7 @@
 }
 -(void) application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
 {
-    // this is not a public facing call yet, but in time will handle the push
-    //[PlaynomicsSession pushNotificationsWithPayload:userInfo];
+    
     
     //demonstates we got the push
     [self performSelector:@selector(onPushAlert:) withObject:userInfo afterDelay:0.6];
