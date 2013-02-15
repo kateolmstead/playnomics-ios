@@ -73,13 +73,41 @@
 
     [_background addSubComponent:_adArea];
     [_background addSubComponent:_closeButton];
-    //_background.imageUI.hidden = YES;
+    _background.imageUI.hidden = YES;
 }
 
+- (BOOL)_allComponentsLoaded {
+    
+    id displayNameTypeValue = _background.imageUrl;
+    
+    if (displayNameTypeValue != [NSNull null]){
+        if(_background.imageUrl == NULL ||
+           [_background.imageUrl isEqualToString:@"null"]){
+            [_background setStatus:AdComponentStatusCompleted];
+        }
+    }
+    else{
+        [_background setStatus:AdComponentStatusCompleted];
+    }
+    
+    displayNameTypeValue = _closeButton.imageUrl;
+    
+    if (displayNameTypeValue != [NSNull null]){
+        if(_closeButton.imageUrl == NULL || [_closeButton.imageUrl isEqualToString:@"null"]){
+            [_closeButton setStatus:AdComponentStatusCompleted];
+        }
+    }
+    else{
+        [_closeButton setStatus:AdComponentStatusCompleted];
+    }
+    
+    return (_background.status == AdComponentStatusCompleted
+            && _adArea.status == AdComponentStatusCompleted
+            && _closeButton.status == AdComponentStatusCompleted);
+}
 
 - (void)componentDidLoad: (id) component {
-    //this needs to change!!
-    //_background.imageUI.hidden = ![self _allComponentsLoaded];
+    _background.imageUI.hidden = ![self _allComponentsLoaded];
 }
 
 - (NSDictionary *)_mergeAdInfoProperties {
@@ -242,12 +270,6 @@
     } else {
         return DisplayResultDisplayPending;
     }
-}
-
-- (BOOL)_allComponentsLoaded {
-    return (_background.status == AdComponentStatusCompleted
-            && _adArea.status == AdComponentStatusCompleted
-            && _closeButton.status == AdComponentStatusCompleted);
 }
 
 - (void)_startExpiryTimer {
