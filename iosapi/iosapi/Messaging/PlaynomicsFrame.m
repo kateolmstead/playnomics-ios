@@ -73,11 +73,13 @@
 
     [_background addSubComponent:_adArea];
     [_background addSubComponent:_closeButton];
-//    _background.imageUI.hidden = YES;
+    //_background.imageUI.hidden = YES;
 }
 
+
 - (void)componentDidLoad: (id) component {
-//    _background.imageUI.hidden = ![self _allComponentsLoaded];
+    //this needs to change!!
+    //_background.imageUI.hidden = ![self _allComponentsLoaded];
 }
 
 - (NSDictionary *)_mergeAdInfoProperties {
