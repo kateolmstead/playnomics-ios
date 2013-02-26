@@ -28,13 +28,39 @@
          shouldBeEnabled = "Yes"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "../iosapi/iosapiTests/AdActionTests.m"
-         timestampString = "380660975.691384"
+         filePath = "../iosapi/iosapi/PNUtil.m"
+         timestampString = "383547631.483101"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "315"
+         endingLineNumber = "315"
+         landmarkName = "+PNEventTypeValueOf:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../iosapi/iosapi/PNUtil.m"
+         timestampString = "383547632.535451"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "317"
+         endingLineNumber = "317"
+         landmarkName = "+PNEventTypeValueOf:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../iosapi/iosapi/PNUserInfoEvent.m"
+         timestampString = "383548422.07368"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "73"
          endingLineNumber = "73"
-         landmarkName = "-testPNXMessaging"
+         landmarkName = "-toQueryString"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

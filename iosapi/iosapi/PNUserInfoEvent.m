@@ -1,5 +1,5 @@
 #import "PNUserInfoEvent.h"
-
+#import "PlaynomicsSession+Exposed.h"
 @implementation PNUserInfoEvent
 
 @synthesize type=_type;
@@ -65,6 +65,13 @@
     queryString = [self addOptionalParam:queryString name:@"po" value:[self sourceStr]];
     queryString = [self addOptionalParam:queryString name:@"pm" value:[self sourceCampaign]];
     queryString = [self addOptionalParam:queryString name:@"pi" value:[NSString stringWithFormat:@"%.0f", [self installTime]]];//remove the decimal
+    
+    PlaynomicsSession * s =[PlaynomicsSession sharedInstance];
+    if (s.deviceToken!=nil) {
+        NSString *adeviceToken = [[s.deviceToken description] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]];
+        adeviceToken = [adeviceToken stringByReplacingOccurrencesOfString:@" " withString:@""];
+        queryString = [self addOptionalParam:queryString name:@"pushTok" value:adeviceToken];
+    }
     return queryString;
 }
 

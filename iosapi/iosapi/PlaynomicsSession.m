@@ -799,7 +799,7 @@
 + (PNAPIResult) enablePushNotificationsWithToken:(NSData*)deviceToken {
     @try {
         PlaynomicsSession * s =[PlaynomicsSession sharedInstance];
-        
+        [s setDeviceToken:deviceToken];
         PNAPSNotificationEvent *ev = [[PNAPSNotificationEvent alloc] init:PNEventPushNotificationToken
                                                             applicationId:s.applicationId
                                                                    userId:s.userId
