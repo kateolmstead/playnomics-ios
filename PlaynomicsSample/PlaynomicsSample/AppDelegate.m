@@ -24,18 +24,7 @@
 #pragma mark -
 #pragma mark private handlers
 
--(void)onPushAlert:(NSDictionary*)userInfo
-{
-//    NSString *noteId = [NSString stringWithFormat:@"Push ID: %@",
-//                        [userInfo valueForKeyPath:@"push_id"]];
-//    NSString *notemessage = [NSString stringWithFormat:@"%@",
-//                             [userInfo valueForKeyPath:@"push_message"]];
-//    
-//    UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:noteId
-//                                                     message:notemessage
-//                                                    delegate:nil cancelButtonTitle:@"Yup" otherButtonTitles: nil] autorelease];
-//    [alert show];
-}
+
 
 #pragma mark -
 #pragma mark push notifications
@@ -53,11 +42,14 @@
 }
 -(void) application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
 {
-    // this is not a public facing call yet, but in time will handle the push
-    [PlaynomicsSession pushNotificationsWithPayload:userInfo];
-    
-    //demonstates we got the push
-    [self performSelector:@selector(onPushAlert:) withObject:userInfo afterDelay:0.6];
+    // we need to distinguish the difference of a user responding to push
+    // vs if we receive a push while the app is running.
+    UIApplicationState *state = [[UIApplication sharedApplication] applicationState];
+    if (state!=UIApplicationStateActive) {
+        // this is not a public facing call yet, but in time will handle the push
+        [PlaynomicsSession pushNotificationsWithPayload:userInfo];
+    }
+
 }
 
 #pragma mark -

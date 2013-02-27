@@ -14,7 +14,7 @@
 #import "PNRandomGenerator.h"
 
 #import "PNEventSender.h"
-
+#import "PlaynomicsCallback.h"
 #import "PNBasicEvent.h"
 #import "PNUserInfoEvent.h"
 #import "PNSocialEvent.h"
@@ -26,7 +26,8 @@
 #import "PlaynomicsSession+Exposed.h"
 #import "PNActionObjects.h"
 #import "PlaynomicsMessaging+Exposed.h"
-@interface PlaynomicsSession () {    
+@interface PlaynomicsSession () {
+
     PNSessionState _sessionState;
 
     NSTimer *_eventTimer;
@@ -55,7 +56,7 @@
 }
 @property (atomic, readonly) PNEventSender * eventSender;
 @property (atomic, readonly) NSMutableArray * playnomicsEventList;
-
+@property (nonatomic, retain) PlaynomicsCallback *callback;
 - (PNAPIResult) startWithApplicationId:(signed long long) applicationId;
 - (PNAPIResult) startWithApplicationId:(signed long long) applicationId userId: (NSString *) userId;
 - (PNAPIResult) sendOrQueueEvent: (PNEvent *) pe;
@@ -150,6 +151,7 @@
         _sessionId = @"";
         _playnomicsEventList = [[NSMutableArray alloc] init];
         _eventSender = [[PNEventSender alloc] init];
+        self.callback = [[PlaynomicsCallback alloc] init];
     }
     
     return self;
@@ -815,30 +817,13 @@
     }
 }
 
-+ (PNAPIResult) pushNotificationsWithPayload:(NSDictionary*)payload {
-    @try {
-        
-        
-        PlaynomicsSession * s =[PlaynomicsSession sharedInstance];
-        
-        PNAPSNotificationEvent *ev = [[PNAPSNotificationEvent alloc] init:PNEventPushNotificationPayload
-                                                            applicationId:s.applicationId
-                                                                   userId:s.userId
-                                                                 cookieId:s.cookieId
-                                                              payload:payload];
-        
-        
-        NSString *actionLabel = [payload valueForKey:@"pnx"];
-        if (actionLabel!=nil)
-            [[PlaynomicsMessaging sharedInstance] executeActionOnDelegate:actionLabel];
-        
-        ev.internalSessionId = [[PlaynomicsSession sharedInstance] sessionId];
-        return [s sendOrQueueEvent:ev];
-    }
-    @catch (NSException *exception) {
-        NSLog(@"error: %@", exception.description);
-        return PNAPIResultFailUnkown;
-    }
++ (void) pushNotificationsWithPayload:(NSDictionary*)payload {
+    PlaynomicsSession * s =[PlaynomicsSession sharedInstance];
+    
+    
+    NSString *callbackurl = [payload valueForKeyPath:kPushCallbackUrl];
+    
+    [s.callback submitAdImpressionToServer: callbackurl];
 }
 
 + (PNAPIResult) errorReport:(PNErrorDetail*)errorDetails

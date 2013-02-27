@@ -39,6 +39,12 @@
         _baseUrl = [PNPropertyBaseProdUrl retain];
 
     NSString * eventUrl = [_baseUrl stringByAppendingString:[pe toQueryString]];
+    if (eventUrl ==nil)
+    {
+        NSLog(@"WARNING...missing event utl\r\n---> %@",self);
+        NSLog(@"%d,%s",__LINE__,__FUNCTION__);
+        return;
+    }
     eventUrl = [eventUrl stringByAppendingFormat:@"&esrc=ios&ever=%@", _version];
     NSLog(@"Sending event to server: %@", eventUrl);
     

@@ -26,7 +26,9 @@
                     return [c.responseData stringFromUTF8];
                 }
            completionBlock:^(FSNConnection *c) {
+               NSLog(@"********************\r\n---> ");
                NSLog(@"Impression URL complete: error: %@, result: %@", c.error, c.parseResult);
+               NSLog(@"********************\r\n---> ");
            }
              progressBlock:nil];
     

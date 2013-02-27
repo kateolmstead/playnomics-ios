@@ -450,7 +450,7 @@ typedef enum {
  *            the dictionary that was pushed to device
  * @return the API Result
  */
-+ (PNAPIResult) pushNotificationsWithPayload:(NSDictionary*)payload ;
++ (void) pushNotificationsWithPayload:(NSDictionary*)payload ;
 
 /**
  * errorReport

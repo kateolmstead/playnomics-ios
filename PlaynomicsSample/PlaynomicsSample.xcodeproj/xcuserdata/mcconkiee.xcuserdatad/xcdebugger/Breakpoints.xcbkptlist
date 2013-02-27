@@ -54,53 +54,35 @@
          shouldBeEnabled = "Yes"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "../iosapi/iosapi/PNUserInfoEvent.m"
-         timestampString = "383548422.07368"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "73"
-         endingLineNumber = "73"
-         landmarkName = "-toQueryString"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "Yes"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
          filePath = "../iosapi/iosapi/PlaynomicsSession.m"
-         timestampString = "383616009.741771"
+         timestampString = "383666997.600793"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "822"
-         endingLineNumber = "822"
+         startingLineNumber = "821"
+         endingLineNumber = "821"
          landmarkName = "+pushNotificationsWithPayload:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "Yes"
          ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "../iosapi/iosapi/PNAPSNotificationEvent.m"
-         timestampString = "383616074.564543"
+         continueAfterRunningActions = "Yes"
+         filePath = "PlaynomicsSample/AppDelegate.m"
+         timestampString = "383667483.383685"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "71"
-         endingLineNumber = "71"
-         landmarkName = "-toQueryString"
+         startingLineNumber = "48"
+         endingLineNumber = "48"
+         landmarkName = "-application:didReceiveRemoteNotification:"
          landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "Yes"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "../iosapi/iosapi/PNAPSNotificationEvent.m"
-         timestampString = "383616255.996657"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "56"
-         endingLineNumber = "56"
-         landmarkName = "-toQueryString"
-         landmarkType = "5">
+         <Actions>
+            <BreakpointActionProxy
+               ActionType = "Xcode.BreakpointAction.DebuggerCommand">
+               <ActionContent
+                  consoleCommand = "p state">
+               </ActionContent>
+            </BreakpointActionProxy>
+         </Actions>
       </FileBreakpoint>
    </FileBreakpoints>
    <ExceptionBreakpoints>

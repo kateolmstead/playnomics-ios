@@ -7,16 +7,16 @@
 //
 
 #import "PNAPSNotificationEvent.h"
-#import "PlaynomicsCallback.h"
 
 
-#define kPushCallbackUrl         @"t"
+
+
 
 @interface PNAPSNotificationEvent()
 @property (nonatomic ) PNAPSNotificationEventType pushEventType;
 @property (nonatomic, retain) NSData *deviceToken;
 @property (nonatomic, retain) NSDictionary *payload;
-@property (nonatomic,retain) PlaynomicsCallback *callbackUtil;
+
 @end
 
 @implementation PNAPSNotificationEvent
@@ -35,18 +35,7 @@
     return self;
 }
 
-- (id)init:(PNEventType)eventType applicationId:(long long)applicationId userId:(NSString *)userId cookieId:(NSString *)cookieId payload:(NSDictionary*)payload
-{
-    self = [super init:eventType applicationId:applicationId userId:userId cookieId:cookieId];
-    _pushEventType = PNAPSNotificationEventTypeNotificationReceived;
-    if (self) {
-        [self setPayload:payload];
-        self.callbackUtil = [[PlaynomicsCallback alloc] init];
 
-        
-    }
-    return self;
-}
 
 - (NSString *) toQueryString {
 
@@ -61,21 +50,7 @@
                            [self internalSessionId]];
         }
             break;
-            
-        //decode the pushnotiicaiton and report back
-        //not sure if we need to use user info string?
-        case PNAPSNotificationEventTypeNotificationReceived:
-        {
-            
-            //this is all fluff
-            NSDictionary *push = self.payload;
-            NSString *callback = [push valueForKeyPath:kPushCallbackUrl];
-            [self.callbackUtil submitAdImpressionToServer:callback];
-            
-        }
-            break;
-        default:
-            break;
+        
     }
     return queryString;
 }
