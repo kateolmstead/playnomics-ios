@@ -7,17 +7,16 @@
 //
 
 #import "PNAPSNotificationEvent.h"
+#import "PlaynomicsCallback.h"
 
 
-
-#define kPushId             @"push_id"
-#define kPushaction         @"push_action"
-#define kPushURLSchemeURL   @"url"
+#define kPushCallbackUrl         @"t"
 
 @interface PNAPSNotificationEvent()
 @property (nonatomic ) PNAPSNotificationEventType pushEventType;
 @property (nonatomic, retain) NSData *deviceToken;
 @property (nonatomic, retain) NSDictionary *payload;
+@property (nonatomic,retain) PlaynomicsCallback *callbackUtil;
 @end
 
 @implementation PNAPSNotificationEvent
@@ -42,19 +41,8 @@
     _pushEventType = PNAPSNotificationEventTypeNotificationReceived;
     if (self) {
         [self setPayload:payload];
-        
-        //do some custom actions
-        if ([payload valueForKeyPath:kPushaction]!=nil) {
-            NSString *action =  [payload valueForKeyPath:kPushaction];
-            NSURL *actionURL = [NSURL URLWithString:action];
-            
-            //if the action is redirect to a url, let the os handle it
-            if ([actionURL.scheme isEqualToString:kPushURLSchemeURL]) {
-                NSString *targetURL = actionURL.resourceSpecifier;
-                [[UIApplication sharedApplication]openURL:[NSURL URLWithString:targetURL]];
-            }
-            
-        }
+        self.callbackUtil = [[PlaynomicsCallback alloc] init];
+
         
     }
     return self;
@@ -81,16 +69,8 @@
             
             //this is all fluff
             NSDictionary *push = self.payload;
-            NSString *pId = [push valueForKeyPath:kPushId];
-            NSTimeInterval time = [[NSDate date] timeIntervalSince1970];
-            NSString *preferredLang = [[NSLocale preferredLanguages] objectAtIndex:0];
-
-            queryString = [[super toQueryString] stringByAppendingFormat:@"&payload_id=%@&time=%f&lang=%@&jsh=%@",
-                           pId,
-                           time,
-                           preferredLang,
-                           [self internalSessionId]];
-            //this is all fluff
+            NSString *callback = [push valueForKeyPath:kPushCallbackUrl];
+            [self.callbackUtil submitAdImpressionToServer:callback];
             
         }
             break;
