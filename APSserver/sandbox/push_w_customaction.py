@@ -13,7 +13,7 @@ token_hex = token_hex.replace(">","")
 
 #payload = Payload(alert="Hello World!", sound="default", badge=1)
 
-alert = PayloadAlert("This message will have a custom action!", action_loc_key="example_lock_key")
+alert = PayloadAlert("44This message will have a custom action!", action_loc_key="example_lock_key")
 payload = Payload(alert=alert, sound="default", custom={"t":"http://www.google.com"})
 
 apns.gateway_server.send_notification(token_hex, payload)

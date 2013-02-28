@@ -46,8 +46,10 @@
     // vs if we receive a push while the app is running.
     UIApplicationState *state = [[UIApplication sharedApplication] applicationState];
     if (state!=UIApplicationStateActive) {
-        // this is not a public facing call yet, but in time will handle the push
+        NSLog(@"sending impression from didReceiveRemoteNotification\r\n---> %@",userInfo);
+        // parse the impression url and ping it....
         [PlaynomicsSession pushNotificationsWithPayload:userInfo];
+        
     }
 
 }
@@ -69,6 +71,21 @@
    
     [app registerForRemoteNotificationTypes:
      (UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
+    
+    
+    NSDictionary *apn =
+    [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
+    if (apn) {
+        // we need to distinguish the difference of a user responding to push
+        // vs if we receive a push while the app is running.
+        UIApplicationState *state = [[UIApplication sharedApplication] applicationState];
+        if (state!=UIApplicationStateActive) {
+             NSLog(@"sending impression from didFinishLaunchingWithOptions\r\n---> %@",apn);
+            // parse the impression url and ping it....
+            [PlaynomicsSession pushNotificationsWithPayload:apn];
+            
+        }
+    }
     
     
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
