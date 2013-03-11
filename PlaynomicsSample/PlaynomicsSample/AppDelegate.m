@@ -64,7 +64,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
 
-    long appId = 3L;
+    long appId = 2L;
     NSString *userId = @"SampleUserId1234";
     [PlaynomicsSession setTestMode:NO];
     [PlaynomicsSession startWithApplicationId:appId userId:userId];
