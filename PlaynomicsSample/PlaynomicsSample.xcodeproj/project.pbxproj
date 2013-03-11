@@ -318,8 +318,8 @@
 		5BBAA096159BAF0000AA4993 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: Eric McConkie (79334EXNDM)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Eric McConkie (79334EXNDM)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Shiraz Khan (LEV6CH2NX4)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Shiraz Khan (LEV6CH2NX4)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PlaynomicsSample/PlaynomicsSample-Prefix.pch";
 				HEADER_SEARCH_PATHS = "$(BUILT_PRODUCTS_DIR)/usr/local/include";
@@ -330,7 +330,8 @@
 					"\"$(SRCROOT)\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "13CE7B58-D3E2-47B6-8EF1-C8EECFD85751";
+				PROVISIONING_PROFILE = "E3D1946E-1F75-454B-B63C-F48F4CC6BF84";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "E3D1946E-1F75-454B-B63C-F48F4CC6BF84";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -338,6 +339,8 @@
 		5BBAA097159BAF0000AA4993 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer: Shiraz Khan (LEV6CH2NX4)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Shiraz Khan (LEV6CH2NX4)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PlaynomicsSample/PlaynomicsSample-Prefix.pch";
 				INFOPLIST_FILE = "PlaynomicsSample/PlaynomicsSample-Info.plist";
@@ -347,6 +350,8 @@
 					"\"$(SRCROOT)\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "E3D1946E-1F75-454B-B63C-F48F4CC6BF84";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "E3D1946E-1F75-454B-B63C-F48F4CC6BF84";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
