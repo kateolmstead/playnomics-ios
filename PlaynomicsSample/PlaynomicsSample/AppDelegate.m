@@ -66,7 +66,7 @@
 
     long appId = 3L;
     NSString *userId = @"SampleUserId1234";
-    [PlaynomicsSession setTestMode:YES];
+    [PlaynomicsSession setTestMode:NO];
     [PlaynomicsSession startWithApplicationId:appId userId:userId];
     
 
