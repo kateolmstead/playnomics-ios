@@ -820,10 +820,18 @@
 + (void) pushNotificationsWithPayload:(NSDictionary*)payload {
     PlaynomicsSession * s =[PlaynomicsSession sharedInstance];
     
+    if ([payload valueForKeyPath:kPushCallbackUrl]!=nil) {
+
+        NSString *callbackurl = [payload valueForKeyPath:kPushCallbackUrl];
+        //append some tracking per 2013_03_18 request
+        NSString *trackedCallback = [callbackurl stringByAppendingFormat:@"&a=%lld&u=%@&b=%@",
+                                     [s applicationId],
+                                     [s userId],
+                                     [s cookieId    ]];
+        [s.callback submitAdImpressionToServer: trackedCallback];
+        
+    }
     
-    NSString *callbackurl = [payload valueForKeyPath:kPushCallbackUrl];
-    
-    [s.callback submitAdImpressionToServer: callbackurl];
 }
 
 + (PNAPIResult) errorReport:(PNErrorDetail*)errorDetails

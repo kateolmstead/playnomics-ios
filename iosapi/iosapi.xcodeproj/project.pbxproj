@@ -87,9 +87,9 @@
 		42FBA58FB3169ECD201AF332 /* PlaynomicsMessaging.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaynomicsMessaging.m; sourceTree = "<group>"; };
 		42FBA6A45031F4F9AF62E056 /* PlaynomicsFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaynomicsFrame.m; sourceTree = "<group>"; };
 		42FBA83740CF5538D7EBDA36 /* PlaynomicsMessaging+Exposed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PlaynomicsMessaging+Exposed.h"; sourceTree = "<group>"; };
-		42FBA94684FB9EBB0188D52A /* PlaynomicsMessaging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaynomicsMessaging.h; sourceTree = "<group>"; };
+		42FBA94684FB9EBB0188D52A /* PlaynomicsMessaging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlaynomicsMessaging.h; path = iosapi/Messaging/PlaynomicsMessaging.h; sourceTree = "<group>"; };
 		42FBABEA0EE1DB6D101DCBF4 /* BaseAdComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseAdComponent.h; sourceTree = "<group>"; };
-		42FBAE69972626B043E69F63 /* PlaynomicsFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaynomicsFrame.h; sourceTree = "<group>"; };
+		42FBAE69972626B043E69F63 /* PlaynomicsFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlaynomicsFrame.h; path = iosapi/Messaging/PlaynomicsFrame.h; sourceTree = "<group>"; };
 		5B589DBE15993764002B6251 /* PNConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = PNConfig.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		5B6C6E1A1593F0F20088EF5E /* PNUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = PNUtil.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		5B6C6E1B1593F0F20088EF5E /* PNUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = PNUtil.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
@@ -129,7 +129,7 @@
 		D1D9228D1590F59700EDDE17 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D1D9228F1590F59700EDDE17 /* iosapiTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iosapiTests.h; sourceTree = "<group>"; };
 		D1D922901590F59700EDDE17 /* iosapiTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = iosapiTests.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		D1D922A11591124700EDDE17 /* PlaynomicsSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = PlaynomicsSession.h; sourceTree = "<group>"; };
+		D1D922A11591124700EDDE17 /* PlaynomicsSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = PlaynomicsSession.h; path = iosapi/PlaynomicsSession.h; sourceTree = "<group>"; };
 		D1D922A21591124700EDDE17 /* PlaynomicsSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = PlaynomicsSession.m; sourceTree = "<group>"; };
 		D1D922A51591125700EDDE17 /* PNEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = PNEvent.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		D1D922A61591125700EDDE17 /* PNEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = PNEvent.m; sourceTree = "<group>"; };
@@ -184,9 +184,7 @@
 			children = (
 				42FBA2AFE7443DE409B560CF /* PlaynomicsFrame+Exposed.h */,
 				42FBA83740CF5538D7EBDA36 /* PlaynomicsMessaging+Exposed.h */,
-				42FBA94684FB9EBB0188D52A /* PlaynomicsMessaging.h */,
 				42FBA58FB3169ECD201AF332 /* PlaynomicsMessaging.m */,
-				42FBAE69972626B043E69F63 /* PlaynomicsFrame.h */,
 				42FBA6A45031F4F9AF62E056 /* PlaynomicsFrame.m */,
 				42FBAB19F19EF89A69C6235A /* Support */,
 				A129689316DD758800F0A47A /* PlaynomicsCallback.h */,
@@ -244,6 +242,16 @@
 			name = Util;
 			sourceTree = "<group>";
 		};
+		A14DA13916DFFD230040B507 /* public */ = {
+			isa = PBXGroup;
+			children = (
+				42FBA94684FB9EBB0188D52A /* PlaynomicsMessaging.h */,
+				D1D922A11591124700EDDE17 /* PlaynomicsSession.h */,
+				42FBAE69972626B043E69F63 /* PlaynomicsFrame.h */,
+			);
+			name = public;
+			sourceTree = "<group>";
+		};
 		A1822F7C16B065E000414EF1 /* stubs */ = {
 			isa = PBXGroup;
 			children = (
@@ -256,6 +264,7 @@
 		D1D922651590F59500EDDE17 = {
 			isa = PBXGroup;
 			children = (
+				A14DA13916DFFD230040B507 /* public */,
 				A1244E0A16A9EADF001A93DD /* dev.xcconfig */,
 				D1D922751590F59700EDDE17 /* iosapi */,
 				D1D922891590F59700EDDE17 /* iosapiTests */,
@@ -291,7 +300,6 @@
 				EADE24D91625F17500914040 /* Libraries */,
 				D1D922C9159112F400EDDE17 /* PNConstants.h */,
 				5B589DBE15993764002B6251 /* PNConfig.h */,
-				D1D922A11591124700EDDE17 /* PlaynomicsSession.h */,
 				5BBAA237159BE4CD00AA4993 /* PlaynomicsSession+Exposed.h */,
 				D1D922A21591124700EDDE17 /* PlaynomicsSession.m */,
 				D1D922B9159112C100EDDE17 /* PNEventSender.h */,
