@@ -319,7 +319,7 @@
     return -1;
 }
 
-+(NSString*) PNEventTypeDescription: (PNEventType) value {
++ (NSString*) PNEventTypeDescription: (PNEventType) value {
     switch (value) {
         case PNEventAppStart:
             return @"appStart";
@@ -361,6 +361,15 @@
 //            return @"pushNotificationPayload";
     }
     return nil;
+}
+ 
++ (NSString *) UrlEncodeValue: (NSString*) unescapedValued {
+    return (NSString *)CFURLCreateStringByAddingPercentEscapes(
+        NULL,
+        (CFStringRef)unescapedValued,
+        NULL,
+        CFSTR("!*'();:@&=+$,/?%#[]"),
+        kCFStringEncodingUTF8);
 }
 
 @end

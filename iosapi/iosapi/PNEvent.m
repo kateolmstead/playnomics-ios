@@ -25,7 +25,8 @@
 
 - (NSString *) addOptionalParam:(NSString *)url name:(NSString *)name value:(NSString *)value {
     if ([value length] > 0) {
-        url = [url stringByAppendingFormat:@"&%@=%@", name, [value description]];
+        NSString * escapedValue = [PNUtil UrlEncodeValue:value];
+        url = [url stringByAppendingFormat:@"&%@=%@", name, [escapedValue description]];
     }
     return url;
 }

@@ -5,7 +5,6 @@
 //  Created by Douglas Kadlecek on 12/10/12.
 //
 //
-
 #import "PNMilestoneEvent.h"
 
 @implementation PNMilestoneEvent
@@ -28,7 +27,12 @@ milestoneId: (signed long long) milestoneId
 }
 
 - (NSString *) toQueryString {
-    NSString * queryString = [[super toQueryString] stringByAppendingFormat:@"&mi=%lld&mn=%@&jsh=%@", [self milestoneId], [self milestoneName], [self internalSessionId]];
+    //escape the milestone name
+    NSString * escapedMilestoneName = [PNUtil UrlEncodeValue:[self milestoneName]];
+    NSString * queryString = [[super toQueryString] stringByAppendingFormat:@"&mi=%lld&mn=%@&jsh=%@",
+                              [self milestoneId],
+                              escapedMilestoneName,
+                              [self internalSessionId]];
     return queryString;
 }
 

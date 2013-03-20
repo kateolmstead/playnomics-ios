@@ -48,15 +48,23 @@
         else if ([obj isKindOfClass:[NSString class]]) {
             currentTypeStr = (NSString *) obj;
         }
+        
+        //escape the currency type
+        NSString * escapedCurrencyType = [PNUtil UrlEncodeValue:currentTypeStr];
+        
         queryString = [queryString stringByAppendingFormat:@"&tc%d=%@&tv%d=%lf&ta%d=%@", 
-                       i, currentTypeStr, 
+                       i, escapedCurrencyType, 
                        i, [(NSNumber *) [[self currencyValues] objectAtIndex:i] doubleValue],
                        i, [PNUtil PNCurrencyCategoryDescription:[(NSNumber *) [[self currencyCategories] objectAtIndex: i] intValue]]];
     }
     
-    queryString = [self addOptionalParam:queryString name:@"i" value:[self itemId]];
+    //escape the itemId
+    NSString * escapedItemId = [PNUtil UrlEncodeValue:[self itemId]];
+    NSString * escapedOtherUserId = [PNUtil UrlEncodeValue:[self otherUserId]];
+    
+    queryString = [self addOptionalParam:queryString name:@"i" value:escapedItemId];
     queryString = [self addOptionalParam:queryString name:@"tq" value: [NSString stringWithFormat:@"%lf", [self quantity]]];
-    queryString = [self addOptionalParam:queryString name:@"to" value:[self otherUserId]];
+    queryString = [self addOptionalParam:queryString name:@"to" value: escapedOtherUserId];
     return queryString;
 }
 
