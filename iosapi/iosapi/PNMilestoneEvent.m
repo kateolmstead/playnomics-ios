@@ -28,7 +28,7 @@ milestoneId: (signed long long) milestoneId
 
 - (NSString *) toQueryString {
     //escape the milestone name
-    NSString * escapedMilestoneName = [PNUtil UrlEncodeValue:[self milestoneName]];
+    NSString * escapedMilestoneName = [PNUtil urlEncodeValue:[self milestoneName]];
     NSString * queryString = [[super toQueryString] stringByAppendingFormat:@"&mi=%lld&mn=%@&jsh=%@",
                               [self milestoneId],
                               escapedMilestoneName,

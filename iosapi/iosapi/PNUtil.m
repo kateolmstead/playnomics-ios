@@ -363,7 +363,10 @@
     return nil;
 }
  
-+ (NSString *) UrlEncodeValue: (NSString*) unescapedValued {
++ (NSString *) urlEncodeValue: (NSString*) unescapedValued {
+    if([unescapedValued length] ==  0){
+        return NULL;
+    }
     return (NSString *)CFURLCreateStringByAddingPercentEscapes(
         NULL,
         (CFStringRef)unescapedValued,

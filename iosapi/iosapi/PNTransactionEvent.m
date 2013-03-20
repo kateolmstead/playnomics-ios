@@ -50,7 +50,7 @@
         }
         
         //escape the currency type
-        NSString * escapedCurrencyType = [PNUtil UrlEncodeValue:currentTypeStr];
+        NSString * escapedCurrencyType = [PNUtil urlEncodeValue:currentTypeStr];
         
         queryString = [queryString stringByAppendingFormat:@"&tc%d=%@&tv%d=%lf&ta%d=%@", 
                        i, escapedCurrencyType, 
@@ -59,8 +59,8 @@
     }
     
     //escape the itemId
-    NSString * escapedItemId = [PNUtil UrlEncodeValue:[self itemId]];
-    NSString * escapedOtherUserId = [PNUtil UrlEncodeValue:[self otherUserId]];
+    NSString * escapedItemId = [PNUtil urlEncodeValue:[self itemId]];
+    NSString * escapedOtherUserId = [PNUtil urlEncodeValue:[self otherUserId]];
     
     queryString = [self addOptionalParam:queryString name:@"i" value:escapedItemId];
     queryString = [self addOptionalParam:queryString name:@"tq" value: [NSString stringWithFormat:@"%lf", [self quantity]]];

@@ -42,7 +42,7 @@
 +(PNUserInfoSource) PNUserInfoSourceValueOf: (NSString *) text;
 +(NSString *) PNUserInfoSourceDescription: (PNUserInfoSource) value;
 
-+(NSString *) UrlEncodeValue: (NSString *) unescapedValue;
++(NSString *) urlEncodeValue: (NSString *) unescapedValue;
 
 @end
 
