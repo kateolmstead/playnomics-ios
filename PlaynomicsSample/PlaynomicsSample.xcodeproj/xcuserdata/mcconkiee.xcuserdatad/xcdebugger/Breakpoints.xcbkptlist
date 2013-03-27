@@ -28,39 +28,26 @@
          shouldBeEnabled = "Yes"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "../iosapi/iosapi/PNUtil.m"
-         timestampString = "383547631.483101"
+         filePath = "../iosapi/iosapi/PlaynomicsSession.m"
+         timestampString = "386035615.065209"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "315"
-         endingLineNumber = "315"
-         landmarkName = "+PNEventTypeValueOf:"
+         startingLineNumber = "824"
+         endingLineNumber = "824"
+         landmarkName = "+pushNotificationsWithPayload:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "Yes"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "../iosapi/iosapi/PNUtil.m"
-         timestampString = "383547632.535451"
+         filePath = "../iosapi/iosapi/NSString+Playnomics.m"
+         timestampString = "386035805.924084"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "317"
-         endingLineNumber = "317"
-         landmarkName = "+PNEventTypeValueOf:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "Yes"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "PlaynomicsSample/AppDelegate.m"
-         timestampString = "383719955.356029"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "51"
-         endingLineNumber = "51"
-         landmarkName = "-application:didReceiveRemoteNotification:"
+         startingLineNumber = "16"
+         endingLineNumber = "16"
+         landmarkName = "+stringForTrimmedDeviceToken:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

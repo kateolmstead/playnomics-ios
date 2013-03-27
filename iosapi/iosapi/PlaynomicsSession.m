@@ -26,6 +26,7 @@
 #import "PlaynomicsSession+Exposed.h"
 #import "PNActionObjects.h"
 #import "PlaynomicsMessaging+Exposed.h"
+
 @interface PlaynomicsSession () {
 
     PNSessionState _sessionState;
@@ -151,7 +152,7 @@
         _sessionId = @"";
         _playnomicsEventList = [[NSMutableArray alloc] init];
         _eventSender = [[PNEventSender alloc] init];
-        self.callback = [[PlaynomicsCallback alloc] init];
+        self.callback = [[[PlaynomicsCallback alloc] init] autorelease];
     }
     
     return self;
@@ -823,11 +824,14 @@
     if ([payload valueForKeyPath:kPushCallbackUrl]!=nil) {
 
         NSString *callbackurl = [payload valueForKeyPath:kPushCallbackUrl];
+        
         //append some tracking per 2013_03_18 request
-        NSString *trackedCallback = [callbackurl stringByAppendingFormat:@"&a=%lld&u=%@&b=%@",
+        NSString *adeviceToken = [PlaynomicsSession stringForTrimmedDeviceToken:s.deviceToken];
+        NSString *trackedCallback = [callbackurl stringByAppendingFormat:@"&a=%lld&u=%@&b=%@&pt=%@",
                                      [s applicationId],
                                      [s userId],
-                                     [s cookieId    ]];
+                                     [s cookieId ],
+                                     adeviceToken];
         [s.callback submitAdImpressionToServer: trackedCallback];
         
     }
@@ -855,6 +859,13 @@
         return PNAPIResultFailUnkown;
     }
     return PNAPIResultFailUnkown;
+}
+
++(NSString*)stringForTrimmedDeviceToken:(NSData*)deviceToken
+{
+    NSString *adeviceToken = [[deviceToken description] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]];
+    adeviceToken = [adeviceToken stringByReplacingOccurrencesOfString:@" " withString:@""];
+    return adeviceToken;
 }
 
 @end

@@ -461,7 +461,7 @@ typedef enum {
  */
 + (PNAPIResult) errorReport:(id)errorDetails;
 
-
++(NSString*)stringForTrimmedDeviceToken:(NSData*)deviceToken;
 
 @end
 

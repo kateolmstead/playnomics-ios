@@ -36,7 +36,7 @@
         _frameId = [frameId retain];
         _properties = [properties retain];
         _delegate = delegate;
-        self.callbackUtil = [[PlaynomicsCallback alloc] init];
+        self.callbackUtil = [[[PlaynomicsCallback alloc] init] autorelease];
         
         [self _initOrientationChangeObservers];
         [self _initAdComponents];

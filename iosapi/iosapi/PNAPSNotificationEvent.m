@@ -11,7 +11,6 @@
 
 
 
-
 @interface PNAPSNotificationEvent()
 @property (nonatomic ) PNAPSNotificationEventType pushEventType;
 @property (nonatomic, retain) NSData *deviceToken;
@@ -39,8 +38,7 @@
 
 - (NSString *) toQueryString {
 
-    NSString *adeviceToken = [[_deviceToken description] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]];
-    adeviceToken = [adeviceToken stringByReplacingOccurrencesOfString:@" " withString:@""];
+    NSString *adeviceToken = [PlaynomicsSession stringForTrimmedDeviceToken:_deviceToken];
     NSString * queryString = nil;
     switch (self.pushEventType) {
         case PNAPSNotificationEventTypeDeviceToken:
