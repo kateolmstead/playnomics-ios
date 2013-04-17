@@ -37,6 +37,11 @@ errorDetaios:(PNErrorDetail*)errorDetails
     return self;
 }
 
+- (void) dealloc {
+    [_errorDetailObject release];
+    [super dealloc];
+}
+
 
 - (NSString *) toQueryString {
     

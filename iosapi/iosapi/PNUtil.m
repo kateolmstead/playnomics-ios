@@ -367,12 +367,13 @@
     if([unescapedValued length] ==  0){
         return NULL;
     }
-    return (NSString *)CFURLCreateStringByAddingPercentEscapes(
+    NSString* result = (NSString *)CFURLCreateStringByAddingPercentEscapes(
         NULL,
         (CFStringRef)unescapedValued,
         NULL,
         CFSTR("!*'();:@&=+$,/?%#[]"),
         kCFStringEncodingUTF8);
+    return [result autorelease];
 }
 
 @end

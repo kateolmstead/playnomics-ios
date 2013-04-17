@@ -848,11 +848,11 @@
         
         PlaynomicsSession * s =[PlaynomicsSession sharedInstance];
         
-        PNErrorEvent *ev = [[PNErrorEvent alloc] init:PNEventError
+        PNErrorEvent *ev = [[[PNErrorEvent alloc] init:PNEventError
                                         applicationId:s.applicationId
                                                userId:s.userId
                                              cookieId:s.cookieId
-                                         errorDetaios:errorDetails];
+                                         errorDetaios:errorDetails] autorelease];
         
         ev.internalSessionId = [[PlaynomicsSession sharedInstance] sessionId];
         return [s sendOrQueueEvent:ev];
