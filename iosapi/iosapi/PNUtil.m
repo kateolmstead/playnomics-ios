@@ -319,7 +319,7 @@
     return -1;
 }
 
-+(NSString*) PNEventTypeDescription: (PNEventType) value {
++ (NSString*) PNEventTypeDescription: (PNEventType) value {
     switch (value) {
         case PNEventAppStart:
             return @"appStart";
@@ -359,6 +359,18 @@
             return @"userInfo";
     }
     return nil;
+}
+ 
++ (NSString *) urlEncodeValue: (NSString*) unescapedValued {
+    if([unescapedValued length] ==  0){
+        return NULL;
+    }
+    return (NSString *)CFURLCreateStringByAddingPercentEscapes(
+        NULL,
+        (CFStringRef)unescapedValued,
+        NULL,
+        CFSTR("!*'();:@&=+$,/?%#[]"),
+        kCFStringEncodingUTF8);
 }
 
 @end

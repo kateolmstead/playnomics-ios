@@ -40,6 +40,7 @@
 {
     NSLog(@"FAILED TO CAPTURE DEVICE TOKEN\r\nERROR STATES:\r\n%@ ",error);
 }
+
 -(void) application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
 {
     // we need to distinguish the difference of a user responding to push
@@ -59,18 +60,17 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
 
-    long appId = 3L;
-    NSString *userId = @"SampleUserId1234";
-    [PlaynomicsSession setTestMode:YES];
-    [PlaynomicsSession startWithApplicationId:appId userId:userId];
+    long appId = 2L;
+    //use a real user id for now
+    //NSString *userId = @"SampleUserId1234";
+    [PlaynomicsSession setTestMode:NO];
+    [PlaynomicsSession startWithApplicationId:appId];
     
-
     //enable notifications
     UIApplication *app = [UIApplication sharedApplication];
     
    
-    [app registerForRemoteNotificationTypes:
-     (UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
+    [app registerForRemoteNotificationTypes: (UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
     
     
     NSDictionary *apn =

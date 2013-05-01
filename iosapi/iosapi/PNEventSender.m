@@ -46,6 +46,7 @@
         return;
     }
     eventUrl = [eventUrl stringByAppendingFormat:@"&esrc=ios&ever=%@", _version];
+    
     NSLog(@"Sending event to server: %@", eventUrl);
     
     NSURL *url = [NSURL URLWithString:eventUrl];

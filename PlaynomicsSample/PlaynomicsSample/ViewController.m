@@ -125,9 +125,10 @@
         }
         
         resval = [PlaynomicsSession transactionWithId:(arc4random() & NSUIntegerMax) 
-                                      itemId:@"TEST_ITEM_ID"
-                                    quantity:(arc4random() % 100) 
-                                        type:(arc4random() % 12)
+                                      //itemId:@"TEST_ITEM_ID"
+                                               itemId: @"Test Item Id"
+                                             quantity:(arc4random() % 100)
+                                                type:(arc4random() % 12)
                   otherUserId:nil
                                currencyTypes:tStack 
                               currencyValues:vStack 
@@ -136,7 +137,8 @@
     }
     else {
         resval = [PlaynomicsSession transactionWithId:(arc4random() & NSUIntegerMax)
-                                               itemId:@"TEST_ITEM_ID" 
+                  //itemId:@"TEST_ITEM_ID"
+                                               itemId: @"Test Item Id"
                                              quantity:0
                                                  type:(arc4random() % 12)
                                           otherUserId:nil
