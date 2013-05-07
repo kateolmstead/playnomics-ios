@@ -630,7 +630,7 @@
 		D1D922951590F59700EDDE17 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: Eric McConkie (79334EXNDM)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DSTROOT = /tmp/iosapi.dst;
 				GCC_ENABLE_CPP_EXCEPTIONS = NO;
@@ -641,7 +641,7 @@
 				HEADER_SEARCH_PATHS = "";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "13CE7B58-D3E2-47B6-8EF1-C8EECFD85751";
+				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
 				STRIP_INSTALLED_PRODUCT = YES;
 				VALID_ARCHS = "armv7 armv7s armv6 i386";
@@ -651,7 +651,7 @@
 		D1D922961590F59700EDDE17 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: Eric McConkie (79334EXNDM)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				DSTROOT = /tmp/iosapi.dst;
 				GCC_ENABLE_CPP_EXCEPTIONS = NO;
@@ -662,7 +662,7 @@
 				HEADER_SEARCH_PATHS = "";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "13CE7B58-D3E2-47B6-8EF1-C8EECFD85751";
+				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
 				STRIP_INSTALLED_PRODUCT = YES;
 				VALID_ARCHS = "armv7 armv7s armv6 i386";
