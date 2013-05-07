@@ -16,6 +16,7 @@
  *  Possible results for PlaynomicsSession messages
  */
 typedef enum {
+    PNAPIResultNotSent,
     PNAPIResultSent,
     PNAPIResultQueued,
     PNAPIResultSwitched,

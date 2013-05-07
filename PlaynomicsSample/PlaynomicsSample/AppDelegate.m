@@ -31,7 +31,7 @@
 
 -(void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 {
-    NSLog(@"device token found\r\nsend to playnomics\r\n---> %@",deviceToken);
+    NSLog(@"device token found\r\n---> %@",deviceToken);
 
     [PlaynomicsSession enablePushNotificationsWithToken:deviceToken];
 }
@@ -52,7 +52,6 @@
         [PlaynomicsSession pushNotificationsWithPayload:userInfo];
         
     }
-
 }
 
 #pragma mark -

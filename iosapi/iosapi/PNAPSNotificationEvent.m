@@ -38,7 +38,7 @@
 
 - (NSString *) toQueryString {
 
-    NSString *adeviceToken = [PlaynomicsSession stringForTrimmedDeviceToken:_deviceToken];
+    NSString *adeviceToken = [[NSUserDefaults standardUserDefaults] stringForKey:PNUserDefaultsLastDeviceToken];
     NSString * queryString = nil;
     switch (self.pushEventType) {
         case PNAPSNotificationEventTypeDeviceToken:

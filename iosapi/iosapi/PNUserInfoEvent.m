@@ -66,11 +66,10 @@
     queryString = [self addOptionalParam:queryString name:@"pm" value:[self sourceCampaign]];
     queryString = [self addOptionalParam:queryString name:@"pi" value:[NSString stringWithFormat:@"%.0f", [self installTime]]];//remove the decimal
     
-    PlaynomicsSession * s =[PlaynomicsSession sharedInstance];
-    if (s.deviceToken!=nil) {
-        NSString *adeviceToken = [[s.deviceToken description] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]];
-        adeviceToken = [adeviceToken stringByReplacingOccurrencesOfString:@" " withString:@""];
-        queryString = [self addOptionalParam:queryString name:@"pushTok" value:adeviceToken];
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *deviceToken = [userDefaults stringForKey:PNUserDefaultsLastDeviceToken];
+    if (deviceToken!=nil) {
+        queryString = [self addOptionalParam:queryString name:@"pushTok" value:deviceToken];
     }
     return queryString;
 }

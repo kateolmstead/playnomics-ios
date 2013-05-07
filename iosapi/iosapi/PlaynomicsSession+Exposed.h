@@ -16,7 +16,6 @@
 @interface PlaynomicsSession ()
 
 @property (nonatomic, assign) bool testMode;
-@property (nonatomic, retain) NSData *deviceToken;
 @property (nonatomic, readonly) signed long long applicationId;
 @property (nonatomic, readonly) NSString * userId;
 @property (nonatomic, readonly) NSString * cookieId;

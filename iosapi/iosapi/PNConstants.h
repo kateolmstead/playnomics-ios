@@ -59,6 +59,7 @@ typedef enum {
 #define PNUserDefaultsLastSessionStartTime @"com.playnomics.lastSessionStartTime"
 #define PNUserDefaultsLastSessionID @"com.playnomics.lastSessionId"
 #define PNUserDefaultsLastUserID @"com.playnomics.lastUserId"
+#define PNUserDefaultsLastDeviceToken @"com.playnomics.lastDeviceToken"
 
 // Ad Response: Common
 #define FrameResponseHeight @"h"
