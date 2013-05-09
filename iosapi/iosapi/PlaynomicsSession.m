@@ -832,17 +832,24 @@
 + (void) pushNotificationsWithPayload:(NSDictionary*)payload {
     PlaynomicsSession * s =[PlaynomicsSession sharedInstance];
     
-    if ([payload valueForKeyPath:kPushCallbackUrl]!=nil) {
-
-        NSString *callbackurl = [payload valueForKeyPath:kPushCallbackUrl];
+    if ([payload valueForKeyPath:PushResponse_InteractionUrl]!=nil) {
         NSString *lastDeviceToken = [[NSUserDefaults standardUserDefaults] stringForKey:PNUserDefaultsLastDeviceToken];
+
+        NSString *callbackurl = [payload valueForKeyPath:PushResponse_InteractionUrl];
+        // append required parameters to the interaction tracking url
+        NSString *trackedCallback = [callbackurl stringByAppendingFormat:@"&%@=%lld&%@=%@&%@=%@&%@=%@",
+                                     PushInteractionUrl_AppIdParam, [s applicationId],
+                                     PushInteractionUrl_UserIdParam, [s userId],
+                                     PushInteractionUrl_BreadcrumbIdParam, [s cookieId],
+                                     PushInteractionUrl_PushTokenParam, lastDeviceToken];
         
-        //append some tracking per 2013_03_18 request
-        NSString *trackedCallback = [callbackurl stringByAppendingFormat:@"&a=%lld&u=%@&b=%@&pt=%@",
-                                     [s applicationId],
-                                     [s userId],
-                                     [s cookieId],
-                                     lastDeviceToken];
+        UIApplicationState state = [[UIApplication sharedApplication] applicationState];
+        // only append the flag "pushIgnored" if the app is in Active state and either
+        // the game developer doesn't pass us the flag "pushIgnored" in the dictionary or they do pass the flag and set it to YES
+        if (state == UIApplicationStateActive && !([payload objectForKey:PushInteractionUrl_IgnoredParam] && [[payload valueForKey:PushInteractionUrl_IgnoredParam] isEqual:[NSNumber numberWithBool:NO]])) {
+            trackedCallback = [trackedCallback stringByAppendingFormat:@"&%@",PushInteractionUrl_IgnoredParam];
+        }
+        
         [s.callback submitAdImpressionToServer: trackedCallback];
     }
 }
@@ -850,16 +857,13 @@
 + (PNAPIResult) errorReport:(PNErrorDetail*)errorDetails
 {
     @try {
-        
-        
         PlaynomicsSession * s =[PlaynomicsSession sharedInstance];
         
         PNErrorEvent *ev = [[PNErrorEvent alloc] init:PNEventError
                                         applicationId:s.applicationId
                                                userId:s.userId
                                              cookieId:s.cookieId
-                                         errorDetaios:errorDetails];
-        
+                                         errorDetails:errorDetails];
         ev.internalSessionId = [[PlaynomicsSession sharedInstance] sessionId];
         return [s sendOrQueueEvent:ev];
     }

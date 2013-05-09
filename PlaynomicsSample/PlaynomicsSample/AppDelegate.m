@@ -45,13 +45,12 @@
 {
     // we need to distinguish the difference of a user responding to push
     // vs if we receive a push while the app is running.
-    UIApplicationState *state = [[UIApplication sharedApplication] applicationState];
-    if (state!=UIApplicationStateActive) {
-        NSLog(@"sending impression from didReceiveRemoteNotification\r\n---> %@",userInfo);
-        // parse the impression url and ping it....
-        [PlaynomicsSession pushNotificationsWithPayload:userInfo];
-        
-    }
+    NSLog(@"sending impression from didReceiveRemoteNotification\r\n---> %@",userInfo);
+    // parse the impression url and ping it....
+    NSMutableDictionary *payload = [userInfo mutableCopy];
+    [payload setObject:[NSNumber numberWithBool:YES] forKey:@"pushIgnored"];
+    [PlaynomicsSession pushNotificationsWithPayload:payload];
+    [payload release];
 }
 
 #pragma mark -
@@ -77,13 +76,9 @@
     if (apn) {
         // we need to distinguish the difference of a user responding to push
         // vs if we receive a push while the app is running.
-        UIApplicationState *state = [[UIApplication sharedApplication] applicationState];
-        if (state!=UIApplicationStateActive) {
-             NSLog(@"sending impression from didFinishLaunchingWithOptions\r\n---> %@",apn);
-            // parse the impression url and ping it....
-            [PlaynomicsSession pushNotificationsWithPayload:apn];
-            
-        }
+        NSLog(@"sending impression from didFinishLaunchingWithOptions\r\n---> %@",apn);
+        // parse the impression url and ping it....
+        [PlaynomicsSession pushNotificationsWithPayload:apn];
     }
     
     
