@@ -28,6 +28,6 @@ typedef enum
 applicationId:(long long)applicationId
     userId:(NSString *)userId
   cookieId:(NSString *)cookieId
-errorDetaios:(PNErrorDetail*)errorDetails;
+errorDetails:(PNErrorDetail*)errorDetails;
 @property (nonatomic,retain)PNErrorDetail *errorDetailObject;
 @end
