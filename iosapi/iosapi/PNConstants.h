@@ -91,3 +91,11 @@ typedef enum {
 // Ad Response: Background keys
 #define FrameResponseBackground_Landscape @"l"
 #define FrameResponseBackground_Portrait @"p"
+
+// Push Payload
+#define PushResponse_InteractionUrl @"t"
+#define PushInteractionUrl_AppIdParam @"a"
+#define PushInteractionUrl_UserIdParam @"u"
+#define PushInteractionUrl_BreadcrumbIdParam @"b"
+#define PushInteractionUrl_PushTokenParam @"pt"
+#define PushInteractionUrl_IgnoredParam @"pushIgnored"
