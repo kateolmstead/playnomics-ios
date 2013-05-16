@@ -70,7 +70,7 @@
     NSError *error = nil;
     PlaynomicsSession *pn = [PlaynomicsSession sharedInstance];
     signed long long time = [[NSDate date] timeIntervalSince1970] * 1000;
-    CGRect screenRect = [[UIScreen mainScreen] bounds];
+    CGRect screenRect = [[UIScreen mainScreen] applicationFrame];
     int screenWidth = screenRect.size.width;
     int screenHeight = screenRect.size.height;
     

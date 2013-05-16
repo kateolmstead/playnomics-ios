@@ -9,8 +9,12 @@
 #import "BaseAdComponent.h"
 #import "PNActionObjects.h"
 #import "PNErrorEvent.h"
-
+#import "PlaynomicsCallback.h"
 #pragma mark - PlaynomicsFrame
+
+@interface PlaynomicsFrame()
+@property (nonatomic,retain)PlaynomicsCallback *callbackUtil;
+@end
 
 @implementation PlaynomicsFrame {
   @private
@@ -32,6 +36,7 @@
         _frameId = [frameId retain];
         _properties = [properties retain];
         _delegate = delegate;
+        self.callbackUtil = [[[PlaynomicsCallback alloc] init] autorelease];
         
         [self _initOrientationChangeObservers];
         [self _initAdComponents];
@@ -157,7 +162,8 @@
 - (void)_stop {
     NSLog(@"Close button was pressed...");
     [self _closeAd];
-    [self _submitAdImpressionToServer:[_adArea.properties objectForKey:FrameResponseAd_CloseUrl]];
+    NSString *callback = [_adArea.properties objectForKey:FrameResponseAd_CloseUrl];
+    [self.callbackUtil submitAdImpressionToServer:callback];
 }
 
 - (void)_adClicked:(UITapGestureRecognizer *)recognizer {
@@ -196,7 +202,7 @@
         case AdActionDefinedAction: {
             
             NSString *pre = [NSString stringWithFormat:@"%@&x=%d&y=%d", preExecuteUrl, x, y];
-            [self _submitAdImpressionToServer: pre];
+            [self.callbackUtil submitAdImpressionToServer: pre];
             
             @try {
                 [[PlaynomicsMessaging sharedInstance] performActionForLabel:actionLabel];
@@ -208,13 +214,13 @@
                 exc = [NSString stringWithFormat:@"%@+%@", e.name, e.reason];
             }
                         
-            [self _submitAdImpressionToServer: postExecuteUrl];
+            [self.callbackUtil submitAdImpressionToServer: postExecuteUrl];
             
             break;
         }
         case AdActionExecuteCode: {
             NSString *pre = [NSString stringWithFormat:@"%@&x=%d&y=%d", preExecuteUrl, x, y];
-            [self _submitAdImpressionToServer: pre];
+            [self.callbackUtil submitAdImpressionToServer: pre];
             
             @try {
                 [[PlaynomicsMessaging sharedInstance] executeActionOnDelegate:actionLabel];
@@ -227,7 +233,7 @@
             }
             
             NSString *post = [NSString stringWithFormat:@"%@&c=%d&e=%@", postExecuteUrl, c, exc];
-            [self _submitAdImpressionToServer: post];
+            [self.callbackUtil submitAdImpressionToServer: post];
             
             break;
         }
@@ -263,7 +269,7 @@
     [_background display];
     [self _startExpiryTimer];
     
-    [self _submitAdImpressionToServer:frameResponseURL];
+    [self.callbackUtil submitAdImpressionToServer:frameResponseURL];
 
     if ([self _allComponentsLoaded]) {
         return DisplayResultDisplayed;
@@ -320,28 +326,6 @@
     [self start];
 }
 
-- (void)_submitAdImpressionToServer:(NSString *)impressionUrl {
-    if (impressionUrl==nil || impressionUrl.length<=0)
-        return;//we will crash here...stop everything
-    
-    NSURL *url = [NSURL URLWithString:impressionUrl];
-    NSLog(@"Submitting GET request to impression URL: %@", impressionUrl);
-
-    FSNConnection *connection =
-            [FSNConnection withUrl:url
-                            method:FSNRequestMethodGET
-                           headers:nil
-                        parameters:nil
-                        parseBlock:^id(FSNConnection *c, NSError **error) {
-                            return [c.responseData stringFromUTF8];
-                        }
-                   completionBlock:^(FSNConnection *c) {
-                       NSLog(@"Impression URL complete: error: %@, result: %@", c.error, c.parseResult);
-                   }
-                     progressBlock:nil];
-
-    [connection start];
-}
 
 
 @end

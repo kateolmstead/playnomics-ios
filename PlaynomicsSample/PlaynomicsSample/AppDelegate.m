@@ -24,25 +24,14 @@
 #pragma mark -
 #pragma mark private handlers
 
--(void)onPushAlert:(NSDictionary*)userInfo
-{
-//    NSString *noteId = [NSString stringWithFormat:@"Push ID: %@",
-//                        [userInfo valueForKeyPath:@"push_id"]];
-//    NSString *notemessage = [NSString stringWithFormat:@"%@",
-//                             [userInfo valueForKeyPath:@"push_message"]];
-//    
-//    UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:noteId
-//                                                     message:notemessage
-//                                                    delegate:nil cancelButtonTitle:@"Yup" otherButtonTitles: nil] autorelease];
-//    [alert show];
-}
+
 
 #pragma mark -
 #pragma mark push notifications
 
 -(void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 {
-    NSLog(@"device token found\r\nsend to playnomics\r\n---> %@",deviceToken);
+    NSLog(@"device token found\r\n---> %@",deviceToken);
 
     [PlaynomicsSession enablePushNotificationsWithToken:deviceToken];
 }
@@ -54,10 +43,14 @@
 
 -(void) application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
 {
-    
-    
-    //demonstates we got the push
-    [self performSelector:@selector(onPushAlert:) withObject:userInfo afterDelay:0.6];
+    // we need to distinguish the difference of a user responding to push
+    // vs if we receive a push while the app is running.
+    NSLog(@"sending impression from didReceiveRemoteNotification\r\n---> %@",userInfo);
+    // parse the impression url and ping it....
+    NSMutableDictionary *payload = [userInfo mutableCopy];
+    [payload setObject:[NSNumber numberWithBool:YES] forKey:@"pushIgnored"];
+    [PlaynomicsSession pushNotificationsWithPayload:payload];
+    [payload release];
 }
 
 #pragma mark -
@@ -76,6 +69,17 @@
     
    
     [app registerForRemoteNotificationTypes: (UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
+    
+    
+    NSDictionary *apn =
+    [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
+    if (apn) {
+        // we need to distinguish the difference of a user responding to push
+        // vs if we receive a push while the app is running.
+        NSLog(@"sending impression from didFinishLaunchingWithOptions\r\n---> %@",apn);
+        // parse the impression url and ping it....
+        [PlaynomicsSession pushNotificationsWithPayload:apn];
+    }
     
     
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];

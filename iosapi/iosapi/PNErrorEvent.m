@@ -26,7 +26,7 @@
 applicationId:(long long)applicationId
     userId:(NSString *)userId
   cookieId:(NSString *)cookieId
-errorDetaios:(PNErrorDetail*)errorDetails
+errorDetails:(PNErrorDetail*)errorDetails
 {
     self = [super init:eventType applicationId:applicationId userId:userId cookieId:cookieId];
     

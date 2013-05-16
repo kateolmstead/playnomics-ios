@@ -355,10 +355,8 @@
             return @"jslog";
         case PNEventPushNotificationToken:
             return @"userInfo";
-//            return @"pushNotificationToken";//change here to user info (string)
         case PNEventPushNotificationPayload:
             return @"userInfo";
-//            return @"pushNotificationPayload";
     }
     return nil;
 }

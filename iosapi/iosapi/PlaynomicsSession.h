@@ -16,6 +16,7 @@
  *  Possible results for PlaynomicsSession messages
  */
 typedef enum {
+    PNAPIResultNotSent,
     PNAPIResultSent,
     PNAPIResultQueued,
     PNAPIResultSwitched,
@@ -443,7 +444,14 @@ typedef enum {
  */
 + (PNAPIResult) enablePushNotificationsWithToken:(NSData*)deviceToken;
 
-
+/**
+ * pushNotificationsWithPayload
+ *
+ * @param payload
+ *            the dictionary that was pushed to device
+ * @return the API Result
+ */
++ (void) pushNotificationsWithPayload:(NSDictionary*)payload ;
 
 /**
  * errorReport
@@ -454,7 +462,7 @@ typedef enum {
  */
 + (PNAPIResult) errorReport:(id)errorDetails;
 
-
++(NSString*)stringForTrimmedDeviceToken:(NSData*)deviceToken;
 
 @end
 

@@ -14,7 +14,7 @@
 #import "PNRandomGenerator.h"
 
 #import "PNEventSender.h"
-
+#import "PlaynomicsCallback.h"
 #import "PNBasicEvent.h"
 #import "PNUserInfoEvent.h"
 #import "PNSocialEvent.h"
@@ -26,7 +26,9 @@
 #import "PlaynomicsSession+Exposed.h"
 #import "PNActionObjects.h"
 #import "PlaynomicsMessaging+Exposed.h"
-@interface PlaynomicsSession () {    
+
+@interface PlaynomicsSession () {
+
     PNSessionState _sessionState;
 
     NSTimer *_eventTimer;
@@ -55,7 +57,7 @@
 }
 @property (atomic, readonly) PNEventSender * eventSender;
 @property (atomic, readonly) NSMutableArray * playnomicsEventList;
-
+@property (nonatomic, retain) PlaynomicsCallback *callback;
 - (PNAPIResult) startWithApplicationId:(signed long long) applicationId;
 - (PNAPIResult) startWithApplicationId:(signed long long) applicationId userId: (NSString *) userId;
 - (PNAPIResult) sendOrQueueEvent: (PNEvent *) pe;
@@ -150,6 +152,7 @@
         _sessionId = @"";
         _playnomicsEventList = [[NSMutableArray alloc] init];
         _eventSender = [[PNEventSender alloc] init];
+        self.callback = [[[PlaynomicsCallback alloc] init] autorelease];
     }
     
     return self;
@@ -240,7 +243,7 @@
     
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSString *lastUserId = [userDefaults stringForKey:PNUserDefaultsLastUserID];
-    NSTimeInterval lastSessionStartTime = [[NSUserDefaults standardUserDefaults] doubleForKey:PNUserDefaultsLastSessionStartTime];
+    NSTimeInterval lastSessionStartTime = [userDefaults doubleForKey:PNUserDefaultsLastSessionStartTime];
     
     PNEventType eventType;
     
@@ -798,16 +801,27 @@
 
 + (PNAPIResult) enablePushNotificationsWithToken:(NSData*)deviceToken {
     @try {
-        PlaynomicsSession * s =[PlaynomicsSession sharedInstance];
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        NSString *oldToken = [userDefaults stringForKey:PNUserDefaultsLastDeviceToken];
+        NSString *newToken = [PlaynomicsSession stringForTrimmedDeviceToken:deviceToken];
+        oldToken = NULL;
         
-        PNAPSNotificationEvent *ev = [[PNAPSNotificationEvent alloc] init:PNEventPushNotificationToken
-                                                            applicationId:s.applicationId
-                                                                   userId:s.userId
-                                                                 cookieId:s.cookieId
-                                                              deviceToken:deviceToken];
+        if (![newToken isEqualToString:oldToken]) {
+            [userDefaults setObject:newToken forKey:PNUserDefaultsLastDeviceToken];
+            [userDefaults synchronize];
+            NSLog(@"Updating device token from %@ to %@", oldToken, newToken);
+            PlaynomicsSession *s =[PlaynomicsSession sharedInstance];
+            PNAPSNotificationEvent *ev = [[PNAPSNotificationEvent alloc] init:PNEventPushNotificationToken
+                                                                applicationId:s.applicationId
+                                                                       userId:s.userId
+                                                                     cookieId:s.cookieId
+                                                                  deviceToken:deviceToken];
+            ev.internalSessionId = [[PlaynomicsSession sharedInstance] sessionId];
+            return [s sendOrQueueEvent:ev];
+        }
         
-        ev.internalSessionId = [[PlaynomicsSession sharedInstance] sessionId];
-        return [s sendOrQueueEvent:ev];
+        // device token has not changed so no need to make a call
+        return PNAPIResultNotSent;
     }
     @catch (NSException *exception) {
         NSLog(@"error: %@", exception.description);
@@ -815,44 +829,41 @@
     }
 }
 
-+ (PNAPIResult) pushNotificationsWithPayload:(NSDictionary*)payload {
-    @try {
++ (void) pushNotificationsWithPayload:(NSDictionary*)payload {
+    PlaynomicsSession * s =[PlaynomicsSession sharedInstance];
+    
+    if ([payload valueForKeyPath:PushResponse_InteractionUrl]!=nil) {
+        NSString *lastDeviceToken = [[NSUserDefaults standardUserDefaults] stringForKey:PNUserDefaultsLastDeviceToken];
+
+        NSString *callbackurl = [payload valueForKeyPath:PushResponse_InteractionUrl];
+        // append required parameters to the interaction tracking url
+        NSString *trackedCallback = [callbackurl stringByAppendingFormat:@"&%@=%lld&%@=%@&%@=%@&%@=%@",
+                                     PushInteractionUrl_AppIdParam, [s applicationId],
+                                     PushInteractionUrl_UserIdParam, [s userId],
+                                     PushInteractionUrl_BreadcrumbIdParam, [s cookieId],
+                                     PushInteractionUrl_PushTokenParam, lastDeviceToken];
         
+        UIApplicationState state = [[UIApplication sharedApplication] applicationState];
+        // only append the flag "pushIgnored" if the app is in Active state and either
+        // the game developer doesn't pass us the flag "pushIgnored" in the dictionary or they do pass the flag and set it to YES
+        if (state == UIApplicationStateActive && !([payload objectForKey:PushInteractionUrl_IgnoredParam] && [[payload valueForKey:PushInteractionUrl_IgnoredParam] isEqual:[NSNumber numberWithBool:NO]])) {
+            trackedCallback = [trackedCallback stringByAppendingFormat:@"&%@",PushInteractionUrl_IgnoredParam];
+        }
         
-        PlaynomicsSession * s =[PlaynomicsSession sharedInstance];
-        
-        PNAPSNotificationEvent *ev = [[PNAPSNotificationEvent alloc] init:PNEventPushNotificationPayload
-                                                            applicationId:s.applicationId
-                                                                   userId:s.userId
-                                                                 cookieId:s.cookieId
-                                                              payload:payload];
-        
-        
-        NSString *actionLabel = [payload valueForKey:@"pnx"];
-        if (actionLabel!=nil)
-            [[PlaynomicsMessaging sharedInstance] executeActionOnDelegate:actionLabel];
-        
-        ev.internalSessionId = [[PlaynomicsSession sharedInstance] sessionId];
-        return [s sendOrQueueEvent:ev];
-    }
-    @catch (NSException *exception) {
-        NSLog(@"error: %@", exception.description);
-        return PNAPIResultFailUnkown;
+        [s.callback submitAdImpressionToServer: trackedCallback];
     }
 }
 
 + (PNAPIResult) errorReport:(PNErrorDetail*)errorDetails
 {
     @try {
-        
-        
         PlaynomicsSession * s =[PlaynomicsSession sharedInstance];
         
         PNErrorEvent *ev = [[[PNErrorEvent alloc] init:PNEventError
                                         applicationId:s.applicationId
                                                userId:s.userId
                                              cookieId:s.cookieId
-                                         errorDetaios:errorDetails] autorelease];
+                                         errorDetails:errorDetails] autorelease];
         
         ev.internalSessionId = [[PlaynomicsSession sharedInstance] sessionId];
         return [s sendOrQueueEvent:ev];
@@ -862,6 +873,13 @@
         return PNAPIResultFailUnkown;
     }
     return PNAPIResultFailUnkown;
+}
+
++(NSString*)stringForTrimmedDeviceToken:(NSData*)deviceToken
+{
+    NSString *adeviceToken = [[deviceToken description] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]];
+    adeviceToken = [adeviceToken stringByReplacingOccurrencesOfString:@" " withString:@""];
+    return adeviceToken;
 }
 
 @end
