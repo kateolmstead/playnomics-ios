@@ -93,7 +93,7 @@ typedef enum {
 #define FrameResponseBackground_Portrait @"p"
 
 // Push Payload
-#define PushResponse_InteractionUrl @"t"
+#define PushResponse_InteractionUrl @"ti"
 #define PushInteractionUrl_AppIdParam @"a"
 #define PushInteractionUrl_UserIdParam @"u"
 #define PushInteractionUrl_BreadcrumbIdParam @"b"
