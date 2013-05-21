@@ -510,10 +510,10 @@
     
     //if the application was not running we can  capture the notification here
     // otherwise, we are dependent on the developer impplementing pushNotificationsWithPayload in the app delegate 
-    if ([note userInfo]!=nil) {
+    if ([note userInfo] != nil && [note.userInfo valueForKey:UIApplicationLaunchOptionsRemoteNotificationKey] != nil) {
         NSDictionary *push = [note.userInfo valueForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
+        NSLog(@"sending impression from onApplicationDidLaunch\r\n---> %@", push);
         [PlaynomicsSession pushNotificationsWithPayload:push];
-        
     }
 }
 
@@ -804,7 +804,6 @@
         NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
         NSString *oldToken = [userDefaults stringForKey:PNUserDefaultsLastDeviceToken];
         NSString *newToken = [PlaynomicsSession stringForTrimmedDeviceToken:deviceToken];
-        oldToken = NULL;
         
         if (![newToken isEqualToString:oldToken]) {
             [userDefaults setObject:newToken forKey:PNUserDefaultsLastDeviceToken];

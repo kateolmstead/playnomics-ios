@@ -57,30 +57,13 @@
 #pragma mark launch
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-
     long appId = 2L;
-    //use a real user id for now
-    //NSString *userId = @"SampleUserId1234";
     [PlaynomicsSession setTestMode:NO];
     [PlaynomicsSession startWithApplicationId:appId];
     
     //enable notifications
     UIApplication *app = [UIApplication sharedApplication];
-    
-   
     [app registerForRemoteNotificationTypes: (UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
-    
-    
-    NSDictionary *apn =
-    [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
-    if (apn) {
-        // we need to distinguish the difference of a user responding to push
-        // vs if we receive a push while the app is running.
-        NSLog(@"sending impression from didFinishLaunchingWithOptions\r\n---> %@",apn);
-        // parse the impression url and ping it....
-        [PlaynomicsSession pushNotificationsWithPayload:apn];
-    }
-    
     
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
     // Override point for customization after application launch.
@@ -94,10 +77,12 @@
     
     return YES;
 }
+
 - (BOOL)application:(UIApplication *)application willFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     return YES;
 }
+
 - (void)applicationWillResignActive:(UIApplication *)application
 {
     /*
