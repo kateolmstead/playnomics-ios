@@ -10,7 +10,7 @@
 @protocol PNAdClickActionHandler
 
 // Called on the delegate to perform some action when the ad is clicked by the user
-- (void)performAction;
+- (void)performActionOnAdClicked;
 
 @end
 

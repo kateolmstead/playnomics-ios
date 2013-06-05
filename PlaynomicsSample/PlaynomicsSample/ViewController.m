@@ -228,7 +228,7 @@
 }
 
 #pragma mark Misc Functions
-- (void)performAction {
+- (void)performActionOnAdClicked {
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Test Action"
                                                     message:@"You're performing a test ACTION."
                                                    delegate:self

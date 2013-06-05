@@ -124,7 +124,7 @@
 - (void)performActionForLabel:(NSString *)label {
     id<PNAdClickActionHandler> handler = [_actionHandlers objectForKey:label];
     if (handler != nil) {
-        [handler performAction];
+        [handler performActionOnAdClicked];
     }
 }
 
