@@ -71,16 +71,26 @@
 - (void)_initCoordinateValues {
     // TODO: why is this not setting to null correctly?
     self.imageUrl = [self.properties objectForKey:FrameResponseImageUrl];
-    self.height = [[self.properties objectForKey:FrameResponseHeight] floatValue];
-    self.width = [[self.properties objectForKey:FrameResponseWidth] floatValue];
+    self.height = [self getFloatValue:[self.properties objectForKey:FrameResponseHeight]];
+    self.width = [self getFloatValue:[self.properties objectForKey:FrameResponseWidth]];
 
     // no sense getting image if it has 0 height or width
     if (self.height == 0 || self.width == 0)
         self.imageUrl = nil;
     
     NSDictionary *coordinateProps = [self _extractCoordinateProps];
-    self.xOffset = [[coordinateProps objectForKey:FrameResponseXOffset] floatValue];
-    self.yOffset = [[coordinateProps objectForKey:FrameResponseYOffset] floatValue];
+    self.xOffset = [self getFloatValue:[coordinateProps objectForKey:FrameResponseXOffset]];
+    self.yOffset = [self getFloatValue:[coordinateProps objectForKey:FrameResponseYOffset]];
+}
+
+- (float)getFloatValue:(NSNumber*)n {
+    @try {
+        return [n floatValue];
+    }
+    @catch (NSException * exception) {
+        //
+    }
+    return 0;
 }
 
 - (NSDictionary *)_extractCoordinateProps {

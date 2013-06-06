@@ -125,7 +125,10 @@
 }
 
 - (NSDictionary *)_determineAdInfoToUse {
-    return [[_properties objectForKey:FrameResponseAds] objectAtIndex:0];
+    NSArray *adFrameResponse = [_properties objectForKey:FrameResponseAds];
+    if (adFrameResponse==nil || adFrameResponse.count==0)
+        return nil;
+    return [adFrameResponse objectAtIndex:0];
 }
 
 
