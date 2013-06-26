@@ -55,6 +55,7 @@
     NSMutableArray *array = [NSMutableArray arrayWithArray:[sourceString  componentsSeparatedByCharactersInSet:separatorSet]];
     [array removeObject:@""];
     
+    // Caller will be the name of the method that called initFrameWithId
     NSString *caller = [array objectAtIndex:4];
     
     NSDictionary *propDict = [self _retrieveFramePropertiesForId:frameId withCaller:caller];
@@ -65,6 +66,7 @@
     return [frame autorelease];
 }
 
+// Make an ad request to the PN Ad Servers
 - (NSDictionary *)_retrieveFramePropertiesForId:(NSString *)frameId withCaller: (NSString *) caller
 {
     NSError *error = nil;
