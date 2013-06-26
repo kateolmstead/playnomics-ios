@@ -61,7 +61,7 @@
 
     _adArea = [[BaseAdComponent alloc] initWithProperties:[self _mergeAdInfoProperties]
                                                  forFrame:self
-                                         withTouchHandler:@selector(_adClicked:)
+                                         withTouchHandler:[[self _mergeAdInfoProperties] valueForKey:FrameResponseAd_ClickTarget]!=nil ? @selector(_adClicked:) : nil
                                               andDelegate:self];
     
     _closeButton = [[BaseAdComponent alloc] initWithProperties:[_properties objectForKey:FrameResponseCloseButtonInfo]
