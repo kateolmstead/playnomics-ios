@@ -148,10 +148,12 @@
     if ((self = [super init])) {
         _collectMode = PNSettingCollectionMode;
         _sequence = 0;
+        _testMode = YES;
         _userId = @"";
         _sessionId = @"";
         _playnomicsEventList = [[NSMutableArray alloc] init];
         _eventSender = [[PNEventSender alloc] init];
+        _eventSender.testMode = _testMode;
         self.callback = [[[PlaynomicsCallback alloc] init] autorelease];
     }
     
