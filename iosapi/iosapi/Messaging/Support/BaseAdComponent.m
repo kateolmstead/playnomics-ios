@@ -9,7 +9,7 @@
 #import "FSNConnection.h"
 
 @implementation BaseAdComponent {
-  @private
+@private
     NSMutableArray *_subComponents;
     UIImage *_image;
     id<PNBaseAdComponentDelegate> _delegate;
@@ -55,7 +55,7 @@
     [_parentComponent release];
     [_frame release];
     [_image release];
-
+    
     [super dealloc];
 }
 
@@ -73,7 +73,7 @@
     self.imageUrl = [self.properties objectForKey:FrameResponseImageUrl];
     self.height = [self getFloatValue:[self.properties objectForKey:FrameResponseHeight]];
     self.width = [self getFloatValue:[self.properties objectForKey:FrameResponseWidth]];
-
+    
     // no sense getting image if it has 0 height or width
     if (self.height == 0 || self.width == 0)
         self.imageUrl = nil;
@@ -97,27 +97,30 @@
     if ([self.properties objectForKey:FrameResponseBackground_Landscape] == nil) {
         return self.properties;
     }
-
-    UIDeviceOrientation orientation = [PNUtil getCurrentOrientation];
-    if (orientation == UIDeviceOrientationUnknown || UIDeviceOrientationIsPortrait(orientation)) {
+    
+    // By default, return portrait
+    UIInterfaceOrientation orientation = [PNUtil getCurrentOrientation];
+    if (orientation == UIInterfaceOrientationPortrait || orientation == UIInterfaceOrientationPortraitUpsideDown) {
         return [self.properties objectForKey:FrameResponseBackground_Portrait];
-    } else {
+    } else if(orientation == UIInterfaceOrientationLandscapeRight || orientation == UIInterfaceOrientationLandscapeLeft) {
         return [self.properties objectForKey:FrameResponseBackground_Landscape];
+    } else {
+        return [self.properties objectForKey:FrameResponseBackground_Portrait];
     }
 }
 
 - (void)_createComponentView {
     CGRect backgroundRect = CGRectMake(self.xOffset, self.yOffset, self.width, self.height);
     NSLog(@"Frame for component image view (%@): %@", self.imageUrl, NSStringFromCGRect(backgroundRect));
-
+    
     if (self.imageUI == nil) {
         UIImageView *newImageView = [[UIImageView alloc] init];
         newImageView.userInteractionEnabled = YES;
-
+        
         self.imageUI = newImageView;
         [newImageView release];
     }
-
+    
     self.imageUI.frame = backgroundRect;
 }
 
@@ -139,12 +142,12 @@
                completionBlock:^(FSNConnection *c) { [self _handleImageDownloadCompletion:c]; }
                  progressBlock:nil];
         
-        [connection start];        
+        [connection start];
     }
 }
 
 - (void) gifImageLoaded {
-    [self _finishImageSetup];  
+    [self _finishImageSetup];
 }
 
 - (void)_handleImageDownloadCompletion:(FSNConnection *)connection {
@@ -158,8 +161,8 @@
 }
 
 - (void)_finishImageSetup {
-    [self _setupTapRecognizer];    
-    [self.imageUI setNeedsDisplay];    
+    [self _setupTapRecognizer];
+    [self.imageUI setNeedsDisplay];
     self.status = AdComponentStatusCompleted;
     [_delegate componentDidLoad:self];
 }
