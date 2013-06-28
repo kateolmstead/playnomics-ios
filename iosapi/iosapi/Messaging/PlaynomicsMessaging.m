@@ -48,7 +48,7 @@
     [_actionHandlers setObject:clickAction forKey:label];
 }
 
-- (PlaynomicsFrame *)initFrameWithId:(NSString *)frameId {
+- (PlaynomicsFrame *)createFrameWithId:(NSString *)frameId {
     // Get caller for debuging purposes
     NSString *sourceString = [[NSThread callStackSymbols] objectAtIndex:1];
     NSCharacterSet *separatorSet = [NSCharacterSet characterSetWithCharactersInString:@" -[]+?.,"];
