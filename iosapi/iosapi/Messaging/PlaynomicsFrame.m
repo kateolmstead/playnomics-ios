@@ -17,7 +17,7 @@
 @end
 
 @implementation PlaynomicsFrame {
-  @private
+@private
     NSTimer *_expirationTimer;
     NSDictionary *_properties;
     BaseAdComponent *_background;
@@ -58,7 +58,7 @@
                                                      forFrame:self
                                              withTouchHandler:nil
                                                   andDelegate:self];
-
+    
     _adArea = [[BaseAdComponent alloc] initWithProperties:[self _mergeAdInfoProperties]
                                                  forFrame:self
                                          withTouchHandler:[[self _mergeAdInfoProperties] valueForKey:FrameResponseAd_ClickTarget] != nil && [[self _mergeAdInfoProperties] valueForKey:FrameResponseAd_ClickTarget] != [NSNull null] ? @selector(_adClicked:) : nil
@@ -75,7 +75,7 @@
     [_background layoutComponent];
     [_adArea layoutComponent];
     [_closeButton layoutComponent];
-
+    
     [_background addSubComponent:_adArea];
     [_background addSubComponent:_closeButton];
     _background.imageUI.hidden = YES;
@@ -118,7 +118,7 @@
 - (NSDictionary *)_mergeAdInfoProperties {
     NSDictionary *adInfo = [self _determineAdInfoToUse];
     NSDictionary *adLocationInfo = [_properties objectForKey:FrameResponseAdLocationInfo];
-
+    
     NSMutableDictionary *mergedDict = [NSMutableDictionary dictionaryWithDictionary:adInfo];
     [mergedDict addEntriesFromDictionary:adLocationInfo];
     return mergedDict;
@@ -150,13 +150,13 @@
 - (void)_deviceOrientationDidChange:(NSNotification *)notification {
     UIDeviceOrientation orientation = [PNUtil getCurrentOrientation];
     if (orientation == UIDeviceOrientationFaceUp
-            || orientation == UIDeviceOrientationFaceDown
-            || orientation == UIDeviceOrientationUnknown
-            || _currentOrientation == orientation) {
+        || orientation == UIDeviceOrientationFaceDown
+        || orientation == UIDeviceOrientationUnknown
+        || _currentOrientation == orientation) {
         return;
     }
     _currentOrientation = orientation;
-
+    
     NSLog(@"Orientation changed to: %i", orientation);
     [_background layoutComponent];
 }
@@ -175,14 +175,14 @@
     
     int x = location.x;
     int y = location.y;
-
+    
     NSString *coordParams = [NSString stringWithFormat:@"&x=%d&y=%d", x, y];
     
     NSString *preExecuteUrl = [[_adArea.properties objectForKey:FrameResponseAd_PreExecuteUrl] stringByAppendingString:coordParams];
     NSString *postExecuteUrl =  [[_adArea.properties objectForKey:FrameResponseAd_PostExecuteUrl] stringByAppendingString:coordParams];
-
+    
     NSString *clickTarget = [_adArea.properties objectForKey:FrameResponseAd_ClickTarget];
-
+    
     AdAction actionType = [PNActionObjects adActionTypeForURL:clickTarget];
     NSString *actionLabel = [PNActionObjects adActionMethodForURLPath:clickTarget];
     
@@ -190,17 +190,17 @@
     NSLog(@"%@", postExecuteUrl);
     
     NSLog(@"Ad clicked with target (action type %i): %@", actionType, actionLabel);
-
+    
     NSInteger c;
     NSString *exc;
     
     switch (actionType) {
         case AdActionHTTP: {
-           [[UIApplication sharedApplication] openURL:[NSURL URLWithString:clickTarget]];
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:clickTarget]];
             break;
         }
             
-        // each call (exe, perf) should be in a try catch
+            // each call (exe, perf) should be in a try catch
             
         case AdActionDefinedAction: {
             
@@ -216,7 +216,7 @@
                 c = -6;
                 exc = [NSString stringWithFormat:@"%@+%@", e.name, e.reason];
             }
-                        
+            
             [self.callbackUtil submitAdImpressionToServer: postExecuteUrl];
             
             break;
@@ -245,7 +245,7 @@
             break;
         }
     }
-
+    
     [self _closeAd];
 }
 
@@ -273,13 +273,35 @@
     [self _startExpiryTimer];
     
     [self.callbackUtil submitAdImpressionToServer:frameResponseURL];
-
+    
     if ([self _allComponentsLoaded]) {
         return DisplayResultDisplayed;
     } else {
         return DisplayResultDisplayPending;
     }
 }
+
+#pragma mark - Public Interface
+- (DisplayResult)startInView:(UIView*)view {
+    NSString *frameResponseURL =[_adArea.properties objectForKey:FrameResponseAd_ImpressionUrl];
+    if (frameResponseURL==nil)
+    {
+        //this may happen due to broken JSON
+        return DisplayResultFailUnknown;
+    }
+    
+    [_background displayInView:view];
+    [self _startExpiryTimer];
+    
+    [self.callbackUtil submitAdImpressionToServer:frameResponseURL];
+    
+    if ([self _allComponentsLoaded]) {
+        return DisplayResultDisplayed;
+    } else {
+        return DisplayResultDisplayPending;
+    }
+}
+
 
 - (void)_startExpiryTimer {
     @try {
@@ -306,7 +328,7 @@
     }
     @catch (NSException *exception) {
         NSLog(@"error: %@", exception.description);
-    }   
+    }
 }
 
 - (void)_notifyDelegate {
