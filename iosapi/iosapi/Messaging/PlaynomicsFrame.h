@@ -25,4 +25,7 @@ typedef enum {
 // Called to display the ad frame and to begin capturing clicks within the frame.
 - (DisplayResult)start;
 
+// Called to display the ad frame in a specific view and to begin capturing clicks within the frame.
+- (DisplayResult)startInView:(UIView*)view;
+
 @end
