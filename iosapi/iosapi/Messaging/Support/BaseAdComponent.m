@@ -183,9 +183,14 @@
 }
 
 - (void)display {
-    UIView *topLevelView = [[UIApplication sharedApplication] keyWindow].rootViewController.view;
+    UIView *topLevelView = [[[UIApplication sharedApplication] delegate] window].rootViewController.view;
     int lastDisplayIndex = topLevelView.subviews.count;
     [topLevelView insertSubview:self.imageUI atIndex:lastDisplayIndex + 1];
+}
+
+- (void)displayInView:(UIView*)view {
+    int lastDisplayIndex = view.subviews.count;
+    [view insertSubview:self.imageUI atIndex:lastDisplayIndex + 1];
 }
 
 - (void)hide {
