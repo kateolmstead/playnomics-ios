@@ -188,11 +188,6 @@
     [topLevelView insertSubview:self.imageUI atIndex:lastDisplayIndex + 1];
 }
 
-- (void)displayInView:(UIView*)view {
-    int lastDisplayIndex = view.subviews.count;
-    [view insertSubview:self.imageUI atIndex:lastDisplayIndex + 1];
-}
-
 - (void)hide {
     [self.imageUI removeFromSuperview];
 }

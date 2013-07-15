@@ -42,8 +42,6 @@ typedef enum {
 
 - (void)display;
 
-- (void)displayInView:(UIView*)view;
-
 - (void)hide;
 
 @end
