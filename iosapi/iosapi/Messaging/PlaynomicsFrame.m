@@ -24,7 +24,7 @@
     BaseAdComponent *_adArea;
     BaseAdComponent *_closeButton;
     int _expirationSeconds;
-    UIDeviceOrientation _currentOrientation;
+    UIInterfaceOrientation _currentOrientation;
     id<PNFrameRefreshHandler> _delegate;
 }
 
@@ -148,11 +148,8 @@
 }
 
 - (void)_deviceOrientationDidChange:(NSNotification *)notification {
-    UIDeviceOrientation orientation = [PNUtil getCurrentOrientation];
-    if (orientation == UIDeviceOrientationFaceUp
-        || orientation == UIDeviceOrientationFaceDown
-        || orientation == UIDeviceOrientationUnknown
-        || _currentOrientation == orientation) {
+    UIInterfaceOrientation orientation = [PNUtil getCurrentOrientation];
+    if (_currentOrientation == orientation) {
         return;
     }
     _currentOrientation = orientation;
@@ -270,27 +267,6 @@
     }
     
     [_background display];
-    [self _startExpiryTimer];
-    
-    [self.callbackUtil submitAdImpressionToServer:frameResponseURL];
-    
-    if ([self _allComponentsLoaded]) {
-        return DisplayResultDisplayed;
-    } else {
-        return DisplayResultDisplayPending;
-    }
-}
-
-#pragma mark - Public Interface
-- (DisplayResult)startInView:(UIView*)view {
-    NSString *frameResponseURL =[_adArea.properties objectForKey:FrameResponseAd_ImpressionUrl];
-    if (frameResponseURL==nil)
-    {
-        //this may happen due to broken JSON
-        return DisplayResultFailUnknown;
-    }
-    
-    [_background displayInView:view];
     [self _startExpiryTimer];
     
     [self.callbackUtil submitAdImpressionToServer:frameResponseURL];
