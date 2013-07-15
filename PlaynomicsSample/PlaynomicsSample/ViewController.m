@@ -213,7 +213,7 @@
     
     
     //FIXME: this needs to be on another thread
-    PlaynomicsFrame *frame = [messaging initFrameWithId:frameId];
+    PlaynomicsFrame *frame = [messaging createFrameWithId:frameId];
     DisplayResult result = [frame start];
     if (result==DisplayResultFailUnknown) {
        
