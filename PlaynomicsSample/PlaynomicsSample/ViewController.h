@@ -22,7 +22,6 @@
 - (IBAction) onRespondToInvitationClick:(id)sender;
 - (IBAction) onTransactionClick:(id)sender;
 - (IBAction) onUserInfoClick:(id)sender;
-- (IBAction)onChangeUserClick:(id)sender;
 
 - (IBAction)onMessageTLClick:(id)sender;
 - (IBAction)onMessageCCClick:(id)sender;
