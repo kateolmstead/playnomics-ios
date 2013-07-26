@@ -177,7 +177,7 @@ typedef enum {
     NSLog(@"Close button was pressed...");
     [self _closeAd];
     NSString *callback = [_adArea.properties objectForKey:FrameResponseAd_CloseUrl];
-    [self.callbackUtil submitAdImpressionToServer:callback];
+    [self.callbackUtil submitRequestToServer:callback];
 }
 
 - (void) _adClicked: (UITapGestureRecognizer *)recognizer {
@@ -209,7 +209,7 @@ typedef enum {
             NSLog(@"Post Execute URL %@", postExecuteUrl);
             
             if (actionType == AdActionDefinedAction) {
-                [self.callbackUtil submitAdImpressionToServer: preExecuteUrl];
+                [self.callbackUtil submitRequestToServer: preExecuteUrl];
                 @try {
                     [[PlaynomicsMessaging sharedInstance] performActionForLabel:actionLabel];
                     responseCode = 2;
@@ -219,9 +219,9 @@ typedef enum {
                     responseCode = -6;
                     exception = [NSString stringWithFormat:@"%@+%@", e.name, e.reason];
                 }
-                [self.callbackUtil submitAdImpressionToServer: postExecuteUrl];
+                [self.callbackUtil submitRequestToServer: postExecuteUrl];
             } else {
-                [self.callbackUtil submitAdImpressionToServer: preExecuteUrl];
+                [self.callbackUtil submitRequestToServer: preExecuteUrl];
                 @try {
                     [[PlaynomicsMessaging sharedInstance] executeActionOnDelegate:actionLabel];
                     responseCode = 1;
@@ -232,7 +232,7 @@ typedef enum {
                     exception = [NSString stringWithFormat:@"%@+%@", e.name, e.reason];
                 }
                 NSString *post = [NSString stringWithFormat:@"%@&c=%d&e=%@", postExecuteUrl, responseCode, exception];
-                [self.callbackUtil submitAdImpressionToServer: post];
+                [self.callbackUtil submitRequestToServer: post];
             }
         }
     } else if (targetType == AdTargetData) {
@@ -271,7 +271,7 @@ typedef enum {
     [_background display];
     [self _startExpiryTimer];
     
-    [self.callbackUtil submitAdImpressionToServer:frameResponseURL];
+    [self.callbackUtil submitRequestToServer:frameResponseURL];
     
     if ([self _allComponentsLoaded]) {
         return DisplayResultDisplayed;

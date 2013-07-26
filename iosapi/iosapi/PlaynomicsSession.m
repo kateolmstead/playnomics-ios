@@ -848,7 +848,7 @@
             trackedCallback = [trackedCallback stringByAppendingFormat:@"&%@",PushInteractionUrl_IgnoredParam];
         }
         
-        [s.callback submitAdImpressionToServer: trackedCallback];
+        [s.callback submitRequestToServer: trackedCallback];
     }
 }
 
