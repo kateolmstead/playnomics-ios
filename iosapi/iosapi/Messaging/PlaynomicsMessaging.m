@@ -12,7 +12,7 @@
 
 
 @implementation PlaynomicsMessaging {
-  @private
+@private
     NSMutableDictionary *_actionHandlers;
     NSMutableDictionary *_frames;
     id _delegate;
@@ -49,8 +49,11 @@
     [_actionHandlers setObject:clickAction forKey:label];
 }
 
-- (PlaynomicsFrame *)createFrameWithId:(NSString *)frameId {
-    //this is so
+- (PlaynomicsFrame *) createFrameWithId:(NSString*) frameId {
+    return [self createFrameWithId:frameId frameDelegate:nil];
+}
+
+- (PlaynomicsFrame *)createFrameWithId:(NSString*)frameId frameDelegate: (id<PNFrameDelegate>)frameDelegate {
     // Get caller for debuging purposes
     NSString *sourceString = [[NSThread callStackSymbols] objectAtIndex:1];
     NSCharacterSet *separatorSet = [NSCharacterSet characterSetWithCharactersInString:@" -[]+?.,"];
@@ -62,9 +65,10 @@
     
     NSDictionary *propDict = [self _retrieveFramePropertiesForId:frameId withCaller:caller];
     PlaynomicsFrame *frame = [[PlaynomicsFrame alloc] initWithProperties:propDict
-                                                              forFrameId:frameId andDelegate: self];
+                                                        forFrameId:frameId
+                                                        andDelegate: self
+                                                        frameDelegate: frameDelegate];
     [_frames setObject:frame forKey:frameId];
-    
     return [frame autorelease];
 }
 

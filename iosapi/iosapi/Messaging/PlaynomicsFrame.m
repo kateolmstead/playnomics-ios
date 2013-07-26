@@ -34,12 +34,17 @@ typedef enum {
     UIInterfaceOrientation _currentOrientation;
     id<PNFrameRefreshHandler> _delegate;
     AdType _adType;
+    id<PNFrameDelegate> _frameDelegate;
 }
 
 @synthesize frameId = _frameId;
 
 #pragma mark - Lifecycle/Memory management
-- (id) initWithProperties:(NSDictionary *)properties forFrameId:(NSString *)frameId andDelegate: (id<PNFrameRefreshHandler>) delegate {
+- (id) initWithProperties: (NSDictionary *)properties
+            forFrameId:(NSString *)frameId
+            andDelegate: (id<PNFrameRefreshHandler>) delegate
+            frameDelegate: (id<PNFrameDelegate>) frameDelegate {
+    
     if (self = [super init]) {
         _frameId = [frameId retain];
         _properties = [properties retain];
@@ -52,6 +57,8 @@ typedef enum {
             _adType = AdUnknown;
         }
 
+        _frameDelegate = frameDelegate;
+        
         self.callbackUtil = [[[PlaynomicsCallback alloc] init] autorelease];
         
         [self _initOrientationChangeObservers];
@@ -205,9 +212,6 @@ typedef enum {
             NSInteger responseCode;
             NSString* exception;
             
-            NSLog(@"Preexecute URL %@", preExecuteUrl);
-            NSLog(@"Post Execute URL %@", postExecuteUrl);
-            
             if (actionType == AdActionDefinedAction) {
                 [self.callbackUtil submitRequestToServer: preExecuteUrl];
                 @try {
@@ -237,6 +241,32 @@ typedef enum {
         }
     } else if (targetType == AdTargetData) {
         //handle rich data
+        NSString* preExecuteUrl = [[_adArea.properties objectForKey:FrameResponseAd_PreExecuteUrl] stringByAppendingString:coordParams];
+        NSString* postExecuteUrl =  [_adArea.properties objectForKey:FrameResponseAd_PostExecuteUrl];
+
+        NSInteger responseCode;
+        NSString* exception;
+        
+        NSString* targetData = [_adArea.properties objectForKey:FrameResponseAd_TargetData];
+        [self.callbackUtil submitRequestToServer: preExecuteUrl];
+        
+        @try {
+            if(_frameDelegate == nil || ![_frameDelegate respondsToSelector:@selector(onClick:)]){
+                exception = @"Received a click but could not send the data to the frameDelegate";
+                responseCode = -4;
+                NSLog(@"%@", exception);
+            } else {
+                NSDictionary* jsonData = [((NSData*)targetData) deserializeJsonData];
+                [_frameDelegate onClick: jsonData];
+                responseCode = 1;
+            }
+        }
+        @catch (NSException *e) {
+            exception = [NSString stringWithFormat:@"%@+%@", e.name, e.reason];
+            responseCode = -4;
+        }
+        NSString *post = [NSString stringWithFormat:@"%@&c=%d&e=%@", postExecuteUrl, responseCode, exception];
+        [self.callbackUtil submitRequestToServer: post];
     }
     [self _closeAd];
 }
@@ -247,8 +277,7 @@ typedef enum {
     [self _stopExpiryTimer];
 }
 
--(NSString*) adActionMethodForURLPath:(NSString*)urlPath
-{
+- (NSString*) adActionMethodForURLPath: (NSString*)urlPath{
     NSArray *comps = [urlPath componentsSeparatedByString:@"://"];
     NSString *resource = [comps objectAtIndex:1];
     return [resource stringByReplacingOccurrencesOfString:@"//" withString:@""];
@@ -293,7 +322,7 @@ typedef enum {
     
 }
 
-- (void)_stopExpiryTimer {
+- (void) _stopExpiryTimer {
     
     @try {
         
@@ -309,11 +338,11 @@ typedef enum {
     }
 }
 
-- (void)_notifyDelegate {
+- (void) _notifyDelegate {
     [_delegate refreshFrameWithId:_frameId];
 }
 
-- (void)refreshProperties: (NSDictionary *)properties {
+- (void) refreshProperties: (NSDictionary *)properties {
     
     // TODO: should we reset all properties, or just the images?
     NSLog(@"refreshProperties called fro frameId: %@", _frameId);
