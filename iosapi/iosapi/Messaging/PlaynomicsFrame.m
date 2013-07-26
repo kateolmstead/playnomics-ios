@@ -191,15 +191,14 @@ typedef enum {
     NSString *coordParams = [NSString stringWithFormat:@"&x=%d&y=%d", x, y];
     
     NSString *preExecuteUrl = [[_adArea.properties objectForKey:FrameResponseAd_PreExecuteUrl] stringByAppendingString:coordParams];
-    NSString *postExecuteUrl =  [[_adArea.properties objectForKey:FrameResponseAd_PostExecuteUrl] stringByAppendingString:coordParams];
-    
+    NSString *postExecuteUrl =  [_adArea.properties objectForKey:FrameResponseAd_PostExecuteUrl];
     NSString *clickTarget = [_adArea.properties objectForKey:FrameResponseAd_ClickTarget];
     
     AdAction actionType = [PNActionObjects adActionTypeForURL:clickTarget];
     NSString *actionLabel = [PNActionObjects adActionMethodForURLPath:clickTarget];
     
-    NSLog(@"%@", preExecuteUrl);
-    NSLog(@"%@", postExecuteUrl);
+    NSLog(@"Preexecute URL %@", preExecuteUrl);
+    NSLog(@"Post Execute URL %@", postExecuteUrl);
     
     NSLog(@"Ad clicked with target (action type %i): %@", actionType, actionLabel);
     

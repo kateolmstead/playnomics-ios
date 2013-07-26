@@ -49,6 +49,7 @@
 }
 
 - (PlaynomicsFrame *)createFrameWithId:(NSString *)frameId {
+    //this is so
     // Get caller for debuging purposes
     NSString *sourceString = [[NSThread callStackSymbols] objectAtIndex:1];
     NSCharacterSet *separatorSet = [NSCharacterSet characterSetWithCharactersInString:@" -[]+?.,"];
@@ -89,20 +90,10 @@
     
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", serverUrl, queryString]];
     
-    //stubbing data here , if isTesting
-//    if (self.isTesting) {
-//        if ([frameId isEqualToString:@"testCC"]) {
-//            url = [NSURL fileURLWithPath:@"/Users/mcconkiee/Desktop/stubs/invalid.json"];
-//        }
-//        else
-//            url = [NSURL fileURLWithPath:@"/Users/mcconkiee/Desktop/stubs/pnx.json"];
-//        
-//    }
-
     NSLog(@"calling ad server: %@", url.absoluteString);
     NSMutableData *adResponse = [NSMutableData dataWithContentsOfURL: url];
     
-    if (adResponse==nil)
+    if (adResponse == nil)
     {
         PNErrorDetail *detail = [PNErrorDetail pNErrorDetailWithType:PNErrorTypeInvalidJson];
         [PlaynomicsSession errorReport:detail];
@@ -111,15 +102,12 @@
     
     NSDictionary *props = [NSJSONSerialization JSONObjectWithData:adResponse options:kNilOptions error:&error];
 
-    NSLog(@"NSDictionary %@", props);
+    NSLog(@"Received response from ad server: %@", props);
     
     if (error!=nil) {
-        
         PNErrorDetail *details = [PNErrorDetail pNErrorDetailWithType:PNErrorTypeInvalidJson];
         [PlaynomicsSession errorReport:details];
-        
     }
-    
     return props;
 }
 
