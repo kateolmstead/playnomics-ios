@@ -7,7 +7,6 @@
 #import "PlaynomicsMessaging+Exposed.h"
 #import "FSNConnection.h"
 #import "BaseAdComponent.h"
-#import "PNActionObjects.h"
 #import "PNErrorEvent.h"
 #import "PlaynomicsCallback.h"
 #import "NSString+Extension.h"
@@ -187,7 +186,7 @@ typedef enum {
     int y = location.y;
     
     NSString* coordParams = [NSString stringWithFormat:@"&x=%d&y=%d", x, y];
-    NSString* targetTypeString = [_adArea.properties objectForKey:FrameResponseAd_TargetType];
+    NSString* targetTypeString = [_adArea.properties objectForKey : FrameResponseAd_TargetType];
     AdTarget targetType = [targetTypeString toAdTarget];
     
     if(targetType == AdTargetUrl) {
@@ -202,7 +201,7 @@ typedef enum {
             NSString* preExecuteUrl = [[_adArea.properties objectForKey:FrameResponseAd_PreExecuteUrl] stringByAppendingString:coordParams];
             NSString* postExecuteUrl =  [_adArea.properties objectForKey:FrameResponseAd_PostExecuteUrl];
             
-            NSString* actionLabel = [PNActionObjects adActionMethodForURLPath:clickTarget];
+            NSString* actionLabel = [self adActionMethodForURLPath:clickTarget];
             NSInteger responseCode;
             NSString* exception;
             
@@ -246,6 +245,13 @@ typedef enum {
     [_background hide];
     [self _destroyOrientationObservers];
     [self _stopExpiryTimer];
+}
+
+-(NSString*) adActionMethodForURLPath:(NSString*)urlPath
+{
+    NSArray *comps = [urlPath componentsSeparatedByString:@"://"];
+    NSString *resource = [comps objectAtIndex:1];
+    return [resource stringByReplacingOccurrencesOfString:@"//" withString:@""];
 }
 
 #pragma mark - Public Interface

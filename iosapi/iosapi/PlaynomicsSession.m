@@ -24,7 +24,6 @@
 #import "PNAPSNotificationEvent.h"
 #import "PNErrorEvent.h"
 #import "PlaynomicsSession+Exposed.h"
-#import "PNActionObjects.h"
 #import "PlaynomicsMessaging+Exposed.h"
 #import "PNUserInfo.h"
 
