@@ -19,13 +19,10 @@ typedef enum {
 // This frame frame will be responsible for displaying the ad image and capturing all of
 // clicks within the ad area.
 @interface PlaynomicsFrame : NSObject
-
 // Frame ID as provided by the developer when retrieving the frame
 @property (retain) NSString *frameId;
-
 // Called to display the ad frame and to begin capturing clicks within the frame.
 - (DisplayResult)start;
-
 - (void)sendVideoView;
 
 @end

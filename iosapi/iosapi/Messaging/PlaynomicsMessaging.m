@@ -8,6 +8,7 @@
 #import "PNConstants.h"
 #import "PNConfig.h"
 #import "PNErrorEvent.h"
+#import "NSData+Extension.h"
 
 
 @implementation PlaynomicsMessaging {
@@ -70,7 +71,6 @@
 // Make an ad request to the PN Ad Servers
 - (NSDictionary *)_retrieveFramePropertiesForId:(NSString *)frameId withCaller: (NSString *) caller
 {
-    NSError *error = nil;
     PlaynomicsSession *pn = [PlaynomicsSession sharedInstance];
     signed long long time = [[NSDate date] timeIntervalSince1970] * 1000;
     CGRect screenRect = [[UIScreen mainScreen] applicationFrame];
@@ -92,22 +92,13 @@
     
     NSLog(@"calling ad server: %@", url.absoluteString);
     NSMutableData *adResponse = [NSMutableData dataWithContentsOfURL: url];
-    
-    if (adResponse == nil)
-    {
+    if (adResponse == nil){
         PNErrorDetail *detail = [PNErrorDetail pNErrorDetailWithType:PNErrorTypeInvalidJson];
         [PlaynomicsSession errorReport:detail];
         return nil;
     }
     
-    NSDictionary *props = [NSJSONSerialization JSONObjectWithData:adResponse options:kNilOptions error:&error];
-
-    NSLog(@"Received response from ad server: %@", props);
-    
-    if (error!=nil) {
-        PNErrorDetail *details = [PNErrorDetail pNErrorDetailWithType:PNErrorTypeInvalidJson];
-        [PlaynomicsSession errorReport:details];
-    }
+    NSDictionary *props = [adResponse deserializeJsonData];
     return props;
 }
 

@@ -99,6 +99,8 @@ typedef enum {
 #define FrameResponseAd_CloseUrl @"d"
 #define FrameResponseAd_AdType @"type"
 #define FrameResponseAd_VideoViewUrl @"view"
+#define FrameResponseAd_TargetType @"targetType";
+#define FrameResponseAd_TargetData @"targetData";
 
 // Ad Response: Background keys
 #define FrameResponseBackground_Landscape @"l"

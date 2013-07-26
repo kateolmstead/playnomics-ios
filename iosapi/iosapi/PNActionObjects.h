@@ -13,19 +13,8 @@
 #define PNACTION_ACTION_PREFIX      @"pna"
 #define PNEXECUTE_ACTION_PREFIX     @"pnx"
 
-typedef enum {
-    AdActionHTTP,           // Standard HTTP/HTTPS page to open in a browser
-    AdActionDefinedAction,  // Defined selector to execute on a registered delegate
-    AdActionExecuteCode,    // Submit the action on the delegate
-    AdActionUnknown,        // Unknown ad action specified
-    AdActionNullTarget,     // No target was specified
-    AdActionData            // Rich Data callback
-} AdAction;
-
 
 
 @interface PNActionObjects : NSObject
-+(AdAction)adActionTypeForURL:(NSString*)urlPath;
 +(NSString*)adActionMethodForURLPath:(NSString*)resource;
-
 @end

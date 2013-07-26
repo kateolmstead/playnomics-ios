@@ -10,6 +10,8 @@
 #import "PNActionObjects.h"
 #import "PNErrorEvent.h"
 #import "PlaynomicsCallback.h"
+#import "NSString+Extension.h"
+#import "NSData+Extension.h"
 #pragma mark - PlaynomicsFrame
 
 typedef enum {
@@ -38,7 +40,7 @@ typedef enum {
 @synthesize frameId = _frameId;
 
 #pragma mark - Lifecycle/Memory management
-- (id)initWithProperties:(NSDictionary *)properties forFrameId:(NSString *)frameId andDelegate: (id<PNFrameRefreshHandler>) delegate {
+- (id) initWithProperties:(NSDictionary *)properties forFrameId:(NSString *)frameId andDelegate: (id<PNFrameRefreshHandler>) delegate {
     if (self = [super init]) {
         _frameId = [frameId retain];
         _properties = [properties retain];
@@ -59,7 +61,7 @@ typedef enum {
     return self;
 }
 
-- (void)dealloc {
+- (void) dealloc {
     [_properties release];
     [_background release];
     [_adArea release];
@@ -68,7 +70,7 @@ typedef enum {
     [super dealloc];
 }
 
-- (void)_initAdComponents {
+- (void) _initAdComponents {
     _background = [[BaseAdComponent alloc] initWithProperties:[_properties objectForKey:FrameResponseBackgroundInfo]
                                                      forFrame:self
                                              withTouchHandler:nil
@@ -96,17 +98,15 @@ typedef enum {
     _background.imageUI.hidden = YES;
 }
 
-- (BOOL)_allComponentsLoaded {
+- (BOOL) _allComponentsLoaded {
     
     id displayNameTypeValue = _background.imageUrl;
     
     if (displayNameTypeValue != [NSNull null]){
-        if(_background.imageUrl == NULL ||
-           [_background.imageUrl isEqualToString:@"null"]){
+        if(_background.imageUrl == NULL || [_background.imageUrl isEqualToString:@"null"]){
             [_background setStatus:AdComponentStatusCompleted];
         }
-    }
-    else{
+    } else {
         [_background setStatus:AdComponentStatusCompleted];
     }
     
@@ -116,8 +116,7 @@ typedef enum {
         if(_closeButton.imageUrl == NULL || [_closeButton.imageUrl isEqualToString:@"null"]){
             [_closeButton setStatus:AdComponentStatusCompleted];
         }
-    }
-    else{
+    } else {
         [_closeButton setStatus:AdComponentStatusCompleted];
     }
     
@@ -126,11 +125,11 @@ typedef enum {
             && _closeButton.status == AdComponentStatusCompleted);
 }
 
-- (void)componentDidLoad: (id) component {
+- (void) componentDidLoad: (id) component {
     _background.imageUI.hidden = ![self _allComponentsLoaded];
 }
 
-- (NSDictionary *)_mergeAdInfoProperties {
+- (NSDictionary *) _mergeAdInfoProperties {
     NSDictionary *adInfo = [self _determineAdInfoToUse];
     NSDictionary *adLocationInfo = [_properties objectForKey:FrameResponseAdLocationInfo];
     
@@ -139,16 +138,17 @@ typedef enum {
     return mergedDict;
 }
 
-- (NSDictionary *)_determineAdInfoToUse {
+- (NSDictionary *) _determineAdInfoToUse {
     NSArray *adFrameResponse = [_properties objectForKey:FrameResponseAds];
-    if (adFrameResponse==nil || adFrameResponse.count==0)
+    if (adFrameResponse==nil || adFrameResponse.count==0){
         return nil;
+    }
     return [adFrameResponse objectAtIndex:0];
 }
 
 
 #pragma mark - Orientation handlers
-- (void)_initOrientationChangeObservers {
+- (void) _initOrientationChangeObservers {
     [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(_deviceOrientationDidChange:)
@@ -156,13 +156,13 @@ typedef enum {
                                                object: nil];
 }
 
-- (void)_destroyOrientationObservers {
+- (void) _destroyOrientationObservers {
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:UIDeviceOrientationDidChangeNotification
                                                   object:nil];
 }
 
-- (void)_deviceOrientationDidChange:(NSNotification *)notification {
+- (void) _deviceOrientationDidChange: (NSNotification *)notification {
     UIInterfaceOrientation orientation = [PNUtil getCurrentOrientation];
     if (_currentOrientation == orientation) {
         return;
@@ -174,105 +174,82 @@ typedef enum {
 }
 
 #pragma mark - Ad component click handlers
-- (void)_stop {
+- (void) _stop {
     NSLog(@"Close button was pressed...");
     [self _closeAd];
     NSString *callback = [_adArea.properties objectForKey:FrameResponseAd_CloseUrl];
     [self.callbackUtil submitAdImpressionToServer:callback];
 }
 
-- (void)_adClicked:(UITapGestureRecognizer *)recognizer {
-    
+- (void) _adClicked: (UITapGestureRecognizer *)recognizer {
     CGPoint location = [recognizer locationInView:_adArea.imageUI];
-    
     int x = location.x;
     int y = location.y;
     
-    NSString *coordParams = [NSString stringWithFormat:@"&x=%d&y=%d", x, y];
+    NSString* coordParams = [NSString stringWithFormat:@"&x=%d&y=%d", x, y];
+    NSString* targetTypeString = [_adArea.properties objectForKey:FrameResponseAd_TargetType];
+    AdTarget targetType = [targetTypeString toAdTarget];
     
-    NSString *preExecuteUrl = [[_adArea.properties objectForKey:FrameResponseAd_PreExecuteUrl] stringByAppendingString:coordParams];
-    NSString *postExecuteUrl =  [_adArea.properties objectForKey:FrameResponseAd_PostExecuteUrl];
-    NSString *clickTarget = [_adArea.properties objectForKey:FrameResponseAd_ClickTarget];
-    
-    AdAction actionType = [PNActionObjects adActionTypeForURL:clickTarget];
-    NSString *actionLabel = [PNActionObjects adActionMethodForURLPath:clickTarget];
-    
-    NSLog(@"Preexecute URL %@", preExecuteUrl);
-    NSLog(@"Post Execute URL %@", postExecuteUrl);
-    
-    NSLog(@"Ad clicked with target (action type %i): %@", actionType, actionLabel);
-    
-    NSInteger c;
-    NSString *exc;
-    
-    switch (actionType) {
-        case AdActionHTTP: {
+    if(targetType == AdTargetUrl) {
+        //url-based target
+        NSString* clickTarget = [_adArea.properties objectForKey:FrameResponseAd_ClickTarget];
+        AdAction actionType = [clickTarget toAdAction];
+        
+        if (actionType == AdActionHTTP) {
+            //just redirect to the ad
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:clickTarget]];
-            break;
-        }
+        } else if (actionType == AdActionDefinedAction || actionType == AdActionExecuteCode) {
+            NSString* preExecuteUrl = [[_adArea.properties objectForKey:FrameResponseAd_PreExecuteUrl] stringByAppendingString:coordParams];
+            NSString* postExecuteUrl =  [_adArea.properties objectForKey:FrameResponseAd_PostExecuteUrl];
             
-            // each call (exe, perf) should be in a try catch
+            NSString* actionLabel = [PNActionObjects adActionMethodForURLPath:clickTarget];
+            NSInteger responseCode;
+            NSString* exception;
             
-        case AdActionDefinedAction: {
+            NSLog(@"Preexecute URL %@", preExecuteUrl);
+            NSLog(@"Post Execute URL %@", postExecuteUrl);
             
-            NSString *pre = [NSString stringWithFormat:@"%@&x=%d&y=%d", preExecuteUrl, x, y];
-            [self.callbackUtil submitAdImpressionToServer: pre];
-            
-            @try {
-                [[PlaynomicsMessaging sharedInstance] performActionForLabel:actionLabel];
-                c = 2;
-                exc = @"";
+            if (actionType == AdActionDefinedAction) {
+                [self.callbackUtil submitAdImpressionToServer: preExecuteUrl];
+                @try {
+                    [[PlaynomicsMessaging sharedInstance] performActionForLabel:actionLabel];
+                    responseCode = 2;
+                    exception = @"";
+                }
+                @catch (NSException *e) {
+                    responseCode = -6;
+                    exception = [NSString stringWithFormat:@"%@+%@", e.name, e.reason];
+                }
+                [self.callbackUtil submitAdImpressionToServer: postExecuteUrl];
+            } else {
+                [self.callbackUtil submitAdImpressionToServer: preExecuteUrl];
+                @try {
+                    [[PlaynomicsMessaging sharedInstance] executeActionOnDelegate:actionLabel];
+                    responseCode = 1;
+                    exception = @"";
+                }
+                @catch (NSException *e) {
+                    responseCode = -4;
+                    exception = [NSString stringWithFormat:@"%@+%@", e.name, e.reason];
+                }
+                NSString *post = [NSString stringWithFormat:@"%@&c=%d&e=%@", postExecuteUrl, responseCode, exception];
+                [self.callbackUtil submitAdImpressionToServer: post];
             }
-            @catch (NSException *e) {
-                c = -6;
-                exc = [NSString stringWithFormat:@"%@+%@", e.name, e.reason];
-            }
-            
-            [self.callbackUtil submitAdImpressionToServer: postExecuteUrl];
-            
-            break;
         }
-        case AdActionExecuteCode: {
-            NSString *pre = [NSString stringWithFormat:@"%@&x=%d&y=%d", preExecuteUrl, x, y];
-            [self.callbackUtil submitAdImpressionToServer: pre];
-            
-            @try {
-                [[PlaynomicsMessaging sharedInstance] executeActionOnDelegate:actionLabel];
-                c = 1;
-                exc = @"";
-            }
-            @catch (NSException *e) {
-                c = -4;
-                exc = [NSString stringWithFormat:@"%@+%@", e.name, e.reason];
-            }
-            
-            NSString *post = [NSString stringWithFormat:@"%@&c=%d&e=%@", postExecuteUrl, c, exc];
-            [self.callbackUtil submitAdImpressionToServer: post];
-            
-            break;
-        }
-        default: {
-            NSLog(@"Unsupported ad action specified!");
-            break;
-        }
+    } else if (targetType == AdTargetData) {
+        //handle rich data
     }
-    
     [self _closeAd];
 }
 
-- (NSString *)_determineActionLabel:(NSURL *)url {
-    NSString *resource = url.resourceSpecifier;
-    return [resource stringByReplacingOccurrencesOfString:@"//" withString:@""];
-}
-
-- (void)_closeAd {
+- (void) _closeAd {
     [_background hide];
     [self _destroyOrientationObservers];
     [self _stopExpiryTimer];
 }
 
 #pragma mark - Public Interface
-- (DisplayResult)start {
+- (DisplayResult) start {
     NSString *frameResponseURL =[_adArea.properties objectForKey:FrameResponseAd_ImpressionUrl];
     if (frameResponseURL==nil)
     {
@@ -298,7 +275,7 @@ typedef enum {
 }
 
 
-- (void)_startExpiryTimer {
+- (void) _startExpiryTimer {
     @try {
         [self _stopExpiryTimer];
         
@@ -330,7 +307,7 @@ typedef enum {
     [_delegate refreshFrameWithId:_frameId];
 }
 
-- (void)refreshProperties:(NSDictionary *)properties {
+- (void)refreshProperties: (NSDictionary *)properties {
     
     // TODO: should we reset all properties, or just the images?
     NSLog(@"refreshProperties called fro frameId: %@", _frameId);
