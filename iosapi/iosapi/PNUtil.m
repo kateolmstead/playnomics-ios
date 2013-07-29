@@ -394,4 +394,52 @@
     return [result autorelease];
 }
 
++ (BOOL) isUrl:(NSString*) url {
+    if([url length] == 0){
+        return NO;
+    }
+    return [url hasPrefix:@"https://"] || [url hasPrefix: @"http://"];
+}
+
++ (AdAction) toAdAction: (NSString*) actionUrl{
+    if([actionUrl length] == 0){
+        return AdActionNullTarget;
+    }
+    if([PNUtil isUrl: actionUrl]){
+        return AdActionHTTP;
+    }
+    if([actionUrl hasPrefix: @"pnx://"]){
+        return AdActionExecuteCode;
+    }
+    if([actionUrl hasPrefix: @"pna://" ]){
+        return AdActionDefinedAction;
+    }
+    return AdActionUnknown;
+}
+
++ (AdTarget) toAdTarget: (NSString*) adTargetType{
+    if([adTargetType length] == 0){
+        return AdTargetUnknown;
+    }
+    if([adTargetType isEqualToString: @"data"]){
+        return AdTargetData;
+    }
+    if([adTargetType isEqualToString:@"url"]){
+        return AdTargetUrl;
+    }
+    return AdTargetUnknown;
+}
+
++ (id) deserializeJsonData: (NSData*) jsonData {
+    return [self deserializeJsonDataWithOptions: jsonData readOptions: kNilOptions];
+}
+
++ (id) deserializeJsonDataWithOptions: (NSData*) jsonData readOptions: (NSJSONReadingOptions) readOptions {
+    NSError* error = nil;
+    id data = [NSJSONSerialization JSONObjectWithData:jsonData options: readOptions error:&error];
+    if(error != nil){
+        NSLog(@"Could not parse JSON string. Received error: %@", [error localizedDescription]);
+    }
+    return data;
+}
 @end

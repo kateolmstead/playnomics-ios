@@ -8,8 +8,7 @@
 #import "PNConstants.h"
 #import "PNConfig.h"
 #import "PNErrorEvent.h"
-#import "NSData+Extension.h"
-
+#import "PNUtil.h"
 
 @implementation PlaynomicsMessaging {
 @private
@@ -95,14 +94,17 @@
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", serverUrl, queryString]];
     
     NSLog(@"calling ad server: %@", url.absoluteString);
-    NSMutableData *adResponse = [NSMutableData dataWithContentsOfURL: url];
+    NSMutableData* adResponse = [NSMutableData dataWithContentsOfURL: url];
+    
+    NSLog(@"Response data: %@", adResponse);
+    
     if (adResponse == nil){
         PNErrorDetail *detail = [PNErrorDetail pNErrorDetailWithType:PNErrorTypeInvalidJson];
         [PlaynomicsSession errorReport:detail];
         return nil;
     }
     
-    NSDictionary *props = [adResponse deserializeJsonData];
+    NSDictionary *props = [PNUtil deserializeJsonData: adResponse];
     return props;
 }
 

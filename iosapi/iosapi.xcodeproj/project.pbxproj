@@ -7,9 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		322BEC4A17A2F19900C2623E /* NSString+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 322BEC4817A2F19900C2623E /* NSString+Extension.m */; };
-		322BEC4E17A316C100C2623E /* NSData+Extension.h in Headers */ = {isa = PBXBuildFile; fileRef = 322BEC4C17A316C100C2623E /* NSData+Extension.h */; };
-		322BEC4F17A316C100C2623E /* NSData+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 322BEC4D17A316C100C2623E /* NSData+Extension.m */; };
 		42FBA45F0CE45688790D1F03 /* PlaynomicsFrame.h in Headers */ = {isa = PBXBuildFile; fileRef = 42FBAE69972626B043E69F63 /* PlaynomicsFrame.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		42FBA7777582C10C8946AC08 /* PlaynomicsFrame+Exposed.h in Headers */ = {isa = PBXBuildFile; fileRef = 42FBA2AFE7443DE409B560CF /* PlaynomicsFrame+Exposed.h */; };
 		42FBA77B7E7A8D298A75735B /* PlaynomicsMessaging.m in Sources */ = {isa = PBXBuildFile; fileRef = 42FBA58FB3169ECD201AF332 /* PlaynomicsMessaging.m */; };
@@ -85,10 +82,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		322BEC4617A2EFAC00C2623E /* NSString+Extension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NSString+Extension.h"; path = "../iosapi/NSString+Extension.h"; sourceTree = "<group>"; };
-		322BEC4817A2F19900C2623E /* NSString+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+Extension.m"; path = "../iosapi/NSString+Extension.m"; sourceTree = "<group>"; };
-		322BEC4C17A316C100C2623E /* NSData+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSData+Extension.h"; path = "iosapi/NSData+Extension.h"; sourceTree = SOURCE_ROOT; };
-		322BEC4D17A316C100C2623E /* NSData+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSData+Extension.m"; path = "iosapi/NSData+Extension.m"; sourceTree = SOURCE_ROOT; };
 		42FBA2AFE7443DE409B560CF /* PlaynomicsFrame+Exposed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PlaynomicsFrame+Exposed.h"; sourceTree = "<group>"; };
 		42FBA43470BA1417AC7381CC /* BaseAdComponent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseAdComponent.m; sourceTree = "<group>"; };
 		42FBA58FB3169ECD201AF332 /* PlaynomicsMessaging.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaynomicsMessaging.m; sourceTree = "<group>"; };
@@ -187,18 +180,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		322BEC4B17A3168300C2623E /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-				322BEC4617A2EFAC00C2623E /* NSString+Extension.h */,
-				322BEC4817A2F19900C2623E /* NSString+Extension.m */,
-				322BEC4C17A316C100C2623E /* NSData+Extension.h */,
-				322BEC4D17A316C100C2623E /* NSData+Extension.m */,
-			);
-			name = Extensions;
-			path = ../Libraries;
-			sourceTree = "<group>";
-		};
 		42FBA98924738D15AF3CE573 /* Messaging */ = {
 			isa = PBXGroup;
 			children = (
@@ -424,7 +405,6 @@
 				A118C35416A8825700DFF63C /* PNAPSNotificationEvent.h in Headers */,
 				A129689516DD758900F0A47A /* PlaynomicsCallback.h in Headers */,
 				68C3137217B1C5CF0079E306 /* PNUserInfo.h in Headers */,
-				322BEC4E17A316C100C2623E /* NSData+Extension.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -551,8 +531,6 @@
 				A18E5E7B16AF6D5700004F6D /* PNErrorEvent.m in Sources */,
 				A129689616DD758900F0A47A /* PlaynomicsCallback.m in Sources */,
 				68C3137317B1C5CF0079E306 /* PNUserInfo.m in Sources */,
-				322BEC4A17A2F19900C2623E /* NSString+Extension.m in Sources */,
-				322BEC4F17A316C100C2623E /* NSData+Extension.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

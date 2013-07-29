@@ -23,11 +23,11 @@
 - (IBAction) onTransactionClick:(id)sender;
 - (IBAction) onUserInfoClick:(id)sender;
 
-- (IBAction)onMessageTLClick:(id)sender;
-- (IBAction)onMessageCCClick:(id)sender;
-- (IBAction)onMessageBRClick:(id)sender;
-- (IBAction)onMessageNoCloseClick:(id)sender;
-- (IBAction)onMessageMessOnlyClick:(id)sender;
+- (IBAction) onHttpClick: (id)sender;
+- (IBAction) onJsonClick: (id)sender;
+- (IBAction) onNullTargetClick: (id)sender;
+- (IBAction) onPnxClick: (id)sender;
+- (IBAction) onNoAdsClick:(id)sender;
 
 - (IBAction) onChangeUserClick:(id)sender;
 - (IBAction) onMilestoneClick:(id)sender;

@@ -9,8 +9,7 @@
 #import "BaseAdComponent.h"
 #import "PNErrorEvent.h"
 #import "PlaynomicsCallback.h"
-#import "NSString+Extension.h"
-#import "NSData+Extension.h"
+#import "PNUtil.h"
 #pragma mark - PlaynomicsFrame
 
 typedef enum {
@@ -194,12 +193,12 @@ typedef enum {
     
     NSString* coordParams = [NSString stringWithFormat:@"&x=%d&y=%d", x, y];
     NSString* targetTypeString = [_adArea.properties objectForKey : FrameResponseAd_TargetType];
-    AdTarget targetType = [targetTypeString toAdTarget];
+    AdTarget targetType = [PNUtil toAdTarget : targetTypeString];
     
     if(targetType == AdTargetUrl) {
         //url-based target
         NSString* clickTarget = [_adArea.properties objectForKey:FrameResponseAd_ClickTarget];
-        AdAction actionType = [clickTarget toAdAction];
+        AdAction actionType = [PNUtil toAdAction : clickTarget];
         
         if (actionType == AdActionHTTP) {
             //just redirect to the ad
@@ -256,7 +255,7 @@ typedef enum {
                 responseCode = -4;
                 NSLog(@"%@", exception);
             } else {
-                NSDictionary* jsonData = [((NSData*)targetData) deserializeJsonData];
+                NSDictionary* jsonData = [PNUtil deserializeJsonData: (NSData*)targetData];
                 [_frameDelegate onClick: jsonData];
                 responseCode = 1;
             }

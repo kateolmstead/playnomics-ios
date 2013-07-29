@@ -185,26 +185,25 @@
     [self handlePLAPIRResult:resval];
 }
 
-- (IBAction)onMessageTLClick:(id)sender {
-    [self initMsgFrame:@"testTL"];
-}
-- (IBAction)onMessageCCClick:(id)sender {
-    [self initMsgFrame:@"testCC"];    
-}
-- (IBAction)onMessageBRClick:(id)sender {
-    [self initMsgFrame:@"testBR"];    
-}
-- (IBAction)onMessageNoCloseClick:(id)sender {
-    [self initMsgFrame:@"testNoClose"];   
-}
-- (IBAction)onMessageMessOnlyClick:(id)sender {
-    [self initMsgFrame:@"testMessOnly"];  
+- (IBAction)onHttpClick:(id)sender {
+    [self initMsgFrame:@"ec964fdf18af3d80"];
 }
 
-- (IBAction)onMessageGenericClick:(id)sender {
-    [self initMsgFrame:_frameIdText.text];
+- (IBAction)onJsonClick:(id)sender {
+    [self initMsgFrame:@"7a9138a971ce1773"];    
 }
 
+- (IBAction)onNullTargetClick:(id)sender {
+    [self initMsgFrame:@"c6877f336e9d9dda"];    
+}
+
+- (IBAction)onPnxClick:(id)sender {
+    [self initMsgFrame:@"546e241b9b97149b"];   
+}
+
+-(IBAction)onNoAdsClick:(id)sender{
+    [self initMsgFrame:@"15bec4e2b78424a2"];
+}
 
 - (void) initMsgFrame: (NSString *) frameId {
     // Retrieve the ad frame you need using the provided Frame ID and start it.  Once all of the assets are loaded

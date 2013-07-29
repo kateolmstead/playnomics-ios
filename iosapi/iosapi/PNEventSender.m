@@ -21,10 +21,7 @@
 - (id) initWithTestMode:(BOOL)testMode {
     if (self = [super init]) {
         _testMode = testMode;
-        
-        
         _version = [PNPropertyVersion retain];
-        
         _connectTimeout = PNPropertyConnectionTimeout;
     }
     return self;
