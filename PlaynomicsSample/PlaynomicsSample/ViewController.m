@@ -9,6 +9,7 @@
 
 #import "ViewController.h"
 #import "PlaynomicsSession.h"
+#import "FrameDelegate.h"
 
 @implementation ViewController
 @synthesize transactionCount;
@@ -206,24 +207,17 @@
 }
 
 - (void) initMsgFrame: (NSString *) frameId {
-    // Retrieve the ad frame you need using the provided Frame ID and start it.  Once all of the assets are loaded
-    //   the frame will display itself.
     PlaynomicsMessaging *messaging = [PlaynomicsMessaging sharedInstance];
-    
-    
-    //FIXME: this needs to be on another thread
-    PlaynomicsFrame *frame = [messaging createFrameWithId:frameId];
+    FrameDelegate* frameDelegate = [[FrameDelegate alloc] initWithFrameId:frameId];
+    PlaynomicsFrame* frame = [messaging createFrameWithId : frameId frameDelegate : frameDelegate];
     DisplayResult result = [frame start];
-    if (result==DisplayResultFailUnknown) {
-       
-    }else
-        NSLog(@"Result of calling start: %i", result);
-
+    [frameDelegate autorelease];
+    
 }
 
--(void)onpnx
+-(void)onPnx
 {
-        [[[[UIAlertView alloc] initWithTitle:@"pnx success!" message:@"i am the call back from pnx" delegate:nil cancelButtonTitle:@"ok" otherButtonTitles: nil] autorelease]show];
+    [[[[UIAlertView alloc] initWithTitle:@"pnx success!" message:@"i am the call back from pnx" delegate:nil cancelButtonTitle:@"ok" otherButtonTitles: nil] autorelease]show];
 }
 
 #pragma mark Misc Functions
@@ -235,18 +229,6 @@
                                           otherButtonTitles:nil];
     [alert show];
     [alert release];
-}
-
-- (void)someRandomExecution {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Test Execution"
-                                                    message:@"You're performing a test EXECUTION."
-                                                   delegate:self
-                                          cancelButtonTitle:@"OK"
-                                          otherButtonTitles:nil];
-    [alert show];
-    [alert release];
-    
-    // @throw [NSException exceptionWithName:@"Test Exception" reason:@"Oopps...I was a bad boy" userInfo:nil];
 }
 
 - (void) handlePLAPIRResult: (PNAPIResult) result {

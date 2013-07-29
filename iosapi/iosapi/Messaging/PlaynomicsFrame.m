@@ -56,7 +56,9 @@ typedef enum {
             _adType = AdUnknown;
         }
 
-        _frameDelegate = frameDelegate;
+        if(frameDelegate != nil) {
+            _frameDelegate = [frameDelegate retain];
+        }
         
         self.callbackUtil = [[[PlaynomicsCallback alloc] init] autorelease];
         
@@ -67,11 +69,16 @@ typedef enum {
 }
 
 - (void) dealloc {
+    
     [_properties release];
     [_background release];
     [_adArea release];
     [_closeButton release];
     [_frameId release];
+    if(_frameDelegate != nil){
+        [_frameDelegate release];
+    }
+    
     [super dealloc];
 }
 
@@ -83,7 +90,7 @@ typedef enum {
     
     _adArea = [[BaseAdComponent alloc] initWithProperties:[self _mergeAdInfoProperties]
                                                  forFrame:self
-                                         withTouchHandler:[[self _mergeAdInfoProperties] valueForKey:FrameResponseAd_ClickTarget] != nil && [[self _mergeAdInfoProperties] valueForKey:FrameResponseAd_ClickTarget] != [NSNull null] ? @selector(_adClicked:) : nil
+                                         withTouchHandler: @selector(_adClicked:)
                                               andDelegate:self];
     
     _closeButton = [[BaseAdComponent alloc] initWithProperties:[_properties objectForKey:FrameResponseCloseButtonInfo]
@@ -108,7 +115,7 @@ typedef enum {
     id displayNameTypeValue = _background.imageUrl;
     
     if (displayNameTypeValue != [NSNull null]){
-        if(_background.imageUrl == NULL || [_background.imageUrl isEqualToString:@"null"]){
+        if(_background.imageUrl == (id)[NSNull null]){
             [_background setStatus:AdComponentStatusCompleted];
         }
     } else {
@@ -118,7 +125,7 @@ typedef enum {
     displayNameTypeValue = _closeButton.imageUrl;
     
     if (displayNameTypeValue != [NSNull null]){
-        if(_closeButton.imageUrl == NULL || [_closeButton.imageUrl isEqualToString:@"null"]){
+        if(_closeButton.imageUrl == (id)[NSNull null]){
             [_closeButton setStatus:AdComponentStatusCompleted];
         }
     } else {
@@ -193,12 +200,13 @@ typedef enum {
     
     NSString* coordParams = [NSString stringWithFormat:@"&x=%d&y=%d", x, y];
     NSString* targetTypeString = [_adArea.properties objectForKey : FrameResponseAd_TargetType];
-    AdTarget targetType = [PNUtil toAdTarget : targetTypeString];
+    AdTarget targetType = [self toAdTarget : targetTypeString];
     
     if(targetType == AdTargetUrl) {
         //url-based target
+        
         NSString* clickTarget = [_adArea.properties objectForKey:FrameResponseAd_ClickTarget];
-        AdAction actionType = [PNUtil toAdAction : clickTarget];
+        AdAction actionType = [self toAdAction : clickTarget];
         
         if (actionType == AdActionHTTP) {
             //just redirect to the ad
@@ -209,34 +217,29 @@ typedef enum {
             
             NSString* actionLabel = [self adActionMethodForURLPath:clickTarget];
             NSInteger responseCode;
-            NSString* exception;
+            NSException* exception = nil;
             
+            [self.callbackUtil submitRequestToServer: preExecuteUrl];
             if (actionType == AdActionDefinedAction) {
-                [self.callbackUtil submitRequestToServer: preExecuteUrl];
                 @try {
                     [[PlaynomicsMessaging sharedInstance] performActionForLabel:actionLabel];
                     responseCode = 2;
-                    exception = @"";
                 }
-                @catch (NSException *e) {
+                @catch (NSException* e) {
                     responseCode = -6;
-                    exception = [NSString stringWithFormat:@"%@+%@", e.name, e.reason];
+                    exception = e;
                 }
-                [self.callbackUtil submitRequestToServer: postExecuteUrl];
             } else {
-                [self.callbackUtil submitRequestToServer: preExecuteUrl];
                 @try {
                     [[PlaynomicsMessaging sharedInstance] executeActionOnDelegate:actionLabel];
                     responseCode = 1;
-                    exception = @"";
                 }
                 @catch (NSException *e) {
                     responseCode = -4;
-                    exception = [NSString stringWithFormat:@"%@+%@", e.name, e.reason];
+                    exception = e;
                 }
-                NSString *post = [NSString stringWithFormat:@"%@&c=%d&e=%@", postExecuteUrl, responseCode, exception];
-                [self.callbackUtil submitRequestToServer: post];
             }
+            [self callPostAction: postExecuteUrl withException: exception andResponseCode: responseCode];
         }
     } else if (targetType == AdTargetData) {
         //handle rich data
@@ -244,28 +247,26 @@ typedef enum {
         NSString* postExecuteUrl =  [_adArea.properties objectForKey:FrameResponseAd_PostExecuteUrl];
 
         NSInteger responseCode;
-        NSString* exception;
-        
+        NSException* exception = nil;
         NSString* targetData = [_adArea.properties objectForKey:FrameResponseAd_TargetData];
+        
         [self.callbackUtil submitRequestToServer: preExecuteUrl];
         
         @try {
             if(_frameDelegate == nil || ![_frameDelegate respondsToSelector:@selector(onClick:)]){
-                exception = @"Received a click but could not send the data to the frameDelegate";
                 responseCode = -4;
-                NSLog(@"%@", exception);
+                NSLog(@"Received a click but could not send the data to the frameDelegate");
             } else {
-                NSDictionary* jsonData = [PNUtil deserializeJsonData: (NSData*)targetData];
+                NSDictionary* jsonData = [PNUtil deserializeJsonString: targetData];
                 [_frameDelegate onClick: jsonData];
                 responseCode = 1;
             }
         }
         @catch (NSException *e) {
-            exception = [NSString stringWithFormat:@"%@+%@", e.name, e.reason];
+            exception = e;
             responseCode = -4;
         }
-        NSString *post = [NSString stringWithFormat:@"%@&c=%d&e=%@", postExecuteUrl, responseCode, exception];
-        [self.callbackUtil submitRequestToServer: post];
+        [self callPostAction: postExecuteUrl withException: exception andResponseCode: responseCode];
     }
     [self _closeAd];
 }
@@ -281,6 +282,17 @@ typedef enum {
     NSString *resource = [comps objectAtIndex:1];
     return [resource stringByReplacingOccurrencesOfString:@"//" withString:@""];
 }
+
+-(void) callPostAction:(NSString*) postUrl withException: (NSException*) exception andResponseCode: (NSInteger) code{
+    NSString* fullPostActionUrl;
+    if(exception != nil){
+        NSString* exceptionMessage = [PNUtil urlEncodeValue: [NSString stringWithFormat:@"%@+%@", exception.name, exception.reason]];
+        fullPostActionUrl = [NSString stringWithFormat:@"%@&c=%d&e=%@", postUrl, code, exceptionMessage];
+    } else {
+        fullPostActionUrl = [NSString stringWithFormat:@"%@&c=%d", postUrl, code];
+    }
+    [self.callbackUtil submitRequestToServer: fullPostActionUrl];
+}   
 
 #pragma mark - Public Interface
 - (DisplayResult) start {
@@ -363,4 +375,33 @@ typedef enum {
     }
 }
 
+
+- (AdAction) toAdAction: (NSString*) actionUrl{
+    if(actionUrl == (id)[NSNull null]){
+        return AdActionNullTarget;
+    }
+    if([PNUtil isUrl: actionUrl]){
+        return AdActionHTTP;
+    }
+    if([actionUrl hasPrefix: @"pnx://"]){
+        return AdActionExecuteCode;
+    }
+    if([actionUrl hasPrefix: @"pna://" ]){
+        return AdActionDefinedAction;
+    }
+    return AdActionUnknown;
+}
+
+- (AdTarget) toAdTarget: (NSString*) adTargetType{
+    if(adTargetType == (id)[NSNull null]){
+        return AdTargetUnknown;
+    }
+    if([adTargetType isEqualToString: @"data"]){
+        return AdTargetData;
+    }
+    if([adTargetType isEqualToString:@"url"]){
+        return AdTargetUrl;
+    }
+    return AdTargetUnknown;
+}
 @end

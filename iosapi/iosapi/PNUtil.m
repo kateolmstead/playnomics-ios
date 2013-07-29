@@ -401,34 +401,11 @@
     return [url hasPrefix:@"https://"] || [url hasPrefix: @"http://"];
 }
 
-+ (AdAction) toAdAction: (NSString*) actionUrl{
-    if([actionUrl length] == 0){
-        return AdActionNullTarget;
-    }
-    if([PNUtil isUrl: actionUrl]){
-        return AdActionHTTP;
-    }
-    if([actionUrl hasPrefix: @"pnx://"]){
-        return AdActionExecuteCode;
-    }
-    if([actionUrl hasPrefix: @"pna://" ]){
-        return AdActionDefinedAction;
-    }
-    return AdActionUnknown;
++(id) deserializeJsonString:(NSString *)jsonString{
+    NSData* encodedData = [jsonString  dataUsingEncoding:NSUTF8StringEncoding];
+    return [self deserializeJsonData: encodedData];
 }
 
-+ (AdTarget) toAdTarget: (NSString*) adTargetType{
-    if([adTargetType length] == 0){
-        return AdTargetUnknown;
-    }
-    if([adTargetType isEqualToString: @"data"]){
-        return AdTargetData;
-    }
-    if([adTargetType isEqualToString:@"url"]){
-        return AdTargetUrl;
-    }
-    return AdTargetUnknown;
-}
 
 + (id) deserializeJsonData: (NSData*) jsonData {
     return [self deserializeJsonDataWithOptions: jsonData readOptions: kNilOptions];

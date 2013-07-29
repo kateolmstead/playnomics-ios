@@ -59,10 +59,8 @@ typedef enum {
 +(NSString *) urlEncodeValue: (NSString *) unescapedValue;
 
 + (BOOL) isUrl:(NSString*) url;
-+ (AdAction) toAdAction: (NSString*) actionUrl;
-+ (AdTarget) toAdTarget: (NSString*) adTargetType;
-
 + (id) deserializeJsonData: (NSData*) jsonData ;
 + (id) deserializeJsonDataWithOptions: (NSData*) jsonData readOptions: (NSJSONReadingOptions) readOptions ;
++ (id) deserializeJsonString:(NSString *)jsonString;
 @end
 

@@ -13,7 +13,7 @@
 
 
 - (void)submitRequestToServer:(NSString *)impressionUrl {
-    if (impressionUrl==nil || impressionUrl.length<=0)
+    if (impressionUrl == nil || impressionUrl.length<=0)
         return;//we will crash here...stop everything
     
     NSURL *url = [NSURL URLWithString:impressionUrl];
