@@ -27,7 +27,7 @@
 #import "PlaynomicsMessaging+Exposed.h"
 #import "PNUserInfo.h"
 
-@interface PlaynomicsSession () {
+@interface PlaynomicsSession(){
     
     PNSessionState _sessionState;
     
@@ -46,6 +46,14 @@
 	NSString *_sessionId;
 	NSString *_instanceId;
 	
+    NSString* _testEventsUrl;
+    NSString* _prodEventsUrl;
+    NSString* _overrideEventsUrl;
+    
+    NSString* _testMessagingUrl;
+    NSString* _prodMessagingUrl;
+    NSString* _overrideMessagingUrl;
+    
     NSTimeInterval _sessionStartTime;
 	NSTimeInterval _pauseTime;
     
@@ -82,6 +90,8 @@
 @synthesize testMode=_testMode;
 @synthesize eventSender=_eventSender;
 @synthesize playnomicsEventList=_playnomicsEventList;
+@synthesize overrideEventsUrl=_overrideEventsUrl;
+@synthesize overrideMessagingUrl=_overrideMessagingUrl;
 
 //Singleton
 + (PlaynomicsSession *)sharedInstance{
@@ -93,13 +103,36 @@
 + (void) setTestMode: (bool) testMode {
     @try {
         [[PlaynomicsSession sharedInstance] setTestMode: testMode];
-        [[PlaynomicsSession sharedInstance] eventSender].testMode = testMode;
     }
     @catch (NSException *exception) {
         NSLog(@"setTestMode error: %@", exception.description);
     }
 }
 
++ (bool) getTestMode{
+    return [[PlaynomicsSession sharedInstance] testMode];
+}
+
++(void) setOverrideEventsUrl:(NSString *)url{
+    [[PlaynomicsSession sharedInstance] setOverrideEventsUrl: url];
+}
+
++(NSString*) getOverrideEventsUrl{
+    return [[PlaynomicsSession sharedInstance] overrideEventsUrl];
+}
+
++(void) setOverrideMessagingUrl:(NSString *)url{
+    [[PlaynomicsSession sharedInstance] setOverrideMessagingUrl: url];
+}
+            
++(NSString*) getOverrideMessagingUrl{
+    return [[PlaynomicsSession sharedInstance] overrideEventsUrl];
+}
+
++(NSString*) getSDKVersion{
+    return PNPropertyVersion;
+}
+            
 + (PNAPIResult) changeUserWithUserId:(NSString *)userId {
     @try {
         [[PlaynomicsSession sharedInstance] stop];
@@ -148,10 +181,19 @@
     if ((self = [super init])) {
         _collectMode = PNSettingCollectionMode;
         _sequence = 0;
+        //does setting this to empty, make any sense?
         _userId = @"";
+        //does setting this to empty, make any sense?
         _sessionId = @"";
         _playnomicsEventList = [[NSMutableArray alloc] init];
         _eventSender = [[PNEventSender alloc] init];
+        
+        _testEventsUrl = PNPropertyBaseTestUrl;
+        _prodEventsUrl = PNPropertyBaseProdUrl;
+        
+        _testMessagingUrl = PNPropertyMessagingTestUrl;
+        _prodMessagingUrl = PNPropertyMessagingProdUrl;
+        
         self.callback = [[[PlaynomicsCallback alloc] init] autorelease];
     }
     
@@ -168,9 +210,31 @@
 	[_sessionId release];
 	[_instanceId release];
     
+    [_overrideEventsUrl release];
+    [_overrideMessagingUrl release];
     [super dealloc];
 }
 
+#pragma mark - URLs
+-(NSString*) getEventsUrl{
+    if(_overrideEventsUrl != nil){
+        return _overrideEventsUrl;
+    }
+    if(_testMode){
+        return _testEventsUrl;
+    }
+    return _prodEventsUrl;
+}
+
+-(NSString*) getMessagingUrl{
+    if(_overrideMessagingUrl != nil){
+        return _overrideMessagingUrl;
+    }
+    if(_testMode){
+        return _testMessagingUrl;
+    }
+    return _prodMessagingUrl;
+}
 
 #pragma mark - Session Control Methods
 - (PNAPIResult) startWithApplicationId:(signed long long) applicationId userId: (NSString *) userId {

@@ -80,17 +80,10 @@
     int screenWidth = screenRect.size.width;
     int screenHeight = screenRect.size.height;
     
-    NSString *queryString = [NSString stringWithFormat:@"?a=%lld&u=%@&p=%@&t=%lld&b=%@&f=%@&c=%d&d=%d&esrc=ios&ever=%@",
-                             pn.applicationId, pn.userId, caller, time, pn.cookieId, frameId, screenHeight, screenWidth, PNPropertyVersion];
-    NSString *serverUrl;
-    
-    // Check for test mode
-    if ([pn testMode]) {
-        serverUrl = PNPropertyMessagingTestUrl;
-    } else {
-        serverUrl = PNPropertyMessagingProdUrl;
-    }
-    
+    NSString *queryString = [NSString stringWithFormat:@"ads?a=%lld&u=%@&p=%@&t=%lld&b=%@&f=%@&c=%d&d=%d&esrc=ios&ever=%@",
+                             pn.applicationId, pn.userId, caller, time, pn.cookieId, frameId, screenHeight, screenWidth, [PlaynomicsSession getSDKVersion]];
+    NSString *serverUrl = [pn getMessagingUrl];
+
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", serverUrl, queryString]];
     
     NSLog(@"calling ad server: %@", url.absoluteString);

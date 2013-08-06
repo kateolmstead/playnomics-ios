@@ -15,11 +15,9 @@
 // Playnomics server urls
 #define PNPropertyBaseTestUrl @"https://e.b.playnomics.net/v1/"
 #define PNPropertyBaseProdUrl @"https://e.a.playnomics.net/v1/"
-
 //TODO: get correct urls
-#define PNPropertyMessagingDebugUrl @"http://pn-qa.grio.com/sample_ad_data-animated.js"
-#define PNPropertyMessagingTestUrl @"https://ads.b.playnomics.net/v1/ads"
-#define PNPropertyMessagingProdUrl @"https://ads.a.playnomics.net/v1/ads"
+#define PNPropertyMessagingTestUrl @"https://ads.b.playnomics.net/v1/"
+#define PNPropertyMessagingProdUrl @"https://ads.a.playnomics.net/v1/"
 
 #define PNPropertyVersion @"8.2"
 // Connection timeout in seconds

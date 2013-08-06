@@ -17,6 +17,9 @@
 @interface PlaynomicsSession () <PNUserInfoChangeActionHandler>
 
 @property (nonatomic, assign) bool testMode;
+@property (nonatomic, copy) NSString* overrideEventsUrl;
+@property (nonatomic, copy) NSString* overrideMessagingUrl;
+@property (nonatomic, readonly) NSString* sdkVersion;
 @property (nonatomic, readonly) signed long long applicationId;
 @property (nonatomic, readonly) NSString * userId;
 @property (nonatomic, readonly) NSString * cookieId;
@@ -24,12 +27,14 @@
 @property (nonatomic, readonly) PNSessionState sessionState;
 
 + (PlaynomicsSession *)sharedInstance;
-
 - (void) onKeyPressed: (NSNotification *) notification;
 - (void) onTouchDown: (UIEvent *) event;
 - (void) onApplicationWillResignActive: (NSNotification *) notification;
 - (void) onApplicationDidBecomeActive: (NSNotification *) notification;
 - (void) onApplicationWillTerminate: (NSNotification *) notification;
+
+- (NSString*) getMessagingUrl;
+- (NSString*) getEventsUrl;
 @end
 
 #endif

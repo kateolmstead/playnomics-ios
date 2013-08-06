@@ -7,7 +7,6 @@
 //
 
 #import "AppDelegate.h"
-
 #import "ViewController.h"
 #import "PlaynomicsSession.h"
 @implementation AppDelegate
@@ -58,7 +57,11 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     long appId = 2L;
-    [PlaynomicsSession setTestMode:NO];
+    //[PlaynomicsSession setTestMode:NO];
+    
+    [PlaynomicsSession setOverrideMessagingUrl: @"https://ads.c.playnomics.net/v1/"];
+    [PlaynomicsSession setOverrideEventsUrl: @"https://e.c.playnomics.net/v1/"];
+    
     [PlaynomicsSession startWithApplicationId:appId];
     
     //enable notifications

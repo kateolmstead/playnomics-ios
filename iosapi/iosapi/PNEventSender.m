@@ -1,5 +1,5 @@
+#import "PlaynomicsSession+Exposed.h"
 #import "PNEventSender.h"
-
 #import "PNConfig.h"
 #import "PNEvent.h"
 
@@ -10,18 +10,8 @@
 
 @implementation PNEventSender
 
-@synthesize testMode=_testMode;
-
 - (id) init {
-    if (self = [self initWithTestMode: NO]) {
-    }
-    return self;
-}
-
-- (id) initWithTestMode:(BOOL)testMode {
     if (self = [super init]) {
-        _testMode = testMode;
-        _version = [PNPropertyVersion retain];
         _connectTimeout = PNPropertyConnectionTimeout;
     }
     return self;
@@ -29,20 +19,16 @@
 
 - (void) sendEventToServer:(PNEvent *)pe withEventQueue: (NSMutableArray *) eventQueue {
 
-    if (_testMode) {
-        _baseUrl = [PNPropertyBaseTestUrl retain];
-    }
-    else
-        _baseUrl = [PNPropertyBaseProdUrl retain];
-
-    NSString * eventUrl = [_baseUrl stringByAppendingString:[pe toQueryString]];
-    if (eventUrl ==nil)
+    PlaynomicsSession* play = [PlaynomicsSession sharedInstance];
+    NSString* baseEventsUrl =  [play getEventsUrl];
+    NSString* eventUrl = [baseEventsUrl stringByAppendingString:[pe toQueryString]];
+    if (eventUrl == nil)
     {
         NSLog(@"WARNING...missing event utl\r\n---> %@",self);
         NSLog(@"%d,%s",__LINE__,__FUNCTION__);
         return;
     }
-    eventUrl = [eventUrl stringByAppendingFormat:@"&esrc=ios&ever=%@", _version];
+    eventUrl = [eventUrl stringByAppendingFormat:@"&esrc=ios&ever=%@", [PlaynomicsSession getSDKVersion]];
     
     NSLog(@"Sending event to server: %@", eventUrl);
     
@@ -138,8 +124,6 @@
 
 - (void) dealloc {
     //NSLog(@"debug ~ deallocating PNEventSender");
-    [_version release];
-    [_baseUrl release];
     [super dealloc];
 }
 
