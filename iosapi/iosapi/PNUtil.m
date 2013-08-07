@@ -6,7 +6,9 @@
 //  Copyright (c) 2012 Grio. All rights reserved.
 //
 
+#import "PlaynomicsSession+Exposed.h"
 #import "PNUtil.h"
+#import <AdSupport/AdSupport.h>
 
 
 @implementation PNUtil
@@ -15,17 +17,35 @@
  *  This provides a suitable means for having a unique device ID
  */
 + (NSString *) getDeviceUniqueIdentifier {
-    UIPasteboard *pasteBoard = [UIPasteboard pasteboardWithName:@"com.playnomics.uniqueDeviceId" create:YES];
-    pasteBoard.persistent = YES;
+    // First check the old pasteboard (pre v8.2) to see if the Playnomics breadcrumbId exists
+    UIPasteboard *pasteBoard = [UIPasteboard pasteboardWithName:PNUserDefaultsLastDeviceID create:NO];
     NSString *storedUUID = [pasteBoard string];
     
+    // If it doesn't exist, create a new Playnomics breadcrumbId, but don't save it anywhere
+    // The calling method will save it
     if ([storedUUID length] == 0) {
         CFUUIDRef uuidRef = CFUUIDCreate(kCFAllocatorDefault);
         storedUUID = [(NSString *)CFUUIDCreateString(NULL,uuidRef) autorelease];
         CFRelease(uuidRef);
-        pasteBoard.string = storedUUID;
     }
+    
     return storedUUID;
+}
+
+// Unique to an app group, which is tied by the organization deploying the apps to the AppStore
++ (NSString *) getVendorIdentifier {
+    return [[[UIDevice currentDevice] identifierForVendor] UUIDString];
+}
+
++ (NSDictionary *) getAdvertisingInfo {
+    NSMutableDictionary *advertisingInfo = [NSMutableDictionary dictionary];
+    ASIdentifierManager *manager = [ASIdentifierManager sharedManager];
+    
+    [advertisingInfo setValue:(manager.isAdvertisingTrackingEnabled ? @"false" : @"true") forKey:PNPasteboardLastLimitAdvertising];
+    [advertisingInfo setValue:[manager.advertisingIdentifier UUIDString] forKey:PNPasteboardLastIDFA];
+    
+    NSLog(@"Latest Advertising Information is:%@", advertisingInfo);
+    return advertisingInfo;
 }
 
 + (UIInterfaceOrientation)getCurrentOrientation {

@@ -8,12 +8,13 @@
 
 #ifndef iosapi_PlaynomicsSession_Exposed_h
 #define iosapi_PlaynomicsSession_Exposed_h
+#import "PNUserInfo.h"
 
 /**
  *  Only use this within the Static Lib.
  */
 
-@interface PlaynomicsSession ()
+@interface PlaynomicsSession () <PNUserInfoChangeActionHandler>
 
 @property (nonatomic, assign) bool testMode;
 @property (nonatomic, readonly) signed long long applicationId;

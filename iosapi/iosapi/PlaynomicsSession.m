@@ -26,6 +26,7 @@
 #import "PlaynomicsSession+Exposed.h"
 #import "PNActionObjects.h"
 #import "PlaynomicsMessaging+Exposed.h"
+#import "PNUserInfo.h"
 
 @interface PlaynomicsSession () {
     
@@ -180,6 +181,7 @@
 
 - (PNAPIResult) startWithApplicationId:(signed long long) applicationId {
     NSLog(@"startWithApplicationId");
+    
     if (_sessionState == PNSessionStateStarted) {
         return PNAPIResultAlreadyStarted;
     }
@@ -225,7 +227,8 @@
     _sessionState = PNSessionStateStarted;
     _applicationId = applicationId;
     
-    _cookieId = [[PNUtil getDeviceUniqueIdentifier] retain];
+    PNUserInfo *userInfo = [[PNUserInfo alloc] init:self];
+    _cookieId = [userInfo breadcrumbId];
     
     // Set userId to cookieId if it isn't present
     if ([_userId length] == 0) {
@@ -248,9 +251,7 @@
     PNEventType eventType;
     
     NSTimeInterval currentTime = [[NSDate date] timeIntervalSince1970];
-    // Send an appStart if it has been > 3 min since the last session or
-    // a
-    // different user
+    // Send an appStart if it has been > 3 min since the last session or a different user
     // otherwise send an appPage
     if ((currentTime - lastSessionStartTime > PNSessionTimeout)
         || ![_userId isEqualToString:lastUserId]) {
@@ -264,8 +265,7 @@
         [userDefaults setDouble:_sessionStartTime forKey:PNUserDefaultsLastSessionStartTime];
         [userDefaults setObject:_userId forKey:PNUserDefaultsLastUserID];
         [userDefaults synchronize];
-    }
-    else {
+    } else {
         _sessionId = [userDefaults objectForKey:PNUserDefaultsLastSessionID];
         // Always create a new Instance Id
         _instanceId = [[PNRandomGenerator createRandomHex] retain];
@@ -845,7 +845,7 @@
         UIApplicationState state = [[UIApplication sharedApplication] applicationState];
         // only append the flag "pushIgnored" if the app is in Active state and either
         // the game developer doesn't pass us the flag "pushIgnored" in the dictionary or they do pass the flag and set it to YES
-        if (state == UIApplicationStateActive && !([payload objectForKey:PushInteractionUrl_IgnoredParam] && [[payload valueForKey:PushInteractionUrl_IgnoredParam] isEqual:[NSNumber numberWithBool:NO]])) {
+        if (state == UIApplicationStateActive && !([payload objectForKey:PushInteractionUrl_IgnoredParam] && [[payload objectForKey:PushInteractionUrl_IgnoredParam] isEqual:[NSNumber numberWithBool:NO]])) {
             trackedCallback = [trackedCallback stringByAppendingFormat:@"&%@",PushInteractionUrl_IgnoredParam];
         }
         
@@ -879,6 +879,23 @@
     NSString *adeviceToken = [[deviceToken description] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]];
     adeviceToken = [adeviceToken stringByReplacingOccurrencesOfString:@" " withString:@""];
     return adeviceToken;
+}
+
+- (void)performActionOnIdsChangedWithBreadcrumbId: (NSString*) breadcrumbId
+                              andLimitAdvertising: (NSString*) limitAdvertising
+                                          andIDFA: (NSString*) idfa
+                                          andIDFV: (NSString*) idfv {
+    NSLog(@"User Info was modified so sending a userInfo update");
+    PlaynomicsSession * s =[PlaynomicsSession sharedInstance];
+    PNUserInfoEvent *userInfoEvent = [[PNUserInfoEvent alloc] initWithAdvertisingInfo:s.applicationId
+                                                                               userId:[s.userId length] == 0 ? breadcrumbId : s.userId
+                                                                              cookieId:breadcrumbId
+                                                                                  type:PNUserInfoTypeUpdate
+                                                                      limitAdvertising:limitAdvertising
+                                                                                  idfa:idfa
+                                                                                  idfv:idfv];
+    userInfoEvent.internalSessionId = s.sessionId;
+    [self sendOrQueueEvent:userInfoEvent];
 }
 
 @end
