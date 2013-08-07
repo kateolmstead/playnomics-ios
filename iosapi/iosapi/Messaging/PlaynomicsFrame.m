@@ -199,7 +199,7 @@ typedef enum {
     int y = location.y;
     
     NSString* coordParams = [NSString stringWithFormat:@"&x=%d&y=%d", x, y];
-    NSString* targetTypeString = [_adArea.properties objectForKey : FrameResponseAd_TargetType];
+    NSString* targetTypeString = [_adArea.properties objectForKey:FrameResponseAd_TargetType];
     AdTarget targetType = [self toAdTarget : targetTypeString];
     
     if(targetType == AdTargetUrl) {
