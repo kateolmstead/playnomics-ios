@@ -50,9 +50,7 @@
         _idfv = [[PNUtil getVendorIdentifier] retain];
         
         if (![oldLimitAdvertising isEqualToString:_limitAdvertising] || ![oldIDFA isEqualToString:_idfa] || ![oldIDFV isEqualToString:_idfv]) {
-            NSLog(@"Old flag changed from %@ to %@", oldLimitAdvertising, _limitAdvertising);
-            NSLog(@"Old IDFA changed from %@ to %@", oldIDFA, _idfa);
-            NSLog(@"Old IDFV changed from %@ to %@", oldIDFV, _idfv);
+            
             [[NSUserDefaults standardUserDefaults] setObject:_idfv forKey:PNUserDefaultsLastIDFV];
             NSDictionary *pnData = [NSDictionary dictionaryWithObjects:
                                     [NSArray
@@ -60,11 +58,6 @@
                                     forKeys:[NSArray arrayWithObjects:PNPasteboardLastBreadcrumbID, PNPasteboardLastLimitAdvertising, PNPasteboardLastIDFA, nil]];
             [actionHandler performActionOnIdsChangedWithBreadcrumbId:_breadcrumbId andLimitAdvertising: _limitAdvertising andIDFA:_idfa andIDFV:_idfv];
             pasteboard.items = [NSArray arrayWithObject:pnData];
-        } else {
-            NSLog(@"Old flag is %@ while new flag is %@", oldLimitAdvertising, _limitAdvertising);
-            NSLog(@"Old IDFA is %@ while new IDFA is %@", oldIDFA, _idfa);
-            NSLog(@"Old IDFV is %@ while new IDFV is %@", oldIDFV, _idfv);
-            [UIPasteboard removePasteboardWithName:PNPasteboardName];
         }
     }
     return self;
