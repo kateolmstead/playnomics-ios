@@ -12,8 +12,14 @@
 #import "PlaynomicsCallback.h"
 #pragma mark - PlaynomicsFrame
 
+typedef enum {
+    AdColony,
+    AdUnknown
+} AdType;
+
 @interface PlaynomicsFrame()
 @property (nonatomic,retain)PlaynomicsCallback *callbackUtil;
+@property (nonatomic,retain)NSString *videoViewUrl;
 @end
 
 @implementation PlaynomicsFrame {
@@ -26,6 +32,7 @@
     int _expirationSeconds;
     UIInterfaceOrientation _currentOrientation;
     id<PNFrameRefreshHandler> _delegate;
+    AdType _adType;
 }
 
 @synthesize frameId = _frameId;
@@ -36,6 +43,14 @@
         _frameId = [frameId retain];
         _properties = [properties retain];
         _delegate = delegate;
+
+        if ([properties objectForKey:FrameResponseAd_AdType] && [[properties objectForKey:FrameResponseAd_AdType] isEqualToString:@"AdColony"]) {
+            _adType = AdColony;
+            self.videoViewUrl = [properties objectForKey:FrameResponseAd_VideoViewUrl];
+        } else {
+            _adType = AdUnknown;
+        }
+
         self.callbackUtil = [[[PlaynomicsCallback alloc] init] autorelease];
         
         [self _initOrientationChangeObservers];
@@ -266,6 +281,11 @@
         return DisplayResultFailUnknown;
     }
     
+    if (_adType == AdColony) {
+        [self.callbackUtil submitAdImpressionToServer:frameResponseURL];
+        return DisplayAdColony;
+    }
+    
     [_background display];
     [self _startExpiryTimer];
     
@@ -327,6 +347,10 @@
     [self start];
 }
 
-
+- (void)sendVideoView {
+    if (self.videoViewUrl!=nil) {
+        [self.callbackUtil submitAdImpressionToServer:self.videoViewUrl];
+    }
+}
 
 @end
