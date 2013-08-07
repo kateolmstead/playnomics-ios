@@ -60,6 +60,16 @@ typedef enum {
 #define PNUserDefaultsLastSessionID @"com.playnomics.lastSessionId"
 #define PNUserDefaultsLastUserID @"com.playnomics.lastUserId"
 #define PNUserDefaultsLastDeviceToken @"com.playnomics.lastDeviceToken"
+#define PNUserDefaultsLastIDFV @"com.playnomics.lastIDFV"
+// Deprecate this eventually once everyone has migrated to version 8.2 or later of the SDK
+// since we are moving this field to the Pasteboard
+#define PNUserDefaultsLastDeviceID @"com.playnomics.uniqueDeviceId"
+
+// Information that we store on the Pasteboard so they remain persistent across sessions
+#define PNPasteboardName @"com.playnomics.pasteboardData"
+#define PNPasteboardLastBreadcrumbID @"lastBreadcrumbId"
+#define PNPasteboardLastLimitAdvertising @"lastLimitAdvertising"
+#define PNPasteboardLastIDFA @"lastIDFA"
 
 // Ad Response: Common
 #define FrameResponseHeight @"h"
@@ -87,6 +97,8 @@ typedef enum {
 #define FrameResponseAd_ImpressionUrl @"s"
 #define FrameResponseAd_FlagUrl @"f"
 #define FrameResponseAd_CloseUrl @"d"
+#define FrameResponseAd_AdType @"type"
+#define FrameResponseAd_VideoViewUrl @"view"
 
 // Ad Response: Background keys
 #define FrameResponseBackground_Landscape @"l"

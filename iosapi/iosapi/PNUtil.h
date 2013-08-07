@@ -15,6 +15,8 @@
 @interface PNUtil : NSObject
 
 + (NSString *) getDeviceUniqueIdentifier;
++ (NSString *) getVendorIdentifier;
++ (NSDictionary *) getAdvertisingInfo;
 
 + (UIInterfaceOrientation) getCurrentOrientation;
 
