@@ -1,20 +1,16 @@
-XCODE4_4="/Applications/Xcode4.4.app/Contents/Developer/usr/bin/xcodebuild"
 XCODE4_5="/Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild"
 TARGET="iosapi"
 ACTION="clean build"
 FILE_NAME="libiosapi.a"
 FINAL_FILE_NAME="libplaynomics.a"
 SYMROOT="build"
-RELEASE_DEVICE_ARMV6_DIR=${SYMROOT}/Release-iphoneos-armv6
 RELEASE_DEVICE_ARMV7_DIR=${SYMROOT}/Release-iphoneos-armv7
 RELEASE_SIMULATOR_DIR=${SYMROOT}/Release-iphonesimulator
 
-DEVICE4_4=iphoneos5.1
 DEVICE=iphoneos6.1
 SIMULATOR=iphonesimulator6.1
 
-${XCODE4_4} -configuration Release -target ${TARGET} -sdk ${DEVICE4_4} ${ACTION} RUN_CLANG_STATIC_ANALYZER=NO CONFIGURATION_BUILD_DIR=${RELEASE_DEVICE_ARMV6_DIR} ONLY_ACTIVE_ARCH=NO ARCHS="armv6"
 ${XCODE4_5} -configuration Release -target ${TARGET} -sdk ${DEVICE}    ${ACTION} RUN_CLANG_STATIC_ANALYZER=NO CONFIGURATION_BUILD_DIR=${RELEASE_DEVICE_ARMV7_DIR} ONLY_ACTIVE_ARCH=NO ARCHS="armv7 armv7s"
 ${XCODE4_5} -configuration Release -target ${TARGET} -sdk ${SIMULATOR} ${ACTION} RUN_CLANG_STATIC_ANALYZER=NO CONFIGURATION_BUILD_DIR=${RELEASE_SIMULATOR_DIR}    ONLY_ACTIVE_ARCH=NO ARCHS="i386"
 
-lipo -create -output "${FINAL_FILE_NAME}" "${RELEASE_DEVICE_ARMV6_DIR}/${FILE_NAME}" "${RELEASE_DEVICE_ARMV7_DIR}/${FILE_NAME}" "${RELEASE_SIMULATOR_DIR}/${FILE_NAME}"
+lipo -create -output "${FINAL_FILE_NAME}" "${RELEASE_DEVICE_ARMV7_DIR}/${FILE_NAME}" "${RELEASE_SIMULATOR_DIR}/${FILE_NAME}"
