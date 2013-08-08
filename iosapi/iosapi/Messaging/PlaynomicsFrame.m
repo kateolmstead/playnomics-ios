@@ -304,7 +304,7 @@ typedef enum {
     }
     
     if (_adType == AdColony) {
-        [self.callbackUtil submitAdImpressionToServer:frameResponseURL];
+        [self.callbackUtil submitRequestToServer:frameResponseURL];
         return DisplayAdColony;
     }
     
@@ -356,7 +356,7 @@ typedef enum {
 - (void) refreshProperties: (NSDictionary *)properties {
     
     // TODO: should we reset all properties, or just the images?
-    NSLog(@"refreshProperties called fro frameId: %@", _frameId);
+    NSLog(@"refreshProperties called for frameId: %@", _frameId);
     [self _closeAd];
     [_properties release];
     [_background release];
@@ -371,7 +371,7 @@ typedef enum {
 
 - (void)sendVideoView {
     if (self.videoViewUrl!=nil) {
-        [self.callbackUtil submitAdImpressionToServer:self.videoViewUrl];
+        [self.callbackUtil submitRequestToServer:self.videoViewUrl];
     }
 }
 
