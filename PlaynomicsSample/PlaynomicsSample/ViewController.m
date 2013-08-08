@@ -182,7 +182,15 @@
 - (IBAction) onMilestoneClick:(id)sender {
     
     PNAPIResult resval = [PlaynomicsSession milestoneWithId:4L
-                                                    andName:@"testMilestone"];
+                                                    andName:@"CUSTOM1"];
+    resval = [PlaynomicsSession milestoneWithId:4L
+                                                    andName:@"CUSTOM2"];
+    resval = [PlaynomicsSession milestoneWithId:4L
+                                                    andName:@"CUSTOM3"];
+    resval = [PlaynomicsSession milestoneWithId:4L
+                                                    andName:@"CUSTOM4"];
+    resval = [PlaynomicsSession milestoneWithId:4L
+                                                    andName:@"CUSTOM5"];
     [self handlePLAPIRResult:resval];
 }
 
@@ -210,7 +218,7 @@
     PlaynomicsMessaging *messaging = [PlaynomicsMessaging sharedInstance];
     FrameDelegate* frameDelegate = [[FrameDelegate alloc] initWithFrameId:frameId];
     PlaynomicsFrame* frame = [messaging createFrameWithId : frameId frameDelegate : frameDelegate];
-    DisplayResult result = [frame start];
+    [frame start];
     [frameDelegate autorelease];
     
 }
