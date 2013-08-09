@@ -49,13 +49,6 @@ typedef enum {
         _properties = [properties retain];
         _delegate = delegate;
 
-        if ([properties objectForKey:FrameResponseAd_AdType] && [[properties objectForKey:FrameResponseAd_AdType] isEqualToString:@"AdColony"]) {
-            _adType = AdColony;
-            self.videoViewUrl = [properties objectForKey:FrameResponseAd_VideoViewUrl];
-        } else {
-            _adType = AdUnknown;
-        }
-
         if(frameDelegate != nil) {
             _frameDelegate = [frameDelegate retain];
         }
@@ -147,6 +140,16 @@ typedef enum {
     
     NSMutableDictionary *mergedDict = [NSMutableDictionary dictionaryWithDictionary:adInfo];
     [mergedDict addEntriesFromDictionary:adLocationInfo];
+    
+    if ([mergedDict objectForKey:FrameResponseAd_AdType] && [[mergedDict objectForKey:FrameResponseAd_AdType] isEqualToString:@"AdColony"]) {
+        _adType = AdColony;
+        self.videoViewUrl = [mergedDict objectForKey:FrameResponseAd_VideoViewUrl];
+        NSLog(@"Setting ad type to AdColony");
+    } else {
+        _adType = AdUnknown;
+        NSLog(@"AdType=%@", [mergedDict objectForKey:FrameResponseAd_AdType]);
+    }
+    
     return mergedDict;
 }
 
@@ -305,7 +308,10 @@ typedef enum {
     
     if (_adType == AdColony) {
         [self.callbackUtil submitRequestToServer:frameResponseURL];
+        NSLog(@"Returning DisplayAdColony");
         return DisplayAdColony;
+    } else {
+        NSLog(@"AdType is not AdColony");
     }
     
     [_background display];

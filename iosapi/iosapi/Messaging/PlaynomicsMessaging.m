@@ -89,7 +89,7 @@
     NSLog(@"calling ad server: %@", url.absoluteString);
     NSMutableData* adResponse = [NSMutableData dataWithContentsOfURL: url];
     
-    NSLog(@"Response data: %@", adResponse);
+    NSLog(@"Response data: %@", [[[NSString alloc] initWithData:adResponse encoding:NSUTF8StringEncoding] autorelease]);
     
     if (adResponse == nil){
         PNErrorDetail *detail = [PNErrorDetail pNErrorDetailWithType:PNErrorTypeInvalidJson];
