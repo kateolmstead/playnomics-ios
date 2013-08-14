@@ -19,7 +19,6 @@
 #import "PNUserInfoEvent.h"
 #import "PNSocialEvent.h"
 #import "PNTransactionEvent.h"
-#import "PNGameEvent.h"
 #import "PNMilestoneEvent.h"
 #import "PNAPSNotificationEvent.h"
 #import "PNErrorEvent.h"
