@@ -132,18 +132,6 @@
 +(NSString*) getSDKVersion{
     return PNPropertyVersion;
 }
-            
-+ (PNAPIResult) changeUserWithUserId:(NSString *)userId {
-    @try {
-        [[PlaynomicsSession sharedInstance] stop];
-        signed long long appId = [PlaynomicsSession sharedInstance].applicationId;
-        return [[PlaynomicsSession sharedInstance] startWithApplicationId:appId userId:userId];
-    }
-    @catch (NSException *exception) {
-        NSLog(@"changeUserWithUserId error: %@", exception.description);
-        return PNAPIResultFailUnkown;
-    }
-}
 
 + (PNAPIResult) startWithApplicationId:(signed long long) applicationId userId: (NSString *) userId {
     @try {
@@ -638,68 +626,6 @@
         return PNAPIResultFailUnkown;
     }
 }
-
-
-+ (PNAPIResult) sessionStartWithId: (signed long long) sessionId site: (NSString *) site {
-    @try {
-        PlaynomicsSession * s =[PlaynomicsSession sharedInstance];
-        
-        PNGameEvent *ev = [[[PNGameEvent alloc] init:PNEventSessionStart applicationId:s.applicationId userId:s.userId cookieId:s.cookieId sessionId:sessionId instanceId:0 site:nil type:nil gameId:nil reason:nil] autorelease];
-        
-        ev.internalSessionId = [[PlaynomicsSession sharedInstance] sessionId];
-        return [s sendOrQueueEvent:ev];
-    }
-    @catch (NSException *exception) {
-        NSLog(@"error: %@", exception.description);
-        return PNAPIResultFailUnkown;
-    }
-}
-
-+ (PNAPIResult) sessionEndWithId: (signed long long) sessionId reason: (NSString *) reason {
-    @try {
-        PlaynomicsSession * s =[PlaynomicsSession sharedInstance];
-        
-        PNGameEvent *ev = [[[PNGameEvent alloc] init:PNEventSessionEnd applicationId:s.applicationId userId:s.userId cookieId:s.cookieId sessionId:sessionId instanceId:0 site:nil type:nil gameId:nil reason:reason] autorelease];
-        
-        ev.internalSessionId = [[PlaynomicsSession sharedInstance] sessionId];
-        return [s sendOrQueueEvent:ev];
-    }
-    @catch (NSException *exception) {
-        NSLog(@"error: %@", exception.description);
-        return PNAPIResultFailUnkown;
-    }
-}
-
-+ (PNAPIResult) gameStartWithInstanceId: (signed long long) instanceId sessionId: (signed long long) sessionId site: (NSString *) site type: (NSString *) type gameId: (NSString *) gameId {
-    @try {
-        PlaynomicsSession * s =[PlaynomicsSession sharedInstance];
-        
-        PNGameEvent *ev = [[[PNGameEvent alloc] init:PNEventGameStart applicationId:s.applicationId userId:s.userId cookieId:s.cookieId sessionId:sessionId instanceId:instanceId site:nil type:type gameId:gameId reason:nil] autorelease];
-        
-        ev.internalSessionId = [[PlaynomicsSession sharedInstance] sessionId];
-        return [s sendOrQueueEvent:ev];
-    }
-    @catch (NSException *exception) {
-        NSLog(@"error: %@", exception.description);
-        return PNAPIResultFailUnkown;
-    }
-}
-
-+ (PNAPIResult) gameEndWithInstanceId: (signed long long) instanceId sessionId: (signed long long) sessionId reason: (NSString *) reason {
-    @try {
-        PlaynomicsSession * s =[PlaynomicsSession sharedInstance];
-        
-        PNGameEvent *ev = [[[PNGameEvent alloc] init:PNEventGameEnd applicationId:s.applicationId userId:s.userId cookieId:s.cookieId sessionId:sessionId instanceId:instanceId site:nil type:nil gameId:nil reason:reason] autorelease];
-        
-        ev.internalSessionId = [[PlaynomicsSession sharedInstance] sessionId];
-        return [s sendOrQueueEvent:ev];
-    }
-    @catch (NSException *exception) {
-        NSLog(@"error: %@", exception.description);
-        return PNAPIResultFailUnkown;
-    }
-}
-
 
 + (PNAPIResult) transactionWithId: (signed long long) transactionId
                            itemId: (NSString *) itemId

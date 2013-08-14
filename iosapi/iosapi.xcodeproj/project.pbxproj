@@ -59,8 +59,6 @@
 		D1D922BE159112C100EDDE17 /* PNBasicEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = D1D922B6159112C100EDDE17 /* PNBasicEvent.m */; };
 		D1D922C1159112C100EDDE17 /* PNEventSender.h in Headers */ = {isa = PBXBuildFile; fileRef = D1D922B9159112C100EDDE17 /* PNEventSender.h */; };
 		D1D922C2159112C100EDDE17 /* PNEventSender.m in Sources */ = {isa = PBXBuildFile; fileRef = D1D922BA159112C100EDDE17 /* PNEventSender.m */; };
-		D1D922C3159112C100EDDE17 /* PNGameEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = D1D922BB159112C100EDDE17 /* PNGameEvent.h */; };
-		D1D922C4159112C100EDDE17 /* PNGameEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = D1D922BC159112C100EDDE17 /* PNGameEvent.m */; };
 		D1D922C7159112E100EDDE17 /* PNRandomGenerator.h in Headers */ = {isa = PBXBuildFile; fileRef = D1D922C5159112E100EDDE17 /* PNRandomGenerator.h */; };
 		D1D922CB159112F400EDDE17 /* PNConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = D1D922C9159112F400EDDE17 /* PNConstants.h */; settings = {ATTRIBUTES = (); }; };
 		EADE24E11625F17500914040 /* FSN_categories.h in Headers */ = {isa = PBXBuildFile; fileRef = EADE24DB1625F17500914040 /* FSN_categories.h */; settings = {ATTRIBUTES = (Private, ); }; };
@@ -144,8 +142,6 @@
 		D1D922B6159112C100EDDE17 /* PNBasicEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = PNBasicEvent.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		D1D922B9159112C100EDDE17 /* PNEventSender.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNEventSender.h; sourceTree = "<group>"; };
 		D1D922BA159112C100EDDE17 /* PNEventSender.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = PNEventSender.m; sourceTree = "<group>"; };
-		D1D922BB159112C100EDDE17 /* PNGameEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = PNGameEvent.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		D1D922BC159112C100EDDE17 /* PNGameEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = PNGameEvent.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		D1D922C5159112E100EDDE17 /* PNRandomGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNRandomGenerator.h; sourceTree = "<group>"; };
 		D1D922C9159112F400EDDE17 /* PNConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = PNConstants.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		EADE24DB1625F17500914040 /* FSN_categories.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSN_categories.h; sourceTree = "<group>"; };
@@ -220,8 +216,6 @@
 				D1D922AE159112A300EDDE17 /* PNUserInfoEvent.m */,
 				D1D922B5159112C100EDDE17 /* PNBasicEvent.h */,
 				D1D922B6159112C100EDDE17 /* PNBasicEvent.m */,
-				D1D922BB159112C100EDDE17 /* PNGameEvent.h */,
-				D1D922BC159112C100EDDE17 /* PNGameEvent.m */,
 				D19CBDC016765ABE0089B04A /* PNMilestoneEvent.h */,
 				D19CBDC116765ABE0089B04A /* PNMilestoneEvent.m */,
 			);
@@ -390,7 +384,6 @@
 				D1D922B3159112A300EDDE17 /* PNUserInfoEvent.h in Headers */,
 				D1D922BD159112C100EDDE17 /* PNBasicEvent.h in Headers */,
 				D1D922C1159112C100EDDE17 /* PNEventSender.h in Headers */,
-				D1D922C3159112C100EDDE17 /* PNGameEvent.h in Headers */,
 				D1D922C7159112E100EDDE17 /* PNRandomGenerator.h in Headers */,
 				D1D922CB159112F400EDDE17 /* PNConstants.h in Headers */,
 				5B6C6E1C1593F0F30088EF5E /* PNUtil.h in Headers */,
@@ -514,7 +507,6 @@
 				D1D922B4159112A300EDDE17 /* PNUserInfoEvent.m in Sources */,
 				D1D922BE159112C100EDDE17 /* PNBasicEvent.m in Sources */,
 				D1D922C2159112C100EDDE17 /* PNEventSender.m in Sources */,
-				D1D922C4159112C100EDDE17 /* PNGameEvent.m in Sources */,
 				5B6C6E1D1593F0F30088EF5E /* PNUtil.m in Sources */,
 				5BBAA22F159BD87300AA4993 /* PNApplication.m in Sources */,
 				5B753E30159D2D5000E698F9 /* PNRandomGenerator.m in Sources */,

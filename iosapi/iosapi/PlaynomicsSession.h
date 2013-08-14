@@ -251,66 +251,6 @@ typedef enum {
                     installTime: (NSDate *) installTime;
 
 /**
- * Session start.
- *
- * @param sessionId
- *            the session id
- * @param site
- *            the site
- * @return the API Result
- */
-+ (PNAPIResult) sessionStartWithId: (signed long long) sessionId
-                              site: (NSString *) site;
-
-/**
- * Session end.
- *
- * @param sessionId
- *            the session id
- * @param reason
- *            the reason
- * @return the API Result
- */
-+ (PNAPIResult) sessionEndWithId: (signed long long) sessionId
-                          reason: (NSString *) reason;
-
-/**
- * Game start.
- *
- * @param instanceId
- *            the instance id
- * @param sessionId
- *            the session id
- * @param site
- *            the site
- * @param type
- *            the type
- * @param gameId
- *            the game id
- * @return the API Result
- */
-+ (PNAPIResult) gameStartWithInstanceId: (signed long long) instanceId
-                              sessionId: (signed long long) sessionId
-                                   site: (NSString *) site
-                                   type: (NSString *) type
-                                 gameId: (NSString *) gameId;
-
-/**
- * Game end.
- *
- * @param instanceId
- *            the instance id
- * @param sessionId
- *            the session id
- * @param reason
- *            the reason
- * @return the API Result
- */
-+ (PNAPIResult) gameEndWithInstanceId: (signed long long) instanceId
-                            sessionId: (signed long long) sessionId
-                               reason: (NSString *) reason;
-
-/**
  * Transaction.
  *
  * @param transactionId
