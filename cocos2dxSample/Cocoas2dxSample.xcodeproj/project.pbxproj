@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		321B589B17BC510100DD36DE /* libiosapi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 321B589817BC50C600DD36DE /* libiosapi.a */; };
+		326DE5E017BC58FA006C8F89 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 326DE5DF17BC58FA006C8F89 /* AdSupport.framework */; };
 		329132F017BC3F1C00B65E21 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 329132EF17BC3F1C00B65E21 /* QuartzCore.framework */; };
 		329132F217BC3F1C00B65E21 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 329132F117BC3F1C00B65E21 /* OpenGLES.framework */; };
 		329132F417BC3F1C00B65E21 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 329132F317BC3F1C00B65E21 /* OpenAL.framework */; };
@@ -283,16 +285,16 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		32C4E34C17BC426F00044CA2 /* PBXContainerItemProxy */ = {
+		321B589717BC50C600DD36DE /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 32C4E34717BC426F00044CA2 /* iosapi.xcodeproj */;
+			containerPortal = 321B589217BC50C500DD36DE /* iosapi.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = D1D922701590F59600EDDE17;
 			remoteInfo = iosapi;
 		};
-		32C4E34E17BC426F00044CA2 /* PBXContainerItemProxy */ = {
+		321B589917BC50C600DD36DE /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 32C4E34717BC426F00044CA2 /* iosapi.xcodeproj */;
+			containerPortal = 321B589217BC50C500DD36DE /* iosapi.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = D1D922801590F59700EDDE17;
 			remoteInfo = iosapiTests;
@@ -300,6 +302,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		321B589217BC50C500DD36DE /* iosapi.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = iosapi.xcodeproj; path = ../iosapi/iosapi.xcodeproj; sourceTree = "<group>"; };
+		326DE5DF17BC58FA006C8F89 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		329132EC17BC3F1C00B65E21 /* Cocoas2dxSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cocoas2dxSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		329132EF17BC3F1C00B65E21 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		329132F117BC3F1C00B65E21 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -890,7 +894,6 @@
 		3291369217BC3F1F00B65E21 /* AppDelegate.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = AppDelegate.cpp; path = Classes/AppDelegate.cpp; sourceTree = "<group>"; };
 		3291369417BC3F1F00B65E21 /* HelloWorldScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = HelloWorldScene.h; path = Classes/HelloWorldScene.h; sourceTree = "<group>"; };
 		3291369517BC3F1F00B65E21 /* HelloWorldScene.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = HelloWorldScene.cpp; path = Classes/HelloWorldScene.cpp; sourceTree = "<group>"; };
-		32C4E34717BC426F00044CA2 /* iosapi.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = iosapi.xcodeproj; path = ../../iosapi/iosapi.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -898,6 +901,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				326DE5E017BC58FA006C8F89 /* AdSupport.framework in Frameworks */,
+				321B589B17BC510100DD36DE /* libiosapi.a in Frameworks */,
 				329132F017BC3F1C00B65E21 /* QuartzCore.framework in Frameworks */,
 				329132F217BC3F1C00B65E21 /* OpenGLES.framework in Frameworks */,
 				329132F417BC3F1C00B65E21 /* OpenAL.framework in Frameworks */,
@@ -915,9 +920,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		321B589317BC50C500DD36DE /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				321B589817BC50C600DD36DE /* libiosapi.a */,
+				321B589A17BC50C600DD36DE /* iosapiTests.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		329132E317BC3F1B00B65E21 = {
 			isa = PBXGroup;
 			children = (
+				321B589217BC50C500DD36DE /* iosapi.xcodeproj */,
 				329132FF17BC3F1C00B65E21 /* Cocoas2dxSample */,
 				329132EE17BC3F1C00B65E21 /* Frameworks */,
 				329132ED17BC3F1C00B65E21 /* Products */,
@@ -935,6 +950,7 @@
 		329132EE17BC3F1C00B65E21 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				326DE5DF17BC58FA006C8F89 /* AdSupport.framework */,
 				329132EF17BC3F1C00B65E21 /* QuartzCore.framework */,
 				329132F117BC3F1C00B65E21 /* OpenGLES.framework */,
 				329132F317BC3F1C00B65E21 /* OpenAL.framework */,
@@ -950,7 +966,6 @@
 		329132FF17BC3F1C00B65E21 /* Cocoas2dxSample */ = {
 			isa = PBXGroup;
 			children = (
-				32C4E34717BC426F00044CA2 /* iosapi.xcodeproj */,
 				3291330017BC3F1C00B65E21 /* Resources */,
 				3291331817BC3F1C00B65E21 /* ios */,
 				3291332117BC3F1C00B65E21 /* libs */,
@@ -2120,15 +2135,6 @@
 			name = Classes;
 			sourceTree = "<group>";
 		};
-		32C4E34817BC426F00044CA2 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				32C4E34D17BC426F00044CA2 /* libiosapi.a */,
-				32C4E34F17BC426F00044CA2 /* iosapiTests.octest */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -2169,8 +2175,8 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = 32C4E34817BC426F00044CA2 /* Products */;
-					ProjectRef = 32C4E34717BC426F00044CA2 /* iosapi.xcodeproj */;
+					ProductGroup = 321B589317BC50C500DD36DE /* Products */;
+					ProjectRef = 321B589217BC50C500DD36DE /* iosapi.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -2181,18 +2187,18 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		32C4E34D17BC426F00044CA2 /* libiosapi.a */ = {
+		321B589817BC50C600DD36DE /* libiosapi.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
 			path = libiosapi.a;
-			remoteRef = 32C4E34C17BC426F00044CA2 /* PBXContainerItemProxy */;
+			remoteRef = 321B589717BC50C600DD36DE /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		32C4E34F17BC426F00044CA2 /* iosapiTests.octest */ = {
+		321B589A17BC50C600DD36DE /* iosapiTests.octest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
 			path = iosapiTests.octest;
-			remoteRef = 32C4E34E17BC426F00044CA2 /* PBXContainerItemProxy */;
+			remoteRef = 321B589917BC50C600DD36DE /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -2546,14 +2552,27 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
+				CLANG_CXX_LIBRARY = "compiler-default";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Cocoas2dxSample/Prefix.pch;
 				"GCC_THUMB_SUPPORT[arch=armv6]" = "";
+				HEADER_SEARCH_PATHS = (
+					"$(PROJECT_NAME)",
+					"\"$(PROJECT_NAME)/libs/cocos2dx/kazmath/include\"",
+					"\"$(PROJECT_NAME)/libs/cocos2dx\"",
+					"\"$(PROJECT_NAME)/libs/CocosDenshion/include\"",
+					"\"$(PROJECT_NAME)/libs/extensions\"",
+					"\"$(PROJECT_NAME)/libs/cocos2dx/include\"",
+					"\"$(PROJECT_NAME)/libs/cocos2dx/platform/third_party/ios\"",
+					"\"$(PROJECT_NAME)/libs/cocos2dx/platform/ios\"",
+					"$(BUILT_PRODUCTS_DIR)/usr/local/include",
+				);
 				INFOPLIST_FILE = Cocoas2dxSample/Resources/Info.plist;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)\"",
 					"\"$(SRCROOT)/Cocoas2dxSample/libs/cocos2dx/platform/third_party/ios/libraries\"",
 					"\"$(SRCROOT)/Cocoas2dxSample/libs/libwebsockets/ios/lib\"",
 				);
@@ -2565,6 +2584,7 @@
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = "\"Cocoas2dxSample/libs/Chipmunk/include/chipmunk\"";
+				VALID_ARCHS = "armv7 armv7s i386";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -2573,13 +2593,25 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
+				CLANG_CXX_LIBRARY = "compiler-default";
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Cocoas2dxSample/Prefix.pch;
 				"GCC_THUMB_SUPPORT[arch=armv6]" = "";
+				HEADER_SEARCH_PATHS = (
+					"$(PROJECT_NAME)",
+					"\"$(PROJECT_NAME)/libs/cocos2dx/kazmath/include\"",
+					"\"$(PROJECT_NAME)/libs/cocos2dx\"",
+					"\"$(PROJECT_NAME)/libs/CocosDenshion/include\"",
+					"\"$(PROJECT_NAME)/libs/extensions\"",
+					"\"$(PROJECT_NAME)/libs/cocos2dx/include\"",
+					"\"$(PROJECT_NAME)/libs/cocos2dx/platform/third_party/ios\"",
+					"\"$(PROJECT_NAME)/libs/cocos2dx/platform/ios\"",
+				);
 				INFOPLIST_FILE = Cocoas2dxSample/Resources/Info.plist;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)\"",
 					"\"$(SRCROOT)/Cocoas2dxSample/libs/cocos2dx/platform/third_party/ios/libraries\"",
 					"\"$(SRCROOT)/Cocoas2dxSample/libs/libwebsockets/ios/lib\"",
 				);
@@ -2592,6 +2624,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = "\"Cocoas2dxSample/libs/Chipmunk/include/chipmunk\"";
 				VALIDATE_PRODUCT = YES;
+				VALID_ARCHS = "armv7 armv7s i386";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

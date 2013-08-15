@@ -263,7 +263,6 @@
 		D1D922651590F59500EDDE17 = {
 			isa = PBXGroup;
 			children = (
-				68E6DABD17AC237900A904A8 /* AdSupport.framework */,
 				A14DA13916DFFD230040B507 /* public */,
 				A1244E0A16A9EADF001A93DD /* dev.xcconfig */,
 				D1D922751590F59700EDDE17 /* iosapi */,
@@ -285,6 +284,7 @@
 		D1D922721590F59600EDDE17 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				68E6DABD17AC237900A904A8 /* AdSupport.framework */,
 				A1822F8316B069B900414EF1 /* CoreGraphics.framework */,
 				A1822F8116B0691300414EF1 /* QuartzCore.framework */,
 				D1D922731590F59600EDDE17 /* Foundation.framework */,
@@ -568,10 +568,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = (
-					"$(ARCHS_STANDARD_32_BIT)",
-					armv6,
-				);
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = NO;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
@@ -595,7 +592,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				VALID_ARCHS = "armv7 armv7s i386";
+				VALID_ARCHS = "armv7 i386 armv7s";
 			};
 			name = Debug;
 		};
@@ -603,10 +600,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = (
-					"$(ARCHS_STANDARD_32_BIT)",
-					armv6,
-				);
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = NO;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
@@ -625,7 +619,7 @@
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
-				VALID_ARCHS = "armv7 armv7s i386";
+				VALID_ARCHS = "armv7 i386 armv7s";
 			};
 			name = Release;
 		};

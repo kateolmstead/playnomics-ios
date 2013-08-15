@@ -12,6 +12,7 @@
 #import "AppDelegate.h"
 
 #import "RootViewController.h"
+#import "PlaynomicsSession.h"
 
 @implementation AppController
 
@@ -25,7 +26,10 @@
 static AppDelegate s_sharedApplication;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-
+    long long appId = 2;
+    
+    [PlaynomicsSession startWithApplicationId:appId];
+    
     // Override point for customization after application launch.
 
     // Add the view controller's view to the window and display.
