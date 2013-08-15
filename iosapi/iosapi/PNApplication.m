@@ -14,9 +14,6 @@
 
 @implementation PNApplication
 - (void) sendEvent: (UIEvent *) event {
-    
-    NSLog(@"sendEvent: %@", event.description);
-    
     if (event.type == UIEventTypeTouches) {
         UITouch *touch = [event allTouches].anyObject;
         if (touch.phase == UITouchPhaseBegan) {
