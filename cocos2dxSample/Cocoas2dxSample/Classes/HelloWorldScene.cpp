@@ -71,6 +71,8 @@ bool HelloWorld::init()
     // add the sprite as a child to this layer
     this->addChild(pSprite, 0);
     
+    //add a touch dispatcher to this objects
+    CCDirector::sharedDirector()->getTouchDispatcher()->addTargetedDelegate(this, 0, true);
     return true;
 }
 
@@ -81,4 +83,20 @@ void HelloWorld::menuCloseCallback(CCObject* pSender)
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
     exit(0);
 #endif
+}
+
+bool HelloWorld::ccTouchBegan(CCTouch* touch, CCEvent* event)
+{
+    CCLOG("Received touch began.");
+    return true;
+}
+
+void HelloWorld::ccTouchMoved(CCTouch* touch, CCEvent* event)
+{
+    CCLOG("Recieved touch moved.");
+}
+
+void HelloWorld::ccTouchEnded(CCTouch* touch, CCEvent* event)
+{
+    CCLOG("Recieved touch ended.");
 }
