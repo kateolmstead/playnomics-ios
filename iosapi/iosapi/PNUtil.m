@@ -34,17 +34,29 @@
 
 // Unique to an app group, which is tied by the organization deploying the apps to the AppStore
 + (NSString *) getVendorIdentifier {
-    return [[[UIDevice currentDevice] identifierForVendor] UUIDString];
+    if ([[UIDevice currentDevice] respondsToSelector:@selector(identifierForVendor)]) {
+        NSLog(@"Latest IDFV is:%@", [[[UIDevice currentDevice] identifierForVendor] UUIDString]);
+        return [[[UIDevice currentDevice] identifierForVendor] UUIDString];
+    } else {
+        NSLog(@"No IDFV so this must be a pre-iOS 6 device");
+        return @"";
+    }
 }
 
 + (NSDictionary *) getAdvertisingInfo {
     NSMutableDictionary *advertisingInfo = [NSMutableDictionary dictionary];
-    ASIdentifierManager *manager = [ASIdentifierManager sharedManager];
     
-    [advertisingInfo setValue:(manager.isAdvertisingTrackingEnabled ? @"false" : @"true") forKey:PNPasteboardLastLimitAdvertising];
-    [advertisingInfo setValue:[manager.advertisingIdentifier UUIDString] forKey:PNPasteboardLastIDFA];
+    if (NSClassFromString(@"ASIdentifierManager")) {
+        ASIdentifierManager *manager = [ASIdentifierManager sharedManager];
+        
+        [advertisingInfo setValue:(manager.isAdvertisingTrackingEnabled ? @"false" : @"true") forKey:PNPasteboardLastLimitAdvertising];
+        [advertisingInfo setValue:[manager.advertisingIdentifier UUIDString] forKey:PNPasteboardLastIDFA];
+        
+        NSLog(@"Latest Advertising Information is:%@", advertisingInfo);
+    } else {
+        NSLog(@"No Advertising Information available so this must be a pre-iOS 6 device");
+    }
     
-    NSLog(@"Latest Advertising Information is:%@", advertisingInfo);
     return advertisingInfo;
 }
 
