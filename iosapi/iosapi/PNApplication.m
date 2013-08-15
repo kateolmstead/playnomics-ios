@@ -13,8 +13,6 @@
 #import "PlaynomicsSession+Exposed.h"
 
 @implementation PNApplication
-
-
 - (void) sendEvent: (UIEvent *) event {
     
     NSLog(@"sendEvent: %@", event.description);

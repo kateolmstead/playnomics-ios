@@ -7,11 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PlaynomicsSession.h"
 
 int main(int argc, char *argv[]) {
     
     NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-    int retVal = UIApplicationMain(argc, argv, nil, @"AppController");
+    int retVal = UIApplicationMain(argc, argv, NSStringFromClass([PNApplication class]), @"AppController");
     [pool release];
     return retVal;
 }
