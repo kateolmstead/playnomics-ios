@@ -65,7 +65,6 @@
     NSDictionary *propDict = [self _retrieveFramePropertiesForId:frameId withCaller:caller];
     PlaynomicsFrame *frame = [[PlaynomicsFrame alloc] initWithProperties:propDict
                                                         forFrameId:frameId
-                                                        andDelegate: self
                                                         frameDelegate: frameDelegate];
     [_frames setObject:frame forKey:frameId];
     return [frame autorelease];
@@ -126,15 +125,6 @@
     }
     @catch (NSException *e) {
         NSLog(@"There was an exception thrown executing action '%@': [%@] %@", action, e.name, e.reason);
-    }
-}
-
-- (void) refreshFrameWithId: (NSString *) frameId {
-    
-    // refresh ad
-    PlaynomicsFrame *frame = [_frames objectForKey:frameId];
-    if (frame != nil) {
-        [frame refreshProperties:[self _retrieveFramePropertiesForId:frameId withCaller:nil]];
     }
 }
 

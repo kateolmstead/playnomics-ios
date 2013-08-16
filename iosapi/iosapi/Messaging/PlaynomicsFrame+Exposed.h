@@ -10,15 +10,7 @@
 #import "PlaynomicsFrame.h"
 #import "PlaynomicsMessaging.h"
 
-/**
- * Protocol describing the methods an frame delegate should handle
- */
-@protocol PNFrameRefreshHandler
-- (void)refreshFrameWithId: (NSString *) frameId;
-@end
-
 @interface PlaynomicsFrame (Exposed) <BaseAdComponentDelegate>
-// Initialize a frame with the provided properties describing the ad meta data (images, action URL's, etc.).
-- (id) initWithProperties:(NSDictionary *)properties forFrameId:(NSString *)frameId andDelegate: (id<PNFrameRefreshHandler>) delegate frameDelegate: (id<PNFrameDelegate>)frameDelegate;
+- (id) initWithProperties:(NSDictionary *)properties forFrameId:(NSString *)frameId frameDelegate: (id<PNFrameDelegate>)frameDelegate;
 - (void) refreshProperties: (NSDictionary *)properties;
 @end

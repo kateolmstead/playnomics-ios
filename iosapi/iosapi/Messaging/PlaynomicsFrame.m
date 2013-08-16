@@ -31,7 +31,6 @@ typedef enum {
     BaseAdComponent *_closeButton;
     int _expirationSeconds;
     UIInterfaceOrientation _currentOrientation;
-    id<PNFrameRefreshHandler> _delegate;
     AdType _adType;
     id<PNFrameDelegate> _frameDelegate;
 }
@@ -41,13 +40,11 @@ typedef enum {
 #pragma mark - Lifecycle/Memory management
 - (id) initWithProperties: (NSDictionary *)properties
             forFrameId:(NSString *)frameId
-            andDelegate: (id<PNFrameRefreshHandler>) delegate
             frameDelegate: (id<PNFrameDelegate>) frameDelegate {
     
     if (self = [super init]) {
         _frameId = [frameId retain];
         _properties = [properties retain];
-        _delegate = delegate;
         _frameDelegate = frameDelegate;
         
         self.callbackUtil = [[[PlaynomicsCallback alloc] init] autorelease];
@@ -65,12 +62,7 @@ typedef enum {
     [_adArea release];
     [_closeButton release];
     [_frameId release];
-    
-    if(_frameDelegate != nil){
-        _frameDelegate = nil;
-    }
-    _delegate = nil;
-    
+    _frameDelegate = nil;
     [super dealloc];
 }
 
@@ -323,57 +315,6 @@ typedef enum {
         return DisplayResultDisplayPending;
     }
 }
-
-/*
-- (void) _startExpiryTimer {
-    @try {
-        [self _stopExpiryTimer];
-        
-        _expirationTimer = [[NSTimer scheduledTimerWithTimeInterval:_expirationSeconds target:self selector:@selector(_notifyDelegate) userInfo:nil repeats:NO] retain];
-    }
-    @catch (NSException *exception) {
-        NSLog(@"error: %@", exception.description);
-    }
-    
-}
-
-- (void) _stopExpiryTimer {
-    
-    @try {
-        
-        if ([_expirationTimer isValid]) {
-            [_expirationTimer invalidate];
-        }
-        
-        [_expirationTimer release];
-        _expirationTimer = nil;
-    }
-    @catch (NSException *exception) {
-        NSLog(@"error: %@", exception.description);
-    }
-}
-
-- (void) _notifyDelegate {
-    [_delegate refreshFrameWithId:_frameId];
-}
-
-
-- (void) refreshProperties: (NSDictionary *)properties {
-    
-    // TODO: should we reset all properties, or just the images?
-    NSLog(@"refreshProperties called for frameId: %@", _frameId);
-    [self _closeAd];
-    [_properties release];
-    [_background release];
-    [_adArea release];
-    [_closeButton release];
-    _properties = [properties retain];
-    
-    [self _initOrientationChangeObservers];
-    [self _initAdComponents];
-    [self start];
-}
-*/
 
 - (void)sendVideoView {
     if (self.videoViewUrl!=nil) {
