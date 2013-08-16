@@ -33,6 +33,7 @@ typedef enum {
     UIInterfaceOrientation _currentOrientation;
     AdType _adType;
     id<PNFrameDelegate> _frameDelegate;
+    BOOL _shouldRenderFrame;
 }
 
 @synthesize frameId = _frameId;
@@ -51,6 +52,7 @@ typedef enum {
         
         [self _initOrientationChangeObservers];
         [self _initAdComponents];
+        _shouldRenderFrame = NO;
     }
     return self;
 }
@@ -143,16 +145,12 @@ typedef enum {
 
 #pragma mark - Ad component click handlers
 - (void) componentDidLoad: (id) component{
-    if([self _allComponentsLoaded]){
-        UIView *topLevelView = [[[UIApplication sharedApplication] delegate] window].rootViewController.view;
-        int lastDisplayIndex = topLevelView.subviews.count;
-        [topLevelView insertSubview: _background.imageUI atIndex:lastDisplayIndex + 1];
-        _background.imageUI.hidden = NO;
+    if([self _allComponentsLoaded] && _shouldRenderFrame){
+        [self showFrameRenderLogImpression];
     }
 }
 
 - (BOOL) _allComponentsLoaded {
-    
     if(_closeButton == nil){
         return (_background.status == AdComponentStatusCompleted
                 && _adArea.status == AdComponentStatusCompleted);
@@ -162,6 +160,18 @@ typedef enum {
             && _closeButton.status == AdComponentStatusCompleted);
 }
 
+-(void) showFrameRenderLogImpression{
+    UIView *topLevelView = [[[UIApplication sharedApplication] delegate] window].rootViewController.view;
+    int lastDisplayIndex = topLevelView.subviews.count;
+    [topLevelView insertSubview: _background.imageUI atIndex:lastDisplayIndex + 1];
+    _background.imageUI.hidden = NO;
+    [_background.imageUI setNeedsDisplay];
+    
+    NSString *impressionUrl =[_adArea.properties objectForKey:FrameResponseAd_ImpressionUrl];
+    [self.callbackUtil submitRequestToServer: impressionUrl];
+}
+           
+           
 - (void) componentDidFailToLoad: (id) component{
     [self _closeAd];
 }
@@ -267,7 +277,6 @@ typedef enum {
 - (void) _closeAd {
     [_background hide];
     [self _destroyOrientationObservers];
-//    [self _stopExpiryTimer];
 }
 
 - (NSString*) adActionMethodForURLPath: (NSString*)urlPath{
@@ -290,26 +299,21 @@ typedef enum {
 #pragma mark - Public Interface
 - (DisplayResult) start {
     NSString *frameResponseURL =[_adArea.properties objectForKey:FrameResponseAd_ImpressionUrl];
-    if (frameResponseURL==nil)
-    {
+    if (frameResponseURL==nil){
         //this may happen due to broken JSON
         return DisplayResultFailUnknown;
     }
+    
+    _shouldRenderFrame = YES;
     
     if (_adType == AdColony) {
         [self.callbackUtil submitRequestToServer:frameResponseURL];
         NSLog(@"Returning DisplayAdColony");
         return DisplayAdColony;
-    } else {
-        NSLog(@"AdType is not AdColony");
     }
     
-    [_background display];
-    //[self _startExpiryTimer];
-    
-    [self.callbackUtil submitRequestToServer:frameResponseURL];
-    
     if ([self _allComponentsLoaded]) {
+        [self showFrameRenderLogImpression];
         return DisplayResultDisplayed;
     } else {
         return DisplayResultDisplayPending;
