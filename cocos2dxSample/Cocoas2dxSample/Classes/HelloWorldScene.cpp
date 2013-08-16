@@ -1,5 +1,6 @@
 #include "HelloWorldScene.h"
 #include "SimpleAudioEngine.h"
+#include "MarshalLayer.h"
 
 using namespace cocos2d;
 using namespace CocosDenshion;
@@ -48,6 +49,10 @@ bool HelloWorld::init()
 
     /////////////////////////////
     // 3. add your codes below...
+    const char* frameId = "c6877f336e9d9dda";
+    //call the marshal layer
+    pn_loadFrame(frameId);
+    
 
     // add a label shows "Hello World"
     // create and initialize a label
@@ -71,8 +76,7 @@ bool HelloWorld::init()
     // add the sprite as a child to this layer
     this->addChild(pSprite, 0);
     
-    //add a touch dispatcher to this objects
-    CCDirector::sharedDirector()->getTouchDispatcher()->addTargetedDelegate(this, 0, true);
+   
     return true;
 }
 
@@ -99,4 +103,16 @@ void HelloWorld::ccTouchMoved(CCTouch* touch, CCEvent* event)
 void HelloWorld::ccTouchEnded(CCTouch* touch, CCEvent* event)
 {
     CCLOG("Recieved touch ended.");
+}
+
+void HelloWorld::onEnter()
+{
+    //attach this scene layer to the touch dispatcher
+    CCDirector::sharedDirector()->getTouchDispatcher()->addTargetedDelegate(this, 0, true);
+}
+
+void HelloWorld::onExit()
+{
+    //remove this scene layer from the touch dispatcher
+    CCDirector::sharedDirector()->getTouchDispatcher()->removeDelegate(this);
 }

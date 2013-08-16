@@ -13,6 +13,7 @@
 
 #import "RootViewController.h"
 #import "PlaynomicsSession.h"
+#import "PlaynomicsMessaging.h"
 
 @implementation AppController
 
@@ -28,7 +29,7 @@ static AppDelegate s_sharedApplication;
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     long long appId = 2;
     
-    [PlaynomicsSession startWithApplicationId:appId];
+    [PlaynomicsSession startWithApplicationId:appId userId:@"JaredIsAngry"];
     
     // Override point for customization after application launch.
 
@@ -116,11 +117,8 @@ static AppDelegate s_sharedApplication;
      cocos2d::CCDirector::sharedDirector()->purgeCachedData();
 }
 
-
 - (void)dealloc {
     [super dealloc];
 }
-
-
 @end
 

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		321B589B17BC510100DD36DE /* libiosapi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 321B589817BC50C600DD36DE /* libiosapi.a */; };
+		32551FAD17BD398F00DA55ED /* MarshalLayer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 32551FAC17BD398F00DA55ED /* MarshalLayer.mm */; };
 		326DE5E017BC58FA006C8F89 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 326DE5DF17BC58FA006C8F89 /* AdSupport.framework */; };
 		329132F017BC3F1C00B65E21 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 329132EF17BC3F1C00B65E21 /* QuartzCore.framework */; };
 		329132F217BC3F1C00B65E21 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 329132F117BC3F1C00B65E21 /* OpenGLES.framework */; };
@@ -303,6 +304,8 @@
 
 /* Begin PBXFileReference section */
 		321B589217BC50C500DD36DE /* iosapi.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = iosapi.xcodeproj; path = ../iosapi/iosapi.xcodeproj; sourceTree = "<group>"; };
+		32551FAC17BD398F00DA55ED /* MarshalLayer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = MarshalLayer.mm; path = ios/MarshalLayer.mm; sourceTree = "<group>"; };
+		32551FB117BD5ECB00DA55ED /* MarshalLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MarshalLayer.h; path = ios/MarshalLayer.h; sourceTree = "<group>"; };
 		326DE5DF17BC58FA006C8F89 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		329132EC17BC3F1C00B65E21 /* Cocoas2dxSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cocoas2dxSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		329132EF17BC3F1C00B65E21 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -1002,6 +1005,8 @@
 				3291331C17BC3F1C00B65E21 /* RootViewController.h */,
 				3291331D17BC3F1C00B65E21 /* RootViewController.mm */,
 				3291331F17BC3F1C00B65E21 /* main.m */,
+				32551FB117BD5ECB00DA55ED /* MarshalLayer.h */,
+				32551FAC17BD398F00DA55ED /* MarshalLayer.mm */,
 			);
 			name = ios;
 			sourceTree = "<group>";
@@ -2480,6 +2485,7 @@
 				3291368517BC3F1F00B65E21 /* cpVect.c in Sources */,
 				3291369317BC3F1F00B65E21 /* AppDelegate.cpp in Sources */,
 				3291369617BC3F1F00B65E21 /* HelloWorldScene.cpp in Sources */,
+				32551FAD17BD398F00DA55ED /* MarshalLayer.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

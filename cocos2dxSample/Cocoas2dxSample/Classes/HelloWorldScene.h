@@ -16,7 +16,11 @@ public:
     
     // a selector callback
     void menuCloseCallback(CCObject* pSender);
-
+    
+    //life-cycle management
+    virtual void onEnter();
+    virtual void onExit();
+    
     //implementation for the touch delegate
     virtual bool ccTouchBegan(cocos2d::CCTouch* touch, cocos2d::CCEvent* event);
     virtual void ccTouchMoved(cocos2d::CCTouch* touch, cocos2d::CCEvent* event);
