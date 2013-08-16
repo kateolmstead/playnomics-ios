@@ -16,13 +16,7 @@
 @synthesize properties = _properties;
 @synthesize imageUI = _imageUI;
 @synthesize parentComponent = _parentComponent;
-
-@synthesize xOffset = _xOffset;
-@synthesize yOffset = _yOffset;
-@synthesize height = _height;
-@synthesize width = _width;
 @synthesize status = _status;
-
 
 #pragma mark - Lifecycle/Memory management
 - (id)initWithProperties:(NSDictionary *)properties delegate:(id<BaseAdComponentDelegate>)delegate {
@@ -107,10 +101,6 @@
     }
 }
 
-- (void)_finishImageSetup {
-    [self.imageUI setNeedsDisplay];
-    [_delegate componentDidLoad:self];
-}
 
 - (void)addSubComponent:(BaseAdComponent *)subComponent {
     subComponent.parentComponent = self;
@@ -119,29 +109,10 @@
     //subComponent.imageUI.frame = CGRectMake(subComponent.xOffset, subComponent.yOffset, subComponent.width, subComponent.height);
 }
 
-- (void) display {
-    
-    /*
-    //this is an attempt to wrap the ad in another view,
-    //that sits on top of an underlying game frame
- 
-    CGRect screenRect = [[UIScreen mainScreen] applicationFrame];
-    int screenWidth = screenRect.size.height;
-    int screenHeight = screenRect.size.width;
-
-    CGRect containerRect = CGRectMake(0, 0,  screenWidth, screenHeight);
-    PNUIImageView* containerView = [[PNUIImageView alloc] initWithFrame:containerRect];
-    [containerView setExclusiveTouch: YES];
-    [containerView setBackgroundColor: [UIColor blackColor]];
-    
-    [containerView addSubview: self.imageUI];
-    [topLevelView insertSubview: containerView atIndex:lastDisplayIndex + 1];
-     */
-}
-
 - (void)hide {
     [self.imageUI removeFromSuperview];
 }
+
 
 -(void) didLoad{
     _status = AdComponentStatusCompleted;

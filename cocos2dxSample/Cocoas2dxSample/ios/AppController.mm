@@ -57,15 +57,6 @@ static AppDelegate s_sharedApplication;
         // use this method on ios6
         [window setRootViewController:viewController];
     }
-    
-    UIView* rootView = viewController.view;
-    //int length = rootView.subviews.count;
-    
-    /*
-    UIView
-    
-    [viewController.view insertSubview:<#(UIView *)#> atIndex:length + 1]
-    */
     [window makeKeyAndVisible];
 
     [[UIApplication sharedApplication] setStatusBarHidden: YES];

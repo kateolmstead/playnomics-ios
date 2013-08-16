@@ -28,16 +28,9 @@ typedef enum {
 @property (assign) id<BaseAdComponentDelegate> delegate;
 
 @property (readonly) AdComponentStatus status;
-
-@property float xOffset;
-@property float yOffset;
-@property float height;
-@property float width;
-
 - (id)initWithProperties:(NSDictionary *)properties delegate:(id<BaseAdComponentDelegate>)delegate;
 - (void)renderComponent;
 - (void)addSubComponent:(BaseAdComponent*)subView;
-- (void)display;
 - (void)hide;
 
 + (NSString*) getImageFromProperties: (NSDictionary*) properties;
