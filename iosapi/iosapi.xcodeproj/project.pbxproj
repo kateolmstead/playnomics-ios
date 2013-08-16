@@ -183,9 +183,9 @@
 		42FBA98924738D15AF3CE573 /* Messaging */ = {
 			isa = PBXGroup;
 			children = (
-				42FBA2AFE7443DE409B560CF /* PlaynomicsFrame+Exposed.h */,
 				42FBA83740CF5538D7EBDA36 /* PlaynomicsMessaging+Exposed.h */,
 				42FBA58FB3169ECD201AF332 /* PlaynomicsMessaging.m */,
+				42FBA2AFE7443DE409B560CF /* PlaynomicsFrame+Exposed.h */,
 				42FBA6A45031F4F9AF62E056 /* PlaynomicsFrame.m */,
 				42FBAB19F19EF89A69C6235A /* Support */,
 				A129689316DD758800F0A47A /* PlaynomicsCallback.h */,
