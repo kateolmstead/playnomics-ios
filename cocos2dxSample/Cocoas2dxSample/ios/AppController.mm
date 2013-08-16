@@ -47,19 +47,25 @@ static AppDelegate s_sharedApplication;
     viewController = [[RootViewController alloc] initWithNibName:nil bundle:nil];
     viewController.wantsFullScreenLayout = YES;
     viewController.view = __glView;
+    
 
     // Set RootViewController to window
-    if ( [[UIDevice currentDevice].systemVersion floatValue] < 6.0)
-    {
+    if ( [[UIDevice currentDevice].systemVersion floatValue] < 6.0){
         // warning: addSubView doesn't work on iOS6
         [window addSubview: viewController.view];
-    }
-    else
-    {
+    } else {
         // use this method on ios6
         [window setRootViewController:viewController];
     }
     
+    UIView* rootView = viewController.view;
+    //int length = rootView.subviews.count;
+    
+    /*
+    UIView
+    
+    [viewController.view insertSubview:<#(UIView *)#> atIndex:length + 1]
+    */
     [window makeKeyAndVisible];
 
     [[UIApplication sharedApplication] setStatusBarHidden: YES];

@@ -6,6 +6,7 @@
 
 
 #import <Foundation/Foundation.h>
+#import "BaseAdComponent.h"
 #import "PlaynomicsFrame.h"
 #import "PlaynomicsMessaging.h"
 
@@ -16,12 +17,8 @@
 - (void)refreshFrameWithId: (NSString *) frameId;
 @end
 
-@protocol PNBaseAdComponentDelegate <NSObject>
-- (void)componentDidLoad: (id) component;
-@end
-
-@interface PlaynomicsFrame (Exposed)<PNBaseAdComponentDelegate>
+@interface PlaynomicsFrame (Exposed) <BaseAdComponentDelegate>
 // Initialize a frame with the provided properties describing the ad meta data (images, action URL's, etc.).
-- (id)initWithProperties:(NSDictionary *)properties forFrameId:(NSString *)frameId andDelegate: (id<PNFrameRefreshHandler>) delegate frameDelegate: (id<PNFrameDelegate>)frameDelegate;
-- (void)refreshProperties: (NSDictionary *)properties;
+- (id) initWithProperties:(NSDictionary *)properties forFrameId:(NSString *)frameId andDelegate: (id<PNFrameRefreshHandler>) delegate frameDelegate: (id<PNFrameDelegate>)frameDelegate;
+- (void) refreshProperties: (NSDictionary *)properties;
 @end

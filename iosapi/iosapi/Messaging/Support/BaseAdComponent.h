@@ -5,7 +5,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "PlaynomicsFrame+Exposed.h"
+#import "PNUIImageView.h"
 
 typedef enum {
     AdComponentStatusPending,   // Component is waiting for image download to complete
@@ -13,34 +13,32 @@ typedef enum {
     AdComponentStatusError      // Component experienced an error retrieving image
 } AdComponentStatus;
 
+@protocol BaseAdComponentDelegate
+- (void) componentDidLoad: (id) component;
+- (void) componentDidFailToLoad: (id) component;
+- (void) componentDidReceiveTouch:  (id) component touch: (UITouch*) touch;
+@end
 
-@interface BaseAdComponent : NSObject<NSURLConnectionDelegate>
+@interface BaseAdComponent : NSObject<PNUIImageDelegate>
 
-@property (retain) NSDictionary *properties;
-@property (retain) UIImageView *imageUI;
-@property (retain) NSString *imageUrl;
-@property (retain) BaseAdComponent *parentComponent;
-@property (retain) PlaynomicsFrame *frame;
+@property (retain, readonly) NSDictionary* properties;
+@property (retain, readonly) PNUIImageView* imageUI;
 
+@property (assign) BaseAdComponent *parentComponent;
+@property (assign) id<BaseAdComponentDelegate> delegate;
 
-@property AdComponentStatus status;
+@property (readonly) AdComponentStatus status;
+
 @property float xOffset;
 @property float yOffset;
 @property float height;
 @property float width;
-@property SEL touchHandler;
 
-- (id)initWithProperties:(NSDictionary *)aProperties
-                forFrame:(PlaynomicsFrame *)aFrame
-        withTouchHandler:(SEL)aTouchHandler
-             andDelegate:(id<PNBaseAdComponentDelegate>)delegate;
-
-- (void)layoutComponent;
-
+- (id)initWithProperties:(NSDictionary *)properties delegate:(id<BaseAdComponentDelegate>)delegate;
+- (void)renderComponent;
 - (void)addSubComponent:(BaseAdComponent*)subView;
-
 - (void)display;
-
 - (void)hide;
 
++ (NSString*) getImageFromProperties: (NSDictionary*) properties;
 @end

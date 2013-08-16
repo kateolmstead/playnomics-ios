@@ -13,32 +13,27 @@
 
 @synthesize imageUrl = _imageUrl;
 @synthesize delegate = _delegate;
-@synthesize dimensions = _dimensions;
 
--(id) initWithDimensions: (PNViewDimensions) dimensions delegate: (id<PNUIImageDelegate>) delegate{
-    self = [super init];
+-(id) initWithFrame: (CGRect) frame delegate: (id<PNUIImageDelegate>) delegate{
+    self = [super initWithFrame:frame];
     if(self){
         [self setUserInteractionEnabled: YES];
         [self setExclusiveTouch: YES];
         _delegate = delegate;
-        _dimensions = dimensions;
-        self.frame = CGRectMake(dimensions.x, dimensions.y, dimensions.width, dimensions.height);
         //no image to load this component is ready to go
         [self.delegate didLoad];
     }
     return self;
 }
 
--(id) initWithWidth: (PNViewDimensions) dimensions delegate: (id<PNUIImageDelegate>) delegate imageUrl: (NSString*) imageUrl{
-    self = [super init];
+-(id) initWithFrame: (CGRect) frame delegate: (id<PNUIImageDelegate>) delegate imageUrl: (NSString*) imageUrl{
+    self = [super initWithFrame:frame];
     if(self){
         [self setUserInteractionEnabled: YES];
         [self setExclusiveTouch: YES];
         _delegate = delegate;
-        _dimensions = dimensions;
-        self.frame = CGRectMake(dimensions.x, dimensions.y, dimensions.width, dimensions.height);
         if(imageUrl != nil && imageUrl != (id)[NSNull null] ){
-            _imageUrl = imageUrl;
+            _imageUrl = [imageUrl copy];
             [self loadImage];
         } else{
             //no image to load this component is ready to go
@@ -48,6 +43,13 @@
     return self;
 }
 
+-(void)dealloc{
+    [_imageUrl release];
+    _delegate = nil;
+    [super dealloc];
+}
+
+#pragma mark "Load Images"
 -(void)loadImage{
     //load the image here
     NSURL* url = [NSURL URLWithString:self.imageUrl];
