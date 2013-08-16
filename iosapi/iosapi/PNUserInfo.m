@@ -52,10 +52,16 @@
         if (![oldLimitAdvertising isEqualToString:_limitAdvertising] || ![oldIDFA isEqualToString:_idfa] || ![oldIDFV isEqualToString:_idfv]) {
             
             [[NSUserDefaults standardUserDefaults] setObject:_idfv forKey:PNUserDefaultsLastIDFV];
-            NSDictionary *pnData = [NSDictionary dictionaryWithObjects:
-                                    [NSArray
-                                     arrayWithObjects:_breadcrumbId, _limitAdvertising, _idfa, nil]
-                                    forKeys:[NSArray arrayWithObjects:PNPasteboardLastBreadcrumbID, PNPasteboardLastLimitAdvertising, PNPasteboardLastIDFA, nil]];
+            
+            NSDictionary *pnData = [NSMutableDictionary dictionary];
+            if (NSClassFromString(@"ASIdentifierManager")) {
+                pnData = [NSDictionary dictionaryWithObjects:
+                          [NSArray arrayWithObjects:_breadcrumbId, _limitAdvertising, _idfa, nil]
+                                                     forKeys:[NSArray arrayWithObjects:PNPasteboardLastBreadcrumbID, PNPasteboardLastLimitAdvertising, PNPasteboardLastIDFA, nil]];
+            } else {
+                pnData = [NSDictionary dictionaryWithObject:_breadcrumbId forKey:PNPasteboardLastBreadcrumbID];
+            }
+            
             [actionHandler performActionOnIdsChangedWithBreadcrumbId:_breadcrumbId andLimitAdvertising: _limitAdvertising andIDFA:_idfa andIDFV:_idfv];
             pasteboard.items = [NSArray arrayWithObject:pnData];
         }
