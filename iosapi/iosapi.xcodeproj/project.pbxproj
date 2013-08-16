@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		32B41F2A17BDAF30000DA02E /* PNUIImageView.h in Headers */ = {isa = PBXBuildFile; fileRef = 32B41F2817BDAF30000DA02E /* PNUIImageView.h */; };
+		32B41F2B17BDAF30000DA02E /* PNUIImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 32B41F2917BDAF30000DA02E /* PNUIImageView.m */; };
 		42FBA45F0CE45688790D1F03 /* PlaynomicsFrame.h in Headers */ = {isa = PBXBuildFile; fileRef = 42FBAE69972626B043E69F63 /* PlaynomicsFrame.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		42FBA7777582C10C8946AC08 /* PlaynomicsFrame+Exposed.h in Headers */ = {isa = PBXBuildFile; fileRef = 42FBA2AFE7443DE409B560CF /* PlaynomicsFrame+Exposed.h */; };
 		42FBA77B7E7A8D298A75735B /* PlaynomicsMessaging.m in Sources */ = {isa = PBXBuildFile; fileRef = 42FBA58FB3169ECD201AF332 /* PlaynomicsMessaging.m */; };
@@ -33,8 +35,6 @@
 		A18E5E6B16AF284C00004F6D /* AdActionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A18E5E6A16AF284C00004F6D /* AdActionTests.m */; };
 		A18E5E7B16AF6D5700004F6D /* PNErrorEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = A18E5E7916AF6D5600004F6D /* PNErrorEvent.m */; };
 		A18E5E7C16AF6D5700004F6D /* PNErrorEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = A18E5E7A16AF6D5700004F6D /* PNErrorEvent.h */; settings = {ATTRIBUTES = (); }; };
-		D13B4C701640777F007F58BE /* AnimatedGif.h in Headers */ = {isa = PBXBuildFile; fileRef = D13B4C6E1640777F007F58BE /* AnimatedGif.h */; };
-		D13B4C711640777F007F58BE /* AnimatedGif.m in Sources */ = {isa = PBXBuildFile; fileRef = D13B4C6F1640777F007F58BE /* AnimatedGif.m */; };
 		D19CBDC216765ABE0089B04A /* PNMilestoneEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = D19CBDC016765ABE0089B04A /* PNMilestoneEvent.h */; };
 		D19CBDC316765ABE0089B04A /* PNMilestoneEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = D19CBDC116765ABE0089B04A /* PNMilestoneEvent.m */; };
 		D1D922741590F59700EDDE17 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1D922731590F59600EDDE17 /* Foundation.framework */; };
@@ -82,6 +82,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		32B41F2817BDAF30000DA02E /* PNUIImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNUIImageView.h; sourceTree = "<group>"; };
+		32B41F2917BDAF30000DA02E /* PNUIImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNUIImageView.m; sourceTree = "<group>"; };
 		42FBA2AFE7443DE409B560CF /* PlaynomicsFrame+Exposed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PlaynomicsFrame+Exposed.h"; sourceTree = "<group>"; };
 		42FBA43470BA1417AC7381CC /* BaseAdComponent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseAdComponent.m; sourceTree = "<group>"; };
 		42FBA58FB3169ECD201AF332 /* PlaynomicsMessaging.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaynomicsMessaging.m; sourceTree = "<group>"; };
@@ -114,8 +116,6 @@
 		A18E5E6A16AF284C00004F6D /* AdActionTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdActionTests.m; sourceTree = "<group>"; };
 		A18E5E7916AF6D5600004F6D /* PNErrorEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNErrorEvent.m; sourceTree = "<group>"; };
 		A18E5E7A16AF6D5700004F6D /* PNErrorEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNErrorEvent.h; sourceTree = "<group>"; };
-		D13B4C6E1640777F007F58BE /* AnimatedGif.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnimatedGif.h; sourceTree = "<group>"; };
-		D13B4C6F1640777F007F58BE /* AnimatedGif.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnimatedGif.m; sourceTree = "<group>"; };
 		D19CBDC016765ABE0089B04A /* PNMilestoneEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNMilestoneEvent.h; sourceTree = "<group>"; };
 		D19CBDC116765ABE0089B04A /* PNMilestoneEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNMilestoneEvent.m; sourceTree = "<group>"; };
 		D1D922701590F59600EDDE17 /* libiosapi.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libiosapi.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -190,6 +190,8 @@
 				42FBAB19F19EF89A69C6235A /* Support */,
 				A129689316DD758800F0A47A /* PlaynomicsCallback.h */,
 				A129689416DD758900F0A47A /* PlaynomicsCallback.m */,
+				32B41F2817BDAF30000DA02E /* PNUIImageView.h */,
+				32B41F2917BDAF30000DA02E /* PNUIImageView.m */,
 			);
 			path = Messaging;
 			sourceTree = "<group>";
@@ -231,8 +233,6 @@
 		5BC947E9159E259F00BE180B /* Util */ = {
 			isa = PBXGroup;
 			children = (
-				D13B4C6E1640777F007F58BE /* AnimatedGif.h */,
-				D13B4C6F1640777F007F58BE /* AnimatedGif.m */,
 				D1D922C5159112E100EDDE17 /* PNRandomGenerator.h */,
 				5B753E2F159D2D5000E698F9 /* PNRandomGenerator.m */,
 				5B6C6E1A1593F0F20088EF5E /* PNUtil.h */,
@@ -399,11 +399,11 @@
 				42FBA9A183BE219FBAD3FF73 /* PlaynomicsMessaging+Exposed.h in Headers */,
 				42FBA7777582C10C8946AC08 /* PlaynomicsFrame+Exposed.h in Headers */,
 				42FBAA7C5B8DA6655154B980 /* BaseAdComponent.h in Headers */,
-				D13B4C701640777F007F58BE /* AnimatedGif.h in Headers */,
 				D19CBDC216765ABE0089B04A /* PNMilestoneEvent.h in Headers */,
 				A118C35416A8825700DFF63C /* PNAPSNotificationEvent.h in Headers */,
 				A129689516DD758900F0A47A /* PlaynomicsCallback.h in Headers */,
 				68C3137217B1C5CF0079E306 /* PNUserInfo.h in Headers */,
+				32B41F2A17BDAF30000DA02E /* PNUIImageView.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -524,12 +524,12 @@
 				EADE24E41625F17500914040 /* FSNConnection.m in Sources */,
 				EADE24E61625F17500914040 /* FSNData.m in Sources */,
 				42FBAC6C9B82A5B36D318FE1 /* BaseAdComponent.m in Sources */,
-				D13B4C711640777F007F58BE /* AnimatedGif.m in Sources */,
 				D19CBDC316765ABE0089B04A /* PNMilestoneEvent.m in Sources */,
 				A118C35316A8825700DFF63C /* PNAPSNotificationEvent.m in Sources */,
 				A18E5E7B16AF6D5700004F6D /* PNErrorEvent.m in Sources */,
 				A129689616DD758900F0A47A /* PlaynomicsCallback.m in Sources */,
 				68C3137317B1C5CF0079E306 /* PNUserInfo.m in Sources */,
+				32B41F2B17BDAF30000DA02E /* PNUIImageView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

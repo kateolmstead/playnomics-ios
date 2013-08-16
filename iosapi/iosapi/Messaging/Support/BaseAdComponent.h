@@ -5,7 +5,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "AnimatedGif.h"
 #import "PlaynomicsFrame+Exposed.h"
 
 typedef enum {
@@ -15,7 +14,7 @@ typedef enum {
 } AdComponentStatus;
 
 
-@interface BaseAdComponent : NSObject<NSURLConnectionDelegate, AnimatedGifDelegate>
+@interface BaseAdComponent : NSObject<NSURLConnectionDelegate>
 
 @property (retain) NSDictionary *properties;
 @property (retain) UIImageView *imageUI;
