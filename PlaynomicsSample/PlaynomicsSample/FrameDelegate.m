@@ -12,16 +12,9 @@
 
 @implementation FrameDelegate
 
-NSString* _frameId;
-
--(id)initWithFrameId:(NSString*) frameId {    
-    _frameId = frameId;
-    self =[super init];
-    return self;
-}
 
 - (void)onClick:(NSDictionary *)jsonData{
-    NSString* message = [NSString stringWithFormat: @"Data for frame %@ %@", _frameId, jsonData];
+    NSString* message = [NSString stringWithFormat: @"Data for frame %@" , jsonData];
     
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"JSON Callback"
                                                     message:message

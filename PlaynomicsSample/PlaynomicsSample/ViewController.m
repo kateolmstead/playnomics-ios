@@ -11,7 +11,10 @@
 #import "PlaynomicsSession.h"
 #import "FrameDelegate.h"
 
-@implementation ViewController
+@implementation ViewController{
+    FrameDelegate* _frameDelegate;
+
+}
 @synthesize transactionCount;
 
 - (void)didReceiveMemoryWarning
@@ -24,6 +27,7 @@
 
 - (void)viewDidLoad
 {
+    _frameDelegate = [[FrameDelegate alloc] init];
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     // Grab the shared (singleton) instance of the messaging class
@@ -40,6 +44,7 @@
 
 - (void)viewDidUnload
 {
+    [_frameDelegate release];
     [self setFrameIdText:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
@@ -216,11 +221,8 @@
 
 - (void) initMsgFrame: (NSString *) frameId {
     PlaynomicsMessaging *messaging = [PlaynomicsMessaging sharedInstance];
-    FrameDelegate* frameDelegate = [[FrameDelegate alloc] initWithFrameId:frameId];
-    PlaynomicsFrame* frame = [messaging createFrameWithId : frameId frameDelegate : frameDelegate];
+        PlaynomicsFrame* frame = [messaging createFrameWithId : frameId frameDelegate : _frameDelegate];
     [frame start];
-    [frameDelegate autorelease];
-    
 }
 
 -(void)onPnx

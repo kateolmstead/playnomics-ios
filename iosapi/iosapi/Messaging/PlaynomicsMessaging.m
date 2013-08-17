@@ -13,7 +13,6 @@
 @implementation PlaynomicsMessaging {
 @private
     NSMutableDictionary *_actionHandlers;
-    NSMutableDictionary *_frames;
     id _delegate;
 }
 
@@ -29,7 +28,6 @@
 - (id)init {
     if (self = [super init]) {
         _actionHandlers = [[NSMutableDictionary dictionary] retain];
-        _frames = [[NSMutableDictionary dictionary] retain];
         self.isTesting = NO;
 #ifdef STUB
         self.isTesting = YES;
@@ -66,8 +64,7 @@
     PlaynomicsFrame *frame = [[PlaynomicsFrame alloc] initWithProperties:propDict
                                                         forFrameId:frameId
                                                         frameDelegate: frameDelegate];
-    [_frames setObject:frame forKey:frameId];
-    return [frame autorelease];
+    return frame;
 }
 
 // Make an ad request to the PN Ad Servers

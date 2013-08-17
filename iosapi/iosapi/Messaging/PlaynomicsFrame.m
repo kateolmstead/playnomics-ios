@@ -58,7 +58,6 @@ typedef enum {
 }
 
 - (void) dealloc {
-    
     [_properties release];
     [_background release];
     [_adArea release];
@@ -78,8 +77,6 @@ typedef enum {
         _closeButton = [[BaseAdComponent alloc] initWithProperties:closeButtonInfo delegate:self];
     }
 
-    //NSNumber *expNum = [_properties objectForKey:FrameResponseExpiration];
-    //_expirationSeconds = [expNum intValue];
     
     [_background addSubComponent:_adArea];
     if(_closeButton !=  nil){
@@ -277,6 +274,7 @@ typedef enum {
 - (void) _closeAd {
     [_background hide];
     [self _destroyOrientationObservers];
+    [self release];
 }
 
 - (NSString*) adActionMethodForURLPath: (NSString*)urlPath{
