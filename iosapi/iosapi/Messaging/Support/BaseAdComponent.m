@@ -11,7 +11,6 @@
 @private
     NSMutableArray *_subComponents;
     id<BaseAdComponentDelegate> _delegate;
-    PNUIImageView* _imageUI;
 }
 
 @synthesize properties = _properties;

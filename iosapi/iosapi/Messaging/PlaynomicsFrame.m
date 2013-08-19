@@ -43,8 +43,8 @@ typedef enum {
             forFrameId:(NSString *)frameId
             frameDelegate: (id<PNFrameDelegate>) frameDelegate {
     
-    if (self = [super init]) {
-        _frameId = [frameId retain];
+    if ((self = [super init])) {
+        _frameId = [frameId copy];
         _properties = [properties retain];
         _frameDelegate = frameDelegate;
         
@@ -188,9 +188,10 @@ typedef enum {
 
 - (void) _stop {
     NSLog(@"Close button was pressed...");
-    [self _closeAd];
     NSString *callback = [_adArea.properties objectForKey:FrameResponseAd_CloseUrl];
     [self.callbackUtil submitRequestToServer:callback];
+    
+    [self _closeAd];
 }
 
 - (void) _adClicked: (UITouch *)touch {

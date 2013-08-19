@@ -15,5 +15,5 @@ void pn_loadFrame(const char* frameId){
     PlaynomicsMessaging* messaging = [PlaynomicsMessaging sharedInstance];
     PlaynomicsFrame* frame = [messaging createFrameWithId: utfFrameId];
     [frame start];
-    [utfFrameId dealloc];
+    [utfFrameId release];
 }
