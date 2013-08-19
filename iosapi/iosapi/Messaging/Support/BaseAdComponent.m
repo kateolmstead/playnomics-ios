@@ -11,6 +11,7 @@
 @private
     NSMutableArray *_subComponents;
     id<BaseAdComponentDelegate> _delegate;
+    PNUIImageView* _imageUI;
 }
 
 @synthesize properties = _properties;
@@ -92,9 +93,9 @@
     if (self.imageUI == nil) {
         NSString* imageUrl = [BaseAdComponent getImageFromProperties:self.properties];
         if(imageUrl == nil){
-            _imageUI = [[[PNUIImageView alloc] initWithFrame:frame delegate: self] retain];
+            _imageUI = [[PNUIImageView alloc] initWithFrame:frame delegate: self];
         } else {
-            _imageUI = [[[PNUIImageView alloc] initWithFrame:frame delegate: self imageUrl: imageUrl] retain];
+            _imageUI = [[PNUIImageView alloc] initWithFrame:frame delegate: self imageUrl: imageUrl];
         }
     } else{
         self.imageUI.frame = frame;
@@ -106,7 +107,6 @@
     subComponent.parentComponent = self;
     [_subComponents addObject:subComponent];
     [self.imageUI addSubview:subComponent.imageUI];
-    //subComponent.imageUI.frame = CGRectMake(subComponent.xOffset, subComponent.yOffset, subComponent.width, subComponent.height);
 }
 
 - (void)hide {
