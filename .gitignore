@@ -3,3 +3,6 @@
 xcuserdata/
 libplaynomics.a
 iosapi/build
+
+build.log
+target/

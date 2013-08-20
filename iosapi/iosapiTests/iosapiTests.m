@@ -179,16 +179,6 @@
     
 }
 
-- (void) testGameEvents {
-    NSLog(@"****** testGameEvents **********");
-    signed long long testId = 3L;
-
-    for (int i = 0;i < 10; i++) {
-        [PlaynomicsSession gameStartWithInstanceId:testId sessionId:testId site:@"TEST_SITE" type:@"TEST_TYPE" gameId:@"TEST_GAMEID"];
-        [PlaynomicsSession gameEndWithInstanceId:testId sessionId:testId reason:@"TEST_REASON"];
-    }
-}
-
 - (void) testSocialEvents {
     NSLog(@"****** testSocialEvents **********");
     for (int i = 0;i < 10; i++) {
@@ -255,16 +245,6 @@
     }
 }
 
-- (void) testSessionEvents {
-    
-    NSLog(@"****** testSessionEvents **********");
-    
-    for (signed long long i = 0;i < 10; i++) {
-        [PlaynomicsSession sessionStartWithId:i site:@"TEST_SITE"];
-        [PlaynomicsSession sessionEndWithId:i reason:@"TEST_REASON"];
-    }
-    
-}
 
 - (void) testUserInfo {
     

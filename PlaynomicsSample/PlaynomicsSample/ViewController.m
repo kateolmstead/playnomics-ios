@@ -92,23 +92,20 @@
 
 
 - (IBAction) onGameStartClick:(id)sender {
-    PNAPIResult resval = [PlaynomicsSession gameStartWithInstanceId:1234567890 sessionId:666 site:@"TEST_SITE" type:@"TEST_TYPE" gameId:@"TEST_GAMEID"];
-    [self handlePLAPIRResult:resval];
+    [PlaynomicsSession gameStartWithInstanceId:1234567890 sessionId:666 site:@"TEST_SITE" type:@"TEST_TYPE" gameId:@"TEST_GAMEID"];
 }
 
 - (IBAction) onGameEndClick:(id)sender {
-    PNAPIResult resval = [PlaynomicsSession gameEndWithInstanceId:1234567890 sessionId:666 reason:@"TEST_REASON"];
-    [self handlePLAPIRResult:resval];
+    [PlaynomicsSession gameEndWithInstanceId:1234567890 sessionId:666 reason:@"TEST_REASON"];
 }
 
 - (IBAction) onSendInvitationClick:(id)sender {
-    PNAPIResult resval = [PlaynomicsSession invitationSentWithId:98765432210 recipientUserId:@"TEST_RECIPIENTID" recipientAddress:@"TEST_RECIPIENT_ADDRESS" method:@"TEST_METHOD"];
-    [self handlePLAPIRResult:resval];
+    [PlaynomicsSession invitationSentWithId:98765432210 recipientUserId:@"TEST_RECIPIENTID" recipientAddress:@"TEST_RECIPIENT_ADDRESS" method:@"TEST_METHOD"];
+    
 }
 
 - (IBAction) onRespondToInvitationClick:(id)sender {
-    PNAPIResult resval = [PlaynomicsSession invitationResponseWithId:98765432210 recipientUserId:@"TEST_RECIPIENTID" responseType:PNResponseTypeAccepted];
-    [self handlePLAPIRResult:resval];
+    [PlaynomicsSession invitationResponseWithId:98765432210 recipientUserId:@"TEST_RECIPIENTID" responseType:PNResponseTypeAccepted];
 }
 
 - (IBAction) onTransactionClick:(id)sender {
@@ -119,7 +116,6 @@
         count = MIN(100, [transactionCount.text integerValue]);
     }
     
-    PNAPIResult resval;
     if (count > 0) {
         NSMutableArray *tStack = [NSMutableArray array];
         NSMutableArray *vStack = [NSMutableArray array];
@@ -130,7 +126,7 @@
             [cStack addObject:[NSNumber numberWithInt:(arc4random() % 2)]];
         }
         
-        resval = [PlaynomicsSession transactionWithId:(arc4random() & NSUIntegerMax) 
+        [PlaynomicsSession transactionWithId:(arc4random() & NSUIntegerMax)
                                       //itemId:@"TEST_ITEM_ID"
                                                itemId: @"Test Item Id"
                                              quantity:(arc4random() % 100)
@@ -142,7 +138,7 @@
                   ];
     }
     else {
-        resval = [PlaynomicsSession transactionWithId:(arc4random() & NSUIntegerMax)
+        [PlaynomicsSession transactionWithId:(arc4random() & NSUIntegerMax)
                   //itemId:@"TEST_ITEM_ID"
                                                itemId: @"Test Item Id"
                                              quantity:0
@@ -152,21 +148,10 @@
                                         currencyValue:((arc4random() % 10000) / 10)
                                      currencyCategory:(arc4random() % 2)];
     }
-    [self handlePLAPIRResult:resval];
-}
-
-- (IBAction) onSessionStartClick:(id)sender {
-    PNAPIResult resval = [PlaynomicsSession sessionStartWithId:5678901234 site:@"TEST_SITE"];
-    [self handlePLAPIRResult:resval];
-}
-
-- (IBAction) onSessionEndClick:(id)sender {
-    PNAPIResult resval = [PlaynomicsSession sessionEndWithId:5678901234 reason:@"TEST_REASON"];
-    [self handlePLAPIRResult:resval];
 }
 
 - (IBAction) onUserInfoClick:(id)sender {
-    PNAPIResult resval = [PlaynomicsSession userInfoForType:PNUserInfoTypeUpdate
+    [PlaynomicsSession userInfoForType:PNUserInfoTypeUpdate
                                                     country:@"TEST_COUNTRY"
                                                 subdivision:@"TEST_SUBDIVISION"
                                                         sex:(arc4random() % 3)
@@ -174,29 +159,16 @@
                                                      source:(arc4random() % 17)
                                              sourceCampaign:@"TEST_SRC_CAMPAIGN"
                                                 installTime:[[NSDate date] dateByAddingTimeInterval:(- (double)(arc4random() % 1000000))]];
-    [self handlePLAPIRResult:resval];
-    
 }
 
-- (IBAction)onChangeUserClick:(id)sender {
-    
-    PNAPIResult resval = [PlaynomicsSession changeUserWithUserId: @"testChangeUserId"];
-    [self handlePLAPIRResult:resval];
-}
 
 - (IBAction) onMilestoneClick:(id)sender {
     
-    PNAPIResult resval = [PlaynomicsSession milestoneWithId:4L
-                                                    andName:@"CUSTOM1"];
-    resval = [PlaynomicsSession milestoneWithId:4L
-                                                    andName:@"CUSTOM2"];
-    resval = [PlaynomicsSession milestoneWithId:4L
-                                                    andName:@"CUSTOM3"];
-    resval = [PlaynomicsSession milestoneWithId:4L
-                                                    andName:@"CUSTOM4"];
-    resval = [PlaynomicsSession milestoneWithId:4L
-                                                    andName:@"CUSTOM5"];
-    [self handlePLAPIRResult:resval];
+    [PlaynomicsSession milestoneWithId:4L andName:@"CUSTOM1"];
+    [PlaynomicsSession milestoneWithId:4L andName:@"CUSTOM2"];
+    [PlaynomicsSession milestoneWithId:4L andName:@"CUSTOM3"];
+    [PlaynomicsSession milestoneWithId:4L andName:@"CUSTOM4"];
+    [PlaynomicsSession milestoneWithId:4L andName:@"CUSTOM5"];
 }
 
 - (IBAction)onHttpClick:(id)sender {

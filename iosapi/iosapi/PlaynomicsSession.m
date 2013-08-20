@@ -25,6 +25,7 @@
 #import "PlaynomicsSession+Exposed.h"
 #import "PlaynomicsMessaging+Exposed.h"
 #import "PNUserInfo.h"
+#import "PNLogger.h"
 
 @interface PlaynomicsSession(){
     
@@ -65,15 +66,11 @@
 @property (atomic, readonly) PNEventSender * eventSender;
 @property (atomic, readonly) NSMutableArray * playnomicsEventList;
 @property (nonatomic, retain) PlaynomicsCallback *callback;
-- (PNAPIResult) startWithApplicationId:(signed long long) applicationId;
-- (PNAPIResult) startWithApplicationId:(signed long long) applicationId userId: (NSString *) userId;
-- (PNAPIResult) sendOrQueueEvent: (PNEvent *) pe;
+- (BOOL) startWithApplicationId:(signed long long) applicationId;
+- (BOOL) startWithApplicationId:(signed long long) applicationId userId: (NSString *) userId;
+- (void) sendOrQueueEvent: (PNEvent *) pe;
 
-- (PNAPIResult) stop;
-- (void) pause;
-- (void) resume;
-- (PNAPIResult) startSessionWithApplicationId: (signed long long) applicationId;
-
+- (void) stop;
 - (void) startEventTimer;
 - (void) stopEventTimer;
 - (void) consumeQueue;
@@ -132,7 +129,7 @@
     return PNPropertyVersion;
 }
 
-+ (PNAPIResult) startWithApplicationId:(signed long long) applicationId userId: (NSString *) userId {
++ (BOOL) startWithApplicationId:(signed long long) applicationId userId: (NSString *) userId {
     @try {
         return [[PlaynomicsSession sharedInstance] startWithApplicationId:applicationId userId:userId];
     }
@@ -142,7 +139,7 @@
     }
 }
 
-+ (PNAPIResult) startWithApplicationId:(signed long long) applicationId {
++ (BOOL) startWithApplicationId:(signed long long) applicationId {
     @try {
         return [[PlaynomicsSession sharedInstance] startWithApplicationId:applicationId];
     }
@@ -152,15 +149,12 @@
     }
 }
 
-
-
-+ (PNAPIResult) stop {
++ (void) stop {
     @try {
         return [[PlaynomicsSession sharedInstance] stop];
     }
     @catch (NSException *exception) {
         NSLog(@"stop error: %@", exception.description);
-        return PNAPIResultFailUnkown;
     }
 }
 
@@ -224,52 +218,57 @@
 }
 
 #pragma mark - Session Control Methods
-- (PNAPIResult) startWithApplicationId:(signed long long) applicationId userId: (NSString *) userId {
+- (BOOL) startWithApplicationId:(signed long long) applicationId userId: (NSString *) userId {
     _userId = [userId retain];
     return [self startWithApplicationId:applicationId];
 }
 
-- (PNAPIResult) startWithApplicationId:(signed long long) applicationId {
-    NSLog(@"startWithApplicationId");
-    
-    if (_sessionState == PNSessionStateStarted) {
-        return PNAPIResultAlreadyStarted;
-    }
-    
-    // If paused, resume and get out of here
-    if (_sessionState == PNSessionStatePaused) {
-        [self resume];
-        return PNAPIResultSessionResumed;
-    }
-    
-    _applicationId = applicationId;
-    
-    PNAPIResult resval = [self startSessionWithApplicationId: applicationId];
-    
-    [self startEventTimer];
-    
-    NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
-    [defaultCenter addObserver: self selector: @selector(onKeyPressed:) name: UITextFieldTextDidChangeNotification object: nil];
-    [defaultCenter addObserver: self selector: @selector(onKeyPressed:) name: UITextViewTextDidChangeNotification object: nil];
-    [defaultCenter addObserver: self selector: @selector(onApplicationDidBecomeActive:) name: UIApplicationDidBecomeActiveNotification object: nil];
-    [defaultCenter addObserver: self selector: @selector(onApplicationWillResignActive:) name: UIApplicationWillResignActiveNotification object: nil];
-    [defaultCenter addObserver: self selector: @selector(onApplicationWillTerminate:) name: UIApplicationWillTerminateNotification object: nil];
-    [defaultCenter addObserver: self selector: @selector(onApplicationDidLaunch:) name: UIApplicationDidFinishLaunchingNotification object: nil];
-    
-    // Retrieve stored Event List
-    NSArray *storedEvents = (NSArray *) [NSKeyedUnarchiver unarchiveObjectWithFile:PNFileEventArchive];
-    if ([storedEvents count] > 0) {
-        [self.playnomicsEventList addObjectsFromArray:storedEvents];
+- (BOOL) startWithApplicationId:(signed long long) applicationId {
+    @try {
+        if (_sessionState == PNSessionStateStarted) {
+            return YES;
+        }
         
-        // Remove archive so as not to pick up bad events when starting up next time.
-        NSFileManager *fm = [NSFileManager defaultManager];
-        [fm removeItemAtPath:PNFileEventArchive error:nil];
+        // If paused, resume and get out of here
+        if (_sessionState == PNSessionStatePaused) {
+            [self resume];
+            return YES;
+        }
+        
+        _applicationId = applicationId;
+        
+        [self startSessionWithApplicationId: applicationId];
+        [self startEventTimer];
+        
+        NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
+        [defaultCenter addObserver: self selector: @selector(onKeyPressed:) name: UITextFieldTextDidChangeNotification object: nil];
+        [defaultCenter addObserver: self selector: @selector(onKeyPressed:) name: UITextViewTextDidChangeNotification object: nil];
+        
+        [defaultCenter addObserver: self selector: @selector(onApplicationDidBecomeActive:) name: UIApplicationDidBecomeActiveNotification object: nil];
+        [defaultCenter addObserver: self selector: @selector(onApplicationWillResignActive:) name: UIApplicationWillResignActiveNotification object: nil];
+        [defaultCenter addObserver: self selector: @selector(onApplicationWillTerminate:) name: UIApplicationWillTerminateNotification object: nil];
+        [defaultCenter addObserver: self selector: @selector(onApplicationDidLaunch:) name: UIApplicationDidFinishLaunchingNotification object: nil];
+        
+        // Retrieve stored Event List
+        NSArray *storedEvents = (NSArray *) [NSKeyedUnarchiver unarchiveObjectWithFile:PNFileEventArchive];
+        if ([storedEvents count] > 0) {
+            [self.playnomicsEventList addObjectsFromArray:storedEvents];
+            
+            // Remove archive so as not to pick up bad events when starting up next time.
+            NSFileManager *fm = [NSFileManager defaultManager];
+            [fm removeItemAtPath:PNFileEventArchive error:nil];
+        }
+        return YES;
     }
-    
-    return resval;
+    @catch (NSException *exception) {
+        NSLog(@"Could not start the PlayRM SDK.");
+        NSLog( @"Exception Name: %@", exception.name);
+        NSLog( @"Exception Reason: %@", exception.reason );
+        return NO;
+    }
 }
 
-- (PNAPIResult) startSessionWithApplicationId: (signed long long) applicationId {
+- (void) startSessionWithApplicationId: (signed long long) applicationId {
     NSLog(@"startSessionWithApplicationId");
     
     /** Setting Session variables */
@@ -336,8 +335,6 @@
     // Try to send and queue if unsuccessful
     [_eventSender sendEventToServer:ev withEventQueue:_playnomicsEventList];
     [ev release];
-    
-    return PNAPIResultSent;
 }
 
 /**
@@ -520,18 +517,16 @@
 
 
 
-- (PNAPIResult) sendOrQueueEvent:(PNEvent *)pe {
+- (void) sendOrQueueEvent:(PNEvent *)pe {
     if (_sessionState != PNSessionStateStarted) {
         //add the event to our queue if we are here
-        if(pe!=nil)
+        if(pe != nil){
             [self.playnomicsEventList addObject:pe];
-        
-        return PNAPIResultStartNotCalled;
+        }
     }
     
     // Try to send and queue if unsuccessful
     [_eventSender sendEventToServer:pe withEventQueue:_playnomicsEventList];
-    return PNAPIResultSent;
 }
 
 #pragma mark - Application Event Handlers
@@ -539,7 +534,6 @@
     _keys += 1;
     _totalKeys += 1;
 }
-
 
 - (void) onTouchDown: (UIEvent *) event {
     _clicks += 1;
@@ -549,14 +543,16 @@
 - (void) onApplicationWillResignActive: (NSNotification *) notification {
     [self pause];
 }
+
 - (void) onApplicationDidBecomeActive: (NSNotification *) notification {
     [self resume];
 }
+
 - (void) onApplicationWillTerminate: (NSNotification *) notification {
     [self stop];
 }
--(void) onApplicationDidLaunch: (NSNotification *) note
-{
+
+-(void) onApplicationDidLaunch: (NSNotification *) note{
     
     //if the application was not running we can  capture the notification here
     // otherwise, we are dependent on the developer impplementing pushNotificationsWithPayload in the app delegate
@@ -567,10 +563,8 @@
     }
 }
 
-
-
 #pragma mark - API request methods
-+ (PNAPIResult) userInfoForType: (PNUserInfoType) type
++ (void) userInfoForType: (PNUserInfoType) type
                         country: (NSString *) country
                     subdivision: (NSString *) subdivision
                             sex: (PNUserInfoSex) sex
@@ -579,7 +573,11 @@
                  sourceCampaign: (NSString *) sourceCampaign
                     installTime: (NSDate *) installTime {
     @try {
-        return [PlaynomicsSession userInfoForType:type
+        if(![[PlaynomicsSession sharedInstance] assertSessionHasStarted]){
+            return;
+        }
+        
+        [PlaynomicsSession userInfoForType:type
                                           country:country
                                       subdivision:subdivision
                                               sex:sex
@@ -590,11 +588,10 @@
     }
     @catch (NSException *exception) {
         NSLog(@"error: %@", exception.description);
-        return PNAPIResultFailUnkown;
     }
 }
 
-+ (PNAPIResult) userInfoForType: (PNUserInfoType) type
++ (void) userInfoForType: (PNUserInfoType) type
                         country: (NSString *) country
                     subdivision: (NSString *) subdivision
                             sex: (PNUserInfoSex) sex
@@ -622,11 +619,10 @@
     }
     @catch (NSException *exception) {
         NSLog(@"error: %@", exception.description);
-        return PNAPIResultFailUnkown;
     }
 }
 
-+ (PNAPIResult) transactionWithId: (signed long long) transactionId
++ (void) transactionWithId: (signed long long) transactionId
                            itemId: (NSString *) itemId
                          quantity: (double) quantity
                              type: (PNTransactionType) type
@@ -639,7 +635,7 @@
         NSArray *currencyValues = [NSArray arrayWithObject:[NSNumber numberWithDouble:currencyValue]];
         NSArray *currencyCategories = [NSArray arrayWithObject: [NSNumber numberWithInt:currencyCategory]];
         
-        return [PlaynomicsSession transactionWithId:transactionId
+        [PlaynomicsSession transactionWithId:transactionId
                                              itemId:itemId
                                            quantity:quantity
                                                type:type
@@ -650,11 +646,10 @@
     }
     @catch (NSException *exception) {
         NSLog(@"error: %@", exception.description);
-        return PNAPIResultFailUnkown;
     }
 }
 
-+ (PNAPIResult) transactionWithId: (signed long long) transactionId
++ (void) transactionWithId: (signed long long) transactionId
                            itemId: (NSString *) itemId
                          quantity: (double) quantity
                              type: (PNTransactionType) type
@@ -667,7 +662,7 @@
         NSArray *currencyValues = [NSArray arrayWithObject:[NSNumber numberWithDouble:currencyValue]];
         NSArray *currencyCategories = [NSArray arrayWithObject: [NSNumber numberWithInt:currencyCategory]];
         
-        return [PlaynomicsSession transactionWithId:transactionId
+        [PlaynomicsSession transactionWithId:transactionId
                                              itemId:itemId
                                            quantity:quantity
                                                type:type
@@ -678,12 +673,11 @@
     }
     @catch (NSException *exception) {
         NSLog(@"error: %@", exception.description);
-        return PNAPIResultFailUnkown;
     }
 }
 
 
-+ (PNAPIResult) transactionWithId:(signed long long) transactionId
++ (void) transactionWithId:(signed long long) transactionId
                            itemId: (NSString *) itemId
                          quantity: (double) quantity
                              type: (PNTransactionType) type
@@ -708,15 +702,14 @@
                                                 currencyCategories:currencyCategories] autorelease];
         
         ev.internalSessionId = [[PlaynomicsSession sharedInstance] sessionId];
-        return [s sendOrQueueEvent:ev];
+        [s sendOrQueueEvent:ev];
     }
     @catch (NSException *exception) {
         NSLog(@"error: %@", exception.description);
-        return PNAPIResultFailUnkown;
     }
 }
 
-+ (PNAPIResult) invitationSentWithId: (signed long long) invitationId
++ (void) invitationSentWithId: (signed long long) invitationId
                      recipientUserId: (NSString *) recipientUserId
                     recipientAddress: (NSString *) recipientAddress
                               method: (NSString *) method {
@@ -733,15 +726,14 @@
                                                   method:method
                                                 response:0] autorelease];
         ev.internalSessionId = [[PlaynomicsSession sharedInstance] sessionId];
-        return [s sendOrQueueEvent:ev];
+        [s sendOrQueueEvent:ev];
     }
     @catch (NSException *exception) {
         NSLog(@"error: %@", exception.description);
-        return PNAPIResultFailUnkown;
     }
 }
 
-+ (PNAPIResult) invitationResponseWithId: (signed long long) invitationId
++ (void) invitationResponseWithId: (signed long long) invitationId
                          recipientUserId: (NSString *) recipientUserId
                             responseType: (PNResponseType) responseType {
     @try {
@@ -758,16 +750,20 @@
                                                   method:nil
                                                 response:responseType] autorelease];
         ev.internalSessionId = [[PlaynomicsSession sharedInstance] sessionId];
-        return [s sendOrQueueEvent:ev];
+        [s sendOrQueueEvent:ev];
     }
     @catch (NSException *exception) {
         NSLog(@"error: %@", exception.description);
-        return PNAPIResultFailUnkown;
     }
 }
 
-+ (PNAPIResult) milestoneWithId: (signed long long) milestoneId
++ (void) milestoneWithId: (signed long long) milestoneId
                         andName: (NSString *) milestoneName {
+    
+    if(![[PlaynomicsSession sharedInstance] assertSessionHasStarted]){
+        return;
+    }
+    
     @try {
         PlaynomicsSession * s =[PlaynomicsSession sharedInstance];
         
@@ -778,20 +774,19 @@
                                                    milestoneId:milestoneId
                                                  milestoneName:milestoneName] autorelease];
         ev.internalSessionId = [[PlaynomicsSession sharedInstance] sessionId];
-        return [s sendOrQueueEvent:ev];
+        [s sendOrQueueEvent:ev];
     }
     @catch (NSException *exception) {
         NSLog(@"error: %@", exception.description);
-        return PNAPIResultFailUnkown;
     }
 }
 
 
-+ (PNAPIResult) enablePushNotificationsWithToken:(NSData*)deviceToken {
++ (void) enablePushNotificationsWithToken:(NSData*)deviceToken {
     @try {
         NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
         NSString *oldToken = [userDefaults stringForKey:PNUserDefaultsLastDeviceToken];
-        NSString *newToken = [PlaynomicsSession stringForTrimmedDeviceToken:deviceToken];
+        NSString *newToken = [[PlaynomicsSession sharedInstance] stringForTrimmedDeviceToken:deviceToken];
         
         if (![newToken isEqualToString:oldToken]) {
             [userDefaults setObject:newToken forKey:PNUserDefaultsLastDeviceToken];
@@ -804,15 +799,11 @@
                                                                      cookieId:s.cookieId
                                                                   deviceToken:deviceToken];
             ev.internalSessionId = [[PlaynomicsSession sharedInstance] sessionId];
-            return [s sendOrQueueEvent:ev];
+            [s sendOrQueueEvent:ev];
         }
-        
-        // device token has not changed so no need to make a call
-        return PNAPIResultNotSent;
     }
     @catch (NSException *exception) {
         NSLog(@"error: %@", exception.description);
-        return PNAPIResultFailUnkown;
     }
 }
 
@@ -841,7 +832,7 @@
     }
 }
 
-+ (PNAPIResult) errorReport:(PNErrorDetail*)errorDetails
++ (void) errorReport:(PNErrorDetail*)errorDetails
 {
     @try {
         PlaynomicsSession * s =[PlaynomicsSession sharedInstance];
@@ -853,16 +844,14 @@
                                           errorDetails:errorDetails] autorelease];
         
         ev.internalSessionId = [[PlaynomicsSession sharedInstance] sessionId];
-        return [s sendOrQueueEvent:ev];
+        [s sendOrQueueEvent:ev];
     }
     @catch (NSException *exception) {
         NSLog(@"error: %@", exception.description);
-        return PNAPIResultFailUnkown;
     }
-    return PNAPIResultFailUnkown;
 }
 
-+(NSString*)stringForTrimmedDeviceToken:(NSData*)deviceToken
+-(NSString*) stringForTrimmedDeviceToken:(NSData*)deviceToken
 {
     NSString *adeviceToken = [[deviceToken description] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]];
     adeviceToken = [adeviceToken stringByReplacingOccurrencesOfString:@" " withString:@""];
@@ -890,5 +879,12 @@
     [self sendOrQueueEvent:userInfoEvent];
 }
 
+-(BOOL) assertSessionHasStarted{
+    if(_sessionState != PNSessionStateStarted){
+        [PNLogger logMessage:@"PlayRM session could not be started! Can't send data to Playnomics API."];
+        return NO;
+    }
+    return YES;
+}
 @end
 

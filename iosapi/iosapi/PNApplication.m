@@ -18,7 +18,6 @@
     if (event.type == UIEventTypeTouches) {
         UITouch *touch = [event allTouches].anyObject;
         if (touch.phase == UITouchPhaseBegan) {
-            NSLog(@"sendEvent: PN touch event detected");
             [[PlaynomicsSession sharedInstance] onTouchDown: event];
         }
     }
