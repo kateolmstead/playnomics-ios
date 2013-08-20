@@ -13,7 +13,7 @@
 
 @implementation ViewController{
     FrameDelegate* _frameDelegate;
-
+    PlaynomicsFrame *videoFrame;
 }
 @synthesize transactionCount;
 
@@ -219,10 +219,20 @@
     [self initMsgFrame:@"15bec4e2b78424a2"];
 }
 
+-(IBAction)onVideoAdClick:(id)sender{
+    [self initMsgFrame:@"testTL"];
+}
+
 - (void) initMsgFrame: (NSString *) frameId {
     PlaynomicsMessaging *messaging = [PlaynomicsMessaging sharedInstance];
-        PlaynomicsFrame* frame = [messaging createFrameWithId : frameId frameDelegate : _frameDelegate];
-    [frame start];
+    PlaynomicsFrame* frame = [messaging createFrameWithId : frameId frameDelegate : _frameDelegate];
+    DisplayResult result = [frame start];
+    if (result==DisplayAdColony) {
+        videoFrame = frame;
+        [AdColony playVideoAdForZone:@"vz774c388f2c404a5ca8a22a" withDelegate:self];
+    } else {
+        NSLog(@"result=%u",result);
+    }
 }
 
 -(void)onPnx
@@ -253,4 +263,18 @@
     [_frameIdText release];
     [super dealloc];
 }
+
+- (void)adColonyTakeoverBeganForZone:(NSString*)zone {
+    NSLog(@"AdColony video ad launched for zone %@",zone);
+}
+
+- (void)adColonyTakeoverEndedForZone:(NSString*)zone withVC:(BOOL)withVirtualCurrencyAward {
+    NSLog(@"AdColony video ad finished for zone %@ and boolean %d",zone,withVirtualCurrencyAward);
+    [videoFrame sendVideoView];
+}
+
+- (void)adColonyVideoAdNotServedForZone:(NSString*)zone {
+    NSLog(@"AdColonydidnotserveavideoforzone%@",zone);
+}
+
 @end

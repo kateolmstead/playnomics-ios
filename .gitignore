@@ -1,8 +1,5 @@
 .DS_Store
 .idea
 xcuserdata/
-
+libplaynomics.a
 iosapi/build
-
-build.log
-target/
