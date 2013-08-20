@@ -58,11 +58,13 @@
 {
     long appId = 2L;
     //[PlaynomicsSession setTestMode:NO];
-    
     [PlaynomicsSession setOverrideMessagingUrl: @"https://ads.c.playnomics.net/v1/"];
     [PlaynomicsSession setOverrideEventsUrl: @"https://e.c.playnomics.net/v1/"];
     
     [PlaynomicsSession startWithApplicationId:appId];
+    //[PlaynomicsSession changeUserWithUserId: @"gmaddux311"];
+    
+    [AdColony initAdColonyWithDelegate:self];
     
     //enable notifications
     UIApplication *app = [UIApplication sharedApplication];
@@ -126,6 +128,17 @@
      Save data if appropriate.
      See also applicationDidEnterBackground:.
      */
+}
+
+- (NSString*)adColonyApplicationID{
+    return @"app76fb8d133f0146be909926";
+}
+
+- (NSDictionary*)adColonyAdZoneNumberAssociation{
+    return [NSDictionary dictionaryWithObjectsAndKeys:
+            @"vz774c388f2c404a5ca8a22a", [NSNumber numberWithInt:1],
+            @"vz642fb9a5f0e44409bd5483", [NSNumber numberWithInt:2],
+            nil];
 }
 
 @end

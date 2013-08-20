@@ -10,8 +10,9 @@
 #import "PlaynomicsSession.h"
 #import "PlaynomicsFrame.h"
 #import "PlaynomicsMessaging.h"
+#import "AdColonyPublic.h"
 
-@interface ViewController : UIViewController <PNAdClickActionHandler, UITextFieldDelegate>
+@interface ViewController : UIViewController <PNAdClickActionHandler, UITextFieldDelegate, AdColonyTakeoverAdDelegate>
 
 @property (nonatomic, retain) IBOutlet UITextField *transactionCount;
 @property (retain, nonatomic) IBOutlet UITextField *frameIdText;
@@ -28,6 +29,7 @@
 - (IBAction) onNullTargetClick: (id)sender;
 - (IBAction) onPnxClick: (id)sender;
 - (IBAction) onNoAdsClick:(id)sender;
+- (IBAction) onVideoAdClick:(id)sender;
 
 - (IBAction) onChangeUserClick:(id)sender;
 - (IBAction) onMilestoneClick:(id)sender;
