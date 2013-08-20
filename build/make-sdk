@@ -1,0 +1,45 @@
+#!/bin/bash
+set -e
+#set -x
+
+FULLSCRIPT=$(which $0)
+BIN_PATH=`dirname ${FULLSCRIPT}`
+TARGET_PATH=${BIN_PATH}/../target
+
+XCODE4_5="/Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild"
+
+SRC_PATH=${BIN_PATH}/../iosapi
+
+FILE_NAME="libiosapi.a"
+FINAL_FILE_NAME=${TARGET_PATH}/libplaynomics.a
+
+SYMROOT="build"
+
+RELEASE_DEVICE_ARMV7_DIR=build/Release-iphoneos-armv7
+RELEASE_SIMULATOR_DIR=build/Release-iphonesimulator
+
+DEVICE=iphoneos6.1
+SIMULATOR=iphonesimulator6.1
+
+LOG_PATH=${BIN_PATH}/build.log
+
+echo "Starting build for iOS SDK. Log file for xcodebuild is ${LOG_PATH}"
+
+echo "Building for arm7, arm7s"
+
+${XCODE4_5} -project ${SRC_PATH}/iosapi.xcodeproj -configuration Release -target iosapi -sdk ${DEVICE} clean build RUN_CLANG_STATIC_ANALYZER=NO CONFIGURATION_BUILD_DIR=${RELEASE_DEVICE_ARMV7_DIR} ONLY_ACTIVE_ARCH=NO ARCHS="armv7 armv7s" #> ${LOG_PATH}
+
+echo "Building for i386"
+
+${XCODE4_5} -project ${SRC_PATH}/iosapi.xcodeproj -configuration Release -target iosapi -sdk ${SIMULATOR} clean build RUN_CLANG_STATIC_ANALYZER=NO CONFIGURATION_BUILD_DIR=${RELEASE_SIMULATOR_DIR} ONLY_ACTIVE_ARCH=NO ARCHS="i386" #>> ${LOG_PATH}
+
+echo "Merging build libraries into ${FINAL_FILE_NAME}"
+
+echo "ARM7 Source Library ${SRC_PATH}/${RELEASE_DEVICE_ARMV7_DIR}/${FILE_NAME}"
+echo "i386 Source Library ${SRC_PATH}/${RELEASE_SIMULATOR_DIR}/${FILE_NAME}"
+
+lipo -create -output "${FINAL_FILE_NAME}" "${SRC_PATH}/${RELEASE_DEVICE_ARMV7_DIR}/${FILE_NAME}" "${SRC_PATH}/${RELEASE_SIMULATOR_DIR}/${FILE_NAME}"
+
+cp ${SRC_PATH}/iosapi/PlaynomicsSession.h ${TARGET_PATH}
+cp ${SRC_PATH}/iosapi/Messaging/PlaynomicsMessaging.h ${TARGET_PATH}
+cp ${SRC_PATH}/iosapi/Messaging/PlaynomicsFrame.h ${TARGET_PATH}

@@ -18,8 +18,8 @@ typedef enum {
 } AdType;
 
 @interface PlaynomicsFrame()
-@property (nonatomic,retain)PlaynomicsCallback *callbackUtil;
-@property (nonatomic,retain)NSString *videoViewUrl;
+@property (nonatomic,retain) PlaynomicsCallback *callbackUtil;
+@property (nonatomic,retain) NSString *videoViewUrl;
 @end
 
 @implementation PlaynomicsFrame {
@@ -31,9 +31,9 @@ typedef enum {
     BaseAdComponent *_closeButton;
     int _expirationSeconds;
     UIInterfaceOrientation _currentOrientation;
-    id<PNFrameRefreshHandler> _delegate;
     AdType _adType;
     id<PNFrameDelegate> _frameDelegate;
+    BOOL _shouldRenderFrame;
 }
 
 @synthesize frameId = _frameId;
@@ -41,98 +41,51 @@ typedef enum {
 #pragma mark - Lifecycle/Memory management
 - (id) initWithProperties: (NSDictionary *)properties
             forFrameId:(NSString *)frameId
-            andDelegate: (id<PNFrameRefreshHandler>) delegate
             frameDelegate: (id<PNFrameDelegate>) frameDelegate {
     
-    if (self = [super init]) {
-        _frameId = [frameId retain];
+    if ((self = [super init])) {
+        _frameId = [frameId copy];
         _properties = [properties retain];
-        _delegate = delegate;
-
-        if(frameDelegate != nil) {
-            _frameDelegate = [frameDelegate retain];
-        }
+        _frameDelegate = frameDelegate;
         
         self.callbackUtil = [[[PlaynomicsCallback alloc] init] autorelease];
         
         [self _initOrientationChangeObservers];
         [self _initAdComponents];
+        _shouldRenderFrame = NO;
     }
     return self;
 }
 
 - (void) dealloc {
-    
     [_properties release];
     [_background release];
     [_adArea release];
     [_closeButton release];
     [_frameId release];
-    if(_frameDelegate != nil){
-        [_frameDelegate release];
-    }
-    
+    _frameDelegate = nil;
     [super dealloc];
 }
 
 - (void) _initAdComponents {
-    _background = [[BaseAdComponent alloc] initWithProperties:[_properties objectForKey:FrameResponseBackgroundInfo]
-                                                     forFrame:self
-                                             withTouchHandler:nil
-                                                  andDelegate:self];
+    _background = [[BaseAdComponent alloc] initWithProperties:[_properties objectForKey:FrameResponseBackgroundInfo] delegate:self];
     
-    _adArea = [[BaseAdComponent alloc] initWithProperties:[self _mergeAdInfoProperties]
-                                                 forFrame:self
-                                         withTouchHandler: @selector(_adClicked:)
-                                              andDelegate:self];
+    _adArea = [[BaseAdComponent alloc] initWithProperties:[self _mergeAdInfoProperties] delegate:self];
     
-    _closeButton = [[BaseAdComponent alloc] initWithProperties:[_properties objectForKey:FrameResponseCloseButtonInfo]
-                                                      forFrame:self
-                                              withTouchHandler:@selector(_stop)
-                                                   andDelegate:self];
-    
-    NSNumber *expNum = [_properties objectForKey:FrameResponseExpiration];
-    _expirationSeconds = [expNum intValue];
-    
-    [_background layoutComponent];
-    [_adArea layoutComponent];
-    [_closeButton layoutComponent];
+    NSDictionary* closeButtonInfo = [_properties objectForKey:FrameResponseCloseButtonInfo];
+    if([BaseAdComponent getImageFromProperties:closeButtonInfo] != nil){
+        _closeButton = [[BaseAdComponent alloc] initWithProperties:closeButtonInfo delegate:self];
+    }
+
     
     [_background addSubComponent:_adArea];
-    [_background addSubComponent:_closeButton];
+    if(_closeButton !=  nil){
+        [_background addSubComponent:_closeButton];
+    }
     _background.imageUI.hidden = YES;
 }
 
-- (BOOL) _allComponentsLoaded {
-    
-    id displayNameTypeValue = _background.imageUrl;
-    
-    if (displayNameTypeValue != [NSNull null]){
-        if(_background.imageUrl == (id)[NSNull null]){
-            [_background setStatus:AdComponentStatusCompleted];
-        }
-    } else {
-        [_background setStatus:AdComponentStatusCompleted];
-    }
-    
-    displayNameTypeValue = _closeButton.imageUrl;
-    
-    if (displayNameTypeValue != [NSNull null]){
-        if(_closeButton.imageUrl == (id)[NSNull null]){
-            [_closeButton setStatus:AdComponentStatusCompleted];
-        }
-    } else {
-        [_closeButton setStatus:AdComponentStatusCompleted];
-    }
-    
-    return (_background.status == AdComponentStatusCompleted
-            && _adArea.status == AdComponentStatusCompleted
-            && _closeButton.status == AdComponentStatusCompleted);
-}
 
-- (void) componentDidLoad: (id) component {
-    _background.imageUI.hidden = ![self _allComponentsLoaded];
-}
 
 - (NSDictionary *) _mergeAdInfoProperties {
     NSDictionary *adInfo = [self _determineAdInfoToUse];
@@ -183,21 +136,66 @@ typedef enum {
         return;
     }
     _currentOrientation = orientation;
-    
     NSLog(@"Orientation changed to: %i", orientation);
-    [_background layoutComponent];
+    [_background renderComponent];
 }
 
 #pragma mark - Ad component click handlers
-- (void) _stop {
-    NSLog(@"Close button was pressed...");
-    [self _closeAd];
-    NSString *callback = [_adArea.properties objectForKey:FrameResponseAd_CloseUrl];
-    [self.callbackUtil submitRequestToServer:callback];
+- (void) componentDidLoad: (id) component{
+    if([self _allComponentsLoaded] && _shouldRenderFrame){
+        [self showFrameRenderLogImpression];
+    }
 }
 
-- (void) _adClicked: (UITapGestureRecognizer *)recognizer {
-    CGPoint location = [recognizer locationInView:_adArea.imageUI];
+- (BOOL) _allComponentsLoaded {
+    if(_closeButton == nil){
+        return (_background.status == AdComponentStatusCompleted
+                && _adArea.status == AdComponentStatusCompleted);
+    }
+    return (_background.status == AdComponentStatusCompleted
+            && _adArea.status == AdComponentStatusCompleted
+            && _closeButton.status == AdComponentStatusCompleted);
+}
+
+-(void) showFrameRenderLogImpression{
+    UIView *topLevelView = [[[UIApplication sharedApplication] delegate] window].rootViewController.view;
+    int lastDisplayIndex = topLevelView.subviews.count;
+    [topLevelView insertSubview: _background.imageUI atIndex:lastDisplayIndex + 1];
+    _background.imageUI.hidden = NO;
+    [_background.imageUI setNeedsDisplay];
+    
+    NSString *impressionUrl =[_adArea.properties objectForKey:FrameResponseAd_ImpressionUrl];
+    [self.callbackUtil submitRequestToServer: impressionUrl];
+}
+           
+           
+- (void) componentDidFailToLoad: (id) component{
+    [self _closeAd];
+}
+
+- (void) componentDidReceiveTouch:  (id) component touch: (UITouch*) touch{
+    if(component == _closeButton){
+        [self _stop];
+        return;
+    }
+    
+    if(component == _adArea){
+        [self _adClicked:touch];
+        return;
+    }
+}
+
+
+- (void) _stop {
+    NSLog(@"Close button was pressed...");
+    NSString *callback = [_adArea.properties objectForKey:FrameResponseAd_CloseUrl];
+    [self.callbackUtil submitRequestToServer:callback];
+    
+    [self _closeAd];
+}
+
+- (void) _adClicked: (UITouch *)touch {
+    CGPoint location = [touch locationInView: _adArea.imageUI];
     int x = location.x;
     int y = location.y;
     
@@ -277,7 +275,7 @@ typedef enum {
 - (void) _closeAd {
     [_background hide];
     [self _destroyOrientationObservers];
-    [self _stopExpiryTimer];
+    [self release];
 }
 
 - (NSString*) adActionMethodForURLPath: (NSString*)urlPath{
@@ -300,79 +298,25 @@ typedef enum {
 #pragma mark - Public Interface
 - (DisplayResult) start {
     NSString *frameResponseURL =[_adArea.properties objectForKey:FrameResponseAd_ImpressionUrl];
-    if (frameResponseURL==nil)
-    {
+    if (frameResponseURL==nil){
         //this may happen due to broken JSON
         return DisplayResultFailUnknown;
     }
+    
+    _shouldRenderFrame = YES;
     
     if (_adType == AdColony) {
         [self.callbackUtil submitRequestToServer:frameResponseURL];
         NSLog(@"Returning DisplayAdColony");
         return DisplayAdColony;
-    } else {
-        NSLog(@"AdType is not AdColony");
     }
     
-    [_background display];
-    [self _startExpiryTimer];
-    
-    [self.callbackUtil submitRequestToServer:frameResponseURL];
-    
     if ([self _allComponentsLoaded]) {
+        [self showFrameRenderLogImpression];
         return DisplayResultDisplayed;
     } else {
         return DisplayResultDisplayPending;
     }
-}
-
-
-- (void) _startExpiryTimer {
-    @try {
-        [self _stopExpiryTimer];
-        
-        _expirationTimer = [[NSTimer scheduledTimerWithTimeInterval:_expirationSeconds target:self selector:@selector(_notifyDelegate) userInfo:nil repeats:NO] retain];
-    }
-    @catch (NSException *exception) {
-        NSLog(@"error: %@", exception.description);
-    }
-    
-}
-
-- (void) _stopExpiryTimer {
-    
-    @try {
-        
-        if ([_expirationTimer isValid]) {
-            [_expirationTimer invalidate];
-        }
-        
-        [_expirationTimer release];
-        _expirationTimer = nil;
-    }
-    @catch (NSException *exception) {
-        NSLog(@"error: %@", exception.description);
-    }
-}
-
-- (void) _notifyDelegate {
-    [_delegate refreshFrameWithId:_frameId];
-}
-
-- (void) refreshProperties: (NSDictionary *)properties {
-    
-    // TODO: should we reset all properties, or just the images?
-    NSLog(@"refreshProperties called for frameId: %@", _frameId);
-    [self _closeAd];
-    [_properties release];
-    [_background release];
-    [_adArea release];
-    [_closeButton release];
-    _properties = [properties retain];
-    
-    [self _initOrientationChangeObservers];
-    [self _initAdComponents];
-    [self start];
 }
 
 - (void)sendVideoView {

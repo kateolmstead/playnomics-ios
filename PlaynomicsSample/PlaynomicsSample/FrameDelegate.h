@@ -10,5 +10,5 @@
 #import "PlaynomicsMessaging.h"
 
 @interface FrameDelegate : NSObject<PNFrameDelegate>
--(id)initWithFrameId:(NSString*) frameId;
+
 @end

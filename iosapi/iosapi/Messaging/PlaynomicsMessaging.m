@@ -13,7 +13,6 @@
 @implementation PlaynomicsMessaging {
 @private
     NSMutableDictionary *_actionHandlers;
-    NSMutableDictionary *_frames;
     id _delegate;
 }
 
@@ -29,7 +28,6 @@
 - (id)init {
     if (self = [super init]) {
         _actionHandlers = [[NSMutableDictionary dictionary] retain];
-        _frames = [[NSMutableDictionary dictionary] retain];
         self.isTesting = NO;
 #ifdef STUB
         self.isTesting = YES;
@@ -65,10 +63,8 @@
     NSDictionary *propDict = [self _retrieveFramePropertiesForId:frameId withCaller:caller];
     PlaynomicsFrame *frame = [[PlaynomicsFrame alloc] initWithProperties:propDict
                                                         forFrameId:frameId
-                                                        andDelegate: self
                                                         frameDelegate: frameDelegate];
-    [_frames setObject:frame forKey:frameId];
-    return [frame autorelease];
+    return frame;
 }
 
 // Make an ad request to the PN Ad Servers
@@ -126,15 +122,6 @@
     }
     @catch (NSException *e) {
         NSLog(@"There was an exception thrown executing action '%@': [%@] %@", action, e.name, e.reason);
-    }
-}
-
-- (void) refreshFrameWithId: (NSString *) frameId {
-    
-    // refresh ad
-    PlaynomicsFrame *frame = [_frames objectForKey:frameId];
-    if (frame != nil) {
-        [frame refreshProperties:[self _retrieveFramePropertiesForId:frameId withCaller:nil]];
     }
 }
 

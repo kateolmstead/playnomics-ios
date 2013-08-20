@@ -944,6 +944,10 @@
     return adeviceToken;
 }
 
++(void) onTouchDown:(UIEvent *)event{
+    [[PlaynomicsSession sharedInstance] onTouchDown:event];
+}
+
 - (void)performActionOnIdsChangedWithBreadcrumbId: (NSString*) breadcrumbId
                               andLimitAdvertising: (NSString*) limitAdvertising
                                           andIDFA: (NSString*) idfa
