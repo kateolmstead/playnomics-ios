@@ -59,8 +59,8 @@
     long appId = 2L;
     //[PlaynomicsSession setTestMode:NO];
     
-    [PlaynomicsSession setOverrideMessagingUrl: @"https://ads.c.playnomics.net/v1/"];
-    [PlaynomicsSession setOverrideEventsUrl: @"https://e.c.playnomics.net/v1/"];
+    //[PlaynomicsSession setOverrideMessagingUrl: @"https://ads.c.playnomics.net/v1/"];
+    //[PlaynomicsSession setOverrideEventsUrl: @"https://e.c.playnomics.net/v1/"];
     
     [PlaynomicsSession startWithApplicationId:appId];
     

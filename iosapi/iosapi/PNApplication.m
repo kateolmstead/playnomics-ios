@@ -13,12 +13,8 @@
 #import "PlaynomicsSession+Exposed.h"
 
 @implementation PNApplication
-
-
 - (void) sendEvent: (UIEvent *) event {
-    
-    NSLog(@"sendEvent: %@", event.description);
-    
+    [super sendEvent:event];
     if (event.type == UIEventTypeTouches) {
         UITouch *touch = [event allTouches].anyObject;
         if (touch.phase == UITouchPhaseBegan) {
@@ -26,6 +22,5 @@
             [[PlaynomicsSession sharedInstance] onTouchDown: event];
         }
     }
-    [super sendEvent:event];
 }
 @end
