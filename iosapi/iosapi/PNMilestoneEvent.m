@@ -8,47 +8,42 @@
 #import "PNMilestoneEvent.h"
 
 @implementation PNMilestoneEvent
-
 @synthesize milestoneId=_milestoneId;
-@synthesize milestoneName=_milestoneName;
+@synthesize milestoneType=_milestoneType;
 
-- (id) init:  (PNEventType) eventType
-applicationId: (signed long long) applicationId
-     userId: (NSString *) userId
-   cookieId: (NSString *) cookieId
-milestoneId: (signed long long) milestoneId
-     milestoneName:(NSString *)milestoneName {
+- (id) init:  (PNEventType) eventType applicationId: (signed long long) applicationId userId: (NSString *) userId cookieId: (NSString *) cookieId milestoneId: (signed long long) milestoneId milestoneType:(PNMilestoneType) milestoneType {
     
     if ((self = [super init:eventType applicationId:applicationId userId:userId cookieId:cookieId])) {
         _milestoneId = milestoneId;
-        _milestoneName = [milestoneName retain];
+        _milestoneType = milestoneType;
     }
     return self;
 }
 
 - (NSString *) toQueryString {
     //escape the milestone name
-    NSString * escapedMilestoneName = [PNUtil urlEncodeValue:[self milestoneName]];
-    NSString * queryString = [[super toQueryString] stringByAppendingFormat:@"&mi=%lld&mn=%@&jsh=%@",
-                              [self milestoneId],
-                              escapedMilestoneName,
-                              [self internalSessionId]];
+    NSString * milestoneName = [self getNameForMilestoneType: self.milestoneType];
+    NSString * queryString = [[super toQueryString] stringByAppendingFormat:@"&mi=%lld&mn=%@&jsh=%@", self.milestoneId, milestoneName, self.internalSessionId];
     return queryString;
 }
 
 - (void)encodeWithCoder:(NSCoder *)encoder {
     [super encodeWithCoder:encoder];
-    
     [encoder encodeInt64:_milestoneId forKey:@"PNMilestoneEvent._milestoneId"];
-    [encoder encodeObject:_milestoneName forKey:@"PNMilestoneEvent._milestoneName"];
+    [encoder encodeInt:_milestoneType forKey:@"PNMilestoneEvent._milestoneType"];
 }
 
 - (id)initWithCoder:(NSCoder *)decoder {
     if ((self = [super initWithCoder:decoder])) {
         _milestoneId = [decoder decodeInt64ForKey:@"PNMilestoneEvent._milestoneId"];
-        _milestoneName = (NSString *) [[decoder decodeObjectForKey:@"PNMilestoneEvent._milestoneName"] retain];
+        _milestoneType = [decoder decodeIntegerForKey:@"PNMilestoneEvent._milestoneType"];
     }
     return self;
+}
+
+- (NSString*) getNameForMilestoneType: (PNMilestoneType) milestoneType{
+    int milestoneNum  = (int)milestoneType;
+    return [NSString stringWithFormat: @"CUSTOM%d", milestoneNum];
 }
 
 @end

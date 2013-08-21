@@ -35,15 +35,6 @@ typedef enum {
 +(PNEventType) PNEventTypeValueOf: (NSString *) text;
 +(NSString *) PNEventTypeDescription:  (PNEventType) value;
 
-+(PNTransactionType) PNTransactionTypeValueOf: (NSString *) text;
-+(NSString *) PNTransactionTypeDescription: (PNTransactionType) value;
-
-+(PNCurrencyCategory) PNCurrencyCategoryValueOf: (NSString *) text;
-+(NSString *) PNCurrencyCategoryDescription: (PNCurrencyCategory) value;
-
-+(PNCurrencyType) PNCurrencyTypeValueOf:(NSString *) text;
-+ (NSString *) PNCurrencyTypeDescription:(PNCurrencyType) value;
-
 +(NSString *) urlEncodeValue: (NSString *) unescapedValue;
 
 + (BOOL) isUrl:(NSString*) url;

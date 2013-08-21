@@ -92,55 +92,17 @@
 
 
 - (IBAction) onTransactionClick:(id)sender {
-    [self.view endEditing:YES];
-    
-    NSInteger count = 1;
-    if ([transactionCount.text length] > 0) {
-        count = MIN(100, [transactionCount.text integerValue]);
-    }
-    
-    if (count > 0) {
-        NSMutableArray *tStack = [NSMutableArray array];
-        NSMutableArray *vStack = [NSMutableArray array];
-        NSMutableArray *cStack = [NSMutableArray array];
-        for (int j = 0; j < count; j++) {
-            [tStack addObject:[NSNumber numberWithInt:(arc4random() % 4)]];
-            [vStack addObject:[NSNumber numberWithDouble:(arc4random() % 10000) / 10]];
-            [cStack addObject:[NSNumber numberWithInt:(arc4random() % 2)]];
-        }
-        
-        [PlaynomicsSession transactionWithId:(arc4random() & NSUIntegerMax)
-                                      //itemId:@"TEST_ITEM_ID"
-                                               itemId: @"Test Item Id"
-                                             quantity:(arc4random() % 100)
-                                                type:(arc4random() % 12)
-                  otherUserId:nil
-                               currencyTypes:tStack 
-                              currencyValues:vStack 
-                          currencyCategories:cStack
-                  ];
-    }
-    else {
-        [PlaynomicsSession transactionWithId:(arc4random() & NSUIntegerMax)
-                  //itemId:@"TEST_ITEM_ID"
-                                               itemId: @"Test Item Id"
-                                             quantity:0
-                                                 type:(arc4random() % 12)
-                                          otherUserId:nil
-                                         currencyType:(arc4random() % 4)
-                                        currencyValue:((arc4random() % 10000) / 10)
-                                     currencyCategory:(arc4random() % 2)];
-    }
+    NSNumber* price = [NSNumber numberWithDouble:.99];
+    [[PlaynomicsSession sharedInstance] transactionWithUSDPrice: price quantity: 1];
 }
 
 
 - (IBAction) onMilestoneClick:(id)sender {
-    
-    [PlaynomicsSession milestoneWithId:4L andName:@"CUSTOM1"];
-    [PlaynomicsSession milestoneWithId:4L andName:@"CUSTOM2"];
-    [PlaynomicsSession milestoneWithId:4L andName:@"CUSTOM3"];
-    [PlaynomicsSession milestoneWithId:4L andName:@"CUSTOM4"];
-    [PlaynomicsSession milestoneWithId:4L andName:@"CUSTOM5"];
+    [[PlaynomicsSession sharedInstance] milestone:PNMilestoneCustom1];
+    [[PlaynomicsSession sharedInstance] milestone:PNMilestoneCustom2];
+    [[PlaynomicsSession sharedInstance] milestone:PNMilestoneCustom3];
+    [[PlaynomicsSession sharedInstance] milestone:PNMilestoneCustom4];
+    [[PlaynomicsSession sharedInstance] milestone:PNMilestoneCustom5];
 }
 
 - (IBAction)onHttpClick:(id)sender {

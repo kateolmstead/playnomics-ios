@@ -77,7 +77,8 @@
     int screenHeight = screenRect.size.height;
     
     NSString *queryString = [NSString stringWithFormat:@"ads?a=%lld&u=%@&p=%@&t=%lld&b=%@&f=%@&c=%d&d=%d&esrc=ios&ever=%@",
-                             pn.applicationId, pn.userId, caller, time, pn.cookieId, frameId, screenHeight, screenWidth, [PlaynomicsSession getSDKVersion]];
+                             pn.applicationId, pn.userId, caller, time, pn.cookieId, frameId, screenHeight, screenWidth, pn.sdkVersion];
+    
     NSString *serverUrl = [pn getMessagingUrl];
 
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", serverUrl, queryString]];
@@ -89,7 +90,7 @@
     
     if (adResponse == nil){
         PNErrorDetail *detail = [PNErrorDetail pNErrorDetailWithType:PNErrorTypeInvalidJson];
-        [PlaynomicsSession errorReport:detail];
+        [pn errorReport:detail];
         return nil;
     }
     

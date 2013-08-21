@@ -1,86 +1,65 @@
 //  Playnomics PlayRM SDK
 //  PlaynomicsSession.h
-//
 //  Copyright (c) 2012 Playnomics. All rights reserved.
-//
-//  Please see http://integration.playnomics.com for instructions
-//  Please contact support@playnomics.com for assistance
+//  Please see http://integration.playnomics.com for instructions.
+//  Please contact support@playnomics.com for assistance.
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+//this is available in iOS 6 and above, add this in for iOS 5 and below
+#ifndef NS_ENUM
+#define NS_ENUM(_type, _name) enum _name : _type _name; enum _name : _type
+#endif
 
-/**
- *  PNTransactionType
- *
- *  Possible Transaction Types
- */
-typedef enum {
-    PNTransactionBuyItem,
-    PNTransactionSellItem,
-    PNTransactionReturnItem,
-    PNTransactionBuyService,
-    PNTransactionSellService,
-    PNTransactionReturnService,
-    PNTransactionCurrencyConvert,
-    PNTransactionInitial,
-    PNTransactionFree,
-    PNTransactionReward,
-    PNTransactionGiftSend,
-    PNTransactionGiftReceive
-} PNTransactionType;
-
-/**
- *  PNCurrencyCategory
- *
- *  Possible currency Categories for transactions
- */
-typedef enum {
-    PNCurrencyCategoryReal,
-    PNCurrencyCategoryVirtual
-} PNCurrencyCategory;
-
-/**
- *  PNCurrencyType
- *
- *  Possible currency Types for transactions
- */
-typedef enum {
-    PNCurrencyUSD,
-    PNCurrencyFBC,
-    PNCurrencyOFD,
-    PNCurrencyOFF
-} PNCurrencyType;
+typedef NS_ENUM(int, PNMilestoneType){
+    PNMilestoneCustom1 = 1,
+    PNMilestoneCustom2 = 2,
+    PNMilestoneCustom3 = 3,
+    PNMilestoneCustom4 = 4,
+    PNMilestoneCustom5 = 5,
+    PNMilestoneCustom6 = 6,
+    PNMilestoneCustom7 = 7,
+    PNMilestoneCustom8 = 8,
+    PNMilestoneCustom9 = 9,
+    PNMilestoneCustom10 = 10,
+    PNMilestoneCustom11 = 11,
+    PNMilestoneCustom12 = 12,
+    PNMilestoneCustom13 = 13,
+    PNMilestoneCustom14 = 14,
+    PNMilestoneCustom15 = 15,
+    PNMilestoneCustom16 = 16,
+    PNMilestoneCustom17 = 17,
+    PNMilestoneCustom18 = 18,
+    PNMilestoneCustom19 = 19,
+    PNMilestoneCustom20 = 20,
+    PNMilestoneCustom21 = 21,
+    PNMilestoneCustom22 = 22,
+    PNMilestoneCustom23 = 23,
+    PNMilestoneCustom24 = 24,
+    PNMilestoneCustom25 = 25
+};
 
 @interface PlaynomicsSession : NSObject
-+ (bool) startWithApplicationId:(signed long long) applicationId userId: (NSString *) userId;
-+ (bool) startWithApplicationId:(signed long long) applicationId;
+@property (nonatomic, assign) bool testMode;
+@property (nonatomic, copy) NSString* overrideEventsUrl;
+@property (nonatomic, copy) NSString* overrideMessagingUrl;
 
-+ (void) setTestMode: (bool) testMode;
-+ (bool) getTestMode;
+@property (nonatomic, readonly) NSString* sdkVersion;
+@property (nonatomic, readonly) signed long long applicationId;
+@property (nonatomic, readonly) NSString * userId;
 
-+ (NSString*) getOverrideMessagingUrl;
-+ (void) setOverrideMessagingUrl: (NSString*) url;
++ (PlaynomicsSession*) sharedInstance;
 
-+ (NSString*) getOverrideEventsUrl;
-+ (void) setOverrideEventsUrl: (NSString*) url;
+- (bool) startWithApplicationId:(signed long long) applicationId userId: (NSString *) userId;
+- (bool) startWithApplicationId:(signed long long) applicationId;
+- (void) milestone: (PNMilestoneType) milestoneType;
+- (void) transactionWithUSDPrice: (NSNumber*) priceInUSD quantity: (NSInteger) quantity;
 
-+ (NSString*) getSDKVersion;
+- (void) enablePushNotificationsWithToken: (NSData*)deviceToken;
+- (void) pushNotificationsWithPayload: (NSDictionary*)payload;
 
-+ (void) transactionWithId: (signed long long) transactionId itemId: (NSString *) itemId quantity: (double) quantity type: (PNTransactionType) type otherUserId: (NSString *) otherUserId currencyType: (PNCurrencyType) currencyType currencyValue: (double) currencyValue currencyCategory: (PNCurrencyCategory) currencyCategory;
-
-+ (void) transactionWithId: (signed long long) transactionId itemId: (NSString *) itemId quantity: (double) quantity type: (PNTransactionType) type otherUserId: (NSString *) otherUserId currencyTypeAsString: (NSString *) currencyType currencyValue: (double) currencyValue currencyCategory: (PNCurrencyCategory) currencyCategory;
-
-+ (void) transactionWithId: (signed long long) transactionId itemId: (NSString *) itemId quantity: (double) quantity type: (PNTransactionType) type otherUserId: (NSString *) otherUserId currencyTypes: (NSArray *) currencyTypes currencyValues: (NSArray *) currencyValues currencyCategories: (NSArray *) currencyCategories;
-
-+ (void) milestoneWithId: (signed long long) milestoneId
-                        andName: (NSString *) milestoneName;
-
-+ (void) enablePushNotificationsWithToken:(NSData*)deviceToken;
-
-+ (void) pushNotificationsWithPayload:(NSDictionary*)payload;
-
-+ (void) onTouchDown: (UIEvent*) event;
+- (void) onTouchDown: (UIEvent*) event;
 @end
 
 @interface PNApplication : UIApplication<UIApplicationDelegate>

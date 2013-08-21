@@ -7,12 +7,9 @@
 //
 
 #import "PlaynomicsSession.h"
-
 #import "PNConfig.h"
 #import "PNConstants.h"
-
 #import "PNRandomGenerator.h"
-
 #import "PNEventSender.h"
 #import "PlaynomicsCallback.h"
 #import "PNBasicEvent.h"
@@ -26,138 +23,50 @@
 #import "PNUserInfo.h"
 #import "PNLogger.h"
 
-@interface PlaynomicsSession(){
-    
+@implementation PlaynomicsSession {
+@private
     PNSessionState _sessionState;
-    
-    NSTimer *_eventTimer;
-    PNEventSender *_eventSender;
-    NSMutableArray *_playnomicsEventList;
-    
-    bool _testMode;
-    
-    /** Tracking values */
     int _collectMode;
 	int _sequence;
-    signed long long _applicationId;
-    NSString *_userId;
-	NSString *_cookieId; // TODO: Doc says this should be a 64 bit number
-	NSString *_sessionId;
-	NSString *_instanceId;
-	
+    
+    NSTimer* _eventTimer;
+    NSMutableArray* _playnomicsEventList;
+    NSString *_instanceId;
     NSString* _testEventsUrl;
     NSString* _prodEventsUrl;
-    NSString* _overrideEventsUrl;
-    
     NSString* _testMessagingUrl;
     NSString* _prodMessagingUrl;
-    NSString* _overrideMessagingUrl;
     
     NSTimeInterval _sessionStartTime;
 	NSTimeInterval _pauseTime;
     
-	int _timeZoneOffset;
+    PlaynomicsCallback* _callback;
+    PNEventSender* _eventSender;
+    
+    int _timeZoneOffset;
 	int _clicks;
 	int _totalClicks;
 	int _keys;
 	int _totalKeys;
 }
 
-@property (atomic, readonly) PNEventSender * eventSender;
-@property (atomic, readonly) NSMutableArray * playnomicsEventList;
-@property (nonatomic, retain) PlaynomicsCallback *callback;
-
-- (bool) startWithApplicationId:(signed long long) applicationId;
-- (bool) startWithApplicationId:(signed long long) applicationId userId: (NSString *) userId;
-- (void) sendOrQueueEvent: (PNEvent *) pe;
-
-- (void) stop;
-- (void) startEventTimer;
-- (void) stopEventTimer;
-- (void) consumeQueue;
-
-@end
-
-@implementation PlaynomicsSession
-
 @synthesize applicationId=_applicationId;
 @synthesize userId=_userId;
 @synthesize cookieId=_cookieId;
 @synthesize sessionId=_sessionId;
 @synthesize sessionState=_sessionState;
+
 @synthesize testMode=_testMode;
-@synthesize eventSender=_eventSender;
-@synthesize playnomicsEventList=_playnomicsEventList;
 @synthesize overrideEventsUrl=_overrideEventsUrl;
 @synthesize overrideMessagingUrl=_overrideMessagingUrl;
+
+@synthesize sdkVersion=_sdkVersion;
 
 //Singleton
 + (PlaynomicsSession *)sharedInstance{
     DEFINE_SHARED_INSTANCE_USING_BLOCK(^{
         return [[self alloc] init];
     });
-}
-
-+ (bool) getTestMode{
-    return [[PlaynomicsSession sharedInstance] testMode];
-}
-
-+ (void) setTestMode: (bool) testMode {
-    @try {
-        [[PlaynomicsSession sharedInstance] setTestMode: testMode];
-    }
-    @catch (NSException *exception) {
-        NSLog(@"setTestMode error: %@", exception.description);
-    }
-}
-
-+(NSString*) getOverrideEventsUrl{
-    return [[PlaynomicsSession sharedInstance] overrideEventsUrl];
-}
-
-+(void) setOverrideEventsUrl:(NSString *)url{
-    [[PlaynomicsSession sharedInstance] setOverrideEventsUrl: url];
-}
-
-+(void) setOverrideMessagingUrl:(NSString *)url{
-    [[PlaynomicsSession sharedInstance] setOverrideMessagingUrl: url];
-}
-            
-+(NSString*) getOverrideMessagingUrl{
-    return [[PlaynomicsSession sharedInstance] overrideEventsUrl];
-}
-
-+(NSString*) getSDKVersion{
-    return PNPropertyVersion;
-}
-
-+ (bool) startWithApplicationId:(signed long long) applicationId userId: (NSString *) userId {
-    @try {
-        return [[PlaynomicsSession sharedInstance] startWithApplicationId:applicationId userId:userId];
-    }
-    @catch (NSException *exception) {
-        NSLog(@"startWithApplicationId error: %@", exception.description);
-        return false;
-    }
-}
-
-+ (bool) startWithApplicationId:(signed long long) applicationId {
-    @try {
-        return [[PlaynomicsSession sharedInstance] startWithApplicationId:applicationId];
-    }
-    @catch (NSException *exception) {
-        NSLog(@"startWithApplicationId error: %@", exception.description);
-        return false;
-    }
-}
-
-+ (void) stop {
-    @try {
-        return [[PlaynomicsSession sharedInstance] stop];
-    }
-    @catch (NSException *exception) {
-        NSLog(@"stop error: %@", exception.description);
-    }
 }
 
 - (id) init {
@@ -177,7 +86,9 @@
         _testMessagingUrl = PNPropertyMessagingTestUrl;
         _prodMessagingUrl = PNPropertyMessagingProdUrl;
         
-        self.callback = [[[PlaynomicsCallback alloc] init] autorelease];
+        _callback = [[PlaynomicsCallback alloc] init];
+    
+        _sdkVersion = PNPropertyVersion;
     }
     
     return self;
@@ -186,7 +97,8 @@
 - (void) dealloc {
     [_eventSender release];
 	[_playnomicsEventList release];
-    
+    [_callback release];
+
     /** Tracking values */
     [_userId release];
 	[_cookieId release];
@@ -195,6 +107,7 @@
     
     [_overrideEventsUrl release];
     [_overrideMessagingUrl release];
+    [_sdkVersion release];
     [super dealloc];
 }
 
@@ -239,7 +152,7 @@
         
         _applicationId = applicationId;
         
-        [self startSessionWithApplicationId: applicationId];
+        [self startSession];
         [self startEventTimer];
         
         NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
@@ -254,7 +167,7 @@
         // Retrieve stored Event List
         NSArray *storedEvents = (NSArray *) [NSKeyedUnarchiver unarchiveObjectWithFile:PNFileEventArchive];
         if ([storedEvents count] > 0) {
-            [self.playnomicsEventList addObjectsFromArray:storedEvents];
+            [_playnomicsEventList addObjectsFromArray:storedEvents];
             
             // Remove archive so as not to pick up bad events when starting up next time.
             NSFileManager *fm = [NSFileManager defaultManager];
@@ -270,13 +183,12 @@
     }
 }
 
-- (void) startSessionWithApplicationId: (signed long long) applicationId {
+- (void) startSession{
     NSLog(@"startSessionWithApplicationId");
     
     /** Setting Session variables */
     
     _sessionState = PNSessionStateStarted;
-    _applicationId = applicationId;
     
     PNUserInfo *userInfo = [[PNUserInfo alloc] init:self];
     _cookieId = [userInfo breadcrumbId];
@@ -326,7 +238,7 @@
     }
     
     /** Send appStart or appPage event */
-    PNBasicEvent *ev = [[PNBasicEvent alloc] init:eventType
+    PNBasicEvent *ev = [[PNBasicEvent alloc] init: eventType
                                     applicationId:_applicationId
                                            userId:_userId
                                          cookieId:_cookieId
@@ -338,6 +250,9 @@
     [_eventSender sendEventToServer:ev withEventQueue:_playnomicsEventList];
     [ev release];
 }
+
+
+
 
 /**
  * Pause.
@@ -353,22 +268,12 @@
         
         [self stopEventTimer];
         
-        PNBasicEvent *ev = [[[PNBasicEvent alloc] init:PNEventAppPause
-                                         applicationId:_applicationId
-                                                userId:_userId
-                                              cookieId:_cookieId
-                                     internalSessionId:_sessionId
-                                            instanceId:_instanceId
-                                      sessionStartTime:_sessionStartTime
-                                              sequence:_sequence
-                                                clicks:_clicks
-                                           totalClicks:_totalClicks
-                                                  keys:_keys
-                                             totalKeys:_totalKeys
-                                           collectMode:_collectMode] autorelease];
+        PNBasicEvent *ev = [[[PNBasicEvent alloc] init:PNEventAppPause applicationId:_applicationId userId:_userId cookieId:_cookieId internalSessionId:_sessionId instanceId:_instanceId sessionStartTime:_sessionStartTime sequence:_sequence clicks:_clicks totalClicks:_totalClicks keys:_keys totalKeys:_totalKeys collectMode:_collectMode] autorelease];
+        
         _pauseTime = [[NSDate date] timeIntervalSince1970];
         
         _sequence += 1;
+        
         [ev setSequence:_sequence];
         [ev setSessionStartTime:_sessionStartTime];
         
@@ -395,24 +300,12 @@
         
         _sessionState = PNSessionStateStarted;
         
-        PNBasicEvent *ev = [[[PNBasicEvent alloc] init:PNEventAppResume
-                                         applicationId:_applicationId
-                                                userId:_userId
-                                              cookieId:_cookieId
-                                     internalSessionId:_sessionId
-                                            instanceId:_instanceId
-                                      sessionStartTime:_sessionStartTime
-                                              sequence:_sequence
-                                                clicks:_clicks
-                                           totalClicks:_totalClicks
-                                                  keys:_keys
-                                             totalKeys:_totalKeys
-                                           collectMode:_collectMode] autorelease];
+        PNBasicEvent *ev = [[[PNBasicEvent alloc] init:PNEventAppResume applicationId:_applicationId userId:_userId cookieId:_cookieId internalSessionId:_sessionId instanceId:_instanceId sessionStartTime:_sessionStartTime sequence:_sequence clicks:_clicks totalClicks:_totalClicks keys:_keys totalKeys:_totalKeys collectMode:_collectMode] autorelease];
+        
         [ev setPauseTime:_pauseTime];
         [ev setSessionStartTime:_sessionStartTime];
         [ev setSequence:_sequence];
-        
-        
+    
         // Try to send and queue if unsuccessful
         [_eventSender sendEventToServer:ev withEventQueue:_playnomicsEventList];
     }
@@ -442,7 +335,7 @@
         [[NSNotificationCenter defaultCenter] removeObserver: self];
         
         // Store Event List
-        if (![NSKeyedArchiver archiveRootObject:self.playnomicsEventList toFile:PNFileEventArchive]) {
+        if (![NSKeyedArchiver archiveRootObject: _playnomicsEventList toFile:PNFileEventArchive]) {
             NSLog(@"Playnomics: Could not save event list");
         }
         
@@ -498,17 +391,17 @@
                                                       keys:_keys
                                                  totalKeys:_totalKeys
                                                collectMode:_collectMode] autorelease];
-            [self.playnomicsEventList addObject:ev];
+            [_playnomicsEventList addObject:ev];
             
             NSLog(@"ev:%@", ev);
-            NSLog(@"self.playnomicsEventList:%@", self.playnomicsEventList);
+            NSLog(@"self.playnomicsEventList:%@", _playnomicsEventList);
             
             // Reset keys/clicks
             _keys = 0;
             _clicks = 0;
         }
         
-        for (PNEvent *ev in self.playnomicsEventList) {
+        for (PNEvent *ev in _playnomicsEventList) {
             [_eventSender sendEventToServer:ev withEventQueue:_playnomicsEventList];
         }
     }
@@ -523,7 +416,7 @@
     if (_sessionState != PNSessionStateStarted) {
         //add the event to our queue if we are here
         if(pe != nil){
-            [self.playnomicsEventList addObject:pe];
+            [_playnomicsEventList addObject:pe];
         }
     }
     
@@ -561,218 +454,146 @@
     if ([note userInfo] != nil && [note.userInfo valueForKey:UIApplicationLaunchOptionsRemoteNotificationKey] != nil) {
         NSDictionary *push = [note.userInfo valueForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
         NSLog(@"sending impression from onApplicationDidLaunch\r\n---> %@", push);
-        [PlaynomicsSession pushNotificationsWithPayload:push];
+        [[PlaynomicsSession sharedInstance] pushNotificationsWithPayload:push];
     }
 }
 
 #pragma mark - API request methods
 
-+ (void) transactionWithId: (signed long long) transactionId
-                           itemId: (NSString *) itemId
-                         quantity: (double) quantity
-                             type: (PNTransactionType) type
-                      otherUserId: (NSString *) otherUserId
-                     currencyType: (PNCurrencyType) currencyType
-                    currencyValue: (double) currencyValue
-                 currencyCategory: (PNCurrencyCategory) currencyCategory {
+- (void)  transactionWithUSDPrice: (NSNumber*) priceInUSD quantity: (NSInteger) quantity  {
     @try {
-        NSArray *currencyTypes = [NSArray arrayWithObject: [NSNumber numberWithInt: currencyType]];
-        NSArray *currencyValues = [NSArray arrayWithObject:[NSNumber numberWithDouble:currencyValue]];
-        NSArray *currencyCategories = [NSArray arrayWithObject: [NSNumber numberWithInt:currencyCategory]];
+        if(![self assertSessionHasStarted]){
+            return;
+        }
         
-        [PlaynomicsSession transactionWithId:transactionId
-                                             itemId:itemId
-                                           quantity:quantity
-                                               type:type
-                                        otherUserId:otherUserId
-                                      currencyTypes:currencyTypes
-                                     currencyValues:currencyValues
-                                 currencyCategories:currencyCategories];
-    }
-    @catch (NSException *exception) {
-        NSLog(@"error: %@", exception.description);
-    }
-}
-
-+ (void) transactionWithId: (signed long long) transactionId
-                           itemId: (NSString *) itemId
-                         quantity: (double) quantity
-                             type: (PNTransactionType) type
-                      otherUserId: (NSString *) otherUserId
-             currencyTypeAsString: (NSString *) currencyType
-                    currencyValue: (double) currencyValue
-                 currencyCategory: (PNCurrencyCategory) currencyCategory {
-    @try {
-        NSArray *currencyTypes = [NSArray arrayWithObject: currencyType];
-        NSArray *currencyValues = [NSArray arrayWithObject:[NSNumber numberWithDouble:currencyValue]];
-        NSArray *currencyCategories = [NSArray arrayWithObject: [NSNumber numberWithInt:currencyCategory]];
+        int transactionId = arc4random();
         
-        [PlaynomicsSession transactionWithId:transactionId
-                                             itemId:itemId
-                                           quantity:quantity
-                                               type:type
-                                        otherUserId:otherUserId
-                                      currencyTypes:currencyTypes
-                                     currencyValues:currencyValues
-                                 currencyCategories:currencyCategories];
-    }
-    @catch (NSException *exception) {
-        NSLog(@"error: %@", exception.description);
-    }
-}
-
-
-+ (void) transactionWithId:(signed long long) transactionId
-                           itemId: (NSString *) itemId
-                         quantity: (double) quantity
-                             type: (PNTransactionType) type
-                      otherUserId: (NSString *) otherUserId
-                    currencyTypes: (NSArray *) currencyTypes
-                   currencyValues: (NSArray *) currencyValues
-               currencyCategories: (NSArray *) currencyCategories {
-    @try {
-        PlaynomicsSession * s =[PlaynomicsSession sharedInstance];
+        NSArray *currencyTypes = [NSArray arrayWithObject: [NSNumber numberWithInt: PNCurrencyUSD]];
+        NSArray *currencyValues = [NSArray arrayWithObject: priceInUSD];
+        NSArray *currencyCategories = [NSArray arrayWithObject: [NSNumber numberWithInt:PNCurrencyCategoryReal]];
         
-        PNTransactionEvent *ev = [[[PNTransactionEvent alloc] init:PNEventTransaction
-                                                     applicationId:s.applicationId
-                                                            userId:s.userId
-                                                          cookieId:s.cookieId
-                                                     transactionId:transactionId
-                                                            itemId:itemId
-                                                          quantity:quantity
-                                                              type:type
-                                                       otherUserId:otherUserId
-                                                     currencyTypes:currencyTypes
-                                                    currencyValues:currencyValues
-                                                currencyCategories:currencyCategories] autorelease];
+        NSString* itemId = @"PNUSDSpent";
+        
+        PNTransactionEvent* ev = [[[PNTransactionEvent alloc] init:PNEventTransaction applicationId: self.applicationId userId: self.userId cookieId: self.cookieId transactionId: transactionId itemId: itemId quantity: quantity type: PNTransactionBuyItem otherUserId: nil currencyTypes: currencyTypes currencyValues: currencyValues currencyCategories: currencyCategories] autorelease];
         
         ev.internalSessionId = [[PlaynomicsSession sharedInstance] sessionId];
-        [s sendOrQueueEvent:ev];
+        [self sendOrQueueEvent:ev];
     }
-    @catch (NSException *exception) {
-        NSLog(@"error: %@", exception.description);
+    @catch (NSException* exception) {
+        [PNLogger logException:exception withMessage:@"Could not send transaction."];
     }
 }
 
-
-+ (void) milestoneWithId: (signed long long) milestoneId
-                        andName: (NSString *) milestoneName {
-    
-    if(![[PlaynomicsSession sharedInstance] assertSessionHasStarted]){
-        return;
-    }
-    
+- (void) milestone: (PNMilestoneType) milestoneType {
     @try {
-        PlaynomicsSession * s =[PlaynomicsSession sharedInstance];
+        if(![self assertSessionHasStarted]){
+            return;
+        }
         
-        PNMilestoneEvent *ev = [[[PNMilestoneEvent alloc] init:PNEventMilestone
-                                                 applicationId:s.applicationId
-                                                        userId:s.userId
-                                                      cookieId:s.cookieId
+        //generate a random number for now
+        int milestoneId = arc4random();
+        PNMilestoneEvent* ev = [[[PNMilestoneEvent alloc] init:PNEventMilestone
+                                                 applicationId:[self applicationId]
+                                                        userId:[self userId]
+                                                      cookieId:[self cookieId]
                                                    milestoneId:milestoneId
-                                                 milestoneName:milestoneName] autorelease];
-        ev.internalSessionId = [[PlaynomicsSession sharedInstance] sessionId];
-        [s sendOrQueueEvent:ev];
+                                                 milestoneType:milestoneType] autorelease];
+        ev.internalSessionId = [self sessionId];
+        [self sendOrQueueEvent:ev];
     }
     @catch (NSException *exception) {
-        NSLog(@"error: %@", exception.description);
+        [PNLogger logException:exception withMessage:@"Could not send milestone."];
     }
 }
 
 
-+ (void) enablePushNotificationsWithToken:(NSData*)deviceToken {
+- (void) enablePushNotificationsWithToken:(NSData*)deviceToken {
     @try {
+        if(![self assertSessionHasStarted]){
+            return;
+        }
+        
         NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
         NSString *oldToken = [userDefaults stringForKey:PNUserDefaultsLastDeviceToken];
-        NSString *newToken = [[PlaynomicsSession sharedInstance] stringForTrimmedDeviceToken:deviceToken];
+        NSString *newToken = [self stringForTrimmedDeviceToken:deviceToken];
         
         if (![newToken isEqualToString:oldToken]) {
             [userDefaults setObject:newToken forKey:PNUserDefaultsLastDeviceToken];
             [userDefaults synchronize];
             NSLog(@"Updating device token from %@ to %@", oldToken, newToken);
-            PlaynomicsSession *s =[PlaynomicsSession sharedInstance];
+            
             PNAPSNotificationEvent *ev = [[PNAPSNotificationEvent alloc] init:PNEventPushNotificationToken
-                                                                applicationId:s.applicationId
-                                                                       userId:s.userId
-                                                                     cookieId:s.cookieId
+                                                                applicationId:[self applicationId]
+                                                                       userId:[self userId]
+                                                                     cookieId:[self cookieId]
                                                                   deviceToken:deviceToken];
-            ev.internalSessionId = [[PlaynomicsSession sharedInstance] sessionId];
-            [s sendOrQueueEvent:ev];
+            ev.internalSessionId = self.sessionId;
+            [self sendOrQueueEvent: ev];
         }
     }
     @catch (NSException *exception) {
-        NSLog(@"error: %@", exception.description);
+       [PNLogger logException:exception withMessage:@"Could not send milestone."];
     }
 }
 
-+ (void) pushNotificationsWithPayload:(NSDictionary*)payload {
-    PlaynomicsSession * s =[PlaynomicsSession sharedInstance];
-    
-    if ([payload valueForKeyPath:PushResponse_InteractionUrl]!=nil) {
-        NSString *lastDeviceToken = [[NSUserDefaults standardUserDefaults] stringForKey:PNUserDefaultsLastDeviceToken];
-        
-        NSString *callbackurl = [payload valueForKeyPath:PushResponse_InteractionUrl];
-        // append required parameters to the interaction tracking url
-        NSString *trackedCallback = [callbackurl stringByAppendingFormat:@"&%@=%lld&%@=%@&%@=%@&%@=%@",
-                                     PushInteractionUrl_AppIdParam, [s applicationId],
-                                     PushInteractionUrl_UserIdParam, [s userId],
-                                     PushInteractionUrl_BreadcrumbIdParam, [s cookieId],
-                                     PushInteractionUrl_PushTokenParam, lastDeviceToken];
-        
-        UIApplicationState state = [[UIApplication sharedApplication] applicationState];
-        // only append the flag "pushIgnored" if the app is in Active state and either
-        // the game developer doesn't pass us the flag "pushIgnored" in the dictionary or they do pass the flag and set it to YES
-        if (state == UIApplicationStateActive && !([payload objectForKey:PushInteractionUrl_IgnoredParam] && [[payload objectForKey:PushInteractionUrl_IgnoredParam] isEqual:[NSNumber numberWithBool:NO]])) {
-            trackedCallback = [trackedCallback stringByAppendingFormat:@"&%@",PushInteractionUrl_IgnoredParam];
+- (void) pushNotificationsWithPayload:(NSDictionary *)payload {
+    @try {
+        if(![self assertSessionHasStarted]){
+            return;
         }
         
-        [s.callback submitRequestToServer: trackedCallback];
+        if ([payload valueForKeyPath:PushResponse_InteractionUrl]!=nil) {
+            NSString *lastDeviceToken = [[NSUserDefaults standardUserDefaults] stringForKey:PNUserDefaultsLastDeviceToken];
+            
+            NSString *callbackurl = [payload valueForKeyPath:PushResponse_InteractionUrl];
+            // append required parameters to the interaction tracking url
+            NSString *trackedCallback = [callbackurl stringByAppendingFormat:@"&%@=%lld&%@=%@&%@=%@&%@=%@",
+                                         PushInteractionUrl_AppIdParam, self.applicationId,
+                                         PushInteractionUrl_UserIdParam, self.userId,
+                                         PushInteractionUrl_BreadcrumbIdParam, self.cookieId,
+                                         PushInteractionUrl_PushTokenParam, lastDeviceToken];
+            
+            UIApplicationState state = [[UIApplication sharedApplication] applicationState];
+            // only append the flag "pushIgnored" if the app is in Active state and either
+            // the game developer doesn't pass us the flag "pushIgnored" in the dictionary or they do pass the flag and set it to YES
+            if (state == UIApplicationStateActive && !([payload objectForKey:PushInteractionUrl_IgnoredParam] && [[payload objectForKey:PushInteractionUrl_IgnoredParam] isEqual:[NSNumber numberWithBool:NO]])) {
+                trackedCallback = [trackedCallback stringByAppendingFormat:@"&%@",PushInteractionUrl_IgnoredParam];
+            }
+            
+            [_callback submitRequestToServer: trackedCallback];
+        }
     }
+    @catch (NSException *exception) {
+        [PNLogger logException:exception withMessage:@"Could not send process push notification data."];
+    }   
 }
 
-+ (void) errorReport:(PNErrorDetail*)errorDetails
+- (void) errorReport:(PNErrorDetail*)errorDetails
 {
     @try {
-        PlaynomicsSession * s =[PlaynomicsSession sharedInstance];
+        PNErrorEvent *ev = [[[PNErrorEvent alloc] init:PNEventError applicationId: self.applicationId userId: self.userId cookieId: self.cookieId errorDetails:errorDetails] autorelease];
         
-        PNErrorEvent *ev = [[[PNErrorEvent alloc] init:PNEventError
-                                         applicationId:s.applicationId
-                                                userId:s.userId
-                                              cookieId:s.cookieId
-                                          errorDetails:errorDetails] autorelease];
-        
-        ev.internalSessionId = [[PlaynomicsSession sharedInstance] sessionId];
-        [s sendOrQueueEvent:ev];
+        ev.internalSessionId = [self sessionId];
+        [self sendOrQueueEvent:ev];
     }
     @catch (NSException *exception) {
         NSLog(@"error: %@", exception.description);
     }
 }
 
--(NSString*) stringForTrimmedDeviceToken:(NSData*)deviceToken
-{
+
+-(NSString*) stringForTrimmedDeviceToken:(NSData*)deviceToken{
     NSString *adeviceToken = [[deviceToken description] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]];
     adeviceToken = [adeviceToken stringByReplacingOccurrencesOfString:@" " withString:@""];
     return adeviceToken;
 }
 
-+(void) onTouchDown:(UIEvent *)event{
-    [[PlaynomicsSession sharedInstance] onTouchDown:event];
-}
-
-- (void)performActionOnIdsChangedWithBreadcrumbId: (NSString*) breadcrumbId
-                              andLimitAdvertising: (NSString*) limitAdvertising
-                                          andIDFA: (NSString*) idfa
-                                          andIDFV: (NSString*) idfv {
+- (void)performActionOnIdsChangedWithBreadcrumbId: (NSString*) breadcrumbId andLimitAdvertising: (NSString*) limitAdvertising andIDFA: (NSString*) idfa andIDFV: (NSString*) idfv {
+    
     NSLog(@"User Info was modified so sending a userInfo update");
     PlaynomicsSession * s =[PlaynomicsSession sharedInstance];
-    PNUserInfoEvent *userInfoEvent = [[PNUserInfoEvent alloc] initWithAdvertisingInfo:s.applicationId
-                                                                               userId:[s.userId length] == 0 ? breadcrumbId : s.userId
-                                                                              cookieId:breadcrumbId
-                                                                                  type:PNUserInfoTypeUpdate
-                                                                      limitAdvertising:limitAdvertising
-                                                                                  idfa:idfa
-                                                                                  idfv:idfv];
+    PNUserInfoEvent *userInfoEvent = [[PNUserInfoEvent alloc] initWithAdvertisingInfo:s.applicationId userId:[s.userId length] == 0 ? breadcrumbId : s.userId cookieId:breadcrumbId type:PNUserInfoTypeUpdate limitAdvertising:limitAdvertising idfa:idfa idfv:idfv];
+    
     userInfoEvent.internalSessionId = s.sessionId;
     [self sendOrQueueEvent:userInfoEvent];
 }

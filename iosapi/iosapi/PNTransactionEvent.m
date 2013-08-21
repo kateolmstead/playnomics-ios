@@ -17,7 +17,7 @@
                    cookieId: (NSString *) cookieId
               transactionId:(signed long long) transactionId
                      itemId:(NSString *) itemId 
-                   quantity:(double) quantity 
+                   quantity:(NSInteger) quantity
                        type:(PNTransactionType) type 
                 otherUserId:(NSString *) otherUserId 
               currencyTypes:(NSArray *) currencyTypes
@@ -37,13 +37,13 @@
 }
 
 - (NSString *) toQueryString {
-    NSString * queryString = [[super toQueryString] stringByAppendingFormat: @"&r=%lld&tt=%@&jsh=%@", [self transactionId], [PNUtil PNTransactionTypeDescription:[self type]], [self internalSessionId]];
+    NSString * queryString = [[super toQueryString] stringByAppendingFormat: @"&r=%lld&tt=%@&jsh=%@", [self transactionId], [self PNTransactionTypeDescription:[self type]], [self internalSessionId]];
     
     for (int i = 0; i < [[self currencyTypes] count] ; i++) {
         id obj = [[self currencyTypes] objectAtIndex:i];
         NSString *currentTypeStr = nil;
         if ([obj isKindOfClass:[NSNumber class]]) {
-            currentTypeStr = [PNUtil PNCurrencyTypeDescription: [(NSNumber *) [[self currencyTypes] objectAtIndex:i] intValue]];
+            currentTypeStr = [self PNCurrencyTypeDescription: [(NSNumber *) [[self currencyTypes] objectAtIndex:i] intValue]];
         }
         else if ([obj isKindOfClass:[NSString class]]) {
             currentTypeStr = (NSString *) obj;
@@ -55,7 +55,7 @@
         queryString = [queryString stringByAppendingFormat:@"&tc%d=%@&tv%d=%lf&ta%d=%@", 
                        i, escapedCurrencyType, 
                        i, [(NSNumber *) [[self currencyValues] objectAtIndex:i] doubleValue],
-                       i, [PNUtil PNCurrencyCategoryDescription:[(NSNumber *) [[self currencyCategories] objectAtIndex: i] intValue]]];
+                       i, [self PNCurrencyCategoryDescription:[(NSNumber *) [[self currencyCategories] objectAtIndex: i] intValue]]];
     }
     
     //escape the itemId
@@ -63,7 +63,7 @@
     NSString * escapedOtherUserId = [PNUtil urlEncodeValue:[self otherUserId]];
     
     queryString = [self addOptionalParam:queryString name:@"i" value:escapedItemId];
-    queryString = [self addOptionalParam:queryString name:@"tq" value: [NSString stringWithFormat:@"%lf", [self quantity]]];
+    queryString = [self addOptionalParam:queryString name:@"tq" value: [NSString stringWithFormat:@"%d", self.quantity]];
     queryString = [self addOptionalParam:queryString name:@"to" value: escapedOtherUserId];
     return queryString;
 }
@@ -73,7 +73,7 @@
     
     [encoder encodeInt64:_transactionId forKey:@"PNTransactionEvent._transactionId"];
     [encoder encodeObject:_itemId forKey:@"PNTransactionEvent._itemId"];
-    [encoder encodeDouble:_quantity forKey:@"PNTransactionEvent._quantity"];
+    [encoder encodeInteger: _quantity forKey:@"PNTransactionEvent._quantity"];
     [encoder encodeInt:_type forKey:@"PNTransactionEvent._type"];
     [encoder encodeObject:_otherUserId forKey:@"PNTransactionEvent._otherUserId"];
     [encoder encodeObject:_currencyTypes forKey:@"PNTransactionEvent._currencyTypes"];
@@ -104,5 +104,63 @@
     
     [super dealloc];
 }
+
+-(NSString*) PNTransactionTypeDescription:(PNTransactionType) value {
+    switch (value) {
+        case PNTransactionBuyItem:
+            return @"BuyItem";
+        case PNTransactionSellItem:
+            return @"SellItem";
+        case PNTransactionReturnItem:
+            return @"ReturnItem";
+        case PNTransactionBuyService:
+            return @"BuyService";
+        case PNTransactionSellService:
+            return @"SellService";
+        case PNTransactionReturnService:
+            return @"ReturnService";
+        case PNTransactionCurrencyConvert:
+            return @"CurrencyConvert";
+        case PNTransactionInitial:
+            return @"Initial";
+        case PNTransactionFree:
+            return @"Free";
+        case PNTransactionReward:
+            return @"Reward";
+        case PNTransactionGiftSend:
+            return @"GiftSend";
+        case PNTransactionGiftReceive:
+            return @"GiftReceive";
+    }
+    return nil;
+}
+
+
+- (NSString *) PNCurrencyCategoryDescription:(PNCurrencyCategory) value {
+    switch (value) {
+        case PNCurrencyCategoryReal:
+            return @"r";
+        case PNCurrencyCategoryVirtual:
+            return @"v";
+    }
+    return nil;
+}
+
+
+- (NSString *) PNCurrencyTypeDescription:(PNCurrencyType) value {
+    switch (value) {
+        case PNCurrencyUSD:
+            return @"USD";
+        case PNCurrencyFBC:
+            return @"FBC";
+        case PNCurrencyOFD:
+            return @"OFD";
+        case PNCurrencyOFF:
+            return @"OFF";
+    }
+    return nil;
+}
+
+
 
 @end

@@ -32,7 +32,7 @@
 {
     NSLog(@"device token found\r\n---> %@",deviceToken);
 
-    [PlaynomicsSession enablePushNotificationsWithToken:deviceToken];
+    [[PlaynomicsSession sharedInstance] enablePushNotificationsWithToken:deviceToken];
 }
 
 -(void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
@@ -48,7 +48,7 @@
     // parse the impression url and ping it....
     NSMutableDictionary *payload = [userInfo mutableCopy];
     [payload setObject:[NSNumber numberWithBool:YES] forKey:@"pushIgnored"];
-    [PlaynomicsSession pushNotificationsWithPayload:payload];
+    [[PlaynomicsSession sharedInstance] pushNotificationsWithPayload:payload];
     [payload release];
 }
 
@@ -58,10 +58,10 @@
 {
     long appId = 2L;
     //[PlaynomicsSession setTestMode:NO];
-    [PlaynomicsSession setOverrideMessagingUrl: @"https://ads.c.playnomics.net/v1/"];
-    [PlaynomicsSession setOverrideEventsUrl: @"https://e.c.playnomics.net/v1/"];
+    [PlaynomicsSession sharedInstance].overrideMessagingUrl = @"https://ads.c.playnomics.net/v1/";
+    [PlaynomicsSession sharedInstance].overrideEventsUrl =  @"https://e.c.playnomics.net/v1/";
     
-    [PlaynomicsSession startWithApplicationId:appId];
+    [[PlaynomicsSession sharedInstance] startWithApplicationId:appId];
     //[PlaynomicsSession changeUserWithUserId: @"gmaddux311"];
     
     [AdColony initAdColonyWithDelegate:self];

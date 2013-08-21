@@ -22,11 +22,7 @@
 @implementation PNErrorEvent
 @synthesize errorDetailObject = _errorDetailObject;
 
-- (id)init:(PNEventType)eventType
-applicationId:(long long)applicationId
-    userId:(NSString *)userId
-  cookieId:(NSString *)cookieId
-errorDetails:(PNErrorDetail*)errorDetails
+- (id)init:(PNEventType)eventType applicationId:(long long)applicationId userId:(NSString *)userId cookieId:(NSString *)cookieId errorDetails:(PNErrorDetail*)errorDetails
 {
     self = [super init:eventType applicationId:applicationId userId:userId cookieId:cookieId];
     
@@ -66,14 +62,10 @@ errorDetails:(PNErrorDetail*)errorDetails
 
 - (void)encodeWithCoder:(NSCoder *)encoder {
     [super encodeWithCoder:encoder];
-    
-    
-    
 }
 
 - (id)initWithCoder:(NSCoder *)decoder {
     if ((self = [super initWithCoder:decoder])) {
-        
         
     }
     return self;

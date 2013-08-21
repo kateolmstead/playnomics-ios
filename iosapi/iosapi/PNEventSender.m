@@ -28,7 +28,7 @@
         NSLog(@"%d,%s",__LINE__,__FUNCTION__);
         return;
     }
-    eventUrl = [eventUrl stringByAppendingFormat:@"&esrc=ios&ever=%@", [PlaynomicsSession getSDKVersion]];
+    eventUrl = [eventUrl stringByAppendingFormat:@"&esrc=ios&ever=%@", play.sdkVersion];
     
     NSLog(@"Sending event to server: %@", eventUrl);
     
