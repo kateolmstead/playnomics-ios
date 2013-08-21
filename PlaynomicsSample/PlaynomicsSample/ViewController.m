@@ -16,6 +16,7 @@
     PlaynomicsFrame *videoFrame;
 }
 @synthesize transactionCount;
+@synthesize webView;
 
 - (void)didReceiveMemoryWarning
 {
@@ -180,7 +181,7 @@
 
 - (IBAction)onChangeUserClick:(id)sender {
     
-    PNAPIResult resval = [PlaynomicsSession changeUserWithUserId: @"testChangeUserId"];
+    PNAPIResult resval = [PlaynomicsSession changeUserWithUserId: @"testChangeUserId311"];
     [self handlePLAPIRResult:resval];
 }
 
@@ -221,6 +222,27 @@
 
 -(IBAction)onVideoAdClick:(id)sender{
     [self initMsgFrame:@"testTL"];
+}
+
+-(IBAction)onWebViewClick:(id)sender{
+    NSString* currentURL = @"http://a.applovin.com/ad?sdk_key=7dqQTTixTmuotK8q5R7uJxRqcVgX7FmFuafL8MGc79O_TWpZywSFsu4SNm_V0lluKPDSnU3vdRu6ygfvb69S_D&package_name=com.playnomics.PlaynomicsSample&format=html&size=INTER&hudid=ff77c433a7d25ad1b909427a98625a0d2a9cf4d5&hadid=50d8b4a941c26b89482c94ab324b5a274f9ced66&hphone=50cf162360b9b899e528ab450bad9df21fe7bfce&gender=m&yob=1985&education=college&interests=games,tea,rugby";
+    webView = [[UIWebView alloc] initWithFrame:self.view.bounds];
+    [webView setDelegate:self];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:currentURL]];
+    //webView.scalesPageToFit = YES;
+    [webView loadRequest:request];
+    [self.view addSubview:webView];
+}
+
+-(BOOL)webView:(UIWebView*)wView shouldStartLoadWithRequest:(NSURLRequest*)request navigationType:(UIWebViewNavigationType)navigationType {
+    NSURL *URL = [request URL];
+    if (navigationType == UIWebViewNavigationTypeLinkClicked && [[URL scheme] isEqualToString:@"applovin"]) {
+        NSLog(@"App Lovin Link was clicked");
+        [wView removeFromSuperview];
+        [wView release];
+        return NO;
+    }
+    return YES;
 }
 
 - (void) initMsgFrame: (NSString *) frameId {

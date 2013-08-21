@@ -12,10 +12,11 @@
 #import "PlaynomicsMessaging.h"
 #import "AdColonyPublic.h"
 
-@interface ViewController : UIViewController <PNAdClickActionHandler, UITextFieldDelegate, AdColonyTakeoverAdDelegate>
+@interface ViewController : UIViewController <PNAdClickActionHandler, UITextFieldDelegate, AdColonyTakeoverAdDelegate, UIWebViewDelegate>
 
 @property (nonatomic, retain) IBOutlet UITextField *transactionCount;
 @property (retain, nonatomic) IBOutlet UITextField *frameIdText;
+@property (nonatomic, retain) IBOutlet UIWebView *webView;
 
 - (IBAction) onGameStartClick:(id)sender;
 - (IBAction) onGameEndClick:(id)sender;
@@ -30,6 +31,7 @@
 - (IBAction) onPnxClick: (id)sender;
 - (IBAction) onNoAdsClick:(id)sender;
 - (IBAction) onVideoAdClick:(id)sender;
+- (IBAction) onWebViewClick:(id)sender;
 
 - (IBAction) onChangeUserClick:(id)sender;
 - (IBAction) onMilestoneClick:(id)sender;
