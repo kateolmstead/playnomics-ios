@@ -11,37 +11,6 @@
 
 
 /**
- *  PNAPIResult
- *
- *  Possible results for PlaynomicsSession messages
- */
-typedef enum {
-    PNAPIResultNotSent,
-    PNAPIResultSent,
-    PNAPIResultQueued,
-    PNAPIResultSwitched,
-    PNAPIResultStopped,
-    PNAPIResultAlreadyStarted,
-    PNAPIResultAlreadySwitched,
-    PNAPIResultAlreadyStopped,
-    PNAPIResultSessionResumed,
-    PNAPIResultStartNotCalled,
-    PNAPIResultNoInternetPermission,
-    PNAPIResultMissingReqParam,
-    PNAPIResultFailUnkown
-} PNAPIResult;
-
-
-/**
- *  PNResponseType
- *
- *  Possible responses for the invitations/SocialEvents
- */
-typedef enum {
-    PNResponseTypeAccepted
-} PNResponseType;
-
-/**
  *  PNTransactionType
  *
  *  Possible Transaction Types
@@ -83,58 +52,9 @@ typedef enum {
     PNCurrencyOFF
 } PNCurrencyType;
 
-/**
- *  PNUserInfoType
- *
- *  Possible User Info requests types
- */
-typedef enum {
-    PNUserInfoTypeUpdate
-} PNUserInfoType;
-
-/**
- *  PNUserInfoSex
- *
- *  Possible Sex types.
- *  Sent in a user update request.
- */
-typedef enum {
-    PNUserInfoSexMale,
-    PNUserInfoSexFemale,
-    PNUserInfoSexUnknown
-} PNUserInfoSex;
-
-/**
- *  PNUserInfoSource
- *
- *  Where the User Info comes from.
- *  Sent in a user update request.
- */
-typedef enum {
-    PNUserInfoSourceAdwords,
-    PNUserInfoSourceDoubleClick,
-    PNUserInfoSourceYahooAds,
-    PNUserInfoSourceMSNAds,
-    PNUserInfoSourceAOLAds,
-    PNUserInfoSourceAdbrite,
-    PNUserInfoSourceFacebookAds,
-    PNUserInfoSourceGoogleSearch,
-    PNUserInfoSourceYahooSearch,
-    PNUserInfoSourceBingSearch,
-    PNUserInfoSourceFacebookSearch,
-    PNUserInfoSourceApplifier,
-    PNUserInfoSourceAppStrip,
-    PNUserInfoSourceVIPGamesNetwork,
-    PNUserInfoSourceUserReferral,
-    PNUserInfoSourceInterGame,
-    PNUserInfoSourceOther
-} PNUserInfoSource;
-
 @interface PlaynomicsSession : NSObject
-
-+ (BOOL) startWithApplicationId:(signed long long) applicationId userId: (NSString *) userId;
-+ (BOOL) startWithApplicationId:(signed long long) applicationId;
-+ (void) stop;
++ (bool) startWithApplicationId:(signed long long) applicationId userId: (NSString *) userId;
++ (bool) startWithApplicationId:(signed long long) applicationId;
 
 + (void) setTestMode: (bool) testMode;
 + (bool) getTestMode;
@@ -146,12 +66,6 @@ typedef enum {
 + (void) setOverrideEventsUrl: (NSString*) url;
 
 + (NSString*) getSDKVersion;
-@end
-
-@interface PlaynomicsSession (Events)
-+ (void) userInfoForType: (PNUserInfoType) type country: (NSString *) country subdivision: (NSString *) subdivision sex: (PNUserInfoSex) sex birthday: (NSDate *) birthday source: (PNUserInfoSource) source sourceCampaign: (NSString *) sourceCampaign installTime: (NSDate *) installTime;
-
-+ (void) userInfoForType: (PNUserInfoType) type country: (NSString *) country subdivision: (NSString *) subdivision sex: (PNUserInfoSex) sex birthday: (NSDate*) birthday sourceAsString: (NSString*) source sourceCampaign: (NSString*) sourceCampaign installTime: (NSDate *) installTime;
 
 + (void) transactionWithId: (signed long long) transactionId itemId: (NSString *) itemId quantity: (double) quantity type: (PNTransactionType) type otherUserId: (NSString *) otherUserId currencyType: (PNCurrencyType) currencyType currencyValue: (double) currencyValue currencyCategory: (PNCurrencyCategory) currencyCategory;
 
@@ -159,24 +73,14 @@ typedef enum {
 
 + (void) transactionWithId: (signed long long) transactionId itemId: (NSString *) itemId quantity: (double) quantity type: (PNTransactionType) type otherUserId: (NSString *) otherUserId currencyTypes: (NSArray *) currencyTypes currencyValues: (NSArray *) currencyValues currencyCategories: (NSArray *) currencyCategories;
 
-+ (void) invitationSentWithId: (signed long long) invitationId recipientUserId: (NSString *) recipientUserId recipientAddress: (NSString *) recipientAddress method: (NSString *) method;
-
-+ (void) invitationResponseWithId: (signed long long) invitationId
-                         recipientUserId: (NSString *) recipientUserId
-                            responseType: (PNResponseType) responseType;
-
 + (void) milestoneWithId: (signed long long) milestoneId
                         andName: (NSString *) milestoneName;
 
-
 + (void) enablePushNotificationsWithToken:(NSData*)deviceToken;
 
-+ (void) pushNotificationsWithPayload:(NSDictionary*)payload ;
++ (void) pushNotificationsWithPayload:(NSDictionary*)payload;
 
-+ (PNAPIResult) errorReport:(id)errorDetails;
-
-+(void) onTouchDown: (UIEvent*) event;
-
++ (void) onTouchDown: (UIEvent*) event;
 @end
 
 @interface PNApplication : UIApplication<UIApplicationDelegate>

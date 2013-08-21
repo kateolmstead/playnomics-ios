@@ -17,7 +17,6 @@
 #import "PlaynomicsCallback.h"
 #import "PNBasicEvent.h"
 #import "PNUserInfoEvent.h"
-#import "PNSocialEvent.h"
 #import "PNTransactionEvent.h"
 #import "PNMilestoneEvent.h"
 #import "PNAPSNotificationEvent.h"
@@ -63,11 +62,13 @@
 	int _keys;
 	int _totalKeys;
 }
+
 @property (atomic, readonly) PNEventSender * eventSender;
 @property (atomic, readonly) NSMutableArray * playnomicsEventList;
 @property (nonatomic, retain) PlaynomicsCallback *callback;
-- (BOOL) startWithApplicationId:(signed long long) applicationId;
-- (BOOL) startWithApplicationId:(signed long long) applicationId userId: (NSString *) userId;
+
+- (bool) startWithApplicationId:(signed long long) applicationId;
+- (bool) startWithApplicationId:(signed long long) applicationId userId: (NSString *) userId;
 - (void) sendOrQueueEvent: (PNEvent *) pe;
 
 - (void) stop;
@@ -78,6 +79,7 @@
 @end
 
 @implementation PlaynomicsSession
+
 @synthesize applicationId=_applicationId;
 @synthesize userId=_userId;
 @synthesize cookieId=_cookieId;
@@ -96,6 +98,10 @@
     });
 }
 
++ (bool) getTestMode{
+    return [[PlaynomicsSession sharedInstance] testMode];
+}
+
 + (void) setTestMode: (bool) testMode {
     @try {
         [[PlaynomicsSession sharedInstance] setTestMode: testMode];
@@ -105,16 +111,12 @@
     }
 }
 
-+ (bool) getTestMode{
-    return [[PlaynomicsSession sharedInstance] testMode];
++(NSString*) getOverrideEventsUrl{
+    return [[PlaynomicsSession sharedInstance] overrideEventsUrl];
 }
 
 +(void) setOverrideEventsUrl:(NSString *)url{
     [[PlaynomicsSession sharedInstance] setOverrideEventsUrl: url];
-}
-
-+(NSString*) getOverrideEventsUrl{
-    return [[PlaynomicsSession sharedInstance] overrideEventsUrl];
 }
 
 +(void) setOverrideMessagingUrl:(NSString *)url{
@@ -129,23 +131,23 @@
     return PNPropertyVersion;
 }
 
-+ (BOOL) startWithApplicationId:(signed long long) applicationId userId: (NSString *) userId {
++ (bool) startWithApplicationId:(signed long long) applicationId userId: (NSString *) userId {
     @try {
         return [[PlaynomicsSession sharedInstance] startWithApplicationId:applicationId userId:userId];
     }
     @catch (NSException *exception) {
         NSLog(@"startWithApplicationId error: %@", exception.description);
-        return PNAPIResultFailUnkown;
+        return false;
     }
 }
 
-+ (BOOL) startWithApplicationId:(signed long long) applicationId {
++ (bool) startWithApplicationId:(signed long long) applicationId {
     @try {
         return [[PlaynomicsSession sharedInstance] startWithApplicationId:applicationId];
     }
     @catch (NSException *exception) {
         NSLog(@"startWithApplicationId error: %@", exception.description);
-        return PNAPIResultFailUnkown;
+        return false;
     }
 }
 
@@ -218,12 +220,12 @@
 }
 
 #pragma mark - Session Control Methods
-- (BOOL) startWithApplicationId:(signed long long) applicationId userId: (NSString *) userId {
+- (bool) startWithApplicationId:(signed long long) applicationId userId: (NSString *) userId {
     _userId = [userId retain];
     return [self startWithApplicationId:applicationId];
 }
 
-- (BOOL) startWithApplicationId:(signed long long) applicationId {
+- (bool) startWithApplicationId:(signed long long) applicationId {
     @try {
         if (_sessionState == PNSessionStateStarted) {
             return YES;
@@ -424,12 +426,12 @@
  *
  * @return the API Result
  */
-- (PNAPIResult) stop {
+- (void) stop {
     @try {
         NSLog(@"stop called");
         
         if (_sessionState == PNSessionStateStopped) {
-            return PNAPIResultAlreadyStopped;
+            return;
         }
         
         // Currently Session is only stopped when the application quits.
@@ -444,11 +446,11 @@
             NSLog(@"Playnomics: Could not save event list");
         }
         
-        return PNAPIResultStopped;
+        return;
     }
     @catch (NSException *exception) {
         NSLog(@"stop error: %@", exception.description);
-        return PNAPIResultFailUnkown;
+        return;
     }
 }
 
@@ -564,63 +566,6 @@
 }
 
 #pragma mark - API request methods
-+ (void) userInfoForType: (PNUserInfoType) type
-                        country: (NSString *) country
-                    subdivision: (NSString *) subdivision
-                            sex: (PNUserInfoSex) sex
-                       birthday: (NSDate *) birthday
-                         source: (PNUserInfoSource) source
-                 sourceCampaign: (NSString *) sourceCampaign
-                    installTime: (NSDate *) installTime {
-    @try {
-        if(![[PlaynomicsSession sharedInstance] assertSessionHasStarted]){
-            return;
-        }
-        
-        [PlaynomicsSession userInfoForType:type
-                                          country:country
-                                      subdivision:subdivision
-                                              sex:sex
-                                         birthday:birthday
-                                   sourceAsString:[PNUtil PNUserInfoSourceDescription:source]
-                                   sourceCampaign:sourceCampaign
-                                      installTime:installTime];
-    }
-    @catch (NSException *exception) {
-        NSLog(@"error: %@", exception.description);
-    }
-}
-
-+ (void) userInfoForType: (PNUserInfoType) type
-                        country: (NSString *) country
-                    subdivision: (NSString *) subdivision
-                            sex: (PNUserInfoSex) sex
-                       birthday: (NSDate *) birthday
-                 sourceAsString: (NSString *) source
-                 sourceCampaign: (NSString *) sourceCampaign
-                    installTime: (NSDate *) installTime {
-    @try {
-        PlaynomicsSession * s =[PlaynomicsSession sharedInstance];
-        
-        PNUserInfoEvent *ev = [[[PNUserInfoEvent alloc] init:s.applicationId
-                                                      userId:s.userId
-                                                    cookieId:s.cookieId
-                                                        type:type
-                                                     country:country
-                                                 subdivision:subdivision
-                                                         sex:sex
-                                                    birthday:[birthday timeIntervalSince1970]
-                                                      source:source
-                                              sourceCampaign:sourceCampaign
-                                                 installTime:[installTime timeIntervalSince1970]] autorelease];
-        
-        ev.internalSessionId = [[PlaynomicsSession sharedInstance] sessionId];
-        return [s sendOrQueueEvent:ev];
-    }
-    @catch (NSException *exception) {
-        NSLog(@"error: %@", exception.description);
-    }
-}
 
 + (void) transactionWithId: (signed long long) transactionId
                            itemId: (NSString *) itemId
@@ -709,53 +654,6 @@
     }
 }
 
-+ (void) invitationSentWithId: (signed long long) invitationId
-                     recipientUserId: (NSString *) recipientUserId
-                    recipientAddress: (NSString *) recipientAddress
-                              method: (NSString *) method {
-    @try {
-        PlaynomicsSession * s =[PlaynomicsSession sharedInstance];
-        
-        PNSocialEvent *ev = [[[PNSocialEvent alloc] init:PNEventInvitationSent
-                                           applicationId:s.applicationId
-                                                  userId:s.userId
-                                                cookieId:s.cookieId
-                                            invitationId:invitationId
-                                         recipientUserId:recipientUserId
-                                        recipientAddress:recipientAddress
-                                                  method:method
-                                                response:0] autorelease];
-        ev.internalSessionId = [[PlaynomicsSession sharedInstance] sessionId];
-        [s sendOrQueueEvent:ev];
-    }
-    @catch (NSException *exception) {
-        NSLog(@"error: %@", exception.description);
-    }
-}
-
-+ (void) invitationResponseWithId: (signed long long) invitationId
-                         recipientUserId: (NSString *) recipientUserId
-                            responseType: (PNResponseType) responseType {
-    @try {
-        // TODO: recipientUserId should not be nil
-        PlaynomicsSession * s =[PlaynomicsSession sharedInstance];
-        
-        PNSocialEvent *ev = [[[PNSocialEvent alloc] init:PNEventInvitationResponse
-                                           applicationId:s.applicationId
-                                                  userId:s.userId
-                                                cookieId:s.cookieId
-                                            invitationId:invitationId
-                                         recipientUserId:recipientUserId
-                                        recipientAddress:nil
-                                                  method:nil
-                                                response:responseType] autorelease];
-        ev.internalSessionId = [[PlaynomicsSession sharedInstance] sessionId];
-        [s sendOrQueueEvent:ev];
-    }
-    @catch (NSException *exception) {
-        NSLog(@"error: %@", exception.description);
-    }
-}
 
 + (void) milestoneWithId: (signed long long) milestoneId
                         andName: (NSString *) milestoneName {

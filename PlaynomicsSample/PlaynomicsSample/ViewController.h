@@ -17,10 +17,6 @@
 @property (nonatomic, retain) IBOutlet UITextField *transactionCount;
 @property (retain, nonatomic) IBOutlet UITextField *frameIdText;
 
-- (IBAction) onGameStartClick:(id)sender;
-- (IBAction) onGameEndClick:(id)sender;
-- (IBAction) onSendInvitationClick:(id)sender;
-- (IBAction) onRespondToInvitationClick:(id)sender;
 - (IBAction) onTransactionClick:(id)sender;
 - (IBAction) onUserInfoClick:(id)sender;
 
@@ -31,9 +27,7 @@
 - (IBAction) onNoAdsClick:(id)sender;
 - (IBAction) onVideoAdClick:(id)sender;
 
-- (IBAction) onChangeUserClick:(id)sender;
 - (IBAction) onMilestoneClick:(id)sender;
-- (void) handlePLAPIRResult: (PNAPIResult) result;
 
 -(void)onPnx;
 @end

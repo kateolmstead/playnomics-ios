@@ -91,23 +91,6 @@
 #pragma mark - Button receivers
 
 
-- (IBAction) onGameStartClick:(id)sender {
-    [PlaynomicsSession gameStartWithInstanceId:1234567890 sessionId:666 site:@"TEST_SITE" type:@"TEST_TYPE" gameId:@"TEST_GAMEID"];
-}
-
-- (IBAction) onGameEndClick:(id)sender {
-    [PlaynomicsSession gameEndWithInstanceId:1234567890 sessionId:666 reason:@"TEST_REASON"];
-}
-
-- (IBAction) onSendInvitationClick:(id)sender {
-    [PlaynomicsSession invitationSentWithId:98765432210 recipientUserId:@"TEST_RECIPIENTID" recipientAddress:@"TEST_RECIPIENT_ADDRESS" method:@"TEST_METHOD"];
-    
-}
-
-- (IBAction) onRespondToInvitationClick:(id)sender {
-    [PlaynomicsSession invitationResponseWithId:98765432210 recipientUserId:@"TEST_RECIPIENTID" responseType:PNResponseTypeAccepted];
-}
-
 - (IBAction) onTransactionClick:(id)sender {
     [self.view endEditing:YES];
     
@@ -148,17 +131,6 @@
                                         currencyValue:((arc4random() % 10000) / 10)
                                      currencyCategory:(arc4random() % 2)];
     }
-}
-
-- (IBAction) onUserInfoClick:(id)sender {
-    [PlaynomicsSession userInfoForType:PNUserInfoTypeUpdate
-                                                    country:@"TEST_COUNTRY"
-                                                subdivision:@"TEST_SUBDIVISION"
-                                                        sex:(arc4random() % 3)
-                                                   birthday:[NSDate date]
-                                                     source:(arc4random() % 17)
-                                             sourceCampaign:@"TEST_SRC_CAMPAIGN"
-                                                installTime:[[NSDate date] dateByAddingTimeInterval:(- (double)(arc4random() % 1000000))]];
 }
 
 
@@ -223,14 +195,6 @@
     [alert release];
 }
 
-- (void) handlePLAPIRResult: (PNAPIResult) result {
-    if (result == PNAPIResultSent) {
-        [[[[UIAlertView alloc] initWithTitle:@"Result" message:@"Event Sent !" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil] autorelease] show];
-    }
-    else {
-        [[[[UIAlertView alloc] initWithTitle:@"Result" message:@"Event NOT Sent !" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil]autorelease] show];
-    }
-}
 - (void)dealloc {
     [_frameIdText release];
     [super dealloc];

@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface PNLogger
+@interface PNLogger : NSObject
 +(void) logMessage: (NSString*) message;
 +(void) logError: (NSError*) error;
 +(void) logException: (NSException*) exception withMessage: (NSString*) message;

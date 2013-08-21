@@ -9,6 +9,7 @@
 #ifndef iosapi_PlaynomicsSession_Exposed_h
 #define iosapi_PlaynomicsSession_Exposed_h
 #import "PNUserInfo.h"
+#import "PNErrorEvent.h"
 
 /**
  *  Only use this within the Static Lib.
@@ -27,6 +28,8 @@
 @property (nonatomic, readonly) PNSessionState sessionState;
 
 + (PlaynomicsSession *)sharedInstance;
++ (void) errorReport:(PNErrorDetail*)errorDetails;
+
 - (void) onKeyPressed: (NSNotification *) notification;
 - (void) onTouchDown: (UIEvent *) event;
 - (void) onApplicationWillResignActive: (NSNotification *) notification;

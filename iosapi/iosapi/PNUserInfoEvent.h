@@ -1,6 +1,53 @@
 #import "PNConstants.h"
 #import "PNEvent.h"
 
+/**
+ *  PNUserInfoType
+ *
+ *  Possible User Info requests types
+ */
+typedef enum {
+    PNUserInfoTypeUpdate
+} PNUserInfoType;
+
+/**
+ *  PNUserInfoSex
+ *
+ *  Possible Sex types.
+ *  Sent in a user update request.
+ */
+typedef enum {
+    PNUserInfoSexMale,
+    PNUserInfoSexFemale,
+    PNUserInfoSexUnknown
+} PNUserInfoSex;
+
+/**
+ *  PNUserInfoSource
+ *
+ *  Where the User Info comes from.
+ *  Sent in a user update request.
+ */
+typedef enum {
+    PNUserInfoSourceAdwords,
+    PNUserInfoSourceDoubleClick,
+    PNUserInfoSourceYahooAds,
+    PNUserInfoSourceMSNAds,
+    PNUserInfoSourceAOLAds,
+    PNUserInfoSourceAdbrite,
+    PNUserInfoSourceFacebookAds,
+    PNUserInfoSourceGoogleSearch,
+    PNUserInfoSourceYahooSearch,
+    PNUserInfoSourceBingSearch,
+    PNUserInfoSourceFacebookSearch,
+    PNUserInfoSourceApplifier,
+    PNUserInfoSourceAppStrip,
+    PNUserInfoSourceVIPGamesNetwork,
+    PNUserInfoSourceUserReferral,
+    PNUserInfoSourceInterGame,
+    PNUserInfoSourceOther
+} PNUserInfoSource;
+
 @interface PNUserInfoEvent : PNEvent {
     PNUserInfoType _type;
     NSString * _country;

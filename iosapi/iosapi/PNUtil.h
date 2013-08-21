@@ -35,9 +35,6 @@ typedef enum {
 +(PNEventType) PNEventTypeValueOf: (NSString *) text;
 +(NSString *) PNEventTypeDescription:  (PNEventType) value;
 
-+(PNResponseType) PNResponseTypeValueOf: (NSString *) text;
-+(NSString *) PNResponseTypeDescription: (PNResponseType) value;
-
 +(PNTransactionType) PNTransactionTypeValueOf: (NSString *) text;
 +(NSString *) PNTransactionTypeDescription: (PNTransactionType) value;
 
@@ -46,15 +43,6 @@ typedef enum {
 
 +(PNCurrencyType) PNCurrencyTypeValueOf:(NSString *) text;
 + (NSString *) PNCurrencyTypeDescription:(PNCurrencyType) value;
-
-+(PNUserInfoType) PNUserInfoTypeValueOf: (NSString *) text;
-+(NSString *) PNUserInfoTypeDescription: (PNUserInfoType) value;
-
-+(PNUserInfoSex) PNUserInfoSexValueOf: (NSString *) text;
-+(NSString *) PNUserInfoSexDescription: (PNUserInfoSex) value;
-
-+(PNUserInfoSource) PNUserInfoSourceValueOf: (NSString *) text;
-+(NSString *) PNUserInfoSourceDescription: (PNUserInfoSource) value;
 
 +(NSString *) urlEncodeValue: (NSString *) unescapedValue;
 

@@ -70,11 +70,11 @@ installTime: (NSTimeInterval) installTime {
 
 
 - (NSString *) toQueryString {
-    NSString *queryString = [[super toQueryString] stringByAppendingFormat:@"&pt=%@&jsh=%@", [PNUtil PNUserInfoTypeDescription:[self type]], [self internalSessionId]];
+    NSString *queryString = [[super toQueryString] stringByAppendingFormat:@"&pt=%@&jsh=%@", [self PNUserInfoTypeDescription:[self type]], [self internalSessionId]];
     
     queryString = [self addOptionalParam:queryString name:@"pc" value:[self country]];
     queryString = [self addOptionalParam:queryString name:@"ps" value:[self subdivision]];
-    queryString = [self addOptionalParam:queryString name:@"px" value:[PNUtil PNUserInfoSexDescription:[self sex]]];
+    queryString = [self addOptionalParam:queryString name:@"px" value:[self PNUserInfoSexDescription:[self sex]]];
     
     NSDateFormatter *df = [[NSDateFormatter  alloc] init];
     [df setDateFormat: @"yyyy"]; // TODO: Details API says this should be of format: YYYY/MM || YYY-MM || MM/YYYY || YYYY
@@ -132,5 +132,126 @@ installTime: (NSTimeInterval) installTime {
     
     [super dealloc];
 }
+
+- (NSString *) PNUserInfoSexDescription:(PNUserInfoSex) value {
+    switch (value) {
+        case PNUserInfoSexMale:
+            return @"M";
+        case PNUserInfoSexFemale:
+            return @"F";
+        case PNUserInfoSexUnknown:
+            return @"U";
+    }
+    return nil;
+}
+
+-(PNUserInfoSource) PNUserInfoSourceValueOf:(NSString *) text {
+    if (text) {
+        if ([text isEqualToString:@"Adwords"])
+            return PNUserInfoSourceAdwords;
+        else if ([text isEqualToString:@"DoubleClick"])
+            return PNUserInfoSourceDoubleClick;
+        else if ([text isEqualToString:@"YahooAds"])
+            return PNUserInfoSourceYahooAds;
+        else if ([text isEqualToString:@"MSNAds"])
+            return PNUserInfoSourceMSNAds;
+        else if ([text isEqualToString:@"AOLAds"])
+            return PNUserInfoSourceAOLAds;
+        else if ([text isEqualToString:@"Adbrite"])
+            return PNUserInfoSourceAdbrite;
+        else if ([text isEqualToString:@"FacebookAds"])
+            return PNUserInfoSourceFacebookAds;
+        else if ([text isEqualToString:@"GoogleSearch"])
+            return PNUserInfoSourceGoogleSearch;
+        else if ([text isEqualToString:@"YahooSearch"])
+            return PNUserInfoSourceYahooSearch;
+        else if ([text isEqualToString:@"BingSearch"])
+            return PNUserInfoSourceBingSearch;
+        else if ([text isEqualToString:@"FacebookSearch"])
+            return PNUserInfoSourceFacebookSearch;
+        else if ([text isEqualToString:@"Applifier"])
+            return PNUserInfoSourceApplifier;
+        else if ([text isEqualToString:@"AppStrip"])
+            return PNUserInfoSourceAppStrip;
+        else if ([text isEqualToString:@"VIPGamesNetwork"])
+            return PNUserInfoSourceVIPGamesNetwork;
+        else if ([text isEqualToString:@"UserReferral"])
+            return PNUserInfoSourceUserReferral;
+        else if ([text isEqualToString:@"InterGame"])
+            return PNUserInfoSourceInterGame;
+        else if ([text isEqualToString:@"Other"])
+            return PNUserInfoSourceOther;
+    }
+    return -1;
+}
+
+- (NSString *) PNUserInfoSourceDescription:(PNUserInfoSource) value {
+    switch (value) {
+        case PNUserInfoSourceAdwords:
+            return @"Adwords";
+        case PNUserInfoSourceDoubleClick:
+            return @"DoubleClick";
+        case PNUserInfoSourceYahooAds:
+            return @"YahooAds";
+        case PNUserInfoSourceMSNAds:
+            return @"MSNAds";
+        case PNUserInfoSourceAOLAds:
+            return @"AOLAds";
+        case PNUserInfoSourceAdbrite:
+            return @"Adbrite";
+        case PNUserInfoSourceFacebookAds:
+            return @"FacebookAds";
+        case PNUserInfoSourceGoogleSearch:
+            return @"GoogleSearch";
+        case PNUserInfoSourceYahooSearch:
+            return @"YahooSearch";
+        case PNUserInfoSourceBingSearch:
+            return @"BingSearch";
+        case PNUserInfoSourceFacebookSearch:
+            return @"FacebookSearch";
+        case PNUserInfoSourceApplifier:
+            return @"Applifier";
+        case PNUserInfoSourceAppStrip:
+            return @"AppStrip";
+        case PNUserInfoSourceVIPGamesNetwork:
+            return @"VIPGamesNetwork";
+        case PNUserInfoSourceUserReferral:
+            return @"UserReferral";
+        case PNUserInfoSourceInterGame:
+            return @"InterGame";
+        case PNUserInfoSourceOther:
+            return @"Other";
+    }
+    return nil;
+}
+
+-(PNUserInfoType) PNUserInfoTypeValueOf:(NSString *) text {
+    if (text) {
+        if ([text isEqualToString:@"update"])
+            return PNUserInfoTypeUpdate;
+    }
+    return -1;
+}
+
+-(NSString *) PNUserInfoTypeDescription:(PNUserInfoType) value {
+    switch (value) {
+        case PNUserInfoTypeUpdate:
+            return @"update";
+    }
+    return nil;
+}
+
+-(PNUserInfoSex) PNUserInfoSexValueOf:(NSString *) text {
+    if (text) {
+        if ([text isEqualToString:@"M"])
+            return PNUserInfoSexMale;
+        else if ([text isEqualToString:@"F"])
+            return PNUserInfoSexFemale;
+        else if ([text isEqualToString:@"U"])
+            return PNUserInfoSexUnknown;
+    }
+    return -1;
+}
+
 
 @end
