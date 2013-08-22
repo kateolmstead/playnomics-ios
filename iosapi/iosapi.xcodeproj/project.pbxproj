@@ -9,6 +9,13 @@
 /* Begin PBXBuildFile section */
 		32A7C31217C3FCBC00E959A3 /* PNLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 32A7C31017C3FCBC00E959A3 /* PNLogger.h */; };
 		32A7C31317C3FCBC00E959A3 /* PNLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 32A7C31117C3FCBC00E959A3 /* PNLogger.m */; };
+		32A7C32317C6A1E400E959A3 /* libOCMock.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 32A7C31B17C6A1E400E959A3 /* libOCMock.a */; };
+		32A7C32417C6A1E400E959A3 /* NSNotificationCenter+OCMAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 32A7C31D17C6A1E400E959A3 /* NSNotificationCenter+OCMAdditions.h */; };
+		32A7C32517C6A1E400E959A3 /* OCMArg.h in Headers */ = {isa = PBXBuildFile; fileRef = 32A7C31E17C6A1E400E959A3 /* OCMArg.h */; };
+		32A7C32617C6A1E400E959A3 /* OCMConstraint.h in Headers */ = {isa = PBXBuildFile; fileRef = 32A7C31F17C6A1E400E959A3 /* OCMConstraint.h */; };
+		32A7C32717C6A1E400E959A3 /* OCMock.h in Headers */ = {isa = PBXBuildFile; fileRef = 32A7C32017C6A1E400E959A3 /* OCMock.h */; };
+		32A7C32817C6A1E400E959A3 /* OCMockObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 32A7C32117C6A1E400E959A3 /* OCMockObject.h */; };
+		32A7C32917C6A1E400E959A3 /* OCMockRecorder.h in Headers */ = {isa = PBXBuildFile; fileRef = 32A7C32217C6A1E400E959A3 /* OCMockRecorder.h */; };
 		32B41F2A17BDAF30000DA02E /* PNUIImageView.h in Headers */ = {isa = PBXBuildFile; fileRef = 32B41F2817BDAF30000DA02E /* PNUIImageView.h */; };
 		32B41F2B17BDAF30000DA02E /* PNUIImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 32B41F2917BDAF30000DA02E /* PNUIImageView.m */; };
 		42FBA45F0CE45688790D1F03 /* PlaynomicsFrame.h in Headers */ = {isa = PBXBuildFile; fileRef = 42FBAE69972626B043E69F63 /* PlaynomicsFrame.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -40,7 +47,6 @@
 		D19CBDC216765ABE0089B04A /* PNMilestoneEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = D19CBDC016765ABE0089B04A /* PNMilestoneEvent.h */; };
 		D19CBDC316765ABE0089B04A /* PNMilestoneEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = D19CBDC116765ABE0089B04A /* PNMilestoneEvent.m */; };
 		D1D922741590F59700EDDE17 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1D922731590F59600EDDE17 /* Foundation.framework */; };
-		D1D9227A1590F59700EDDE17 /* iosapi.m in Sources */ = {isa = PBXBuildFile; fileRef = D1D922791590F59700EDDE17 /* iosapi.m */; };
 		D1D922821590F59700EDDE17 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1D922811590F59700EDDE17 /* SenTestingKit.framework */; };
 		D1D922841590F59700EDDE17 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1D922831590F59700EDDE17 /* UIKit.framework */; };
 		D1D922851590F59700EDDE17 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1D922731590F59600EDDE17 /* Foundation.framework */; };
@@ -82,6 +88,13 @@
 /* Begin PBXFileReference section */
 		32A7C31017C3FCBC00E959A3 /* PNLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNLogger.h; sourceTree = "<group>"; };
 		32A7C31117C3FCBC00E959A3 /* PNLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNLogger.m; sourceTree = "<group>"; };
+		32A7C31B17C6A1E400E959A3 /* libOCMock.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libOCMock.a; sourceTree = "<group>"; };
+		32A7C31D17C6A1E400E959A3 /* NSNotificationCenter+OCMAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNotificationCenter+OCMAdditions.h"; sourceTree = "<group>"; };
+		32A7C31E17C6A1E400E959A3 /* OCMArg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCMArg.h; sourceTree = "<group>"; };
+		32A7C31F17C6A1E400E959A3 /* OCMConstraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCMConstraint.h; sourceTree = "<group>"; };
+		32A7C32017C6A1E400E959A3 /* OCMock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCMock.h; sourceTree = "<group>"; };
+		32A7C32117C6A1E400E959A3 /* OCMockObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCMockObject.h; sourceTree = "<group>"; };
+		32A7C32217C6A1E400E959A3 /* OCMockRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCMockRecorder.h; sourceTree = "<group>"; };
 		32B41F2817BDAF30000DA02E /* PNUIImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNUIImageView.h; sourceTree = "<group>"; };
 		32B41F2917BDAF30000DA02E /* PNUIImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNUIImageView.m; sourceTree = "<group>"; };
 		42FBA2AFE7443DE409B560CF /* PlaynomicsFrame+Exposed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PlaynomicsFrame+Exposed.h"; sourceTree = "<group>"; };
@@ -110,8 +123,6 @@
 		A1822F7916B065DE00414EF1 /* pnx.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = pnx.json; sourceTree = "<group>"; };
 		A1822F8116B0691300414EF1 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		A1822F8316B069B900414EF1 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		A1822F8516B06A4100414EF1 /* PlaynomicsMessaging+Testing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PlaynomicsMessaging+Testing.h"; sourceTree = "<group>"; };
-		A1822F8D16B06BF800414EF1 /* PlaynomicsFrame+Testing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PlaynomicsFrame+Testing.h"; sourceTree = "<group>"; };
 		A18E5E6916AF284C00004F6D /* AdActionTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdActionTests.h; sourceTree = "<group>"; };
 		A18E5E6A16AF284C00004F6D /* AdActionTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdActionTests.m; sourceTree = "<group>"; };
 		A18E5E7916AF6D5600004F6D /* PNErrorEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNErrorEvent.m; sourceTree = "<group>"; };
@@ -121,8 +132,6 @@
 		D1D922701590F59600EDDE17 /* libiosapi.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libiosapi.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		D1D922731590F59600EDDE17 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D1D922771590F59700EDDE17 /* iosapi-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "iosapi-Prefix.pch"; sourceTree = "<group>"; };
-		D1D922781590F59700EDDE17 /* iosapi.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iosapi.h; sourceTree = "<group>"; };
-		D1D922791590F59700EDDE17 /* iosapi.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = iosapi.m; sourceTree = "<group>"; };
 		D1D922801590F59700EDDE17 /* iosapiTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iosapiTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D1D922811590F59700EDDE17 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		D1D922831590F59700EDDE17 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
@@ -158,6 +167,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D1D922741590F59700EDDE17 /* Foundation.framework in Frameworks */,
+				32A7C32317C6A1E400E959A3 /* libOCMock.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -189,6 +199,19 @@
 			);
 			name = Session;
 			path = ..;
+			sourceTree = "<group>";
+		};
+		32A7C31C17C6A1E400E959A3 /* OCMock */ = {
+			isa = PBXGroup;
+			children = (
+				32A7C31D17C6A1E400E959A3 /* NSNotificationCenter+OCMAdditions.h */,
+				32A7C31E17C6A1E400E959A3 /* OCMArg.h */,
+				32A7C31F17C6A1E400E959A3 /* OCMConstraint.h */,
+				32A7C32017C6A1E400E959A3 /* OCMock.h */,
+				32A7C32117C6A1E400E959A3 /* OCMockObject.h */,
+				32A7C32217C6A1E400E959A3 /* OCMockRecorder.h */,
+			);
+			path = OCMock;
 			sourceTree = "<group>";
 		};
 		42FBA98924738D15AF3CE573 /* Messaging */ = {
@@ -306,26 +329,16 @@
 		D1D922751590F59700EDDE17 /* iosapi */ = {
 			isa = PBXGroup;
 			children = (
-				EADE24D91625F17500914040 /* Libraries */,
 				5B589DBE15993764002B6251 /* PNConfig.h */,
 				D1D922C9159112F400EDDE17 /* PNConstants.h */,
-				32A7C31517C432E700E959A3 /* Session */,
+				D1D922771590F59700EDDE17 /* iosapi-Prefix.pch */,
 				5B6C6E141593CC480088EF5E /* Event */,
+				EADE24D91625F17500914040 /* Libraries */,
+				32A7C31517C432E700E959A3 /* Session */,
 				5BC947E9159E259F00BE180B /* Util */,
-				D1D922781590F59700EDDE17 /* iosapi.h */,
-				D1D922791590F59700EDDE17 /* iosapi.m */,
-				D1D922761590F59700EDDE17 /* Supporting Files */,
 				42FBA98924738D15AF3CE573 /* Messaging */,
 			);
 			path = iosapi;
-			sourceTree = "<group>";
-		};
-		D1D922761590F59700EDDE17 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				D1D922771590F59700EDDE17 /* iosapi-Prefix.pch */,
-			);
-			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		D1D922891590F59700EDDE17 /* iosapiTests */ = {
@@ -336,8 +349,6 @@
 				D1D9228A1590F59700EDDE17 /* Supporting Files */,
 				A18E5E6916AF284C00004F6D /* AdActionTests.h */,
 				A18E5E6A16AF284C00004F6D /* AdActionTests.m */,
-				A1822F8516B06A4100414EF1 /* PlaynomicsMessaging+Testing.h */,
-				A1822F8D16B06BF800414EF1 /* PlaynomicsFrame+Testing.h */,
 			);
 			path = iosapiTests;
 			sourceTree = "<group>";
@@ -355,6 +366,8 @@
 		EADE24D91625F17500914040 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				32A7C31B17C6A1E400E959A3 /* libOCMock.a */,
+				32A7C31C17C6A1E400E959A3 /* OCMock */,
 				EADE24DA1625F17500914040 /* FSNetworking */,
 			);
 			path = Libraries;
@@ -406,6 +419,12 @@
 				68C3137217B1C5CF0079E306 /* PNDeviceInfo.h in Headers */,
 				32B41F2A17BDAF30000DA02E /* PNUIImageView.h in Headers */,
 				32A7C31217C3FCBC00E959A3 /* PNLogger.h in Headers */,
+				32A7C32417C6A1E400E959A3 /* NSNotificationCenter+OCMAdditions.h in Headers */,
+				32A7C32517C6A1E400E959A3 /* OCMArg.h in Headers */,
+				32A7C32617C6A1E400E959A3 /* OCMConstraint.h in Headers */,
+				32A7C32717C6A1E400E959A3 /* OCMock.h in Headers */,
+				32A7C32817C6A1E400E959A3 /* OCMockObject.h in Headers */,
+				32A7C32917C6A1E400E959A3 /* OCMockRecorder.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -508,7 +527,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D1D9227A1590F59700EDDE17 /* iosapi.m in Sources */,
 				D1D922A41591124700EDDE17 /* PlaynomicsSession.m in Sources */,
 				D1D922A81591125700EDDE17 /* PNEvent.m in Sources */,
 				D1D922B2159112A300EDDE17 /* PNTransactionEvent.m in Sources */,
@@ -638,6 +656,10 @@
 				GCC_THUMB_SUPPORT = NO;
 				HEADER_SEARCH_PATHS = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/Libraries\"",
+				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -661,6 +683,10 @@
 				GCC_THUMB_SUPPORT = NO;
 				HEADER_SEARCH_PATHS = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/Libraries\"",
+				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
