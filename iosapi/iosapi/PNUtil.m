@@ -8,7 +8,6 @@
 
 #import "PlaynomicsSession+Exposed.h"
 #import "PNUtil.h"
-#import <AdSupport/AdSupport.h>
 
 
 @implementation PNUtil
@@ -16,50 +15,6 @@
 /*  The Pasteboard is kept in memory even if the app is deleted.
  *  This provides a suitable means for having a unique device ID
  */
-+ (NSString *) getDeviceUniqueIdentifier {
-    // First check the old pasteboard (pre v8.2) to see if the Playnomics breadcrumbId exists
-    UIPasteboard *pasteBoard = [UIPasteboard pasteboardWithName:PNUserDefaultsLastDeviceID create:NO];
-    NSString *storedUUID = [pasteBoard string];
-    
-    // If it doesn't exist, create a new Playnomics breadcrumbId, but don't save it anywhere
-    // The calling method will save it
-    if ([storedUUID length] == 0) {
-        CFUUIDRef uuidRef = CFUUIDCreate(kCFAllocatorDefault);
-        storedUUID = [(NSString *)CFUUIDCreateString(NULL,uuidRef) autorelease];
-        CFRelease(uuidRef);
-    }
-    
-    return storedUUID;
-}
-
-// Unique to an app group, which is tied by the organization deploying the apps to the AppStore
-+ (NSString *) getVendorIdentifier {
-    if ([[UIDevice currentDevice] respondsToSelector:@selector(identifierForVendor)]) {
-        NSLog(@"Latest IDFV is:%@", [[[UIDevice currentDevice] identifierForVendor] UUIDString]);
-        return [[[UIDevice currentDevice] identifierForVendor] UUIDString];
-    } else {
-        NSLog(@"No IDFV so this must be a pre-iOS 6 device");
-        return @"";
-    }
-}
-
-+ (NSDictionary *) getAdvertisingInfo {
-    NSMutableDictionary *advertisingInfo = [NSMutableDictionary dictionary];
-    
-    if (NSClassFromString(@"ASIdentifierManager")) {
-        ASIdentifierManager *manager = [ASIdentifierManager sharedManager];
-        
-        [advertisingInfo setValue:(manager.isAdvertisingTrackingEnabled ? @"false" : @"true") forKey:PNPasteboardLastLimitAdvertising];
-        [advertisingInfo setValue:[manager.advertisingIdentifier UUIDString] forKey:PNPasteboardLastIDFA];
-        
-        NSLog(@"Latest Advertising Information is:%@", advertisingInfo);
-    } else {
-        NSLog(@"No Advertising Information available so this must be a pre-iOS 6 device");
-    }
-    
-    return advertisingInfo;
-}
-
 + (UIInterfaceOrientation)getCurrentOrientation {
     return [UIApplication sharedApplication].statusBarOrientation;
 }

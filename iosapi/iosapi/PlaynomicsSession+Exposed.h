@@ -8,25 +8,21 @@
 
 #ifndef iosapi_PlaynomicsSession_Exposed_h
 #define iosapi_PlaynomicsSession_Exposed_h
-#import "PNUserInfo.h"
+#import "PNDeviceInfo.h"
 #import "PNErrorEvent.h"
 
 /**
  *  Only use this within the Static Lib.
  */
 
-@interface PlaynomicsSession () <PNUserInfoChangeActionHandler>
-
-
+@interface PlaynomicsSession()
 
 @property (nonatomic, readonly) NSString * cookieId;
 @property (nonatomic, readonly) NSString * sessionId;
 @property (nonatomic, readonly) PNSessionState sessionState;
 
 - (void) errorReport:(PNErrorDetail*)errorDetails;
-
 - (void) onKeyPressed: (NSNotification *) notification;
-- (void) onTouchDown: (UIEvent *) event;
 - (void) onApplicationWillResignActive: (NSNotification *) notification;
 - (void) onApplicationDidBecomeActive: (NSNotification *) notification;
 - (void) onApplicationWillTerminate: (NSNotification *) notification;

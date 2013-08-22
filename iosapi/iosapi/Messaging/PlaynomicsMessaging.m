@@ -17,7 +17,6 @@
 }
 
 @synthesize delegate = _delegate;
-@synthesize isTesting = _isTesting;
 
 + (PlaynomicsMessaging *)sharedInstance{
     DEFINE_SHARED_INSTANCE_USING_BLOCK(^{
@@ -28,10 +27,6 @@
 - (id)init {
     if (self = [super init]) {
         _actionHandlers = [[NSMutableDictionary dictionary] retain];
-        self.isTesting = NO;
-#ifdef STUB
-        self.isTesting = YES;
-#endif
     }
     return self;
 }

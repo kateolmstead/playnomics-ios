@@ -26,16 +26,10 @@ typedef enum {
 
 @interface PNUtil : NSObject
 
-+ (NSString *) getDeviceUniqueIdentifier;
-+ (NSString *) getVendorIdentifier;
-+ (NSDictionary *) getAdvertisingInfo;
-
 + (UIInterfaceOrientation) getCurrentOrientation;
-
-+(PNEventType) PNEventTypeValueOf: (NSString *) text;
-+(NSString *) PNEventTypeDescription:  (PNEventType) value;
-
-+(NSString *) urlEncodeValue: (NSString *) unescapedValue;
++ (PNEventType) PNEventTypeValueOf: (NSString*) text;
++ (NSString*) PNEventTypeDescription:  (PNEventType) value;
++ (NSString*) urlEncodeValue: (NSString*) unescapedValue;
 
 + (BOOL) isUrl:(NSString*) url;
 + (id) deserializeJsonData: (NSData*) jsonData ;

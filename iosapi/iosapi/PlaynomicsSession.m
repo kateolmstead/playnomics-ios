@@ -20,7 +20,7 @@
 #import "PNErrorEvent.h"
 #import "PlaynomicsSession+Exposed.h"
 #import "PlaynomicsMessaging+Exposed.h"
-#import "PNUserInfo.h"
+#import "PNDeviceInfo.h"
 #import "PNLogger.h"
 
 @implementation PlaynomicsSession {
@@ -48,6 +48,8 @@
 	int _totalClicks;
 	int _keys;
 	int _totalKeys;
+    
+    PNDeviceInfo* _deviceInfo;
 }
 
 @synthesize applicationId=_applicationId;
@@ -73,24 +75,20 @@
     if ((self = [super init])) {
         _collectMode = PNSettingCollectionMode;
         _sequence = 0;
-        //does setting this to empty, make any sense?
-        _userId = @"";
-        //does setting this to empty, make any sense?
-        _sessionId = @"";
+        
         _playnomicsEventList = [[NSMutableArray alloc] init];
         _eventSender = [[PNEventSender alloc] init];
         
         _testEventsUrl = PNPropertyBaseTestUrl;
         _prodEventsUrl = PNPropertyBaseProdUrl;
-        
         _testMessagingUrl = PNPropertyMessagingTestUrl;
         _prodMessagingUrl = PNPropertyMessagingProdUrl;
         
         _callback = [[PlaynomicsCallback alloc] init];
-    
+        
         _sdkVersion = PNPropertyVersion;
+        _deviceInfo = [[PNDeviceInfo alloc] init];
     }
-    
     return self;
 }
 
@@ -108,6 +106,8 @@
     [_overrideEventsUrl release];
     [_overrideMessagingUrl release];
     [_sdkVersion release];
+    
+    [_deviceInfo release];
     [super dealloc];
 }
 
@@ -189,9 +189,7 @@
     /** Setting Session variables */
     
     _sessionState = PNSessionStateStarted;
-    
-    PNUserInfo *userInfo = [[PNUserInfo alloc] init:self];
-    _cookieId = [userInfo breadcrumbId];
+    _cookieId = _deviceInfo.breadcrumbId;
     
     // Set userId to cookieId if it isn't present
     if ([_userId length] == 0) {
@@ -202,8 +200,10 @@
     
     _timeZoneOffset = [[NSTimeZone localTimeZone] secondsFromGMT] / -60;
     _sequence = 1;
+    
     _clicks = 0;
     _totalClicks = 0;
+    
     _keys = 0;
     _totalKeys = 0;
     
@@ -218,6 +218,7 @@
     // otherwise send an appPage
     if ((currentTime - lastSessionStartTime > PNSessionTimeout)
         || ![_userId isEqualToString:lastUserId]) {
+        
         _sessionId = [[PNRandomGenerator createRandomHex] retain];
         _instanceId = [_sessionId retain];
         _sessionStartTime = currentTime;
@@ -249,6 +250,10 @@
     // Try to send and queue if unsuccessful
     [_eventSender sendEventToServer:ev withEventQueue:_playnomicsEventList];
     [ev release];
+    
+    if(_deviceInfo.infoChanged){
+        [self onDeviceInfoChanged];
+    }
 }
 
 
@@ -302,9 +307,9 @@
         
         PNBasicEvent *ev = [[[PNBasicEvent alloc] init:PNEventAppResume applicationId:_applicationId userId:_userId cookieId:_cookieId internalSessionId:_sessionId instanceId:_instanceId sessionStartTime:_sessionStartTime sequence:_sequence clicks:_clicks totalClicks:_totalClicks keys:_keys totalKeys:_totalKeys collectMode:_collectMode] autorelease];
         
-        [ev setPauseTime:_pauseTime];
-        [ev setSessionStartTime:_sessionStartTime];
-        [ev setSequence:_sequence];
+        ev.pauseTime = _pauseTime;
+        ev.sessionStartTime =  _sessionStartTime;
+        ev.sequence = _sequence;
     
         // Try to send and queue if unsuccessful
         [_eventSender sendEventToServer:ev withEventQueue:_playnomicsEventList];
@@ -460,7 +465,7 @@
 
 #pragma mark - API request methods
 
-- (void)  transactionWithUSDPrice: (NSNumber*) priceInUSD quantity: (NSInteger) quantity  {
+- (void) transactionWithUSDPrice: (NSNumber*) priceInUSD quantity: (NSInteger) quantity  {
     @try {
         if(![self assertSessionHasStarted]){
             return;
@@ -472,7 +477,7 @@
         NSArray *currencyValues = [NSArray arrayWithObject: priceInUSD];
         NSArray *currencyCategories = [NSArray arrayWithObject: [NSNumber numberWithInt:PNCurrencyCategoryReal]];
         
-        NSString* itemId = @"PNUSDSpent";
+        NSString* itemId = @"monetized";
         
         PNTransactionEvent* ev = [[[PNTransactionEvent alloc] init:PNEventTransaction applicationId: self.applicationId userId: self.userId cookieId: self.cookieId transactionId: transactionId itemId: itemId quantity: quantity type: PNTransactionBuyItem otherUserId: nil currencyTypes: currencyTypes currencyValues: currencyValues currencyCategories: currencyCategories] autorelease];
         
@@ -588,13 +593,20 @@
     return adeviceToken;
 }
 
-- (void)performActionOnIdsChangedWithBreadcrumbId: (NSString*) breadcrumbId andLimitAdvertising: (NSString*) limitAdvertising andIDFA: (NSString*) idfa andIDFV: (NSString*) idfv {
+
+-(void)onDeviceInfoChanged{
+    NSLog(@"Device info was modified so sending a userInfo update");
     
-    NSLog(@"User Info was modified so sending a userInfo update");
-    PlaynomicsSession * s =[PlaynomicsSession sharedInstance];
-    PNUserInfoEvent *userInfoEvent = [[PNUserInfoEvent alloc] initWithAdvertisingInfo:s.applicationId userId:[s.userId length] == 0 ? breadcrumbId : s.userId cookieId:breadcrumbId type:PNUserInfoTypeUpdate limitAdvertising:limitAdvertising idfa:idfa idfv:idfv];
+    PNUserInfoEvent *userInfoEvent = [[PNUserInfoEvent alloc]
+                                      initWithAdvertisingInfo:self.applicationId
+                                      userId:[self.userId length] == 0 ? _deviceInfo.breadcrumbId : self.userId
+                                      cookieId:_deviceInfo.breadcrumbId
+                                      type:PNUserInfoTypeUpdate
+                                      limitAdvertising:_deviceInfo.limitAdvertising
+                                      idfa:_deviceInfo.idfa
+                                      idfv: _deviceInfo.idfv];
     
-    userInfoEvent.internalSessionId = s.sessionId;
+    userInfoEvent.internalSessionId = self.sessionId;
     [self sendOrQueueEvent:userInfoEvent];
 }
 
