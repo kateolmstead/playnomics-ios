@@ -1,7 +1,7 @@
 #import "PNEventSender.h"
 #import "PNEvent.h"
 #import "PNUtil.h"
-#import "PlaynomicsSession.h"
+#import "PNSession.h"
 
 @interface PNEventSender ()
 + (void)sendAsynchronousRequest:(NSURLRequest*)request queue:(NSOperationQueue*)queue completionHandler:(void(^)(NSURLResponse *response, NSData *data, NSError *error))handler;
@@ -18,7 +18,7 @@
 
 - (void) sendEventToServer:(PNEvent *)pe withEventQueue: (NSMutableArray *) eventQueue {
 
-    PlaynomicsSession* play = [PlaynomicsSession sharedInstance];
+    PNSession* play = [PNSession sharedInstance];
     NSString* baseEventsUrl =  [play getEventsUrl];
     NSString* eventUrl = [baseEventsUrl stringByAppendingString:[pe toQueryString]];
     if (eventUrl == nil)

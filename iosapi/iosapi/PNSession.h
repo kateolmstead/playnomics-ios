@@ -16,7 +16,7 @@ typedef enum {
 } PNSessionState;
 
 
-@interface PlaynomicsSession : NSObject
+@interface PNSession : NSObject
 
 @property (nonatomic, assign) bool testMode;
 @property (nonatomic, copy) NSString * overrideEventsUrl;
@@ -32,7 +32,7 @@ typedef enum {
 @property (nonatomic, readonly) NSString *sessionId;
 @property (nonatomic, readonly) PNSessionState state;
 
-+ (PlaynomicsSession*) sharedInstance;
++ (PNSession*) sharedInstance;
 
 - (NSString *) getMessagingUrl;
 - (NSString *) getEventsUrl;

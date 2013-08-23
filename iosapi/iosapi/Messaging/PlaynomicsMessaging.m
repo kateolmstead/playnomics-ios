@@ -4,7 +4,7 @@
 #import "PlaynomicsFrame+Exposed.h"
 #import "PNUtil.h"
 
-#import "PlaynomicsSession.h"
+#import "PNSession.h"
 
 @implementation PlaynomicsMessaging
 
@@ -41,7 +41,7 @@
 // Make an ad request to the PN Ad Servers
 - (NSDictionary *)_retrieveFramePropertiesForId:(NSString *)frameId withCaller: (NSString *) caller
 {
-    PlaynomicsSession *pn = [PlaynomicsSession sharedInstance];
+    PNSession *pn = [PNSession sharedInstance];
     signed long long time = [[NSDate date] timeIntervalSince1970] * 1000;
     CGRect screenRect = [[UIScreen mainScreen] applicationFrame];
     int screenWidth = screenRect.size.width;

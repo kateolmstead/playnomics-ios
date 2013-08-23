@@ -5,7 +5,7 @@
 //  Created by Douglas Kadlecek on 12/10/12.
 //
 //
-#import "PlaynomicsSession.h"
+#import "PNSession.h"
 #import "PNEvent.h"
 
 @interface PNMilestoneEvent : PNEvent

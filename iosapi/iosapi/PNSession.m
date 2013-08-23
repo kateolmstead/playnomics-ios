@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "PlaynomicsSession.h"
+#import "PNSession.h"
 #import "PNRandomGenerator.h"
 #import "PNEventSender.h"
 #import "PlaynomicsCallback.h"
@@ -19,7 +19,7 @@
 #import "PNDeviceInfo.h"
 #import "PNLogger.h"
 
-@implementation PlaynomicsSession {
+@implementation PNSession {
 @private
     int _collectMode;
     int _sequence;
@@ -60,7 +60,7 @@
 @synthesize sdkVersion=_sdkVersion;
 
 //Singleton
-+ (PlaynomicsSession *)sharedInstance{
++ (PNSession *)sharedInstance{
     DEFINE_SHARED_INSTANCE_USING_BLOCK(^{
         return [[self alloc] init];
     });
@@ -444,7 +444,7 @@
     if ([note userInfo] != nil && [note.userInfo valueForKey:UIApplicationLaunchOptionsRemoteNotificationKey] != nil) {
         NSDictionary *push = [note.userInfo valueForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
         NSLog(@"sending impression from onApplicationDidLaunch\r\n---> %@", push);
-        [[PlaynomicsSession sharedInstance] pushNotificationsWithPayload:push];
+        [[PNSession sharedInstance] pushNotificationsWithPayload:push];
     }
 }
 
@@ -466,7 +466,7 @@
         
         PNTransactionEvent* ev = [[[PNTransactionEvent alloc] init:PNEventTransaction applicationId: self.applicationId userId: self.userId cookieId: self.cookieId transactionId: transactionId itemId: itemId quantity: quantity type: PNTransactionBuyItem otherUserId: nil currencyTypes: currencyTypes currencyValues: currencyValues currencyCategories: currencyCategories] autorelease];
         
-        ev.internalSessionId = [[PlaynomicsSession sharedInstance] sessionId];
+        ev.internalSessionId = [[PNSession sharedInstance] sessionId];
         [self sendOrQueueEvent:ev];
     }
     @catch (NSException* exception) {
