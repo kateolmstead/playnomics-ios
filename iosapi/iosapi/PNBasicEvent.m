@@ -1,5 +1,5 @@
 #import "PNBasicEvent.h"
-#import "PNConfig.h"
+#import "PNUtil.h"
 
 @implementation PNBasicEvent
 @synthesize instanceId=_instanceId;

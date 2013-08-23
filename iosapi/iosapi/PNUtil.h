@@ -6,9 +6,34 @@
 //  Copyright (c 2012 Grio. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import "PNConstants.h"
-#import "PlaynomicsSession.h"
+#import <UIKit/UIKit.h>
+
+typedef enum
+{
+    PNErrorTypeUndefined,
+    PNErrorTypeInvalidJson
+}PNErrorType;
+
+typedef enum {
+    PNEventAppStart,
+    PNEventAppPage,
+    PNEventAppRunning,
+    PNEventAppPause,
+    PNEventAppResume,
+    PNEventAppStop,
+    PNEventUserInfo,
+    PNEventSessionStart,
+    PNEventSessionEnd,
+    PNEventGameStart,
+    PNEventGameEnd,
+    PNEventTransaction,
+    PNEventInvitationSent,
+    PNEventInvitationResponse,
+    PNEventMilestone,
+    PNEventError,
+    PNEventPushNotificationToken,
+    PNEventPushNotificationPayload,
+} PNEventType;
 
 typedef enum{
     AdTargetUrl,

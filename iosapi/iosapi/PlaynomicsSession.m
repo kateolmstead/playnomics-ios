@@ -7,8 +7,6 @@
 //
 
 #import "PlaynomicsSession.h"
-#import "PNConfig.h"
-#import "PNConstants.h"
 #import "PNRandomGenerator.h"
 #import "PNEventSender.h"
 #import "PlaynomicsCallback.h"
@@ -18,16 +16,13 @@
 #import "PNMilestoneEvent.h"
 #import "PNAPSNotificationEvent.h"
 #import "PNErrorEvent.h"
-#import "PlaynomicsSession+Exposed.h"
-#import "PlaynomicsMessaging+Exposed.h"
 #import "PNDeviceInfo.h"
 #import "PNLogger.h"
 
 @implementation PlaynomicsSession {
 @private
-    PNSessionState _sessionState;
     int _collectMode;
-	int _sequence;
+    int _sequence;
     
     NSTimer* _eventTimer;
     NSMutableArray* _playnomicsEventList;
@@ -56,7 +51,7 @@
 @synthesize userId=_userId;
 @synthesize cookieId=_cookieId;
 @synthesize sessionId=_sessionId;
-@synthesize sessionState=_sessionState;
+@synthesize state=_state;
 
 @synthesize testMode=_testMode;
 @synthesize overrideEventsUrl=_overrideEventsUrl;
@@ -133,24 +128,19 @@
 }
 
 #pragma mark - Session Control Methods
-- (bool) startWithApplicationId:(signed long long) applicationId userId: (NSString *) userId {
-    _userId = [userId retain];
-    return [self startWithApplicationId:applicationId];
-}
-
-- (bool) startWithApplicationId:(signed long long) applicationId {
+-(void) start {
     @try {
-        if (_sessionState == PNSessionStateStarted) {
-            return YES;
+        if (_state == PNSessionStateStarted) {
+            return;
         }
         
-        // If paused, resume and get out of here
-        if (_sessionState == PNSessionStatePaused) {
+        if (_state == PNSessionStatePaused) {
+        
+            // If paused, resume and get out of here
+            // this should never really occurr
             [self resume];
-            return YES;
+            return;
         }
-        
-        _applicationId = applicationId;
         
         [self startSession];
         [self startEventTimer];
@@ -173,13 +163,12 @@
             NSFileManager *fm = [NSFileManager defaultManager];
             [fm removeItemAtPath:PNFileEventArchive error:nil];
         }
-        return YES;
+        return;
     }
     @catch (NSException *exception) {
         NSLog(@"Could not start the PlayRM SDK.");
         NSLog( @"Exception Name: %@", exception.name);
         NSLog( @"Exception Reason: %@", exception.reason );
-        return NO;
     }
 }
 
@@ -188,16 +177,15 @@
     
     /** Setting Session variables */
     
-    _sessionState = PNSessionStateStarted;
+    _state = PNSessionStateStarted;
     _cookieId = _deviceInfo.breadcrumbId;
     
     // Set userId to cookieId if it isn't present
-    if ([_userId length] == 0) {
+    if (!(_userId && [_userId length] > 0)) {
         _userId = [_cookieId retain];
     }
     
     _collectMode = PNSettingCollectionMode;
-    
     _timeZoneOffset = [[NSTimeZone localTimeZone] secondsFromGMT] / -60;
     _sequence = 1;
     
@@ -256,20 +244,19 @@
     }
 }
 
+- (void) onApplicationWillResignActive: (NSNotification *) notification {
+    [self pause];
+}
 
-
-
-/**
- * Pause.
- */
 - (void) pause {
     @try {
         NSLog(@"pause called");
         
-        if (_sessionState == PNSessionStatePaused)
+        if (_state == PNSessionStatePaused){
             return;
+        }
         
-        _sessionState = PNSessionStatePaused;
+        _state = PNSessionStatePaused;
         
         [self stopEventTimer];
         
@@ -297,13 +284,13 @@
     @try {
         NSLog(@"resume called");
         
-        if (_sessionState == PNSessionStateStarted) {
+        if (_state == PNSessionStateStarted) {
             return;
         }
         
         [self startEventTimer];
         
-        _sessionState = PNSessionStateStarted;
+        _state = PNSessionStateStarted;
         
         PNBasicEvent *ev = [[[PNBasicEvent alloc] init:PNEventAppResume applicationId:_applicationId userId:_userId cookieId:_cookieId internalSessionId:_sessionId instanceId:_instanceId sessionStartTime:_sessionStartTime sequence:_sequence clicks:_clicks totalClicks:_totalClicks keys:_keys totalKeys:_totalKeys collectMode:_collectMode] autorelease];
         
@@ -328,12 +315,12 @@
     @try {
         NSLog(@"stop called");
         
-        if (_sessionState == PNSessionStateStopped) {
+        if (_state == PNSessionStateStopped) {
             return;
         }
         
         // Currently Session is only stopped when the application quits.
-        _sessionState = PNSessionStateStopped;
+        _state = PNSessionStateStopped;
         
         [self stopEventTimer];
         
@@ -380,7 +367,7 @@
 - (void) consumeQueue {
     @try {
         NSLog(@"consumeQueue");
-        if (_sessionState == PNSessionStateStarted) {
+        if (_state == PNSessionStateStarted) {
             _sequence++;
             
             PNBasicEvent *ev = [[[PNBasicEvent alloc] init:PNEventAppRunning
@@ -418,7 +405,7 @@
 
 
 - (void) sendOrQueueEvent:(PNEvent *)pe {
-    if (_sessionState != PNSessionStateStarted) {
+    if (_state != PNSessionStateStarted) {
         //add the event to our queue if we are here
         if(pe != nil){
             [_playnomicsEventList addObject:pe];
@@ -440,9 +427,7 @@
     _totalClicks += 1;
 }
 
-- (void) onApplicationWillResignActive: (NSNotification *) notification {
-    [self pause];
-}
+
 
 - (void) onApplicationDidBecomeActive: (NSNotification *) notification {
     [self resume];
@@ -611,7 +596,7 @@
 }
 
 -(BOOL) assertSessionHasStarted{
-    if(_sessionState != PNSessionStateStarted){
+    if(_state != PNSessionStateStarted){
         [PNLogger logMessage:@"PlayRM session could not be started! Can't send data to Playnomics API."];
         return NO;
     }

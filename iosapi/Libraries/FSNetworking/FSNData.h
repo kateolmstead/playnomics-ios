@@ -8,8 +8,9 @@
 //
 
 
-// object encapsulating data for a POST parameter
+#import <UIKit/UIKit.h>
 
+// object encapsulating data for a POST parameter
 
 // mime types; use underscores instead of camel case here to better map to the string values they represent.
 typedef enum {

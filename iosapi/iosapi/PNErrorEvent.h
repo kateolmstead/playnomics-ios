@@ -6,28 +6,12 @@
 //
 //
 
+#import "PNErrorDetail.h"
 #import "PNEvent.h"
-
-typedef enum
-{
-    PNErrorTypeUndefined,
-    PNErrorTypeInvalidJson
-}PNErrorType;
-
-
-
-@interface PNErrorDetail : NSObject
-@property (nonatomic) PNErrorType errorType;
-+(PNErrorDetail*)pNErrorDetailWithType:(PNErrorType)errorType;
-@end
 
 
 @interface PNErrorEvent : PNEvent
 
-- (id)init:(PNEventType)eventType
-applicationId:(long long)applicationId
-    userId:(NSString *)userId
-  cookieId:(NSString *)cookieId
-errorDetails:(PNErrorDetail*)errorDetails;
 @property (nonatomic,retain)PNErrorDetail *errorDetailObject;
+- (id)init:(PNEventType)eventType applicationId:(long long)applicationId userId:(NSString *)userId cookieId:(NSString *)cookieId errorDetails:(PNErrorDetail*)errorDetails;
 @end

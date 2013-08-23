@@ -4,12 +4,12 @@
 // To change the template use AppCode | Preferences | File Templates.
 //
 #import "PlaynomicsFrame+Exposed.h"
-#import "PlaynomicsMessaging+Exposed.h"
 #import "FSNConnection.h"
 #import "BaseAdComponent.h"
 #import "PNErrorEvent.h"
 #import "PlaynomicsCallback.h"
 #import "PNUtil.h"
+
 #pragma mark - PlaynomicsFrame
 
 typedef enum {
@@ -212,44 +212,15 @@ typedef enum {
         if (actionType == AdActionHTTP) {
             //just redirect to the ad
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:clickTarget]];
-        } else if (actionType == AdActionDefinedAction || actionType == AdActionExecuteCode) {
-            NSString* preExecuteUrl = [[_adArea.properties objectForKey:FrameResponseAd_PreExecuteUrl] stringByAppendingString:coordParams];
-            NSString* postExecuteUrl =  [_adArea.properties objectForKey:FrameResponseAd_PostExecuteUrl];
-            
-            NSString* actionLabel = [self adActionMethodForURLPath:clickTarget];
-            NSInteger responseCode;
-            NSException* exception = nil;
-            
-            [self.callbackUtil submitRequestToServer: preExecuteUrl];
-            if (actionType == AdActionDefinedAction) {
-                @try {
-                    [[PlaynomicsMessaging sharedInstance] performActionForLabel:actionLabel];
-                    responseCode = 2;
-                }
-                @catch (NSException* e) {
-                    responseCode = -6;
-                    exception = e;
-                }
-            } else {
-                @try {
-                    [[PlaynomicsMessaging sharedInstance] executeActionOnDelegate:actionLabel];
-                    responseCode = 1;
-                }
-                @catch (NSException *e) {
-                    responseCode = -4;
-                    exception = e;
-                }
-            }
-            [self callPostAction: postExecuteUrl withException: exception andResponseCode: responseCode];
         }
     } else if (targetType == AdTargetData) {
         //handle rich data
-        NSString* preExecuteUrl = [[_adArea.properties objectForKey:FrameResponseAd_PreExecuteUrl] stringByAppendingString:coordParams];
-        NSString* postExecuteUrl =  [_adArea.properties objectForKey:FrameResponseAd_PostExecuteUrl];
+        NSString *preExecuteUrl = [[_adArea.properties objectForKey:FrameResponseAd_PreExecuteUrl] stringByAppendingString:coordParams];
+        NSString *postExecuteUrl =  [_adArea.properties objectForKey:FrameResponseAd_PostExecuteUrl];
 
         NSInteger responseCode;
-        NSException* exception = nil;
-        NSString* targetData = [_adArea.properties objectForKey:FrameResponseAd_TargetData];
+        NSException *exception = nil;
+        NSString *targetData = [_adArea.properties objectForKey:FrameResponseAd_TargetData];
         
         [self.callbackUtil submitRequestToServer: preExecuteUrl];
         
@@ -332,12 +303,6 @@ typedef enum {
     }
     if([PNUtil isUrl: actionUrl]){
         return AdActionHTTP;
-    }
-    if([actionUrl hasPrefix: @"pnx://"]){
-        return AdActionExecuteCode;
-    }
-    if([actionUrl hasPrefix: @"pna://" ]){
-        return AdActionDefinedAction;
     }
     return AdActionUnknown;
 }

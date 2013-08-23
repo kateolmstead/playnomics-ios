@@ -4,64 +4,53 @@
 //  Please see http://integration.playnomics.com for instructions.
 //  Please contact support@playnomics.com for assistance.
 
-#import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import "Playnomics.h"
+#import "PNErrorDetail.h"
 
-//this is available in iOS 6 and above, add this in for iOS 5 and below
-#ifndef NS_ENUM
-#define NS_ENUM(_type, _name) enum _name : _type _name; enum _name : _type
-#endif
+typedef enum {
+    PNSessionStateUnkown,
+    PNSessionStateStarted,
+    PNSessionStatePaused,
+    PNSessionStateStopped
+} PNSessionState;
 
-typedef NS_ENUM(int, PNMilestoneType){
-    PNMilestoneCustom1 = 1,
-    PNMilestoneCustom2 = 2,
-    PNMilestoneCustom3 = 3,
-    PNMilestoneCustom4 = 4,
-    PNMilestoneCustom5 = 5,
-    PNMilestoneCustom6 = 6,
-    PNMilestoneCustom7 = 7,
-    PNMilestoneCustom8 = 8,
-    PNMilestoneCustom9 = 9,
-    PNMilestoneCustom10 = 10,
-    PNMilestoneCustom11 = 11,
-    PNMilestoneCustom12 = 12,
-    PNMilestoneCustom13 = 13,
-    PNMilestoneCustom14 = 14,
-    PNMilestoneCustom15 = 15,
-    PNMilestoneCustom16 = 16,
-    PNMilestoneCustom17 = 17,
-    PNMilestoneCustom18 = 18,
-    PNMilestoneCustom19 = 19,
-    PNMilestoneCustom20 = 20,
-    PNMilestoneCustom21 = 21,
-    PNMilestoneCustom22 = 22,
-    PNMilestoneCustom23 = 23,
-    PNMilestoneCustom24 = 24,
-    PNMilestoneCustom25 = 25
-};
 
 @interface PlaynomicsSession : NSObject
-@property (nonatomic, assign) bool testMode;
-@property (nonatomic, copy) NSString* overrideEventsUrl;
-@property (nonatomic, copy) NSString* overrideMessagingUrl;
 
-@property (nonatomic, readonly) NSString* sdkVersion;
-@property (nonatomic, readonly) signed long long applicationId;
-@property (nonatomic, readonly) NSString * userId;
+@property (nonatomic, assign) bool testMode;
+@property (nonatomic, copy) NSString * overrideEventsUrl;
+@property (nonatomic, copy) NSString * overrideMessagingUrl;
+
+
+@property (nonatomic, readonly) NSString * sdkVersion;
+
+@property (nonatomic, assign) signed long long applicationId;
+@property (nonatomic, copy) NSString *userId;
+
+@property (nonatomic, readonly) NSString *cookieId;
+@property (nonatomic, readonly) NSString *sessionId;
+@property (nonatomic, readonly) PNSessionState state;
 
 + (PlaynomicsSession*) sharedInstance;
 
-- (bool) startWithApplicationId:(signed long long) applicationId userId: (NSString *) userId;
-- (bool) startWithApplicationId:(signed long long) applicationId;
-- (void) milestone: (PNMilestoneType) milestoneType;
-- (void) transactionWithUSDPrice: (NSNumber*) priceInUSD quantity: (NSInteger) quantity;
+- (NSString *) getMessagingUrl;
+- (NSString *) getEventsUrl;
 
+//Application Lifecycle
+- (void) start;
+- (void) pause;
+- (void) resume;
+- (void) stop;
+
+//Explicit Events
+- (void) milestone: (PNMilestoneType) milestoneType;
+- (void) transactionWithUSDPrice: (NSNumber *) priceInUSD quantity: (NSInteger) quantity;
+
+//push notifications
 - (void) enablePushNotificationsWithToken: (NSData*)deviceToken;
 - (void) pushNotificationsWithPayload: (NSDictionary*)payload;
-
-- (void) onTouchDown: (UIEvent*) event;
+//Report errors
+- (void) errorReport:(PNErrorDetail*)errorDetails;
 @end
 
-@interface PNApplication : UIApplication<UIApplicationDelegate>
-- (void) sendEvent:(UIEvent *)event;
-@end

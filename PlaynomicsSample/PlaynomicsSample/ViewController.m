@@ -98,11 +98,11 @@
 
 
 - (IBAction) onMilestoneClick:(id)sender {
-    [[PlaynomicsSession sharedInstance] milestone:PNMilestoneCustom1];
-    [[PlaynomicsSession sharedInstance] milestone:PNMilestoneCustom2];
-    [[PlaynomicsSession sharedInstance] milestone:PNMilestoneCustom3];
-    [[PlaynomicsSession sharedInstance] milestone:PNMilestoneCustom4];
-    [[PlaynomicsSession sharedInstance] milestone:PNMilestoneCustom5];
+    [[PlaynomicsSession sharedInstance] milestone : PNMilestoneCustom1];
+    [[PlaynomicsSession sharedInstance] milestone : PNMilestoneCustom2];
+    [[PlaynomicsSession sharedInstance] milestone : PNMilestoneCustom3];
+    [[PlaynomicsSession sharedInstance] milestone : PNMilestoneCustom4];
+    [[PlaynomicsSession sharedInstance] milestone : PNMilestoneCustom5];
 }
 
 - (IBAction)onHttpClick:(id)sender {

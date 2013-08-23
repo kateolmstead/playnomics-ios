@@ -8,9 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-#import "PNErrorEvent.h"
-#import "PlaynomicsSession.h"
-#import "PlaynomicsSession+Exposed.h"
+#import "Playnomics.h"
 
 @implementation PNApplication
 - (void) sendEvent: (UIEvent *) event {
@@ -18,7 +16,7 @@
     if (event.type == UIEventTypeTouches) {
         UITouch *touch = [event allTouches].anyObject;
         if (touch.phase == UITouchPhaseBegan) {
-            [[PlaynomicsSession sharedInstance] onTouchDown: event];
+            [Playnomics onTouchDown: event];
         }
     }
 }

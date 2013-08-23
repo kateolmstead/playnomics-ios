@@ -61,7 +61,7 @@
     [PlaynomicsSession sharedInstance].overrideMessagingUrl = @"https://ads.c.playnomics.net/v1/";
     [PlaynomicsSession sharedInstance].overrideEventsUrl =  @"https://e.c.playnomics.net/v1/";
     
-    [[PlaynomicsSession sharedInstance] startWithApplicationId:appId];
+    [Playnomics startWithApplicationId:appId];
     //[PlaynomicsSession changeUserWithUserId: @"gmaddux311"];
     
     [AdColony initAdColonyWithDelegate:self];

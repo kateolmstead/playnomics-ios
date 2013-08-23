@@ -7,23 +7,28 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3271CCEB17C7CF4400E96C22 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68E6DABD17AC237900A904A8 /* AdSupport.framework */; };
+		3290164B17C8008A0041895A /* Playnomics.h in Headers */ = {isa = PBXBuildFile; fileRef = 3290164917C8008A0041895A /* Playnomics.h */; };
+		3290164C17C8008A0041895A /* Playnomics.m in Sources */ = {isa = PBXBuildFile; fileRef = 3290164A17C8008A0041895A /* Playnomics.m */; };
+		3290164F17C8291B0041895A /* PNErrorDetail.h in Headers */ = {isa = PBXBuildFile; fileRef = 3290164D17C8291A0041895A /* PNErrorDetail.h */; };
+		3290165017C8291B0041895A /* PNErrorDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 3290164E17C8291A0041895A /* PNErrorDetail.m */; };
 		32A7C31217C3FCBC00E959A3 /* PNLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 32A7C31017C3FCBC00E959A3 /* PNLogger.h */; };
 		32A7C31317C3FCBC00E959A3 /* PNLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 32A7C31117C3FCBC00E959A3 /* PNLogger.m */; };
-		32A7C32317C6A1E400E959A3 /* libOCMock.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 32A7C31B17C6A1E400E959A3 /* libOCMock.a */; };
-		32A7C32417C6A1E400E959A3 /* NSNotificationCenter+OCMAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 32A7C31D17C6A1E400E959A3 /* NSNotificationCenter+OCMAdditions.h */; };
-		32A7C32517C6A1E400E959A3 /* OCMArg.h in Headers */ = {isa = PBXBuildFile; fileRef = 32A7C31E17C6A1E400E959A3 /* OCMArg.h */; };
-		32A7C32617C6A1E400E959A3 /* OCMConstraint.h in Headers */ = {isa = PBXBuildFile; fileRef = 32A7C31F17C6A1E400E959A3 /* OCMConstraint.h */; };
-		32A7C32717C6A1E400E959A3 /* OCMock.h in Headers */ = {isa = PBXBuildFile; fileRef = 32A7C32017C6A1E400E959A3 /* OCMock.h */; };
-		32A7C32817C6A1E400E959A3 /* OCMockObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 32A7C32117C6A1E400E959A3 /* OCMockObject.h */; };
-		32A7C32917C6A1E400E959A3 /* OCMockRecorder.h in Headers */ = {isa = PBXBuildFile; fileRef = 32A7C32217C6A1E400E959A3 /* OCMockRecorder.h */; };
+		32A7C33017C6A36B00E959A3 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1D922811590F59700EDDE17 /* SenTestingKit.framework */; };
+		32A7C33117C6A36B00E959A3 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1D922831590F59700EDDE17 /* UIKit.framework */; };
+		32A7C33217C6A36B00E959A3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1D922731590F59600EDDE17 /* Foundation.framework */; };
+		32A7C33817C6A36B00E959A3 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 32A7C33617C6A36B00E959A3 /* InfoPlist.strings */; };
+		32A7C33B17C6A36B00E959A3 /* PNDeviceInfoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 32A7C33A17C6A36B00E959A3 /* PNDeviceInfoTests.m */; };
+		32A7C34A17C6A7DE00E959A3 /* FSN_categories.h in Headers */ = {isa = PBXBuildFile; fileRef = 32A7C34417C6A7DE00E959A3 /* FSN_categories.h */; };
+		32A7C34C17C6A7DE00E959A3 /* FSNConnection.h in Headers */ = {isa = PBXBuildFile; fileRef = 32A7C34617C6A7DE00E959A3 /* FSNConnection.h */; };
+		32A7C34E17C6A7DE00E959A3 /* FSNData.h in Headers */ = {isa = PBXBuildFile; fileRef = 32A7C34817C6A7DE00E959A3 /* FSNData.h */; };
 		32B41F2A17BDAF30000DA02E /* PNUIImageView.h in Headers */ = {isa = PBXBuildFile; fileRef = 32B41F2817BDAF30000DA02E /* PNUIImageView.h */; };
 		32B41F2B17BDAF30000DA02E /* PNUIImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 32B41F2917BDAF30000DA02E /* PNUIImageView.m */; };
 		42FBA45F0CE45688790D1F03 /* PlaynomicsFrame.h in Headers */ = {isa = PBXBuildFile; fileRef = 42FBAE69972626B043E69F63 /* PlaynomicsFrame.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		42FBA7777582C10C8946AC08 /* PlaynomicsFrame+Exposed.h in Headers */ = {isa = PBXBuildFile; fileRef = 42FBA2AFE7443DE409B560CF /* PlaynomicsFrame+Exposed.h */; };
 		42FBA77B7E7A8D298A75735B /* PlaynomicsMessaging.m in Sources */ = {isa = PBXBuildFile; fileRef = 42FBA58FB3169ECD201AF332 /* PlaynomicsMessaging.m */; };
 		42FBA86B3DB5A96A46894B6C /* PlaynomicsFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 42FBA6A45031F4F9AF62E056 /* PlaynomicsFrame.m */; };
-		42FBA8A8A461BB836E6655EB /* PlaynomicsMessaging.h in Headers */ = {isa = PBXBuildFile; fileRef = 42FBA94684FB9EBB0188D52A /* PlaynomicsMessaging.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		42FBA9A183BE219FBAD3FF73 /* PlaynomicsMessaging+Exposed.h in Headers */ = {isa = PBXBuildFile; fileRef = 42FBA83740CF5538D7EBDA36 /* PlaynomicsMessaging+Exposed.h */; };
+		42FBA9A183BE219FBAD3FF73 /* PlaynomicsMessaging.h in Headers */ = {isa = PBXBuildFile; fileRef = 42FBA83740CF5538D7EBDA36 /* PlaynomicsMessaging.h */; };
 		42FBAA7C5B8DA6655154B980 /* BaseAdComponent.h in Headers */ = {isa = PBXBuildFile; fileRef = 42FBABEA0EE1DB6D101DCBF4 /* BaseAdComponent.h */; };
 		42FBAC6C9B82A5B36D318FE1 /* BaseAdComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = 42FBA43470BA1417AC7381CC /* BaseAdComponent.m */; };
 		5B589DBF15993764002B6251 /* PNConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 5B589DBE15993764002B6251 /* PNConfig.h */; };
@@ -31,28 +36,17 @@
 		5B6C6E1D1593F0F30088EF5E /* PNUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B6C6E1B1593F0F20088EF5E /* PNUtil.m */; };
 		5B753E30159D2D5000E698F9 /* PNRandomGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B753E2F159D2D5000E698F9 /* PNRandomGenerator.m */; };
 		5BBAA22F159BD87300AA4993 /* PNApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BBAA22D159BD87300AA4993 /* PNApplication.m */; };
-		5BBAA238159BE4CD00AA4993 /* PlaynomicsSession+Exposed.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BBAA237159BE4CD00AA4993 /* PlaynomicsSession+Exposed.h */; };
 		68C3137217B1C5CF0079E306 /* PNDeviceInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 68C3137017B1C5CE0079E306 /* PNDeviceInfo.h */; };
 		68C3137317B1C5CF0079E306 /* PNDeviceInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 68C3137117B1C5CE0079E306 /* PNDeviceInfo.m */; };
 		A118C35316A8825700DFF63C /* PNAPSNotificationEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = A118C35116A8825700DFF63C /* PNAPSNotificationEvent.m */; };
 		A118C35416A8825700DFF63C /* PNAPSNotificationEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = A118C35216A8825700DFF63C /* PNAPSNotificationEvent.h */; };
 		A129689516DD758900F0A47A /* PlaynomicsCallback.h in Headers */ = {isa = PBXBuildFile; fileRef = A129689316DD758800F0A47A /* PlaynomicsCallback.h */; };
 		A129689616DD758900F0A47A /* PlaynomicsCallback.m in Sources */ = {isa = PBXBuildFile; fileRef = A129689416DD758900F0A47A /* PlaynomicsCallback.m */; };
-		A1822F7A16B065DE00414EF1 /* invalid.json in Resources */ = {isa = PBXBuildFile; fileRef = A1822F7816B065DE00414EF1 /* invalid.json */; };
-		A1822F7B16B065DE00414EF1 /* pnx.json in Resources */ = {isa = PBXBuildFile; fileRef = A1822F7916B065DE00414EF1 /* pnx.json */; };
-		A1822F8416B069B900414EF1 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1822F8316B069B900414EF1 /* CoreGraphics.framework */; };
-		A18E5E6B16AF284C00004F6D /* AdActionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A18E5E6A16AF284C00004F6D /* AdActionTests.m */; };
 		A18E5E7B16AF6D5700004F6D /* PNErrorEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = A18E5E7916AF6D5600004F6D /* PNErrorEvent.m */; };
 		A18E5E7C16AF6D5700004F6D /* PNErrorEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = A18E5E7A16AF6D5700004F6D /* PNErrorEvent.h */; settings = {ATTRIBUTES = (); }; };
 		D19CBDC216765ABE0089B04A /* PNMilestoneEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = D19CBDC016765ABE0089B04A /* PNMilestoneEvent.h */; };
 		D19CBDC316765ABE0089B04A /* PNMilestoneEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = D19CBDC116765ABE0089B04A /* PNMilestoneEvent.m */; };
 		D1D922741590F59700EDDE17 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1D922731590F59600EDDE17 /* Foundation.framework */; };
-		D1D922821590F59700EDDE17 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1D922811590F59700EDDE17 /* SenTestingKit.framework */; };
-		D1D922841590F59700EDDE17 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1D922831590F59700EDDE17 /* UIKit.framework */; };
-		D1D922851590F59700EDDE17 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1D922731590F59600EDDE17 /* Foundation.framework */; };
-		D1D922881590F59700EDDE17 /* libiosapi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D1D922701590F59600EDDE17 /* libiosapi.a */; };
-		D1D9228E1590F59700EDDE17 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D1D9228C1590F59700EDDE17 /* InfoPlist.strings */; };
-		D1D922911590F59700EDDE17 /* iosapiTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D1D922901590F59700EDDE17 /* iosapiTests.m */; };
 		D1D922A31591124700EDDE17 /* PlaynomicsSession.h in Headers */ = {isa = PBXBuildFile; fileRef = D1D922A11591124700EDDE17 /* PlaynomicsSession.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D1D922A41591124700EDDE17 /* PlaynomicsSession.m in Sources */ = {isa = PBXBuildFile; fileRef = D1D922A21591124700EDDE17 /* PlaynomicsSession.m */; };
 		D1D922A71591125700EDDE17 /* PNEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = D1D922A51591125700EDDE17 /* PNEvent.h */; };
@@ -67,50 +61,50 @@
 		D1D922C2159112C100EDDE17 /* PNEventSender.m in Sources */ = {isa = PBXBuildFile; fileRef = D1D922BA159112C100EDDE17 /* PNEventSender.m */; };
 		D1D922C7159112E100EDDE17 /* PNRandomGenerator.h in Headers */ = {isa = PBXBuildFile; fileRef = D1D922C5159112E100EDDE17 /* PNRandomGenerator.h */; };
 		D1D922CB159112F400EDDE17 /* PNConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = D1D922C9159112F400EDDE17 /* PNConstants.h */; settings = {ATTRIBUTES = (); }; };
-		EADE24E11625F17500914040 /* FSN_categories.h in Headers */ = {isa = PBXBuildFile; fileRef = EADE24DB1625F17500914040 /* FSN_categories.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		EADE24E21625F17500914040 /* FSN_categories.m in Sources */ = {isa = PBXBuildFile; fileRef = EADE24DC1625F17500914040 /* FSN_categories.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
-		EADE24E31625F17500914040 /* FSNConnection.h in Headers */ = {isa = PBXBuildFile; fileRef = EADE24DD1625F17500914040 /* FSNConnection.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		EADE24E41625F17500914040 /* FSNConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = EADE24DE1625F17500914040 /* FSNConnection.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
-		EADE24E51625F17500914040 /* FSNData.h in Headers */ = {isa = PBXBuildFile; fileRef = EADE24DF1625F17500914040 /* FSNData.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		EADE24E61625F17500914040 /* FSNData.m in Sources */ = {isa = PBXBuildFile; fileRef = EADE24E01625F17500914040 /* FSNData.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		D1D922861590F59700EDDE17 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D1D922671590F59500EDDE17 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = D1D9226F1590F59600EDDE17;
-			remoteInfo = iosapi;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
+		3290164917C8008A0041895A /* Playnomics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Playnomics.h; path = iosapi/Playnomics.h; sourceTree = "<group>"; };
+		3290164A17C8008A0041895A /* Playnomics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Playnomics.m; sourceTree = "<group>"; };
+		3290164D17C8291A0041895A /* PNErrorDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNErrorDetail.h; sourceTree = "<group>"; };
+		3290164E17C8291A0041895A /* PNErrorDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNErrorDetail.m; sourceTree = "<group>"; };
 		32A7C31017C3FCBC00E959A3 /* PNLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNLogger.h; sourceTree = "<group>"; };
 		32A7C31117C3FCBC00E959A3 /* PNLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNLogger.m; sourceTree = "<group>"; };
-		32A7C31B17C6A1E400E959A3 /* libOCMock.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libOCMock.a; sourceTree = "<group>"; };
-		32A7C31D17C6A1E400E959A3 /* NSNotificationCenter+OCMAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNotificationCenter+OCMAdditions.h"; sourceTree = "<group>"; };
-		32A7C31E17C6A1E400E959A3 /* OCMArg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCMArg.h; sourceTree = "<group>"; };
-		32A7C31F17C6A1E400E959A3 /* OCMConstraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCMConstraint.h; sourceTree = "<group>"; };
-		32A7C32017C6A1E400E959A3 /* OCMock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCMock.h; sourceTree = "<group>"; };
-		32A7C32117C6A1E400E959A3 /* OCMockObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCMockObject.h; sourceTree = "<group>"; };
-		32A7C32217C6A1E400E959A3 /* OCMockRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCMockRecorder.h; sourceTree = "<group>"; };
+		32A7C32F17C6A36B00E959A3 /* PlaynomicsSDKTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PlaynomicsSDKTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		32A7C33517C6A36B00E959A3 /* PlaynomicsSDKTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "PlaynomicsSDKTests-Info.plist"; sourceTree = "<group>"; };
+		32A7C33717C6A36B00E959A3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		32A7C33917C6A36B00E959A3 /* PNDeviceInfoTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PNDeviceInfoTests.h; sourceTree = "<group>"; };
+		32A7C33A17C6A36B00E959A3 /* PNDeviceInfoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PNDeviceInfoTests.m; sourceTree = "<group>"; };
+		32A7C33C17C6A36B00E959A3 /* PlaynomicsSDKTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PlaynomicsSDKTests-Prefix.pch"; sourceTree = "<group>"; };
+		32A7C34417C6A7DE00E959A3 /* FSN_categories.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSN_categories.h; sourceTree = "<group>"; };
+		32A7C34517C6A7DE00E959A3 /* FSN_categories.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSN_categories.m; sourceTree = "<group>"; };
+		32A7C34617C6A7DE00E959A3 /* FSNConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSNConnection.h; sourceTree = "<group>"; };
+		32A7C34717C6A7DE00E959A3 /* FSNConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSNConnection.m; sourceTree = "<group>"; };
+		32A7C34817C6A7DE00E959A3 /* FSNData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSNData.h; sourceTree = "<group>"; };
+		32A7C34917C6A7DE00E959A3 /* FSNData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSNData.m; sourceTree = "<group>"; };
+		32A7C35017C6A84300E959A3 /* libOCMock.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libOCMock.a; sourceTree = "<group>"; };
+		32A7C35217C6A84300E959A3 /* NSNotificationCenter+OCMAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNotificationCenter+OCMAdditions.h"; sourceTree = "<group>"; };
+		32A7C35317C6A84300E959A3 /* OCMArg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCMArg.h; sourceTree = "<group>"; };
+		32A7C35417C6A84300E959A3 /* OCMConstraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCMConstraint.h; sourceTree = "<group>"; };
+		32A7C35517C6A84300E959A3 /* OCMock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCMock.h; sourceTree = "<group>"; };
+		32A7C35617C6A84300E959A3 /* OCMockObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCMockObject.h; sourceTree = "<group>"; };
+		32A7C35717C6A84300E959A3 /* OCMockRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCMockRecorder.h; sourceTree = "<group>"; };
+		32A7C35E17C6AAFE00E959A3 /* MockNSUserDefaults.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MockNSUserDefaults.h; sourceTree = "<group>"; };
+		32A7C35F17C6AAFE00E959A3 /* MockNSUserDefaults.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MockNSUserDefaults.m; sourceTree = "<group>"; };
 		32B41F2817BDAF30000DA02E /* PNUIImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNUIImageView.h; sourceTree = "<group>"; };
 		32B41F2917BDAF30000DA02E /* PNUIImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNUIImageView.m; sourceTree = "<group>"; };
 		42FBA2AFE7443DE409B560CF /* PlaynomicsFrame+Exposed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PlaynomicsFrame+Exposed.h"; sourceTree = "<group>"; };
 		42FBA43470BA1417AC7381CC /* BaseAdComponent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseAdComponent.m; sourceTree = "<group>"; };
 		42FBA58FB3169ECD201AF332 /* PlaynomicsMessaging.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaynomicsMessaging.m; sourceTree = "<group>"; };
 		42FBA6A45031F4F9AF62E056 /* PlaynomicsFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaynomicsFrame.m; sourceTree = "<group>"; };
-		42FBA83740CF5538D7EBDA36 /* PlaynomicsMessaging+Exposed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PlaynomicsMessaging+Exposed.h"; sourceTree = "<group>"; };
-		42FBA94684FB9EBB0188D52A /* PlaynomicsMessaging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlaynomicsMessaging.h; path = iosapi/Messaging/PlaynomicsMessaging.h; sourceTree = "<group>"; };
+		42FBA83740CF5538D7EBDA36 /* PlaynomicsMessaging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaynomicsMessaging.h; sourceTree = "<group>"; };
 		42FBABEA0EE1DB6D101DCBF4 /* BaseAdComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseAdComponent.h; sourceTree = "<group>"; };
-		42FBAE69972626B043E69F63 /* PlaynomicsFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlaynomicsFrame.h; path = iosapi/Messaging/PlaynomicsFrame.h; sourceTree = "<group>"; };
+		42FBAE69972626B043E69F63 /* PlaynomicsFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaynomicsFrame.h; sourceTree = "<group>"; };
 		5B589DBE15993764002B6251 /* PNConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = PNConfig.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		5B6C6E1A1593F0F20088EF5E /* PNUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = PNUtil.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		5B6C6E1B1593F0F20088EF5E /* PNUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = PNUtil.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		5B753E2F159D2D5000E698F9 /* PNRandomGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNRandomGenerator.m; sourceTree = "<group>"; };
 		5BBAA22D159BD87300AA4993 /* PNApplication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = PNApplication.m; path = iosapi/PNApplication.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		5BBAA237159BE4CD00AA4993 /* PlaynomicsSession+Exposed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "PlaynomicsSession+Exposed.h"; path = "iosapi/PlaynomicsSession+Exposed.h"; sourceTree = "<group>"; };
 		68C3137017B1C5CE0079E306 /* PNDeviceInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PNDeviceInfo.h; path = iosapi/PNDeviceInfo.h; sourceTree = "<group>"; };
 		68C3137117B1C5CE0079E306 /* PNDeviceInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PNDeviceInfo.m; path = iosapi/PNDeviceInfo.m; sourceTree = "<group>"; };
 		68E6DABD17AC237900A904A8 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
@@ -132,7 +126,6 @@
 		D1D922701590F59600EDDE17 /* libiosapi.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libiosapi.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		D1D922731590F59600EDDE17 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D1D922771590F59700EDDE17 /* iosapi-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "iosapi-Prefix.pch"; sourceTree = "<group>"; };
-		D1D922801590F59700EDDE17 /* iosapiTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iosapiTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D1D922811590F59700EDDE17 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		D1D922831590F59700EDDE17 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		D1D9228B1590F59700EDDE17 /* iosapiTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "iosapiTests-Info.plist"; sourceTree = "<group>"; };
@@ -153,33 +146,25 @@
 		D1D922BA159112C100EDDE17 /* PNEventSender.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = PNEventSender.m; path = iosapi/PNEventSender.m; sourceTree = "<group>"; };
 		D1D922C5159112E100EDDE17 /* PNRandomGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNRandomGenerator.h; sourceTree = "<group>"; };
 		D1D922C9159112F400EDDE17 /* PNConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = PNConstants.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		EADE24DB1625F17500914040 /* FSN_categories.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSN_categories.h; sourceTree = "<group>"; };
-		EADE24DC1625F17500914040 /* FSN_categories.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSN_categories.m; sourceTree = "<group>"; };
-		EADE24DD1625F17500914040 /* FSNConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSNConnection.h; sourceTree = "<group>"; };
-		EADE24DE1625F17500914040 /* FSNConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSNConnection.m; sourceTree = "<group>"; };
-		EADE24DF1625F17500914040 /* FSNData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSNData.h; sourceTree = "<group>"; };
-		EADE24E01625F17500914040 /* FSNData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSNData.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		32A7C32B17C6A36B00E959A3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3271CCEB17C7CF4400E96C22 /* AdSupport.framework in Frameworks */,
+				32A7C33017C6A36B00E959A3 /* SenTestingKit.framework in Frameworks */,
+				32A7C33117C6A36B00E959A3 /* UIKit.framework in Frameworks */,
+				32A7C33217C6A36B00E959A3 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D1D9226D1590F59600EDDE17 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				D1D922741590F59700EDDE17 /* Foundation.framework in Frameworks */,
-				32A7C32317C6A1E400E959A3 /* libOCMock.a in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		D1D9227C1590F59700EDDE17 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				A1822F8416B069B900414EF1 /* CoreGraphics.framework in Frameworks */,
-				D1D922821590F59700EDDE17 /* SenTestingKit.framework in Frameworks */,
-				D1D922841590F59700EDDE17 /* UIKit.framework in Frameworks */,
-				D1D922851590F59700EDDE17 /* Foundation.framework in Frameworks */,
-				D1D922881590F59700EDDE17 /* libiosapi.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -194,30 +179,84 @@
 				5BBAA22D159BD87300AA4993 /* PNApplication.m */,
 				68C3137017B1C5CE0079E306 /* PNDeviceInfo.h */,
 				68C3137117B1C5CE0079E306 /* PNDeviceInfo.m */,
-				5BBAA237159BE4CD00AA4993 /* PlaynomicsSession+Exposed.h */,
+				D1D922A11591124700EDDE17 /* PlaynomicsSession.h */,
 				D1D922A21591124700EDDE17 /* PlaynomicsSession.m */,
 			);
 			name = Session;
 			path = ..;
 			sourceTree = "<group>";
 		};
-		32A7C31C17C6A1E400E959A3 /* OCMock */ = {
+		32A7C33317C6A36B00E959A3 /* PlaynomicsSDKTests */ = {
 			isa = PBXGroup;
 			children = (
-				32A7C31D17C6A1E400E959A3 /* NSNotificationCenter+OCMAdditions.h */,
-				32A7C31E17C6A1E400E959A3 /* OCMArg.h */,
-				32A7C31F17C6A1E400E959A3 /* OCMConstraint.h */,
-				32A7C32017C6A1E400E959A3 /* OCMock.h */,
-				32A7C32117C6A1E400E959A3 /* OCMockObject.h */,
-				32A7C32217C6A1E400E959A3 /* OCMockRecorder.h */,
+				32A7C35D17C6AAA800E959A3 /* Mocks */,
+				32A7C33917C6A36B00E959A3 /* PNDeviceInfoTests.h */,
+				32A7C33A17C6A36B00E959A3 /* PNDeviceInfoTests.m */,
+				32A7C33417C6A36B00E959A3 /* Supporting Files */,
+			);
+			path = PlaynomicsSDKTests;
+			sourceTree = "<group>";
+		};
+		32A7C33417C6A36B00E959A3 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				32A7C33517C6A36B00E959A3 /* PlaynomicsSDKTests-Info.plist */,
+				32A7C33617C6A36B00E959A3 /* InfoPlist.strings */,
+				32A7C33C17C6A36B00E959A3 /* PlaynomicsSDKTests-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		32A7C34217C6A7DE00E959A3 /* Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				32A7C35017C6A84300E959A3 /* libOCMock.a */,
+				32A7C35117C6A84300E959A3 /* OCMock */,
+				32A7C34317C6A7DE00E959A3 /* FSNetworking */,
+			);
+			path = Libraries;
+			sourceTree = "<group>";
+		};
+		32A7C34317C6A7DE00E959A3 /* FSNetworking */ = {
+			isa = PBXGroup;
+			children = (
+				32A7C34417C6A7DE00E959A3 /* FSN_categories.h */,
+				32A7C34517C6A7DE00E959A3 /* FSN_categories.m */,
+				32A7C34617C6A7DE00E959A3 /* FSNConnection.h */,
+				32A7C34717C6A7DE00E959A3 /* FSNConnection.m */,
+				32A7C34817C6A7DE00E959A3 /* FSNData.h */,
+				32A7C34917C6A7DE00E959A3 /* FSNData.m */,
+			);
+			path = FSNetworking;
+			sourceTree = "<group>";
+		};
+		32A7C35117C6A84300E959A3 /* OCMock */ = {
+			isa = PBXGroup;
+			children = (
+				32A7C35517C6A84300E959A3 /* OCMock.h */,
+				32A7C35217C6A84300E959A3 /* NSNotificationCenter+OCMAdditions.h */,
+				32A7C35317C6A84300E959A3 /* OCMArg.h */,
+				32A7C35417C6A84300E959A3 /* OCMConstraint.h */,
+				32A7C35617C6A84300E959A3 /* OCMockObject.h */,
+				32A7C35717C6A84300E959A3 /* OCMockRecorder.h */,
 			);
 			path = OCMock;
+			sourceTree = "<group>";
+		};
+		32A7C35D17C6AAA800E959A3 /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				32A7C35E17C6AAFE00E959A3 /* MockNSUserDefaults.h */,
+				32A7C35F17C6AAFE00E959A3 /* MockNSUserDefaults.m */,
+			);
+			name = Mocks;
 			sourceTree = "<group>";
 		};
 		42FBA98924738D15AF3CE573 /* Messaging */ = {
 			isa = PBXGroup;
 			children = (
-				42FBA83740CF5538D7EBDA36 /* PlaynomicsMessaging+Exposed.h */,
+				42FBAE69972626B043E69F63 /* PlaynomicsFrame.h */,
+				42FBA83740CF5538D7EBDA36 /* PlaynomicsMessaging.h */,
 				42FBA58FB3169ECD201AF332 /* PlaynomicsMessaging.m */,
 				42FBA2AFE7443DE409B560CF /* PlaynomicsFrame+Exposed.h */,
 				42FBA6A45031F4F9AF62E056 /* PlaynomicsFrame.m */,
@@ -242,20 +281,22 @@
 		5B6C6E141593CC480088EF5E /* Event */ = {
 			isa = PBXGroup;
 			children = (
-				A18E5E7916AF6D5600004F6D /* PNErrorEvent.m */,
-				A18E5E7A16AF6D5700004F6D /* PNErrorEvent.h */,
-				A118C35116A8825700DFF63C /* PNAPSNotificationEvent.m */,
+				3290164D17C8291A0041895A /* PNErrorDetail.h */,
+				3290164E17C8291A0041895A /* PNErrorDetail.m */,
 				A118C35216A8825700DFF63C /* PNAPSNotificationEvent.h */,
+				A118C35116A8825700DFF63C /* PNAPSNotificationEvent.m */,
+				D1D922B5159112C100EDDE17 /* PNBasicEvent.h */,
+				D1D922B6159112C100EDDE17 /* PNBasicEvent.m */,
+				A18E5E7A16AF6D5700004F6D /* PNErrorEvent.h */,
+				A18E5E7916AF6D5600004F6D /* PNErrorEvent.m */,
 				D1D922A51591125700EDDE17 /* PNEvent.h */,
 				D1D922A61591125700EDDE17 /* PNEvent.m */,
+				D19CBDC016765ABE0089B04A /* PNMilestoneEvent.h */,
+				D19CBDC116765ABE0089B04A /* PNMilestoneEvent.m */,
 				D1D922AB159112A200EDDE17 /* PNTransactionEvent.h */,
 				D1D922AC159112A200EDDE17 /* PNTransactionEvent.m */,
 				D1D922AD159112A200EDDE17 /* PNUserInfoEvent.h */,
 				D1D922AE159112A300EDDE17 /* PNUserInfoEvent.m */,
-				D1D922B5159112C100EDDE17 /* PNBasicEvent.h */,
-				D1D922B6159112C100EDDE17 /* PNBasicEvent.m */,
-				D19CBDC016765ABE0089B04A /* PNMilestoneEvent.h */,
-				D19CBDC116765ABE0089B04A /* PNMilestoneEvent.m */,
 			);
 			name = Event;
 			sourceTree = "<group>";
@@ -276,9 +317,8 @@
 		A14DA13916DFFD230040B507 /* public */ = {
 			isa = PBXGroup;
 			children = (
-				42FBA94684FB9EBB0188D52A /* PlaynomicsMessaging.h */,
-				D1D922A11591124700EDDE17 /* PlaynomicsSession.h */,
-				42FBAE69972626B043E69F63 /* PlaynomicsFrame.h */,
+				3290164917C8008A0041895A /* Playnomics.h */,
+				A1244E0A16A9EADF001A93DD /* dev.xcconfig */,
 			);
 			name = public;
 			sourceTree = "<group>";
@@ -295,10 +335,11 @@
 		D1D922651590F59500EDDE17 = {
 			isa = PBXGroup;
 			children = (
+				32A7C34217C6A7DE00E959A3 /* Libraries */,
 				A14DA13916DFFD230040B507 /* public */,
-				A1244E0A16A9EADF001A93DD /* dev.xcconfig */,
 				D1D922751590F59700EDDE17 /* iosapi */,
 				D1D922891590F59700EDDE17 /* iosapiTests */,
+				32A7C33317C6A36B00E959A3 /* PlaynomicsSDKTests */,
 				D1D922721590F59600EDDE17 /* Frameworks */,
 				D1D922711590F59600EDDE17 /* Products */,
 			);
@@ -308,7 +349,7 @@
 			isa = PBXGroup;
 			children = (
 				D1D922701590F59600EDDE17 /* libiosapi.a */,
-				D1D922801590F59700EDDE17 /* iosapiTests.octest */,
+				32A7C32F17C6A36B00E959A3 /* PlaynomicsSDKTests.octest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -329,11 +370,11 @@
 		D1D922751590F59700EDDE17 /* iosapi */ = {
 			isa = PBXGroup;
 			children = (
+				3290164A17C8008A0041895A /* Playnomics.m */,
 				5B589DBE15993764002B6251 /* PNConfig.h */,
 				D1D922C9159112F400EDDE17 /* PNConstants.h */,
 				D1D922771590F59700EDDE17 /* iosapi-Prefix.pch */,
 				5B6C6E141593CC480088EF5E /* Event */,
-				EADE24D91625F17500914040 /* Libraries */,
 				32A7C31517C432E700E959A3 /* Session */,
 				5BC947E9159E259F00BE180B /* Util */,
 				42FBA98924738D15AF3CE573 /* Messaging */,
@@ -363,29 +404,6 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		EADE24D91625F17500914040 /* Libraries */ = {
-			isa = PBXGroup;
-			children = (
-				32A7C31B17C6A1E400E959A3 /* libOCMock.a */,
-				32A7C31C17C6A1E400E959A3 /* OCMock */,
-				EADE24DA1625F17500914040 /* FSNetworking */,
-			);
-			path = Libraries;
-			sourceTree = SOURCE_ROOT;
-		};
-		EADE24DA1625F17500914040 /* FSNetworking */ = {
-			isa = PBXGroup;
-			children = (
-				EADE24DB1625F17500914040 /* FSN_categories.h */,
-				EADE24DC1625F17500914040 /* FSN_categories.m */,
-				EADE24DD1625F17500914040 /* FSNConnection.h */,
-				EADE24DE1625F17500914040 /* FSNConnection.m */,
-				EADE24DF1625F17500914040 /* FSNData.h */,
-				EADE24E01625F17500914040 /* FSNData.m */,
-			);
-			path = FSNetworking;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -395,10 +413,6 @@
 			files = (
 				D1D922A31591124700EDDE17 /* PlaynomicsSession.h in Headers */,
 				42FBA45F0CE45688790D1F03 /* PlaynomicsFrame.h in Headers */,
-				42FBA8A8A461BB836E6655EB /* PlaynomicsMessaging.h in Headers */,
-				EADE24E11625F17500914040 /* FSN_categories.h in Headers */,
-				EADE24E31625F17500914040 /* FSNConnection.h in Headers */,
-				EADE24E51625F17500914040 /* FSNData.h in Headers */,
 				D1D922A71591125700EDDE17 /* PNEvent.h in Headers */,
 				A18E5E7C16AF6D5700004F6D /* PNErrorEvent.h in Headers */,
 				D1D922B1159112A300EDDE17 /* PNTransactionEvent.h in Headers */,
@@ -409,8 +423,7 @@
 				D1D922CB159112F400EDDE17 /* PNConstants.h in Headers */,
 				5B6C6E1C1593F0F30088EF5E /* PNUtil.h in Headers */,
 				5B589DBF15993764002B6251 /* PNConfig.h in Headers */,
-				5BBAA238159BE4CD00AA4993 /* PlaynomicsSession+Exposed.h in Headers */,
-				42FBA9A183BE219FBAD3FF73 /* PlaynomicsMessaging+Exposed.h in Headers */,
+				42FBA9A183BE219FBAD3FF73 /* PlaynomicsMessaging.h in Headers */,
 				42FBA7777582C10C8946AC08 /* PlaynomicsFrame+Exposed.h in Headers */,
 				42FBAA7C5B8DA6655154B980 /* BaseAdComponent.h in Headers */,
 				D19CBDC216765ABE0089B04A /* PNMilestoneEvent.h in Headers */,
@@ -419,18 +432,35 @@
 				68C3137217B1C5CF0079E306 /* PNDeviceInfo.h in Headers */,
 				32B41F2A17BDAF30000DA02E /* PNUIImageView.h in Headers */,
 				32A7C31217C3FCBC00E959A3 /* PNLogger.h in Headers */,
-				32A7C32417C6A1E400E959A3 /* NSNotificationCenter+OCMAdditions.h in Headers */,
-				32A7C32517C6A1E400E959A3 /* OCMArg.h in Headers */,
-				32A7C32617C6A1E400E959A3 /* OCMConstraint.h in Headers */,
-				32A7C32717C6A1E400E959A3 /* OCMock.h in Headers */,
-				32A7C32817C6A1E400E959A3 /* OCMockObject.h in Headers */,
-				32A7C32917C6A1E400E959A3 /* OCMockRecorder.h in Headers */,
+				32A7C34A17C6A7DE00E959A3 /* FSN_categories.h in Headers */,
+				32A7C34C17C6A7DE00E959A3 /* FSNConnection.h in Headers */,
+				32A7C34E17C6A7DE00E959A3 /* FSNData.h in Headers */,
+				3290164B17C8008A0041895A /* Playnomics.h in Headers */,
+				3290164F17C8291B0041895A /* PNErrorDetail.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		32A7C32E17C6A36B00E959A3 /* PlaynomicsSDKTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 32A7C33D17C6A36B00E959A3 /* Build configuration list for PBXNativeTarget "PlaynomicsSDKTests" */;
+			buildPhases = (
+				32A7C32A17C6A36B00E959A3 /* Sources */,
+				32A7C32B17C6A36B00E959A3 /* Frameworks */,
+				32A7C32C17C6A36B00E959A3 /* Resources */,
+				32A7C32D17C6A36B00E959A3 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PlaynomicsSDKTests;
+			productName = PlaynomicsSDKTests;
+			productReference = 32A7C32F17C6A36B00E959A3 /* PlaynomicsSDKTests.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
 		D1D9226F1590F59600EDDE17 /* iosapi */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = D1D922941590F59700EDDE17 /* Build configuration list for PBXNativeTarget "iosapi" */;
@@ -447,25 +477,6 @@
 			productName = iosapi;
 			productReference = D1D922701590F59600EDDE17 /* libiosapi.a */;
 			productType = "com.apple.product-type.library.static";
-		};
-		D1D9227F1590F59700EDDE17 /* iosapiTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = D1D922971590F59700EDDE17 /* Build configuration list for PBXNativeTarget "iosapiTests" */;
-			buildPhases = (
-				D1D9227B1590F59700EDDE17 /* Sources */,
-				D1D9227C1590F59700EDDE17 /* Frameworks */,
-				D1D9227D1590F59700EDDE17 /* Resources */,
-				D1D9227E1590F59700EDDE17 /* ShellScript */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				D1D922871590F59700EDDE17 /* PBXTargetDependency */,
-			);
-			name = iosapiTests;
-			productName = iosapiTests;
-			productReference = D1D922801590F59700EDDE17 /* iosapiTests.octest */;
-			productType = "com.apple.product-type.bundle";
 		};
 /* End PBXNativeTarget section */
 
@@ -488,26 +499,24 @@
 			projectRoot = "";
 			targets = (
 				D1D9226F1590F59600EDDE17 /* iosapi */,
-				D1D9227F1590F59700EDDE17 /* iosapiTests */,
+				32A7C32E17C6A36B00E959A3 /* PlaynomicsSDKTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		D1D9227D1590F59700EDDE17 /* Resources */ = {
+		32A7C32C17C6A36B00E959A3 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D1D9228E1590F59700EDDE17 /* InfoPlist.strings in Resources */,
-				A1822F7A16B065DE00414EF1 /* invalid.json in Resources */,
-				A1822F7B16B065DE00414EF1 /* pnx.json in Resources */,
+				32A7C33817C6A36B00E959A3 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		D1D9227E1590F59700EDDE17 /* ShellScript */ = {
+		32A7C32D17C6A36B00E959A3 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -523,6 +532,14 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		32A7C32A17C6A36B00E959A3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				32A7C33B17C6A36B00E959A3 /* PNDeviceInfoTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D1D9226C1590F59600EDDE17 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -538,9 +555,6 @@
 				5B753E30159D2D5000E698F9 /* PNRandomGenerator.m in Sources */,
 				42FBA86B3DB5A96A46894B6C /* PlaynomicsFrame.m in Sources */,
 				42FBA77B7E7A8D298A75735B /* PlaynomicsMessaging.m in Sources */,
-				EADE24E21625F17500914040 /* FSN_categories.m in Sources */,
-				EADE24E41625F17500914040 /* FSNConnection.m in Sources */,
-				EADE24E61625F17500914040 /* FSNData.m in Sources */,
 				42FBAC6C9B82A5B36D318FE1 /* BaseAdComponent.m in Sources */,
 				D19CBDC316765ABE0089B04A /* PNMilestoneEvent.m in Sources */,
 				A118C35316A8825700DFF63C /* PNAPSNotificationEvent.m in Sources */,
@@ -549,29 +563,22 @@
 				68C3137317B1C5CF0079E306 /* PNDeviceInfo.m in Sources */,
 				32B41F2B17BDAF30000DA02E /* PNUIImageView.m in Sources */,
 				32A7C31317C3FCBC00E959A3 /* PNLogger.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		D1D9227B1590F59700EDDE17 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				D1D922911590F59700EDDE17 /* iosapiTests.m in Sources */,
-				A18E5E6B16AF284C00004F6D /* AdActionTests.m in Sources */,
+				3290164C17C8008A0041895A /* Playnomics.m in Sources */,
+				3290165017C8291B0041895A /* PNErrorDetail.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
-/* Begin PBXTargetDependency section */
-		D1D922871590F59700EDDE17 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = D1D9226F1590F59600EDDE17 /* iosapi */;
-			targetProxy = D1D922861590F59700EDDE17 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
-
 /* Begin PBXVariantGroup section */
+		32A7C33617C6A36B00E959A3 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				32A7C33717C6A36B00E959A3 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
 		D1D9228C1590F59700EDDE17 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -583,6 +590,69 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		32A7C33E17C6A36B00E959A3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_EMPTY_BODY = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
+					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "PlaynomicsSDKTests/PlaynomicsSDKTests-Prefix.pch";
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INFOPLIST_FILE = "PlaynomicsSDKTests/PlaynomicsSDKTests-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/Libraries\"/**",
+				);
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-force_load",
+					"$(PROJECT_DIR)/Libraries/libOCMock.a",
+				);
+				"OTHER_LDFLAGS[arch=*]" = (
+					"-ObjC",
+					"-force_load",
+					"$(PROJECT_DIR)/Libraries/libOCMock.a",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		32A7C33F17C6A36B00E959A3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_EMPTY_BODY = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
+					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "PlaynomicsSDKTests/PlaynomicsSDKTests-Prefix.pch";
+				INFOPLIST_FILE = "PlaynomicsSDKTests/PlaynomicsSDKTests-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/Libraries\"/**",
+				);
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-force_load",
+					"$(PROJECT_DIR)/Libraries/libOCMock.a",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Release;
+		};
 		D1D922921590F59700EDDE17 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -660,6 +730,10 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/Libraries\"",
 				);
+				"LIBRARY_SEARCH_PATHS[arch=*]" = (
+					"$(inherited)",
+					"\"$(SRCROOT)/Libraries\"",
+				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -696,41 +770,18 @@
 			};
 			name = Release;
 		};
-		D1D922981590F59700EDDE17 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "iosapi/iosapi-Prefix.pch";
-				GCC_THUMB_SUPPORT = NO;
-				INFOPLIST_FILE = "iosapiTests/iosapiTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				WRAPPER_EXTENSION = octest;
-			};
-			name = Debug;
-		};
-		D1D922991590F59700EDDE17 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "iosapi/iosapi-Prefix.pch";
-				GCC_THUMB_SUPPORT = NO;
-				INFOPLIST_FILE = "iosapiTests/iosapiTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				WRAPPER_EXTENSION = octest;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		32A7C33D17C6A36B00E959A3 /* Build configuration list for PBXNativeTarget "PlaynomicsSDKTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				32A7C33E17C6A36B00E959A3 /* Debug */,
+				32A7C33F17C6A36B00E959A3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		D1D9226A1590F59500EDDE17 /* Build configuration list for PBXProject "iosapi" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -745,15 +796,6 @@
 			buildConfigurations = (
 				D1D922951590F59700EDDE17 /* Debug */,
 				D1D922961590F59700EDDE17 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		D1D922971590F59700EDDE17 /* Build configuration list for PBXNativeTarget "iosapiTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				D1D922981590F59700EDDE17 /* Debug */,
-				D1D922991590F59700EDDE17 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

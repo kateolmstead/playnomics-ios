@@ -1,44 +1,20 @@
 //
 // Created by jmistral on 10/3/12.
 //
-
-#import "PlaynomicsSession+Exposed.h"
-#import "PlaynomicsMessaging+Exposed.h"
 #import "PlaynomicsFrame+Exposed.h"
-#import "PNConstants.h"
-#import "PNConfig.h"
-#import "PNErrorEvent.h"
 #import "PNUtil.h"
 
-@implementation PlaynomicsMessaging {
-@private
-    NSMutableDictionary *_actionHandlers;
-    id _delegate;
-}
+#import "PlaynomicsSession.h"
 
-@synthesize delegate = _delegate;
-
-+ (PlaynomicsMessaging *)sharedInstance{
-    DEFINE_SHARED_INSTANCE_USING_BLOCK(^{
-        return [[self alloc] init];
-    });
-}
+@implementation PlaynomicsMessaging
 
 - (id)init {
-    if (self = [super init]) {
-        _actionHandlers = [[NSMutableDictionary dictionary] retain];
-    }
+    self = [super init];
     return self;
 }
 
 - (void)dealloc {
-    [_actionHandlers release];
-    [_delegate release];
     [super dealloc];
-}
-
-- (void)registerActionHandler:(id <PNAdClickActionHandler>)clickAction withLabel:(NSString *)label {
-    [_actionHandlers setObject:clickAction forKey:label];
 }
 
 - (PlaynomicsFrame *) createFrameWithId:(NSString*) frameId {
@@ -92,33 +68,4 @@
     NSDictionary *props = [PNUtil deserializeJsonData: adResponse];
     return props;
 }
-
-- (void)performActionForLabel:(NSString *)label {
-    id<PNAdClickActionHandler> handler = [_actionHandlers objectForKey:label];
-    if (handler != nil) {
-        [handler performActionOnAdClicked];
-    }
-}
-
-- (void)executeActionOnDelegate:(NSString *)action {
-    if (self.delegate == nil) {
-        NSLog(@"There is currently no delegate to handle the action: %@", action);
-        return;
-    }
-
-    SEL actionToExecute = NSSelectorFromString(action);
-    if (![self.delegate respondsToSelector:actionToExecute]) {
-        NSLog(@"The current delegate cannot handle the provided action.  Delegate = %@, action=%@",
-                self.delegate, action);
-        return;
-    }
-
-    @try {
-        [self.delegate performSelector:actionToExecute];
-    }
-    @catch (NSException *e) {
-        NSLog(@"There was an exception thrown executing action '%@': [%@] %@", action, e.name, e.reason);
-    }
-}
-
 @end

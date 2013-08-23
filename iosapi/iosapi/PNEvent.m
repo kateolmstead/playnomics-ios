@@ -1,4 +1,5 @@
 #import "PNEvent.h"
+#import "PNUtil.h"
 
 @implementation PNEvent
 @synthesize eventType=_eventType;

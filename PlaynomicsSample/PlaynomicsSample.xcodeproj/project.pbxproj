@@ -37,19 +37,19 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		32A7C35B17C6A94500E959A3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A1244D6E16A8CB0B001A93DD /* iosapi.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 32A7C32F17C6A36B00E959A3;
+			remoteInfo = PlaynomicsSDKTests;
+		};
 		A1822FDB16B0BE7900414EF1 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = A1244D6E16A8CB0B001A93DD /* iosapi.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = D1D922701590F59600EDDE17;
 			remoteInfo = iosapi;
-		};
-		A1822FDD16B0BE7900414EF1 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = A1244D6E16A8CB0B001A93DD /* iosapi.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = D1D922801590F59700EDDE17;
-			remoteInfo = iosapiTests;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -210,7 +210,7 @@
 			isa = PBXGroup;
 			children = (
 				A1822FDC16B0BE7900414EF1 /* libiosapi.a */,
-				A1822FDE16B0BE7900414EF1 /* iosapiTests.octest */,
+				32A7C35C17C6A94500E959A3 /* PlaynomicsSDKTests.octest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -268,18 +268,18 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		32A7C35C17C6A94500E959A3 /* PlaynomicsSDKTests.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = PlaynomicsSDKTests.octest;
+			remoteRef = 32A7C35B17C6A94500E959A3 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		A1822FDC16B0BE7900414EF1 /* libiosapi.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
 			path = libiosapi.a;
 			remoteRef = A1822FDB16B0BE7900414EF1 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		A1822FDE16B0BE7900414EF1 /* iosapiTests.octest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = iosapiTests.octest;
-			remoteRef = A1822FDD16B0BE7900414EF1 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -412,6 +412,11 @@
 					"\"$(SRCROOT)\"",
 					"\"$(SRCROOT)/PlaynomicsSample\"",
 				);
+				"LIBRARY_SEARCH_PATHS[arch=*]" = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+					"\"$(SRCROOT)/PlaynomicsSample\"",
+				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-fobjc-arc",
@@ -434,6 +439,11 @@
 				INFOPLIST_FILE = "PlaynomicsSample/PlaynomicsSample-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+					"\"$(SRCROOT)/PlaynomicsSample\"",
+				);
+				"LIBRARY_SEARCH_PATHS[arch=*]" = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
 					"\"$(SRCROOT)/PlaynomicsSample\"",

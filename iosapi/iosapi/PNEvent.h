@@ -1,5 +1,4 @@
 #import <Foundation/Foundation.h>
-#import "PNConstants.h"
 
 @interface PNEvent : NSObject <NSCoding> {
     PNEventType _eventType;

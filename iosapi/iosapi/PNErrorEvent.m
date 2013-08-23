@@ -8,17 +8,6 @@
 
 #import "PNErrorEvent.h"
 
-@implementation PNErrorDetail
-@synthesize errorType = _errorType;
-
-+(PNErrorDetail*)pNErrorDetailWithType:(PNErrorType)errorType
-{
-    PNErrorDetail *details = [[[PNErrorDetail alloc] init] autorelease];
-    [details setErrorType:errorType];
-    return details;
-}
-@end
-
 @implementation PNErrorEvent
 @synthesize errorDetailObject = _errorDetailObject;
 

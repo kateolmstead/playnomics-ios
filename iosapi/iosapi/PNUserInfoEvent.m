@@ -1,5 +1,4 @@
 #import "PNUserInfoEvent.h"
-#import "PlaynomicsSession+Exposed.h"
 @implementation PNUserInfoEvent
 
 @synthesize type=_type;

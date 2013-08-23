@@ -3,37 +3,13 @@
  *  PNEventType
  *  Type of event to be sent to the Server API
  */
-typedef enum {
-    PNEventAppStart,
-    PNEventAppPage,
-    PNEventAppRunning,
-    PNEventAppPause,
-    PNEventAppResume,
-    PNEventAppStop,
-    PNEventUserInfo,
-    PNEventSessionStart,
-    PNEventSessionEnd,
-    PNEventGameStart,
-    PNEventGameEnd,
-    PNEventTransaction,
-    PNEventInvitationSent,
-    PNEventInvitationResponse,
-    PNEventMilestone,
-    PNEventError,
-    PNEventPushNotificationToken,
-    PNEventPushNotificationPayload,
-} PNEventType;
+
 
 /**
  *  PNSessionState
  *  Possible states for the Playnomics Session
  */
-typedef enum {
-    PNSessionStateUnkown,
-    PNSessionStateStarted,
-    PNSessionStatePaused,
-    PNSessionStateStopped
-} PNSessionState;
+
 
 /*************** MACROS *****************/
 /*!

@@ -1,8 +1,7 @@
-#import "PlaynomicsSession+Exposed.h"
 #import "PNEventSender.h"
-#import "PNConfig.h"
 #import "PNEvent.h"
-
+#import "PNUtil.h"
+#import "PlaynomicsSession.h"
 
 @interface PNEventSender ()
 + (void)sendAsynchronousRequest:(NSURLRequest*)request queue:(NSOperationQueue*)queue completionHandler:(void(^)(NSURLResponse *response, NSData *data, NSError *error))handler;

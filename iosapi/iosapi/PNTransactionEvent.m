@@ -1,4 +1,5 @@
 #import "PNTransactionEvent.h"
+#import "PNUtil.h"
 
 @implementation PNTransactionEvent
 
