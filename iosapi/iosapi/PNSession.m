@@ -17,7 +17,6 @@
 #import "PNAPSNotificationEvent.h"
 #import "PNErrorEvent.h"
 #import "PNDeviceInfo.h"
-#import "PNLogger.h"
 
 @implementation PNSession {
 @private
@@ -39,12 +38,16 @@
     PNEventSender* _eventSender;
     
     int _timeZoneOffset;
-	int _clicks;
-	int _totalClicks;
-	int _keys;
-	int _totalKeys;
+	
+    int _clicks;
+    int _totalClicks;
+	
+    __block int  _keys;
+	__block int _totalKeys;
     
     PNDeviceInfo* _deviceInfo;
+    
+    NSMutableArray* _observers;
 }
 
 @synthesize applicationId=_applicationId;
@@ -83,6 +86,8 @@
         
         _sdkVersion = PNPropertyVersion;
         _deviceInfo = [[PNDeviceInfo alloc] init];
+        
+        _observers = [NSMutableArray new];
     }
     return self;
 }
@@ -128,6 +133,14 @@
 }
 
 #pragma mark - Session Control Methods
+-(BOOL) assertSessionHasStarted{
+    if(_state != PNSessionStateStarted){
+        [PNLogger logMessage:@"PlayRM session could not be started! Can't send data to Playnomics API."];
+        return NO;
+    }
+    return YES;
+}
+
 -(void) start {
     @try {
         if (_state == PNSessionStateStarted) {
@@ -144,15 +157,38 @@
         
         [self startSession];
         [self startEventTimer];
+    
+        NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+        NSOperationQueue *mainQueue = [NSOperationQueue mainQueue];
         
-        NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
-        [defaultCenter addObserver: self selector: @selector(onKeyPressed:) name: UITextFieldTextDidChangeNotification object: nil];
-        [defaultCenter addObserver: self selector: @selector(onKeyPressed:) name: UITextViewTextDidChangeNotification object: nil];
+        void (^keyPressed)(NSNotification *notif) = ^(NSNotification *notif){
+            _keys += 1;
+            _totalKeys += 1;
+        };
+        void (^applicationPaused)(NSNotification *notif) = ^(NSNotification *notif){
+            [self pause];
+        };
+        void (^applicationResumed)(NSNotification *notif) = ^(NSNotification *notif){
+            [self resume];
+        };
+        void (^applicationTerminating)(NSNotification *notif) = ^(NSNotification *notif){
+            [self stop];
+        };
         
-        [defaultCenter addObserver: self selector: @selector(onApplicationDidBecomeActive:) name: UIApplicationDidBecomeActiveNotification object: nil];
-        [defaultCenter addObserver: self selector: @selector(onApplicationWillResignActive:) name: UIApplicationWillResignActiveNotification object: nil];
-        [defaultCenter addObserver: self selector: @selector(onApplicationWillTerminate:) name: UIApplicationWillTerminateNotification object: nil];
-        [defaultCenter addObserver: self selector: @selector(onApplicationDidLaunch:) name: UIApplicationDidFinishLaunchingNotification object: nil];
+        void (^applicationLaunched)(NSNotification *notif) = ^(NSNotification *notif){
+            if ([notif userInfo] != nil && [notif.userInfo valueForKey:UIApplicationLaunchOptionsRemoteNotificationKey] != nil) {
+                NSDictionary *push = [notif.userInfo valueForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
+                [self pushNotificationsWithPayload:push];
+            }
+        };
+        
+        [_observers addObject: [center addObserverForName:UITextFieldTextDidChangeNotification object:nil queue:mainQueue usingBlock:keyPressed]];
+        [_observers addObject: [center addObserverForName:UITextViewTextDidChangeNotification object:nil queue:mainQueue usingBlock:keyPressed]];
+        [_observers addObject: [center addObserverForName:UIApplicationWillResignActiveNotification object:nil queue:mainQueue usingBlock:applicationPaused]];
+        [_observers addObject: [center addObserverForName:UIApplicationWillTerminateNotification object:nil queue:mainQueue usingBlock:applicationTerminating]];
+        [_observers addObject: [center addObserverForName:UIApplicationDidFinishLaunchingNotification object:nil queue:mainQueue usingBlock:applicationLaunched]];
+        [_observers addObject: [center addObserverForName:UIApplicationDidBecomeActiveNotification object:nil queue:mainQueue usingBlock:applicationResumed]];
+        
         
         // Retrieve stored Event List
         NSArray *storedEvents = (NSArray *) [NSKeyedUnarchiver unarchiveObjectWithFile:PNFileEventArchive];
@@ -166,17 +202,12 @@
         return;
     }
     @catch (NSException *exception) {
-        NSLog(@"Could not start the PlayRM SDK.");
-        NSLog( @"Exception Name: %@", exception.name);
-        NSLog( @"Exception Reason: %@", exception.reason );
+        [PNLogger logException:exception withMessage:@"Could not start the PlayRM SDK."];
     }
 }
 
 - (void) startSession{
-    NSLog(@"startSessionWithApplicationId");
-    
     /** Setting Session variables */
-    
     _state = PNSessionStateStarted;
     _cookieId = _deviceInfo.breadcrumbId;
     
@@ -321,21 +352,19 @@
         
         // Currently Session is only stopped when the application quits.
         _state = PNSessionStateStopped;
-        
         [self stopEventTimer];
         
-        [[NSNotificationCenter defaultCenter] removeObserver: self];
-        
+        for(id observer in _observers){
+            //remove all observers
+            [[NSNotificationCenter defaultCenter] removeObserver: observer];
+        }
         // Store Event List
         if (![NSKeyedArchiver archiveRootObject: _playnomicsEventList toFile:PNFileEventArchive]) {
             NSLog(@"Playnomics: Could not save event list");
         }
-        
-        return;
     }
     @catch (NSException *exception) {
-        NSLog(@"stop error: %@", exception.description);
-        return;
+        [PNLogger logException:exception];
     }
 }
 
@@ -343,11 +372,10 @@
 - (void) startEventTimer {
     @try {
         [self stopEventTimer];
-        
         _eventTimer = [[NSTimer scheduledTimerWithTimeInterval:PNUpdateTimeInterval target:self selector:@selector(consumeQueue) userInfo:nil repeats:YES] retain];
     }
     @catch (NSException *exception) {
-        NSLog(@"error: %@", exception.description);
+        [PNLogger logException:exception];
     }
 }
 
@@ -360,7 +388,7 @@
         _eventTimer = nil;
     }
     @catch (NSException *exception) {
-        NSLog(@"error: %@", exception.description);
+       [PNLogger logException:exception];
     }
 }
 
@@ -384,10 +412,6 @@
                                                  totalKeys:_totalKeys
                                                collectMode:_collectMode] autorelease];
             [_playnomicsEventList addObject:ev];
-            
-            NSLog(@"ev:%@", ev);
-            NSLog(@"self.playnomicsEventList:%@", _playnomicsEventList);
-            
             // Reset keys/clicks
             _keys = 0;
             _clicks = 0;
@@ -398,7 +422,7 @@
         }
     }
     @catch (NSException *exception) {
-        NSLog(@"error: %@", exception.description);
+        [PNLogger logException:exception];
     }
 }
 
@@ -417,44 +441,16 @@
 }
 
 #pragma mark - Application Event Handlers
-- (void) onKeyPressed: (NSNotification *) notification {
-    _keys += 1;
-    _totalKeys += 1;
-}
-
 - (void) onTouchDown: (UIEvent *) event {
     _clicks += 1;
     _totalClicks += 1;
-}
-
-
-
-- (void) onApplicationDidBecomeActive: (NSNotification *) notification {
-    [self resume];
-}
-
-- (void) onApplicationWillTerminate: (NSNotification *) notification {
-    [self stop];
-}
-
--(void) onApplicationDidLaunch: (NSNotification *) note{
-    
-    //if the application was not running we can  capture the notification here
-    // otherwise, we are dependent on the developer impplementing pushNotificationsWithPayload in the app delegate
-    if ([note userInfo] != nil && [note.userInfo valueForKey:UIApplicationLaunchOptionsRemoteNotificationKey] != nil) {
-        NSDictionary *push = [note.userInfo valueForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
-        NSLog(@"sending impression from onApplicationDidLaunch\r\n---> %@", push);
-        [[PNSession sharedInstance] pushNotificationsWithPayload:push];
-    }
 }
 
 #pragma mark - API request methods
 
 - (void) transactionWithUSDPrice: (NSNumber*) priceInUSD quantity: (NSInteger) quantity  {
     @try {
-        if(![self assertSessionHasStarted]){
-            return;
-        }
+        if(![self assertSessionHasStarted]){ return; }
         
         int transactionId = arc4random();
         
@@ -462,9 +458,9 @@
         NSArray *currencyValues = [NSArray arrayWithObject: priceInUSD];
         NSArray *currencyCategories = [NSArray arrayWithObject: [NSNumber numberWithInt:PNCurrencyCategoryReal]];
         
-        NSString* itemId = @"monetized";
+        NSString *itemId = @"monetized";
         
-        PNTransactionEvent* ev = [[[PNTransactionEvent alloc] init:PNEventTransaction applicationId: self.applicationId userId: self.userId cookieId: self.cookieId transactionId: transactionId itemId: itemId quantity: quantity type: PNTransactionBuyItem otherUserId: nil currencyTypes: currencyTypes currencyValues: currencyValues currencyCategories: currencyCategories] autorelease];
+        PNTransactionEvent *ev = [[[PNTransactionEvent alloc] init:PNEventTransaction applicationId: self.applicationId userId: self.userId cookieId: self.cookieId transactionId: transactionId itemId: itemId quantity: quantity type: PNTransactionBuyItem otherUserId: nil currencyTypes: currencyTypes currencyValues: currencyValues currencyCategories: currencyCategories] autorelease];
         
         ev.internalSessionId = [[PNSession sharedInstance] sessionId];
         [self sendOrQueueEvent:ev];
@@ -476,13 +472,11 @@
 
 - (void) milestone: (PNMilestoneType) milestoneType {
     @try {
-        if(![self assertSessionHasStarted]){
-            return;
-        }
+        if(![self assertSessionHasStarted]){ return; }
         
         //generate a random number for now
         int milestoneId = arc4random();
-        PNMilestoneEvent* ev = [[[PNMilestoneEvent alloc] init:PNEventMilestone
+        PNMilestoneEvent *ev = [[[PNMilestoneEvent alloc] init:PNEventMilestone
                                                  applicationId:[self applicationId]
                                                         userId:[self userId]
                                                       cookieId:[self cookieId]
@@ -499,18 +493,19 @@
 
 - (void) enablePushNotificationsWithToken:(NSData*)deviceToken {
     @try {
-        if(![self assertSessionHasStarted]){
-            return;
-        }
+        
+        if(![self assertSessionHasStarted]){ return; }
         
         NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
         NSString *oldToken = [userDefaults stringForKey:PNUserDefaultsLastDeviceToken];
-        NSString *newToken = [self stringForTrimmedDeviceToken:deviceToken];
+    
+        NSString *newToken = [[deviceToken description] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]];
+        newToken = [newToken stringByReplacingOccurrencesOfString:@" " withString:@""];
+        
         
         if (![newToken isEqualToString:oldToken]) {
             [userDefaults setObject:newToken forKey:PNUserDefaultsLastDeviceToken];
             [userDefaults synchronize];
-            NSLog(@"Updating device token from %@ to %@", oldToken, newToken);
             
             PNAPSNotificationEvent *ev = [[PNAPSNotificationEvent alloc] init:PNEventPushNotificationToken
                                                                 applicationId:[self applicationId]
@@ -522,7 +517,7 @@
         }
     }
     @catch (NSException *exception) {
-       [PNLogger logException:exception withMessage:@"Could not send milestone."];
+       [PNLogger logException:exception withMessage:@"Could not send device token."];
     }
 }
 
@@ -571,17 +566,7 @@
     }
 }
 
-
--(NSString*) stringForTrimmedDeviceToken:(NSData*)deviceToken{
-    NSString *adeviceToken = [[deviceToken description] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]];
-    adeviceToken = [adeviceToken stringByReplacingOccurrencesOfString:@" " withString:@""];
-    return adeviceToken;
-}
-
-
 -(void)onDeviceInfoChanged{
-    NSLog(@"Device info was modified so sending a userInfo update");
-    
     PNUserInfoEvent *userInfoEvent = [[PNUserInfoEvent alloc]
                                       initWithAdvertisingInfo:self.applicationId
                                       userId:[self.userId length] == 0 ? _deviceInfo.breadcrumbId : self.userId
@@ -595,12 +580,6 @@
     [self sendOrQueueEvent:userInfoEvent];
 }
 
--(BOOL) assertSessionHasStarted{
-    if(_state != PNSessionStateStarted){
-        [PNLogger logMessage:@"PlayRM session could not be started! Can't send data to Playnomics API."];
-        return NO;
-    }
-    return YES;
-}
+
 @end
 

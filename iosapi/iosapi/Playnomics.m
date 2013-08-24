@@ -51,7 +51,7 @@
 }
 
 + (void) pushNotificationsWithPayload: (NSDictionary*)payload{
-    
+    [[PNSession sharedInstance] pushNotificationsWithPayload: payload];
 }
 
 + (void) preloadFramesWithIds: (NSString *)firstFrameId, ...{
@@ -61,9 +61,11 @@
 + (void) showFrameWithId:(NSString*) frameId{
     
 }
+
 + (void) showFrameWithId:(NSString*) frameId delegate:(id<PNFrameDelegate>) delegate{
     
 }
+
 + (void) showFrameWithId:(NSString*) frameId delegate:(id<PNFrameDelegate>) delegate withInSeconds: (int) timeout{
     
 }

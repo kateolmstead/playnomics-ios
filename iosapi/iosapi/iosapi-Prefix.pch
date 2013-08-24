@@ -7,6 +7,7 @@
     #import "PNConstants.h"
     #import "PNConfig.h"
     #import "PNUtil.h"
+    #import "PNLogger.h"
 #endif
 
 
