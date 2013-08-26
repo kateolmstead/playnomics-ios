@@ -3,12 +3,14 @@
 //
 // To change the template use AppCode | Preferences | File Templates.
 //
-#import "PlaynomicsFrame+Exposed.h"
+
+
+#import "PlaynomicsFrame.h"
 #import "FSNConnection.h"
 #import "BaseAdComponent.h"
 #import "PNErrorEvent.h"
 #import "PlaynomicsCallback.h"
-#import "PNUtil.h"
+
 
 #pragma mark - PlaynomicsFrame
 
@@ -16,11 +18,6 @@ typedef enum {
     AdColony,
     AdUnknown
 } AdType;
-
-@interface PlaynomicsFrame()
-@property (nonatomic,retain) PlaynomicsCallback *callbackUtil;
-@property (nonatomic,retain) NSString *videoViewUrl;
-@end
 
 @implementation PlaynomicsFrame {
 @private
@@ -32,23 +29,23 @@ typedef enum {
     int _expirationSeconds;
     UIInterfaceOrientation _currentOrientation;
     AdType _adType;
-    id<PNFrameDelegate> _frameDelegate;
     BOOL _shouldRenderFrame;
+    NSString *_videoViewUrl;
+    PlaynomicsCallback* _callback;
 }
 
 @synthesize frameId = _frameId;
+@synthesize delegate = _delegate;
 
 #pragma mark - Lifecycle/Memory management
 - (id) initWithProperties: (NSDictionary *)properties
-            forFrameId:(NSString *)frameId
-            frameDelegate: (id<PNFrameDelegate>) frameDelegate {
+            forFrameId:(NSString *)frameId{
     
     if ((self = [super init])) {
         _frameId = [frameId copy];
         _properties = [properties retain];
-        _frameDelegate = frameDelegate;
         
-        self.callbackUtil = [[[PlaynomicsCallback alloc] init] autorelease];
+        _callback = [[PlaynomicsCallback alloc] init];
         
         [self _initOrientationChangeObservers];
         [self _initAdComponents];
@@ -63,7 +60,8 @@ typedef enum {
     [_adArea release];
     [_closeButton release];
     [_frameId release];
-    _frameDelegate = nil;
+    [_callback release];
+    _delegate = nil;
     [super dealloc];
 }
 
@@ -96,7 +94,7 @@ typedef enum {
     
     if ([mergedDict objectForKey:FrameResponseAd_AdType] && [[mergedDict objectForKey:FrameResponseAd_AdType] isEqualToString:@"AdColony"]) {
         _adType = AdColony;
-        self.videoViewUrl = [mergedDict objectForKey:FrameResponseAd_VideoViewUrl];
+        _videoViewUrl = [mergedDict objectForKey:FrameResponseAd_VideoViewUrl];
         NSLog(@"Setting ad type to AdColony");
     } else {
         _adType = AdUnknown;
@@ -165,7 +163,7 @@ typedef enum {
     [_background.imageUI setNeedsDisplay];
     
     NSString *impressionUrl =[_adArea.properties objectForKey:FrameResponseAd_ImpressionUrl];
-    [self.callbackUtil submitRequestToServer: impressionUrl];
+    [_callback submitRequestToServer: impressionUrl];
 }
            
            
@@ -189,7 +187,7 @@ typedef enum {
 - (void) _stop {
     NSLog(@"Close button was pressed...");
     NSString *callback = [_adArea.properties objectForKey:FrameResponseAd_CloseUrl];
-    [self.callbackUtil submitRequestToServer:callback];
+    [_callback submitRequestToServer:callback];
     
     [self _closeAd];
 }
@@ -222,15 +220,15 @@ typedef enum {
         NSException *exception = nil;
         NSString *targetData = [_adArea.properties objectForKey:FrameResponseAd_TargetData];
         
-        [self.callbackUtil submitRequestToServer: preExecuteUrl];
+        [_callback submitRequestToServer: preExecuteUrl];
         
         @try {
-            if(_frameDelegate == nil || ![_frameDelegate respondsToSelector:@selector(onClick:)]){
+            if(_delegate == nil || ![_delegate respondsToSelector:@selector(onClick:)]){
                 responseCode = -4;
                 NSLog(@"Received a click but could not send the data to the frameDelegate");
             } else {
                 NSDictionary* jsonData = [PNUtil deserializeJsonString: targetData];
-                [_frameDelegate onClick: jsonData];
+                [_delegate onClick: jsonData];
                 responseCode = 1;
             }
         }
@@ -263,7 +261,7 @@ typedef enum {
     } else {
         fullPostActionUrl = [NSString stringWithFormat:@"%@&c=%d", postUrl, code];
     }
-    [self.callbackUtil submitRequestToServer: fullPostActionUrl];
+    [_callback submitRequestToServer: fullPostActionUrl];
 }   
 
 #pragma mark - Public Interface
@@ -277,7 +275,7 @@ typedef enum {
     _shouldRenderFrame = YES;
     
     if (_adType == AdColony) {
-        [self.callbackUtil submitRequestToServer:frameResponseURL];
+        [_callback submitRequestToServer:frameResponseURL];
         NSLog(@"Returning DisplayAdColony");
         return DisplayAdColony;
     }
@@ -291,8 +289,8 @@ typedef enum {
 }
 
 - (void)sendVideoView {
-    if (self.videoViewUrl!=nil) {
-        [self.callbackUtil submitRequestToServer:self.videoViewUrl];
+    if (_videoViewUrl !=nil) {
+        [_callback submitRequestToServer: _videoViewUrl];
     }
 }
 

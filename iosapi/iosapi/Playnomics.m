@@ -54,24 +54,37 @@
     [[PNSession sharedInstance] pushNotificationsWithPayload: payload];
 }
 
-+ (void) preloadFramesWithIds: (NSString *)firstFrameId, ...{
++ (void) preloadFramesWithIDs: (NSString *)firstFrameID, ...{
+    NSMutableSet *frameIDs = [NSMutableSet new];
+    va_list args;
+    va_start(args, firstFrameID);
+    [frameIDs addObject:firstFrameID];
+   
+    NSString* frameID;
+    while( (frameID = va_arg(args, NSString *)) )
+    {
+        [frameIDs addObject: frameID];
+    }
+    va_end(args);
     
+    [[PNSession sharedInstance] preloadFramesWithIDs: frameIDs];
+    [frameIDs autorelease];
 }
 
-+ (void) showFrameWithId:(NSString*) frameId{
-    
++ (void) showFrameWithID:(NSString*) frameID{
+    [[PNSession sharedInstance] showFrameWithID: frameID];
 }
 
-+ (void) showFrameWithId:(NSString*) frameId delegate:(id<PNFrameDelegate>) delegate{
-    
++ (void) showFrameWithID:(NSString*) frameID delegate:(id<PNFrameDelegate>) delegate{
+    [[PNSession sharedInstance] showFrameWithID: frameID delegate:delegate];
 }
 
-+ (void) showFrameWithId:(NSString*) frameId delegate:(id<PNFrameDelegate>) delegate withInSeconds: (int) timeout{
-    
++ (void) showFrameWithID:(NSString*) frameID delegate:(id<PNFrameDelegate>) delegate withInSeconds: (int) timeout{
+    [[PNSession sharedInstance] showFrameWithID: frameID delegate:delegate withInSeconds:timeout];
 }
 
-+ (void) hideFrameWithId:(NSString*) frameId{
-    
++ (void) hideFrameWithID:(NSString*) frameID{
+    [[PNSession sharedInstance] hideFrameWithID: frameID];
 }
 
 @end

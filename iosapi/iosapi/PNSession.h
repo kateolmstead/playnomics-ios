@@ -53,10 +53,10 @@ typedef enum {
 //Report errors
 - (void) errorReport:(PNErrorDetail*)errorDetails;
 //Messaging
-- (void) preloadFramesWithIds: (NSString *)firstFrameId, ...;
-- (void) showFrameWithId:(NSString*) frameId;
-- (void) showFrameWithId:(NSString*) frameId delegate:(id<PNFrameDelegate>) delegate;
-- (void) showFrameWithId:(NSString*) frameId delegate:(id<PNFrameDelegate>) delegate withInSeconds: (int) timeout;
-- (void) hideFrameWithId:(NSString*) frameId;
+- (void) preloadFramesWithIDs: (NSSet*) frameIDs;
+- (void) showFrameWithID:(NSString*) frameID;
+- (void) showFrameWithID:(NSString*) frameID delegate:(id<PNFrameDelegate>) delegate;
+- (void) showFrameWithID:(NSString*) frameID delegate:(id<PNFrameDelegate>) delegate withInSeconds: (int) timeout;
+- (void) hideFrameWithID:(NSString*) frameID;
 @end
 

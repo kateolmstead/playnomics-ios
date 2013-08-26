@@ -1,10 +1,10 @@
 //
 // Created by jmistral on 10/3/12.
 //
-#import "PlaynomicsFrame+Exposed.h"
-#import "PNUtil.h"
-
+#import "PlaynomicsFrame.h"
 #import "PNSession.h"
+
+#import "PlaynomicsMessaging.h"
 
 @implementation PlaynomicsMessaging{
     PNSession *_session;
@@ -24,10 +24,6 @@
 }
 
 - (PlaynomicsFrame *) createFrameWithId:(NSString*) frameId {
-    return [self createFrameWithId:frameId frameDelegate:nil];
-}
-
-- (PlaynomicsFrame *)createFrameWithId:(NSString*)frameId frameDelegate: (id<PNFrameDelegate>)frameDelegate {
     // Get caller for debuging purposes
     NSString *sourceString = [[NSThread callStackSymbols] objectAtIndex:1];
     NSCharacterSet *separatorSet = [NSCharacterSet characterSetWithCharactersInString:@" -[]+?.,"];
@@ -38,10 +34,10 @@
     NSString *caller = [array objectAtIndex:4];
     
     NSDictionary *propDict = [self _retrieveFramePropertiesForId:frameId withCaller:caller];
-    PlaynomicsFrame *frame = [[PlaynomicsFrame alloc] initWithProperties:propDict
-                                                        forFrameId:frameId
-                                                        frameDelegate: frameDelegate];
+    PlaynomicsFrame *frame = [[PlaynomicsFrame alloc] initWithProperties : propDict
+                                                              forFrameId : frameId];
     return frame;
+
 }
 
 // Make an ad request to the PN Ad Servers

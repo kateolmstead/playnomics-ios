@@ -51,7 +51,7 @@
     
     NSMutableArray* _observers;
     
-    NSMutableDictionary *_frameById;
+    NSMutableDictionary *_framesById;
 }
 
 @synthesize applicationId=_applicationId;
@@ -94,6 +94,8 @@
         _observers = [NSMutableArray new];
         
         _messaging = [[PlaynomicsMessaging alloc] initWithSession: self];
+        _framesById = [NSMutableDictionary new];
+        
     }
     return self;
 }
@@ -114,6 +116,7 @@
     [_sdkVersion release];
     
     [_deviceInfo release];
+    [_framesById release];
     [super dealloc];
 }
 
@@ -593,25 +596,41 @@
 
 
 #pragma mark "Messaging"
+//all of this code needs to be moved inside of PlaynomicsMessaging
+- (void) preloadFramesWithIDs: (NSSet *)frameIDs{
+    for(NSString* frameID in frameIDs)
+    {
+        [self getOrAddFrame:frameID];
+    }
+}
 
-- (void) preloadFramesWithIds: (NSString *)firstFrameId, ...{
-    
+- (id) getOrAddFrame: (NSString *) frameID{
+    PlaynomicsFrame *frame = [_framesById valueForKey:frameID];
+    if(!frame){
+        frame = [_messaging createFrameWithId: frameID];
+        [_framesById setValue:frame forKey:frameID];
+    }
+    return frame;
+}
+
+- (void) showFrameWithID:(NSString*) frameID{
+    PlaynomicsFrame *frame = [self getOrAddFrame:frameID];
+    [frame start];
 };
 
-- (void) showFrameWithId:(NSString*) frameId{
-    
+- (void) showFrameWithID:(NSString*) frameID delegate:(id<PNFrameDelegate>) delegate{
+    PlaynomicsFrame *frame = [self getOrAddFrame:frameID];
+    frame.delegate = delegate;
+    [frame start];
 };
 
-- (void) showFrameWithId:(NSString*) frameId delegate:(id<PNFrameDelegate>) delegate{
-
+- (void) showFrameWithID:(NSString*) frameID delegate:(id<PNFrameDelegate>) delegate withInSeconds: (int) timeout{
+    PlaynomicsFrame *frame = [self getOrAddFrame:frameID];
+    frame.delegate = delegate;
+    [frame start];
 };
 
-- (void) showFrameWithId:(NSString*) frameId delegate:(id<PNFrameDelegate>) delegate withInSeconds: (int) timeout{
-    
-
-};
-
-- (void) hideFrameWithId:(NSString*) frameId{
+- (void) hideFrameWithID:(NSString*) frameID{
     
 };
 

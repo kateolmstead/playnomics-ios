@@ -49,13 +49,13 @@ typedef NS_ENUM(int, PNMilestoneType){
 + (void) enablePushNotificationsWithToken: (NSData*)deviceToken;
 + (void) pushNotificationsWithPayload: (NSDictionary*)payload;
 //Messaging
-+ (void) preloadFramesWithIds: (NSString *)firstFrameId, ...;
++ (void) preloadFramesWithIDs: (NSString *)firstFrameId, ... NS_REQUIRES_NIL_TERMINATION;
 
-+ (void) showFrameWithId:(NSString*) frameId;
-+ (void) showFrameWithId:(NSString*) frameId delegate:(id<PNFrameDelegate>) delegate;
-+ (void) showFrameWithId:(NSString*) frameId delegate:(id<PNFrameDelegate>) delegate withInSeconds: (int) timeout;
++ (void) showFrameWithID:(NSString*) frameID;
++ (void) showFrameWithID:(NSString*) frameID delegate:(id<PNFrameDelegate>) delegate;
++ (void) showFrameWithID:(NSString*) frameID delegate:(id<PNFrameDelegate>) delegate withInSeconds: (int) timeout;
 
-+ (void) hideFrameWithId:(NSString*) frameId;
++ (void) hideFrameWithID:(NSString*) frameID;
 @end
 
 @interface PNApplication : UIApplication<UIApplicationDelegate>

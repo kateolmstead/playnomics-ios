@@ -3,6 +3,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Playnomics.h"
+#import "BaseAdComponent.h"
 
 typedef enum {
     DisplayResultNoInternetPermission,  // Communication with the ad server is impossible
@@ -14,8 +16,11 @@ typedef enum {
     DisplayResultDisplayed  // Success
 } DisplayResult;
 
-@interface PlaynomicsFrame : NSObject
+@interface PlaynomicsFrame : NSObject<BaseAdComponentDelegate>
+@property (assign) id<PNFrameDelegate> delegate;
 @property (copy) NSString *frameId;
+
 - (DisplayResult) start;
 - (void) sendVideoView;
+- (id) initWithProperties:(NSDictionary *)properties forFrameId:(NSString *)frameId;
 @end
