@@ -13,11 +13,6 @@
 @implementation PNApplication
 - (void) sendEvent: (UIEvent *) event {
     [super sendEvent:event];
-    if (event.type == UIEventTypeTouches) {
-        UITouch *touch = [event allTouches].anyObject;
-        if (touch.phase == UITouchPhaseBegan) {
-            [Playnomics onTouchDown: event];
-        }
-    }
+    [Playnomics onUIEventReceived: event];
 }
 @end

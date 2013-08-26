@@ -34,8 +34,8 @@
     return session.state == PNSessionStateStarted;
 }
 
-+ (void) onTouchDown: (UIEvent*) event{
-    
++ (void) onUIEventReceived:(UIEvent *)event{
+    [[PNSession sharedInstance] onUIEventReceived: event];
 }
 
 + (void) milestone: (PNMilestoneType) milestoneType{

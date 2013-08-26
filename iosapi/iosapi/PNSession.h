@@ -42,15 +42,21 @@ typedef enum {
 - (void) pause;
 - (void) resume;
 - (void) stop;
-
 //Explicit Events
 - (void) milestone: (PNMilestoneType) milestoneType;
 - (void) transactionWithUSDPrice: (NSNumber *) priceInUSD quantity: (NSInteger) quantity;
-
 //push notifications
 - (void) enablePushNotificationsWithToken: (NSData*)deviceToken;
 - (void) pushNotificationsWithPayload: (NSDictionary*)payload;
+//UI Events
+- (void) onUIEventReceived: (UIEvent*) event;
 //Report errors
 - (void) errorReport:(PNErrorDetail*)errorDetails;
+//Messaging
+- (void) preloadFramesWithIds: (NSString *)firstFrameId, ...;
+- (void) showFrameWithId:(NSString*) frameId;
+- (void) showFrameWithId:(NSString*) frameId delegate:(id<PNFrameDelegate>) delegate;
+- (void) showFrameWithId:(NSString*) frameId delegate:(id<PNFrameDelegate>) delegate withInSeconds: (int) timeout;
+- (void) hideFrameWithId:(NSString*) frameId;
 @end
 

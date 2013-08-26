@@ -41,7 +41,7 @@ typedef NS_ENUM(int, PNMilestoneType){
 //Engagement
 + (BOOL) startWithApplicationId:(signed long long) applicationId;
 + (BOOL) startWithApplicationId:(signed long long) applicationId andUserId: (NSString*) userId;
-+ (void) onTouchDown: (UIEvent*) event;
++ (void) onUIEventReceived: (UIEvent*) event;
 //Explicit Events
 + (void) milestone: (PNMilestoneType) milestoneType;
 + (void) transactionWithUSDPrice: (NSNumber*) priceInUSD quantity: (NSInteger) quantity;

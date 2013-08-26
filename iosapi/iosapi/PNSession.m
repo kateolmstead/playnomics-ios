@@ -50,6 +50,8 @@
     PNDeviceInfo* _deviceInfo;
     
     NSMutableArray* _observers;
+    
+    NSMutableDictionary *_frameById;
 }
 
 @synthesize applicationId=_applicationId;
@@ -139,7 +141,7 @@
 #pragma mark - Session Control Methods
 -(BOOL) assertSessionHasStarted{
     if(_state != PNSessionStateStarted){
-        [PNLogger logMessage:@"PlayRM session could not be started! Can't send data to Playnomics API."];
+        [PNLogger log:PNLogLevelError format: @"PlayRM session could not be started! Can't send data to Playnomics API."];
         return NO;
     }
     return YES;
@@ -193,7 +195,6 @@
         [_observers addObject: [center addObserverForName:UIApplicationDidFinishLaunchingNotification object:nil queue:mainQueue usingBlock:applicationLaunched]];
         [_observers addObject: [center addObserverForName:UIApplicationDidBecomeActiveNotification object:nil queue:mainQueue usingBlock:applicationResumed]];
         
-        
         // Retrieve stored Event List
         NSArray *storedEvents = (NSArray *) [NSKeyedUnarchiver unarchiveObjectWithFile:PNFileEventArchive];
         if ([storedEvents count] > 0) {
@@ -206,7 +207,7 @@
         return;
     }
     @catch (NSException *exception) {
-        [PNLogger logException:exception withMessage:@"Could not start the PlayRM SDK."];
+        [PNLogger log:PNLogLevelError exception:exception format: @"Could not start the PlayRM SDK."];
     }
 }
 
@@ -308,7 +309,7 @@
         [_eventSender sendEventToServer:ev withEventQueue:_playnomicsEventList];
     }
     @catch (NSException *exception) {
-        NSLog(@"error: %@", exception.description);
+        [PNLogger log: PNLogLevelError exception: exception format:@"Could not pause the Playnomics Session"];
     }
 }
 
@@ -337,7 +338,7 @@
         [_eventSender sendEventToServer:ev withEventQueue:_playnomicsEventList];
     }
     @catch (NSException *exception) {
-        NSLog(@"error: %@", exception.description);
+        [PNLogger log: PNLogLevelError exception: exception format:@"Could not resume the Playnomics Session"];
     }
 }
 
@@ -368,7 +369,7 @@
         }
     }
     @catch (NSException *exception) {
-        [PNLogger logException:exception];
+        [PNLogger log: PNLogLevelError exception: exception];
     }
 }
 
@@ -379,7 +380,7 @@
         _eventTimer = [[NSTimer scheduledTimerWithTimeInterval:PNUpdateTimeInterval target:self selector:@selector(consumeQueue) userInfo:nil repeats:YES] retain];
     }
     @catch (NSException *exception) {
-        [PNLogger logException:exception];
+        [PNLogger log: PNLogLevelError exception: exception];
     }
 }
 
@@ -392,7 +393,7 @@
         _eventTimer = nil;
     }
     @catch (NSException *exception) {
-       [PNLogger logException:exception];
+        [PNLogger log: PNLogLevelError exception: exception];
     }
 }
 
@@ -426,7 +427,7 @@
         }
     }
     @catch (NSException *exception) {
-        [PNLogger logException:exception];
+        [PNLogger log:PNLogLevelWarning exception: exception];
     }
 }
 
@@ -445,9 +446,14 @@
 }
 
 #pragma mark - Application Event Handlers
-- (void) onTouchDown: (UIEvent *) event {
-    _clicks += 1;
-    _totalClicks += 1;
+- (void) onUIEventReceived: (UIEvent *) event {
+    if (event.type == UIEventTypeTouches) {
+        UITouch *touch = [event allTouches].anyObject;
+        if (touch.phase == UITouchPhaseBegan) {
+            _clicks += 1;
+            _totalClicks += 1;
+        }
+    }
 }
 
 #pragma mark - API request methods
@@ -470,7 +476,7 @@
         [self sendOrQueueEvent:ev];
     }
     @catch (NSException* exception) {
-        [PNLogger logException:exception withMessage:@"Could not send transaction."];
+        [PNLogger log:PNLogLevelWarning exception:exception format: @"Could not send transaction."];
     }
 }
 
@@ -490,7 +496,7 @@
         [self sendOrQueueEvent:ev];
     }
     @catch (NSException *exception) {
-        [PNLogger logException:exception withMessage:@"Could not send milestone."];
+        [PNLogger log:PNLogLevelWarning exception:exception format: @"Could not send milestone."];
     }
 }
 
@@ -521,7 +527,7 @@
         }
     }
     @catch (NSException *exception) {
-       [PNLogger logException:exception withMessage:@"Could not send device token."];
+       [PNLogger log:PNLogLevelWarning exception:exception format: @"Could not send device token."];
     }
 }
 
@@ -553,7 +559,7 @@
         }
     }
     @catch (NSException *exception) {
-        [PNLogger logException:exception withMessage:@"Could not send process push notification data."];
+        [PNLogger log:PNLogLevelWarning exception:exception format: @"Could not send process push notification data."];
     }   
 }
 
@@ -585,6 +591,29 @@
     [userInfoEvent autorelease];
 }
 
+
+#pragma mark "Messaging"
+
+- (void) preloadFramesWithIds: (NSString *)firstFrameId, ...{
+    
+};
+
+- (void) showFrameWithId:(NSString*) frameId{
+    
+};
+
+- (void) showFrameWithId:(NSString*) frameId delegate:(id<PNFrameDelegate>) delegate{
+
+};
+
+- (void) showFrameWithId:(NSString*) frameId delegate:(id<PNFrameDelegate>) delegate withInSeconds: (int) timeout{
+    
+
+};
+
+- (void) hideFrameWithId:(NSString*) frameId{
+    
+};
 
 @end
 

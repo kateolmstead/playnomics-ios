@@ -7,7 +7,7 @@
 #import "PNSession.h"
 
 @implementation PlaynomicsMessaging{
-    PNSession * _session;
+    PNSession *_session;
 }
 
 - (id) initWithSession:(PNSession *) session {
