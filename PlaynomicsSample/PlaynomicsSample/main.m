@@ -9,8 +9,7 @@
 #import <UIKit/UIKit.h>
 
 #import "AppDelegate.h"
-
-#import "PlaynomicsSession.h"
+#import "Playnomics.h"
 
 int main(int argc, char *argv[])
 {

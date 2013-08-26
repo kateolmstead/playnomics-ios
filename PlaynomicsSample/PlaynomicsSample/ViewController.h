@@ -7,12 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "PlaynomicsSession.h"
-#import "PlaynomicsFrame.h"
-#import "PlaynomicsMessaging.h"
+#import "Playnomics.h"
 #import "AdColonyPublic.h"
 
-@interface ViewController : UIViewController <PNAdClickActionHandler, UITextFieldDelegate, AdColonyTakeoverAdDelegate>
+@interface ViewController : UIViewController <UITextFieldDelegate, AdColonyTakeoverAdDelegate>
 
 @property (nonatomic, retain) IBOutlet UITextField *transactionCount;
 @property (retain, nonatomic) IBOutlet UITextField *frameIdText;

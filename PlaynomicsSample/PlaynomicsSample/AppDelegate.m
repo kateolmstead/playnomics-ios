@@ -8,7 +8,7 @@
 
 #import "AppDelegate.h"
 #import "ViewController.h"
-#import "PlaynomicsSession.h"
+#import "Playnomics.h"
 @implementation AppDelegate
 
 @synthesize window = _window;
@@ -32,7 +32,7 @@
 {
     NSLog(@"device token found\r\n---> %@",deviceToken);
 
-    [[PlaynomicsSession sharedInstance] enablePushNotificationsWithToken:deviceToken];
+    [Playnomics enablePushNotificationsWithToken:deviceToken];
 }
 
 -(void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
@@ -48,7 +48,7 @@
     // parse the impression url and ping it....
     NSMutableDictionary *payload = [userInfo mutableCopy];
     [payload setObject:[NSNumber numberWithBool:YES] forKey:@"pushIgnored"];
-    [[PlaynomicsSession sharedInstance] pushNotificationsWithPayload:payload];
+    [Playnomics  pushNotificationsWithPayload:payload];
     [payload release];
 }
 
@@ -58,8 +58,8 @@
 {
     long appId = 2L;
     //[PlaynomicsSession setTestMode:NO];
-    [PlaynomicsSession sharedInstance].overrideMessagingUrl = @"https://ads.c.playnomics.net/v1/";
-    [PlaynomicsSession sharedInstance].overrideEventsUrl =  @"https://e.c.playnomics.net/v1/";
+    [Playnomics overrideEventsURL: @"https://ads.c.playnomics.net/v1/"];
+    [Playnomics overrideMessagingURL: @"https://e.c.playnomics.net/v1/"];
     
     [Playnomics startWithApplicationId:appId];
     //[PlaynomicsSession changeUserWithUserId: @"gmaddux311"];

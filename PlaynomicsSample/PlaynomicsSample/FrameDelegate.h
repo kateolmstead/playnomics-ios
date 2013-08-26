@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "PlaynomicsMessaging.h"
+#import "Playnomics.h"
 
 @interface FrameDelegate : NSObject<PNFrameDelegate>
 

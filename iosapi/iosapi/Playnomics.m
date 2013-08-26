@@ -9,7 +9,6 @@
 #import "Playnomics.h"
 #import "PNSession.h"
 
-
 @implementation Playnomics
 + (void) overrideMessagingURL: (NSString*) messagingUrl{
     [PNSession sharedInstance].overrideMessagingUrl = messagingUrl;

@@ -11,7 +11,6 @@
 }
 
 - (id) initWithSession:(PNSession *) session {
-    
     self = [super init];
     if(self){
         _session = session;

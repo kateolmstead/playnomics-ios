@@ -8,12 +8,12 @@
 //
 
 #import "ViewController.h"
-#import "PlaynomicsSession.h"
+#import "Playnomics.h"
 #import "FrameDelegate.h"
 
 @implementation ViewController{
     FrameDelegate* _frameDelegate;
-    PlaynomicsFrame *videoFrame;
+//    PlaynomicsFrame *videoFrame;
 }
 @synthesize transactionCount;
 
@@ -29,16 +29,7 @@
 {
     _frameDelegate = [[FrameDelegate alloc] init];
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
-    // Grab the shared (singleton) instance of the messaging class
-    PlaynomicsMessaging *messaging = [PlaynomicsMessaging sharedInstance];
-    
-    // Register an action handler bound to the provided label.  You can set as many handlers as you want, as long
-    //   they are registered with unique names
-    [messaging registerActionHandler:self withLabel:@"test_action"];
-    
-    // Set the delegate that execution targets will be called against.
-    messaging.delegate = self;
+    [Playnomics preloadFramesWithIDs:@"ec964fdf18af3d80", @"7a9138a971ce1773", @"c6877f336e9d9dda", @"546e241b9b97149b", @"15bec4e2b78424a2", nil];
     _frameIdText.delegate = self;
 }
 
@@ -93,16 +84,16 @@
 
 - (IBAction) onTransactionClick:(id)sender {
     NSNumber* price = [NSNumber numberWithDouble:.99];
-    [[PlaynomicsSession sharedInstance] transactionWithUSDPrice: price quantity: 1];
+    [Playnomics transactionWithUSDPrice: price quantity: 1];
 }
 
 
 - (IBAction) onMilestoneClick:(id)sender {
-    [[PlaynomicsSession sharedInstance] milestone : PNMilestoneCustom1];
-    [[PlaynomicsSession sharedInstance] milestone : PNMilestoneCustom2];
-    [[PlaynomicsSession sharedInstance] milestone : PNMilestoneCustom3];
-    [[PlaynomicsSession sharedInstance] milestone : PNMilestoneCustom4];
-    [[PlaynomicsSession sharedInstance] milestone : PNMilestoneCustom5];
+    [Playnomics milestone : PNMilestoneCustom1];
+    [Playnomics milestone : PNMilestoneCustom2];
+    [Playnomics milestone : PNMilestoneCustom3];
+    [Playnomics milestone : PNMilestoneCustom4];
+    [Playnomics milestone : PNMilestoneCustom5];
 }
 
 - (IBAction)onHttpClick:(id)sender {
@@ -130,6 +121,7 @@
 }
 
 - (void) initMsgFrame: (NSString *) frameId {
+/*
     PlaynomicsMessaging *messaging = [PlaynomicsMessaging sharedInstance];
     PlaynomicsFrame* frame = [messaging createFrameWithId : frameId frameDelegate : _frameDelegate];
     DisplayResult result = [frame start];
@@ -139,7 +131,9 @@
     } else {
         NSLog(@"result=%u",result);
     }
-}
+*/
+    [Playnomics showFrameWithID: frameId delegate: _frameDelegate];
+ }
 
 -(void)onPnx
 {
@@ -167,8 +161,8 @@
 }
 
 - (void)adColonyTakeoverEndedForZone:(NSString*)zone withVC:(BOOL)withVirtualCurrencyAward {
-    NSLog(@"AdColony video ad finished for zone %@ and boolean %d",zone,withVirtualCurrencyAward);
-    [videoFrame sendVideoView];
+    //NSLog(@"AdColony video ad finished for zone %@ and boolean %d",zone,withVirtualCurrencyAward);
+    //[videoFrame sendVideoView];
 }
 
 - (void)adColonyVideoAdNotServedForZone:(NSString*)zone {

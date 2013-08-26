@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "PlaynomicsMessaging.h"
+#import "Playnomics.h"
 #import "AdColonyPublic.h"
 
 @class ViewController;
