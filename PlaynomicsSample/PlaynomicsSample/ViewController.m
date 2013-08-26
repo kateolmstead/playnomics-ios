@@ -225,7 +225,7 @@
 }
 
 -(IBAction)onWebViewClick:(id)sender{
-    NSString* currentURL = @"http://a.applovin.com/ad?sdk_key=7dqQTTixTmuotK8q5R7uJxRqcVgX7FmFuafL8MGc79O_TWpZywSFsu4SNm_V0lluKPDSnU3vdRu6ygfvb69S_D&package_name=com.playnomics.PlaynomicsSample&format=html&size=INTER&hudid=ff77c433a7d25ad1b909427a98625a0d2a9cf4d5&hadid=50d8b4a941c26b89482c94ab324b5a274f9ced66&hphone=50cf162360b9b899e528ab450bad9df21fe7bfce&gender=m&yob=1985&education=college&interests=games,tea,rugby";
+    NSString* currentURL = @"http://a.applovin.com/ad?sdk_key=7dqQTTixTmuotK8q5R7uJxRqcVgX7FmFuafL8MGc79O_TWpZywSFsu4SNm_V0lluKPDSnU3vdRu6ygfvb69S_D&package_name=com.playnomics.PlaynomicsSample&format=html&platform=ios&size=INTER&hudid=ff77c433a7d25ad1b909427a98625a0d2a9cf4d5&hadid=50d8b4a941c26b89482c94ab324b5a274f9ced66&hphone=50cf162360b9b899e528ab450bad9df21fe7bfce&gender=m&yob=1985&education=college&interests=games,tea,rugby";
     webView = [[UIWebView alloc] initWithFrame:self.view.bounds];
     [webView setDelegate:self];
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:currentURL]];
