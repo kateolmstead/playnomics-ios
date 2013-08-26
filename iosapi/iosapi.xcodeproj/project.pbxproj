@@ -12,9 +12,9 @@
 		3290164C17C8008A0041895A /* Playnomics.m in Sources */ = {isa = PBXBuildFile; fileRef = 3290164A17C8008A0041895A /* Playnomics.m */; };
 		3290164F17C8291B0041895A /* PNErrorDetail.h in Headers */ = {isa = PBXBuildFile; fileRef = 3290164D17C8291A0041895A /* PNErrorDetail.h */; };
 		3290165017C8291B0041895A /* PNErrorDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 3290164E17C8291A0041895A /* PNErrorDetail.m */; };
-		3290165317CC0F970041895A /* FSNData.m in Sources */ = {isa = PBXBuildFile; fileRef = 32A7C34917C6A7DE00E959A3 /* FSNData.m */; settings = {COMPILER_FLAGS = "-f-obj-arc"; }; };
-		3290165417CC0F9F0041895A /* FSNConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 32A7C34717C6A7DE00E959A3 /* FSNConnection.m */; settings = {COMPILER_FLAGS = "-f-obj-arc"; }; };
-		3290165517CC10800041895A /* FSN_categories.m in Sources */ = {isa = PBXBuildFile; fileRef = 32A7C34517C6A7DE00E959A3 /* FSN_categories.m */; settings = {COMPILER_FLAGS = "-f-obj-arc"; }; };
+		3290165317CC0F970041895A /* FSNData.m in Sources */ = {isa = PBXBuildFile; fileRef = 32A7C34917C6A7DE00E959A3 /* FSNData.m */; settings = {COMPILER_FLAGS = "-fobj-arc"; }; };
+		3290165417CC0F9F0041895A /* FSNConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 32A7C34717C6A7DE00E959A3 /* FSNConnection.m */; settings = {COMPILER_FLAGS = "-fobj-arc"; }; };
+		3290165517CC10800041895A /* FSN_categories.m in Sources */ = {isa = PBXBuildFile; fileRef = 32A7C34517C6A7DE00E959A3 /* FSN_categories.m */; settings = {COMPILER_FLAGS = "-fobj-arc"; }; };
 		32A7C31217C3FCBC00E959A3 /* PNLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 32A7C31017C3FCBC00E959A3 /* PNLogger.h */; };
 		32A7C31317C3FCBC00E959A3 /* PNLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 32A7C31117C3FCBC00E959A3 /* PNLogger.m */; };
 		32A7C33017C6A36B00E959A3 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1D922811590F59700EDDE17 /* SenTestingKit.framework */; };
