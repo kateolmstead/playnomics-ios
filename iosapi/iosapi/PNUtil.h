@@ -22,13 +22,7 @@ typedef enum {
     PNEventAppResume,
     PNEventAppStop,
     PNEventUserInfo,
-    PNEventSessionStart,
-    PNEventSessionEnd,
-    PNEventGameStart,
-    PNEventGameEnd,
     PNEventTransaction,
-    PNEventInvitationSent,
-    PNEventInvitationResponse,
     PNEventMilestone,
     PNEventError,
     PNEventPushNotificationToken,
@@ -52,7 +46,6 @@ typedef enum {
 @interface PNUtil : NSObject
 
 + (UIInterfaceOrientation) getCurrentOrientation;
-+ (PNEventType) PNEventTypeValueOf: (NSString*) text;
 + (NSString*) PNEventTypeDescription:  (PNEventType) value;
 + (NSString*) urlEncodeValue: (NSString*) unescapedValue;
 

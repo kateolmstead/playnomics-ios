@@ -18,48 +18,6 @@
     return [UIApplication sharedApplication].statusBarOrientation;
 }
 
-+(PNEventType) PNEventTypeValueOf:(NSString *) text {
-    if (text) {
-        if ([text isEqualToString:@"appStart"])
-            return PNEventAppStart;
-        else if ([text isEqualToString:@"appPage"])
-            return PNEventAppPage;
-        else if ([text isEqualToString:@"appRunning"])
-            return PNEventAppRunning;
-        else if ([text isEqualToString:@"appPause"])
-            return PNEventAppPause;
-        else if ([text isEqualToString:@"appResume"])
-            return PNEventAppResume;
-        else if ([text isEqualToString:@"appStop"])
-            return PNEventAppStop;
-        else if ([text isEqualToString:@"userInfo"])
-            return PNEventUserInfo;
-        else if ([text isEqualToString:@"sessionStart"])
-            return PNEventSessionStart;
-        else if ([text isEqualToString:@"sessionEnd"])
-            return PNEventSessionEnd;
-        else if ([text isEqualToString:@"gameStart"])
-            return PNEventGameStart;
-        else if ([text isEqualToString:@"gameEnd"])
-            return PNEventGameEnd;
-        else if ([text isEqualToString:@"transaction"])
-            return PNEventTransaction;
-        else if ([text isEqualToString:@"invitationSent"])
-            return PNEventInvitationSent;
-        else if ([text isEqualToString:@"invitationResponse"])
-            return PNEventInvitationResponse;
-        else if ([text isEqualToString:@"milestone"])
-            return PNEventMilestone;
-        else if ([text isEqualToString:@"jslog"])
-            return PNEventError;
-        else if ([text isEqualToString:@"pushNotificationToken"])
-            return PNEventPushNotificationToken;
-        else if ([text isEqualToString:@"pushNotificationPayload"])
-            return PNEventPushNotificationPayload;
-    }
-    return -1;
-}
-
 + (NSString*) PNEventTypeDescription: (PNEventType) value {
     switch (value) {
         case PNEventAppStart:
@@ -76,20 +34,8 @@
             return @"appStop";
         case PNEventUserInfo:
             return @"userInfo";
-        case PNEventSessionStart:
-            return @"sessionStart";
-        case PNEventSessionEnd:
-            return @"sessionEnd";
-        case PNEventGameStart:
-            return @"gameStart";
-        case PNEventGameEnd:
-            return @"gameEnd";
         case PNEventTransaction:
             return @"transaction";
-        case PNEventInvitationSent:
-            return @"invitationSent";
-        case PNEventInvitationResponse:
-            return @"invitationResponse";
         case PNEventMilestone:
             return @"milestone";
         case PNEventError:
