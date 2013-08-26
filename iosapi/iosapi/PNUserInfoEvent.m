@@ -28,17 +28,7 @@
     return self;
 }
 
-- (id) init:(signed long long) applicationId
-     userId: (NSString *) userId
-   cookieId: (NSString *) cookieId
-       type: (PNUserInfoType) type
-    country: (NSString *) country
-subdivision: (NSString *) subdivision
-        sex: (PNUserInfoSex) sex
-   birthday: (NSTimeInterval) birthday
-     source: (NSString *) source
-sourceCampaign: (NSString *) sourceCampaign
-installTime: (NSTimeInterval) installTime {
+- (id) init:(signed long long) applicationId userId: (NSString *) userId cookieId: (NSString *) cookieId type: (PNUserInfoType) type country: (NSString *) country subdivision: (NSString *) subdivision sex: (PNUserInfoSex) sex birthday: (NSTimeInterval) birthday source: (NSString *) source sourceCampaign: (NSString *) sourceCampaign installTime: (NSTimeInterval) installTime {
     
     if (self = [self initUserInfoEvent:applicationId userId:userId cookieId:cookieId type:type]) {
         _country = [country retain];
@@ -52,13 +42,7 @@ installTime: (NSTimeInterval) installTime {
     return self;
 }
 
-- (id) initWithAdvertisingInfo:(signed long long) applicationId
-                        userId: (NSString *) userId
-                      cookieId: (NSString *) cookieId
-                          type: (PNUserInfoType) type
-              limitAdvertising: (NSString *) limitAdvertising
-                          idfa: (NSString *) idfa
-                          idfv: (NSString *) idfv {
+- (id) initWithAdvertisingInfo:(signed long long) applicationId userId: (NSString *) userId cookieId: (NSString *) cookieId  type: (PNUserInfoType) type limitAdvertising: (NSString *) limitAdvertising idfa: (NSString *) idfa idfv: (NSString *) idfv {
     if (self = [self initUserInfoEvent:applicationId userId:userId cookieId:cookieId type:type]) {
         _limitAdvertising = [limitAdvertising retain];
         _idfa = [idfa retain];

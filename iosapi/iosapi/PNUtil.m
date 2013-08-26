@@ -18,7 +18,7 @@
     return [UIApplication sharedApplication].statusBarOrientation;
 }
 
-+ (NSString*) PNEventTypeDescription: (PNEventType) value {
++ (NSString *) PNEventTypeDescription: (PNEventType) value {
     switch (value) {
         case PNEventAppStart:
             return @"appStart";
@@ -48,11 +48,11 @@
     return nil;
 }
  
-+ (NSString *) urlEncodeValue: (NSString*) unescapedValued {
++ (NSString *) urlEncodeValue: (NSString *) unescapedValued {
     if([unescapedValued length] ==  0){
         return NULL;
     }
-    NSString* result = (NSString *)CFURLCreateStringByAddingPercentEscapes(
+    NSString *result = (NSString *)CFURLCreateStringByAddingPercentEscapes(
         NULL,
         (CFStringRef)unescapedValued,
         NULL,
@@ -61,7 +61,7 @@
     return [result autorelease];
 }
 
-+ (BOOL) isUrl:(NSString*) url {
++ (BOOL) isUrl:(NSString *) url {
     if([url length] == 0){
         return NO;
     }
@@ -74,12 +74,12 @@
 }
 
 
-+ (id) deserializeJsonData: (NSData*) jsonData {
++ (id) deserializeJsonData: (NSData *) jsonData {
     return [self deserializeJsonDataWithOptions: jsonData readOptions: kNilOptions];
 }
 
-+ (id) deserializeJsonDataWithOptions: (NSData*) jsonData readOptions: (NSJSONReadingOptions) readOptions {
-    NSError* error = nil;
++ (id) deserializeJsonDataWithOptions: (NSData *) jsonData readOptions: (NSJSONReadingOptions) readOptions {
+    NSError *error = nil;
     id data = [NSJSONSerialization JSONObjectWithData:jsonData options: readOptions error:&error];
     if(error != nil){
         NSLog(@"Could not parse JSON string. Received error: %@", [error localizedDescription]);

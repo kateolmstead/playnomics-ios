@@ -1,8 +1,8 @@
 #import "PNEvent.h"
 
 @interface PNBasicEvent : PNEvent {
-  NSString * _sessionId;
-  NSString * _instanceId;
+  NSString *_sessionId;
+  NSString *_instanceId;
   NSTimeInterval _sessionStartTime;
   NSTimeInterval _pauseTime;
   int _sequence;
@@ -14,7 +14,7 @@
   int _collectMode;
 }
 
-@property (nonatomic, retain) NSString * instanceId;
+@property (nonatomic, retain) NSString *instanceId;
 @property (nonatomic, assign) NSTimeInterval sessionStartTime;
 @property (nonatomic, assign) NSTimeInterval pauseTime;
 @property (nonatomic, assign) int sequence;
@@ -25,27 +25,9 @@
 @property (nonatomic, assign) int totalKeys;
 @property (nonatomic, assign) int collectMode;
 
-- (id) init:  (PNEventType) eventType
-        applicationId:(signed long long) applicationId
-     userId:(NSString *)userId
-   cookieId:(NSString *)cookieId
-internalSessionId:(NSString *)internalSessionId
- instanceId:(NSString *)instanceId
-sessionStartTime:(NSTimeInterval)sessionStartTime 
-   sequence:(int)sequence
-     clicks:(int)clicks
-totalClicks:(int)totalClicks
-       keys:(int)keys
-  totalKeys:(int)totalKeys
-collectMode:(int)collectMode;
+- (id) init:  (PNEventType) eventType applicationId:(signed long long) applicationId userId:(NSString *)userId cookieId:(NSString *)cookieId internalSessionId:(NSString *)internalSessionId instanceId:(NSString *)instanceId sessionStartTime:(NSTimeInterval)sessionStartTime sequence:(int)sequence clicks:(int)clicks totalClicks:(int)totalClicks keys:(int)keys totalKeys:(int)totalKeys collectMode:(int)collectMode;
 
-- (id) init:  (PNEventType) eventType 
-applicationId:(signed long long) applicationId
-     userId:(NSString *)userId
-   cookieId:(NSString *)cookieId
-internalSessionId:(NSString *)internalSessionId
- instanceId:(NSString *)instanceId
-timeZoneOffset:(int)timeZoneOffset;
+- (id) init:  (PNEventType) eventType applicationId:(signed long long) applicationId userId:(NSString *)userId cookieId:(NSString *)cookieId internalSessionId:(NSString *)internalSessionId instanceId:(NSString *)instanceId timeZoneOffset:(int)timeZoneOffset;
 
 - (void) setup;
 @end

@@ -46,12 +46,11 @@ typedef enum {
 @interface PNUtil : NSObject
 
 + (UIInterfaceOrientation) getCurrentOrientation;
-+ (NSString*) PNEventTypeDescription:  (PNEventType) value;
-+ (NSString*) urlEncodeValue: (NSString*) unescapedValue;
++ (NSString *) PNEventTypeDescription:  (PNEventType) value;
++ (NSString *) urlEncodeValue: (NSString*) unescapedValue;
 
-+ (BOOL) isUrl:(NSString*) url;
-+ (id) deserializeJsonData: (NSData*) jsonData ;
-+ (id) deserializeJsonDataWithOptions: (NSData*) jsonData readOptions: (NSJSONReadingOptions) readOptions ;
++ (BOOL) isUrl:(NSString *) url;
++ (id) deserializeJsonData: (NSData *) jsonData ;
++ (id) deserializeJsonDataWithOptions: (NSData *) jsonData readOptions: (NSJSONReadingOptions) readOptions ;
 + (id) deserializeJsonString:(NSString *)jsonString;
 @end
-

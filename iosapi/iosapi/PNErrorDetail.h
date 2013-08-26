@@ -10,5 +10,5 @@
 
 @interface PNErrorDetail : NSObject
 @property (nonatomic) PNErrorType errorType;
-+(PNErrorDetail*)pNErrorDetailWithType:(PNErrorType)errorType;
++(PNErrorDetail *) pNErrorDetailWithType:(PNErrorType)errorType;
 @end

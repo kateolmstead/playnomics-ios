@@ -12,7 +12,7 @@
 @implementation PNErrorDetail
 @synthesize errorType = _errorType;
 
-+(PNErrorDetail*)pNErrorDetailWithType:(PNErrorType)errorType
++(PNErrorDetail *)pNErrorDetailWithType:(PNErrorType)errorType
 {
     PNErrorDetail *details = [[[PNErrorDetail alloc] init] autorelease];
     [details setErrorType:errorType];

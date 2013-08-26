@@ -19,11 +19,11 @@ typedef enum {
 @interface PNSession : NSObject
 
 @property (nonatomic, assign) bool testMode;
-@property (nonatomic, copy) NSString * overrideEventsUrl;
-@property (nonatomic, copy) NSString * overrideMessagingUrl;
+@property (nonatomic, copy) NSString *overrideEventsUrl;
+@property (nonatomic, copy) NSString *overrideMessagingUrl;
 
 
-@property (nonatomic, readonly) NSString * sdkVersion;
+@property (nonatomic, readonly) NSString *sdkVersion;
 
 @property (nonatomic, assign) signed long long applicationId;
 @property (nonatomic, copy) NSString *userId;
@@ -46,17 +46,17 @@ typedef enum {
 - (void) milestone: (PNMilestoneType) milestoneType;
 - (void) transactionWithUSDPrice: (NSNumber *) priceInUSD quantity: (NSInteger) quantity;
 //push notifications
-- (void) enablePushNotificationsWithToken: (NSData*)deviceToken;
-- (void) pushNotificationsWithPayload: (NSDictionary*)payload;
+- (void) enablePushNotificationsWithToken: (NSData *)deviceToken;
+- (void) pushNotificationsWithPayload: (NSDictionary *)payload;
 //UI Events
-- (void) onUIEventReceived: (UIEvent*) event;
+- (void) onUIEventReceived: (UIEvent *) event;
 //Report errors
 - (void) errorReport:(PNErrorDetail*)errorDetails;
 //Messaging
-- (void) preloadFramesWithIDs: (NSSet*) frameIDs;
-- (void) showFrameWithID:(NSString*) frameID;
-- (void) showFrameWithID:(NSString*) frameID delegate:(id<PNFrameDelegate>) delegate;
-- (void) showFrameWithID:(NSString*) frameID delegate:(id<PNFrameDelegate>) delegate withInSeconds: (int) timeout;
-- (void) hideFrameWithID:(NSString*) frameID;
+- (void) preloadFramesWithIDs: (NSSet *) frameIDs;
+- (void) showFrameWithID:(NSString *) frameID;
+- (void) showFrameWithID:(NSString *) frameID delegate:(id<PNFrameDelegate>) delegate;
+- (void) showFrameWithID:(NSString *) frameID delegate:(id<PNFrameDelegate>) delegate withInSeconds: (int) timeout;
+- (void) hideFrameWithID:(NSString *) frameID;
 @end
 

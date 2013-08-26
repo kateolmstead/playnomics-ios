@@ -44,13 +44,7 @@
     return self;
 }
 
-- (id) init:  (PNEventType) eventType 
-        applicationId:(signed long long) applicationId
-             userId:(NSString *)userId
-           cookieId:(NSString *)cookieId
-  internalSessionId:(NSString *)internalSessionId
-         instanceId:(NSString *)instanceId
-        timeZoneOffset:(int)timeZoneOffset {
+- (id) init:  (PNEventType) eventType applicationId:(signed long long) applicationId userId:(NSString *)userId cookieId:(NSString *)cookieId internalSessionId:(NSString *)internalSessionId instanceId:(NSString *)instanceId timeZoneOffset:(int)timeZoneOffset {
     
     [self setup];
     

@@ -10,11 +10,11 @@
 #import "PNSession.h"
 
 @implementation Playnomics
-+ (void) overrideMessagingURL: (NSString*) messagingUrl{
++ (void) overrideMessagingURL: (NSString *) messagingUrl{
     [PNSession sharedInstance].overrideMessagingUrl = messagingUrl;
 }
 
-+ (void) overrideEventsURL: (NSString*) eventsUrl{
++ (void) overrideEventsURL: (NSString *) eventsUrl{
     [PNSession sharedInstance].overrideEventsUrl = eventsUrl;
 }
 
@@ -25,7 +25,7 @@
     return session.state == PNSessionStateStarted;
 }
 
-+ (BOOL) startWithApplicationId:(signed long long) applicationId andUserId: (NSString*) userId{
++ (BOOL) startWithApplicationId:(signed long long) applicationId andUserId: (NSString *) userId{
     PNSession *session = [PNSession sharedInstance];
     session.applicationId = applicationId;
     session.userId = userId;
@@ -41,15 +41,15 @@
     [[PNSession sharedInstance] milestone: milestoneType];
 }
 
-+ (void) transactionWithUSDPrice: (NSNumber*) priceInUSD quantity: (NSInteger) quantity{
++ (void) transactionWithUSDPrice: (NSNumber *) priceInUSD quantity: (NSInteger) quantity{
     [[PNSession sharedInstance] transactionWithUSDPrice:priceInUSD quantity: quantity];
 }
 
-+ (void) enablePushNotificationsWithToken: (NSData*)deviceToken{
++ (void) enablePushNotificationsWithToken: (NSData *)deviceToken{
     [[PNSession sharedInstance] enablePushNotificationsWithToken: deviceToken];
 }
 
-+ (void) pushNotificationsWithPayload: (NSDictionary*)payload{
++ (void) pushNotificationsWithPayload: (NSDictionary *)payload{
     [[PNSession sharedInstance] pushNotificationsWithPayload: payload];
 }
 
@@ -70,19 +70,19 @@
     [frameIDs autorelease];
 }
 
-+ (void) showFrameWithID:(NSString*) frameID{
++ (void) showFrameWithID:(NSString *) frameID{
     [[PNSession sharedInstance] showFrameWithID: frameID];
 }
 
-+ (void) showFrameWithID:(NSString*) frameID delegate:(id<PNFrameDelegate>) delegate{
++ (void) showFrameWithID:(NSString *) frameID delegate:(id<PNFrameDelegate>) delegate{
     [[PNSession sharedInstance] showFrameWithID: frameID delegate:delegate];
 }
 
-+ (void) showFrameWithID:(NSString*) frameID delegate:(id<PNFrameDelegate>) delegate withInSeconds: (int) timeout{
++ (void) showFrameWithID:(NSString *) frameID delegate:(id<PNFrameDelegate>) delegate withInSeconds: (int) timeout{
     [[PNSession sharedInstance] showFrameWithID: frameID delegate:delegate withInSeconds:timeout];
 }
 
-+ (void) hideFrameWithID:(NSString*) frameID{
++ (void) hideFrameWithID:(NSString *) frameID{
     [[PNSession sharedInstance] hideFrameWithID: frameID];
 }
 

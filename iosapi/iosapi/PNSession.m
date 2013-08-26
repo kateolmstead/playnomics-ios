@@ -289,7 +289,7 @@
 
 - (void) pause {
     @try {
-        NSLog(@"pause called");
+        [PNLogger log:PNLogLevelDebug format:@"Session paused."];
         
         if (_state == PNSessionStatePaused){
             return;
@@ -321,7 +321,7 @@
  */
 - (void) resume {
     @try {
-        NSLog(@"resume called");
+        [PNLogger log:PNLogLevelDebug format:@"Session resumed."];
         
         if (_state == PNSessionStateStarted) {
             return;
@@ -352,8 +352,7 @@
  */
 - (void) stop {
     @try {
-        NSLog(@"stop called");
-        
+        [PNLogger log:PNLogLevelDebug format:@"Session stopped."];
         if (_state == PNSessionStateStopped) {
             return;
         }
@@ -368,7 +367,7 @@
         }
         // Store Event List
         if (![NSKeyedArchiver archiveRootObject: _playnomicsEventList toFile:PNFileEventArchive]) {
-            NSLog(@"Playnomics: Could not save event list");
+            [PNLogger log: PNLogLevelWarning format: @"Playnomics: Could not save event list"];
         }
     }
     @catch (NSException *exception) {
@@ -402,7 +401,6 @@
 
 - (void) consumeQueue {
     @try {
-        NSLog(@"consumeQueue");
         if (_state == PNSessionStateStarted) {
             _sequence++;
             
@@ -566,7 +564,7 @@
     }   
 }
 
-- (void) errorReport:(PNErrorDetail*)errorDetails
+- (void) errorReport:(PNErrorDetail *)errorDetails
 {
     @try {
         PNErrorEvent *ev = [[[PNErrorEvent alloc] init:PNEventError applicationId: self.applicationId userId: self.userId cookieId: self.cookieId errorDetails:errorDetails] autorelease];
@@ -613,24 +611,24 @@
     return frame;
 }
 
-- (void) showFrameWithID:(NSString*) frameID{
+- (void) showFrameWithID:(NSString *) frameID{
     PlaynomicsFrame *frame = [self getOrAddFrame:frameID];
     [frame start];
 };
-
-- (void) showFrameWithID:(NSString*) frameID delegate:(id<PNFrameDelegate>) delegate{
-    PlaynomicsFrame *frame = [self getOrAddFrame:frameID];
-    frame.delegate = delegate;
-    [frame start];
-};
-
-- (void) showFrameWithID:(NSString*) frameID delegate:(id<PNFrameDelegate>) delegate withInSeconds: (int) timeout{
+ 
+- (void) showFrameWithID:(NSString *) frameID delegate:(id<PNFrameDelegate>) delegate{
     PlaynomicsFrame *frame = [self getOrAddFrame:frameID];
     frame.delegate = delegate;
     [frame start];
 };
 
-- (void) hideFrameWithID:(NSString*) frameID{
+- (void) showFrameWithID:(NSString *) frameID delegate:(id<PNFrameDelegate>) delegate withInSeconds: (int) timeout{
+    PlaynomicsFrame *frame = [self getOrAddFrame:frameID];
+    frame.delegate = delegate;
+    [frame start];
+};
+
+- (void) hideFrameWithID:(NSString *) frameID{
     
 };
 

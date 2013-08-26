@@ -41,7 +41,7 @@
     return self;
 }
 
-- (NSString*) getNameForMilestoneType: (PNMilestoneType) milestoneType{
+- (NSString *) getNameForMilestoneType: (PNMilestoneType) milestoneType{
     int milestoneNum  = (int)milestoneType;
     return [NSString stringWithFormat: @"CUSTOM%d", milestoneNum];
 }
