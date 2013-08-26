@@ -3,9 +3,6 @@
 #import "PNUtil.h"
 #import "PNSession.h"
 
-@interface PNEventSender ()
-+ (void)sendAsynchronousRequest:(NSURLRequest*)request queue:(NSOperationQueue*)queue completionHandler:(void(^)(NSURLResponse *response, NSData *data, NSError *error))handler;
-@end
 
 @implementation PNEventSender
 

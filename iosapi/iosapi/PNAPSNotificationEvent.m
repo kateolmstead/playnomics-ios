@@ -8,9 +8,6 @@
 
 #import "PNAPSNotificationEvent.h"
 
-
-
-
 @interface PNAPSNotificationEvent()
 @property (nonatomic ) PNAPSNotificationEventType pushEventType;
 @property (nonatomic, retain) NSData *deviceToken;

@@ -17,6 +17,7 @@
 #import "PNAPSNotificationEvent.h"
 #import "PNErrorEvent.h"
 #import "PNDeviceInfo.h"
+#import "PlaynomicsMessaging.h"
 
 @implementation PNSession {
 @private
@@ -36,6 +37,7 @@
     
     PlaynomicsCallback* _callback;
     PNEventSender* _eventSender;
+    PlaynomicsMessaging* _messaging;
     
     int _timeZoneOffset;
 	
@@ -88,6 +90,8 @@
         _deviceInfo = [[PNDeviceInfo alloc] init];
         
         _observers = [NSMutableArray new];
+        
+        _messaging = [[PlaynomicsMessaging alloc] initWithSession: self];
     }
     return self;
 }
@@ -578,6 +582,7 @@
     
     userInfoEvent.internalSessionId = self.sessionId;
     [self sendOrQueueEvent:userInfoEvent];
+    [userInfoEvent autorelease];
 }
 
 

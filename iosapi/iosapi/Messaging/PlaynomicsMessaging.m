@@ -6,10 +6,16 @@
 
 #import "PNSession.h"
 
-@implementation PlaynomicsMessaging
+@implementation PlaynomicsMessaging{
+    PNSession * _session;
+}
 
-- (id)init {
+- (id) initWithSession:(PNSession *) session {
+    
     self = [super init];
+    if(self){
+        _session = session;
+    }
     return self;
 }
 
@@ -41,16 +47,15 @@
 // Make an ad request to the PN Ad Servers
 - (NSDictionary *)_retrieveFramePropertiesForId:(NSString *)frameId withCaller: (NSString *) caller
 {
-    PNSession *pn = [PNSession sharedInstance];
     signed long long time = [[NSDate date] timeIntervalSince1970] * 1000;
     CGRect screenRect = [[UIScreen mainScreen] applicationFrame];
     int screenWidth = screenRect.size.width;
     int screenHeight = screenRect.size.height;
     
     NSString *queryString = [NSString stringWithFormat:@"ads?a=%lld&u=%@&p=%@&t=%lld&b=%@&f=%@&c=%d&d=%d&esrc=ios&ever=%@",
-                             pn.applicationId, pn.userId, caller, time, pn.cookieId, frameId, screenHeight, screenWidth, pn.sdkVersion];
+                             _session.applicationId, _session.userId, caller, time, _session.cookieId, frameId, screenHeight, screenWidth, _session.sdkVersion];
     
-    NSString *serverUrl = [pn getMessagingUrl];
+    NSString *serverUrl = [_session getMessagingUrl];
 
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", serverUrl, queryString]];
     
@@ -61,7 +66,7 @@
     
     if (adResponse == nil){
         PNErrorDetail *detail = [PNErrorDetail pNErrorDetailWithType:PNErrorTypeInvalidJson];
-        [pn errorReport:detail];
+        [_session errorReport:detail];
         return nil;
     }
     
