@@ -91,8 +91,6 @@
 		32A7C35517C6A84300E959A3 /* OCMock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCMock.h; sourceTree = "<group>"; };
 		32A7C35617C6A84300E959A3 /* OCMockObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCMockObject.h; sourceTree = "<group>"; };
 		32A7C35717C6A84300E959A3 /* OCMockRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCMockRecorder.h; sourceTree = "<group>"; };
-		32A7C35E17C6AAFE00E959A3 /* MockNSUserDefaults.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MockNSUserDefaults.h; sourceTree = "<group>"; };
-		32A7C35F17C6AAFE00E959A3 /* MockNSUserDefaults.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MockNSUserDefaults.m; sourceTree = "<group>"; };
 		32B41F2817BDAF30000DA02E /* PNUIImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNUIImageView.h; sourceTree = "<group>"; };
 		32B41F2917BDAF30000DA02E /* PNUIImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNUIImageView.m; sourceTree = "<group>"; };
 		42FBA43470BA1417AC7381CC /* BaseAdComponent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseAdComponent.m; sourceTree = "<group>"; };
@@ -190,7 +188,6 @@
 		32A7C33317C6A36B00E959A3 /* PlaynomicsSDKTests */ = {
 			isa = PBXGroup;
 			children = (
-				32A7C35D17C6AAA800E959A3 /* Mocks */,
 				32A7C33917C6A36B00E959A3 /* PNDeviceInfoTests.h */,
 				32A7C33A17C6A36B00E959A3 /* PNDeviceInfoTests.m */,
 				32A7C33417C6A36B00E959A3 /* Supporting Files */,
@@ -242,15 +239,6 @@
 				32A7C35717C6A84300E959A3 /* OCMockRecorder.h */,
 			);
 			path = OCMock;
-			sourceTree = "<group>";
-		};
-		32A7C35D17C6AAA800E959A3 /* Mocks */ = {
-			isa = PBXGroup;
-			children = (
-				32A7C35E17C6AAFE00E959A3 /* MockNSUserDefaults.h */,
-				32A7C35F17C6AAFE00E959A3 /* MockNSUserDefaults.m */,
-			);
-			name = Mocks;
 			sourceTree = "<group>";
 		};
 		42FBA98924738D15AF3CE573 /* Messaging */ = {
