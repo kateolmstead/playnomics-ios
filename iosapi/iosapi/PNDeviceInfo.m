@@ -25,9 +25,7 @@
 
 - (BOOL) syncDeviceSettingsWithCache {    
     if(![_cache getBreadcrumbID]){
-        CFUUIDRef uuidRef = CFUUIDCreate(kCFAllocatorDefault);
-        [_cache updateBreadcrumbID:[(NSString *) CFUUIDCreateString(NULL, uuidRef) autorelease]];
-        CFRelease(uuidRef);
+        [_cache updateBreadcrumbID: [self generateBreadcrumbId]];
     }
     
     if (NSClassFromString(@"ASIdentifierManager")) {
@@ -45,17 +43,24 @@
     return _cache.breadcrumbIDChanged || _cache.idfaChanged || _cache.idfvChanged || _cache.limitAdvertisingChanged;
 }
 
--(BOOL) isAdvertisingTrackingEnabledFromDevice{
+- (NSString *) generateBreadcrumbId {
+    CFUUIDRef uuidRef = CFUUIDCreate(kCFAllocatorDefault);
+    NSString *breadcrumb = [(NSString *) CFUUIDCreateString(NULL, uuidRef) autorelease];
+    CFRelease(uuidRef);
+    return breadcrumb;
+}
+
+- (BOOL) isAdvertisingTrackingEnabledFromDevice {
     ASIdentifierManager *manager = [ASIdentifierManager sharedManager];
     return manager.isAdvertisingTrackingEnabled;
 }
 
--(NSUUID *) getAdvertisingIdentifierFromDevice{
+- (NSUUID *) getAdvertisingIdentifierFromDevice {
     ASIdentifierManager *manager = [ASIdentifierManager sharedManager];
     return manager.advertisingIdentifier;
 }
 
--(NSUUID *) getVendorIdentifierFromDevice{
+- (NSUUID *) getVendorIdentifierFromDevice {
     return [[UIDevice currentDevice] identifierForVendor];
 }
 

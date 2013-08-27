@@ -9,11 +9,7 @@
 #import <SenTestingKit/SenTestingKit.h>
 
 @interface PNDeviceInfoTests : SenTestCase
-
-- (void) testGetDeviceInfoFromNSUserDefaults;
-
-- (void) testNSUserDefaultsDoesCacheData;
-
-- (void) testDeviceInfoGetsUpdated;
-
+- (void) testGetDeviceInfoFromDevice;
+- (void) testDeviceInfoWithNewDevice;
+- (void) testDeviceInfoUpdatesStaleValues;
 @end
