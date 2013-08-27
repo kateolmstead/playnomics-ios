@@ -12,9 +12,9 @@
 		3290164C17C8008A0041895A /* Playnomics.m in Sources */ = {isa = PBXBuildFile; fileRef = 3290164A17C8008A0041895A /* Playnomics.m */; };
 		3290164F17C8291B0041895A /* PNErrorDetail.h in Headers */ = {isa = PBXBuildFile; fileRef = 3290164D17C8291A0041895A /* PNErrorDetail.h */; };
 		3290165017C8291B0041895A /* PNErrorDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 3290164E17C8291A0041895A /* PNErrorDetail.m */; };
-		3290165317CC0F970041895A /* FSNData.m in Sources */ = {isa = PBXBuildFile; fileRef = 32A7C34917C6A7DE00E959A3 /* FSNData.m */; settings = {COMPILER_FLAGS = "-fobj-arc"; }; };
-		3290165417CC0F9F0041895A /* FSNConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 32A7C34717C6A7DE00E959A3 /* FSNConnection.m */; settings = {COMPILER_FLAGS = "-fobj-arc"; }; };
-		3290165517CC10800041895A /* FSN_categories.m in Sources */ = {isa = PBXBuildFile; fileRef = 32A7C34517C6A7DE00E959A3 /* FSN_categories.m */; settings = {COMPILER_FLAGS = "-fobj-arc"; }; };
+		3290165C17CC304F0041895A /* FSNConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 32A7C34717C6A7DE00E959A3 /* FSNConnection.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		3290165D17CC305B0041895A /* FSN_categories.m in Sources */ = {isa = PBXBuildFile; fileRef = 32A7C34517C6A7DE00E959A3 /* FSN_categories.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		3290165E17CC30600041895A /* FSNData.m in Sources */ = {isa = PBXBuildFile; fileRef = 32A7C34917C6A7DE00E959A3 /* FSNData.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		32A7C31217C3FCBC00E959A3 /* PNLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 32A7C31017C3FCBC00E959A3 /* PNLogger.h */; };
 		32A7C31317C3FCBC00E959A3 /* PNLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 32A7C31117C3FCBC00E959A3 /* PNLogger.m */; };
 		32A7C33017C6A36B00E959A3 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1D922811590F59700EDDE17 /* SenTestingKit.framework */; };
@@ -22,9 +22,9 @@
 		32A7C33217C6A36B00E959A3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1D922731590F59600EDDE17 /* Foundation.framework */; };
 		32A7C33817C6A36B00E959A3 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 32A7C33617C6A36B00E959A3 /* InfoPlist.strings */; };
 		32A7C33B17C6A36B00E959A3 /* PNDeviceInfoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 32A7C33A17C6A36B00E959A3 /* PNDeviceInfoTests.m */; };
-		32A7C34A17C6A7DE00E959A3 /* FSN_categories.h in Headers */ = {isa = PBXBuildFile; fileRef = 32A7C34417C6A7DE00E959A3 /* FSN_categories.h */; };
-		32A7C34C17C6A7DE00E959A3 /* FSNConnection.h in Headers */ = {isa = PBXBuildFile; fileRef = 32A7C34617C6A7DE00E959A3 /* FSNConnection.h */; };
-		32A7C34E17C6A7DE00E959A3 /* FSNData.h in Headers */ = {isa = PBXBuildFile; fileRef = 32A7C34817C6A7DE00E959A3 /* FSNData.h */; };
+		32A7C34A17C6A7DE00E959A3 /* FSN_categories.h in Headers */ = {isa = PBXBuildFile; fileRef = 32A7C34417C6A7DE00E959A3 /* FSN_categories.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		32A7C34C17C6A7DE00E959A3 /* FSNConnection.h in Headers */ = {isa = PBXBuildFile; fileRef = 32A7C34617C6A7DE00E959A3 /* FSNConnection.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		32A7C34E17C6A7DE00E959A3 /* FSNData.h in Headers */ = {isa = PBXBuildFile; fileRef = 32A7C34817C6A7DE00E959A3 /* FSNData.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		32B41F2A17BDAF30000DA02E /* PNUIImageView.h in Headers */ = {isa = PBXBuildFile; fileRef = 32B41F2817BDAF30000DA02E /* PNUIImageView.h */; };
 		32B41F2B17BDAF30000DA02E /* PNUIImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 32B41F2917BDAF30000DA02E /* PNUIImageView.m */; };
 		42FBA45F0CE45688790D1F03 /* PlaynomicsFrame.h in Headers */ = {isa = PBXBuildFile; fileRef = 42FBAE69972626B043E69F63 /* PlaynomicsFrame.h */; settings = {ATTRIBUTES = (); }; };
@@ -412,6 +412,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				3290164B17C8008A0041895A /* Playnomics.h in Headers */,
+				32A7C34A17C6A7DE00E959A3 /* FSN_categories.h in Headers */,
+				32A7C34C17C6A7DE00E959A3 /* FSNConnection.h in Headers */,
+				32A7C34E17C6A7DE00E959A3 /* FSNData.h in Headers */,
 				D1D922A71591125700EDDE17 /* PNEvent.h in Headers */,
 				A18E5E7C16AF6D5700004F6D /* PNErrorEvent.h in Headers */,
 				D1D922B1159112A300EDDE17 /* PNTransactionEvent.h in Headers */,
@@ -432,9 +435,6 @@
 				68C3137217B1C5CF0079E306 /* PNDeviceInfo.h in Headers */,
 				32B41F2A17BDAF30000DA02E /* PNUIImageView.h in Headers */,
 				32A7C31217C3FCBC00E959A3 /* PNLogger.h in Headers */,
-				32A7C34A17C6A7DE00E959A3 /* FSN_categories.h in Headers */,
-				32A7C34C17C6A7DE00E959A3 /* FSNConnection.h in Headers */,
-				32A7C34E17C6A7DE00E959A3 /* FSNData.h in Headers */,
 				3290164F17C8291B0041895A /* PNErrorDetail.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -543,9 +543,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3290165517CC10800041895A /* FSN_categories.m in Sources */,
-				3290165417CC0F9F0041895A /* FSNConnection.m in Sources */,
-				3290165317CC0F970041895A /* FSNData.m in Sources */,
+				3290165E17CC30600041895A /* FSNData.m in Sources */,
+				3290165D17CC305B0041895A /* FSN_categories.m in Sources */,
+				3290165C17CC304F0041895A /* FSNConnection.m in Sources */,
 				D1D922A41591124700EDDE17 /* PNSession.m in Sources */,
 				D1D922A81591125700EDDE17 /* PNEvent.m in Sources */,
 				D1D922B2159112A300EDDE17 /* PNTransactionEvent.m in Sources */,
