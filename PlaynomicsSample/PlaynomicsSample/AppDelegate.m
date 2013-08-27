@@ -58,11 +58,10 @@
 {
     long appId = 2L;
     //[PlaynomicsSession setTestMode:NO];
-    [Playnomics overrideEventsURL: @"https://ads.c.playnomics.net/v1/"];
-    [Playnomics overrideMessagingURL: @"https://e.c.playnomics.net/v1/"];
+    [Playnomics overrideEventsURL: @"https://e.a.playnomics.net/v1/"];
+    [Playnomics overrideMessagingURL: @"https://ads.a.playnomics.net/v1/"];
     
     [Playnomics startWithApplicationId:appId];
-    //[PlaynomicsSession changeUserWithUserId: @"gmaddux311"];
     
     [AdColony initAdColonyWithDelegate:self];
     

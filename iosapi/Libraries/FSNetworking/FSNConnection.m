@@ -99,7 +99,6 @@ NSString* stringForRequestMethod(FSNRequestMethod method) {
     
     // just to be safe in production
     [self.connection cancel];
-    [super dealloc];
 }
 
 

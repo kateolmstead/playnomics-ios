@@ -20,6 +20,7 @@
 
 + (BOOL) startWithApplicationId:(signed long long) applicationId{
     PNSession *session = [PNSession sharedInstance];
+    session.applicationId = applicationId;
     [session start];
     
     return session.state == PNSessionStateStarted;
