@@ -36,7 +36,6 @@
     PlaynomicsFrame *frame = [[PlaynomicsFrame alloc] initWithProperties : propDict
                                                               forFrameId : frameId];
     return frame;
-
 }
 
 // Make an ad request to the PN Ad Servers

@@ -15,8 +15,6 @@
 #import "PNDeviceInfo.h"
 #import "PNDeviceInfoTests.h"
 
-
-
 @implementation PNDeviceInfoTests{
     UIPasteboard *_pastboard;
     NSMutableDictionary *_userDefaults;

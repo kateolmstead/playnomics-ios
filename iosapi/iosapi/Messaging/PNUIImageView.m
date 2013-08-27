@@ -58,7 +58,7 @@
         [self.delegate didFailToLoadWithException:nil];
         return;
     }
-    
+    //connection library is written with ARC, no need to dealloc?
     FSNConnection* connection =[FSNConnection withUrl:url
                                                method:FSNRequestMethodGET
                                               headers:nil
