@@ -7,6 +7,7 @@
 #import <UIKit/UIKit.h>
 #import "Playnomics.h"
 #import "PNErrorDetail.h"
+#import "PNCache.h"
 
 typedef enum {
     PNSessionStateUnkown,
@@ -31,6 +32,8 @@ typedef enum {
 @property (nonatomic, readonly) NSString *cookieId;
 @property (nonatomic, readonly) NSString *sessionId;
 @property (nonatomic, readonly) PNSessionState state;
+
+@property (nonatomic, readonly) PNCache *cache;
 
 + (PNSession*) sharedInstance;
 

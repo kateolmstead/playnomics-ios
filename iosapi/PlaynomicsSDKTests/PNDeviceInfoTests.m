@@ -27,7 +27,7 @@
     UIPasteboard *_breadcrumbBoard;
 }
 
-- (void)setUp
+-(void) setUp
 {
     [super setUp];
     // Set-up code here, called before each method
@@ -42,17 +42,16 @@
     [[[_mockUserDefaults stub] andCall:@selector(arrayForKey:) onObject:self] arrayForKey:[OCMArg any]];
     [[[_mockUserDefaults stub] andCall:@selector(stringForKey:) onObject:self] stringForKey:[OCMArg any]];
     
-    _mockPasteboard = [OCMockObject mockForClass:[UIPasteboard class]];
+    
+    _breadcrumbBoard = [OCMockObject mockForClass:[UIPasteboard class]];
+    _advertisingBoard = [OCMockObject mockForClass:[UIPasteboard class]];
     
     _mockAdvertisingSettings = [OCMockObject partialMockForObject:[ASIdentifierManager sharedManager]];
 
     _mockDevice = [OCMockObject partialMockForObject:[UIDevice currentDevice]];
-    
-    _breadcrumbBoard = [[UIPasteboard alloc] init];
-    _advertisingBoard = [[UIPasteboard alloc] init];
 }
 
-- (void)tearDown
+-(void) tearDown
 {
     // Tear-down code here.
     [_mockUserDefaults stopMocking];

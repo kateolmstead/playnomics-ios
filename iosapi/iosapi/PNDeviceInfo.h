@@ -7,12 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "PNCache.h"
 @interface PNDeviceInfo : NSObject
-
-@property(nonatomic, readonly) NSString* breadcrumbId;
-@property(nonatomic, readonly) NSString* limitAdvertising;
-@property(nonatomic, readonly) NSString* idfa;
-@property(nonatomic, readonly) NSString* idfv;
-@property(nonatomic, readonly) bool infoChanged;
-- (id) init;
+- (id) initWithCache: (PNCache *) cache;
+- (BOOL) syncDeviceSettingsWithCache;
 @end

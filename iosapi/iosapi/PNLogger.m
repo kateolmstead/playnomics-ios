@@ -11,7 +11,6 @@
 
 static PNLoggingLevel _logLevel = PNLogLevelError;
 
-
 @implementation PNLogger
 +(void) setLoggingLevel: (PNLoggingLevel) level{
     _logLevel = level;

@@ -15,6 +15,9 @@
 		3290165C17CC304F0041895A /* FSNConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 32A7C34717C6A7DE00E959A3 /* FSNConnection.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		3290165D17CC305B0041895A /* FSN_categories.m in Sources */ = {isa = PBXBuildFile; fileRef = 32A7C34517C6A7DE00E959A3 /* FSN_categories.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		3290165E17CC30600041895A /* FSNData.m in Sources */ = {isa = PBXBuildFile; fileRef = 32A7C34917C6A7DE00E959A3 /* FSNData.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		3290166217CC390B0041895A /* libiosapi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D1D922701590F59600EDDE17 /* libiosapi.a */; };
+		3290166517CC42430041895A /* PNCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 3290166317CC42420041895A /* PNCache.h */; };
+		3290166617CC42430041895A /* PNCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 3290166417CC42420041895A /* PNCache.m */; };
 		32A7C31217C3FCBC00E959A3 /* PNLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 32A7C31017C3FCBC00E959A3 /* PNLogger.h */; };
 		32A7C31317C3FCBC00E959A3 /* PNLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 32A7C31117C3FCBC00E959A3 /* PNLogger.m */; };
 		32A7C33017C6A36B00E959A3 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1D922811590F59700EDDE17 /* SenTestingKit.framework */; };
@@ -70,6 +73,8 @@
 		3290164A17C8008A0041895A /* Playnomics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Playnomics.m; sourceTree = "<group>"; };
 		3290164D17C8291A0041895A /* PNErrorDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNErrorDetail.h; sourceTree = "<group>"; };
 		3290164E17C8291A0041895A /* PNErrorDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNErrorDetail.m; sourceTree = "<group>"; };
+		3290166317CC42420041895A /* PNCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNCache.h; sourceTree = "<group>"; };
+		3290166417CC42420041895A /* PNCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNCache.m; sourceTree = "<group>"; };
 		32A7C31017C3FCBC00E959A3 /* PNLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNLogger.h; sourceTree = "<group>"; };
 		32A7C31117C3FCBC00E959A3 /* PNLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNLogger.m; sourceTree = "<group>"; };
 		32A7C32F17C6A36B00E959A3 /* PlaynomicsSDKTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PlaynomicsSDKTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -152,6 +157,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3290166217CC390B0041895A /* libiosapi.a in Frameworks */,
 				3271CCEB17C7CF4400E96C22 /* AdSupport.framework in Frameworks */,
 				32A7C33017C6A36B00E959A3 /* SenTestingKit.framework in Frameworks */,
 				32A7C33117C6A36B00E959A3 /* UIKit.framework in Frameworks */,
@@ -298,6 +304,8 @@
 				5B6C6E1B1593F0F20088EF5E /* PNUtil.m */,
 				32A7C31017C3FCBC00E959A3 /* PNLogger.h */,
 				32A7C31117C3FCBC00E959A3 /* PNLogger.m */,
+				3290166317CC42420041895A /* PNCache.h */,
+				3290166417CC42420041895A /* PNCache.m */,
 			);
 			name = Util;
 			sourceTree = "<group>";
@@ -424,6 +432,7 @@
 				32B41F2A17BDAF30000DA02E /* PNUIImageView.h in Headers */,
 				32A7C31217C3FCBC00E959A3 /* PNLogger.h in Headers */,
 				3290164F17C8291B0041895A /* PNErrorDetail.h in Headers */,
+				3290166517CC42430041895A /* PNCache.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -555,6 +564,7 @@
 				32A7C31317C3FCBC00E959A3 /* PNLogger.m in Sources */,
 				3290164C17C8008A0041895A /* Playnomics.m in Sources */,
 				3290165017C8291B0041895A /* PNErrorDetail.m in Sources */,
+				3290166617CC42430041895A /* PNCache.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -52,6 +52,8 @@
     NSMutableArray* _observers;
     
     NSMutableDictionary *_framesById;
+    
+    BOOL _infoUpdate;
 }
 
 @synthesize applicationId=_applicationId;
@@ -59,6 +61,8 @@
 @synthesize cookieId=_cookieId;
 @synthesize sessionId=_sessionId;
 @synthesize state=_state;
+
+@synthesize cache=_cache;
 
 @synthesize testMode=_testMode;
 @synthesize overrideEventsUrl=_overrideEventsUrl;
@@ -89,13 +93,18 @@
         _callback = [[PlaynomicsCallback alloc] init];
         
         _sdkVersion = PNPropertyVersion;
-        _deviceInfo = [[PNDeviceInfo alloc] init];
+        
+        _cache = [[PNCache alloc] init];
+        [_cache loadDataFromCache];
+        
+        _deviceInfo = [[PNDeviceInfo alloc] initWithCache:_cache];
         
         _observers = [NSMutableArray new];
         
         _messaging = [[PlaynomicsMessaging alloc] initWithSession: self];
         _framesById = [NSMutableDictionary new];
         
+
     }
     return self;
 }
@@ -217,7 +226,8 @@
 - (void) startSession{
     /** Setting Session variables */
     _state = PNSessionStateStarted;
-    _cookieId = _deviceInfo.breadcrumbId;
+    
+    _cookieId = [[_cache getBreadcrumbID] retain];
     
     // Set userId to cookieId if it isn't present
     if (!(_userId && [_userId length] > 0)) {
@@ -278,7 +288,7 @@
     [_eventSender sendEventToServer:ev withEventQueue:_playnomicsEventList];
     [ev release];
     
-    if(_deviceInfo.infoChanged){
+    if(_infoUpdate){
         [self onDeviceInfoChanged];
     }
 }
@@ -457,7 +467,24 @@
     }
 }
 
-#pragma mark - API request methods
+#pragma mark - Device Identifiers
+
+-(void)onDeviceInfoChanged{
+    PNUserInfoEvent *userInfoEvent = [[PNUserInfoEvent alloc]
+                                      initWithAdvertisingInfo:self.applicationId
+                                      userId: self.userId
+                                      cookieId: self.cookieId
+                                      type:PNUserInfoTypeUpdate
+                                      limitAdvertising: ([_cache limitAdvertising] ? @"true" : @"false")
+                                      idfa:[_cache getIdfa]
+                                      idfv: [_cache getIdfv]];
+    
+    userInfoEvent.internalSessionId = self.sessionId;
+    [self sendOrQueueEvent:userInfoEvent];
+    [userInfoEvent autorelease];
+}
+
+#pragma mark - Explicit Events
 
 - (void) transactionWithUSDPrice: (NSNumber*) priceInUSD quantity: (NSInteger) quantity  {
     @try {
@@ -501,6 +528,7 @@
     }
 }
 
+#pragma mark "Push Notifications"
 
 - (void) enablePushNotificationsWithToken:(NSData*)deviceToken {
     @try {
@@ -577,20 +605,7 @@
     }
 }
 
--(void)onDeviceInfoChanged{
-    PNUserInfoEvent *userInfoEvent = [[PNUserInfoEvent alloc]
-                                      initWithAdvertisingInfo:self.applicationId
-                                      userId:[self.userId length] == 0 ? _deviceInfo.breadcrumbId : self.userId
-                                      cookieId:_deviceInfo.breadcrumbId
-                                      type:PNUserInfoTypeUpdate
-                                      limitAdvertising:_deviceInfo.limitAdvertising
-                                      idfa:_deviceInfo.idfa
-                                      idfv: _deviceInfo.idfv];
-    
-    userInfoEvent.internalSessionId = self.sessionId;
-    [self sendOrQueueEvent:userInfoEvent];
-    [userInfoEvent autorelease];
-}
+
 
 
 #pragma mark "Messaging"
