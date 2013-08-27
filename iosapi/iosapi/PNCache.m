@@ -7,14 +7,15 @@
 //
 
 #import "PNCache.h"
+#import "PNCache+Private.h"
 #import <UIKit/UIKit.h>
 
-@implementation PNCache{
-    NSString *_breadcrumbId;
-    NSString *_idfa;
-    NSString *_idfv;
-    BOOL _limitAdvertising;
-}
+@implementation PNCache
+
+@synthesize idfa;
+@synthesize idfv;
+@synthesize limitAdvertising;
+@synthesize breadcrumbID;
 
 @synthesize idfaChanged = _idfaChanged;
 @synthesize idfvChanged = _idfvChanged;
@@ -22,16 +23,16 @@
 @synthesize breadcrumbIDChanged = _breadcrumbIDChanged;
 
 - (void)dealloc{
-    if(_breadcrumbId){
-        [_breadcrumbId release];
+    if(self.breadcrumbID){
+        [self.breadcrumbID release];
     }
     
-    if(_idfa){
-        [_idfa release];
+    if(self.idfa){
+        [self.idfa release];
     }
 
-    if(_idfv){
-        [_idfv release];
+    if(self.idfv){
+        [self.idfv release];
     }
     
     [super dealloc];
@@ -41,21 +42,21 @@
     UIPasteboard *playnomicsPasteboard = [self getPlaynomicsPasteboard];
     if([[playnomicsPasteboard items] count] == 0){
         UIPasteboard *pasteBoard = [UIPasteboard pasteboardWithName:PNUserDefaultsLastDeviceID create:NO];
-        _breadcrumbId = [[pasteBoard string] copy];
+        self.breadcrumbID = [pasteBoard string];
     
     } else {
         NSDictionary *data = [playnomicsPasteboard items][0];
-        _breadcrumbId = [[self deserializeStringFromData: data key: PNPasteboardLastBreadcrumbID] copy];
-        _idfa = [[self deserializeStringFromData:data key:PNPasteboardLastIDFA] copy];
-        _limitAdvertising = [self stringAsBool: [self deserializeStringFromData:data key:PNPasteboardLastLimitAdvertising]];
+        self.breadcrumbID = [[self deserializeStringFromData: data key: PNPasteboardLastBreadcrumbID] copy];
+        self.idfa = [[self deserializeStringFromData:data key:PNPasteboardLastIDFA] copy];
+        self.limitAdvertising = [PNUtil stringAsBool: [self deserializeStringFromData:data key:PNPasteboardLastLimitAdvertising]];
     }
     
-    if(_breadcrumbId && [_breadcrumbId length] == 0){
+    if(self.breadcrumbID && [self.breadcrumbID length] == 0){
         //it's possible that we get back a false positive
-        [_breadcrumbId release];
+        [self.breadcrumbID release];
     }
     
-    _idfv = [[NSUserDefaults standardUserDefaults] stringForKey:PNUserDefaultsLastIDFV];
+    self.idfv = [[NSUserDefaults standardUserDefaults] stringForKey:PNUserDefaultsLastIDFV];
 }
 
 -(void) writeDataToCache {
@@ -67,18 +68,18 @@
                                     [NSMutableDictionary new];
 
         if(_idfaChanged){
-            [pasteboardData setValue:_idfa forKey:PNPasteboardLastIDFA];
+            [pasteboardData setValue:self.idfa forKey:PNPasteboardLastIDFA];
         }
         if(_breadcrumbIDChanged){
-            [pasteboardData setValue:_breadcrumbId forKey:PNPasteboardLastBreadcrumbID];
+            [pasteboardData setValue:self.breadcrumbID forKey:PNPasteboardLastBreadcrumbID];
         }
         if(_limitAdvertisingChanged){
-            [pasteboardData setValue:[self boolAsString: _limitAdvertising] forKey: PNPasteboardLastLimitAdvertising];
+            [pasteboardData setValue:[PNUtil boolAsString: self.limitAdvertising] forKey: PNPasteboardLastLimitAdvertising];
         }
     }
     
     if(_idfvChanged){
-        [[NSUserDefaults standardUserDefaults] setValue:_idfv forKey:PNUserDefaultsLastIDFV];
+        [[NSUserDefaults standardUserDefaults] setValue:self.idfv forKey:PNUserDefaultsLastIDFV];
     }
 }
 
@@ -89,58 +90,50 @@
 }
 
 - (NSString *) getBreadcrumbID {
-    return _breadcrumbId;
+    return self.breadcrumbID;
 }
 
--(void)setBreadcrumbID:(NSString *)breadcrumbID{
-    if(!(_breadcrumbId && [breadcrumbID isEqualToString:_breadcrumbId])){
-        _breadcrumbId = [breadcrumbID copy];
+-(void)updateBreadcrumbID:(NSString *)value{
+    if(!(self.breadcrumbID && [value isEqualToString:self.breadcrumbID])){
+        self.breadcrumbID = value;
         _breadcrumbIDChanged = TRUE;
     }
 }
 
 - (NSString *) getIdfa{
-    return _idfa;
+    return self.idfa;
 }
 
-- (void) setIdfa: (NSString *) idfa{
-    if(!(_idfa && [idfa isEqualToString:_idfa])){
-        _idfa = [idfa copy];
+- (void) updateIdfa: (NSString *) value{
+    if(!(self.idfa && [value isEqualToString:self.idfa])){
+        self.idfa = value;
         _idfaChanged = TRUE;
     }
 }
 
 - (NSString *) getIdfv {
-    return _idfv;
+    return self.idfv;
 }
 
-- (void) setIdfv : (NSString *) idfv{
-    if(!(_idfv && [idfv isEqualToString:_idfv])){
-        _idfv = [idfv copy];
+- (void) updateIdfv : (NSString *) value{
+    if(!(self.idfv && [value isEqualToString:self.idfv])){
+        self.idfv = value;
         _idfvChanged = TRUE;
     }
 }
 
-- (BOOL) limitAdvertising{
-    return _limitAdvertising;
+- (BOOL) getLimitAdvertising{
+    return self.limitAdvertising;
 }
 
-- (void) setLimitAdvertising : (BOOL) limitAdvertising{
-    if(_limitAdvertising != limitAdvertising){
-        _limitAdvertising = limitAdvertising;
+- (void) updateLimitAdvertising : (BOOL) value{
+    if(self.limitAdvertising != value){
+        self.limitAdvertising = value;
         _limitAdvertisingChanged = TRUE;
     }
 }
 
 - (NSString *) deserializeStringFromData : (NSDictionary*) dict key:(NSString*) key{
     return [[NSString alloc] initWithData:[dict valueForKey:key] encoding: NSUTF8StringEncoding];
-}
-
--(BOOL) stringAsBool : (NSString*)value{
-    return value && [value isEqualToString:@"true"];
-}
-
--(NSString*) boolAsString : (BOOL) value{
-    return value ? @"true" : @"false";
 }
 @end

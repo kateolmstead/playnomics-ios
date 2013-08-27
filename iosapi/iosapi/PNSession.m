@@ -475,7 +475,7 @@
                                       userId: self.userId
                                       cookieId: self.cookieId
                                       type:PNUserInfoTypeUpdate
-                                      limitAdvertising: ([_cache limitAdvertising] ? @"true" : @"false")
+                                      limitAdvertising: [PNUtil boolAsString: [_cache getLimitAdvertising]]
                                       idfa:[_cache getIdfa]
                                       idfv: [_cache getIdfv]];
     

@@ -16,19 +16,16 @@
 @property (readonly) BOOL  limitAdvertisingChanged;
 
 - (NSString *) getBreadcrumbID;
-- (void) setBreadcrumbID: (NSString*) breadcrumbID;
-- (BOOL) breadcrumbIDChanged;
+- (void) updateBreadcrumbID: (NSString*) value;
 
 - (NSString *) getIdfa;
-- (void) setIdfa: (NSString *) idfa;
-- (BOOL) idfaChanged;
+- (void) updateIdfa: (NSString *) value;
 
 - (NSString *) getIdfv;
-- (void) setIdfv : (NSString *) idfv;
-- (BOOL) idfvChanged;
+- (void) updateIdfv : (NSString *) value;
 
-- (BOOL) limitAdvertising;
-- (void) setLimitAdvertising : (BOOL) limitAdvertising;
+- (BOOL) getLimitAdvertising;
+- (void) updateLimitAdvertising : (BOOL) value;
 
 // I/O cache methods
 - (void) loadDataFromCache;

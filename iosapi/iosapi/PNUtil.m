@@ -62,7 +62,7 @@
 }
 
 + (BOOL) isUrl:(NSString *) url {
-    if([url length] == 0){
+    if(!url || [url length] == 0){
         return NO;
     }
     return [url hasPrefix:@"https://"] || [url hasPrefix: @"http://"];
@@ -72,7 +72,6 @@
     NSData* encodedData = [jsonString  dataUsingEncoding:NSUTF8StringEncoding];
     return [self deserializeJsonData: encodedData];
 }
-
 
 + (id) deserializeJsonData: (NSData *) jsonData {
     return [self deserializeJsonDataWithOptions: jsonData readOptions: kNilOptions];
@@ -86,4 +85,13 @@
     }
     return data;
 }
+
++ (NSString *) boolAsString: (BOOL) value {
+    return value ? @"true" : @"false";
+}
+
++ (BOOL) stringAsBool : (NSString *) value {
+    return (value && [[value lowercaseString] isEqualToString:@"true"]) ? YES : NO;
+}
+
 @end

@@ -54,7 +54,6 @@ typedef NS_ENUM(int, PNMilestoneType){
 + (void) showFrameWithID:(NSString*) frameID;
 + (void) showFrameWithID:(NSString*) frameID delegate:(id<PNFrameDelegate>) delegate;
 + (void) showFrameWithID:(NSString*) frameID delegate:(id<PNFrameDelegate>) delegate withInSeconds: (int) timeout;
-
 + (void) hideFrameWithID:(NSString*) frameID;
 @end
 

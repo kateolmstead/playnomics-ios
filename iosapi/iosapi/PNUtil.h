@@ -50,6 +50,10 @@ typedef enum {
 + (NSString *) urlEncodeValue: (NSString*) unescapedValue;
 
 + (BOOL) isUrl:(NSString *) url;
+
++ (NSString *) boolAsString: (BOOL) value;
++ (BOOL) stringAsBool : (NSString*) value;
+
 + (id) deserializeJsonData: (NSData *) jsonData ;
 + (id) deserializeJsonDataWithOptions: (NSData *) jsonData readOptions: (NSJSONReadingOptions) readOptions ;
 + (id) deserializeJsonString:(NSString *)jsonString;

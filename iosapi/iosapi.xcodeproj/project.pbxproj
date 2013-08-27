@@ -18,6 +18,8 @@
 		3290166217CC390B0041895A /* libiosapi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D1D922701590F59600EDDE17 /* libiosapi.a */; };
 		3290166517CC42430041895A /* PNCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 3290166317CC42420041895A /* PNCache.h */; };
 		3290166617CC42430041895A /* PNCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 3290166417CC42420041895A /* PNCache.m */; };
+		3290166A17CD0BAC0041895A /* StubPNCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 3290166917CD0BAC0041895A /* StubPNCache.m */; };
+		3290166D17CD22420041895A /* PNUtilTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3290166C17CD22420041895A /* PNUtilTests.m */; };
 		32A7C31217C3FCBC00E959A3 /* PNLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 32A7C31017C3FCBC00E959A3 /* PNLogger.h */; };
 		32A7C31317C3FCBC00E959A3 /* PNLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 32A7C31117C3FCBC00E959A3 /* PNLogger.m */; };
 		32A7C33017C6A36B00E959A3 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1D922811590F59700EDDE17 /* SenTestingKit.framework */; };
@@ -75,6 +77,12 @@
 		3290164E17C8291A0041895A /* PNErrorDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNErrorDetail.m; sourceTree = "<group>"; };
 		3290166317CC42420041895A /* PNCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNCache.h; sourceTree = "<group>"; };
 		3290166417CC42420041895A /* PNCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNCache.m; sourceTree = "<group>"; };
+		3290166817CD0BAC0041895A /* StubPNCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StubPNCache.h; sourceTree = "<group>"; };
+		3290166917CD0BAC0041895A /* StubPNCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StubPNCache.m; sourceTree = "<group>"; };
+		3290166B17CD22420041895A /* PNUtilTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNUtilTests.h; sourceTree = "<group>"; };
+		3290166C17CD22420041895A /* PNUtilTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNUtilTests.m; sourceTree = "<group>"; };
+		3290166E17CD300F0041895A /* PNCache+Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PNCache+Private.h"; sourceTree = "<group>"; };
+		3290166F17CD403B0041895A /* PNDeviceInfo+Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PNDeviceInfo+Private.h"; sourceTree = "<group>"; };
 		32A7C31017C3FCBC00E959A3 /* PNLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNLogger.h; sourceTree = "<group>"; };
 		32A7C31117C3FCBC00E959A3 /* PNLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNLogger.m; sourceTree = "<group>"; };
 		32A7C32F17C6A36B00E959A3 /* PlaynomicsSDKTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PlaynomicsSDKTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -176,6 +184,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3290166717CD0B740041895A /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				3290166817CD0BAC0041895A /* StubPNCache.h */,
+				3290166917CD0BAC0041895A /* StubPNCache.m */,
+			);
+			name = Mocks;
+			sourceTree = "<group>";
+		};
 		32A7C31517C432E700E959A3 /* Session */ = {
 			isa = PBXGroup;
 			children = (
@@ -183,6 +200,7 @@
 				D1D922BA159112C100EDDE17 /* PNEventSender.m */,
 				5BBAA22D159BD87300AA4993 /* PNApplication.m */,
 				68C3137017B1C5CE0079E306 /* PNDeviceInfo.h */,
+				3290166F17CD403B0041895A /* PNDeviceInfo+Private.h */,
 				68C3137117B1C5CE0079E306 /* PNDeviceInfo.m */,
 				D1D922A11591124700EDDE17 /* PNSession.h */,
 				D1D922A21591124700EDDE17 /* PNSession.m */,
@@ -194,9 +212,12 @@
 		32A7C33317C6A36B00E959A3 /* PlaynomicsSDKTests */ = {
 			isa = PBXGroup;
 			children = (
+				32A7C33417C6A36B00E959A3 /* Supporting Files */,
+				3290166717CD0B740041895A /* Mocks */,
 				32A7C33917C6A36B00E959A3 /* PNDeviceInfoTests.h */,
 				32A7C33A17C6A36B00E959A3 /* PNDeviceInfoTests.m */,
-				32A7C33417C6A36B00E959A3 /* Supporting Files */,
+				3290166B17CD22420041895A /* PNUtilTests.h */,
+				3290166C17CD22420041895A /* PNUtilTests.m */,
 			);
 			path = PlaynomicsSDKTests;
 			sourceTree = "<group>";
@@ -305,6 +326,7 @@
 				32A7C31017C3FCBC00E959A3 /* PNLogger.h */,
 				32A7C31117C3FCBC00E959A3 /* PNLogger.m */,
 				3290166317CC42420041895A /* PNCache.h */,
+				3290166E17CD300F0041895A /* PNCache+Private.h */,
 				3290166417CC42420041895A /* PNCache.m */,
 			);
 			name = Util;
@@ -533,6 +555,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				32A7C33B17C6A36B00E959A3 /* PNDeviceInfoTests.m in Sources */,
+				3290166A17CD0BAC0041895A /* StubPNCache.m in Sources */,
+				3290166D17CD22420041895A /* PNUtilTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
