@@ -129,12 +129,8 @@
 		A1244E0A16A9EADF001A93DD /* dev.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = dev.xcconfig; sourceTree = "<group>"; };
 		A129689316DD758800F0A47A /* PlaynomicsCallback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaynomicsCallback.h; sourceTree = "<group>"; };
 		A129689416DD758900F0A47A /* PlaynomicsCallback.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaynomicsCallback.m; sourceTree = "<group>"; };
-		A1822F7816B065DE00414EF1 /* invalid.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = invalid.json; sourceTree = "<group>"; };
-		A1822F7916B065DE00414EF1 /* pnx.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = pnx.json; sourceTree = "<group>"; };
 		A1822F8116B0691300414EF1 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		A1822F8316B069B900414EF1 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		A18E5E6916AF284C00004F6D /* AdActionTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdActionTests.h; sourceTree = "<group>"; };
-		A18E5E6A16AF284C00004F6D /* AdActionTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdActionTests.m; sourceTree = "<group>"; };
 		A18E5E7916AF6D5600004F6D /* PNErrorEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNErrorEvent.m; sourceTree = "<group>"; };
 		A18E5E7A16AF6D5700004F6D /* PNErrorEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNErrorEvent.h; sourceTree = "<group>"; };
 		D19CBDC016765ABE0089B04A /* PNMilestoneEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNMilestoneEvent.h; sourceTree = "<group>"; };
@@ -144,10 +140,6 @@
 		D1D922771590F59700EDDE17 /* iosapi-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "iosapi-Prefix.pch"; sourceTree = "<group>"; };
 		D1D922811590F59700EDDE17 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		D1D922831590F59700EDDE17 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
-		D1D9228B1590F59700EDDE17 /* iosapiTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "iosapiTests-Info.plist"; sourceTree = "<group>"; };
-		D1D9228D1590F59700EDDE17 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		D1D9228F1590F59700EDDE17 /* iosapiTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iosapiTests.h; sourceTree = "<group>"; };
-		D1D922901590F59700EDDE17 /* iosapiTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = iosapiTests.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		D1D922A11591124700EDDE17 /* PNSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = PNSession.h; path = iosapi/PNSession.h; sourceTree = "<group>"; };
 		D1D922A21591124700EDDE17 /* PNSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = PNSession.m; path = iosapi/PNSession.m; sourceTree = "<group>"; };
 		D1D922A51591125700EDDE17 /* PNEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = PNEvent.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
@@ -346,22 +338,12 @@
 			name = public;
 			sourceTree = "<group>";
 		};
-		A1822F7C16B065E000414EF1 /* stubs */ = {
-			isa = PBXGroup;
-			children = (
-				A1822F7816B065DE00414EF1 /* invalid.json */,
-				A1822F7916B065DE00414EF1 /* pnx.json */,
-			);
-			name = stubs;
-			sourceTree = "<group>";
-		};
 		D1D922651590F59500EDDE17 = {
 			isa = PBXGroup;
 			children = (
 				32A7C34217C6A7DE00E959A3 /* Libraries */,
 				A14DA13916DFFD230040B507 /* public */,
 				D1D922751590F59700EDDE17 /* iosapi */,
-				D1D922891590F59700EDDE17 /* iosapiTests */,
 				32A7C33317C6A36B00E959A3 /* PlaynomicsSDKTests */,
 				D1D922721590F59600EDDE17 /* Frameworks */,
 				D1D922711590F59600EDDE17 /* Products */,
@@ -403,28 +385,6 @@
 				42FBA98924738D15AF3CE573 /* Messaging */,
 			);
 			path = iosapi;
-			sourceTree = "<group>";
-		};
-		D1D922891590F59700EDDE17 /* iosapiTests */ = {
-			isa = PBXGroup;
-			children = (
-				D1D9228F1590F59700EDDE17 /* iosapiTests.h */,
-				D1D922901590F59700EDDE17 /* iosapiTests.m */,
-				D1D9228A1590F59700EDDE17 /* Supporting Files */,
-				A18E5E6916AF284C00004F6D /* AdActionTests.h */,
-				A18E5E6A16AF284C00004F6D /* AdActionTests.m */,
-			);
-			path = iosapiTests;
-			sourceTree = "<group>";
-		};
-		D1D9228A1590F59700EDDE17 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				A1822F7C16B065E000414EF1 /* stubs */,
-				D1D9228B1590F59700EDDE17 /* iosapiTests-Info.plist */,
-				D1D9228C1590F59700EDDE17 /* InfoPlist.strings */,
-			);
-			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -605,14 +565,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				32A7C33717C6A36B00E959A3 /* en */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		D1D9228C1590F59700EDDE17 /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				D1D9228D1590F59700EDDE17 /* en */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
