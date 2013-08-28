@@ -52,7 +52,7 @@
     BOOL limitAdvertising = NO;
     NSUUID *idfv = [[NSUUID alloc] init];
     
-    StubPNCache *cache = [[StubPNCache  alloc] initWithBreadcrumbID:breadcrumbId idfa:[idfa UUIDString] idfv:[idfv UUIDString] limitAdvertising:limitAdvertising];
+    StubPNCache *cache = [[StubPNCache  alloc] initWithBreadcrumbID:breadcrumbId idfa:idfa idfv:idfv limitAdvertising:limitAdvertising];
     id mockCache = [cache getMockCache];
     [cache loadDataFromCache];
 
@@ -67,10 +67,10 @@
     STAssertEquals([mockCache getBreadcrumbID], breadcrumbId , @"Breadcrumb should be loaded from cache");
     STAssertFalse([mockCache breadcrumbIDChanged], @"Breadcrumb should not have changed.");
     //use isEqualToString for string comparison
-    STAssertTrue([[mockCache getIdfa] isEqualToString: [idfa UUIDString]], @"IDFA should be loaded from cache");
+    STAssertTrue([[mockCache getIdfa] isEqual: idfa], @"IDFA should be loaded from cache");
     STAssertFalse([mockCache idfaChanged], @"IDFA should not have changed.");
 
-    STAssertTrue([[mockCache getIdfv] isEqualToString: [idfv UUIDString]], @"IDFV should be loaded from cache");
+    STAssertTrue([[mockCache getIdfv] isEqual: idfv], @"IDFV should be loaded from cache");
     STAssertFalse([mockCache idfvChanged], @"IDFA should not have changed.");
 
     STAssertEquals([mockCache getLimitAdvertising], limitAdvertising, @"Limit advertising should be loaded from cache");
@@ -83,7 +83,7 @@
     BOOL limitAdvertising = NO;
     NSUUID *idfv = nil;
     
-    StubPNCache *cache = [[StubPNCache  alloc] initWithBreadcrumbID:breadcrumbId idfa:[idfa UUIDString] idfv:[idfv UUIDString] limitAdvertising:limitAdvertising];
+    StubPNCache *cache = [[StubPNCache  alloc] initWithBreadcrumbID:breadcrumbId idfa:idfa idfv:idfv limitAdvertising:limitAdvertising];
     id mockCache = [cache getMockCache];
     [cache loadDataFromCache];
 
@@ -103,10 +103,10 @@
     
     STAssertTrue([[mockCache getBreadcrumbID] isEqualToString: newBreadcrumb], @"Breadcrumb should be newly generated.");
     //use isEqualToString for string comparison
-    STAssertTrue([[mockCache getIdfa] isEqualToString: [currentIdfa UUIDString]], @"IDFA should be set from device.");
+    STAssertTrue([[mockCache getIdfa] isEqual: currentIdfa], @"IDFA should be set from device.");
     STAssertTrue([mockCache idfaChanged], @"IDFA should have changed.");
     
-    STAssertTrue([[mockCache getIdfv] isEqualToString: [currentIdfv UUIDString]], @"IDFV should be set from device.");
+    STAssertTrue([[mockCache getIdfv] isEqual: currentIdfv], @"IDFV should be set from device.");
     STAssertTrue([mockCache idfvChanged], @"IDFA should have changed.");
     
     STAssertEquals([mockCache getLimitAdvertising], newlimitAdvertising, @"Limit advertising should be set from device.");
@@ -119,7 +119,7 @@
     BOOL limitAdvertising = NO;
     NSUUID *idfv = [[NSUUID alloc] init];
     
-    StubPNCache *cache = [[StubPNCache  alloc] initWithBreadcrumbID:breadcrumbId idfa:[idfa UUIDString] idfv:[idfv UUIDString] limitAdvertising:limitAdvertising];
+    StubPNCache *cache = [[StubPNCache  alloc] initWithBreadcrumbID:breadcrumbId idfa:idfa idfv:idfv limitAdvertising:limitAdvertising];
     id mockCache = [cache getMockCache];
     [cache loadDataFromCache];
     
@@ -139,10 +139,10 @@
     STAssertTrue([[mockCache getBreadcrumbID] isEqualToString: breadcrumbId], @"Breadcrumb value is still the initial cache value.");
     STAssertFalse([mockCache breadcrumbIDChanged], @"Breadcrumb should not have changed.");
     
-    STAssertTrue([[mockCache getIdfa] isEqualToString: [currentIdfa UUIDString]], @"IDFA should be updated.");
+    STAssertTrue([[mockCache getIdfa] isEqual: currentIdfa], @"IDFA should be updated.");
     STAssertTrue([mockCache idfaChanged], @"IDFA should be updated.");
     
-    STAssertTrue([[mockCache getIdfv] isEqualToString: [currentIdfv UUIDString]], @"IDFV should be updated.");
+    STAssertTrue([[mockCache getIdfv] isEqual: currentIdfv], @"IDFV should be updated.");
     STAssertTrue([mockCache idfvChanged], @"IDFA should be updated.");
     
     STAssertEquals([mockCache getLimitAdvertising], newlimitAdvertising, @"Limit advertising should be updated.");

@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @interface StubPNCache : NSObject
--(id) initWithBreadcrumbID: (NSString *) breadcrumb idfa: (NSString *) idfa idfv: (NSString *) idfv limitAdvertising: (BOOL) limitAdvertising;
+-(id) initWithBreadcrumbID: (NSString *) breadcrumb idfa: (NSUUID *) idfa idfv: (NSUUID *) idfv limitAdvertising: (BOOL) limitAdvertising;
 -(void) loadDataFromCache;
 -(void) writeDataToCache;
 -(id) getMockCache;

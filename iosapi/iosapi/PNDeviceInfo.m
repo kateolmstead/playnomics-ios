@@ -30,7 +30,7 @@
     
     if (NSClassFromString(@"ASIdentifierManager")) {
         [_cache updateLimitAdvertising: ![self isAdvertisingTrackingEnabledFromDevice]];
-        [_cache updateIdfa:[[self getAdvertisingIdentifierFromDevice] UUIDString]];
+        [_cache updateIdfa:[self getAdvertisingIdentifierFromDevice]];
     } else {
         [PNLogger log:PNLogLevelWarning format: @"No Advertising Information available so this must be a pre-iOS 6 device"];
     }
@@ -38,7 +38,7 @@
     UIDevice* currentDevice = [UIDevice currentDevice];
                                         
     if ([currentDevice respondsToSelector:@selector(identifierForVendor)]) {
-        [_cache updateIdfv: [[self getVendorIdentifierFromDevice] UUIDString]];
+        [_cache updateIdfv: [self getVendorIdentifierFromDevice]];
     }
     return _cache.breadcrumbIDChanged || _cache.idfaChanged || _cache.idfvChanged || _cache.limitAdvertisingChanged;
 }

@@ -46,8 +46,13 @@
     
     } else {
         NSDictionary *data = [playnomicsPasteboard items][0];
-        self.breadcrumbID = [[self deserializeStringFromData: data key: PNPasteboardLastBreadcrumbID] copy];
-        self.idfa = [[self deserializeStringFromData:data key:PNPasteboardLastIDFA] copy];
+        self.breadcrumbID = [self deserializeStringFromData: data key: PNPasteboardLastBreadcrumbID];
+        
+        NSString * idfaString =  [self deserializeStringFromData:data key:PNPasteboardLastIDFA];
+        if(idfaString){
+            self.idfa = [[[NSUUID alloc] initWithUUIDString: idfaString] autorelease];
+        }
+        
         self.limitAdvertising = [PNUtil stringAsBool: [self deserializeStringFromData:data key:PNPasteboardLastLimitAdvertising]];
     }
     
@@ -56,7 +61,11 @@
         [self.breadcrumbID release];
     }
     
-    self.idfv = [[NSUserDefaults standardUserDefaults] stringForKey:PNUserDefaultsLastIDFV];
+    NSString* idfvString = [[NSUserDefaults standardUserDefaults] stringForKey:PNUserDefaultsLastIDFV];
+    if(idfvString){
+        self.idfv = [[[NSUUID alloc] initWithUUIDString: idfvString] autorelease];
+    }
+    
 }
 
 -(void) writeDataToCache {
@@ -68,7 +77,7 @@
                                     [NSMutableDictionary new];
 
         if(_idfaChanged){
-            [pasteboardData setValue:self.idfa forKey:PNPasteboardLastIDFA];
+            [pasteboardData setValue:[self.idfa UUIDString] forKey:PNPasteboardLastIDFA];
         }
         if(_breadcrumbIDChanged){
             [pasteboardData setValue:self.breadcrumbID forKey:PNPasteboardLastBreadcrumbID];
@@ -79,7 +88,7 @@
     }
     
     if(_idfvChanged){
-        [[NSUserDefaults standardUserDefaults] setValue:self.idfv forKey:PNUserDefaultsLastIDFV];
+        [[NSUserDefaults standardUserDefaults] setValue:[self.idfv UUIDString] forKey:PNUserDefaultsLastIDFV];
     }
 }
 
@@ -100,23 +109,23 @@
     }
 }
 
-- (NSString *) getIdfa{
+- (NSUUID *) getIdfa{
     return self.idfa;
 }
 
-- (void) updateIdfa: (NSString *) value{
-    if(!(self.idfa && [value isEqualToString:self.idfa])){
+- (void) updateIdfa: (NSUUID *) value{
+    if(!(self.idfa && [value isEqual:self.idfa])){
         self.idfa = value;
         _idfaChanged = TRUE;
     }
 }
 
-- (NSString *) getIdfv {
+- (NSUUID *) getIdfv {
     return self.idfv;
 }
 
-- (void) updateIdfv : (NSString *) value{
-    if(!(self.idfv && [value isEqualToString:self.idfv])){
+- (void) updateIdfv : (NSUUID *) value{
+    if(!(self.idfv && [value isEqual: self.idfv])){
         self.idfv = value;
         _idfvChanged = TRUE;
     }
@@ -134,6 +143,6 @@
 }
 
 - (NSString *) deserializeStringFromData : (NSDictionary*) dict key:(NSString*) key{
-    return [[NSString alloc] initWithData:[dict valueForKey:key] encoding: NSUTF8StringEncoding];
+    return [[[NSString alloc] initWithData:[dict valueForKey:key] encoding: NSUTF8StringEncoding] autorelease];
 }
 @end

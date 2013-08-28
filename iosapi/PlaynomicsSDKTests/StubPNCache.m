@@ -12,8 +12,8 @@
 
 @implementation StubPNCache{
     NSString *_initBreadcrumbId;
-    NSString *_initIdfa;
-    NSString *_initIdfv;
+    NSUUID *_initIdfa;
+    NSUUID *_initIdfv;
     BOOL _initLimitAdvertising;
 
     //these values exist in the PNCache class
@@ -21,7 +21,7 @@
     PNCache *_cache;
 }
 
--(id) initWithBreadcrumbID: (NSString *) breadcrumb idfa: (NSString *) idfa idfv: (NSString *) idfv limitAdvertising: (BOOL) limitAdvertising{
+-(id) initWithBreadcrumbID: (NSString *) breadcrumb idfa: (NSUUID *) idfa idfv: (NSUUID *) idfv limitAdvertising: (BOOL) limitAdvertising{
   
     if((self = [super init])){
         _cache = [[PNCache alloc] init];
