@@ -20,6 +20,9 @@
 		3290166617CC42430041895A /* PNCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 3290166417CC42420041895A /* PNCache.m */; };
 		3290166A17CD0BAC0041895A /* StubPNCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 3290166917CD0BAC0041895A /* StubPNCache.m */; };
 		3290166D17CD22420041895A /* PNUtilTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3290166C17CD22420041895A /* PNUtilTests.m */; };
+		3290167217CD88A60041895A /* PNGeneratedHexId.h in Headers */ = {isa = PBXBuildFile; fileRef = 3290167017CD88A50041895A /* PNGeneratedHexId.h */; };
+		3290167317CD88A60041895A /* PNGeneratedHexId.m in Sources */ = {isa = PBXBuildFile; fileRef = 3290167117CD88A50041895A /* PNGeneratedHexId.m */; };
+		3290167617CDAE750041895A /* PNGeneratedHexIdTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3290167517CDAE740041895A /* PNGeneratedHexIdTests.m */; };
 		32A7C31217C3FCBC00E959A3 /* PNLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 32A7C31017C3FCBC00E959A3 /* PNLogger.h */; };
 		32A7C31317C3FCBC00E959A3 /* PNLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 32A7C31117C3FCBC00E959A3 /* PNLogger.m */; };
 		32A7C33017C6A36B00E959A3 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1D922811590F59700EDDE17 /* SenTestingKit.framework */; };
@@ -41,7 +44,6 @@
 		5B589DBF15993764002B6251 /* PNConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 5B589DBE15993764002B6251 /* PNConfig.h */; };
 		5B6C6E1C1593F0F30088EF5E /* PNUtil.h in Headers */ = {isa = PBXBuildFile; fileRef = 5B6C6E1A1593F0F20088EF5E /* PNUtil.h */; };
 		5B6C6E1D1593F0F30088EF5E /* PNUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B6C6E1B1593F0F20088EF5E /* PNUtil.m */; };
-		5B753E30159D2D5000E698F9 /* PNRandomGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B753E2F159D2D5000E698F9 /* PNRandomGenerator.m */; };
 		5BBAA22F159BD87300AA4993 /* PNApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BBAA22D159BD87300AA4993 /* PNApplication.m */; };
 		68C3137217B1C5CF0079E306 /* PNDeviceInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 68C3137017B1C5CE0079E306 /* PNDeviceInfo.h */; };
 		68C3137317B1C5CF0079E306 /* PNDeviceInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 68C3137117B1C5CE0079E306 /* PNDeviceInfo.m */; };
@@ -66,7 +68,6 @@
 		D1D922BE159112C100EDDE17 /* PNBasicEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = D1D922B6159112C100EDDE17 /* PNBasicEvent.m */; };
 		D1D922C1159112C100EDDE17 /* PNEventSender.h in Headers */ = {isa = PBXBuildFile; fileRef = D1D922B9159112C100EDDE17 /* PNEventSender.h */; };
 		D1D922C2159112C100EDDE17 /* PNEventSender.m in Sources */ = {isa = PBXBuildFile; fileRef = D1D922BA159112C100EDDE17 /* PNEventSender.m */; };
-		D1D922C7159112E100EDDE17 /* PNRandomGenerator.h in Headers */ = {isa = PBXBuildFile; fileRef = D1D922C5159112E100EDDE17 /* PNRandomGenerator.h */; };
 		D1D922CB159112F400EDDE17 /* PNConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = D1D922C9159112F400EDDE17 /* PNConstants.h */; settings = {ATTRIBUTES = (); }; };
 /* End PBXBuildFile section */
 
@@ -83,6 +84,10 @@
 		3290166C17CD22420041895A /* PNUtilTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNUtilTests.m; sourceTree = "<group>"; };
 		3290166E17CD300F0041895A /* PNCache+Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PNCache+Private.h"; sourceTree = "<group>"; };
 		3290166F17CD403B0041895A /* PNDeviceInfo+Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PNDeviceInfo+Private.h"; sourceTree = "<group>"; };
+		3290167017CD88A50041895A /* PNGeneratedHexId.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PNGeneratedHexId.h; path = iosapi/PNGeneratedHexId.h; sourceTree = "<group>"; };
+		3290167117CD88A50041895A /* PNGeneratedHexId.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PNGeneratedHexId.m; path = iosapi/PNGeneratedHexId.m; sourceTree = "<group>"; };
+		3290167417CDAE740041895A /* PNGeneratedHexIdTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNGeneratedHexIdTests.h; sourceTree = "<group>"; };
+		3290167517CDAE740041895A /* PNGeneratedHexIdTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNGeneratedHexIdTests.m; sourceTree = "<group>"; };
 		32A7C31017C3FCBC00E959A3 /* PNLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNLogger.h; sourceTree = "<group>"; };
 		32A7C31117C3FCBC00E959A3 /* PNLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNLogger.m; sourceTree = "<group>"; };
 		32A7C32F17C6A36B00E959A3 /* PlaynomicsSDKTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PlaynomicsSDKTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -115,7 +120,6 @@
 		5B589DBE15993764002B6251 /* PNConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = PNConfig.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		5B6C6E1A1593F0F20088EF5E /* PNUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = PNUtil.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		5B6C6E1B1593F0F20088EF5E /* PNUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = PNUtil.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		5B753E2F159D2D5000E698F9 /* PNRandomGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNRandomGenerator.m; sourceTree = "<group>"; };
 		5BBAA22D159BD87300AA4993 /* PNApplication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = PNApplication.m; path = iosapi/PNApplication.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		68C3137017B1C5CE0079E306 /* PNDeviceInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PNDeviceInfo.h; path = iosapi/PNDeviceInfo.h; sourceTree = "<group>"; };
 		68C3137117B1C5CE0079E306 /* PNDeviceInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PNDeviceInfo.m; path = iosapi/PNDeviceInfo.m; sourceTree = "<group>"; };
@@ -156,7 +160,6 @@
 		D1D922B6159112C100EDDE17 /* PNBasicEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = PNBasicEvent.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		D1D922B9159112C100EDDE17 /* PNEventSender.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PNEventSender.h; path = iosapi/PNEventSender.h; sourceTree = "<group>"; };
 		D1D922BA159112C100EDDE17 /* PNEventSender.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = PNEventSender.m; path = iosapi/PNEventSender.m; sourceTree = "<group>"; };
-		D1D922C5159112E100EDDE17 /* PNRandomGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNRandomGenerator.h; sourceTree = "<group>"; };
 		D1D922C9159112F400EDDE17 /* PNConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = PNConstants.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 /* End PBXFileReference section */
 
@@ -204,6 +207,8 @@
 				68C3137117B1C5CE0079E306 /* PNDeviceInfo.m */,
 				D1D922A11591124700EDDE17 /* PNSession.h */,
 				D1D922A21591124700EDDE17 /* PNSession.m */,
+				3290167017CD88A50041895A /* PNGeneratedHexId.h */,
+				3290167117CD88A50041895A /* PNGeneratedHexId.m */,
 			);
 			name = Session;
 			path = ..;
@@ -218,6 +223,8 @@
 				32A7C33A17C6A36B00E959A3 /* PNDeviceInfoTests.m */,
 				3290166B17CD22420041895A /* PNUtilTests.h */,
 				3290166C17CD22420041895A /* PNUtilTests.m */,
+				3290167417CDAE740041895A /* PNGeneratedHexIdTests.h */,
+				3290167517CDAE740041895A /* PNGeneratedHexIdTests.m */,
 			);
 			path = PlaynomicsSDKTests;
 			sourceTree = "<group>";
@@ -319,8 +326,6 @@
 		5BC947E9159E259F00BE180B /* Util */ = {
 			isa = PBXGroup;
 			children = (
-				D1D922C5159112E100EDDE17 /* PNRandomGenerator.h */,
-				5B753E2F159D2D5000E698F9 /* PNRandomGenerator.m */,
 				5B6C6E1A1593F0F20088EF5E /* PNUtil.h */,
 				5B6C6E1B1593F0F20088EF5E /* PNUtil.m */,
 				32A7C31017C3FCBC00E959A3 /* PNLogger.h */,
@@ -439,7 +444,6 @@
 				D1D922B3159112A300EDDE17 /* PNUserInfoEvent.h in Headers */,
 				D1D922BD159112C100EDDE17 /* PNBasicEvent.h in Headers */,
 				D1D922C1159112C100EDDE17 /* PNEventSender.h in Headers */,
-				D1D922C7159112E100EDDE17 /* PNRandomGenerator.h in Headers */,
 				D1D922CB159112F400EDDE17 /* PNConstants.h in Headers */,
 				5B6C6E1C1593F0F30088EF5E /* PNUtil.h in Headers */,
 				5B589DBF15993764002B6251 /* PNConfig.h in Headers */,
@@ -455,6 +459,7 @@
 				32A7C31217C3FCBC00E959A3 /* PNLogger.h in Headers */,
 				3290164F17C8291B0041895A /* PNErrorDetail.h in Headers */,
 				3290166517CC42430041895A /* PNCache.h in Headers */,
+				3290167217CD88A60041895A /* PNGeneratedHexId.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -557,6 +562,7 @@
 				32A7C33B17C6A36B00E959A3 /* PNDeviceInfoTests.m in Sources */,
 				3290166A17CD0BAC0041895A /* StubPNCache.m in Sources */,
 				3290166D17CD22420041895A /* PNUtilTests.m in Sources */,
+				3290167617CDAE750041895A /* PNGeneratedHexIdTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -575,7 +581,6 @@
 				D1D922C2159112C100EDDE17 /* PNEventSender.m in Sources */,
 				5B6C6E1D1593F0F30088EF5E /* PNUtil.m in Sources */,
 				5BBAA22F159BD87300AA4993 /* PNApplication.m in Sources */,
-				5B753E30159D2D5000E698F9 /* PNRandomGenerator.m in Sources */,
 				42FBA86B3DB5A96A46894B6C /* PlaynomicsFrame.m in Sources */,
 				42FBA77B7E7A8D298A75735B /* PlaynomicsMessaging.m in Sources */,
 				42FBAC6C9B82A5B36D318FE1 /* BaseAdComponent.m in Sources */,
@@ -589,6 +594,7 @@
 				3290164C17C8008A0041895A /* Playnomics.m in Sources */,
 				3290165017C8291B0041895A /* PNErrorDetail.m in Sources */,
 				3290166617CC42430041895A /* PNCache.m in Sources */,
+				3290167317CD88A60041895A /* PNGeneratedHexId.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

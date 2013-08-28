@@ -9,7 +9,6 @@
 #import <libkern/OSAtomic.h>
 
 #import "PNSession.h"
-#import "PNRandomGenerator.h"
 #import "PNEventSender.h"
 #import "PlaynomicsCallback.h"
 #import "PNBasicEvent.h"
@@ -28,7 +27,7 @@
     
     NSTimer* _eventTimer;
     NSMutableArray* _playnomicsEventList;
-    NSString *_instanceId;
+    PNGeneratedHexId *_instanceId;
     NSString* _testEventsUrl;
     NSString* _prodEventsUrl;
     NSString* _testMessagingUrl;
@@ -54,8 +53,6 @@
     NSMutableArray* _observers;
     
     NSMutableDictionary *_framesById;
-    
-    BOOL _infoUpdate;
 }
 
 @synthesize applicationId=_applicationId;
@@ -97,8 +94,6 @@
         _sdkVersion = PNPropertyVersion;
         
         _cache = [[PNCache alloc] init];
-        [_cache loadDataFromCache];
-        
         _deviceInfo = [[PNDeviceInfo alloc] initWithCache:_cache];
         
         _observers = [NSMutableArray new];
@@ -224,6 +219,8 @@
 
 - (void) startSession{
     /** Setting Session variables */
+    [_cache loadDataFromCache];
+    
     _state = PNSessionStateStarted;
     
     _cookieId = [[_cache getBreadcrumbID] retain];
@@ -244,7 +241,7 @@
     _totalKeys = 0;
     
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    NSString *lastUserId = [userDefaults stringForKey:PNUserDefaultsLastUserID];
+    NSString *lastUserId = [userDefaults stringForKey : PNUserDefaultsLastUserID];
     NSTimeInterval lastSessionStartTime = [userDefaults doubleForKey:PNUserDefaultsLastSessionStartTime];
     
     PNEventType eventType;
@@ -255,7 +252,7 @@
     if ((currentTime - lastSessionStartTime > PNSessionTimeout)
         || ![_userId isEqualToString:lastUserId]) {
         
-        _sessionId = [[PNRandomGenerator createRandomHex] retain];
+        _sessionId = [[PNGeneratedHexId alloc] initAndGenerateValue];
         _instanceId = [_sessionId retain];
         _sessionStartTime = currentTime;
         
@@ -268,7 +265,7 @@
     } else {
         _sessionId = [userDefaults objectForKey:PNUserDefaultsLastSessionID];
         // Always create a new Instance Id
-        _instanceId = [[PNRandomGenerator createRandomHex] retain];
+        _instanceId = [[PNGeneratedHexId alloc] initAndGenerateValue];
         _sessionStartTime = [userDefaults doubleForKey:PNUserDefaultsLastSessionStartTime];
         
         eventType = PNEventAppPage;
@@ -279,15 +276,15 @@
                                     applicationId:_applicationId
                                            userId:_userId
                                          cookieId:_cookieId
-                                internalSessionId:_sessionId
-                                       instanceId:_instanceId
+                                internalSessionId:[_sessionId description]
+                                       instanceId:[_instanceId description]
                                    timeZoneOffset:_timeZoneOffset];
     
     // Try to send and queue if unsuccessful
     [_eventSender sendEventToServer:ev withEventQueue:_playnomicsEventList];
     [ev release];
     
-    if(_infoUpdate){
+    if([_deviceInfo syncDeviceSettingsWithCache]){
         [self onDeviceInfoChanged];
     }
 }
@@ -308,7 +305,7 @@
         
         [self stopEventTimer];
         
-        PNBasicEvent *ev = [[[PNBasicEvent alloc] init:PNEventAppPause applicationId:_applicationId userId:_userId cookieId:_cookieId internalSessionId:_sessionId instanceId:_instanceId sessionStartTime:_sessionStartTime sequence:_sequence clicks: (int)_clicks totalClicks:(int)_totalClicks keys:(int)_keys totalKeys:(int)_totalKeys collectMode:_collectMode] autorelease];
+        PNBasicEvent *ev = [[[PNBasicEvent alloc] init:PNEventAppPause applicationId:_applicationId userId:_userId cookieId:_cookieId internalSessionId:[_sessionId description] instanceId:[_instanceId description] sessionStartTime:_sessionStartTime sequence:_sequence clicks: (int)_clicks totalClicks:(int)_totalClicks keys:(int)_keys totalKeys:(int)_totalKeys collectMode:_collectMode] autorelease];
         
         _pauseTime = [[NSDate date] timeIntervalSince1970];
         
@@ -340,7 +337,7 @@
         
         _state = PNSessionStateStarted;
         
-        PNBasicEvent *ev = [[[PNBasicEvent alloc] init:PNEventAppResume applicationId:_applicationId userId:_userId cookieId:_cookieId internalSessionId:_sessionId instanceId:_instanceId sessionStartTime:_sessionStartTime sequence:_sequence clicks:(int)_clicks totalClicks:(int)_totalClicks keys:(int)_keys totalKeys:(int)_totalKeys collectMode:_collectMode] autorelease];
+        PNBasicEvent *ev = [[[PNBasicEvent alloc] init:PNEventAppResume applicationId:_applicationId userId:_userId cookieId:_cookieId internalSessionId:[_sessionId description] instanceId:[_instanceId description] sessionStartTime:_sessionStartTime sequence:_sequence clicks:(int)_clicks totalClicks:(int)_totalClicks keys:(int)_keys totalKeys:(int)_totalKeys collectMode:_collectMode] autorelease];
         
         ev.pauseTime = _pauseTime;
         ev.sessionStartTime =  _sessionStartTime;
@@ -413,7 +410,7 @@
         if (_state == PNSessionStateStarted) {
             _sequence++;
             
-            PNBasicEvent *ev = [[[PNBasicEvent alloc] init:PNEventAppRunning applicationId:_applicationId userId:_userId cookieId:_cookieId internalSessionId:_sessionId instanceId:_instanceId sessionStartTime:_sessionStartTime sequence:_sequence clicks:(int)_clicks totalClicks:(int)_totalClicks keys:(int)_keys totalKeys:(int)_totalKeys collectMode:_collectMode] autorelease];
+            PNBasicEvent *ev = [[[PNBasicEvent alloc] init:PNEventAppRunning applicationId:_applicationId userId:_userId cookieId:_cookieId internalSessionId:[_sessionId description] instanceId:[_instanceId description] sessionStartTime:_sessionStartTime sequence:_sequence clicks:(int)_clicks totalClicks:(int)_totalClicks keys:(int)_keys totalKeys:(int)_totalKeys collectMode:_collectMode] autorelease];
             [_playnomicsEventList addObject:ev];
             
             // Reset keys/clicks
@@ -473,9 +470,9 @@
 #pragma mark - Device Identifiers
 
 -(void)onDeviceInfoChanged{
-    PNUserInfoEvent *userInfoEvent = [[PNUserInfoEvent alloc] initWithAdvertisingInfo:self.applicationId userId: self.userId cookieId: self.cookieId type:PNUserInfoTypeUpdate limitAdvertising: [PNUtil boolAsString: [_cache getLimitAdvertising]] idfa:[_cache getIdfa] idfv: [_cache getIdfv]];
+    PNUserInfoEvent *userInfoEvent = [[PNUserInfoEvent alloc] initWithAdvertisingInfo:self.applicationId userId: self.userId cookieId: self.cookieId type:PNUserInfoTypeUpdate limitAdvertising: [PNUtil boolAsString: [_cache getLimitAdvertising]] idfa:[[_cache getIdfa] UUIDString] idfv: [[_cache getIdfv] UUIDString]];
     
-    userInfoEvent.internalSessionId = self.sessionId;
+    userInfoEvent.internalSessionId = [self.sessionId description];
     [self sendOrQueueEvent:userInfoEvent];
     [userInfoEvent autorelease];
 }
@@ -496,7 +493,7 @@
         
         PNTransactionEvent *ev = [[[PNTransactionEvent alloc] init:PNEventTransaction applicationId: self.applicationId userId: self.userId cookieId: self.cookieId transactionId: transactionId itemId: itemId quantity: quantity type: PNTransactionBuyItem otherUserId: nil currencyTypes: currencyTypes currencyValues: currencyValues currencyCategories: currencyCategories] autorelease];
         
-        ev.internalSessionId = [[PNSession sharedInstance] sessionId];
+        ev.internalSessionId = [[[PNSession sharedInstance] sessionId] description];
         [self sendOrQueueEvent:ev];
     }
     @catch (NSException* exception) {
@@ -511,7 +508,7 @@
         //generate a random number for now
         int milestoneId = arc4random();
         PNMilestoneEvent *ev = [[[PNMilestoneEvent alloc] init:PNEventMilestone applicationId:[self applicationId] userId:[self userId] cookieId:[self cookieId] milestoneId:milestoneId milestoneType:milestoneType] autorelease];
-        ev.internalSessionId = [self sessionId];
+        ev.internalSessionId = [[self sessionId] description];
         [self sendOrQueueEvent:ev];
     }
     @catch (NSException *exception) {
@@ -542,7 +539,7 @@
                                                                        userId:[self userId]
                                                                      cookieId:[self cookieId]
                                                                   deviceToken:deviceToken];
-            ev.internalSessionId = self.sessionId;
+            ev.internalSessionId = [self.sessionId description];
             [self sendOrQueueEvent: ev];
         }
     }
@@ -588,7 +585,7 @@
     @try {
         PNErrorEvent *ev = [[[PNErrorEvent alloc] init:PNEventError applicationId: self.applicationId userId: self.userId cookieId: self.cookieId errorDetails:errorDetails] autorelease];
         
-        ev.internalSessionId = [self sessionId];
+        ev.internalSessionId = [[self sessionId] description];
         [self sendOrQueueEvent:ev];
     }
     @catch (NSException *exception) {

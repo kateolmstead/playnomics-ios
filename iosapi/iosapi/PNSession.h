@@ -6,6 +6,7 @@
 
 #import <UIKit/UIKit.h>
 #import "Playnomics.h"
+#import "PNGeneratedHexId.h"
 #import "PNErrorDetail.h"
 #import "PNCache.h"
 
@@ -30,7 +31,7 @@ typedef enum {
 @property (nonatomic, copy) NSString *userId;
 
 @property (nonatomic, readonly) NSString *cookieId;
-@property (nonatomic, readonly) NSString *sessionId;
+@property (nonatomic, readonly) PNGeneratedHexId *sessionId;
 @property (nonatomic, readonly) PNSessionState state;
 
 @property (nonatomic, readonly) PNCache *cache;
