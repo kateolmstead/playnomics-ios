@@ -17,7 +17,7 @@
 #import "PNMilestoneEvent.h"
 #import "PNAPSNotificationEvent.h"
 #import "PNErrorEvent.h"
-#import "PNDeviceInfo.h"
+#import "PNDeviceManager.h"
 #import "PlaynomicsMessaging.h"
 
 @implementation PNSession {
@@ -48,7 +48,7 @@
     volatile NSInteger *_keys;
     volatile NSInteger *_totalKeys;
     
-    PNDeviceInfo* _deviceInfo;
+    PNDeviceManager* _deviceInfo;
     
     NSMutableArray* _observers;
     
@@ -96,7 +96,7 @@
         _sdkVersion = PNPropertyVersion;
         
         _cache = [[PNCache alloc] init];
-        _deviceInfo = [[PNDeviceInfo alloc] initWithCache:_cache];
+        _deviceInfo = [[PNDeviceManager alloc] initWithCache:_cache];
         
         _observers = [NSMutableArray new];
         
@@ -601,9 +601,6 @@
         NSLog(@"error: %@", exception.description);
     }
 }
-
-
-
 
 #pragma mark "Messaging"
 //all of this code needs to be moved inside of PlaynomicsMessaging

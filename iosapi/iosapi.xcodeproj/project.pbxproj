@@ -29,7 +29,7 @@
 		32A7C33117C6A36B00E959A3 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1D922831590F59700EDDE17 /* UIKit.framework */; };
 		32A7C33217C6A36B00E959A3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1D922731590F59600EDDE17 /* Foundation.framework */; };
 		32A7C33817C6A36B00E959A3 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 32A7C33617C6A36B00E959A3 /* InfoPlist.strings */; };
-		32A7C33B17C6A36B00E959A3 /* PNDeviceInfoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 32A7C33A17C6A36B00E959A3 /* PNDeviceInfoTests.m */; };
+		32A7C33B17C6A36B00E959A3 /* PNDeviceManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 32A7C33A17C6A36B00E959A3 /* PNDeviceManagerTests.m */; };
 		32A7C34A17C6A7DE00E959A3 /* FSN_categories.h in Headers */ = {isa = PBXBuildFile; fileRef = 32A7C34417C6A7DE00E959A3 /* FSN_categories.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		32A7C34C17C6A7DE00E959A3 /* FSNConnection.h in Headers */ = {isa = PBXBuildFile; fileRef = 32A7C34617C6A7DE00E959A3 /* FSNConnection.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		32A7C34E17C6A7DE00E959A3 /* FSNData.h in Headers */ = {isa = PBXBuildFile; fileRef = 32A7C34817C6A7DE00E959A3 /* FSNData.h */; settings = {ATTRIBUTES = (Private, ); }; };
@@ -45,8 +45,8 @@
 		5B6C6E1C1593F0F30088EF5E /* PNUtil.h in Headers */ = {isa = PBXBuildFile; fileRef = 5B6C6E1A1593F0F20088EF5E /* PNUtil.h */; };
 		5B6C6E1D1593F0F30088EF5E /* PNUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B6C6E1B1593F0F20088EF5E /* PNUtil.m */; };
 		5BBAA22F159BD87300AA4993 /* PNApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BBAA22D159BD87300AA4993 /* PNApplication.m */; };
-		68C3137217B1C5CF0079E306 /* PNDeviceInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 68C3137017B1C5CE0079E306 /* PNDeviceInfo.h */; };
-		68C3137317B1C5CF0079E306 /* PNDeviceInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 68C3137117B1C5CE0079E306 /* PNDeviceInfo.m */; };
+		68C3137217B1C5CF0079E306 /* PNDeviceManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 68C3137017B1C5CE0079E306 /* PNDeviceManager.h */; };
+		68C3137317B1C5CF0079E306 /* PNDeviceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 68C3137117B1C5CE0079E306 /* PNDeviceManager.m */; };
 		A118C35316A8825700DFF63C /* PNAPSNotificationEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = A118C35116A8825700DFF63C /* PNAPSNotificationEvent.m */; };
 		A118C35416A8825700DFF63C /* PNAPSNotificationEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = A118C35216A8825700DFF63C /* PNAPSNotificationEvent.h */; };
 		A129689516DD758900F0A47A /* PlaynomicsCallback.h in Headers */ = {isa = PBXBuildFile; fileRef = A129689316DD758800F0A47A /* PlaynomicsCallback.h */; };
@@ -83,7 +83,7 @@
 		3290166B17CD22420041895A /* PNUtilTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNUtilTests.h; sourceTree = "<group>"; };
 		3290166C17CD22420041895A /* PNUtilTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNUtilTests.m; sourceTree = "<group>"; };
 		3290166E17CD300F0041895A /* PNCache+Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PNCache+Private.h"; sourceTree = "<group>"; };
-		3290166F17CD403B0041895A /* PNDeviceInfo+Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PNDeviceInfo+Private.h"; sourceTree = "<group>"; };
+		3290166F17CD403B0041895A /* PNDeviceManager+Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PNDeviceManager+Private.h"; sourceTree = "<group>"; };
 		3290167017CD88A50041895A /* PNGeneratedHexId.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PNGeneratedHexId.h; path = iosapi/PNGeneratedHexId.h; sourceTree = "<group>"; };
 		3290167117CD88A50041895A /* PNGeneratedHexId.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PNGeneratedHexId.m; path = iosapi/PNGeneratedHexId.m; sourceTree = "<group>"; };
 		3290167417CDAE740041895A /* PNGeneratedHexIdTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNGeneratedHexIdTests.h; sourceTree = "<group>"; };
@@ -93,8 +93,8 @@
 		32A7C32F17C6A36B00E959A3 /* PlaynomicsSDKTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PlaynomicsSDKTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		32A7C33517C6A36B00E959A3 /* PlaynomicsSDKTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "PlaynomicsSDKTests-Info.plist"; sourceTree = "<group>"; };
 		32A7C33717C6A36B00E959A3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		32A7C33917C6A36B00E959A3 /* PNDeviceInfoTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PNDeviceInfoTests.h; sourceTree = "<group>"; };
-		32A7C33A17C6A36B00E959A3 /* PNDeviceInfoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PNDeviceInfoTests.m; sourceTree = "<group>"; };
+		32A7C33917C6A36B00E959A3 /* PNDeviceManagerTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PNDeviceManagerTests.h; sourceTree = "<group>"; };
+		32A7C33A17C6A36B00E959A3 /* PNDeviceManagerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PNDeviceManagerTests.m; sourceTree = "<group>"; };
 		32A7C33C17C6A36B00E959A3 /* PlaynomicsSDKTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PlaynomicsSDKTests-Prefix.pch"; sourceTree = "<group>"; };
 		32A7C34417C6A7DE00E959A3 /* FSN_categories.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSN_categories.h; sourceTree = "<group>"; };
 		32A7C34517C6A7DE00E959A3 /* FSN_categories.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSN_categories.m; sourceTree = "<group>"; };
@@ -121,8 +121,8 @@
 		5B6C6E1A1593F0F20088EF5E /* PNUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = PNUtil.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		5B6C6E1B1593F0F20088EF5E /* PNUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = PNUtil.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		5BBAA22D159BD87300AA4993 /* PNApplication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = PNApplication.m; path = iosapi/PNApplication.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		68C3137017B1C5CE0079E306 /* PNDeviceInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PNDeviceInfo.h; path = iosapi/PNDeviceInfo.h; sourceTree = "<group>"; };
-		68C3137117B1C5CE0079E306 /* PNDeviceInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PNDeviceInfo.m; path = iosapi/PNDeviceInfo.m; sourceTree = "<group>"; };
+		68C3137017B1C5CE0079E306 /* PNDeviceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PNDeviceManager.h; path = iosapi/PNDeviceManager.h; sourceTree = "<group>"; };
+		68C3137117B1C5CE0079E306 /* PNDeviceManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PNDeviceManager.m; path = iosapi/PNDeviceManager.m; sourceTree = "<group>"; };
 		68E6DABD17AC237900A904A8 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		A118C35116A8825700DFF63C /* PNAPSNotificationEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNAPSNotificationEvent.m; sourceTree = "<group>"; };
 		A118C35216A8825700DFF63C /* PNAPSNotificationEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNAPSNotificationEvent.h; sourceTree = "<group>"; };
@@ -202,9 +202,9 @@
 				D1D922B9159112C100EDDE17 /* PNEventSender.h */,
 				D1D922BA159112C100EDDE17 /* PNEventSender.m */,
 				5BBAA22D159BD87300AA4993 /* PNApplication.m */,
-				68C3137017B1C5CE0079E306 /* PNDeviceInfo.h */,
-				3290166F17CD403B0041895A /* PNDeviceInfo+Private.h */,
-				68C3137117B1C5CE0079E306 /* PNDeviceInfo.m */,
+				68C3137017B1C5CE0079E306 /* PNDeviceManager.h */,
+				3290166F17CD403B0041895A /* PNDeviceManager+Private.h */,
+				68C3137117B1C5CE0079E306 /* PNDeviceManager.m */,
 				D1D922A11591124700EDDE17 /* PNSession.h */,
 				D1D922A21591124700EDDE17 /* PNSession.m */,
 				3290167017CD88A50041895A /* PNGeneratedHexId.h */,
@@ -219,8 +219,8 @@
 			children = (
 				32A7C33417C6A36B00E959A3 /* Supporting Files */,
 				3290166717CD0B740041895A /* Mocks */,
-				32A7C33917C6A36B00E959A3 /* PNDeviceInfoTests.h */,
-				32A7C33A17C6A36B00E959A3 /* PNDeviceInfoTests.m */,
+				32A7C33917C6A36B00E959A3 /* PNDeviceManagerTests.h */,
+				32A7C33A17C6A36B00E959A3 /* PNDeviceManagerTests.m */,
 				3290166B17CD22420041895A /* PNUtilTests.h */,
 				3290166C17CD22420041895A /* PNUtilTests.m */,
 				3290167417CDAE740041895A /* PNGeneratedHexIdTests.h */,
@@ -454,7 +454,7 @@
 				D19CBDC216765ABE0089B04A /* PNMilestoneEvent.h in Headers */,
 				A118C35416A8825700DFF63C /* PNAPSNotificationEvent.h in Headers */,
 				A129689516DD758900F0A47A /* PlaynomicsCallback.h in Headers */,
-				68C3137217B1C5CF0079E306 /* PNDeviceInfo.h in Headers */,
+				68C3137217B1C5CF0079E306 /* PNDeviceManager.h in Headers */,
 				32B41F2A17BDAF30000DA02E /* PNUIImageView.h in Headers */,
 				32A7C31217C3FCBC00E959A3 /* PNLogger.h in Headers */,
 				3290164F17C8291B0041895A /* PNErrorDetail.h in Headers */,
@@ -559,7 +559,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				32A7C33B17C6A36B00E959A3 /* PNDeviceInfoTests.m in Sources */,
+				32A7C33B17C6A36B00E959A3 /* PNDeviceManagerTests.m in Sources */,
 				3290166A17CD0BAC0041895A /* StubPNCache.m in Sources */,
 				3290166D17CD22420041895A /* PNUtilTests.m in Sources */,
 				3290167617CDAE750041895A /* PNGeneratedHexIdTests.m in Sources */,
@@ -588,7 +588,7 @@
 				A118C35316A8825700DFF63C /* PNAPSNotificationEvent.m in Sources */,
 				A18E5E7B16AF6D5700004F6D /* PNErrorEvent.m in Sources */,
 				A129689616DD758900F0A47A /* PlaynomicsCallback.m in Sources */,
-				68C3137317B1C5CF0079E306 /* PNDeviceInfo.m in Sources */,
+				68C3137317B1C5CF0079E306 /* PNDeviceManager.m in Sources */,
 				32B41F2B17BDAF30000DA02E /* PNUIImageView.m in Sources */,
 				32A7C31317C3FCBC00E959A3 /* PNLogger.m in Sources */,
 				3290164C17C8008A0041895A /* Playnomics.m in Sources */,

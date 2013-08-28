@@ -24,7 +24,6 @@ typedef enum {
 @property (nonatomic, copy) NSString *overrideEventsUrl;
 @property (nonatomic, copy) NSString *overrideMessagingUrl;
 
-
 @property (nonatomic, readonly) NSString *sdkVersion;
 
 @property (nonatomic, assign) signed long long applicationId;

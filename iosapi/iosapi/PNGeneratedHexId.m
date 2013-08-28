@@ -39,7 +39,7 @@
     uint8_t buffer[8];
     arc4random_buf(buffer, sizeof buffer);
     uint64_t* value_ptr = (uint64_t*) buffer;
-    return *value_ptr;
+    return abs(*value_ptr);
 }
 
 @end

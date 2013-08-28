@@ -6,13 +6,13 @@
 //
 //
 
-#import "PNDeviceInfo.h"
-#import "PNDeviceInfo+Private.h"
+#import "PNDeviceManager.h"
+#import "PNDeviceManager+Private.h"
 #import "PNCache.h"
 #import <AdSupport/AdSupport.h>
 
 
-@implementation PNDeviceInfo{
+@implementation PNDeviceManager{
     PNCache *_cache;
 }
 

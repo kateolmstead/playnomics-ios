@@ -15,7 +15,7 @@
     PNGeneratedHexId *genId = [[PNGeneratedHexId alloc] initAndGenerateValue];
     STAssertTrue(genId.generatedId > 0, @"Generated ID must be greater than 0");
     
-    NSString* hexString = [genId description];
+    NSString* hexString = [genId toHex];
     
     PNGeneratedHexId *cloneGenId = [[PNGeneratedHexId alloc] initWithValue: hexString];
 

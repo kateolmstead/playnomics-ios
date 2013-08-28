@@ -7,17 +7,17 @@
 //
 
 
-#import "PNDeviceInfoTests.h"
+#import "PNDeviceManagerTests.h"
 #import "StubPNCache.h"
 
 #import <AdSupport/AdSupport.h>
 
 #import "PNConstants.h"
-#import "PNDeviceInfo.h"
-#import "PNDeviceInfo+Private.h"
+#import "PNDeviceManager.h"
+#import "PNDeviceManager+Private.h"
 
 
-@implementation PNDeviceInfoTests
+@implementation PNDeviceManagerTests
 
 -(void) setUp
 {
@@ -30,7 +30,7 @@
     [super tearDown];
 }
 
--(id) mockCurrentDeviceInfo:(PNDeviceInfo*) deviceInfo idfa: (NSUUID *) currentIdfa limitAdvertising : (BOOL) limitAdvertising idfv: (NSUUID *) currentIdfv generatedBreadcrumbID: (NSString*) breadcrumbId {
+-(id) mockCurrentDeviceInfo:(PNDeviceManager*) deviceInfo idfa: (NSUUID *) currentIdfa limitAdvertising : (BOOL) limitAdvertising idfv: (NSUUID *) currentIdfv generatedBreadcrumbID: (NSString*) breadcrumbId {
     
     id mock = [OCMockObject partialMockForObject:deviceInfo];
     
@@ -57,7 +57,7 @@
     [cache loadDataFromCache];
 
     //the device settings have not changed
-    PNDeviceInfo *info = [[PNDeviceInfo alloc] initWithCache: mockCache];
+    PNDeviceManager *info = [[PNDeviceManager alloc] initWithCache: mockCache];
     info = [self mockCurrentDeviceInfo: info idfa: idfa limitAdvertising: limitAdvertising idfv: idfv generatedBreadcrumbID:nil];
     
     BOOL dataChanged = [info syncDeviceSettingsWithCache];
@@ -91,7 +91,7 @@
     NSUUID *currentIdfv = [[NSUUID alloc] init];
     BOOL newlimitAdvertising  = YES;
 
-    PNDeviceInfo *info = [[PNDeviceInfo alloc] initWithCache: mockCache];
+    PNDeviceManager *info = [[PNDeviceManager alloc] initWithCache: mockCache];
     NSString *newBreadcrumb = [info generateBreadcrumbId];
 
     info = [self mockCurrentDeviceInfo: info idfa: currentIdfa limitAdvertising: newlimitAdvertising idfv: currentIdfv generatedBreadcrumbID:newBreadcrumb];
@@ -127,7 +127,7 @@
     NSUUID *currentIdfv = [[NSUUID alloc] init];
     BOOL newlimitAdvertising  = YES;
     
-    PNDeviceInfo *info = [[PNDeviceInfo alloc] initWithCache: mockCache];
+    PNDeviceManager *info = [[PNDeviceManager alloc] initWithCache: mockCache];
     
     info = [self mockCurrentDeviceInfo: info idfa: currentIdfa limitAdvertising: newlimitAdvertising idfv: currentIdfv generatedBreadcrumbID:nil];
     

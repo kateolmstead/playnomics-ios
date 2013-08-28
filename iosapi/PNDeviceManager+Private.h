@@ -6,7 +6,7 @@
 //
 //
 
-@interface PNDeviceInfo(Private)
+@interface PNDeviceManager(Private)
 - (BOOL) isAdvertisingTrackingEnabledFromDevice;
 - (NSUUID *) getAdvertisingIdentifierFromDevice;
 - (NSUUID *) getVendorIdentifierFromDevice;

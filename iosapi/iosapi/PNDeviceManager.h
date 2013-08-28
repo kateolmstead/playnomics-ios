@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "PNCache.h"
-@interface PNDeviceInfo : NSObject
+@interface PNDeviceManager : NSObject
 - (id) initWithCache: (PNCache *) cache;
 - (BOOL) syncDeviceSettingsWithCache;
 @end
