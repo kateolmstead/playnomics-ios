@@ -240,13 +240,17 @@
     _keys = 0;
     _totalKeys = 0;
     
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    NSString *lastUserId = [userDefaults stringForKey : PNUserDefaultsLastUserID];
-    NSTimeInterval lastSessionStartTime = [userDefaults doubleForKey:PNUserDefaultsLastSessionStartTime];
+    NSString *lastUserId = [_cache getLastUserId];
+    NSTimeInterval lastSessionStartTime = [_cache getLastEventTime];
     
     PNEventType eventType;
     
     NSTimeInterval currentTime = [[NSDate date] timeIntervalSince1970];
+    
+    //per our events specification, the sessionStart is always when the session start call is made,
+    //regardless of whether is an appPage or appStart
+    _sessionStartTime = currentTime;
+    
     // Send an appStart if it has been > 3 min since the last session or a different user
     // otherwise send an appPage
     if ((currentTime - lastSessionStartTime > PNSessionTimeout)
@@ -254,30 +258,20 @@
         
         _sessionId = [[PNGeneratedHexId alloc] initAndGenerateValue];
         _instanceId = [_sessionId retain];
-        _sessionStartTime = currentTime;
-        
         eventType = PNEventAppStart;
         
-        [userDefaults setObject:_sessionId forKey:PNUserDefaultsLastSessionID];
-        [userDefaults setDouble:_sessionStartTime forKey:PNUserDefaultsLastSessionStartTime];
-        [userDefaults setObject:_userId forKey:PNUserDefaultsLastUserID];
-        [userDefaults synchronize];
+        [_cache updateLastSessionId: _sessionId];
+        [_cache updateLastUserId: _userId];
+        [_cache updateLastEventTimeToNow];
     } else {
-        _sessionId = [userDefaults objectForKey:PNUserDefaultsLastSessionID];
+        _sessionId = [_cache getLastSessionId];
         // Always create a new Instance Id
         _instanceId = [[PNGeneratedHexId alloc] initAndGenerateValue];
-        _sessionStartTime = [userDefaults doubleForKey:PNUserDefaultsLastSessionStartTime];
-        
         eventType = PNEventAppPage;
     }
     
     /** Send appStart or appPage event */
-    PNBasicEvent *ev = [[PNBasicEvent alloc] init: eventType
-                                    applicationId:_applicationId
-                                           userId:_userId
-                                         cookieId:_cookieId
-                                internalSessionId:[_sessionId description]
-                                       instanceId:[_instanceId description]
+    PNBasicEvent *ev = [[PNBasicEvent alloc] init: eventType applicationId:_applicationId userId:_userId cookieId:_cookieId internalSessionId:[_sessionId description] instanceId:[_instanceId description]
                                    timeZoneOffset:_timeZoneOffset];
     
     // Try to send and queue if unsuccessful
@@ -287,6 +281,8 @@
     if([_deviceInfo syncDeviceSettingsWithCache]){
         [self onDeviceInfoChanged];
     }
+    
+    [_cache writeDataToCache];
 }
 
 - (void) onApplicationWillResignActive: (NSNotification *) notification {
@@ -375,6 +371,8 @@
         if (![NSKeyedArchiver archiveRootObject: _playnomicsEventList toFile:PNFileEventArchive]) {
             [PNLogger log: PNLogLevelWarning format: @"Playnomics: Could not save event list"];
         }
+        
+        [_cache writeDataToCache];
     }
     @catch (NSException *exception) {
         [PNLogger log: PNLogLevelError exception: exception];

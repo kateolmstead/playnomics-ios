@@ -12,6 +12,8 @@
 
 @property (nonatomic, readonly) long long generatedId;
 
--(id) initAndGenerateValue;
+- (id) initAndGenerateValue;
 - (id) initWithValue: (NSString*) value;
+- (NSString *) toHex;
+
 @end

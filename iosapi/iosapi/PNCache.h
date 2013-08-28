@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "PNGeneratedHexId.h"
 
 @interface PNCache : NSObject
 
@@ -26,6 +27,15 @@
 
 - (BOOL) getLimitAdvertising;
 - (void) updateLimitAdvertising : (BOOL) value;
+
+- (PNGeneratedHexId *) getLastSessionId;
+- (void) updateLastSessionId: (PNGeneratedHexId *) value;
+
+- (NSString *) getLastUserId;
+- (void) updateLastUserId: (NSString *) value;
+
+- (NSTimeInterval) getLastEventTime;
+- (void) updateLastEventTimeToNow;
 
 // I/O cache methods
 - (void) loadDataFromCache;

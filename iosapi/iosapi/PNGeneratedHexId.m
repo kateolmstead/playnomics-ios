@@ -28,6 +28,10 @@
 }
 
 -(NSString *) description{
+    return [self toHex];
+}
+
+-(NSString *) toHex{
     return [NSString stringWithFormat:@"%llX", _generatedId];
 }
 

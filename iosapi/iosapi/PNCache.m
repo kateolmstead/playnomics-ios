@@ -35,6 +35,10 @@
         [self.idfv release];
     }
     
+    if(self.lastSessionId){
+        [self.lastSessionId release];
+    }
+    
     [super dealloc];
 }
 
@@ -48,7 +52,7 @@
         NSDictionary *data = [playnomicsPasteboard items][0];
         self.breadcrumbID = [self deserializeStringFromData: data key: PNPasteboardLastBreadcrumbID];
         
-        NSString * idfaString =  [self deserializeStringFromData:data key:PNPasteboardLastIDFA];
+        NSString *idfaString =  [self deserializeStringFromData:data key:PNPasteboardLastIDFA];
         if(idfaString){
             self.idfa = [[[NSUUID alloc] initWithUUIDString: idfaString] autorelease];
         }
@@ -61,11 +65,20 @@
         [self.breadcrumbID release];
     }
     
-    NSString* idfvString = [[NSUserDefaults standardUserDefaults] stringForKey:PNUserDefaultsLastIDFV];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    NSString *idfvString = [defaults stringForKey:PNUserDefaultsLastIDFV];
     if(idfvString){
         self.idfv = [[[NSUUID alloc] initWithUUIDString: idfvString] autorelease];
     }
     
+    NSString *lastSessionIdHex = [defaults stringForKey:PNUserDefaultsLastSessionID];
+    if (lastSessionIdHex) {
+        self.lastSessionId = [[[PNGeneratedHexId alloc] initWithValue: lastSessionIdHex] autorelease];
+    }
+    
+    self.lastUserId = [defaults stringForKey:PNUserDefaultsLastUserID];
+    self.lastEventTime = [defaults doubleForKey:PNUserDefaultsLastSessionEventTime];
 }
 
 -(void) writeDataToCache {
@@ -87,9 +100,16 @@
         }
     }
     
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
     if(_idfvChanged){
-        [[NSUserDefaults standardUserDefaults] setValue:[self.idfv UUIDString] forKey:PNUserDefaultsLastIDFV];
+        [defaults setValue:[self.idfv UUIDString] forKey:PNUserDefaultsLastIDFV];
     }
+    
+    [defaults setValue:[ self.lastSessionId toHex] forKey:PNUserDefaultsLastSessionID];
+    [defaults setValue: self.lastUserId forKey:PNUserDefaultsLastUserID];
+    [defaults setDouble: self.lastEventTime forKey:PNUserDefaultsLastSessionEventTime];
+    [defaults synchronize];
 }
 
 - (UIPasteboard *) getPlaynomicsPasteboard {
@@ -141,6 +161,35 @@
         _limitAdvertisingChanged = TRUE;
     }
 }
+
+- (PNGeneratedHexId *) getLastSessionId{
+    return self.lastSessionId;
+}
+
+- (void) updateLastSessionId: (PNGeneratedHexId *) value{
+    if(self.lastSessionId != value){
+        self.lastSessionId = value;
+    }
+}
+
+- (NSString *) getLastUserId{
+    return self.lastUserId;
+}
+
+- (void) updateLastUserId: (NSString *) value{
+    if(!(self.lastUserId && [value isEqualToString:self.lastUserId])){
+        self.lastUserId = value;
+    }
+}
+
+- (NSTimeInterval) getLastEventTime{
+    return self.lastEventTime;
+}
+
+- (void) updateLastEventTimeToNow {
+    self.lastEventTime = [[NSDate date] timeIntervalSince1970];
+}
+
 
 - (NSString *) deserializeStringFromData : (NSDictionary*) dict key:(NSString*) key{
     return [[[NSString alloc] initWithData:[dict valueForKey:key] encoding: NSUTF8StringEncoding] autorelease];

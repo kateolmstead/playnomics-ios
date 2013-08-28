@@ -32,7 +32,7 @@
 
 
 // User Default Keys
-#define PNUserDefaultsLastSessionStartTime @"com.playnomics.lastSessionStartTime"
+#define PNUserDefaultsLastSessionEventTime @"com.playnomics.lastSessionStartTime"
 #define PNUserDefaultsLastSessionID @"com.playnomics.lastSessionId"
 #define PNUserDefaultsLastUserID @"com.playnomics.lastUserId"
 #define PNUserDefaultsLastDeviceToken @"com.playnomics.lastDeviceToken"
