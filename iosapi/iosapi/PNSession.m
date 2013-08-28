@@ -53,6 +53,8 @@
     NSMutableArray* _observers;
     
     NSMutableDictionary *_framesById;
+
+    NSObject *_syncLock;
 }
 
 @synthesize applicationId=_applicationId;
@@ -100,6 +102,8 @@
         
         _messaging = [[PlaynomicsMessaging alloc] initWithSession: self];
         _framesById = [NSMutableDictionary new];
+        
+        _syncLock = [[NSObject alloc] init];
     }
     return self;
 }
@@ -121,6 +125,9 @@
     
     [_deviceInfo release];
     [_framesById release];
+    
+    [_syncLock release];
+    
     [super dealloc];
 }
 
@@ -453,7 +460,9 @@
 }
 
 -(void) resetTouchEvents{
-    OSAtomicAnd32Barrier(0, _clicks);
+    @synchronized(_syncLock){
+        _clicks = 0;
+    }
 }
 
 -(void) incrementKeysPressed{
@@ -462,7 +471,9 @@
 }
 
 -(void) resetKeysPressed{
-    OSAtomicAnd32Barrier(0, _keys);
+    @synchronized(_syncLock){
+        _keys = 0;
+    }
 }
 
 #pragma mark - Device Identifiers
