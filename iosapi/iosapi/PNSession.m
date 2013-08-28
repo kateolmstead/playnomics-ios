@@ -6,6 +6,8 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
+#import <libkern/OSAtomic.h>
+
 #import "PNSession.h"
 #import "PNRandomGenerator.h"
 #import "PNEventSender.h"
@@ -41,11 +43,11 @@
     
     int _timeZoneOffset;
 	
-    int _clicks;
-    int _totalClicks;
-	
-    __block int  _keys;
-	__block int _totalKeys;
+    volatile NSInteger *_clicks;
+    volatile NSInteger *_totalClicks;
+    
+    volatile NSInteger *_keys;
+    volatile NSInteger *_totalKeys;
     
     PNDeviceInfo* _deviceInfo;
     
@@ -103,8 +105,6 @@
         
         _messaging = [[PlaynomicsMessaging alloc] initWithSession: self];
         _framesById = [NSMutableDictionary new];
-        
-
     }
     return self;
 }
@@ -180,8 +180,7 @@
         NSOperationQueue *mainQueue = [NSOperationQueue mainQueue];
         
         void (^keyPressed)(NSNotification *notif) = ^(NSNotification *notif){
-            _keys += 1;
-            _totalKeys += 1;
+            [self incrementKeysPressed];
         };
         void (^applicationPaused)(NSNotification *notif) = ^(NSNotification *notif){
             [self pause];
@@ -309,7 +308,7 @@
         
         [self stopEventTimer];
         
-        PNBasicEvent *ev = [[[PNBasicEvent alloc] init:PNEventAppPause applicationId:_applicationId userId:_userId cookieId:_cookieId internalSessionId:_sessionId instanceId:_instanceId sessionStartTime:_sessionStartTime sequence:_sequence clicks:_clicks totalClicks:_totalClicks keys:_keys totalKeys:_totalKeys collectMode:_collectMode] autorelease];
+        PNBasicEvent *ev = [[[PNBasicEvent alloc] init:PNEventAppPause applicationId:_applicationId userId:_userId cookieId:_cookieId internalSessionId:_sessionId instanceId:_instanceId sessionStartTime:_sessionStartTime sequence:_sequence clicks: (int)_clicks totalClicks:(int)_totalClicks keys:(int)_keys totalKeys:(int)_totalKeys collectMode:_collectMode] autorelease];
         
         _pauseTime = [[NSDate date] timeIntervalSince1970];
         
@@ -341,7 +340,7 @@
         
         _state = PNSessionStateStarted;
         
-        PNBasicEvent *ev = [[[PNBasicEvent alloc] init:PNEventAppResume applicationId:_applicationId userId:_userId cookieId:_cookieId internalSessionId:_sessionId instanceId:_instanceId sessionStartTime:_sessionStartTime sequence:_sequence clicks:_clicks totalClicks:_totalClicks keys:_keys totalKeys:_totalKeys collectMode:_collectMode] autorelease];
+        PNBasicEvent *ev = [[[PNBasicEvent alloc] init:PNEventAppResume applicationId:_applicationId userId:_userId cookieId:_cookieId internalSessionId:_sessionId instanceId:_instanceId sessionStartTime:_sessionStartTime sequence:_sequence clicks:(int)_clicks totalClicks:(int)_totalClicks keys:(int)_keys totalKeys:(int)_totalKeys collectMode:_collectMode] autorelease];
         
         ev.pauseTime = _pauseTime;
         ev.sessionStartTime =  _sessionStartTime;
@@ -414,23 +413,12 @@
         if (_state == PNSessionStateStarted) {
             _sequence++;
             
-            PNBasicEvent *ev = [[[PNBasicEvent alloc] init:PNEventAppRunning
-                                             applicationId:_applicationId
-                                                    userId:_userId
-                                                  cookieId:_cookieId
-                                         internalSessionId:_sessionId
-                                                instanceId:_instanceId
-                                          sessionStartTime:_sessionStartTime
-                                                  sequence:_sequence
-                                                    clicks:_clicks
-                                               totalClicks:_totalClicks
-                                                      keys:_keys
-                                                 totalKeys:_totalKeys
-                                               collectMode:_collectMode] autorelease];
+            PNBasicEvent *ev = [[[PNBasicEvent alloc] init:PNEventAppRunning applicationId:_applicationId userId:_userId cookieId:_cookieId internalSessionId:_sessionId instanceId:_instanceId sessionStartTime:_sessionStartTime sequence:_sequence clicks:(int)_clicks totalClicks:(int)_totalClicks keys:(int)_keys totalKeys:(int)_totalKeys collectMode:_collectMode] autorelease];
             [_playnomicsEventList addObject:ev];
+            
             // Reset keys/clicks
-            _keys = 0;
-            _clicks = 0;
+            [self resetKeysPressed];
+            [self resetTouchEvents];
         }
         
         for (PNEvent *ev in _playnomicsEventList) {
@@ -441,8 +429,6 @@
         [PNLogger log:PNLogLevelWarning exception: exception];
     }
 }
-
-
 
 - (void) sendOrQueueEvent:(PNEvent *)pe {
     if (_state != PNSessionStateStarted) {
@@ -461,23 +447,33 @@
     if (event.type == UIEventTypeTouches) {
         UITouch *touch = [event allTouches].anyObject;
         if (touch.phase == UITouchPhaseBegan) {
-            _clicks += 1;
-            _totalClicks += 1;
+            [self incrementTouchEvents];
         }
     }
+}
+
+-(void) incrementTouchEvents{
+    OSAtomicIncrement32Barrier(_clicks);
+    OSAtomicIncrement32Barrier(_totalClicks);
+}
+
+-(void) resetTouchEvents{
+    OSAtomicAnd32Barrier(0, _clicks);
+}
+
+-(void) incrementKeysPressed{
+    OSAtomicIncrement32Barrier(_keys);
+    OSAtomicIncrement32Barrier(_totalKeys);
+}
+
+-(void) resetKeysPressed{
+    OSAtomicAnd32Barrier(0, _keys);
 }
 
 #pragma mark - Device Identifiers
 
 -(void)onDeviceInfoChanged{
-    PNUserInfoEvent *userInfoEvent = [[PNUserInfoEvent alloc]
-                                      initWithAdvertisingInfo:self.applicationId
-                                      userId: self.userId
-                                      cookieId: self.cookieId
-                                      type:PNUserInfoTypeUpdate
-                                      limitAdvertising: [PNUtil boolAsString: [_cache getLimitAdvertising]]
-                                      idfa:[_cache getIdfa]
-                                      idfv: [_cache getIdfv]];
+    PNUserInfoEvent *userInfoEvent = [[PNUserInfoEvent alloc] initWithAdvertisingInfo:self.applicationId userId: self.userId cookieId: self.cookieId type:PNUserInfoTypeUpdate limitAdvertising: [PNUtil boolAsString: [_cache getLimitAdvertising]] idfa:[_cache getIdfa] idfv: [_cache getIdfv]];
     
     userInfoEvent.internalSessionId = self.sessionId;
     [self sendOrQueueEvent:userInfoEvent];
@@ -514,12 +510,7 @@
         
         //generate a random number for now
         int milestoneId = arc4random();
-        PNMilestoneEvent *ev = [[[PNMilestoneEvent alloc] init:PNEventMilestone
-                                                 applicationId:[self applicationId]
-                                                        userId:[self userId]
-                                                      cookieId:[self cookieId]
-                                                   milestoneId:milestoneId
-                                                 milestoneType:milestoneType] autorelease];
+        PNMilestoneEvent *ev = [[[PNMilestoneEvent alloc] init:PNEventMilestone applicationId:[self applicationId] userId:[self userId] cookieId:[self cookieId] milestoneId:milestoneId milestoneType:milestoneType] autorelease];
         ev.internalSessionId = [self sessionId];
         [self sendOrQueueEvent:ev];
     }
@@ -646,6 +637,5 @@
 - (void) hideFrameWithID:(NSString *) frameID{
     
 };
-
 @end
 
