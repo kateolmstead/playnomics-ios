@@ -50,9 +50,6 @@
     volatile NSInteger *_clicks;
     volatile NSInteger *_totalClicks;
     
-    volatile NSInteger *_keys;
-    volatile NSInteger *_totalKeys;
-    
     PNDeviceManager* _deviceInfo;
     
     NSMutableArray* _observers;
@@ -157,9 +154,7 @@
 
 #pragma mark - Session Control Methods
 -(PNGameSessionInfo *) getGameSessionInfo{
-    
     PNGameSessionInfo * info =  [[PNGameSessionInfo alloc] initWithApplicationId:self.applicationId userId:self.userId breadcrumbId:[_cache getBreadcrumbID] sessionId: self.sessionId];
-                                 
     [info autorelease];
     return info;
 }
@@ -192,9 +187,6 @@
         NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
         NSOperationQueue *mainQueue = [NSOperationQueue mainQueue];
         
-        void (^keyPressed)(NSNotification *notif) = ^(NSNotification *notif){
-            [self incrementKeysPressed];
-        };
         void (^applicationPaused)(NSNotification *notif) = ^(NSNotification *notif){
             [self pause];
         };
@@ -211,9 +203,6 @@
                 [self pushNotificationsWithPayload:push];
             }
         };
-        
-        [_observers addObject: [center addObserverForName:UITextFieldTextDidChangeNotification object:nil queue:mainQueue usingBlock:keyPressed]];
-        [_observers addObject: [center addObserverForName:UITextViewTextDidChangeNotification object:nil queue:mainQueue usingBlock:keyPressed]];
         [_observers addObject: [center addObserverForName:UIApplicationWillResignActiveNotification object:nil queue:mainQueue usingBlock:applicationPaused]];
         [_observers addObject: [center addObserverForName:UIApplicationWillTerminateNotification object:nil queue:mainQueue usingBlock:applicationTerminating]];
         [_observers addObject: [center addObserverForName:UIApplicationDidFinishLaunchingNotification object:nil queue:mainQueue usingBlock:applicationLaunched]];
@@ -256,9 +245,6 @@
     
     _clicks = 0;
     _totalClicks = 0;
-    
-    _keys = 0;
-    _totalKeys = 0;
     
     NSString *lastUserId = [_cache getLastUserId];
     NSTimeInterval lastSessionStartTime = [_cache getLastEventTime];
@@ -457,17 +443,6 @@
 -(void) resetTouchEvents{
     @synchronized(_syncLock){
         _clicks = 0;
-    }
-}
-
--(void) incrementKeysPressed{
-    OSAtomicIncrement32Barrier(_keys);
-    OSAtomicIncrement32Barrier(_totalKeys);
-}
-
--(void) resetKeysPressed{
-    @synchronized(_syncLock){
-        _keys = 0;
     }
 }
 
