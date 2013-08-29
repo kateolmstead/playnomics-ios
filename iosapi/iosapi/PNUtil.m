@@ -18,36 +18,6 @@
     return [UIApplication sharedApplication].statusBarOrientation;
 }
 
-+ (NSString *) PNEventTypeDescription: (PNEventType) value {
-    switch (value) {
-        case PNEventAppStart:
-            return @"appStart";
-        case PNEventAppPage:
-            return @"appPage";
-        case PNEventAppRunning:
-            return @"appRunning";
-        case PNEventAppPause:
-            return @"appPause";
-        case PNEventAppResume:
-            return @"appResume";
-        case PNEventAppStop:
-            return @"appStop";
-        case PNEventUserInfo:
-            return @"userInfo";
-        case PNEventTransaction:
-            return @"transaction";
-        case PNEventMilestone:
-            return @"milestone";
-        case PNEventError:
-            return @"jslog";
-        case PNEventPushNotificationToken:
-            return @"userInfo";
-        case PNEventPushNotificationPayload:
-            return @"userInfo";
-    }
-    return nil;
-}
- 
 + (NSString *) urlEncodeValue: (NSString *) unescapedValued {
     if([unescapedValued length] ==  0){
         return NULL;
@@ -92,6 +62,17 @@
 
 + (BOOL) stringAsBool : (NSString *) value {
     return (value && [[value lowercaseString] isEqualToString:@"true"]) ? YES : NO;
+}
+
++(int) timezoneOffet{
+    return [[NSTimeZone localTimeZone] secondsFromGMT] / -60;
+}
+
++ (unsigned long long) generateRandomLongLong{
+    uint8_t buffer[8];
+    arc4random_buf(buffer, sizeof buffer);
+    uint64_t* value_ptr = (uint64_t*) buffer;
+    return abs(*value_ptr);
 }
 
 @end

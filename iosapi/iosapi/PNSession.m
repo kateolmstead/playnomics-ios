@@ -11,14 +11,22 @@
 #import "PNSession.h"
 #import "PNEventSender.h"
 #import "PlaynomicsCallback.h"
-#import "PNBasicEvent.h"
 #import "PNUserInfoEvent.h"
 #import "PNTransactionEvent.h"
 #import "PNMilestoneEvent.h"
-#import "PNAPSNotificationEvent.h"
-#import "PNErrorEvent.h"
 #import "PNDeviceManager.h"
 #import "PlaynomicsMessaging.h"
+
+//events
+#import "PNEventAppPage.h"
+#import "PNEventAppStart.h"
+#import "PNEventAppPause.h"
+#import "PNEventAppResume.h"
+#import "PNEventAppRunning.h"
+#import "PNEvent.h"
+#import "PNTransactionEvent.h"
+#import "PNMilestoneEvent.h"
+#import "PNUserInfoEvent.h"
 
 @implementation PNSession {
 @private
@@ -40,8 +48,6 @@
     PNEventSender* _eventSender;
     PlaynomicsMessaging* _messaging;
     
-    int _timeZoneOffset;
-	
     volatile NSInteger *_clicks;
     volatile NSInteger *_totalClicks;
     
@@ -153,6 +159,14 @@
 }
 
 #pragma mark - Session Control Methods
+-(PNGameSessionInfo *) getGameSessionInfo{
+    
+    PNGameSessionInfo * info =  [[PNGameSessionInfo alloc] initWithApplicationId:self.applicationId userId:self.userId breadcrumbId:[_cache getBreadcrumbID] sessionId: self.sessionId];
+                                 
+    [info autorelease];
+    return info;
+}
+
 -(BOOL) assertSessionHasStarted{
     if(_state != PNSessionStateStarted){
         [PNLogger log:PNLogLevelError format: @"PlayRM session could not be started! Can't send data to Playnomics API."];
@@ -238,7 +252,6 @@
     }
     
     _collectMode = PNSettingCollectionMode;
-    _timeZoneOffset = [[NSTimeZone localTimeZone] secondsFromGMT] / -60;
     _sequence = 1;
     
     _clicks = 0;
@@ -250,23 +263,21 @@
     NSString *lastUserId = [_cache getLastUserId];
     NSTimeInterval lastSessionStartTime = [_cache getLastEventTime];
     
-    PNEventType eventType;
     
     NSTimeInterval currentTime = [[NSDate date] timeIntervalSince1970];
     
     //per our events specification, the sessionStart is always when the session start call is made,
     //regardless of whether is an appPage or appStart
-    _sessionStartTime = currentTime;
+   
+    
+    bool sessionLapsed = (currentTime - lastSessionStartTime > PNSessionTimeout) || ![_userId isEqualToString:lastUserId];
     
     // Send an appStart if it has been > 3 min since the last session or a different user
     // otherwise send an appPage
-    if ((currentTime - lastSessionStartTime > PNSessionTimeout)
-        || ![_userId isEqualToString:lastUserId]) {
+    if (sessionLapsed) {
         
         _sessionId = [[PNGeneratedHexId alloc] initAndGenerateValue];
         _instanceId = [_sessionId retain];
-        eventType = PNEventAppStart;
-        
         [_cache updateLastSessionId: _sessionId];
         [_cache updateLastUserId: _userId];
         [_cache updateLastEventTimeToNow];
@@ -274,23 +285,23 @@
         _sessionId = [_cache getLastSessionId];
         // Always create a new Instance Id
         _instanceId = [[PNGeneratedHexId alloc] initAndGenerateValue];
-        eventType = PNEventAppPage;
     }
     
     /** Send appStart or appPage event */
-    PNBasicEvent *ev = [[PNBasicEvent alloc] init: eventType applicationId:_applicationId userId:_userId cookieId:_cookieId internalSessionId:[_sessionId description] instanceId:[_instanceId description]
-                                   timeZoneOffset:_timeZoneOffset];
-    
+    PNEvent *ev = sessionLapsed ? [[PNEventAppStart alloc] initWithSessionInfo: [self getGameSessionInfo] instanceId: _instanceId]
+            : [[PNEventAppPage alloc] initWithSessionInfo: [self getGameSessionInfo] instanceId: _instanceId];
+    [ev autorelease];
+    _sessionStartTime = ev.eventTime;
     // Try to send and queue if unsuccessful
     [_eventSender sendEventToServer:ev withEventQueue:_playnomicsEventList];
-    [ev release];
-    
+
     if([_deviceInfo syncDeviceSettingsWithCache]){
         [self onDeviceInfoChanged];
     }
     
     [_cache writeDataToCache];
 }
+
 
 - (void) onApplicationWillResignActive: (NSNotification *) notification {
     [self pause];
@@ -308,14 +319,11 @@
         
         [self stopEventTimer];
         
-        PNBasicEvent *ev = [[[PNBasicEvent alloc] init:PNEventAppPause applicationId:_applicationId userId:_userId cookieId:_cookieId internalSessionId:[_sessionId description] instanceId:[_instanceId description] sessionStartTime:_sessionStartTime sequence:_sequence clicks: (int)_clicks totalClicks:(int)_totalClicks keys:(int)_keys totalKeys:(int)_totalKeys collectMode:_collectMode] autorelease];
         
-        _pauseTime = [[NSDate date] timeIntervalSince1970];
-        
+        PNEventAppPause *ev = [[PNEventAppPause alloc] initWithSessionInfo:[self getGameSessionInfo] instanceId:_instanceId sessionStartTime:_sessionStartTime sequenceNumber:_sequence touches:*_clicks totalTouches:*_totalClicks];
+        [ev autorelease];
+        _pauseTime = ev.eventTime;
         _sequence += 1;
-        
-        [ev setSequence:_sequence];
-        [ev setSessionStartTime:_sessionStartTime];
         
         // Try to send and queue if unsuccessful
         [_eventSender sendEventToServer:ev withEventQueue:_playnomicsEventList];
@@ -340,12 +348,8 @@
         
         _state = PNSessionStateStarted;
         
-        PNBasicEvent *ev = [[[PNBasicEvent alloc] init:PNEventAppResume applicationId:_applicationId userId:_userId cookieId:_cookieId internalSessionId:[_sessionId description] instanceId:[_instanceId description] sessionStartTime:_sessionStartTime sequence:_sequence clicks:(int)_clicks totalClicks:(int)_totalClicks keys:(int)_keys totalKeys:(int)_totalKeys collectMode:_collectMode] autorelease];
-        
-        ev.pauseTime = _pauseTime;
-        ev.sessionStartTime =  _sessionStartTime;
-        ev.sequence = _sequence;
-    
+        PNEventAppResume *ev  = [[PNEventAppResume alloc] initWithSessionInfo: [self getGameSessionInfo] instanceId: _instanceId sessionPauseTime:_pauseTime sessionStartTime:_sessionStartTime sequenceNumber:_sequence];
+        [ev autorelease];
         // Try to send and queue if unsuccessful
         [_eventSender sendEventToServer:ev withEventQueue:_playnomicsEventList];
     }
@@ -415,7 +419,8 @@
         if (_state == PNSessionStateStarted) {
             _sequence++;
             
-            PNBasicEvent *ev = [[[PNBasicEvent alloc] init:PNEventAppRunning applicationId:_applicationId userId:_userId cookieId:_cookieId internalSessionId:[_sessionId description] instanceId:[_instanceId description] sessionStartTime:_sessionStartTime sequence:_sequence clicks:(int)_clicks totalClicks:(int)_totalClicks keys:(int)_keys totalKeys:(int)_totalKeys collectMode:_collectMode] autorelease];
+            PNEventAppRunning *ev = [[PNEventAppRunning alloc] initWithSessionInfo: [self getGameSessionInfo] instanceId: _instanceId sessionStartTime: _sessionStartTime sequenceNumber: _sequence touches:*_clicks totalTouches: *_totalClicks];
+            [ev autorelease];
             [_playnomicsEventList addObject:ev];
             
             // Reset keys/clicks
@@ -479,20 +484,16 @@
 #pragma mark - Device Identifiers
 
 -(void)onDeviceInfoChanged{
-    PNUserInfoEvent *userInfoEvent = [[PNUserInfoEvent alloc] initWithAdvertisingInfo:self.applicationId userId: self.userId cookieId: self.cookieId type:PNUserInfoTypeUpdate limitAdvertising: [PNUtil boolAsString: [_cache getLimitAdvertising]] idfa:[[_cache getIdfa] UUIDString] idfv: [[_cache getIdfv] UUIDString]];
-    
-    userInfoEvent.internalSessionId = [self.sessionId description];
-    [self sendOrQueueEvent:userInfoEvent];
-    [userInfoEvent autorelease];
+    PNUserInfoEvent *userInfo = [[PNUserInfoEvent alloc] initWithSessionInfo:[self getGameSessionInfo] limitAdvertising:[_cache getLimitAdvertising] idfa:[_cache getIdfa] idfv: [_cache getIdfv]];
+    [self sendOrQueueEvent:userInfo];
+    [userInfo autorelease];
 }
 
 #pragma mark - Explicit Events
 
-- (void) transactionWithUSDPrice: (NSNumber*) priceInUSD quantity: (NSInteger) quantity  {
+- (void) transactionWithUSDPrice: (NSNumber *) priceInUSD quantity: (NSInteger) quantity  {
     @try {
         if(![self assertSessionHasStarted]){ return; }
-        
-        int transactionId = arc4random();
         
         NSArray *currencyTypes = [NSArray arrayWithObject: [NSNumber numberWithInt: PNCurrencyUSD]];
         NSArray *currencyValues = [NSArray arrayWithObject: priceInUSD];
@@ -500,9 +501,8 @@
         
         NSString *itemId = @"monetized";
         
-        PNTransactionEvent *ev = [[[PNTransactionEvent alloc] init:PNEventTransaction applicationId: self.applicationId userId: self.userId cookieId: self.cookieId transactionId: transactionId itemId: itemId quantity: quantity type: PNTransactionBuyItem otherUserId: nil currencyTypes: currencyTypes currencyValues: currencyValues currencyCategories: currencyCategories] autorelease];
-        
-        ev.internalSessionId = [[[PNSession sharedInstance] sessionId] description];
+        PNTransactionEvent *ev = [[PNTransactionEvent alloc] initWithSessionInfo:[self getGameSessionInfo] itemId:itemId quantity:quantity type:PNTransactionBuyItem currencyTypes:currencyTypes currencyValues:currencyValues currencyCategories:currencyCategories];
+        [ev autorelease];
         [self sendOrQueueEvent:ev];
     }
     @catch (NSException* exception) {
@@ -514,10 +514,8 @@
     @try {
         if(![self assertSessionHasStarted]){ return; }
         
-        //generate a random number for now
-        int milestoneId = arc4random();
-        PNMilestoneEvent *ev = [[[PNMilestoneEvent alloc] init:PNEventMilestone applicationId:[self applicationId] userId:[self userId] cookieId:[self cookieId] milestoneId:milestoneId milestoneType:milestoneType] autorelease];
-        ev.internalSessionId = [[self sessionId] description];
+        PNMilestoneEvent *ev = [[PNMilestoneEvent alloc] initWithSessionInfo:[self getGameSessionInfo] milestoneType:milestoneType];
+        [ev autorelease];
         [self sendOrQueueEvent:ev];
     }
     @catch (NSException *exception) {
@@ -543,12 +541,8 @@
             [userDefaults setObject:newToken forKey:PNUserDefaultsLastDeviceToken];
             [userDefaults synchronize];
             
-            PNAPSNotificationEvent *ev = [[PNAPSNotificationEvent alloc] init:PNEventPushNotificationToken
-                                                                applicationId:[self applicationId]
-                                                                       userId:[self userId]
-                                                                     cookieId:[self cookieId]
-                                                                  deviceToken:deviceToken];
-            ev.internalSessionId = [self.sessionId description];
+            PNUserInfoEvent *ev = [[PNUserInfoEvent alloc] initWithSessionInfo:[self getGameSessionInfo] pushToken: newToken];
+            [ev autorelease];
             [self sendOrQueueEvent: ev];
         }
     }
@@ -589,18 +583,6 @@
     }   
 }
 
-- (void) errorReport:(PNErrorDetail *)errorDetails
-{
-    @try {
-        PNErrorEvent *ev = [[[PNErrorEvent alloc] init:PNEventError applicationId: self.applicationId userId: self.userId cookieId: self.cookieId errorDetails:errorDetails] autorelease];
-        
-        ev.internalSessionId = [[self sessionId] description];
-        [self sendOrQueueEvent:ev];
-    }
-    @catch (NSException *exception) {
-        NSLog(@"error: %@", exception.description);
-    }
-}
 
 #pragma mark "Messaging"
 //all of this code needs to be moved inside of PlaynomicsMessaging

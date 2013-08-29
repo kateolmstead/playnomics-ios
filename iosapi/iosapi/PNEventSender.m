@@ -13,6 +13,8 @@
     return self;
 }
 
+
+
 - (void) sendEventToServer:(PNEvent *)pe withEventQueue: (NSMutableArray *) eventQueue {
 
     PNSession* play = [PNSession sharedInstance];

@@ -1,4 +1,4 @@
-#import "PNEvent.h"
+#import "PNExplicitEvent.h"
 
 typedef enum {
     PNCurrencyCategoryReal,
@@ -27,16 +27,9 @@ typedef enum {
     PNCurrencyOFF
 } PNCurrencyType;
 
-@interface PNTransactionEvent : PNEvent
+@interface PNTransactionEvent : PNExplicitEvent
 
-@property(nonatomic, assign) signed long long transactionId;
-@property(nonatomic, retain) NSString* itemId;
-@property(nonatomic, assign) NSInteger quantity;
-@property(nonatomic, assign) PNTransactionType type;
-@property(nonatomic, retain) NSString* otherUserId;
-@property(nonatomic, retain) NSArray* currencyTypes;
-@property(nonatomic, retain) NSArray* currencyValues;
-@property(nonatomic, retain) NSArray* currencyCategories;
+- (id) initWithSessionInfo: (PNGameSessionInfo *)info itemId: (NSString*) itemId quantity: (NSInteger) quantity type: (PNTransactionType) type currencyTypes: (NSArray*) currencyTypes currencyValues: (NSArray*) currencyValues currencyCategories: (NSArray*) currencyCategories;
+- (NSString *) baseUrlPath;
 
-- (id) init:  (PNEventType) eventType applicationId: (signed long long) applicationId userId: (NSString*) userId cookieId: (NSString*) cookieId transactionId: (signed long long) transactionId itemId: (NSString*) itemId quantity: (NSInteger) quantity type: (PNTransactionType) type otherUserId: (NSString*) otherUserId currencyTypes: (NSArray*) currencyTypes currencyValues: (NSArray*) currencyValues currencyCategories: (NSArray*) currencyCategories;
 @end

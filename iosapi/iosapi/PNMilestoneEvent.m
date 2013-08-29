@@ -6,39 +6,23 @@
 //
 //
 #import "PNMilestoneEvent.h"
-
 @implementation PNMilestoneEvent
-@synthesize milestoneId=_milestoneId;
-@synthesize milestoneType=_milestoneType;
 
-- (id) init:  (PNEventType) eventType applicationId: (signed long long) applicationId userId: (NSString *) userId cookieId: (NSString *) cookieId milestoneId: (signed long long) milestoneId milestoneType:(PNMilestoneType) milestoneType {
+- (id) initWithSessionInfo:(PNGameSessionInfo *)info milestoneType: (PNMilestoneType) milestoneType {
     
-    if ((self = [super init:eventType applicationId:applicationId userId:userId cookieId:cookieId])) {
-        _milestoneId = milestoneId;
-        _milestoneType = milestoneType;
+    if ((self = [super initWithSessionInfo:info])) {
+        
+        unsigned long long milestoneId = [PNUtil generateRandomLongLong];
+        NSString *milestoneName = [self getNameForMilestoneType: milestoneType];
+        
+        [self appendParameter: [NSNumber numberWithUnsignedLongLong: milestoneId] forKey: PNEventParameterMilestoneId];
+        [self appendParameter: milestoneName forKey: PNEventParameterMilestoneName];
     }
     return self;
 }
 
-- (NSString *) toQueryString {
-    //escape the milestone name
-    NSString * milestoneName = [self getNameForMilestoneType: self.milestoneType];
-    NSString * queryString = [[super toQueryString] stringByAppendingFormat:@"&mi=%lld&mn=%@&jsh=%@", self.milestoneId, milestoneName, self.internalSessionId];
-    return queryString;
-}
-
-- (void)encodeWithCoder:(NSCoder *)encoder {
-    [super encodeWithCoder:encoder];
-    [encoder encodeInt64:_milestoneId forKey:@"PNMilestoneEvent._milestoneId"];
-    [encoder encodeInt:_milestoneType forKey:@"PNMilestoneEvent._milestoneType"];
-}
-
-- (id)initWithCoder:(NSCoder *)decoder {
-    if ((self = [super initWithCoder:decoder])) {
-        _milestoneId = [decoder decodeInt64ForKey:@"PNMilestoneEvent._milestoneId"];
-        _milestoneType = [decoder decodeIntegerForKey:@"PNMilestoneEvent._milestoneType"];
-    }
-    return self;
+- (NSString *) baseUrlPath{
+    return @"milestone";
 }
 
 - (NSString *) getNameForMilestoneType: (PNMilestoneType) milestoneType{

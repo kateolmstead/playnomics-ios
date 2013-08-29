@@ -8,7 +8,6 @@
 #import "PlaynomicsFrame.h"
 #import "FSNConnection.h"
 #import "BaseAdComponent.h"
-#import "PNErrorEvent.h"
 #import "PlaynomicsCallback.h"
 
 

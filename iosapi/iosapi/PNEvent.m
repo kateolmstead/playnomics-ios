@@ -2,67 +2,65 @@
 #import "PNUtil.h"
 
 @implementation PNEvent
-@synthesize eventType=_eventType;
+@synthesize eventParameters=_eventParameters;
 @synthesize eventTime=_eventTime;
-@synthesize applicationId=_applicationId;
-@synthesize userId=_userId;
-@synthesize internalSessionId=_internalSessionId;
-@synthesize cookieId=_cookieId;
 
-- (id) init: (PNEventType) eventType applicationId:(signed long long) applicationId userId:(NSString *)userId cookieId:(NSString *)cookieId {
-    if ((self = [super init])) {
+- (id) initWithSessionInfo: (PNGameSessionInfo *) info{
+    if((self = [super init])){
         _eventTime = [[NSDate date] timeIntervalSince1970];
-        _eventType = eventType;
-        _applicationId = applicationId;
-        _userId = [userId retain];
-        _cookieId = [cookieId retain];
+        _eventParameters = [[NSMutableDictionary alloc] init];
+        
+        [_eventParameters setValue: [NSNumber numberWithLongLong: (_eventTime * 1000)] forKey: PNEventParameterTimeStamp];
+        [_eventParameters setValue: info.applicationId forKey: PNEventParameterApplicationId];
+        [_eventParameters setValue: info.userId forKey: PNEventParameterUserId];
+        [_eventParameters setValue: info.breadcrumbId forKey: PNEventParameterDeviceID];
+        
+        [_eventParameters setValue: @"ios" forKey: PNEventParameterSdkName];
+        [_eventParameters setValue: PNPropertyVersion forKey: PNEventParameterSdkName];
+        
+    
+        if([self includesSessionId]){
+            [_eventParameters setValue:[info.sessionId toHex] forKey: [self sessionKey]];
+        }
     }
     return self;
 }
 
-- (NSString *) description {
-    return [NSString stringWithFormat:@"%@: %@", [[NSDate dateWithTimeIntervalSince1970:_eventTime] description], [PNUtil PNEventTypeDescription: _eventType]];
+- (id) initWithSessionInfo: (PNGameSessionInfo *) info instanceId: (PNGeneratedHexId *) instanceId{
+    self = [self initWithSessionInfo:info];
+    [self appendParameter:[instanceId toHex] forKey:@"i"];
+    return self;
 }
 
-- (NSString *) addOptionalParam:(NSString *)url name:(NSString *)name value:(NSString *)value {
-    if ([value length] > 0) {
-        NSString * escapedValue = [PNUtil urlEncodeValue:value];
-        url = [url stringByAppendingFormat:@"&%@=%@", name, [escapedValue description]];
-    }
-    return url;
-}
-
-- (NSString *) toQueryString {
-    signed long long eventTime = [self eventTime] * 1000;
-    return [NSString stringWithFormat:@"%@?t=%lld&a=%lld&u=%@&b=%@",
-            [PNUtil PNEventTypeDescription:[self eventType]],
-            eventTime,
-            [self applicationId],
-            [self userId],
-            [self cookieId]];
+- (void) appendParameter: (id) value  forKey:(NSString *) key{
+    [_eventParameters setValue: value forKey: key];
 }
 
 - (void)encodeWithCoder:(NSCoder *)encoder {
-    [encoder encodeObject:_userId forKey:@"PNEvent._userId"];
-    [encoder encodeInt64:_applicationId forKey:@"PNEvent._applicationId"];
-    [encoder encodeInt:_eventType forKey:@"PNEvent._eventType"];
-    [encoder encodeDouble:_eventTime forKey:@"PNEvent._eventTime"];
+    [encoder encodeObject:_eventParameters forKey:@"_eventParameters"];
 }
 
 - (id)initWithCoder:(NSCoder *)decoder {
     if ((self = [super init])) {
-        _userId = (NSString *)[[decoder decodeObjectForKey:@"PNEvent._userId"] retain];
-        _applicationId = [decoder decodeInt64ForKey:@"PNEvent._applicationId"];
-        _eventType = [decoder decodeIntForKey:@"PNEvent._eventType"];
-        _eventTime = [decoder decodeDoubleForKey:@"PNEvent._eventTime"];
+        _eventParameters = (NSDictionary *)[[decoder decodeObjectForKey:@"_eventParameters"] retain];
     }
     return self;
 }
 
+- (BOOL) includesSessionId{
+    return YES;
+}
+
+- (NSString*) sessionKey{
+    @throw ([NSException exceptionWithName:@"UnimplementedMethodException" reason:@"This method is abstract and should be overridden by a subclass of PNEvent" userInfo:nil]);
+}
+
+- (NSString *) baseUrlPath{
+   @throw ([NSException exceptionWithName:@"UnimplementedMethodException" reason:@"This method is abstract and should be overridden by a subclass of PNEvent" userInfo:nil]);
+}
+
 - (void) dealloc {
-    [_userId release];
-    [_internalSessionId release];
-    
+    [_eventParameters release];
     [super dealloc];
 }
 @end

@@ -59,8 +59,6 @@
     NSLog(@"Response data: %@", [[[NSString alloc] initWithData:adResponse encoding:NSUTF8StringEncoding] autorelease]);
     
     if (adResponse == nil){
-        PNErrorDetail *detail = [PNErrorDetail pNErrorDetailWithType:PNErrorTypeInvalidJson];
-        [_session errorReport:detail];
         return nil;
     }
     

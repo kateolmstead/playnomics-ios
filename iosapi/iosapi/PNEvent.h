@@ -1,22 +1,64 @@
 #import <Foundation/Foundation.h>
+#import "PNGameSessionInfo.h"
 
-@interface PNEvent : NSObject <NSCoding> {
-    PNEventType _eventType;
-    NSTimeInterval  _eventTime;
-    signed long long _applicationId;
-    NSString * _userId;
-    NSString * _cookieId;
-}
 
-@property (nonatomic, retain) NSString * internalSessionId;
-@property (nonatomic, assign) PNEventType eventType;
-@property (nonatomic, assign) NSTimeInterval eventTime;
-@property (nonatomic, assign) signed long long applicationId;
-@property (nonatomic, retain) NSString *userId;
-@property (nonatomic, retain) NSString * cookieId;
+//all events
+#define PNEventParameterTimeStamp @"t"
+#define PNEventParameterUserId @"u"
+#define PNEventParameterApplicationId @"a"
+#define PNEventParameterDeviceID @"b"
+#define PNEventParameterSdkName @"esrc"
+#define PNEventParameterSdkVersion @"ever"
+//implicit event
+#define PNEventParameterInstanceId @"i"
+#define PNEventParameterImplicitSessionId @"s"
+//explicit event
+#define PNEventParameterExplicitSessionId @"jsh"
+//appStart/appPage
+#define PNEventParameterTimezoneOffset @"z"
+//appStart/appPage
+#define PNEventParameterSequence @"q"
+#define PNEventParameterTouches @"c"
+#define PNEventParameterTotalTouches @"e"
+#define PNEventParameterKeysPressed @"k"
+#define PNEventParameterTotalKeysPressed @"l"
+#define PNEventParameterSessionStartTime @"r"
+#define PNEventParameterIntervalMilliseconds @"d"
+#define PNEventParameterCaptureMode @"m"
+//appResume
+#define PNEventParameterSessionPauseTime @"p"
+//userinfo
+#define PNEventParameterUserInfoType @"pt"
+#define PNEventParameterUserInfoPushToken @"pushTok"
+#define PNEventParameterUserInfoLimitAdvertising @"limitAdvertising"
+#define PNEventParameterUserInfoIdfa @"idfa"
+#define PNEventParameterUserInfoIdfv @"idfv"
 
-- (id) init: (PNEventType)eventType applicationId:(signed long long) applicationId userId:(NSString *)userId cookieId:(NSString *)cookieId;
-- (NSString *) description;
-- (NSString *) addOptionalParam:(NSString *)url name:(NSString *)name value:(NSString *)value;
-- (NSString *) toQueryString;
+//transactions
+#define PNEventParameterTransactionId @"r"
+#define PNEventParameterTransactionType @"tt"
+#define PNEventParameterTransactionItemId @"i"
+#define PNEventParameterTransactionQuantity @"tq"
+#define PNEventParameterTransactionCurrencyTypeFormat @"tc%d"
+#define PNEventParameterTransactionCurrencyValueFormat @"tv%d"
+#define PNEventParameterTransactionCurrencyCategoryFormat @"ta%d"
+//milestones
+#define PNEventParameterMilestoneId @"mi"
+#define PNEventParameterMilestoneName @"mn"
+//push notifications
+#define PNEventParameterPushToken @"pt"
+
+@interface PNEvent : NSObject <NSCoding>
+
+@property (nonatomic, readonly) NSDictionary *eventParameters;
+@property (nonatomic, readonly) NSTimeInterval eventTime;
+
+- (id) initWithSessionInfo: (PNGameSessionInfo *) info;
+- (id) initWithSessionInfo: (PNGameSessionInfo *) info instanceId: (PNGeneratedHexId *) instanceId;
+
+- (void) appendParameter: (id) value  forKey:(NSString *) key;
+
+- (BOOL) includesSessionId;
+- (NSString*) sessionKey;
+- (NSString *) baseUrlPath;
 @end

@@ -14,7 +14,7 @@
 
 - (id) initAndGenerateValue{
     if((self = [super init])){
-        _generatedId = [self generateNewId];
+        _generatedId = [PNUtil generateRandomLongLong];
     }
     return self;
 }
@@ -35,11 +35,5 @@
     return [NSString stringWithFormat:@"%llX", _generatedId];
 }
 
--(long long) generateNewId{
-    uint8_t buffer[8];
-    arc4random_buf(buffer, sizeof buffer);
-    uint64_t* value_ptr = (uint64_t*) buffer;
-    return abs(*value_ptr);
-}
 
 @end

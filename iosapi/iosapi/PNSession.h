@@ -7,7 +7,6 @@
 #import <UIKit/UIKit.h>
 #import "Playnomics.h"
 #import "PNGeneratedHexId.h"
-#import "PNErrorDetail.h"
 #import "PNCache.h"
 
 typedef enum {
@@ -53,8 +52,6 @@ typedef enum {
 - (void) pushNotificationsWithPayload: (NSDictionary *)payload;
 //UI Events
 - (void) onUIEventReceived: (UIEvent *) event;
-//Report errors
-- (void) errorReport:(PNErrorDetail*)errorDetails;
 //Messaging
 - (void) preloadFramesWithIDs: (NSSet *) frameIDs;
 - (void) showFrameWithID:(NSString *) frameID;

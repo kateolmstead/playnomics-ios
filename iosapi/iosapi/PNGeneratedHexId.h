@@ -10,7 +10,7 @@
 
 @interface PNGeneratedHexId : NSObject
 
-@property (nonatomic, readonly) long long generatedId;
+@property (nonatomic, readonly) unsigned long long generatedId;
 
 - (id) initAndGenerateValue;
 - (id) initWithValue: (NSString*) value;

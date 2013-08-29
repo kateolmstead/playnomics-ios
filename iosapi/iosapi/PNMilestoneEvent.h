@@ -6,13 +6,9 @@
 //
 //
 #import "PNSession.h"
-#import "PNEvent.h"
+#import "PNExplicitEvent.h"
 
-@interface PNMilestoneEvent : PNEvent
-
-@property(nonatomic, assign) signed long long milestoneId;
-@property(nonatomic, assign) PNMilestoneType milestoneType;
-
-- (id) init:  (PNEventType) eventType applicationId: (signed long long) applicationId userId: (NSString *) userId cookieId: (NSString *) cookieId milestoneId: (signed long long) milestoneId milestoneType: (PNMilestoneType) milestoneType;
-
+@interface PNMilestoneEvent : PNExplicitEvent
+- (id) initWithSessionInfo:(PNGameSessionInfo *)info milestoneType: (PNMilestoneType) milestoneType;
+- (NSString *) baseUrlPath;
 @end
