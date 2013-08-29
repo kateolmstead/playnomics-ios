@@ -9,7 +9,7 @@
 #import <libkern/OSAtomic.h>
 
 #import "PNSession.h"
-#import "PNEventSender.h"
+#import "PNEventApiClient.h"
 #import "PlaynomicsCallback.h"
 #import "PNUserInfoEvent.h"
 #import "PNTransactionEvent.h"
@@ -34,7 +34,6 @@
     int _sequence;
     
     NSTimer* _eventTimer;
-    NSMutableArray* _playnomicsEventList;
     PNGeneratedHexId *_instanceId;
     NSString* _testEventsUrl;
     NSString* _prodEventsUrl;
@@ -45,7 +44,7 @@
 	NSTimeInterval _pauseTime;
     
     PlaynomicsCallback* _callback;
-    PNEventSender* _eventSender;
+    PNEventApiClient* _apiClient;
     PlaynomicsMessaging* _messaging;
     
     volatile NSInteger *_clicks;
@@ -89,8 +88,7 @@
         _collectMode = PNSettingCollectionMode;
         _sequence = 0;
         
-        _playnomicsEventList = [[NSMutableArray alloc] init];
-        _eventSender = [[PNEventSender alloc] init];
+        _apiClient = [[PNEventApiClient alloc] init];
         
         _testEventsUrl = PNPropertyBaseTestUrl;
         _prodEventsUrl = PNPropertyBaseProdUrl;
@@ -115,8 +113,7 @@
 }
 
 - (void) dealloc {
-    [_eventSender release];
-	[_playnomicsEventList release];
+    [_apiClient release];
     [_callback release];
 
     /** Tracking values */
@@ -225,11 +222,14 @@
         // Retrieve stored Event List
         NSArray *storedEvents = (NSArray *) [NSKeyedUnarchiver unarchiveObjectWithFile:PNFileEventArchive];
         if ([storedEvents count] > 0) {
-            [_playnomicsEventList addObjectsFromArray:storedEvents];
+            
+            for(int i = 0; i < [storedEvents count]; i ++){
+                NSString* eventUrl = [storedEvents objectAtIndex:i];
+                [_apiClient enqueueEventUrl: eventUrl];
+            }
             
             // Remove archive so as not to pick up bad events when starting up next time.
-            NSFileManager *fm = [NSFileManager defaultManager];
-            [fm removeItemAtPath:PNFileEventArchive error:nil];
+            [[NSFileManager defaultManager] removeItemAtPath:PNFileEventArchive error:nil];
         }
         return;
     }
@@ -293,7 +293,7 @@
     [ev autorelease];
     _sessionStartTime = ev.eventTime;
     // Try to send and queue if unsuccessful
-    [_eventSender sendEventToServer:ev withEventQueue:_playnomicsEventList];
+    [_apiClient enqueueEvent:ev];
 
     if([_deviceInfo syncDeviceSettingsWithCache]){
         [self onDeviceInfoChanged];
@@ -326,7 +326,10 @@
         _sequence += 1;
         
         // Try to send and queue if unsuccessful
-        [_eventSender sendEventToServer:ev withEventQueue:_playnomicsEventList];
+        
+        [_apiClient pause];
+        [_apiClient enqueueEvent:ev];
+        
     }
     @catch (NSException *exception) {
         [PNLogger log: PNLogLevelError exception: exception format:@"Could not pause the Playnomics Session"];
@@ -350,8 +353,8 @@
         
         PNEventAppResume *ev  = [[PNEventAppResume alloc] initWithSessionInfo: [self getGameSessionInfo] instanceId: _instanceId sessionPauseTime:_pauseTime sessionStartTime:_sessionStartTime sequenceNumber:_sequence];
         [ev autorelease];
-        // Try to send and queue if unsuccessful
-        [_eventSender sendEventToServer:ev withEventQueue:_playnomicsEventList];
+        [_apiClient enqueueEvent: ev];
+        [_apiClient start];
     }
     @catch (NSException *exception) {
         [PNLogger log: PNLogLevelError exception: exception format:@"Could not resume the Playnomics Session"];
@@ -378,12 +381,15 @@
             //remove all observers
             [[NSNotificationCenter defaultCenter] removeObserver: observer];
         }
-        // Store Event List
-        if (![NSKeyedArchiver archiveRootObject: _playnomicsEventList toFile:PNFileEventArchive]) {
-            [PNLogger log: PNLogLevelWarning format: @"Playnomics: Could not save event list"];
-        }
         
         [_cache writeDataToCache];
+        
+        [_apiClient stop];
+        NSSet *unprocessedEvents = [_apiClient getAllUnprocessedUrls];
+        // Store Event List
+        if (![NSKeyedArchiver archiveRootObject: unprocessedEvents toFile:PNFileEventArchive]) {
+            [PNLogger log: PNLogLevelWarning format: @"Playnomics: Could not save event list"];
+        }
     }
     @catch (NSException *exception) {
         [PNLogger log: PNLogLevelError exception: exception];
@@ -421,32 +427,16 @@
             
             PNEventAppRunning *ev = [[PNEventAppRunning alloc] initWithSessionInfo: [self getGameSessionInfo] instanceId: _instanceId sessionStartTime: _sessionStartTime sequenceNumber: _sequence touches:*_clicks totalTouches: *_totalClicks];
             [ev autorelease];
-            [_playnomicsEventList addObject:ev];
+         
+            [_apiClient enqueueEvent:ev];
             
             // Reset keys/clicks
-            [self resetKeysPressed];
             [self resetTouchEvents];
-        }
-        
-        for (PNEvent *ev in _playnomicsEventList) {
-            [_eventSender sendEventToServer:ev withEventQueue:_playnomicsEventList];
         }
     }
     @catch (NSException *exception) {
         [PNLogger log:PNLogLevelWarning exception: exception];
     }
-}
-
-- (void) sendOrQueueEvent:(PNEvent *)pe {
-    if (_state != PNSessionStateStarted) {
-        //add the event to our queue if we are here
-        if(pe != nil){
-            [_playnomicsEventList addObject:pe];
-        }
-    }
-    
-    // Try to send and queue if unsuccessful
-    [_eventSender sendEventToServer:pe withEventQueue:_playnomicsEventList];
 }
 
 #pragma mark - Application Event Handlers
@@ -485,7 +475,7 @@
 
 -(void)onDeviceInfoChanged{
     PNUserInfoEvent *userInfo = [[PNUserInfoEvent alloc] initWithSessionInfo:[self getGameSessionInfo] limitAdvertising:[_cache getLimitAdvertising] idfa:[_cache getIdfa] idfv: [_cache getIdfv]];
-    [self sendOrQueueEvent:userInfo];
+    [_apiClient enqueueEvent:userInfo];
     [userInfo autorelease];
 }
 
@@ -503,7 +493,7 @@
         
         PNTransactionEvent *ev = [[PNTransactionEvent alloc] initWithSessionInfo:[self getGameSessionInfo] itemId:itemId quantity:quantity type:PNTransactionBuyItem currencyTypes:currencyTypes currencyValues:currencyValues currencyCategories:currencyCategories];
         [ev autorelease];
-        [self sendOrQueueEvent:ev];
+        [_apiClient enqueueEvent:ev];
     }
     @catch (NSException* exception) {
         [PNLogger log:PNLogLevelWarning exception:exception format: @"Could not send transaction."];
@@ -516,7 +506,7 @@
         
         PNMilestoneEvent *ev = [[PNMilestoneEvent alloc] initWithSessionInfo:[self getGameSessionInfo] milestoneType:milestoneType];
         [ev autorelease];
-        [self sendOrQueueEvent:ev];
+        [_apiClient enqueueEvent:ev];
     }
     @catch (NSException *exception) {
         [PNLogger log:PNLogLevelWarning exception:exception format: @"Could not send milestone."];
@@ -543,7 +533,7 @@
             
             PNUserInfoEvent *ev = [[PNUserInfoEvent alloc] initWithSessionInfo:[self getGameSessionInfo] pushToken: newToken];
             [ev autorelease];
-            [self sendOrQueueEvent: ev];
+            [_apiClient enqueueEvent: ev];
         }
     }
     @catch (NSException *exception) {

@@ -11,7 +11,7 @@
 
 #define PNSettingCollectionMode (int) 8;
 
-#define PNFileEventArchive [[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent: @"PlaynomicsEvents.archive"]
+#define PNFileEventArchive [[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent: @"PlayRMEvents.archive"]
 // Playnomics server urls
 #define PNPropertyBaseTestUrl @"https://e.b.playnomics.net/v1/"
 #define PNPropertyBaseProdUrl @"https://e.a.playnomics.net/v1/"

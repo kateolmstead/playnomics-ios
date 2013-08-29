@@ -37,6 +37,10 @@
 		3290169617CEF2930041895A /* PNEventAppStart.m in Sources */ = {isa = PBXBuildFile; fileRef = 3290169417CEF2900041895A /* PNEventAppStart.m */; };
 		3290169917CEF5AA0041895A /* PNEventAppPage.h in Headers */ = {isa = PBXBuildFile; fileRef = 3290169717CEF5A60041895A /* PNEventAppPage.h */; };
 		3290169A17CEF5AA0041895A /* PNEventAppPage.m in Sources */ = {isa = PBXBuildFile; fileRef = 3290169817CEF5A80041895A /* PNEventAppPage.m */; };
+		3290169D17CFD8640041895A /* PNConcurrentQueue.h in Headers */ = {isa = PBXBuildFile; fileRef = 3290169B17CFD8640041895A /* PNConcurrentQueue.h */; };
+		3290169E17CFD8640041895A /* PNConcurrentQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 3290169C17CFD8640041895A /* PNConcurrentQueue.m */; };
+		329016A117CFE7A50041895A /* PNEventRequestOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 3290169F17CFE7A40041895A /* PNEventRequestOperation.h */; };
+		329016A217CFE7A50041895A /* PNEventRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 329016A017CFE7A40041895A /* PNEventRequestOperation.m */; };
 		32A7C31217C3FCBC00E959A3 /* PNLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 32A7C31017C3FCBC00E959A3 /* PNLogger.h */; };
 		32A7C31317C3FCBC00E959A3 /* PNLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 32A7C31117C3FCBC00E959A3 /* PNLogger.m */; };
 		32A7C33017C6A36B00E959A3 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1D922811590F59700EDDE17 /* SenTestingKit.framework */; };
@@ -74,8 +78,8 @@
 		D1D922B2159112A300EDDE17 /* PNTransactionEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = D1D922AC159112A200EDDE17 /* PNTransactionEvent.m */; };
 		D1D922B3159112A300EDDE17 /* PNUserInfoEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = D1D922AD159112A200EDDE17 /* PNUserInfoEvent.h */; };
 		D1D922B4159112A300EDDE17 /* PNUserInfoEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = D1D922AE159112A300EDDE17 /* PNUserInfoEvent.m */; };
-		D1D922C1159112C100EDDE17 /* PNEventSender.h in Headers */ = {isa = PBXBuildFile; fileRef = D1D922B9159112C100EDDE17 /* PNEventSender.h */; };
-		D1D922C2159112C100EDDE17 /* PNEventSender.m in Sources */ = {isa = PBXBuildFile; fileRef = D1D922BA159112C100EDDE17 /* PNEventSender.m */; };
+		D1D922C1159112C100EDDE17 /* PNEventApiClient.h in Headers */ = {isa = PBXBuildFile; fileRef = D1D922B9159112C100EDDE17 /* PNEventApiClient.h */; };
+		D1D922C2159112C100EDDE17 /* PNEventApiClient.m in Sources */ = {isa = PBXBuildFile; fileRef = D1D922BA159112C100EDDE17 /* PNEventApiClient.m */; };
 		D1D922CB159112F400EDDE17 /* PNConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = D1D922C9159112F400EDDE17 /* PNConstants.h */; settings = {ATTRIBUTES = (); }; };
 /* End PBXBuildFile section */
 
@@ -110,6 +114,10 @@
 		3290169417CEF2900041895A /* PNEventAppStart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNEventAppStart.m; sourceTree = "<group>"; };
 		3290169717CEF5A60041895A /* PNEventAppPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNEventAppPage.h; sourceTree = "<group>"; };
 		3290169817CEF5A80041895A /* PNEventAppPage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNEventAppPage.m; sourceTree = "<group>"; };
+		3290169B17CFD8640041895A /* PNConcurrentQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNConcurrentQueue.h; sourceTree = "<group>"; };
+		3290169C17CFD8640041895A /* PNConcurrentQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNConcurrentQueue.m; sourceTree = "<group>"; };
+		3290169F17CFE7A40041895A /* PNEventRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PNEventRequestOperation.h; path = ../PNEventRequestOperation.h; sourceTree = "<group>"; };
+		329016A017CFE7A40041895A /* PNEventRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PNEventRequestOperation.m; path = ../PNEventRequestOperation.m; sourceTree = "<group>"; };
 		32A7C31017C3FCBC00E959A3 /* PNLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNLogger.h; sourceTree = "<group>"; };
 		32A7C31117C3FCBC00E959A3 /* PNLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNLogger.m; sourceTree = "<group>"; };
 		32A7C32F17C6A36B00E959A3 /* PlaynomicsSDKTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PlaynomicsSDKTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -166,8 +174,8 @@
 		D1D922AC159112A200EDDE17 /* PNTransactionEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = PNTransactionEvent.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		D1D922AD159112A200EDDE17 /* PNUserInfoEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = PNUserInfoEvent.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		D1D922AE159112A300EDDE17 /* PNUserInfoEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = PNUserInfoEvent.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		D1D922B9159112C100EDDE17 /* PNEventSender.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PNEventSender.h; path = iosapi/PNEventSender.h; sourceTree = "<group>"; };
-		D1D922BA159112C100EDDE17 /* PNEventSender.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = PNEventSender.m; path = iosapi/PNEventSender.m; sourceTree = "<group>"; };
+		D1D922B9159112C100EDDE17 /* PNEventApiClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNEventApiClient.h; sourceTree = "<group>"; };
+		D1D922BA159112C100EDDE17 /* PNEventApiClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = PNEventApiClient.m; sourceTree = "<group>"; };
 		D1D922C9159112F400EDDE17 /* PNConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = PNConstants.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 /* End PBXFileReference section */
 
@@ -204,11 +212,20 @@
 			name = Mocks;
 			sourceTree = "<group>";
 		};
+		329016A317CFF67E0041895A /* APIClient */ = {
+			isa = PBXGroup;
+			children = (
+				3290169F17CFE7A40041895A /* PNEventRequestOperation.h */,
+				329016A017CFE7A40041895A /* PNEventRequestOperation.m */,
+				D1D922B9159112C100EDDE17 /* PNEventApiClient.h */,
+				D1D922BA159112C100EDDE17 /* PNEventApiClient.m */,
+			);
+			name = APIClient;
+			sourceTree = "<group>";
+		};
 		32A7C31517C432E700E959A3 /* Session */ = {
 			isa = PBXGroup;
 			children = (
-				D1D922B9159112C100EDDE17 /* PNEventSender.h */,
-				D1D922BA159112C100EDDE17 /* PNEventSender.m */,
 				5BBAA22D159BD87300AA4993 /* PNApplication.m */,
 				68C3137017B1C5CE0079E306 /* PNDeviceManager.h */,
 				3290166F17CD403B0041895A /* PNDeviceManager+Private.h */,
@@ -349,6 +366,8 @@
 				3290166317CC42420041895A /* PNCache.h */,
 				3290166E17CD300F0041895A /* PNCache+Private.h */,
 				3290166417CC42420041895A /* PNCache.m */,
+				3290169B17CFD8640041895A /* PNConcurrentQueue.h */,
+				3290169C17CFD8640041895A /* PNConcurrentQueue.m */,
 			);
 			name = Util;
 			sourceTree = "<group>";
@@ -403,6 +422,7 @@
 				5B589DBE15993764002B6251 /* PNConfig.h */,
 				D1D922C9159112F400EDDE17 /* PNConstants.h */,
 				D1D922771590F59700EDDE17 /* iosapi-Prefix.pch */,
+				329016A317CFF67E0041895A /* APIClient */,
 				5B6C6E141593CC480088EF5E /* Event */,
 				32A7C31517C432E700E959A3 /* Session */,
 				5BC947E9159E259F00BE180B /* Util */,
@@ -425,7 +445,7 @@
 				D1D922A71591125700EDDE17 /* PNEvent.h in Headers */,
 				D1D922B1159112A300EDDE17 /* PNTransactionEvent.h in Headers */,
 				D1D922B3159112A300EDDE17 /* PNUserInfoEvent.h in Headers */,
-				D1D922C1159112C100EDDE17 /* PNEventSender.h in Headers */,
+				D1D922C1159112C100EDDE17 /* PNEventApiClient.h in Headers */,
 				D1D922CB159112F400EDDE17 /* PNConstants.h in Headers */,
 				5B6C6E1C1593F0F30088EF5E /* PNUtil.h in Headers */,
 				5B589DBF15993764002B6251 /* PNConfig.h in Headers */,
@@ -448,6 +468,8 @@
 				3290169117CEF22A0041895A /* PNEventAppRunning.h in Headers */,
 				3290169517CEF2930041895A /* PNEventAppStart.h in Headers */,
 				3290169917CEF5AA0041895A /* PNEventAppPage.h in Headers */,
+				3290169D17CFD8640041895A /* PNConcurrentQueue.h in Headers */,
+				329016A117CFE7A50041895A /* PNEventRequestOperation.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -565,7 +587,7 @@
 				D1D922A81591125700EDDE17 /* PNEvent.m in Sources */,
 				D1D922B2159112A300EDDE17 /* PNTransactionEvent.m in Sources */,
 				D1D922B4159112A300EDDE17 /* PNUserInfoEvent.m in Sources */,
-				D1D922C2159112C100EDDE17 /* PNEventSender.m in Sources */,
+				D1D922C2159112C100EDDE17 /* PNEventApiClient.m in Sources */,
 				5B6C6E1D1593F0F30088EF5E /* PNUtil.m in Sources */,
 				5BBAA22F159BD87300AA4993 /* PNApplication.m in Sources */,
 				42FBA86B3DB5A96A46894B6C /* PlaynomicsFrame.m in Sources */,
@@ -587,6 +609,8 @@
 				3290169217CEF22A0041895A /* PNEventAppRunning.m in Sources */,
 				3290169617CEF2930041895A /* PNEventAppStart.m in Sources */,
 				3290169A17CEF5AA0041895A /* PNEventAppPage.m in Sources */,
+				3290169E17CFD8640041895A /* PNConcurrentQueue.m in Sources */,
+				329016A217CFE7A50041895A /* PNEventRequestOperation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

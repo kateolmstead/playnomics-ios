@@ -14,6 +14,7 @@
     if((self = [super initWithSessionInfo: sessionInfo instanceId: instanceId])){
         [self appendParameter: [NSNumber numberWithInt: [PNUtil timezoneOffet]] forKey: PNEventParameterTimezoneOffset];
     }
+    return self;
 }
 
 - (NSString *) baseUrlPath{
