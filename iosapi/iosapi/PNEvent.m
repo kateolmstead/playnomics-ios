@@ -18,10 +18,7 @@
         [_eventParameters setValue: @"ios" forKey: PNEventParameterSdkName];
         [_eventParameters setValue: PNPropertyVersion forKey: PNEventParameterSdkName];
         
-    
-        if([self includesSessionId]){
-            [_eventParameters setValue:[info.sessionId toHex] forKey: [self sessionKey]];
-        }
+        [_eventParameters setValue:[info.sessionId toHex] forKey: [self sessionKey]];
     }
     return self;
 }
@@ -34,21 +31,6 @@
 
 - (void) appendParameter: (id) value  forKey:(NSString *) key{
     [_eventParameters setValue: value forKey: key];
-}
-
-- (void)encodeWithCoder:(NSCoder *)encoder {
-    [encoder encodeObject:_eventParameters forKey:@"_eventParameters"];
-}
-
-- (id)initWithCoder:(NSCoder *)decoder {
-    if ((self = [super init])) {
-        _eventParameters = (NSDictionary *)[[decoder decodeObjectForKey:@"_eventParameters"] retain];
-    }
-    return self;
-}
-
-- (BOOL) includesSessionId{
-    return YES;
 }
 
 - (NSString*) sessionKey{

@@ -48,7 +48,7 @@
 //push notifications
 #define PNEventParameterPushToken @"pt"
 
-@interface PNEvent : NSObject <NSCoding>
+@interface PNEvent : NSObject
 
 @property (nonatomic, readonly) NSDictionary *eventParameters;
 @property (nonatomic, readonly) NSTimeInterval eventTime;
@@ -58,7 +58,6 @@
 
 - (void) appendParameter: (id) value  forKey:(NSString *) key;
 
-- (BOOL) includesSessionId;
 - (NSString*) sessionKey;
 - (NSString *) baseUrlPath;
 @end
