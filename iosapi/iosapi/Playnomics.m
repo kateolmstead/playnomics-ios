@@ -10,6 +10,11 @@
 #import "PNSession.h"
 
 @implementation Playnomics
+
++(void) setLoggingLevel:(PNLoggingLevel)level{
+    [PNLogger setLoggingLevel: level];
+}
+
 + (void) overrideMessagingURL: (NSString *) messagingUrl{
     [PNSession sharedInstance].overrideMessagingUrl = messagingUrl;
 }

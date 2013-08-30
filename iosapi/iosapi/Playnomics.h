@@ -26,6 +26,7 @@ typedef NS_ENUM(int, PNMilestoneType){
     PNMilestoneCustom10 = 10,
 };
 
+
 @protocol PNFrameDelegate <NSObject>
 @optional
 -(void) onClick: (NSDictionary*) jsonData;
@@ -36,6 +37,7 @@ typedef NS_ENUM(int, PNMilestoneType){
 @end
 
 @interface Playnomics : NSObject
++ (void) setLoggingLevel :(PNLoggingLevel) level;
 + (void) overrideMessagingURL: (NSString*) messagingUrl;
 + (void) overrideEventsURL: (NSString*) messagingUrl;
 //Engagement
