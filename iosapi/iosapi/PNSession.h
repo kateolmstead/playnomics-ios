@@ -32,8 +32,6 @@ typedef enum {
 @property (nonatomic, readonly) PNGeneratedHexId *sessionId;
 @property (nonatomic, readonly) PNSessionState state;
 
-@property (nonatomic, readonly) PNCache *cache;
-
 + (PNSession*) sharedInstance;
 
 - (NSString *) getMessagingUrl;

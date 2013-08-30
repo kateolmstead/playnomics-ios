@@ -82,7 +82,6 @@
 }
 
 -(void) writeDataToCache {
-
     if(_breadcrumbIDChanged || _idfaChanged || _limitAdvertisingChanged){
         UIPasteboard *playnomicsPasteboard = [self getPlaynomicsPasteboard];
         NSMutableDictionary *pasteboardData = ([[playnomicsPasteboard items] count] == 1) ?

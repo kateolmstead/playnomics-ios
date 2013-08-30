@@ -18,9 +18,14 @@
 
 - (id) initWithCache: (PNCache *) cache {
     if ((self = [super init])) {
-        _cache = cache;
+        _cache = [cache retain];
     }
     return self;
+}
+
+- (void) dealloc {
+    [_cache release];
+    [super dealloc];
 }
 
 - (BOOL) syncDeviceSettingsWithCache {    

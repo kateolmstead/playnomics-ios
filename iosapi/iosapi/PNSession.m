@@ -6,15 +6,19 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import <libkern/OSAtomic.h>
 
 #import "PNSession.h"
+#import "PNSession+Private.h"
+
 #import "PNEventApiClient.h"
 #import "PNUserInfoEvent.h"
 #import "PNTransactionEvent.h"
 #import "PNMilestoneEvent.h"
 #import "PNDeviceManager.h"
 #import "PlaynomicsMessaging.h"
+
+#import <libkern/OSAtomic.h>
+
 
 //events
 #import "PNEventAppPage.h"
@@ -47,14 +51,13 @@
     volatile NSInteger *_clicks;
     volatile NSInteger *_totalClicks;
     
-    PNDeviceManager* _deviceInfo;
-    
     NSMutableArray* _observers;
     
     NSMutableDictionary *_framesById;
 
     NSObject *_syncLock;
 }
+
 
 @synthesize applicationId=_applicationId;
 @synthesize userId=_userId;
@@ -69,6 +72,9 @@
 @synthesize overrideMessagingUrl=_overrideMessagingUrl;
 
 @synthesize sdkVersion=_sdkVersion;
+
+@synthesize apiClient=_apiClient;
+@synthesize deviceManager=_deviceManager;
 
 //Singleton
 + (PNSession *)sharedInstance{
@@ -92,7 +98,7 @@
         _sdkVersion = PNPropertyVersion;
         
         _cache = [[PNCache alloc] init];
-        _deviceInfo = [[PNDeviceManager alloc] initWithCache:_cache];
+        _deviceManager = [[PNDeviceManager alloc] initWithCache:_cache];
         
         _observers = [NSMutableArray new];
         
@@ -106,7 +112,8 @@
 
 - (void) dealloc {
     [_apiClient release];
-
+    [_cache release];
+    
     /** Tracking values */
     [_userId release];
 	[_cookieId release];
@@ -117,7 +124,7 @@
     [_overrideMessagingUrl release];
     [_sdkVersion release];
     
-    [_deviceInfo release];
+    [_deviceManager release];
     [_framesById release];
     
     [_syncLock release];
@@ -275,7 +282,7 @@
     // Try to send and queue if unsuccessful
     [_apiClient enqueueEvent:ev];
 
-    if([_deviceInfo syncDeviceSettingsWithCache]){
+    if([_deviceManager syncDeviceSettingsWithCache]){
         [self onDeviceInfoChanged];
     }
     

@@ -15,6 +15,10 @@
     NSUUID *_initIdfa;
     NSUUID *_initIdfv;
     BOOL _initLimitAdvertising;
+    
+    NSTimeInterval *_initLastEventTime;
+    PNGeneratedHexId *_initLastSessionId;
+    NSString *_initLastUserId;
 
     //these values exist in the PNCache class
     id _mock;
@@ -34,6 +38,25 @@
     return self;
 }
 
+-(id) initWithBreadcrumbID: (NSString *) breadcrumb idfa: (NSUUID *) idfa idfv: (NSUUID *) idfv limitAdvertising: (BOOL) limitAdvertising
+lastEventTime: (NSTimeInterval) lastEventTime lastUserId: (NSString *)lastUserId lastSessionId: (PNGeneratedHexId *) sessionId
+{
+    if((self = [super init])){
+        _cache = [[PNCache alloc] init];
+        
+        _initBreadcrumbId = breadcrumb;
+        _initIdfa = idfa;
+        _initIdfv = idfv;
+        _initLimitAdvertising = limitAdvertising;
+        
+        _initLastEventTime = &lastEventTime;
+        _initLastSessionId = sessionId;
+        _initLastUserId = lastUserId;
+    }
+    return self;
+}
+
+
 -(void) dealloc {
     [_mock stopMocking];
     [_cache release];
@@ -46,6 +69,16 @@
     _cache.idfa = _initIdfa;
     _cache.idfv = _initIdfv;
     _cache.limitAdvertising = _initLimitAdvertising;
+
+    if(_initLastEventTime){
+        _cache.lastEventTime = *_initLastEventTime;
+    }
+    if(_initLastUserId){
+        _cache.lastUserId = _initLastUserId;
+    }
+    if(_initLastSessionId){
+        _cache.lastSessionId = _initLastSessionId;
+    }
 }
 
 -(void) writeDataToCache{

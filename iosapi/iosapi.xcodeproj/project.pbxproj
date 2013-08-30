@@ -41,6 +41,8 @@
 		3290169E17CFD8640041895A /* PNConcurrentQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 3290169C17CFD8640041895A /* PNConcurrentQueue.m */; };
 		329016A117CFE7A50041895A /* PNEventRequestOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 3290169F17CFE7A40041895A /* PNEventRequestOperation.h */; };
 		329016A217CFE7A50041895A /* PNEventRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 329016A017CFE7A40041895A /* PNEventRequestOperation.m */; };
+		329016A617D019770041895A /* PNEventTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 329016A517D019770041895A /* PNEventTests.m */; };
+		329016A917D01A300041895A /* StubPNEventApiClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 329016A817D01A300041895A /* StubPNEventApiClient.m */; };
 		32A7C31217C3FCBC00E959A3 /* PNLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 32A7C31017C3FCBC00E959A3 /* PNLogger.h */; };
 		32A7C31317C3FCBC00E959A3 /* PNLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 32A7C31117C3FCBC00E959A3 /* PNLogger.m */; };
 		32A7C33017C6A36B00E959A3 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1D922811590F59700EDDE17 /* SenTestingKit.framework */; };
@@ -116,6 +118,11 @@
 		3290169C17CFD8640041895A /* PNConcurrentQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNConcurrentQueue.m; sourceTree = "<group>"; };
 		3290169F17CFE7A40041895A /* PNEventRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PNEventRequestOperation.h; path = ../PNEventRequestOperation.h; sourceTree = "<group>"; };
 		329016A017CFE7A40041895A /* PNEventRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PNEventRequestOperation.m; path = ../PNEventRequestOperation.m; sourceTree = "<group>"; };
+		329016A417D019770041895A /* PNEventTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNEventTests.h; sourceTree = "<group>"; };
+		329016A517D019770041895A /* PNEventTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNEventTests.m; sourceTree = "<group>"; };
+		329016A717D01A300041895A /* StubPNEventApiClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StubPNEventApiClient.h; sourceTree = "<group>"; };
+		329016A817D01A300041895A /* StubPNEventApiClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StubPNEventApiClient.m; sourceTree = "<group>"; };
+		329016AA17D024B00041895A /* PNSession+Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PNSession+Private.h"; sourceTree = "<group>"; };
 		32A7C31017C3FCBC00E959A3 /* PNLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNLogger.h; sourceTree = "<group>"; };
 		32A7C31117C3FCBC00E959A3 /* PNLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNLogger.m; sourceTree = "<group>"; };
 		32A7C32F17C6A36B00E959A3 /* PlaynomicsSDKTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PlaynomicsSDKTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -204,6 +211,8 @@
 			children = (
 				3290166817CD0BAC0041895A /* StubPNCache.h */,
 				3290166917CD0BAC0041895A /* StubPNCache.m */,
+				329016A717D01A300041895A /* StubPNEventApiClient.h */,
+				329016A817D01A300041895A /* StubPNEventApiClient.m */,
 			);
 			name = Mocks;
 			sourceTree = "<group>";
@@ -227,6 +236,7 @@
 				3290166F17CD403B0041895A /* PNDeviceManager+Private.h */,
 				68C3137117B1C5CE0079E306 /* PNDeviceManager.m */,
 				D1D922A11591124700EDDE17 /* PNSession.h */,
+				329016AA17D024B00041895A /* PNSession+Private.h */,
 				D1D922A21591124700EDDE17 /* PNSession.m */,
 				3290167017CD88A50041895A /* PNGeneratedHexId.h */,
 				3290167117CD88A50041895A /* PNGeneratedHexId.m */,
@@ -246,6 +256,8 @@
 				3290166C17CD22420041895A /* PNUtilTests.m */,
 				3290167417CDAE740041895A /* PNGeneratedHexIdTests.h */,
 				3290167517CDAE740041895A /* PNGeneratedHexIdTests.m */,
+				329016A417D019770041895A /* PNEventTests.h */,
+				329016A517D019770041895A /* PNEventTests.m */,
 			);
 			path = PlaynomicsSDKTests;
 			sourceTree = "<group>";
@@ -566,6 +578,8 @@
 				3290166A17CD0BAC0041895A /* StubPNCache.m in Sources */,
 				3290166D17CD22420041895A /* PNUtilTests.m in Sources */,
 				3290167617CDAE750041895A /* PNGeneratedHexIdTests.m in Sources */,
+				329016A617D019770041895A /* PNEventTests.m in Sources */,
+				329016A917D01A300041895A /* StubPNEventApiClient.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
