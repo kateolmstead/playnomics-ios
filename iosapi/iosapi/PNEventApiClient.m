@@ -46,7 +46,7 @@
 }
 
 -(NSString *) getUrlStringForEvent:(PNEvent *) event{
-    NSMutableString * eventUrl = [NSMutableString stringWithString:_session.getEventsUrl];
+    NSMutableString * eventUrl = [NSMutableString stringWithString:[_session getEventsUrl]];
     [eventUrl appendString: event.baseUrlPath];
     
     BOOL containsQueryString = [eventUrl rangeOfString:@"?"].location != NSNotFound;

@@ -47,8 +47,8 @@
     PNEventApiClient* _apiClient;
     PlaynomicsMessaging* _messaging;
     
-    volatile NSInteger *_clicks;
-    volatile NSInteger *_totalClicks;
+    volatile NSInteger _clicks;
+    volatile NSInteger _totalClicks;
     
     NSMutableArray* _observers;
     
@@ -87,7 +87,7 @@
     if ((self = [super init])) {
         _sequence = 0;
         
-        _apiClient = [[PNEventApiClient alloc] init];
+        _apiClient = [[PNEventApiClient alloc] initWithSession: self];
         
         _testEventsUrl = PNPropertyBaseTestUrl;
         _prodEventsUrl = PNPropertyBaseProdUrl;
@@ -133,7 +133,7 @@
 
 #pragma mark - URLs
 -(NSString*) getEventsUrl{
-    if(_overrideEventsUrl != nil){
+    if(_overrideEventsUrl){
         return _overrideEventsUrl;
     }
     if(_testMode){
@@ -143,7 +143,7 @@
 }
 
 -(NSString*) getMessagingUrl{
-    if(_overrideMessagingUrl != nil){
+    if(_overrideMessagingUrl){
         return _overrideMessagingUrl;
     }
     if(_testMode){
@@ -424,8 +424,8 @@
 }
 
 -(void) incrementTouchEvents{
-    OSAtomicIncrement32Barrier(_clicks);
-    OSAtomicIncrement32Barrier(_totalClicks);
+    OSAtomicIncrement32Barrier(&_clicks);
+    OSAtomicIncrement32Barrier(&_totalClicks);
 }
 
 -(void) resetTouchEvents{
