@@ -37,6 +37,9 @@
 - (NSTimeInterval) getLastEventTime;
 - (void) updateLastEventTimeToNow;
 
+- (NSString *) getDeviceToken;
+- (void) updateDeviceToken: (NSString *) value;
+
 // I/O cache methods
 - (void) loadDataFromCache;
 - (void) writeDataToCache;

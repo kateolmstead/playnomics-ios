@@ -8,7 +8,7 @@
 
 #import "StubPNCache.h"
 #import "PNCache.h"
-#import "PnCache+Private.h"
+#import "PNCache+Private.h"
 
 @implementation StubPNCache{
     NSString *_initBreadcrumbId;
@@ -19,7 +19,8 @@
     NSTimeInterval _initLastEventTime;
     PNGeneratedHexId *_initLastSessionId;
     NSString *_initLastUserId;
-
+    
+    NSString* _initDeviceToken;
     //these values exist in the PNCache class
     id _mock;
     PNCache *_cache;
@@ -58,6 +59,22 @@ lastEventTime: (NSTimeInterval) lastEventTime lastUserId: (NSString *)lastUserId
     return self;
 }
 
+-(id) initWithBreadcrumbID: (NSString *) breadcrumb idfa: (NSUUID *) idfa idfv: (NSUUID *) idfv limitAdvertising: (BOOL) limitAdvertising deviceToken:(StubDeviceToken *) token{
+    
+    if((self = [super init])){
+        _cache = [[PNCache alloc] init];
+        
+        _initBreadcrumbId = breadcrumb;
+        _initIdfa = idfa;
+        _initIdfv = idfv;
+        _initLimitAdvertising = limitAdvertising;
+        _initDeviceToken = [token cleanToken];
+        
+        _initLastEventTime = 0;
+    }
+    return self;
+}
+
 
 -(void) dealloc {
     [_mock stopMocking];
@@ -71,6 +88,8 @@ lastEventTime: (NSTimeInterval) lastEventTime lastUserId: (NSString *)lastUserId
     _cache.idfa = _initIdfa;
     _cache.idfv = _initIdfv;
     _cache.limitAdvertising = _initLimitAdvertising;
+    
+    _cache.deviceToken = _initDeviceToken;
 
     if(_initLastEventTime){
         _cache.lastEventTime = _initLastEventTime;

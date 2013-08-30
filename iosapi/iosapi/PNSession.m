@@ -485,17 +485,13 @@
 - (void) enablePushNotificationsWithToken:(NSData*)deviceToken {
     @try {
         [self assertSessionHasStarted];
-        
-        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-        NSString *oldToken = [userDefaults stringForKey:PNUserDefaultsLastDeviceToken];
-    
+        NSString *oldToken = [_cache getDeviceToken];
         NSString *newToken = [[deviceToken description] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]];
         newToken = [newToken stringByReplacingOccurrencesOfString:@" " withString:@""];
         
         
-        if (![newToken isEqualToString:oldToken]) {
-            [userDefaults setObject:newToken forKey:PNUserDefaultsLastDeviceToken];
-            [userDefaults synchronize];
+        if (!(oldToken && [newToken isEqualToString:oldToken])) {
+            [_cache updateDeviceToken: newToken];
             
             PNEventUserInfo *ev = [[PNEventUserInfo alloc] initWithSessionInfo:[self getGameSessionInfo] pushToken: newToken];
             [ev autorelease];
@@ -512,7 +508,7 @@
         [self assertSessionHasStarted];
         
         if ([payload valueForKeyPath:PushResponse_InteractionUrl]!=nil) {
-            NSString *lastDeviceToken = [[NSUserDefaults standardUserDefaults] stringForKey:PNUserDefaultsLastDeviceToken];
+            NSString *lastDeviceToken = [_cache getDeviceToken];
             
             NSString *callbackurl = [payload valueForKeyPath:PushResponse_InteractionUrl];
             // append required parameters to the interaction tracking url

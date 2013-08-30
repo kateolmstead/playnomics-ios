@@ -48,8 +48,8 @@ typedef enum {
 - (void) transactionWithUSDPrice: (NSNumber *) priceInUSD quantity: (NSInteger) quantity;
 - (void) pingUrlForCallback:(NSString *) url;
 //push notifications
-- (void) enablePushNotificationsWithToken: (NSData *)deviceToken;
-- (void) pushNotificationsWithPayload: (NSDictionary *)payload;
+- (void) enablePushNotificationsWithToken: (NSData *) deviceToken;
+- (void) pushNotificationsWithPayload: (NSDictionary *) payload;
 //UI Events
 - (void) onUIEventReceived: (UIEvent *) event;
 //Messaging

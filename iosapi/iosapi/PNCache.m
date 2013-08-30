@@ -21,6 +21,7 @@
 @synthesize idfvChanged = _idfvChanged;
 @synthesize limitAdvertisingChanged = _limitAdvertisingChanged;
 @synthesize breadcrumbIDChanged = _breadcrumbIDChanged;
+@synthesize deviceToken=_deviceToken;
 
 - (void)dealloc{
     if(self.breadcrumbID){
@@ -37,6 +38,10 @@
     
     if(self.lastSessionId){
         [self.lastSessionId release];
+    }
+    
+    if(self.deviceToken){
+        [self.deviceToken release];
     }
     
     [super dealloc];
@@ -79,6 +84,7 @@
     
     self.lastUserId = [defaults stringForKey:PNUserDefaultsLastUserID];
     self.lastEventTime = [defaults doubleForKey:PNUserDefaultsLastSessionEventTime];
+    self.deviceToken = [defaults stringForKey:PNUserDefaultsLastDeviceToken];
 }
 
 -(void) writeDataToCache {
@@ -102,12 +108,13 @@
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
     if(_idfvChanged){
-        [defaults setValue:[self.idfv UUIDString] forKey:PNUserDefaultsLastIDFV];
+        [defaults setValue:[self.idfv UUIDString] forKey: PNUserDefaultsLastIDFV];
     }
     
-    [defaults setValue:[ self.lastSessionId toHex] forKey:PNUserDefaultsLastSessionID];
-    [defaults setValue: self.lastUserId forKey:PNUserDefaultsLastUserID];
-    [defaults setDouble: self.lastEventTime forKey:PNUserDefaultsLastSessionEventTime];
+    [defaults setValue:[ self.lastSessionId toHex] forKey: PNUserDefaultsLastSessionID];
+    [defaults setValue: self.lastUserId forKey: PNUserDefaultsLastUserID];
+    [defaults setDouble: self.lastEventTime forKey: PNUserDefaultsLastSessionEventTime];
+    [defaults setValue: self.deviceToken forKey: PNUserDefaultsLastDeviceToken];
     [defaults synchronize];
 }
 
@@ -189,6 +196,13 @@
     self.lastEventTime = [[NSDate date] timeIntervalSince1970];
 }
 
+- (NSString *) getDeviceToken{
+    return self.deviceToken;
+}
+
+- (void) updateDeviceToken: (NSString *) value{
+    self.deviceToken =  value;
+}
 
 - (NSString *) deserializeStringFromData : (NSDictionary*) dict key:(NSString*) key{
     return [[[NSString alloc] initWithData:[dict valueForKey:key] encoding: NSUTF8StringEncoding] autorelease];

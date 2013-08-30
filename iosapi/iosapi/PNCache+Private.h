@@ -14,4 +14,5 @@
 @property (retain) PNGeneratedHexId *lastSessionId;
 @property (copy) NSString *lastUserId;
 @property (assign) NSTimeInterval lastEventTime;
+@property (copy) NSString* deviceToken;
 @end

@@ -43,6 +43,7 @@
 		329016A217CFE7A50041895A /* PNEventRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 329016A017CFE7A40041895A /* PNEventRequestOperation.m */; };
 		329016A617D019770041895A /* PNEventTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 329016A517D019770041895A /* PNEventTests.m */; };
 		329016A917D01A300041895A /* StubPNEventApiClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 329016A817D01A300041895A /* StubPNEventApiClient.m */; };
+		329016AD17D11E490041895A /* StubDeviceToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 329016AC17D11E490041895A /* StubDeviceToken.m */; };
 		32A7C31217C3FCBC00E959A3 /* PNLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 32A7C31017C3FCBC00E959A3 /* PNLogger.h */; };
 		32A7C31317C3FCBC00E959A3 /* PNLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 32A7C31117C3FCBC00E959A3 /* PNLogger.m */; };
 		32A7C33017C6A36B00E959A3 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1D922811590F59700EDDE17 /* SenTestingKit.framework */; };
@@ -123,6 +124,8 @@
 		329016A717D01A300041895A /* StubPNEventApiClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StubPNEventApiClient.h; sourceTree = "<group>"; };
 		329016A817D01A300041895A /* StubPNEventApiClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StubPNEventApiClient.m; sourceTree = "<group>"; };
 		329016AA17D024B00041895A /* PNSession+Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PNSession+Private.h"; sourceTree = "<group>"; };
+		329016AB17D11E480041895A /* StubDeviceToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StubDeviceToken.h; sourceTree = "<group>"; };
+		329016AC17D11E490041895A /* StubDeviceToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StubDeviceToken.m; sourceTree = "<group>"; };
 		32A7C31017C3FCBC00E959A3 /* PNLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PNLogger.h; path = iosapi/PNLogger.h; sourceTree = "<group>"; };
 		32A7C31117C3FCBC00E959A3 /* PNLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNLogger.m; sourceTree = "<group>"; };
 		32A7C32F17C6A36B00E959A3 /* PlaynomicsSDKTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PlaynomicsSDKTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -213,6 +216,8 @@
 				3290166917CD0BAC0041895A /* StubPNCache.m */,
 				329016A717D01A300041895A /* StubPNEventApiClient.h */,
 				329016A817D01A300041895A /* StubPNEventApiClient.m */,
+				329016AB17D11E480041895A /* StubDeviceToken.h */,
+				329016AC17D11E490041895A /* StubDeviceToken.m */,
 			);
 			name = Mocks;
 			sourceTree = "<group>";
@@ -580,6 +585,7 @@
 				3290167617CDAE750041895A /* PNGeneratedHexIdTests.m in Sources */,
 				329016A617D019770041895A /* PNEventTests.m in Sources */,
 				329016A917D01A300041895A /* StubPNEventApiClient.m in Sources */,
+				329016AD17D11E490041895A /* StubDeviceToken.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

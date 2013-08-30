@@ -312,12 +312,78 @@
 }
 
 //runs start, and then enablePushNotifications, expects 2 events: appStart and enable push notifications
--(void) testEnabledPushNotifications{
+-(void) testEnabledPush{
+    NSString *breadcrumbId = @"breadcrumbId";
+    NSUUID *idfa = [[NSUUID alloc] init];
+    BOOL limitAdvertising = NO;
+    NSUUID *idfv = [[NSUUID alloc] init];
     
-}
-//runs enablePushNotifications without calling start first. expects 0 events
--(void) testEnabledPushNoStart{
+    StubDeviceToken *oldToken = [[StubDeviceToken alloc] initWithToken:@"<12345 6789>" cleanToken:@"123456789"];
     
+    _cache = [[StubPNCache alloc] initWithBreadcrumbID:breadcrumbId idfa:idfa idfv:idfv limitAdvertising:limitAdvertising deviceToken:oldToken];
+    _session.cache = [_cache getMockCache];
+    _session.deviceManager = [[PNDeviceManager alloc] initWithCache: _session.cache];
+    
+    [self mockCurrentDeviceInfo: _session.deviceManager idfa: idfa limitAdvertising:limitAdvertising idfv:idfv generatedBreadcrumbID:breadcrumbId];
+    
+    _session.applicationId = 1;
+    _session.userId = @"test-user";
+    
+    [_session start];
+    //token gets updated
+    StubDeviceToken *newToken = [[StubDeviceToken alloc] initWithToken:@"<9876 54321>" cleanToken:@"987654321"];
+    [_session enablePushNotificationsWithToken: newToken];
+    
+    STAssertTrue([_stubApiClient.events count] == 2, @"2 events should be queued");
+    STAssertTrue([[_stubApiClient.events objectAtIndex:0] isKindOfClass:[PNEventAppStart class]], @"appStart is the first event");
+    STAssertTrue([[_stubApiClient.events objectAtIndex:1] isKindOfClass:[PNEventUserInfo class]], @"userInfo is the second event");
 }
 
+//runs enablePushNotifications without calling start first. expects 0 events
+-(void) testEnabledPushNoStart{
+    NSString *breadcrumbId = @"breadcrumbId";
+    NSUUID *idfa = [[NSUUID alloc] init];
+    BOOL limitAdvertising = NO;
+    NSUUID *idfv = [[NSUUID alloc] init];
+    
+    StubDeviceToken *oldToken = [[StubDeviceToken alloc] initWithToken:@"<12345 6789>" cleanToken:@"123456789"];
+    
+    _cache = [[StubPNCache alloc] initWithBreadcrumbID:breadcrumbId idfa:idfa idfv:idfv limitAdvertising:limitAdvertising deviceToken:oldToken];
+    _session.cache = [_cache getMockCache];
+    _session.deviceManager = [[PNDeviceManager alloc] initWithCache: _session.cache];
+    
+    [self mockCurrentDeviceInfo: _session.deviceManager idfa: idfa limitAdvertising:limitAdvertising idfv:idfv generatedBreadcrumbID:breadcrumbId];
+
+    //token gets updated
+    StubDeviceToken *newToken = [[StubDeviceToken alloc] initWithToken:@"<9876 54321>" cleanToken:@"987654321"];
+    [_session enablePushNotificationsWithToken: newToken];
+    
+    STAssertTrue([_stubApiClient.events count] == 0, @"0 events should be queued");
+}
+
+//runs enablePushTokens but the token has not changed. expects 1 event: appStart
+-(void) testEnabledPushNoTokenChange{
+    NSString *breadcrumbId = @"breadcrumbId";
+    NSUUID *idfa = [[NSUUID alloc] init];
+    BOOL limitAdvertising = NO;
+    NSUUID *idfv = [[NSUUID alloc] init];
+    
+    StubDeviceToken *oldToken = [[StubDeviceToken alloc] initWithToken:@"<12345 6789>" cleanToken:@"123456789"];
+    
+    _cache = [[StubPNCache alloc] initWithBreadcrumbID:breadcrumbId idfa:idfa idfv:idfv limitAdvertising:limitAdvertising deviceToken:oldToken];
+    _session.cache = [_cache getMockCache];
+    _session.deviceManager = [[PNDeviceManager alloc] initWithCache: _session.cache];
+    
+    [self mockCurrentDeviceInfo: _session.deviceManager idfa: idfa limitAdvertising:limitAdvertising idfv:idfv generatedBreadcrumbID:breadcrumbId];
+    
+    _session.applicationId = 1;
+    _session.userId = @"test-user";
+    
+    [_session start];
+    //token does not change
+    [_session enablePushNotificationsWithToken: oldToken];
+    
+    STAssertTrue([_stubApiClient.events count] == 1, @"1 event should be queued");
+    STAssertTrue([[_stubApiClient.events objectAtIndex:0] isKindOfClass:[PNEventAppStart class]], @"appStart is the first event");
+}
 @end
