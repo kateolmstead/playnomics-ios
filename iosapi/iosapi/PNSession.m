@@ -37,7 +37,6 @@
     int _sequence;
     
     NSTimer* _eventTimer;
-    PNGeneratedHexId *_instanceId;
     NSString* _testEventsUrl;
     NSString* _prodEventsUrl;
     NSString* _testMessagingUrl;
@@ -63,6 +62,7 @@
 @synthesize userId=_userId;
 @synthesize cookieId=_cookieId;
 @synthesize sessionId=_sessionId;
+@synthesize instanceId=_instanceId;
 @synthesize state=_state;
 
 @synthesize cache=_cache;
@@ -212,7 +212,6 @@
         // Retrieve stored Event List
         NSArray *storedEvents = (NSArray *) [NSKeyedUnarchiver unarchiveObjectWithFile:PNFileEventArchive];
         if ([storedEvents count] > 0) {
-            
             for(int i = 0; i < [storedEvents count]; i ++){
                 NSString* eventUrl = [storedEvents objectAtIndex:i];
                 [_apiClient enqueueEventUrl: eventUrl];
@@ -262,7 +261,6 @@
     // Send an appStart if it has been > 3 min since the last session or a different user
     // otherwise send an appPage
     if (sessionLapsed) {
-        
         _sessionId = [[PNGeneratedHexId alloc] initAndGenerateValue];
         _instanceId = [_sessionId retain];
         [_cache updateLastSessionId: _sessionId];
@@ -287,11 +285,6 @@
     }
     
     [_cache writeDataToCache];
-}
-
-
-- (void) onApplicationWillResignActive: (NSNotification *) notification {
-    [self pause];
 }
 
 - (void) pause {
@@ -451,8 +444,8 @@
 
 -(void)onDeviceInfoChanged{
     PNUserInfoEvent *userInfo = [[PNUserInfoEvent alloc] initWithSessionInfo:[self getGameSessionInfo] limitAdvertising:[_cache getLimitAdvertising] idfa:[_cache getIdfa] idfv: [_cache getIdfv]];
-    [_apiClient enqueueEvent:userInfo];
     [userInfo autorelease];
+    [_apiClient enqueueEvent:userInfo];
 }
 
 #pragma mark - Explicit Events

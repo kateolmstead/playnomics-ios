@@ -77,11 +77,10 @@
     
     [_session start];
     STAssertTrue([_stubApiClient.events count] == 2, @"2 events should be queued");
-    PNEventAppStart *appStart = [_stubApiClient.events objectAtIndex:0];
-    STAssertNotNil(appStart, @"appStart is the first event");
+    STAssertTrue([[_stubApiClient.events objectAtIndex:0] isKindOfClass:[PNEventAppStart class]], @"appStart is the first event");
+    STAssertTrue([[_stubApiClient.events objectAtIndex:1] isKindOfClass:[PNUserInfoEvent class]], @"userInfo is the second event");
     
-    PNUserInfoEvent *userInfo = [_stubApiClient.events objectAtIndex:1];
-    STAssertNotNil(userInfo, @"userInfo is the second event");
+    STAssertTrue(_session.sessionId.generatedId == _session.instanceId.generatedId, @"Instance ID and Session ID should be equal.");
 }
 
 //runs app start with initial device data, expects 1 event: appStart
@@ -104,6 +103,8 @@
     STAssertTrue([_stubApiClient.events count] == 1, @"1 events should be queued");
     PNEventAppStart *appStart = [_stubApiClient.events objectAtIndex:0];
     STAssertNotNil(appStart, @"appStart is the first event");
+
+    STAssertTrue(_session.sessionId.generatedId == _session.instanceId.generatedId, @"Instance ID and Session ID should be equal.");
 }
 
 //runs session start with initial device data, and lapsed previous session, expects 1 event: appStart
@@ -130,8 +131,10 @@
     _session.applicationId = 1;
     [_session start];
     STAssertTrue([_stubApiClient.events count] == 1, @"1 events should be queued");
-    PNEventAppStart *appStart = [_stubApiClient.events objectAtIndex:0];
-    STAssertNotNil(appStart, @"appStart generated after session has lapsed");
+    STAssertTrue([[_stubApiClient.events objectAtIndex:0] isKindOfClass:[PNEventAppStart class]], @"appStart generated after session has lapsed");
+
+    STAssertTrue(lastSessionId.generatedId != _session.sessionId.generatedId, @"Session ID should be new.");
+    STAssertTrue(_session.sessionId.generatedId == _session.instanceId.generatedId, @"Instance ID and Session ID should be equal.");
 }
 
 //runs session start with initial device data, and lapsed previous session, expects 1 event: appStart
@@ -158,8 +161,10 @@
     _session.applicationId = 1;
     [_session start];
     STAssertTrue([_stubApiClient.events count] == 1, @"1 events should be queued");
-    PNEventAppStart *appStart = [_stubApiClient.events objectAtIndex:0];
-    STAssertNotNil(appStart, @"appStart is generated when a new user appears");
+    STAssertTrue([[_stubApiClient.events objectAtIndex:0] isKindOfClass:[PNEventAppStart class]], @"appStart is generated when a new user appears");
+    
+    STAssertTrue(lastSessionId.generatedId != _session.sessionId.generatedId, @"Session ID should be new.");
+    STAssertTrue(_session.sessionId.generatedId == _session.instanceId.generatedId, @"Instance ID and Session ID should be equal.");
 }
 
 //runs session start with device data changes, a previous startTime, expects 2 events: appPage and userInfo
@@ -170,27 +175,26 @@
     NSUUID *idfv = [[NSUUID alloc] init];
     
     NSString *lastUserId = breadcrumbId;
-    NSTimeInterval now = [[NSDate new] timeIntervalSinceNow];
+    NSTimeInterval now = [[NSDate new] timeIntervalSince1970];
     NSTimeInterval aMinuteAgo = now - 60;
     
     PNGeneratedHexId *lastSessionId = [[PNGeneratedHexId alloc] initAndGenerateValue];
    
-    
     _cache = [[StubPNCache alloc] initWithBreadcrumbID:breadcrumbId idfa:idfa idfv:idfv limitAdvertising:limitAdvertising lastEventTime: aMinuteAgo lastUserId: lastUserId lastSessionId: lastSessionId];
     _session.cache = [_cache getMockCache];
     _session.deviceManager = [[PNDeviceManager alloc] initWithCache: _session.cache];
     
-    [self mockCurrentDeviceInfo: _session.deviceManager idfa: [[NSUUID alloc] init] limitAdvertising:limitAdvertising idfv:idfv generatedBreadcrumbID:breadcrumbId];
+    [self mockCurrentDeviceInfo: _session.deviceManager idfa: [[NSUUID alloc] init] limitAdvertising: limitAdvertising idfv: idfv generatedBreadcrumbID: breadcrumbId];
 
     _session.applicationId = 1;
     [_session start];
     
     STAssertTrue([_stubApiClient.events count] == 2, @"2 events should be queued");
-    PNEventAppPage *appPage = [_stubApiClient.events objectAtIndex:0];
-    STAssertNotNil(appPage, @"appPage is the first event");
+    STAssertTrue([[_stubApiClient.events objectAtIndex:0] isKindOfClass:[PNEventAppPage class]], @"appPage is the first event");
+    STAssertTrue([[_stubApiClient.events objectAtIndex:1] isKindOfClass:[PNUserInfoEvent class]], @"userInfo is the second event");
     
-    PNUserInfoEvent *userInfo = [_stubApiClient.events objectAtIndex:1];
-    STAssertNotNil(userInfo, @"userInfo is the second event");
+    STAssertTrue(lastSessionId.generatedId == _session.sessionId.generatedId, @"Session ID should be loaded from cache.");
+    STAssertTrue(_session.sessionId.generatedId != _session.instanceId.generatedId, @"Instance ID and Session ID should be different.");
 }
 
 //runs session start with initial device data, a previous startTime, expects 2 events: appPage
@@ -202,7 +206,7 @@
     
     NSString *lastUserId = [breadcrumbId retain];
     
-    NSTimeInterval now = [[NSDate new] timeIntervalSinceNow];
+    NSTimeInterval now = [[NSDate new] timeIntervalSince1970];
     NSTimeInterval aMinuteAgo = now - 60;
     
     PNGeneratedHexId *lastSessionId = [[PNGeneratedHexId alloc] initAndGenerateValue];
@@ -216,8 +220,9 @@
     _session.applicationId = 1;
     [_session start];
     STAssertTrue([_stubApiClient.events count] == 1, @"1 event should be queued");
-    PNEventAppPage *appPage = [_stubApiClient.events objectAtIndex:0];
-    STAssertNotNil(appPage, @"appPage is the first event");
+    STAssertTrue([[_stubApiClient.events objectAtIndex:0] isKindOfClass:[PNEventAppPage class]], @"appPage is the first event");
+    STAssertTrue(lastSessionId.generatedId == _session.sessionId.generatedId, @"Session ID should be loaded from cache.");
+    STAssertTrue(_session.sessionId.generatedId != _session.instanceId.generatedId, @"Instance ID and Session ID should be different.");
 }
 
 //runs the start, and then milestone. expects 2 events: appStart and milestone

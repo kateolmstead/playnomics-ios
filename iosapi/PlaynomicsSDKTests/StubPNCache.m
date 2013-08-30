@@ -16,7 +16,7 @@
     NSUUID *_initIdfv;
     BOOL _initLimitAdvertising;
     
-    NSTimeInterval *_initLastEventTime;
+    NSTimeInterval _initLastEventTime;
     PNGeneratedHexId *_initLastSessionId;
     NSString *_initLastUserId;
 
@@ -34,6 +34,8 @@
         _initIdfa = idfa;
         _initIdfv = idfv;
         _initLimitAdvertising = limitAdvertising;
+        
+        _initLastEventTime = 0;
     }
     return self;
 }
@@ -49,7 +51,7 @@ lastEventTime: (NSTimeInterval) lastEventTime lastUserId: (NSString *)lastUserId
         _initIdfv = idfv;
         _initLimitAdvertising = limitAdvertising;
         
-        _initLastEventTime = &lastEventTime;
+        _initLastEventTime = lastEventTime;
         _initLastSessionId = sessionId;
         _initLastUserId = lastUserId;
     }
@@ -71,7 +73,7 @@ lastEventTime: (NSTimeInterval) lastEventTime lastUserId: (NSString *)lastUserId
     _cache.limitAdvertising = _initLimitAdvertising;
 
     if(_initLastEventTime){
-        _cache.lastEventTime = *_initLastEventTime;
+        _cache.lastEventTime = _initLastEventTime;
     }
     if(_initLastUserId){
         _cache.lastUserId = _initLastUserId;

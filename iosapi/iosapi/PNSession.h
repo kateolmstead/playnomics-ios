@@ -30,6 +30,7 @@ typedef enum {
 
 @property (nonatomic, readonly) NSString *cookieId;
 @property (nonatomic, readonly) PNGeneratedHexId *sessionId;
+@property (nonatomic, readonly) PNGeneratedHexId *instanceId;
 @property (nonatomic, readonly) PNSessionState state;
 
 + (PNSession*) sharedInstance;
