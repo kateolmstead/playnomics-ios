@@ -19,6 +19,8 @@
 #import "PNEventAppPage.h"
 #import "PNEventAppStart.h"
 #import "PNUserInfoEvent.h"
+#import "PNMilestoneEvent.h"
+#import "PNTransactionEvent.h"
 
 @implementation PNEventTests{
     PNSession *_session;
@@ -227,21 +229,86 @@
 
 //runs the start, and then milestone. expects 2 events: appStart and milestone
 -(void) testMilestone{
+    NSString *breadcrumbId = @"breadcrumbId";
+    NSUUID *idfa = [[NSUUID alloc] init];
+    BOOL limitAdvertising = NO;
+    NSUUID *idfv = [[NSUUID alloc] init];
     
+    _cache = [[StubPNCache alloc] initWithBreadcrumbID:breadcrumbId idfa:idfa idfv:idfv limitAdvertising:limitAdvertising];
+    _session.cache = [_cache getMockCache];
+    _session.deviceManager = [[PNDeviceManager alloc] initWithCache: _session.cache];
+    
+    [self mockCurrentDeviceInfo: _session.deviceManager idfa: idfa limitAdvertising:limitAdvertising idfv:idfv generatedBreadcrumbID:breadcrumbId];
+    
+    _session.applicationId = 1;
+    _session.userId = @"test-user";
+    
+    [_session start];
+    [_session milestone:PNMilestoneCustom1];
+    
+    STAssertTrue([_stubApiClient.events count] == 2, @"2 events should be queued");
+    STAssertTrue([[_stubApiClient.events objectAtIndex:0] isKindOfClass:[PNEventAppStart class]], @"appStart is the first event");
+    STAssertTrue([[_stubApiClient.events objectAtIndex:1] isKindOfClass:[PNMilestoneEvent class]], @"milestone is the second event");
 }
 
 //runs the milestone without calling start first. expects 0 events
 -(void) testMilestoneNoStart{
+    NSString *breadcrumbId = @"breadcrumbId";
+    NSUUID *idfa = [[NSUUID alloc] init];
+    BOOL limitAdvertising = NO;
+    NSUUID *idfv = [[NSUUID alloc] init];
     
+    _cache = [[StubPNCache alloc] initWithBreadcrumbID:breadcrumbId idfa:idfa idfv:idfv limitAdvertising:limitAdvertising];
+    _session.cache = [_cache getMockCache];
+    _session.deviceManager = [[PNDeviceManager alloc] initWithCache: _session.cache];
+    
+    [self mockCurrentDeviceInfo: _session.deviceManager idfa: idfa limitAdvertising:limitAdvertising idfv:idfv generatedBreadcrumbID:breadcrumbId];
+    
+    [_session milestone:PNMilestoneCustom1];
+    
+    STAssertTrue([_stubApiClient.events count] == 0, @"No events should be queued");
 }
 
 //runs start, and then transaction. expects 2 events: appStart and milestone
 -(void) testTransaction{
+    NSString *breadcrumbId = @"breadcrumbId";
+    NSUUID *idfa = [[NSUUID alloc] init];
+    BOOL limitAdvertising = NO;
+    NSUUID *idfv = [[NSUUID alloc] init];
     
+    _cache = [[StubPNCache alloc] initWithBreadcrumbID:breadcrumbId idfa:idfa idfv:idfv limitAdvertising:limitAdvertising];
+    _session.cache = [_cache getMockCache];
+    _session.deviceManager = [[PNDeviceManager alloc] initWithCache: _session.cache];
+    
+    [self mockCurrentDeviceInfo: _session.deviceManager idfa: idfa limitAdvertising:limitAdvertising idfv:idfv generatedBreadcrumbID:breadcrumbId];
+    
+    _session.applicationId = 1;
+    _session.userId = @"test-user";
+    
+    [_session start];
+    [_session transactionWithUSDPrice:[NSNumber numberWithDouble:0.99] quantity:1];
+    
+    STAssertTrue([_stubApiClient.events count] == 2, @"2 events should be queued");
+    STAssertTrue([[_stubApiClient.events objectAtIndex:0] isKindOfClass:[PNEventAppStart class]], @"appStart is the first event");
+    STAssertTrue([[_stubApiClient.events objectAtIndex:1] isKindOfClass:[PNTransactionEvent class]], @"transaction is the second event");
+
 }
 //runs  transaction without calling start first. expects 0 events
 -(void) testTransactionNoStart{
+    NSString *breadcrumbId = @"breadcrumbId";
+    NSUUID *idfa = [[NSUUID alloc] init];
+    BOOL limitAdvertising = NO;
+    NSUUID *idfv = [[NSUUID alloc] init];
     
+    _cache = [[StubPNCache alloc] initWithBreadcrumbID:breadcrumbId idfa:idfa idfv:idfv limitAdvertising:limitAdvertising];
+    _session.cache = [_cache getMockCache];
+    _session.deviceManager = [[PNDeviceManager alloc] initWithCache: _session.cache];
+    
+    [self mockCurrentDeviceInfo: _session.deviceManager idfa: idfa limitAdvertising:limitAdvertising idfv:idfv generatedBreadcrumbID:breadcrumbId];
+    
+    [_session transactionWithUSDPrice:[NSNumber numberWithDouble:0.99] quantity:1];
+    
+    STAssertTrue([_stubApiClient.events count] == 0, @"No events should be queued");
 }
 
 //runs start, and then enablePushNotifications, expects 2 events: appStart and enable push notifications

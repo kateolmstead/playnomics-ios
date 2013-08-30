@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "PNLogger.h"
 
 //this is available in iOS 6 and above, add this in for iOS 5 and below
 #ifndef NS_ENUM
