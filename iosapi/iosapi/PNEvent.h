@@ -16,7 +16,7 @@
 #define PNEventParameterExplicitSessionId @"jsh"
 //appStart/appPage
 #define PNEventParameterTimezoneOffset @"z"
-//appStart/appPage
+//appRunning/appPause
 #define PNEventParameterSequence @"q"
 #define PNEventParameterTouches @"c"
 #define PNEventParameterTotalTouches @"e"

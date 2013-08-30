@@ -294,7 +294,7 @@
         [self stopEventTimer];
         
         
-        PNEventAppPause *ev = [[PNEventAppPause alloc] initWithSessionInfo:[self getGameSessionInfo] instanceId:_instanceId sessionStartTime:_sessionStartTime sequenceNumber:_sequence touches:*_clicks totalTouches:*_totalClicks];
+        PNEventAppPause *ev = [[PNEventAppPause alloc] initWithSessionInfo:[self getGameSessionInfo] instanceId:_instanceId sessionStartTime:_sessionStartTime sequenceNumber:_sequence touches:(int)_clicks totalTouches:(int)_totalClicks];
         [ev autorelease];
         _pauseTime = ev.eventTime;
         _sequence += 1;
@@ -399,7 +399,7 @@
         if (_state == PNSessionStateStarted) {
             _sequence++;
             
-            PNEventAppRunning *ev = [[PNEventAppRunning alloc] initWithSessionInfo: [self getGameSessionInfo] instanceId: _instanceId sessionStartTime: _sessionStartTime sequenceNumber: _sequence touches:*_clicks totalTouches: *_totalClicks];
+            PNEventAppRunning *ev = [[PNEventAppRunning alloc] initWithSessionInfo: [self getGameSessionInfo] instanceId: _instanceId sessionStartTime: _sessionStartTime sequenceNumber: _sequence touches:(int)_clicks totalTouches: (int)_totalClicks];
             [ev autorelease];
          
             [_apiClient enqueueEvent:ev];

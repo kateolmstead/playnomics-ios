@@ -10,7 +10,8 @@
         [self appendParameter:[NSNumber numberWithUnsignedLongLong : transactionId] forKey:PNEventParameterTransactionId];
         [self appendParameter:itemId forKey:PNEventParameterTransactionItemId];
         [self appendParameter:[self PNTransactionTypeDescription: type] forKey:PNEventParameterTransactionType];
-        
+        [self appendParameter:[NSNumber numberWithInt:quantity] forKey:PNEventParameterTransactionQuantity];
+    
         for(int i = 0; i < [currencyTypes count]; i ++){
             id obj = [currencyTypes objectAtIndex:i];
             

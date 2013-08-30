@@ -18,7 +18,7 @@
 }
 
 - (NSString *) baseUrlPath{
-    return @"appStart";
+    return @"appPage";
 }
 
 @end

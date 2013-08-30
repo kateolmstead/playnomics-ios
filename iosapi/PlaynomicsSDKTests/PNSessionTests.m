@@ -386,4 +386,30 @@
     STAssertTrue([_stubApiClient.events count] == 1, @"1 event should be queued");
     STAssertTrue([[_stubApiClient.events objectAtIndex:0] isKindOfClass:[PNEventAppStart class]], @"appStart is the first event");
 }
+
+-(void) testApplicationLifeCycle{
+    
+    NSString *breadcrumbId = @"breadcrumbId";
+    NSUUID *idfa = [[NSUUID alloc] init];
+    BOOL limitAdvertising = NO;
+    NSUUID *idfv = [[NSUUID alloc] init];
+    
+    _cache = [[StubPNCache alloc] initWithBreadcrumbID:breadcrumbId idfa:idfa idfv:idfv limitAdvertising:limitAdvertising];
+    _session.cache = [_cache getMockCache];
+    _session.deviceManager = [[PNDeviceManager alloc] initWithCache: _session.cache];
+    
+    [self mockCurrentDeviceInfo: _session.deviceManager idfa: idfa limitAdvertising:limitAdvertising idfv:idfv generatedBreadcrumbID:breadcrumbId];
+    
+    _session.applicationId = 1;
+    _session.userId = @"test-user";
+    
+    [_session start];
+    [_session pause];
+    [_session resume];
+
+    STAssertTrue([_stubApiClient.events count] == 3, @"3 events should be queued");
+    STAssertTrue([[_stubApiClient.events objectAtIndex:0] isKindOfClass:[PNEventAppStart class]], @"appStart is the first event");
+    STAssertTrue([[_stubApiClient.events objectAtIndex:0] isKindOfClass:[PNEventAppStart class]], @"appPause is the first event");
+    STAssertTrue([[_stubApiClient.events objectAtIndex:0] isKindOfClass:[PNEventAppStart class]], @"appResume is the first event");
+}
 @end

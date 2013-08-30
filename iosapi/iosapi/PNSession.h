@@ -50,7 +50,7 @@ typedef enum {
 //push notifications
 - (void) enablePushNotificationsWithToken: (NSData *) deviceToken;
 - (void) pushNotificationsWithPayload: (NSDictionary *) payload;
-//UI Events
+//UI Events/Users/jaredjenkins/Projects/mobile/playnomics-ios/iosapi/iosapi/PNSession.m
 - (void) onUIEventReceived: (UIEvent *) event;
 //Messaging
 - (void) preloadFramesWithIDs: (NSSet *) frameIDs;
