@@ -33,10 +33,9 @@
 
 @implementation PNSession {
 @private
-    int _collectMode;
     int _sequence;
-    
     NSTimer* _eventTimer;
+    
     NSString* _testEventsUrl;
     NSString* _prodEventsUrl;
     NSString* _testMessagingUrl;
@@ -44,6 +43,7 @@
     
     NSTimeInterval _sessionStartTime;
 	NSTimeInterval _pauseTime;
+    
     PNEventApiClient* _apiClient;
     PlaynomicsMessaging* _messaging;
     
@@ -85,7 +85,6 @@
 
 - (id) init {
     if ((self = [super init])) {
-        _collectMode = PNSettingCollectionMode;
         _sequence = 0;
         
         _apiClient = [[PNEventApiClient alloc] init];
@@ -160,12 +159,8 @@
     return info;
 }
 
--(BOOL) assertSessionHasStarted{
-    if(_state != PNSessionStateStarted){
-        [PNLogger log:PNLogLevelError format: @"PlayRM session could not be started! Can't send data to Playnomics API."];
-        return NO;
-    }
-    return YES;
+-(void) assertSessionHasStarted{
+    NSAssert(_state == PNSessionStateStarted, @"PlayRM session could not be started! Can't send data to Playnomics API.");
 }
 
 -(void) start {
@@ -240,7 +235,6 @@
         _userId = [_cookieId retain];
     }
     
-    _collectMode = PNSettingCollectionMode;
     _sequence = 1;
     
     _clicks = 0;
@@ -452,7 +446,7 @@
 
 - (void) transactionWithUSDPrice: (NSNumber *) priceInUSD quantity: (NSInteger) quantity  {
     @try {
-        if(![self assertSessionHasStarted]){ return; }
+        [self assertSessionHasStarted];
         
         NSArray *currencyTypes = [NSArray arrayWithObject: [NSNumber numberWithInt: PNCurrencyUSD]];
         NSArray *currencyValues = [NSArray arrayWithObject: priceInUSD];
@@ -471,7 +465,7 @@
 
 - (void) milestone: (PNMilestoneType) milestoneType {
     @try {
-        if(![self assertSessionHasStarted]){ return; }
+        [self assertSessionHasStarted];
         
         PNMilestoneEvent *ev = [[PNMilestoneEvent alloc] initWithSessionInfo:[self getGameSessionInfo] milestoneType:milestoneType];
         [ev autorelease];
@@ -490,8 +484,7 @@
 
 - (void) enablePushNotificationsWithToken:(NSData*)deviceToken {
     @try {
-        
-        if(![self assertSessionHasStarted]){ return; }
+        [self assertSessionHasStarted];
         
         NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
         NSString *oldToken = [userDefaults stringForKey:PNUserDefaultsLastDeviceToken];
@@ -516,9 +509,7 @@
 
 - (void) pushNotificationsWithPayload:(NSDictionary *)payload {
     @try {
-        if(![self assertSessionHasStarted]){
-            return;
-        }
+        [self assertSessionHasStarted];
         
         if ([payload valueForKeyPath:PushResponse_InteractionUrl]!=nil) {
             NSString *lastDeviceToken = [[NSUserDefaults standardUserDefaults] stringForKey:PNUserDefaultsLastDeviceToken];
@@ -549,9 +540,14 @@
 #pragma mark "Messaging"
 //all of this code needs to be moved inside of PlaynomicsMessaging
 - (void) preloadFramesWithIDs: (NSSet *)frameIDs{
-    for(NSString* frameID in frameIDs)
-    {
-        [self getOrAddFrame:frameID];
+    @try{
+        [self assertSessionHasStarted];
+        for(NSString* frameID in frameIDs){
+            [self getOrAddFrame:frameID];
+        }
+    }
+    @catch(NSException *exception){
+        [PNLogger log:PNLogLevelWarning exception:exception format: @"Could not preload frames."];
     }
 }
 
@@ -565,20 +561,38 @@
 }
 
 - (void) showFrameWithID:(NSString *) frameID{
-    PlaynomicsFrame *frame = [self getOrAddFrame:frameID];
-    [frame start];
+    @try{
+        [self assertSessionHasStarted];
+        PlaynomicsFrame *frame = [self getOrAddFrame:frameID];
+        [frame start];
+    }
+    @catch(NSException *exception){
+        [PNLogger log:PNLogLevelWarning exception:exception format: @"Could not show frame."];
+    }
 };
- 
+
 - (void) showFrameWithID:(NSString *) frameID delegate:(id<PNFrameDelegate>) delegate{
-    PlaynomicsFrame *frame = [self getOrAddFrame:frameID];
-    frame.delegate = delegate;
-    [frame start];
+    @try{
+        [self assertSessionHasStarted];
+        PlaynomicsFrame *frame = [self getOrAddFrame:frameID];
+        frame.delegate = delegate;
+        [frame start];
+    }
+    @catch(NSException *exception){
+        [PNLogger log:PNLogLevelWarning exception:exception format: @"Could not show frame."];
+    }
 };
 
 - (void) showFrameWithID:(NSString *) frameID delegate:(id<PNFrameDelegate>) delegate withInSeconds: (int) timeout{
-    PlaynomicsFrame *frame = [self getOrAddFrame:frameID];
-    frame.delegate = delegate;
-    [frame start];
+    @try{
+        [self assertSessionHasStarted];
+        PlaynomicsFrame *frame = [self getOrAddFrame:frameID];
+        frame.delegate = delegate;
+        [frame start];
+    }
+    @catch(NSException *exception){
+        [PNLogger log:PNLogLevelWarning exception:exception format: @"Could not show frame."];
+    }
 };
 
 - (void) hideFrameWithID:(NSString *) frameID{
