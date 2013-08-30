@@ -8,7 +8,7 @@
 #import "PlaynomicsFrame.h"
 #import "FSNConnection.h"
 #import "BaseAdComponent.h"
-#import "PlaynomicsCallback.h"
+//#import "PlaynomicsCallback.h"
 
 
 #pragma mark - PlaynomicsFrame
@@ -30,7 +30,7 @@ typedef enum {
     AdType _adType;
     BOOL _shouldRenderFrame;
     NSString *_videoViewUrl;
-    PlaynomicsCallback* _callback;
+    //PlaynomicsCallback* _callback;
 }
 
 @synthesize frameId = _frameId;
@@ -44,7 +44,7 @@ typedef enum {
         _frameId = [frameId copy];
         _properties = [properties retain];
         
-        _callback = [[PlaynomicsCallback alloc] init];
+        //_callback = [[PlaynomicsCallback alloc] init];
         
         [self _initOrientationChangeObservers];
         [self _initAdComponents];
@@ -59,7 +59,7 @@ typedef enum {
     [_adArea release];
     [_closeButton release];
     [_frameId release];
-    [_callback release];
+    //[_callback release];
     _delegate = nil;
     [super dealloc];
 }
@@ -162,7 +162,7 @@ typedef enum {
     [_background.imageUI setNeedsDisplay];
     
     NSString *impressionUrl =[_adArea.properties objectForKey:FrameResponseAd_ImpressionUrl];
-    [_callback submitRequestToServer: impressionUrl];
+  //  [_callback submitRequestToServer: impressionUrl];
 }
            
            
@@ -186,7 +186,7 @@ typedef enum {
 - (void) _stop {
     NSLog(@"Close button was pressed...");
     NSString *callback = [_adArea.properties objectForKey:FrameResponseAd_CloseUrl];
-    [_callback submitRequestToServer:callback];
+    //[_callback submitRequestToServer:callback];
     
     [self _closeAd];
 }
@@ -219,7 +219,7 @@ typedef enum {
         NSException *exception = nil;
         NSString *targetData = [_adArea.properties objectForKey:FrameResponseAd_TargetData];
         
-        [_callback submitRequestToServer: preExecuteUrl];
+        //[_callback submitRequestToServer: preExecuteUrl];
         
         @try {
             if(_delegate == nil || ![_delegate respondsToSelector:@selector(onClick:)]){
@@ -260,7 +260,7 @@ typedef enum {
     } else {
         fullPostActionUrl = [NSString stringWithFormat:@"%@&c=%d", postUrl, code];
     }
-    [_callback submitRequestToServer: fullPostActionUrl];
+ //   [_callback submitRequestToServer: fullPostActionUrl];
 }   
 
 #pragma mark - Public Interface
@@ -274,7 +274,7 @@ typedef enum {
     _shouldRenderFrame = YES;
     
     if (_adType == AdColony) {
-        [_callback submitRequestToServer:frameResponseURL];
+       // [_callback submitRequestToServer:frameResponseURL];
         NSLog(@"Returning DisplayAdColony");
         return DisplayAdColony;
     }
@@ -289,7 +289,7 @@ typedef enum {
 
 - (void)sendVideoView {
     if (_videoViewUrl !=nil) {
-        [_callback submitRequestToServer: _videoViewUrl];
+       // [_callback submitRequestToServer: _videoViewUrl];
     }
 }
 
