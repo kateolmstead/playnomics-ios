@@ -10,7 +10,6 @@
 
 #import "PNSession.h"
 #import "PNEventApiClient.h"
-#import "PlaynomicsCallback.h"
 #import "PNUserInfoEvent.h"
 #import "PNTransactionEvent.h"
 #import "PNMilestoneEvent.h"
@@ -42,8 +41,6 @@
     
     NSTimeInterval _sessionStartTime;
 	NSTimeInterval _pauseTime;
-    
-    PlaynomicsCallback* _callback;
     PNEventApiClient* _apiClient;
     PlaynomicsMessaging* _messaging;
     
@@ -92,8 +89,6 @@
         _testMessagingUrl = PNPropertyMessagingTestUrl;
         _prodMessagingUrl = PNPropertyMessagingProdUrl;
         
-        _callback = [[PlaynomicsCallback alloc] init];
-        
         _sdkVersion = PNPropertyVersion;
         
         _cache = [[PNCache alloc] init];
@@ -111,7 +106,6 @@
 
 - (void) dealloc {
     [_apiClient release];
-    [_callback release];
 
     /** Tracking values */
     [_userId release];
@@ -488,6 +482,10 @@
     }
 }
 
+- (void) pingUrlForCallback:(NSString *) url{
+    [_apiClient enqueueEventUrl: url];
+}
+
 #pragma mark "Push Notifications"
 
 - (void) enablePushNotificationsWithToken:(NSData*)deviceToken {
@@ -539,8 +537,7 @@
             if (state == UIApplicationStateActive && !([payload objectForKey:PushInteractionUrl_IgnoredParam] && [[payload objectForKey:PushInteractionUrl_IgnoredParam] isEqual:[NSNumber numberWithBool:NO]])) {
                 trackedCallback = [trackedCallback stringByAppendingFormat:@"&%@",PushInteractionUrl_IgnoredParam];
             }
-            
-            [_callback submitRequestToServer: trackedCallback];
+            [self pingUrlForCallback: trackedCallback];
         }
     }
     @catch (NSException *exception) {

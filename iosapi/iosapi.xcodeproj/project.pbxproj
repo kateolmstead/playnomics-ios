@@ -65,8 +65,6 @@
 		5BBAA22F159BD87300AA4993 /* PNApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BBAA22D159BD87300AA4993 /* PNApplication.m */; };
 		68C3137217B1C5CF0079E306 /* PNDeviceManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 68C3137017B1C5CE0079E306 /* PNDeviceManager.h */; };
 		68C3137317B1C5CF0079E306 /* PNDeviceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 68C3137117B1C5CE0079E306 /* PNDeviceManager.m */; };
-		A129689516DD758900F0A47A /* PlaynomicsCallback.h in Headers */ = {isa = PBXBuildFile; fileRef = A129689316DD758800F0A47A /* PlaynomicsCallback.h */; };
-		A129689616DD758900F0A47A /* PlaynomicsCallback.m in Sources */ = {isa = PBXBuildFile; fileRef = A129689416DD758900F0A47A /* PlaynomicsCallback.m */; };
 		D19CBDC216765ABE0089B04A /* PNMilestoneEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = D19CBDC016765ABE0089B04A /* PNMilestoneEvent.h */; };
 		D19CBDC316765ABE0089B04A /* PNMilestoneEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = D19CBDC116765ABE0089B04A /* PNMilestoneEvent.m */; };
 		D1D922741590F59700EDDE17 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1D922731590F59600EDDE17 /* Foundation.framework */; };
@@ -155,8 +153,6 @@
 		68C3137117B1C5CE0079E306 /* PNDeviceManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PNDeviceManager.m; path = iosapi/PNDeviceManager.m; sourceTree = "<group>"; };
 		68E6DABD17AC237900A904A8 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		A1244E0A16A9EADF001A93DD /* dev.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = dev.xcconfig; sourceTree = "<group>"; };
-		A129689316DD758800F0A47A /* PlaynomicsCallback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaynomicsCallback.h; sourceTree = "<group>"; };
-		A129689416DD758900F0A47A /* PlaynomicsCallback.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaynomicsCallback.m; sourceTree = "<group>"; };
 		A1822F8116B0691300414EF1 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		A1822F8316B069B900414EF1 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		D19CBDC016765ABE0089B04A /* PNMilestoneEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNMilestoneEvent.h; sourceTree = "<group>"; };
@@ -308,8 +304,6 @@
 				42FBA83740CF5538D7EBDA36 /* PlaynomicsMessaging.h */,
 				42FBA58FB3169ECD201AF332 /* PlaynomicsMessaging.m */,
 				42FBAB19F19EF89A69C6235A /* Support */,
-				A129689316DD758800F0A47A /* PlaynomicsCallback.h */,
-				A129689416DD758900F0A47A /* PlaynomicsCallback.m */,
 				32B41F2817BDAF30000DA02E /* PNUIImageView.h */,
 				32B41F2917BDAF30000DA02E /* PNUIImageView.m */,
 			);
@@ -454,7 +448,6 @@
 				42FBA9A183BE219FBAD3FF73 /* PlaynomicsMessaging.h in Headers */,
 				42FBAA7C5B8DA6655154B980 /* BaseAdComponent.h in Headers */,
 				D19CBDC216765ABE0089B04A /* PNMilestoneEvent.h in Headers */,
-				A129689516DD758900F0A47A /* PlaynomicsCallback.h in Headers */,
 				68C3137217B1C5CF0079E306 /* PNDeviceManager.h in Headers */,
 				32B41F2A17BDAF30000DA02E /* PNUIImageView.h in Headers */,
 				32A7C31217C3FCBC00E959A3 /* PNLogger.h in Headers */,
@@ -594,7 +587,6 @@
 				42FBA77B7E7A8D298A75735B /* PlaynomicsMessaging.m in Sources */,
 				42FBAC6C9B82A5B36D318FE1 /* BaseAdComponent.m in Sources */,
 				D19CBDC316765ABE0089B04A /* PNMilestoneEvent.m in Sources */,
-				A129689616DD758900F0A47A /* PlaynomicsCallback.m in Sources */,
 				68C3137317B1C5CF0079E306 /* PNDeviceManager.m in Sources */,
 				32B41F2B17BDAF30000DA02E /* PNUIImageView.m in Sources */,
 				32A7C31317C3FCBC00E959A3 /* PNLogger.m in Sources */,
