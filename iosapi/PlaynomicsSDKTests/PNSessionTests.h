@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <SenTestingKit/SenTestingKit.h>
 
-@interface PNEventTests : SenTestCase
+@interface PNSessionTests : SenTestCase
 
 //runs session start with no initial device data, expects 2 events: appStart and userInfo
 -(void) testAppStartNewDevice;

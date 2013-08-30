@@ -41,7 +41,7 @@
 		3290169E17CFD8640041895A /* PNConcurrentQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 3290169C17CFD8640041895A /* PNConcurrentQueue.m */; };
 		329016A117CFE7A50041895A /* PNEventRequestOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 3290169F17CFE7A40041895A /* PNEventRequestOperation.h */; };
 		329016A217CFE7A50041895A /* PNEventRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 329016A017CFE7A40041895A /* PNEventRequestOperation.m */; };
-		329016A617D019770041895A /* PNEventTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 329016A517D019770041895A /* PNEventTests.m */; };
+		329016A617D019770041895A /* PNSessionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 329016A517D019770041895A /* PNSessionTests.m */; };
 		329016A917D01A300041895A /* StubPNEventApiClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 329016A817D01A300041895A /* StubPNEventApiClient.m */; };
 		329016AD17D11E490041895A /* StubDeviceToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 329016AC17D11E490041895A /* StubDeviceToken.m */; };
 		32A7C31217C3FCBC00E959A3 /* PNLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 32A7C31017C3FCBC00E959A3 /* PNLogger.h */; };
@@ -119,8 +119,8 @@
 		3290169C17CFD8640041895A /* PNConcurrentQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNConcurrentQueue.m; sourceTree = "<group>"; };
 		3290169F17CFE7A40041895A /* PNEventRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PNEventRequestOperation.h; path = ../PNEventRequestOperation.h; sourceTree = "<group>"; };
 		329016A017CFE7A40041895A /* PNEventRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PNEventRequestOperation.m; path = ../PNEventRequestOperation.m; sourceTree = "<group>"; };
-		329016A417D019770041895A /* PNEventTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNEventTests.h; sourceTree = "<group>"; };
-		329016A517D019770041895A /* PNEventTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNEventTests.m; sourceTree = "<group>"; };
+		329016A417D019770041895A /* PNSessionTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNSessionTests.h; sourceTree = "<group>"; };
+		329016A517D019770041895A /* PNSessionTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNSessionTests.m; sourceTree = "<group>"; };
 		329016A717D01A300041895A /* StubPNEventApiClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StubPNEventApiClient.h; sourceTree = "<group>"; };
 		329016A817D01A300041895A /* StubPNEventApiClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StubPNEventApiClient.m; sourceTree = "<group>"; };
 		329016AA17D024B00041895A /* PNSession+Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PNSession+Private.h"; sourceTree = "<group>"; };
@@ -261,8 +261,8 @@
 				3290166C17CD22420041895A /* PNUtilTests.m */,
 				3290167417CDAE740041895A /* PNGeneratedHexIdTests.h */,
 				3290167517CDAE740041895A /* PNGeneratedHexIdTests.m */,
-				329016A417D019770041895A /* PNEventTests.h */,
-				329016A517D019770041895A /* PNEventTests.m */,
+				329016A417D019770041895A /* PNSessionTests.h */,
+				329016A517D019770041895A /* PNSessionTests.m */,
 			);
 			path = PlaynomicsSDKTests;
 			sourceTree = "<group>";
@@ -583,7 +583,7 @@
 				3290166A17CD0BAC0041895A /* StubPNCache.m in Sources */,
 				3290166D17CD22420041895A /* PNUtilTests.m in Sources */,
 				3290167617CDAE750041895A /* PNGeneratedHexIdTests.m in Sources */,
-				329016A617D019770041895A /* PNEventTests.m in Sources */,
+				329016A617D019770041895A /* PNSessionTests.m in Sources */,
 				329016A917D01A300041895A /* StubPNEventApiClient.m in Sources */,
 				329016AD17D11E490041895A /* StubDeviceToken.m in Sources */,
 			);

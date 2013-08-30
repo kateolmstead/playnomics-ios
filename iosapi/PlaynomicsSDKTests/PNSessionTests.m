@@ -6,7 +6,7 @@
 //
 //
 
-#import "PNEventTests.h"
+#import "PNSessionTests.h"
 #import "PNSession.h"
 #import "PNSession+Private.h"
 
@@ -22,7 +22,7 @@
 #import "PNEventMilestone.h"
 #import "PNEventTransaction.h"
 
-@implementation PNEventTests{
+@implementation PNSessionTests{
     PNSession *_session;
     StubPNEventApiClient *_stubApiClient;
     StubPNCache *_cache;
