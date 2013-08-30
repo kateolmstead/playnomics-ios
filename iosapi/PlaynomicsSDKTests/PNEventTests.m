@@ -18,9 +18,9 @@
 
 #import "PNEventAppPage.h"
 #import "PNEventAppStart.h"
-#import "PNUserInfoEvent.h"
-#import "PNMilestoneEvent.h"
-#import "PNTransactionEvent.h"
+#import "PNEventUserInfo.h"
+#import "PNEventMilestone.h"
+#import "PNEventTransaction.h"
 
 @implementation PNEventTests{
     PNSession *_session;
@@ -80,7 +80,7 @@
     [_session start];
     STAssertTrue([_stubApiClient.events count] == 2, @"2 events should be queued");
     STAssertTrue([[_stubApiClient.events objectAtIndex:0] isKindOfClass:[PNEventAppStart class]], @"appStart is the first event");
-    STAssertTrue([[_stubApiClient.events objectAtIndex:1] isKindOfClass:[PNUserInfoEvent class]], @"userInfo is the second event");
+    STAssertTrue([[_stubApiClient.events objectAtIndex:1] isKindOfClass:[PNEventUserInfo class]], @"userInfo is the second event");
     
     STAssertTrue(_session.sessionId.generatedId == _session.instanceId.generatedId, @"Instance ID and Session ID should be equal.");
 }
@@ -193,7 +193,7 @@
     
     STAssertTrue([_stubApiClient.events count] == 2, @"2 events should be queued");
     STAssertTrue([[_stubApiClient.events objectAtIndex:0] isKindOfClass:[PNEventAppPage class]], @"appPage is the first event");
-    STAssertTrue([[_stubApiClient.events objectAtIndex:1] isKindOfClass:[PNUserInfoEvent class]], @"userInfo is the second event");
+    STAssertTrue([[_stubApiClient.events objectAtIndex:1] isKindOfClass:[PNEventUserInfo class]], @"userInfo is the second event");
     
     STAssertTrue(lastSessionId.generatedId == _session.sessionId.generatedId, @"Session ID should be loaded from cache.");
     STAssertTrue(_session.sessionId.generatedId != _session.instanceId.generatedId, @"Instance ID and Session ID should be different.");
@@ -248,7 +248,7 @@
     
     STAssertTrue([_stubApiClient.events count] == 2, @"2 events should be queued");
     STAssertTrue([[_stubApiClient.events objectAtIndex:0] isKindOfClass:[PNEventAppStart class]], @"appStart is the first event");
-    STAssertTrue([[_stubApiClient.events objectAtIndex:1] isKindOfClass:[PNMilestoneEvent class]], @"milestone is the second event");
+    STAssertTrue([[_stubApiClient.events objectAtIndex:1] isKindOfClass:[PNEventMilestone class]], @"milestone is the second event");
 }
 
 //runs the milestone without calling start first. expects 0 events
@@ -290,7 +290,7 @@
     
     STAssertTrue([_stubApiClient.events count] == 2, @"2 events should be queued");
     STAssertTrue([[_stubApiClient.events objectAtIndex:0] isKindOfClass:[PNEventAppStart class]], @"appStart is the first event");
-    STAssertTrue([[_stubApiClient.events objectAtIndex:1] isKindOfClass:[PNTransactionEvent class]], @"transaction is the second event");
+    STAssertTrue([[_stubApiClient.events objectAtIndex:1] isKindOfClass:[PNEventTransaction class]], @"transaction is the second event");
 
 }
 //runs  transaction without calling start first. expects 0 events

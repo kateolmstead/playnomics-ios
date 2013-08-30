@@ -11,9 +11,9 @@
 #import "PNSession+Private.h"
 
 #import "PNEventApiClient.h"
-#import "PNUserInfoEvent.h"
-#import "PNTransactionEvent.h"
-#import "PNMilestoneEvent.h"
+#import "PNEventUserInfo.h"
+#import "PNEventTransaction.h"
+#import "PNEventMilestone.h"
 #import "PNDeviceManager.h"
 #import "PlaynomicsMessaging.h"
 
@@ -27,9 +27,9 @@
 #import "PNEventAppResume.h"
 #import "PNEventAppRunning.h"
 #import "PNEvent.h"
-#import "PNTransactionEvent.h"
-#import "PNMilestoneEvent.h"
-#import "PNUserInfoEvent.h"
+#import "PNEventTransaction.h"
+#import "PNEventMilestone.h"
+#import "PNEventUserInfo.h"
 
 @implementation PNSession {
 @private
@@ -437,7 +437,7 @@
 #pragma mark - Device Identifiers
 
 -(void)onDeviceInfoChanged{
-    PNUserInfoEvent *userInfo = [[PNUserInfoEvent alloc] initWithSessionInfo:[self getGameSessionInfo] limitAdvertising:[_cache getLimitAdvertising] idfa:[_cache getIdfa] idfv: [_cache getIdfv]];
+    PNEventUserInfo *userInfo = [[PNEventUserInfo alloc] initWithSessionInfo:[self getGameSessionInfo] limitAdvertising:[_cache getLimitAdvertising] idfa:[_cache getIdfa] idfv: [_cache getIdfv]];
     [userInfo autorelease];
     [_apiClient enqueueEvent:userInfo];
 }
@@ -454,7 +454,7 @@
         
         NSString *itemId = @"monetized";
         
-        PNTransactionEvent *ev = [[PNTransactionEvent alloc] initWithSessionInfo:[self getGameSessionInfo] itemId:itemId quantity:quantity type:PNTransactionBuyItem currencyTypes:currencyTypes currencyValues:currencyValues currencyCategories:currencyCategories];
+        PNEventTransaction *ev = [[PNEventTransaction alloc] initWithSessionInfo:[self getGameSessionInfo] itemId:itemId quantity:quantity type:PNTransactionBuyItem currencyTypes:currencyTypes currencyValues:currencyValues currencyCategories:currencyCategories];
         [ev autorelease];
         [_apiClient enqueueEvent:ev];
     }
@@ -467,7 +467,7 @@
     @try {
         [self assertSessionHasStarted];
         
-        PNMilestoneEvent *ev = [[PNMilestoneEvent alloc] initWithSessionInfo:[self getGameSessionInfo] milestoneType:milestoneType];
+        PNEventMilestone *ev = [[PNEventMilestone alloc] initWithSessionInfo:[self getGameSessionInfo] milestoneType:milestoneType];
         [ev autorelease];
         [_apiClient enqueueEvent:ev];
     }
@@ -497,7 +497,7 @@
             [userDefaults setObject:newToken forKey:PNUserDefaultsLastDeviceToken];
             [userDefaults synchronize];
             
-            PNUserInfoEvent *ev = [[PNUserInfoEvent alloc] initWithSessionInfo:[self getGameSessionInfo] pushToken: newToken];
+            PNEventUserInfo *ev = [[PNEventUserInfo alloc] initWithSessionInfo:[self getGameSessionInfo] pushToken: newToken];
             [ev autorelease];
             [_apiClient enqueueEvent: ev];
         }

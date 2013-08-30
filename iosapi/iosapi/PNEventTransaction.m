@@ -1,12 +1,11 @@
-#import "PNTransactionEvent.h"
+#import "PNEventTransaction.h"
 #import "PNUtil.h"
 
-@implementation PNTransactionEvent
+@implementation PNEventTransaction
 - (id) initWithSessionInfo: (PNGameSessionInfo *)info itemId: (NSString*) itemId quantity: (NSInteger) quantity type: (PNTransactionType) type currencyTypes: (NSArray*) currencyTypes currencyValues: (NSArray*) currencyValues currencyCategories: (NSArray*) currencyCategories {
     
     if ((self = [super initWithSessionInfo: info])) {
         unsigned long long transactionId = [PNUtil generateRandomLongLong];
-        
         
         [self appendParameter:[NSNumber numberWithUnsignedLongLong : transactionId] forKey:PNEventParameterTransactionId];
         [self appendParameter:itemId forKey:PNEventParameterTransactionItemId];

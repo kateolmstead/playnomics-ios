@@ -34,6 +34,4 @@
 -(NSString *) toHex{
     return [NSString stringWithFormat:@"%llX", _generatedId];
 }
-
-
 @end

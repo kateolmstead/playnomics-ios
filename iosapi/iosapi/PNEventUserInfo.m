@@ -1,5 +1,5 @@
-#import "PNUserInfoEvent.h"
-@implementation PNUserInfoEvent
+#import "PNEventUserInfo.h"
+@implementation PNEventUserInfo
 
 
 - (id) initWithSessionInfo:(PNGameSessionInfo *)info pushToken : (NSString *) pushToken{

@@ -27,7 +27,7 @@ typedef enum {
     PNCurrencyOFF
 } PNCurrencyType;
 
-@interface PNTransactionEvent : PNExplicitEvent
+@interface PNEventTransaction : PNExplicitEvent
 
 - (id) initWithSessionInfo: (PNGameSessionInfo *)info itemId: (NSString*) itemId quantity: (NSInteger) quantity type: (PNTransactionType) type currencyTypes: (NSArray*) currencyTypes currencyValues: (NSArray*) currencyValues currencyCategories: (NSArray*) currencyCategories;
 - (NSString *) baseUrlPath;

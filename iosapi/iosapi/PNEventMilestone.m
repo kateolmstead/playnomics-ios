@@ -5,8 +5,8 @@
 //  Created by Douglas Kadlecek on 12/10/12.
 //
 //
-#import "PNMilestoneEvent.h"
-@implementation PNMilestoneEvent
+#import "PNEventMilestone.h"
+@implementation PNEventMilestone
 
 - (id) initWithSessionInfo:(PNGameSessionInfo *)info milestoneType: (PNMilestoneType) milestoneType {
     

@@ -8,7 +8,7 @@
 #import "PNSession.h"
 #import "PNExplicitEvent.h"
 
-@interface PNMilestoneEvent : PNExplicitEvent
+@interface PNEventMilestone : PNExplicitEvent
 - (id) initWithSessionInfo:(PNGameSessionInfo *)info milestoneType: (PNMilestoneType) milestoneType;
 - (NSString *) baseUrlPath;
 @end

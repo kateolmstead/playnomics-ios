@@ -30,11 +30,8 @@
 -(void) testTransaction;
 //runs  transaction without calling start first. expects 0 events
 -(void) testTransactionNoStart;
-
 //runs start, and then enablePushNotifications, expects 2 events: appStart and enable push notifications
 -(void) testEnabledPushNotifications;
 //runs enablePushNotifications without calling start first. expects 0 events
 -(void) testEnabledPushNoStart;
-
-
 @end
