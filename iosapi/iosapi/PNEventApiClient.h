@@ -14,6 +14,5 @@
 //queue processing
 - (void) start;
 - (void) pause;
-
 - (void) stop;
 @end

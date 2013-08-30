@@ -16,7 +16,7 @@
         [_eventParameters setValue: info.breadcrumbId forKey: PNEventParameterDeviceID];
         
         [_eventParameters setValue: @"ios" forKey: PNEventParameterSdkName];
-        [_eventParameters setValue: PNPropertyVersion forKey: PNEventParameterSdkName];
+        [_eventParameters setValue: PNPropertyVersion forKey: PNEventParameterSdkVersion];
         
         [_eventParameters setValue:[info.sessionId toHex] forKey: [self sessionKey]];
     }

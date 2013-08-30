@@ -31,7 +31,6 @@
                 
                 NSString* currencyCategoryStr = [self PNCurrencyCategoryDescription: [currencyType intValue]];
                 
-            
                 [self appendParameter:currencyValue forKey: [NSString stringWithFormat: PNEventParameterTransactionCurrencyValueFormat, i]];
                 [self appendParameter:currencyCategoryStr forKey: [NSString stringWithFormat: PNEventParameterTransactionCurrencyCategoryFormat, i]];
                 [self appendParameter:currentTypeStr forKey: [NSString stringWithFormat: PNEventParameterTransactionCurrencyTypeFormat, i]];
