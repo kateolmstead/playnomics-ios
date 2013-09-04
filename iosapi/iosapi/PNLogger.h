@@ -12,10 +12,11 @@
 #define NS_ENUM(_type, _name) enum _name : _type _name; enum _name : _type
 #endif
 typedef NS_ENUM(int, PNLoggingLevel){
-    PNLogLevelNone      = 0,
+    PNLogLevelVerbose   = 0,
     PNLogLevelDebug     = 1,
-    PNLogLevelWarning   = 3,
-    PNLogLevelError     = 7
+    PNLogLevelWarning   = 2,
+    PNLogLevelError     = 3,
+    PNLogLevelNone      = 4
 };
 
 @interface PNLogger : NSObject
