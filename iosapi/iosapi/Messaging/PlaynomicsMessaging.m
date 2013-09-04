@@ -61,7 +61,6 @@
     if (adResponse == nil){
         return nil;
     }
-    
     NSDictionary *props = [PNUtil deserializeJsonData: adResponse];
     return props;
 }

@@ -2,13 +2,12 @@
 
 #import "PNEvent.h"
 #import "PNSession.h"
+#import "PNUrlProcessorDelegate.h"
 
-@interface PNEventApiClient : NSObject
+@interface PNEventApiClient : NSObject<PNUrlProcessorDelegate>
 - (id) initWithSession: (PNSession *) session;
 - (void) enqueueEvent: (PNEvent *) event;
 - (void) enqueueEventUrl: (NSString *) url;
-
-- (void) onEventWasCanceled: (NSString *) url;
 
 - (NSSet *) getAllUnprocessedUrls;
 //queue processing

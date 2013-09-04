@@ -7,12 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "PNEventApiClient.h"
+#import "PNUrlProcessorDelegate.h"
 
 @interface PNEventRequestOperation : NSOperation<NSURLConnectionDataDelegate>
 
 @property (readonly) NSString *urlPath;
 @property (readonly) BOOL successful;
 
-- (id) initWithUrl : (NSString *) urlPath apiClient : (PNEventApiClient *) apiClient;
+- (id) initWithUrl : (NSString *) urlPath delegate : (id<PNUrlProcessorDelegate>) delegate;
 @end

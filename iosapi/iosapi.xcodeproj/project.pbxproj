@@ -45,6 +45,8 @@
 		329016A917D01A300041895A /* StubPNEventApiClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 329016A817D01A300041895A /* StubPNEventApiClient.m */; };
 		329016AD17D11E490041895A /* StubDeviceToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 329016AC17D11E490041895A /* StubDeviceToken.m */; };
 		329016B017D126D20041895A /* PNEventTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 329016AF17D126D10041895A /* PNEventTests.m */; };
+		329016B417D67F8C0041895A /* PNConcurrentSet.h in Headers */ = {isa = PBXBuildFile; fileRef = 329016B217D67F8B0041895A /* PNConcurrentSet.h */; };
+		329016B517D67F8C0041895A /* PNConcurrentSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 329016B317D67F8B0041895A /* PNConcurrentSet.m */; };
 		32A7C31217C3FCBC00E959A3 /* PNLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 32A7C31017C3FCBC00E959A3 /* PNLogger.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		32A7C31317C3FCBC00E959A3 /* PNLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 32A7C31117C3FCBC00E959A3 /* PNLogger.m */; };
 		32A7C33017C6A36B00E959A3 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1D922811590F59700EDDE17 /* SenTestingKit.framework */; };
@@ -129,6 +131,9 @@
 		329016AC17D11E490041895A /* StubDeviceToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StubDeviceToken.m; sourceTree = "<group>"; };
 		329016AE17D126D00041895A /* PNEventTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNEventTests.h; sourceTree = "<group>"; };
 		329016AF17D126D10041895A /* PNEventTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNEventTests.m; sourceTree = "<group>"; };
+		329016B117D65E930041895A /* PNUrlProcessorDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PNUrlProcessorDelegate.h; sourceTree = "<group>"; };
+		329016B217D67F8B0041895A /* PNConcurrentSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNConcurrentSet.h; sourceTree = "<group>"; };
+		329016B317D67F8B0041895A /* PNConcurrentSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNConcurrentSet.m; sourceTree = "<group>"; };
 		32A7C31017C3FCBC00E959A3 /* PNLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PNLogger.h; path = iosapi/PNLogger.h; sourceTree = "<group>"; };
 		32A7C31117C3FCBC00E959A3 /* PNLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNLogger.m; sourceTree = "<group>"; };
 		32A7C32F17C6A36B00E959A3 /* PlaynomicsSDKTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PlaynomicsSDKTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -232,6 +237,7 @@
 				329016A017CFE7A40041895A /* PNEventRequestOperation.m */,
 				D1D922B9159112C100EDDE17 /* PNEventApiClient.h */,
 				D1D922BA159112C100EDDE17 /* PNEventApiClient.m */,
+				329016B117D65E930041895A /* PNUrlProcessorDelegate.h */,
 			);
 			name = APIClient;
 			sourceTree = "<group>";
@@ -383,6 +389,8 @@
 				3290166417CC42420041895A /* PNCache.m */,
 				3290169B17CFD8640041895A /* PNConcurrentQueue.h */,
 				3290169C17CFD8640041895A /* PNConcurrentQueue.m */,
+				329016B217D67F8B0041895A /* PNConcurrentSet.h */,
+				329016B317D67F8B0041895A /* PNConcurrentSet.m */,
 			);
 			name = Util;
 			sourceTree = "<group>";
@@ -485,6 +493,7 @@
 				3290169917CEF5AA0041895A /* PNEventAppPage.h in Headers */,
 				3290169D17CFD8640041895A /* PNConcurrentQueue.h in Headers */,
 				329016A117CFE7A50041895A /* PNEventRequestOperation.h in Headers */,
+				329016B417D67F8C0041895A /* PNConcurrentSet.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -629,6 +638,7 @@
 				3290169A17CEF5AA0041895A /* PNEventAppPage.m in Sources */,
 				3290169E17CFD8640041895A /* PNConcurrentQueue.m in Sources */,
 				329016A217CFE7A50041895A /* PNEventRequestOperation.m in Sources */,
+				329016B517D67F8C0041895A /* PNConcurrentSet.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

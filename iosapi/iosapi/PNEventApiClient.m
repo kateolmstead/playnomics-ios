@@ -3,21 +3,23 @@
 #import "PNSession.h"
 #import "PNConcurrentQueue.h"
 #import "PNEventRequestOperation.h"
+#import "PNConcurrentSet.h"
 
 @implementation PNEventApiClient{
     PNSession* _session;
     BOOL _running;
     NSOperationQueue *_operationQueue;
-    PNConcurrentQueue *_cancelledEvents;
+    
+    PNConcurrentSet *_inprocessEvents;
 }
 
 - (id) initWithSession: (PNSession *) session {
     if ((self = [super init])) {
         _operationQueue = [[NSOperationQueue alloc] init];
-        [_operationQueue setSuspended: NO];
-        _cancelledEvents = [[PNConcurrentQueue alloc] init];
+        [_operationQueue setSuspended: YES];
+        _inprocessEvents = [[PNConcurrentSet alloc] init];
         _session = session;
-        _running = YES;
+        _running = NO;
     }
     return self;
 }
@@ -29,41 +31,59 @@
 }
 
 -(void) enqueueEvent:(PNEvent *)event{
-    NSString* url = [self getUrlStringForEvent: event];
+    NSString* url = [self buildUrlWithBase:[_session getEventsUrl]  withPath: event.baseUrlPath withParams: event.eventParameters];
     [self enqueueEventUrl: url];
 }
 
 -(void) enqueueEventUrl: (NSString *) url{
     if(url) {
-        PNEventRequestOperation *op = [[PNEventRequestOperation alloc] initWithUrl:url apiClient:self];
+        PNEventRequestOperation *op = [[PNEventRequestOperation alloc] initWithUrl:url delegate:self];
         [_operationQueue addOperation: op];
+        [_inprocessEvents addObject: url];
         [op autorelease];
     }
 }
 
--(void) onEventWasCanceled: (NSString *) url{
-    [_cancelledEvents enqueue:url];
+-(void) onDidProcessUrl:(NSString *)url{
+    [_inprocessEvents removeObject: url];
 }
 
--(NSString *) getUrlStringForEvent:(PNEvent *) event{
-    NSMutableString * eventUrl = [NSMutableString stringWithString:[_session getEventsUrl]];
-    [eventUrl appendString: event.baseUrlPath];
+-(void) onDidFailToProcessUrl: (NSString *) url tryAgain:(BOOL) tryAgain{
+    if(tryAgain){
+        [self enqueueEventUrl: url];
+        [_inprocessEvents removeObject:url];
+    }
+}
+
+-(NSString *) buildUrlWithBase: (NSString *) base withPath:(NSString *) path withParams:(NSDictionary *) params{
+    if(!base){
+        return nil;
+    }
     
-    BOOL containsQueryString = [eventUrl rangeOfString:@"?"].location != NSNotFound;
+    NSMutableString * url = [NSMutableString stringWithString:base];
+    if(![url hasSuffix:@"/"]){
+        [url appendString:@"/"];
+    }
+    
+    if(path){
+        [url appendString: path];
+    }
+    
+    BOOL containsQueryString = [url rangeOfString:@"?"].location != NSNotFound;
     BOOL firstParam = YES;
     
-    for(NSString *key in event.eventParameters){
-        NSObject *value = [event.eventParameters valueForKey: key];
+    for(NSString *key in params){
+        NSObject *value = [params valueForKey: key];
         if(!value){ continue; }
     
         if(firstParam && !containsQueryString){
-            [eventUrl appendFormat:@"?%@=%@", [PNUtil urlEncodeValue: key], [PNUtil urlEncodeValue: [value description]]];
+            [url appendFormat:@"?%@=%@", [PNUtil urlEncodeValue: key], [PNUtil urlEncodeValue: [value description]]];
         } else {
-            [eventUrl appendFormat:@"&%@=%@", [PNUtil urlEncodeValue: key], [PNUtil urlEncodeValue: [value description]]];
+            [url appendFormat:@"&%@=%@", [PNUtil urlEncodeValue: key], [PNUtil urlEncodeValue: [value description]]];
         }
         firstParam = NO;
     }
-    return eventUrl;
+    return url;
 }
 
 - (void) start{
@@ -87,13 +107,7 @@
 }
 
 - (NSSet *) getAllUnprocessedUrls{
-    NSMutableSet * set = [[NSMutableSet alloc] init];
-    [set autorelease];
-    
-    while(!_cancelledEvents.isEmpty){
-        [set addObject:[_cancelledEvents dequeue]];
-    }
-    return set;
+    return [_inprocessEvents copyOfData];
 }
 
 @end

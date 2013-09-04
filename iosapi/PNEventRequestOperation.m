@@ -11,25 +11,20 @@
 @implementation PNEventRequestOperation{
     BOOL _executing;
     BOOL _finished;
-    PNEventApiClient * _client;
+    id<PNUrlProcessorDelegate> _delegate;
 }
 
 @synthesize urlPath=_urlPath;
 @synthesize successful=_successful;
 
-- (id) initWithUrl : (NSString *) urlPath apiClient : (PNEventApiClient *) apiClient {
+- (id) initWithUrl : (NSString *) urlPath delegate : (id<PNUrlProcessorDelegate>) delegate {
     if((self = [super init])){
-        _urlPath = urlPath;
+        _urlPath = [urlPath retain];
         _executing = NO;
         _finished = NO;
-        _successful = NO;
-        _client = apiClient;
+        _delegate = delegate;
     }
     return self;
-}
-
-- (BOOL) isConcurrent {
-    return YES;
 }
 
 - (BOOL) isExecuting {
@@ -37,9 +32,7 @@
 }
 
 - (BOOL) isFinished {
-    @synchronized(self){
-        return _finished;
-    }
+    return _finished;
 }
 
 -(void) setIsFinished:(BOOL) value{
@@ -49,60 +42,44 @@
 }
 
 - (void) start {
-    [PNLogger log:PNLogLevelDebug format:@"Starting event request @%", _urlPath];
+    [PNLogger log:PNLogLevelDebug format:@"Starting event request %@", _urlPath];
     
-    // Always check for cancellation before launching the task.
+    //check for cancellation before launching the task.
     if ([self isCancelled]){
-        [PNLogger log:PNLogLevelDebug format:@"Request has been cancelled @%", _urlPath];
+        [PNLogger log:PNLogLevelDebug format:@"Request has been cancelled %@", _urlPath];
         
-        // Must move the operation to the finished state if it is canceled.
+        //move the operation to the finished state if it is canceled.
         [self willChangeValueForKey:@"isFinished"];
         [self setIsFinished: YES];
+        [_delegate onDidFailToProcessUrl:_urlPath tryAgain:NO];
         [self didChangeValueForKey:@"isFinished"];
         return;
     }
     
     [self willChangeValueForKey:@"isExecuting"];
-    [NSThread detachNewThreadSelector:@selector(main) toTarget:self withObject:nil];
+    [self performSelectorOnMainThread:@selector(startUrlRequest) withObject:nil waitUntilDone:NO];
     _executing = YES;
     [self didChangeValueForKey:@"isExecuting"];
 }
 
--(void) main {
-    NSURLConnection *connection;
-    @try {
-        NSURL *url = [[[NSURL alloc] initWithString: self.urlPath] autorelease];
-        NSURLRequest *request = [[[NSURLRequest alloc] initWithURL:url cachePolicy:NSURLCacheStorageAllowedInMemoryOnly timeoutInterval:PNPropertyConnectionTimeout] autorelease];
-        connection = [NSURLConnection connectionWithRequest:request delegate:self];
-    
-        while(!([self isCancelled] || [self isFinished])){
-            //wait for the operation to either complete or get cancelled
-            [NSThread sleepForTimeInterval: 1];
-        }
-        
-        if([self isCancelled]){
-            //close the URL request
-            [connection cancel];
-            [_client onEventWasCanceled:self.urlPath];
-            [self completeOperation];
-        }
-    } @catch(...){
-        [self completeOperation];
-    } @finally {
-        [connection release];
-    }
+-(void) startUrlRequest{
+    NSURL *url = [[[NSURL alloc] initWithString: self.urlPath] autorelease];
+    NSURLRequest *request = [[[NSURLRequest alloc] initWithURL:url cachePolicy:NSURLCacheStorageNotAllowed timeoutInterval:PNPropertyConnectionTimeout] autorelease];
+    [[[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES] autorelease];
 }
+
 
 //NSURLConnectionDelegate Protocol
 - (void) connection: (NSURLConnection *) connection didFailWithError: (NSError *) error {
-    [PNLogger log:PNLogLevelDebug format:@"Request for @% completed with error @%", _urlPath, error.description];
+    [PNLogger log:PNLogLevelDebug format:@"Request for %@ completed with error %@", _urlPath, error.description];
+    [_delegate onDidFailToProcessUrl:_urlPath tryAgain:YES];
     [self completeOperation];
-    [_client enqueueEventUrl: self.urlPath];
 }
 //NSURLConnectionDataDelegate Protocol
 - (void) connection: (NSURLConnection *)connection didReceiveResponse: (NSURLResponse *)response {
     NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse *)response;
-    [PNLogger log:PNLogLevelDebug format:@"Request for @% completed with status code @%", _urlPath, [httpResponse statusCode]];
+    [PNLogger log:PNLogLevelDebug format:@"Request for %@ completed with status code %d", _urlPath, [httpResponse statusCode]];
+    [_delegate onDidProcessUrl: _urlPath];
     [self completeOperation];
 }
 

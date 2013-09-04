@@ -20,7 +20,7 @@ static PNLoggingLevel _logLevel = PNLogLevelError;
     if(level & _logLevel){
         va_list args;
         va_start(args, format);
-        NSLog(format, args);
+        NSLogv(format, args);
         va_end(args);
     }
 }
@@ -37,7 +37,7 @@ static PNLoggingLevel _logLevel = PNLogLevelError;
     if(level & _logLevel){
         va_list args;
         va_start(args, format);
-        NSLog(format, args);
+        NSLogv(format, args);
         va_end(args);
         NSLog(@"Exception details:");
         NSLog(@"Name: %@", exception.name);
@@ -56,7 +56,7 @@ static PNLoggingLevel _logLevel = PNLogLevelError;
     if(level & _logLevel){
         va_list args;
         va_start(args, format);
-        NSLog(format, args);
+        NSLogv(format, args);
         va_end(args);
         NSLog(@"Error details:");
         NSLog(@"Description: %@", error.debugDescription);

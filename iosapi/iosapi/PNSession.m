@@ -273,7 +273,8 @@
     _sessionStartTime = ev.eventTime;
     // Try to send and queue if unsuccessful
     [_apiClient enqueueEvent:ev];
-
+    [_apiClient start];
+    
     if([_deviceManager syncDeviceSettingsWithCache]){
         [self onDeviceInfoChanged];
     }
