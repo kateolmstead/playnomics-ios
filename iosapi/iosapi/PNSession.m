@@ -226,6 +226,8 @@
     /** Setting Session variables */
     [_cache loadDataFromCache];
     
+    BOOL settingsChanged = [_deviceManager syncDeviceSettingsWithCache];
+
     _state = PNSessionStateStarted;
     
     _cookieId = [[_cache getBreadcrumbID] retain];
@@ -275,7 +277,7 @@
     [_apiClient enqueueEvent:ev];
     [_apiClient start];
     
-    if([_deviceManager syncDeviceSettingsWithCache]){
+    if(settingsChanged){
         [self onDeviceInfoChanged];
     }
     
