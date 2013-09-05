@@ -10,7 +10,7 @@
 #import "PlaynomicsFrame.h"
 #import "PlaynomicsMessaging.h"
 
-@interface PlaynomicsFrame (Exposed) <BaseAdComponentDelegate>
+@interface PlaynomicsFrame (Exposed) <PNBaseAdComponentDelegate>
 - (id) initWithProperties:(NSDictionary *)properties forFrameId:(NSString *)frameId frameDelegate: (id<PNFrameDelegate>)frameDelegate;
 - (void) refreshProperties: (NSDictionary *)properties;
 @end

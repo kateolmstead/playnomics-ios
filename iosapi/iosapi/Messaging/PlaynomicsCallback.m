@@ -12,12 +12,12 @@
 
 
 
-- (void)submitRequestToServer:(NSString *)impressionUrl {
-    if (impressionUrl == nil || impressionUrl.length<=0)
+- (void)submitRequestToServer:(NSString *)trackingUrl {
+    if (trackingUrl == nil || trackingUrl.length<=0)
         return;//we will crash here...stop everything
     
-    NSURL *url = [NSURL URLWithString:impressionUrl];
-    NSLog(@"Submitting GET request to impression URL: %@", impressionUrl);
+    NSURL *url = [NSURL URLWithString:trackingUrl];
+    NSLog(@"Submitting GET request to URL: %@", trackingUrl);
     
     FSNConnection *connection =
     [FSNConnection withUrl:url
@@ -29,7 +29,7 @@
                 }
            completionBlock:^(FSNConnection *c) {
                NSLog(@"********************\r\n---> ");
-               NSLog(@"Impression URL complete: error: %@, result: %@", c.error, c.parseResult);
+               NSLog(@"URL complete: error: %@, result: %@", c.error, c.parseResult);
                NSLog(@"********************\r\n---> ");
            }
              progressBlock:nil];

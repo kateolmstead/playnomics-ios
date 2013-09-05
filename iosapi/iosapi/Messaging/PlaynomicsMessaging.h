@@ -13,11 +13,6 @@
 - (void)performActionOnAdClicked;
 @end
 
-@protocol PNFrameDelegate <NSObject>
-@required
--(void) onClick: (NSDictionary*) jsonData;
-@end
-
 
 /**
  * Central messaging class used to generate ad frames and register click handlers
@@ -38,6 +33,6 @@
 
 // Initialize a frame using data retrieved from the Playnomics Messaging Server.  The returned instance is
 // AUTORELEASED and must be retained by the clients.
-- (PlaynomicsFrame *)createFrameWithId:(NSString *)frameId;
+- (PlaynomicsFrame *)createFrameWithId:(NSString*)frameId;
 - (PlaynomicsFrame *)createFrameWithId:(NSString*)frameId frameDelegate: (id<PNFrameDelegate>)frameDelegate;
 @end

@@ -9,6 +9,7 @@
 #import "PNConfig.h"
 #import "PNErrorEvent.h"
 #import "PNUtil.h"
+#import "PNWebView.h"
 
 @implementation PlaynomicsMessaging {
 @private
@@ -60,15 +61,14 @@
     // Caller will be the name of the method that called initFrameWithId
     NSString *caller = [array objectAtIndex:4];
     
-    NSDictionary *propDict = [self _retrieveFramePropertiesForId:frameId withCaller:caller];
-    PlaynomicsFrame *frame = [[PlaynomicsFrame alloc] initWithProperties:propDict
-                                                        forFrameId:frameId
-                                                        frameDelegate: frameDelegate];
+    NSDictionary *adResponse = [self _retrieveFramePropertiesForId:frameId withCaller:caller];
+    PlaynomicsFrame *frame = [[PlaynomicsFrame alloc] createWithProperties:adResponse
+                                                             frameDelegate:frameDelegate];
     return frame;
 }
 
 // Make an ad request to the PN Ad Servers
-- (NSDictionary *)_retrieveFramePropertiesForId:(NSString *)frameId withCaller: (NSString *) caller
+- (NSDictionary*)_retrieveFramePropertiesForId:(NSString *)frameId withCaller: (NSString *) caller
 {
     PlaynomicsSession *pn = [PlaynomicsSession sharedInstance];
     signed long long time = [[NSDate date] timeIntervalSince1970] * 1000;

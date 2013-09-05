@@ -9,5 +9,5 @@
 #import <Foundation/Foundation.h>
 
 @interface PlaynomicsCallback : NSObject
-- (void)submitRequestToServer:(NSString *)impressionUrl ;
+- (void)submitRequestToServer:(NSString *)trackingUrl ;
 @end

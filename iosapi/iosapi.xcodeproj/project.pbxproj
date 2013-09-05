@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		32B41F2A17BDAF30000DA02E /* PNUIImageView.h in Headers */ = {isa = PBXBuildFile; fileRef = 32B41F2817BDAF30000DA02E /* PNUIImageView.h */; };
-		32B41F2B17BDAF30000DA02E /* PNUIImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 32B41F2917BDAF30000DA02E /* PNUIImageView.m */; };
+		32B41F2A17BDAF30000DA02E /* PNImage.h in Headers */ = {isa = PBXBuildFile; fileRef = 32B41F2817BDAF30000DA02E /* PNImage.h */; };
+		32B41F2B17BDAF30000DA02E /* PNImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 32B41F2917BDAF30000DA02E /* PNImage.m */; };
 		42FBA45F0CE45688790D1F03 /* PlaynomicsFrame.h in Headers */ = {isa = PBXBuildFile; fileRef = 42FBAE69972626B043E69F63 /* PlaynomicsFrame.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		42FBA7777582C10C8946AC08 /* PlaynomicsFrame+Exposed.h in Headers */ = {isa = PBXBuildFile; fileRef = 42FBA2AFE7443DE409B560CF /* PlaynomicsFrame+Exposed.h */; };
 		42FBA77B7E7A8D298A75735B /* PlaynomicsMessaging.m in Sources */ = {isa = PBXBuildFile; fileRef = 42FBA58FB3169ECD201AF332 /* PlaynomicsMessaging.m */; };
@@ -23,6 +23,8 @@
 		5B753E30159D2D5000E698F9 /* PNRandomGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B753E2F159D2D5000E698F9 /* PNRandomGenerator.m */; };
 		5BBAA22F159BD87300AA4993 /* PNApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BBAA22D159BD87300AA4993 /* PNApplication.m */; };
 		5BBAA238159BE4CD00AA4993 /* PlaynomicsSession+Exposed.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BBAA237159BE4CD00AA4993 /* PlaynomicsSession+Exposed.h */; };
+		6850E47917CBF9F600D5FAA1 /* PNWebView.h in Headers */ = {isa = PBXBuildFile; fileRef = 6850E47717CBF9F600D5FAA1 /* PNWebView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6850E47A17CBF9F600D5FAA1 /* PNWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6850E47817CBF9F600D5FAA1 /* PNWebView.m */; };
 		68C3137217B1C5CF0079E306 /* PNUserInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 68C3137017B1C5CE0079E306 /* PNUserInfo.h */; };
 		68C3137317B1C5CF0079E306 /* PNUserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 68C3137117B1C5CE0079E306 /* PNUserInfo.m */; };
 		A118C35316A8825700DFF63C /* PNAPSNotificationEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = A118C35116A8825700DFF63C /* PNAPSNotificationEvent.m */; };
@@ -82,8 +84,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		32B41F2817BDAF30000DA02E /* PNUIImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNUIImageView.h; sourceTree = "<group>"; };
-		32B41F2917BDAF30000DA02E /* PNUIImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNUIImageView.m; sourceTree = "<group>"; };
+		32B41F2817BDAF30000DA02E /* PNImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNImage.h; sourceTree = "<group>"; };
+		32B41F2917BDAF30000DA02E /* PNImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNImage.m; sourceTree = "<group>"; };
 		42FBA2AFE7443DE409B560CF /* PlaynomicsFrame+Exposed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PlaynomicsFrame+Exposed.h"; sourceTree = "<group>"; };
 		42FBA43470BA1417AC7381CC /* BaseAdComponent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseAdComponent.m; sourceTree = "<group>"; };
 		42FBA58FB3169ECD201AF332 /* PlaynomicsMessaging.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaynomicsMessaging.m; sourceTree = "<group>"; };
@@ -98,6 +100,8 @@
 		5B753E2F159D2D5000E698F9 /* PNRandomGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNRandomGenerator.m; sourceTree = "<group>"; };
 		5BBAA22D159BD87300AA4993 /* PNApplication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = PNApplication.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		5BBAA237159BE4CD00AA4993 /* PlaynomicsSession+Exposed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PlaynomicsSession+Exposed.h"; sourceTree = "<group>"; };
+		6850E47717CBF9F600D5FAA1 /* PNWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNWebView.h; sourceTree = "<group>"; };
+		6850E47817CBF9F600D5FAA1 /* PNWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNWebView.m; sourceTree = "<group>"; };
 		68C3137017B1C5CE0079E306 /* PNUserInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNUserInfo.h; sourceTree = "<group>"; };
 		68C3137117B1C5CE0079E306 /* PNUserInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNUserInfo.m; sourceTree = "<group>"; };
 		68E6DABD17AC237900A904A8 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
@@ -183,15 +187,17 @@
 		42FBA98924738D15AF3CE573 /* Messaging */ = {
 			isa = PBXGroup;
 			children = (
+				42FBAB19F19EF89A69C6235A /* Support */,
+				A129689316DD758800F0A47A /* PlaynomicsCallback.h */,
+				A129689416DD758900F0A47A /* PlaynomicsCallback.m */,
 				42FBA83740CF5538D7EBDA36 /* PlaynomicsMessaging+Exposed.h */,
 				42FBA58FB3169ECD201AF332 /* PlaynomicsMessaging.m */,
 				42FBA2AFE7443DE409B560CF /* PlaynomicsFrame+Exposed.h */,
 				42FBA6A45031F4F9AF62E056 /* PlaynomicsFrame.m */,
-				42FBAB19F19EF89A69C6235A /* Support */,
-				A129689316DD758800F0A47A /* PlaynomicsCallback.h */,
-				A129689416DD758900F0A47A /* PlaynomicsCallback.m */,
-				32B41F2817BDAF30000DA02E /* PNUIImageView.h */,
-				32B41F2917BDAF30000DA02E /* PNUIImageView.m */,
+				32B41F2817BDAF30000DA02E /* PNImage.h */,
+				32B41F2917BDAF30000DA02E /* PNImage.m */,
+				6850E47717CBF9F600D5FAA1 /* PNWebView.h */,
+				6850E47817CBF9F600D5FAA1 /* PNWebView.m */,
 			);
 			path = Messaging;
 			sourceTree = "<group>";
@@ -377,6 +383,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6850E47917CBF9F600D5FAA1 /* PNWebView.h in Headers */,
 				D1D922A31591124700EDDE17 /* PlaynomicsSession.h in Headers */,
 				42FBA45F0CE45688790D1F03 /* PlaynomicsFrame.h in Headers */,
 				42FBA8A8A461BB836E6655EB /* PlaynomicsMessaging.h in Headers */,
@@ -403,7 +410,7 @@
 				A118C35416A8825700DFF63C /* PNAPSNotificationEvent.h in Headers */,
 				A129689516DD758900F0A47A /* PlaynomicsCallback.h in Headers */,
 				68C3137217B1C5CF0079E306 /* PNUserInfo.h in Headers */,
-				32B41F2A17BDAF30000DA02E /* PNUIImageView.h in Headers */,
+				32B41F2A17BDAF30000DA02E /* PNImage.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -529,7 +536,8 @@
 				A18E5E7B16AF6D5700004F6D /* PNErrorEvent.m in Sources */,
 				A129689616DD758900F0A47A /* PlaynomicsCallback.m in Sources */,
 				68C3137317B1C5CF0079E306 /* PNUserInfo.m in Sources */,
-				32B41F2B17BDAF30000DA02E /* PNUIImageView.m in Sources */,
+				32B41F2B17BDAF30000DA02E /* PNImage.m in Sources */,
+				6850E47A17CBF9F600D5FAA1 /* PNWebView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

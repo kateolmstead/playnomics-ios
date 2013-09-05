@@ -24,4 +24,13 @@
     [alert show];
     [alert release];
 }
+
+-(void)webView: (UIWebView*) webView shouldStartLoadWithRequest: (NSURLRequest *) request navigationType: (UIWebViewNavigationType) navigationType {
+    NSLog(@"Navigation Type = %d", navigationType);
+    NSURL *URL = [request URL];
+    
+    if (navigationType == UIWebViewNavigationTypeLinkClicked) {
+        NSLog(@"Web View was clicked and URL is %@", URL);
+    }
+}
 @end
