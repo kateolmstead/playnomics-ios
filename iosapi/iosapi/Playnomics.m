@@ -23,7 +23,11 @@
     [PNSession sharedInstance].overrideEventsUrl = eventsUrl;
 }
 
-+ (BOOL) startWithApplicationId:(signed long long) applicationId{
++(void) setTestMode : (BOOL) testMode{
+    [PNSession sharedInstance].testMode = testMode;
+}
+
++ (BOOL) startWithApplicationId:(unsigned long long) applicationId{
     PNSession *session = [PNSession sharedInstance];
     session.applicationId = applicationId;
     [session start];
@@ -31,7 +35,7 @@
     return session.state == PNSessionStateStarted;
 }
 
-+ (BOOL) startWithApplicationId:(signed long long) applicationId andUserId: (NSString *) userId{
++ (BOOL) startWithApplicationId:(unsigned long long) applicationId andUserId: (NSString *) userId{
     PNSession *session = [PNSession sharedInstance];
     session.applicationId = applicationId;
     session.userId = userId;
