@@ -42,8 +42,8 @@ typedef NS_ENUM(int, PNMilestoneType){
 + (void) overrideMessagingURL: (NSString*) messagingUrl;
 + (void) overrideEventsURL: (NSString*) messagingUrl;
 //Engagement
-+ (BOOL) startWithApplicationId:(signed long long) applicationId;
-+ (BOOL) startWithApplicationId:(signed long long) applicationId andUserId: (NSString*) userId;
++ (BOOL) startWithApplicationId:(unsigned long long) applicationId;
++ (BOOL) startWithApplicationId:(unsigned long long) applicationId andUserId: (NSString*) userId;
 + (void) onUIEventReceived: (UIEvent*) event;
 //Explicit Events
 + (void) milestone: (PNMilestoneType) milestoneType;
@@ -54,10 +54,10 @@ typedef NS_ENUM(int, PNMilestoneType){
 //Messaging
 + (void) preloadFramesWithIDs: (NSString *)firstFrameId, ... NS_REQUIRES_NIL_TERMINATION;
 
-+ (void) showFrameWithID:(NSString*) frameID;
-+ (void) showFrameWithID:(NSString*) frameID delegate:(id<PNFrameDelegate>) delegate;
-+ (void) showFrameWithID:(NSString*) frameID delegate:(id<PNFrameDelegate>) delegate withInSeconds: (int) timeout;
-+ (void) hideFrameWithID:(NSString*) frameID;
++ (void) showFrameWithID:(NSString *) frameID;
++ (void) showFrameWithID:(NSString *) frameID delegate:(id<PNFrameDelegate>) delegate;
++ (void) showFrameWithID:(NSString *) frameID delegate:(id<PNFrameDelegate>) delegate withInSeconds: (int) timeout;
++ (void) hideFrameWithID:(NSString *) frameID;
 @end
 
 @interface PNApplication : UIApplication<UIApplicationDelegate>

@@ -52,7 +52,6 @@
     if([[playnomicsPasteboard items] count] == 0){
         UIPasteboard *pasteBoard = [UIPasteboard pasteboardWithName:PNUserDefaultsLastDeviceID create:NO];
         self.breadcrumbID = [pasteBoard string];
-    
     } else {
         NSDictionary *data = [playnomicsPasteboard items][0];
         self.breadcrumbID = [self deserializeStringFromData: data key: PNPasteboardLastBreadcrumbID];

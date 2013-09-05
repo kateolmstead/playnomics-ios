@@ -31,7 +31,7 @@
 }
 
 -(void) enqueueEvent:(PNEvent *)event{
-    NSString* url = [self buildUrlWithBase:[_session getEventsUrl]  withPath: event.baseUrlPath withParams: event.eventParameters];
+    NSString* url = [PNEventApiClient buildUrlWithBase:[_session getEventsUrl]  withPath: event.baseUrlPath withParams: event.eventParameters];
     [self enqueueEventUrl: url];
 }
 
@@ -55,33 +55,34 @@
     }
 }
 
--(NSString *) buildUrlWithBase: (NSString *) base withPath:(NSString *) path withParams:(NSDictionary *) params{
++(NSString *) buildUrlWithBase: (NSString *) base withPath:(NSString *) path withParams:(NSDictionary *) params{
     if(!base){
         return nil;
     }
-    
-    NSMutableString * url = [NSMutableString stringWithString:base];
-    if(![url hasSuffix:@"/"]){
-        [url appendString:@"/"];
-    }
-    
+    NSMutableString *url = [NSMutableString stringWithString:base];
+
     if(path){
+        if(![url hasSuffix:@"/"]){
+            [url appendString:@"/"];
+        }
         [url appendString: path];
     }
     
     BOOL containsQueryString = [url rangeOfString:@"?"].location != NSNotFound;
     BOOL firstParam = YES;
     
-    for(NSString *key in params){
-        NSObject *value = [params valueForKey: key];
-        if(!value){ continue; }
-    
-        if(firstParam && !containsQueryString){
-            [url appendFormat:@"?%@=%@", [PNUtil urlEncodeValue: key], [PNUtil urlEncodeValue: [value description]]];
-        } else {
-            [url appendFormat:@"&%@=%@", [PNUtil urlEncodeValue: key], [PNUtil urlEncodeValue: [value description]]];
+    if(params){
+        for(NSString *key in params){
+            NSObject *value = [params valueForKey: key];
+            if(!value){ continue; }
+            
+            if(firstParam && !containsQueryString){
+                [url appendFormat:@"?%@=%@", [PNUtil urlEncodeValue: key], [PNUtil urlEncodeValue: [value description]]];
+            } else {
+                [url appendFormat:@"&%@=%@", [PNUtil urlEncodeValue: key], [PNUtil urlEncodeValue: [value description]]];
+            }
+            firstParam = NO;
         }
-        firstParam = NO;
     }
     return url;
 }
