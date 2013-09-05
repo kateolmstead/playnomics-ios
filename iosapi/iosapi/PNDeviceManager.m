@@ -5,12 +5,10 @@
 //  Created by Shiraz Khan on 8/6/13.
 //
 //
-
 #import "PNDeviceManager.h"
 #import "PNDeviceManager+Private.h"
 #import "PNCache.h"
 #import <AdSupport/AdSupport.h>
-
 
 @implementation PNDeviceManager{
     PNCache *_cache;
@@ -41,7 +39,6 @@
     }
 
     UIDevice* currentDevice = [UIDevice currentDevice];
-                                        
     if ([currentDevice respondsToSelector:@selector(identifierForVendor)]) {
         [_cache updateIdfv: [self getVendorIdentifierFromDevice]];
     }

@@ -11,9 +11,6 @@
 
 @implementation PNUtil
 
-/*  The Pasteboard is kept in memory even if the app is deleted.
- *  This provides a suitable means for having a unique device ID
- */
 + (UIInterfaceOrientation)getCurrentOrientation {
     return [UIApplication sharedApplication].statusBarOrientation;
 }

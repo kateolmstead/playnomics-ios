@@ -29,7 +29,7 @@
 {
     _frameDelegate = [[FrameDelegate alloc] init];
     [super viewDidLoad];
-    [Playnomics preloadFramesWithIDs:@"ec964fdf18af3d80", @"7a9138a971ce1773", @"c6877f336e9d9dda", @"546e241b9b97149b", @"15bec4e2b78424a2", nil];
+    //[Playnomics preloadFramesWithIDs:@"ec964fdf18af3d80", @"7a9138a971ce1773", @"c6877f336e9d9dda", @"546e241b9b97149b", @"15bec4e2b78424a2", nil];
     _frameIdText.delegate = self;
 }
 

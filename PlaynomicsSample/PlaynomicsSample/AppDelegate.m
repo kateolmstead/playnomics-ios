@@ -59,7 +59,7 @@
     long appId = 2L;
     [Playnomics overrideEventsURL: @"https://e.a.playnomics.net/v1/"];
     [Playnomics overrideMessagingURL: @"https://ads.a.playnomics.net/v1/"];
-    [Playnomics setLoggingLevel:PNLogLevelNone];
+    [Playnomics setLoggingLevel:PNLogLevelVerbose];
     
     [Playnomics startWithApplicationId:appId];
     
