@@ -48,6 +48,10 @@
 		329016B417D67F8C0041895A /* PNConcurrentSet.h in Headers */ = {isa = PBXBuildFile; fileRef = 329016B217D67F8B0041895A /* PNConcurrentSet.h */; };
 		329016B517D67F8C0041895A /* PNConcurrentSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 329016B317D67F8B0041895A /* PNConcurrentSet.m */; };
 		329016B817D9196C0041895A /* PNEventApiClientTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 329016B717D9196A0041895A /* PNEventApiClientTests.m */; };
+		329016C217D9501A0041895A /* PNImage.h in Headers */ = {isa = PBXBuildFile; fileRef = 329016BE17D9501A0041895A /* PNImage.h */; };
+		329016C317D9501A0041895A /* PNImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 329016BF17D9501A0041895A /* PNImage.m */; };
+		329016C417D9501A0041895A /* PNWebView.h in Headers */ = {isa = PBXBuildFile; fileRef = 329016C017D9501A0041895A /* PNWebView.h */; };
+		329016C517D9501A0041895A /* PNWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 329016C117D9501A0041895A /* PNWebView.m */; };
 		32A7C31217C3FCBC00E959A3 /* PNLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 32A7C31017C3FCBC00E959A3 /* PNLogger.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		32A7C31317C3FCBC00E959A3 /* PNLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 32A7C31117C3FCBC00E959A3 /* PNLogger.m */; };
 		32A7C33017C6A36B00E959A3 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1D922811590F59700EDDE17 /* SenTestingKit.framework */; };
@@ -58,8 +62,6 @@
 		32A7C34A17C6A7DE00E959A3 /* FSN_categories.h in Headers */ = {isa = PBXBuildFile; fileRef = 32A7C34417C6A7DE00E959A3 /* FSN_categories.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		32A7C34C17C6A7DE00E959A3 /* FSNConnection.h in Headers */ = {isa = PBXBuildFile; fileRef = 32A7C34617C6A7DE00E959A3 /* FSNConnection.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		32A7C34E17C6A7DE00E959A3 /* FSNData.h in Headers */ = {isa = PBXBuildFile; fileRef = 32A7C34817C6A7DE00E959A3 /* FSNData.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		32B41F2A17BDAF30000DA02E /* PNUIImageView.h in Headers */ = {isa = PBXBuildFile; fileRef = 32B41F2817BDAF30000DA02E /* PNUIImageView.h */; };
-		32B41F2B17BDAF30000DA02E /* PNUIImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 32B41F2917BDAF30000DA02E /* PNUIImageView.m */; };
 		42FBA45F0CE45688790D1F03 /* PlaynomicsFrame.h in Headers */ = {isa = PBXBuildFile; fileRef = 42FBAE69972626B043E69F63 /* PlaynomicsFrame.h */; settings = {ATTRIBUTES = (); }; };
 		42FBA77B7E7A8D298A75735B /* PlaynomicsMessaging.m in Sources */ = {isa = PBXBuildFile; fileRef = 42FBA58FB3169ECD201AF332 /* PlaynomicsMessaging.m */; };
 		42FBA86B3DB5A96A46894B6C /* PlaynomicsFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 42FBA6A45031F4F9AF62E056 /* PlaynomicsFrame.m */; };
@@ -137,6 +139,10 @@
 		329016B317D67F8B0041895A /* PNConcurrentSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNConcurrentSet.m; sourceTree = "<group>"; };
 		329016B617D9196A0041895A /* PNEventApiClientTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNEventApiClientTests.h; sourceTree = "<group>"; };
 		329016B717D9196A0041895A /* PNEventApiClientTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNEventApiClientTests.m; sourceTree = "<group>"; };
+		329016BE17D9501A0041895A /* PNImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNImage.h; sourceTree = "<group>"; };
+		329016BF17D9501A0041895A /* PNImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNImage.m; sourceTree = "<group>"; };
+		329016C017D9501A0041895A /* PNWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNWebView.h; sourceTree = "<group>"; };
+		329016C117D9501A0041895A /* PNWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNWebView.m; sourceTree = "<group>"; };
 		32A7C31017C3FCBC00E959A3 /* PNLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PNLogger.h; path = iosapi/PNLogger.h; sourceTree = "<group>"; };
 		32A7C31117C3FCBC00E959A3 /* PNLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNLogger.m; sourceTree = "<group>"; };
 		32A7C32F17C6A36B00E959A3 /* PlaynomicsSDKTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PlaynomicsSDKTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -158,8 +164,6 @@
 		32A7C35517C6A84300E959A3 /* OCMock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCMock.h; sourceTree = "<group>"; };
 		32A7C35617C6A84300E959A3 /* OCMockObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCMockObject.h; sourceTree = "<group>"; };
 		32A7C35717C6A84300E959A3 /* OCMockRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCMockRecorder.h; sourceTree = "<group>"; };
-		32B41F2817BDAF30000DA02E /* PNUIImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNUIImageView.h; sourceTree = "<group>"; };
-		32B41F2917BDAF30000DA02E /* PNUIImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNUIImageView.m; sourceTree = "<group>"; };
 		42FBA43470BA1417AC7381CC /* BaseAdComponent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseAdComponent.m; sourceTree = "<group>"; };
 		42FBA58FB3169ECD201AF332 /* PlaynomicsMessaging.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaynomicsMessaging.m; sourceTree = "<group>"; };
 		42FBA6A45031F4F9AF62E056 /* PlaynomicsFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaynomicsFrame.m; sourceTree = "<group>"; };
@@ -336,9 +340,11 @@
 				42FBA6A45031F4F9AF62E056 /* PlaynomicsFrame.m */,
 				42FBA83740CF5538D7EBDA36 /* PlaynomicsMessaging.h */,
 				42FBA58FB3169ECD201AF332 /* PlaynomicsMessaging.m */,
+				329016BE17D9501A0041895A /* PNImage.h */,
+				329016BF17D9501A0041895A /* PNImage.m */,
+				329016C017D9501A0041895A /* PNWebView.h */,
+				329016C117D9501A0041895A /* PNWebView.m */,
 				42FBAB19F19EF89A69C6235A /* Support */,
-				32B41F2817BDAF30000DA02E /* PNUIImageView.h */,
-				32B41F2917BDAF30000DA02E /* PNUIImageView.m */,
 			);
 			path = Messaging;
 			sourceTree = "<group>";
@@ -485,7 +491,6 @@
 				42FBAA7C5B8DA6655154B980 /* BaseAdComponent.h in Headers */,
 				D19CBDC216765ABE0089B04A /* PNEventMilestone.h in Headers */,
 				68C3137217B1C5CF0079E306 /* PNDeviceManager.h in Headers */,
-				32B41F2A17BDAF30000DA02E /* PNUIImageView.h in Headers */,
 				3290166517CC42430041895A /* PNCache.h in Headers */,
 				3290167217CD88A60041895A /* PNGeneratedHexId.h in Headers */,
 				3290167917CE810B0041895A /* PNGameSessionInfo.h in Headers */,
@@ -499,6 +504,8 @@
 				3290169D17CFD8640041895A /* PNConcurrentQueue.h in Headers */,
 				329016A117CFE7A50041895A /* PNEventRequestOperation.h in Headers */,
 				329016B417D67F8C0041895A /* PNConcurrentSet.h in Headers */,
+				329016C217D9501A0041895A /* PNImage.h in Headers */,
+				329016C417D9501A0041895A /* PNWebView.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -629,7 +636,6 @@
 				42FBAC6C9B82A5B36D318FE1 /* BaseAdComponent.m in Sources */,
 				D19CBDC316765ABE0089B04A /* PNEventMilestone.m in Sources */,
 				68C3137317B1C5CF0079E306 /* PNDeviceManager.m in Sources */,
-				32B41F2B17BDAF30000DA02E /* PNUIImageView.m in Sources */,
 				32A7C31317C3FCBC00E959A3 /* PNLogger.m in Sources */,
 				3290164C17C8008A0041895A /* Playnomics.m in Sources */,
 				3290166617CC42430041895A /* PNCache.m in Sources */,
@@ -645,6 +651,8 @@
 				3290169E17CFD8640041895A /* PNConcurrentQueue.m in Sources */,
 				329016A217CFE7A50041895A /* PNEventRequestOperation.m in Sources */,
 				329016B517D67F8C0041895A /* PNConcurrentSet.m in Sources */,
+				329016C317D9501A0041895A /* PNImage.m in Sources */,
+				329016C517D9501A0041895A /* PNWebView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

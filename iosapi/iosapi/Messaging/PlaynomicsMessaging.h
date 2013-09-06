@@ -4,13 +4,13 @@
 // To change the template use AppCode | Preferences | File Templates.
 //
 
-
-#import <Foundation/Foundation.h>
-#import "PlaynomicsFrame.h"
 #import "Playnomics.h"
-#import "PNSession.h"
+#import "PlaynomicsFrame.h"
 
 @interface PlaynomicsMessaging : NSObject
-- (id) initWithSession:(PNSession *) session;
-- (PlaynomicsFrame *) createFrameWithId:(NSString*) frameId;
+// Initialize a frame using data retrieved from the Playnomics Messaging Server.  The returned instance is
+// AUTORELEASED and must be retained by the clients.
+- (id) initWithSession: (PNSession *) session;
+- (PlaynomicsFrame *)createFrameWithId:(NSString *)frameId;
+- (PlaynomicsFrame *)createFrameWithId:(NSString *)frameId frameDelegate: (id<PNFrameDelegate>)frameDelegate;
 @end

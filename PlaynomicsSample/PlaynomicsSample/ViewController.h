@@ -23,6 +23,7 @@
 - (IBAction) onPnxClick: (id)sender;
 - (IBAction) onNoAdsClick:(id)sender;
 - (IBAction) onVideoAdClick:(id)sender;
+- (IBAction) onWebViewClick:(id)sender;
 
 - (IBAction) onMilestoneClick:(id)sender;
 

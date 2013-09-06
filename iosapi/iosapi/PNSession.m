@@ -563,7 +563,9 @@
     @try{
         [self assertSessionHasStarted];
         PlaynomicsFrame *frame = [self getOrAddFrame:frameID];
-        [frame start];
+        
+        UIView* parentView = [[[[UIApplication sharedApplication] delegate] window] rootViewController].view;
+        [frame startInView: parentView];
     }
     @catch(NSException *exception){
         [PNLogger log:PNLogLevelWarning exception:exception format: @"Could not show frame."];
@@ -575,7 +577,8 @@
         [self assertSessionHasStarted];
         PlaynomicsFrame *frame = [self getOrAddFrame:frameID];
         frame.delegate = delegate;
-        [frame start];
+        UIView* parentView = [[[[UIApplication sharedApplication] delegate] window] rootViewController].view;
+        [frame startInView: parentView];
     }
     @catch(NSException *exception){
         [PNLogger log:PNLogLevelWarning exception:exception format: @"Could not show frame."];
@@ -587,7 +590,8 @@
         [self assertSessionHasStarted];
         PlaynomicsFrame *frame = [self getOrAddFrame:frameID];
         frame.delegate = delegate;
-        [frame start];
+        UIView* parentView = [[[[UIApplication sharedApplication] delegate] window] rootViewController].view;
+        [frame startInView: parentView];
     }
     @catch(NSException *exception){
         [PNLogger log:PNLogLevelWarning exception:exception format: @"Could not show frame."];

@@ -5,33 +5,16 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "PNUIImageView.h"
+#import "PNImage.h"
 
-typedef enum {
-    AdComponentStatusPending,   // Component is waiting for image download to complete
-    AdComponentStatusCompleted, // Component has completed image download and is ready to be displayed
-    AdComponentStatusError      // Component experienced an error retrieving image
-} AdComponentStatus;
 
-@protocol BaseAdComponentDelegate
-- (void) componentDidLoad: (id) component;
-- (void) componentDidFailToLoad: (id) component;
-- (void) componentDidReceiveTouch:  (id) component touch: (UITouch*) touch;
-@end
+@interface BaseAdComponent : UIImageView
 
-@interface BaseAdComponent : NSObject<PNUIImageDelegate>
-
-@property (retain, readonly) NSDictionary* properties;
-@property (retain, readonly) PNUIImageView* imageUI;
-
+@property (assign) id<PNBaseAdComponentDelegate> delegate;
+@property (assign) NSString* imageUrl;
 @property (assign) BaseAdComponent *parentComponent;
-@property (assign) id<BaseAdComponentDelegate> delegate;
-
 @property (readonly) AdComponentStatus status;
-- (id)initWithProperties:(NSDictionary *)properties delegate:(id<BaseAdComponentDelegate>)delegate;
-- (void)renderComponent;
-- (void)addSubComponent:(BaseAdComponent*)subView;
-- (void)hide;
-
-+ (NSString*) getImageFromProperties: (NSDictionary*) properties;
+- (id) createComponentViewWithDimensions:(PNViewDimensions) dimensions delegate:(id<PNBaseAdComponentDelegate>) delegate image:(NSString*) imageUrl;
+- (void) addSubComponent:(BaseAdComponent *)subView;
+- (void) hide;
 @end

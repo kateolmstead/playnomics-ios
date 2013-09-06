@@ -5,142 +5,118 @@
 //
 #import "BaseAdComponent.h"
 #import "FSNConnection.h"
-#import "PNUIImageView.h"
+#import "PNImage.h"
 
 @implementation BaseAdComponent {
 @private
     NSMutableArray *_subComponents;
-    id<BaseAdComponentDelegate> _delegate;
 }
 
-@synthesize properties = _properties;
-@synthesize imageUI = _imageUI;
+@synthesize delegate = _delegate;
+@synthesize imageUrl = _imageUrl;
 @synthesize parentComponent = _parentComponent;
 @synthesize status = _status;
 
 #pragma mark - Lifecycle/Memory management
-- (id)initWithProperties:(NSDictionary *)properties delegate:(id<BaseAdComponentDelegate>)delegate {
-    self = [super init];
-    if (self) {
-        NSLog(@"Creating ad component with properties: %@", properties);
-        _subComponents = [[NSMutableArray array] retain];
-        _properties = [properties retain];
-        _status = AdComponentStatusPending;
+-(id)createComponentViewWithDimensions:(PNViewDimensions) dimensions
+                              delegate:(id<PNBaseAdComponentDelegate>) delegate
+                                 image:(NSString*) imageUrl {
+    CGRect frame = CGRectMake(dimensions.x, dimensions.y, dimensions.width, dimensions.height);
+    self = [super initWithFrame:frame];
+    if(self){
+        [self setUserInteractionEnabled: YES];
+        [self setExclusiveTouch: YES];
         _delegate = delegate;
+        _status = AdComponentStatusPending;
         
-        [self renderComponent];
+        if (imageUrl != nil && imageUrl != (id)[NSNull null]) {
+            _imageUrl = [imageUrl copy];
+            [self loadImage];
+        } else {
+            [self didLoad];
+        }
     }
+    
     return self;
 }
 
 - (void)dealloc {
     [_subComponents release];
-    [_properties release];
-    [_imageUI release];
     //just set assign references to nil
     _delegate = nil;
     _parentComponent = nil;
+    _imageUrl = nil;
     [super dealloc];
 }
 
 #pragma mark - Public Interface
-- (void)renderComponent {
-    PNViewDimensions dimensions = [self getViewDimensions];
-    [self _createComponentViewWithDimensions: dimensions];
-}
-
-- (PNViewDimensions) getViewDimensions{
-    float height = [self getFloatValue:[self.properties objectForKey:FrameResponseHeight]];
-    float width = [self getFloatValue:[self.properties objectForKey:FrameResponseWidth]];
+-(void) loadImage {
+    //load the image here
+    NSURL* url = [NSURL URLWithString:_imageUrl];
     
-    NSDictionary *coordinateProps = [self extractCoordinateProps];
-    float x = [self getFloatValue:[coordinateProps objectForKey:FrameResponseXOffset]];
-    float y = [self getFloatValue:[coordinateProps objectForKey:FrameResponseYOffset]];
-    
-    PNViewDimensions dimensions = {.width = width, .height = height, .x = x, .y = y};
-    return dimensions;
-}
-
-- (NSDictionary *) extractCoordinateProps {
-    if ([self.properties objectForKey:FrameResponseBackground_Landscape] == nil) {
-        return self.properties;
+    if (url == nil) {
+        [self didFailToLoadWithException:nil];
+        return;
     }
     
-    // By default, return portrait
-    UIInterfaceOrientation orientation = [PNUtil getCurrentOrientation];
-    if (orientation == UIInterfaceOrientationPortrait || orientation == UIInterfaceOrientationPortraitUpsideDown) {
-        return [self.properties objectForKey:FrameResponseBackground_Portrait];
-    } else if(orientation == UIInterfaceOrientationLandscapeRight || orientation == UIInterfaceOrientationLandscapeLeft) {
-        return [self.properties objectForKey:FrameResponseBackground_Landscape];
+    NSLog(@"Loading image from %@", _imageUrl);
+    FSNConnection* connection =[FSNConnection withUrl:url
+                                               method:FSNRequestMethodGET
+                                              headers:nil
+                                           parameters:nil
+                                           parseBlock:nil
+                                      completionBlock:^(FSNConnection *c) { [self onImageDownloaded:c]; }
+                                        progressBlock:nil];
+    
+    [connection start];
+}
+
+-(void) onImageDownloaded:(FSNConnection *)connection {
+    if (connection.error) {
+        NSLog(@"Error retrieving image from the internet: %@", connection.error.localizedDescription);
+        [self didFailToLoadWithError: connection.error];
     } else {
-        return [self.properties objectForKey:FrameResponseBackground_Portrait];
-    }
-}
-
-- (float)getFloatValue:(NSNumber*)n {
-    @try {
-        return [n floatValue];
-    } @catch (NSException * exception) {
-        //
-    }
-    return 0;
-}
-
-- (void)_createComponentViewWithDimensions :(PNViewDimensions) dimensions {
-    CGRect frame = CGRectMake(dimensions.x, dimensions.y, dimensions.width, dimensions.height);
-    
-    if (self.imageUI == nil) {
-        NSString* imageUrl = [BaseAdComponent getImageFromProperties:self.properties];
-        if(imageUrl == nil){
-            _imageUI = [[PNUIImageView alloc] initWithFrame:frame delegate: self];
-        } else {
-            _imageUI = [[PNUIImageView alloc] initWithFrame:frame delegate: self imageUrl: imageUrl];
-        }
-    } else{
-        self.imageUI.frame = frame;
+        self.image = [UIImage imageWithData:connection.responseData];
+        [self didLoad];
     }
 }
 
 
-- (void)addSubComponent:(BaseAdComponent *)subComponent {
+- (void) addSubComponent:(BaseAdComponent *)subComponent {
     subComponent.parentComponent = self;
     [_subComponents addObject:subComponent];
-    [self.imageUI addSubview:subComponent.imageUI];
+    [self addSubview:subComponent];
 }
 
 - (void)hide {
-    [self.imageUI removeFromSuperview];
+    [self removeFromSuperview];
 }
 
 
+#pragma mark "Delegate Handlers"
 -(void) didLoad{
     _status = AdComponentStatusCompleted;
-    [self.delegate componentDidLoad: self];
-}
-
--(void) didFailToLoad{
-    _status = AdComponentStatusError;
-    [self.delegate componentDidFailToLoad: self];
+    [self.delegate componentDidLoad];
 }
 
 -(void) didFailToLoadWithError: (NSError*) error{
-    [self didFailToLoad];
+    _status = AdComponentStatusError;
+    [self.delegate componentDidFailToLoadWithError: error];
 }
 
 -(void) didFailToLoadWithException: (NSException*) exception{
-    [self didFailToLoad];
+    _status = AdComponentStatusError;
+    [self.delegate componentDidFailToLoadWithException: exception];
 }
 
--(void) didReceiveTouch: (UITouch*) touch{
-    [self.delegate componentDidReceiveTouch:self touch:touch];
-}
-
-+ (NSString*) getImageFromProperties: (NSDictionary*) properties{
-    NSString* imageUrl = [properties objectForKey:FrameResponseImageUrl];
-    if(imageUrl == nil || imageUrl == (id)[NSNull null] ){
-        return nil;
+#pragma mark "Touch Events"
+-(void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
+    NSEnumerator *enumerator = [touches objectEnumerator];
+    id value;
+    if ((value = [enumerator nextObject]) && [value isKindOfClass:[UITouch class]]) {
+        [self.delegate component:self
+                 didReceiveTouch:(UITouch*)value];
     }
-    return imageUrl;
 }
 
 @end

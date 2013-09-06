@@ -117,14 +117,19 @@
 }
 
 -(IBAction)onVideoAdClick:(id)sender{
-    [self initMsgFrame:@"testTL"];
+    [self initMsgFrame:@"e028a4547a9e438f"];
+}
+
+-(IBAction)onWebViewClick:(id)sender{
+    [self initMsgFrame:@"33a3cf0ecfa71c1a"];
 }
 
 - (void) initMsgFrame: (NSString *) frameId {
 /*
     PlaynomicsMessaging *messaging = [PlaynomicsMessaging sharedInstance];
     PlaynomicsFrame* frame = [messaging createFrameWithId : frameId frameDelegate : _frameDelegate];
-    DisplayResult result = [frame start];
+    NSLog(@"Window=%@",NSStringFromCGRect([[[UIApplication sharedApplication] delegate] window].rootViewController.view.bounds));
+    DisplayResult result = [frame startInView:[[[UIApplication sharedApplication] delegate] window].rootViewController.view];
     if (result==DisplayAdColony) {
         videoFrame = frame;
         [AdColony playVideoAdForZone:@"vz774c388f2c404a5ca8a22a" withDelegate:self];
