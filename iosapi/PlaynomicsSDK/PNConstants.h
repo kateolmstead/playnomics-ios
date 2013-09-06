@@ -1,23 +1,3 @@
-/************** PRIVATE *****************/
-/**
- *  PNEventType
- *  Type of event to be sent to the Server API
- */
-
-
-/**
- *  PNSessionState
- *  Possible states for the Playnomics Session
- */
-
-
-/*************** MACROS *****************/
-/*!
-* @function Singleton GCD Macro
-*/
-
-
-
 // Singleton Macro
 #ifndef DEFINE_SHARED_INSTANCE_USING_BLOCK
 #define DEFINE_SHARED_INSTANCE_USING_BLOCK(block) \

@@ -21,7 +21,7 @@
 
 #define PNPropertyVersion @"9"
 // Connection timeout in seconds
-#define PNPropertyConnectionTimeout 5
+#define PNPropertyConnectionTimeout 60
 
 #ifdef DEBUG
 
