@@ -10,9 +10,6 @@
 		3271CCEB17C7CF4400E96C22 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68E6DABD17AC237900A904A8 /* AdSupport.framework */; };
 		3290164B17C8008A0041895A /* Playnomics.h in Headers */ = {isa = PBXBuildFile; fileRef = 3290164917C8008A0041895A /* Playnomics.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3290164C17C8008A0041895A /* Playnomics.m in Sources */ = {isa = PBXBuildFile; fileRef = 3290164A17C8008A0041895A /* Playnomics.m */; };
-		3290165C17CC304F0041895A /* FSNConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 32A7C34717C6A7DE00E959A3 /* FSNConnection.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
-		3290165D17CC305B0041895A /* FSN_categories.m in Sources */ = {isa = PBXBuildFile; fileRef = 32A7C34517C6A7DE00E959A3 /* FSN_categories.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
-		3290165E17CC30600041895A /* FSNData.m in Sources */ = {isa = PBXBuildFile; fileRef = 32A7C34917C6A7DE00E959A3 /* FSNData.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		3290166217CC390B0041895A /* libiosapi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D1D922701590F59600EDDE17 /* libiosapi.a */; };
 		3290166517CC42430041895A /* PNCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 3290166317CC42420041895A /* PNCache.h */; };
 		3290166617CC42430041895A /* PNCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 3290166417CC42420041895A /* PNCache.m */; };
@@ -52,6 +49,8 @@
 		329016C317D9501A0041895A /* PNImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 329016BF17D9501A0041895A /* PNImage.m */; };
 		329016C417D9501A0041895A /* PNWebView.h in Headers */ = {isa = PBXBuildFile; fileRef = 329016C017D9501A0041895A /* PNWebView.h */; };
 		329016C517D9501A0041895A /* PNWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 329016C117D9501A0041895A /* PNWebView.m */; };
+		329016C817DA49130041895A /* PNAssetRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 329016C617DA49130041895A /* PNAssetRequest.h */; };
+		329016C917DA49130041895A /* PNAssetRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 329016C717DA49130041895A /* PNAssetRequest.m */; };
 		32A7C31217C3FCBC00E959A3 /* PNLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 32A7C31017C3FCBC00E959A3 /* PNLogger.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		32A7C31317C3FCBC00E959A3 /* PNLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 32A7C31117C3FCBC00E959A3 /* PNLogger.m */; };
 		32A7C33017C6A36B00E959A3 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1D922811590F59700EDDE17 /* SenTestingKit.framework */; };
@@ -59,9 +58,6 @@
 		32A7C33217C6A36B00E959A3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1D922731590F59600EDDE17 /* Foundation.framework */; };
 		32A7C33817C6A36B00E959A3 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 32A7C33617C6A36B00E959A3 /* InfoPlist.strings */; };
 		32A7C33B17C6A36B00E959A3 /* PNDeviceManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 32A7C33A17C6A36B00E959A3 /* PNDeviceManagerTests.m */; };
-		32A7C34A17C6A7DE00E959A3 /* FSN_categories.h in Headers */ = {isa = PBXBuildFile; fileRef = 32A7C34417C6A7DE00E959A3 /* FSN_categories.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		32A7C34C17C6A7DE00E959A3 /* FSNConnection.h in Headers */ = {isa = PBXBuildFile; fileRef = 32A7C34617C6A7DE00E959A3 /* FSNConnection.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		32A7C34E17C6A7DE00E959A3 /* FSNData.h in Headers */ = {isa = PBXBuildFile; fileRef = 32A7C34817C6A7DE00E959A3 /* FSNData.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		42FBA45F0CE45688790D1F03 /* PNFrame.h in Headers */ = {isa = PBXBuildFile; fileRef = 42FBAE69972626B043E69F63 /* PNFrame.h */; settings = {ATTRIBUTES = (); }; };
 		42FBA77B7E7A8D298A75735B /* PNMessaging.m in Sources */ = {isa = PBXBuildFile; fileRef = 42FBA58FB3169ECD201AF332 /* PNMessaging.m */; };
 		42FBA86B3DB5A96A46894B6C /* PNFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 42FBA6A45031F4F9AF62E056 /* PNFrame.m */; };
@@ -143,6 +139,8 @@
 		329016BF17D9501A0041895A /* PNImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNImage.m; sourceTree = "<group>"; };
 		329016C017D9501A0041895A /* PNWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNWebView.h; sourceTree = "<group>"; };
 		329016C117D9501A0041895A /* PNWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNWebView.m; sourceTree = "<group>"; };
+		329016C617DA49130041895A /* PNAssetRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNAssetRequest.h; sourceTree = "<group>"; };
+		329016C717DA49130041895A /* PNAssetRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNAssetRequest.m; sourceTree = "<group>"; };
 		32A7C31017C3FCBC00E959A3 /* PNLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PNLogger.h; path = iosapi/PNLogger.h; sourceTree = "<group>"; };
 		32A7C31117C3FCBC00E959A3 /* PNLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNLogger.m; sourceTree = "<group>"; };
 		32A7C32F17C6A36B00E959A3 /* PlaynomicsSDKTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PlaynomicsSDKTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -151,12 +149,6 @@
 		32A7C33917C6A36B00E959A3 /* PNDeviceManagerTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PNDeviceManagerTests.h; sourceTree = "<group>"; };
 		32A7C33A17C6A36B00E959A3 /* PNDeviceManagerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PNDeviceManagerTests.m; sourceTree = "<group>"; };
 		32A7C33C17C6A36B00E959A3 /* PlaynomicsSDKTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PlaynomicsSDKTests-Prefix.pch"; sourceTree = "<group>"; };
-		32A7C34417C6A7DE00E959A3 /* FSN_categories.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSN_categories.h; sourceTree = "<group>"; };
-		32A7C34517C6A7DE00E959A3 /* FSN_categories.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSN_categories.m; sourceTree = "<group>"; };
-		32A7C34617C6A7DE00E959A3 /* FSNConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSNConnection.h; sourceTree = "<group>"; };
-		32A7C34717C6A7DE00E959A3 /* FSNConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSNConnection.m; sourceTree = "<group>"; };
-		32A7C34817C6A7DE00E959A3 /* FSNData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSNData.h; sourceTree = "<group>"; };
-		32A7C34917C6A7DE00E959A3 /* FSNData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSNData.m; sourceTree = "<group>"; };
 		32A7C35017C6A84300E959A3 /* libOCMock.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libOCMock.a; sourceTree = "<group>"; };
 		32A7C35217C6A84300E959A3 /* NSNotificationCenter+OCMAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNotificationCenter+OCMAdditions.h"; sourceTree = "<group>"; };
 		32A7C35317C6A84300E959A3 /* OCMArg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCMArg.h; sourceTree = "<group>"; };
@@ -245,6 +237,8 @@
 				D1D922B9159112C100EDDE17 /* PNEventApiClient.h */,
 				D1D922BA159112C100EDDE17 /* PNEventApiClient.m */,
 				329016B117D65E930041895A /* PNUrlProcessorDelegate.h */,
+				329016C617DA49130041895A /* PNAssetRequest.h */,
+				329016C717DA49130041895A /* PNAssetRequest.m */,
 			);
 			name = APIClient;
 			sourceTree = "<group>";
@@ -302,22 +296,8 @@
 			children = (
 				32A7C35017C6A84300E959A3 /* libOCMock.a */,
 				32A7C35117C6A84300E959A3 /* OCMock */,
-				32A7C34317C6A7DE00E959A3 /* FSNetworking */,
 			);
 			path = Libraries;
-			sourceTree = "<group>";
-		};
-		32A7C34317C6A7DE00E959A3 /* FSNetworking */ = {
-			isa = PBXGroup;
-			children = (
-				32A7C34417C6A7DE00E959A3 /* FSN_categories.h */,
-				32A7C34517C6A7DE00E959A3 /* FSN_categories.m */,
-				32A7C34617C6A7DE00E959A3 /* FSNConnection.h */,
-				32A7C34717C6A7DE00E959A3 /* FSNConnection.m */,
-				32A7C34817C6A7DE00E959A3 /* FSNData.h */,
-				32A7C34917C6A7DE00E959A3 /* FSNData.m */,
-			);
-			path = FSNetworking;
 			sourceTree = "<group>";
 		};
 		32A7C35117C6A84300E959A3 /* OCMock */ = {
@@ -467,9 +447,6 @@
 			files = (
 				3290164B17C8008A0041895A /* Playnomics.h in Headers */,
 				32A7C31217C3FCBC00E959A3 /* PNLogger.h in Headers */,
-				32A7C34A17C6A7DE00E959A3 /* FSN_categories.h in Headers */,
-				32A7C34C17C6A7DE00E959A3 /* FSNConnection.h in Headers */,
-				32A7C34E17C6A7DE00E959A3 /* FSNData.h in Headers */,
 				D1D922A71591125700EDDE17 /* PNEvent.h in Headers */,
 				D1D922B1159112A300EDDE17 /* PNEventTransaction.h in Headers */,
 				D1D922B3159112A300EDDE17 /* PNEventUserInfo.h in Headers */,
@@ -498,6 +475,7 @@
 				329016B417D67F8C0041895A /* PNConcurrentSet.h in Headers */,
 				329016C217D9501A0041895A /* PNImage.h in Headers */,
 				329016C417D9501A0041895A /* PNWebView.h in Headers */,
+				329016C817DA49130041895A /* PNAssetRequest.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -613,9 +591,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3290165E17CC30600041895A /* FSNData.m in Sources */,
-				3290165D17CC305B0041895A /* FSN_categories.m in Sources */,
-				3290165C17CC304F0041895A /* FSNConnection.m in Sources */,
 				D1D922A41591124700EDDE17 /* PNSession.m in Sources */,
 				D1D922A81591125700EDDE17 /* PNEvent.m in Sources */,
 				D1D922B2159112A300EDDE17 /* PNEventTransaction.m in Sources */,
@@ -645,6 +620,7 @@
 				329016B517D67F8C0041895A /* PNConcurrentSet.m in Sources */,
 				329016C317D9501A0041895A /* PNImage.m in Sources */,
 				329016C517D9501A0041895A /* PNWebView.m in Sources */,
+				329016C917DA49130041895A /* PNAssetRequest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

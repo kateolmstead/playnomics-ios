@@ -8,7 +8,6 @@
 
 #import "PNImage.h"
 #import "PNViewComponent.h"
-#import "FSNConnection.h"
 #import "PNFrame.h"
 
 @implementation PNImage {

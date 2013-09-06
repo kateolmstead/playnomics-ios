@@ -13,7 +13,6 @@
 
 //assign, makes this reference weak. This because we aren't creating our delegate object, this prevents
 //strong references cycles.
-@property (assign) id<PNFrameDelegate> frameDelegate;
 @property (readonly) AdComponentStatus status;
 
 -(id) initWithFrameData:(PNFrame*) adDetails;

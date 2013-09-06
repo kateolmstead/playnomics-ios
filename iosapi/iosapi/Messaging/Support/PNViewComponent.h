@@ -6,16 +6,18 @@
 
 #import <Foundation/Foundation.h>
 #import "PNFrame.h"
+#import "PNAssetRequest.h"
 
 @protocol PNViewComponentDelegate
 @required
 -(void) componentDidLoad;
+-(void) componentDidFailToLoad;
 -(void) componentDidFailToLoadWithError: (NSError*) error;
 -(void) componentDidFailToLoadWithException: (NSException*) exception;
 -(void) component: (id) component didReceiveTouch: (UITouch*) touch;
 @end
 
-@interface PNViewComponent : UIImageView
+@interface PNViewComponent : UIImageView<PNAssetRequestDelegate>
 @property (assign) id<PNViewComponentDelegate> delegate;
 @property (assign) NSString* imageUrl;
 @property (assign) PNViewComponent *parentComponent;

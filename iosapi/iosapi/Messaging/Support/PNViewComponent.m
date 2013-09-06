@@ -4,12 +4,12 @@
 // To change the template use AppCode | Preferences | File Templates.
 //
 #import "PNViewComponent.h"
-#import "FSNConnection.h"
 #import "PNImage.h"
 
 @implementation PNViewComponent {
 @private
     NSMutableArray *_subComponents;
+    PNAssetRequest *_request;
 }
 
 @synthesize delegate = _delegate;
@@ -57,28 +57,28 @@
         return;
     }
     
-    NSLog(@"Loading image from %@", _imageUrl);
-    FSNConnection* connection =[FSNConnection withUrl:url
-                                               method:FSNRequestMethodGET
-                                              headers:nil
-                                           parameters:nil
-                                           parseBlock:nil
-                                      completionBlock:^(FSNConnection *c) { [self onImageDownloaded:c]; }
-                                        progressBlock:nil];
-    
-    [connection start];
+    _request = [[PNAssetRequest alloc] initWithUrl:_imageUrl delegate:self];
+    [_request start];
 }
 
--(void) onImageDownloaded:(FSNConnection *)connection {
-    if (connection.error) {
-        NSLog(@"Error retrieving image from the internet: %@", connection.error.localizedDescription);
-        [self didFailToLoadWithError: connection.error];
-    } else {
-        self.image = [UIImage imageWithData:connection.responseData];
-        [self didLoad];
-    }
+-(void) connectionDidFail{
+    [PNLogger log:PNLogLevelWarning format:@"Could not create a connection when retreiving asset %@", _imageUrl];
+    [self didFailToLoad];
 }
 
+-(void) requestDidCompleteWithData:(NSData *)data{
+    [PNLogger log:PNLogLevelDebug format:@"Successfully loaded image asset %@", _imageUrl];
+    self.image = [UIImage imageWithData: data];
+    [self didLoad];
+}
+
+-(void) requestDidFailtWithStatusCode:(int)statusCode{
+    [PNLogger log:PNLogLevelWarning format:@"Could not load image asset %@, received status code %@", _imageUrl, [NSHTTPURLResponse localizedStringForStatusCode: statusCode]];
+}
+
+-(void) requestDidFailWithError:(NSError *)error{
+    [PNLogger log:PNLogLevelWarning error:error format:@"Could not load image asset %@", _imageUrl];
+}
 
 - (void) addSubComponent:(PNViewComponent *)subComponent {
     subComponent.parentComponent = self;
@@ -95,6 +95,10 @@
 -(void) didLoad{
     _status = AdComponentStatusCompleted;
     [self.delegate componentDidLoad];
+}
+
+-(void) didFailToLoad{
+    [self.delegate componentDidFailToLoad];
 }
 
 -(void) didFailToLoadWithError: (NSError*) error{

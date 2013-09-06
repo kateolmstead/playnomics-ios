@@ -7,27 +7,24 @@
 //
 
 #import "PNWebView.h"
-#import "FSNConnection.h"
 
 @implementation PNWebView {
 @private
     PNViewDimensions _backgroundDimensions;
-    NSString *_creativeType;
+    PNFrame *_frame;
 }
 
-@synthesize frameDelegate = _frame;
 @synthesize status = _status;
 
 #pragma mark - Lifecycle/Memory management
--(id) initWithFrameData:(PNFrame*) adDetails {
+-(id) initWithFrameData:(PNFrame*) frame {
     if (self = [super init]) {
-        _frame = adDetails;
-        _creativeType = adDetails.creativeType;
+        _frame = frame;
         [super setDelegate:self];
         
-        if(adDetails.adTag != nil && adDetails.adTag != (id)[NSNull null] ){
+        if(_frame.adTag != nil && _frame.adTag != (id)[NSNull null] ){
             _status = AdComponentStatusPending;
-            [self loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:adDetails.adTag]]];
+            [self loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:_frame.adTag]]];
         }
     }
     
@@ -35,8 +32,7 @@
 }
 
 -(void) renderAdInView:(UIView *)parentView {
-    NSLog(@"Window2=%@",NSStringFromCGRect(parentView.bounds));
-    if (_creativeType && [_creativeType isEqualToString:@"banner"]) {
+    if (_frame.creativeType && [_frame.creativeType isEqualToString:@"banner"]) {
         [super setFrame:CGRectMake(_backgroundDimensions.x,
                                    _backgroundDimensions.y,
                                    _backgroundDimensions.width,
@@ -52,7 +48,6 @@
     button.frame = CGRectMake(self.frame.origin.x + self.frame.size.width - 30,
                               self.frame.origin.y,
                               30, 30);
-    NSLog(@"Rendering close button at %@",NSStringFromCGRect(button.frame));
     [button addTarget:self action:@selector(closeButtonClicked) forControlEvents:UIControlEventTouchDown];
     [self addSubview:button];
 }
@@ -64,7 +59,7 @@
 
 -(void) closeButtonClicked {
     [self removeFromSuperview];
-    [self.frameDelegate adClosed];
+    [_frame adClosed];
 }
 
 #pragma mark "Delegate Handlers"
@@ -75,7 +70,7 @@
     if (navigationType == UIWebViewNavigationTypeLinkClicked) {
         [[UIApplication sharedApplication] openURL:URL];
         [self removeFromSuperview];
-        [self.frameDelegate adClicked];
+        [_frame adClicked];
     }
     
     return YES;
@@ -83,13 +78,14 @@
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
     _status = AdComponentStatusCompleted;
-    [self.frameDelegate didLoad];
+    [_frame didLoad];
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
     _status = AdComponentStatusError;
+    [PNLogger log:PNLogLevelWarning error:error format:@"Could not load the webview for url %@", _frame.adTag];
     NSLog(@"Web View failed to load with error %@",error.debugDescription);
-    [self.frameDelegate didFailToLoadWithError:error];
+    [_frame didFailToLoadWithError:error];
 }
 
 @end

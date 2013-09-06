@@ -3,7 +3,6 @@
 //
 // To change the template use AppCode | Preferences | File Templates.
 //
-#import "FSNConnection.h"
 #import "PNUtil.h"
 #import "PNWebView.h"
 #import "PNSession.h"
