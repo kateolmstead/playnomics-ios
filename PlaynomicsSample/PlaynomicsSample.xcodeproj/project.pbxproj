@@ -106,19 +106,7 @@
 			isa = PBXGroup;
 			children = (
 				3290177917DA65B90041895A /* libPlaynomicsSDK.a */,
-				6811AC7A17B586F700F532E9 /* AVFoundation.framework */,
-				6811AC7B17B586F700F532E9 /* CFNetwork.framework */,
-				6811AC7C17B586F700F532E9 /* CoreMedia.framework */,
-				6811AC7D17B586F700F532E9 /* CoreTelephony.framework */,
-				6811AC7E17B586F700F532E9 /* EventKit.framework */,
-				6811AC7F17B586F700F532E9 /* EventKitUI.framework */,
-				6811AC8017B586F700F532E9 /* MediaPlayer.framework */,
-				6811AC8117B586F700F532E9 /* MessageUI.framework */,
-				6811AC8217B586F700F532E9 /* QuartzCore.framework */,
-				6811AC8317B586F700F532E9 /* StoreKit.framework */,
-				6811AC8417B586F700F532E9 /* SystemConfiguration.framework */,
 				6811AC7117B585A400F532E9 /* AdColony */,
-				681972A617AAE81100A789E8 /* AdSupport.framework */,
 				6855CB7A17948E330058E101 /* Default-568h@2x.png */,
 				A1244D6E16A8CB0B001A93DD /* PlaynomicsSDK.xcodeproj */,
 				5BBAA07E159BAF0000AA4993 /* PlaynomicsSample */,
@@ -138,6 +126,18 @@
 		5BBAA077159BAF0000AA4993 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6811AC7A17B586F700F532E9 /* AVFoundation.framework */,
+				6811AC7B17B586F700F532E9 /* CFNetwork.framework */,
+				6811AC7C17B586F700F532E9 /* CoreMedia.framework */,
+				6811AC7D17B586F700F532E9 /* CoreTelephony.framework */,
+				6811AC7E17B586F700F532E9 /* EventKit.framework */,
+				6811AC7F17B586F700F532E9 /* EventKitUI.framework */,
+				6811AC8017B586F700F532E9 /* MediaPlayer.framework */,
+				6811AC8117B586F700F532E9 /* MessageUI.framework */,
+				6811AC8217B586F700F532E9 /* QuartzCore.framework */,
+				6811AC8317B586F700F532E9 /* StoreKit.framework */,
+				6811AC8417B586F700F532E9 /* SystemConfiguration.framework */,
+				681972A617AAE81100A789E8 /* AdSupport.framework */,
 				5BBAA078159BAF0000AA4993 /* UIKit.framework */,
 				5BBAA07A159BAF0000AA4993 /* Foundation.framework */,
 				5BBAA07C159BAF0000AA4993 /* CoreGraphics.framework */,
