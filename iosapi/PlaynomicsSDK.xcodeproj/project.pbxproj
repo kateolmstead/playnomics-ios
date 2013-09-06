@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3271CCEB17C7CF4400E96C22 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68E6DABD17AC237900A904A8 /* AdSupport.framework */; };
-		3290166217CC390B0041895A /* libiosapi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D1D922701590F59600EDDE17 /* libiosapi.a */; };
+		3290166217CC390B0041895A /* libPlaynomicsSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D1D922701590F59600EDDE17 /* libPlaynomicsSDK.a */; };
 		3290166A17CD0BAC0041895A /* StubPNCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 3290166917CD0BAC0041895A /* StubPNCache.m */; };
 		3290166D17CD22420041895A /* PNUtilTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3290166C17CD22420041895A /* PNUtilTests.m */; };
 		3290167617CDAE750041895A /* PNGeneratedHexIdTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3290167517CDAE740041895A /* PNGeneratedHexIdTests.m */; };
@@ -17,7 +17,6 @@
 		329016AD17D11E490041895A /* StubDeviceToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 329016AC17D11E490041895A /* StubDeviceToken.m */; };
 		329016B017D126D20041895A /* PNEventTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 329016AF17D126D10041895A /* PNEventTests.m */; };
 		329016B817D9196C0041895A /* PNEventApiClientTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 329016B717D9196A0041895A /* PNEventApiClientTests.m */; };
-		3290172C17DA5AE20041895A /* iosapi-Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 329016EA17DA5AE20041895A /* iosapi-Prefix.pch */; };
 		3290172D17DA5AE20041895A /* Playnomics.h in Headers */ = {isa = PBXBuildFile; fileRef = 329016EB17DA5AE20041895A /* Playnomics.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3290172E17DA5AE20041895A /* Playnomics.m in Sources */ = {isa = PBXBuildFile; fileRef = 329016EC17DA5AE20041895A /* Playnomics.m */; };
 		3290172F17DA5AE20041895A /* PNApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = 329016ED17DA5AE20041895A /* PNApplication.m */; };
@@ -83,6 +82,7 @@
 		3290176B17DA5AE20041895A /* PNViewComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = 3290172917DA5AE20041895A /* PNViewComponent.m */; };
 		3290176C17DA5AE20041895A /* PNWebView.h in Headers */ = {isa = PBXBuildFile; fileRef = 3290172A17DA5AE20041895A /* PNWebView.h */; };
 		3290176D17DA5AE20041895A /* PNWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3290172B17DA5AE20041895A /* PNWebView.m */; };
+		3290177817DA64E00041895A /* PlaynomicsSDK-Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 3290177717DA64E00041895A /* PlaynomicsSDK-Prefix.pch */; };
 		32A7C33017C6A36B00E959A3 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1D922811590F59700EDDE17 /* SenTestingKit.framework */; };
 		32A7C33117C6A36B00E959A3 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1D922831590F59700EDDE17 /* UIKit.framework */; };
 		32A7C33217C6A36B00E959A3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1D922731590F59600EDDE17 /* Foundation.framework */; };
@@ -108,7 +108,6 @@
 		329016AF17D126D10041895A /* PNEventTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNEventTests.m; sourceTree = "<group>"; };
 		329016B617D9196A0041895A /* PNEventApiClientTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNEventApiClientTests.h; sourceTree = "<group>"; };
 		329016B717D9196A0041895A /* PNEventApiClientTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNEventApiClientTests.m; sourceTree = "<group>"; };
-		329016EA17DA5AE20041895A /* iosapi-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "iosapi-Prefix.pch"; sourceTree = "<group>"; };
 		329016EB17DA5AE20041895A /* Playnomics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Playnomics.h; path = PlaynomicsSDK/Playnomics.h; sourceTree = "<group>"; };
 		329016EC17DA5AE20041895A /* Playnomics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Playnomics.m; sourceTree = "<group>"; };
 		329016ED17DA5AE20041895A /* PNApplication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNApplication.m; sourceTree = "<group>"; };
@@ -174,6 +173,7 @@
 		3290172917DA5AE20041895A /* PNViewComponent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNViewComponent.m; sourceTree = "<group>"; };
 		3290172A17DA5AE20041895A /* PNWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNWebView.h; sourceTree = "<group>"; };
 		3290172B17DA5AE20041895A /* PNWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNWebView.m; sourceTree = "<group>"; };
+		3290177717DA64E00041895A /* PlaynomicsSDK-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PlaynomicsSDK-Prefix.pch"; sourceTree = "<group>"; };
 		32A7C32F17C6A36B00E959A3 /* PlaynomicsSDKTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PlaynomicsSDKTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		32A7C33517C6A36B00E959A3 /* PlaynomicsSDKTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "PlaynomicsSDKTests-Info.plist"; sourceTree = "<group>"; };
 		32A7C33717C6A36B00E959A3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -191,7 +191,7 @@
 		A1244E0A16A9EADF001A93DD /* dev.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = dev.xcconfig; sourceTree = "<group>"; };
 		A1822F8116B0691300414EF1 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		A1822F8316B069B900414EF1 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		D1D922701590F59600EDDE17 /* libiosapi.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libiosapi.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		D1D922701590F59600EDDE17 /* libPlaynomicsSDK.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPlaynomicsSDK.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		D1D922731590F59600EDDE17 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D1D922811590F59700EDDE17 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		D1D922831590F59700EDDE17 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
@@ -202,7 +202,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3290166217CC390B0041895A /* libiosapi.a in Frameworks */,
+				3290166217CC390B0041895A /* libPlaynomicsSDK.a in Frameworks */,
 				3271CCEB17C7CF4400E96C22 /* AdSupport.framework in Frameworks */,
 				32A7C33017C6A36B00E959A3 /* SenTestingKit.framework in Frameworks */,
 				32A7C33117C6A36B00E959A3 /* UIKit.framework in Frameworks */,
@@ -237,7 +237,7 @@
 		329016E917DA5AE20041895A /* PlaynomicsSDK */ = {
 			isa = PBXGroup;
 			children = (
-				329016EA17DA5AE20041895A /* iosapi-Prefix.pch */,
+				3290177717DA64E00041895A /* PlaynomicsSDK-Prefix.pch */,
 				329016EC17DA5AE20041895A /* Playnomics.m */,
 				329016F717DA5AE20041895A /* PNConfig.h */,
 				329016F817DA5AE20041895A /* PNConstants.h */,
@@ -423,7 +423,7 @@
 		D1D922711590F59600EDDE17 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				D1D922701590F59600EDDE17 /* libiosapi.a */,
+				D1D922701590F59600EDDE17 /* libPlaynomicsSDK.a */,
 				32A7C32F17C6A36B00E959A3 /* PlaynomicsSDKTests.octest */,
 			);
 			name = Products;
@@ -451,7 +451,6 @@
 			files = (
 				3290172D17DA5AE20041895A /* Playnomics.h in Headers */,
 				3290176017DA5AE20041895A /* PNLogger.h in Headers */,
-				3290172C17DA5AE20041895A /* iosapi-Prefix.pch in Headers */,
 				3290173017DA5AE20041895A /* PNAssetRequest.h in Headers */,
 				3290173217DA5AE20041895A /* PNCache+Private.h in Headers */,
 				3290173317DA5AE20041895A /* PNCache.h in Headers */,
@@ -485,6 +484,7 @@
 				3290176817DA5AE20041895A /* PNUtil.h in Headers */,
 				3290176A17DA5AE20041895A /* PNViewComponent.h in Headers */,
 				3290176C17DA5AE20041895A /* PNWebView.h in Headers */,
+				3290177817DA64E00041895A /* PlaynomicsSDK-Prefix.pch in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -509,9 +509,9 @@
 			productReference = 32A7C32F17C6A36B00E959A3 /* PlaynomicsSDKTests.octest */;
 			productType = "com.apple.product-type.bundle";
 		};
-		D1D9226F1590F59600EDDE17 /* iosapi */ = {
+		D1D9226F1590F59600EDDE17 /* PlaynomicsSDK */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D1D922941590F59700EDDE17 /* Build configuration list for PBXNativeTarget "iosapi" */;
+			buildConfigurationList = D1D922941590F59700EDDE17 /* Build configuration list for PBXNativeTarget "PlaynomicsSDK" */;
 			buildPhases = (
 				D1D9226C1590F59600EDDE17 /* Sources */,
 				D1D9226D1590F59600EDDE17 /* Frameworks */,
@@ -521,9 +521,9 @@
 			);
 			dependencies = (
 			);
-			name = iosapi;
+			name = PlaynomicsSDK;
 			productName = iosapi;
-			productReference = D1D922701590F59600EDDE17 /* libiosapi.a */;
+			productReference = D1D922701590F59600EDDE17 /* libPlaynomicsSDK.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 /* End PBXNativeTarget section */
@@ -534,7 +534,7 @@
 			attributes = {
 				LastUpgradeCheck = 0460;
 			};
-			buildConfigurationList = D1D9226A1590F59500EDDE17 /* Build configuration list for PBXProject "iosapi" */;
+			buildConfigurationList = D1D9226A1590F59500EDDE17 /* Build configuration list for PBXProject "PlaynomicsSDK" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -546,7 +546,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				D1D9226F1590F59600EDDE17 /* iosapi */,
+				D1D9226F1590F59600EDDE17 /* PlaynomicsSDK */,
 				32A7C32E17C6A36B00E959A3 /* PlaynomicsSDKTests */,
 			);
 		};
@@ -779,7 +779,7 @@
 				GCC_ENABLE_CPP_EXCEPTIONS = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "PlaynomicsSDK/iosapi-Prefix.pch";
+				GCC_PREFIX_HEADER = "PlaynomicsSDK/PlaynomicsSDK-Prefix.pch";
 				GCC_THUMB_SUPPORT = NO;
 				HEADER_SEARCH_PATHS = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
@@ -792,7 +792,7 @@
 					"\"$(SRCROOT)/Libraries\"",
 				);
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = PlaynomicsSDK;
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
 				STRIP_INSTALLED_PRODUCT = YES;
@@ -810,7 +810,7 @@
 				GCC_ENABLE_CPP_EXCEPTIONS = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "PlaynomicsSDK/iosapi-Prefix.pch";
+				GCC_PREFIX_HEADER = "PlaynomicsSDK/PlaynomicsSDK-Prefix.pch";
 				GCC_THUMB_SUPPORT = NO;
 				HEADER_SEARCH_PATHS = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
@@ -819,7 +819,7 @@
 					"\"$(SRCROOT)/Libraries\"",
 				);
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = PlaynomicsSDK;
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
 				STRIP_INSTALLED_PRODUCT = YES;
@@ -839,7 +839,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D1D9226A1590F59500EDDE17 /* Build configuration list for PBXProject "iosapi" */ = {
+		D1D9226A1590F59500EDDE17 /* Build configuration list for PBXProject "PlaynomicsSDK" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D1D922921590F59700EDDE17 /* Debug */,
@@ -848,7 +848,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D1D922941590F59700EDDE17 /* Build configuration list for PBXNativeTarget "iosapi" */ = {
+		D1D922941590F59700EDDE17 /* Build configuration list for PBXNativeTarget "PlaynomicsSDK" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D1D922951590F59700EDDE17 /* Debug */,
