@@ -10,10 +10,10 @@
 #import "PNImage.h"
 
 
-@implementation PlaynomicsFrame {
+@implementation PNFrame {
 @private
     UIInterfaceOrientation _currentOrientation;
-    id<PNFrameDelegate> _frameDelegate;
+    id<PlaynomicsFrameDelegate> _frameDelegate;
     BOOL _shouldRenderFrame;
     BOOL _frameRenderReady;
     PNSession *_session;
@@ -48,7 +48,7 @@
 
 #pragma mark - Lifecycle/Memory management
 - (id) initWithProperties: (NSDictionary *)adResponse
-            frameDelegate: (id<PNFrameDelegate>) frameDelegate
+            frameDelegate: (id<PlaynomicsFrameDelegate>) frameDelegate
                   session: (PNSession *) session {
     
     if (self = [super init]) {
@@ -60,9 +60,9 @@
         [self _parseAdResponse:adResponse];
         
         if (_adType == WebView) {
-            _adObject = [[PNWebView alloc] createWithMessageAndDelegate:self];
+            _adObject = [[PNWebView alloc] initWithFrameData:self];
         } else if (_adType == Image) {
-            _adObject = [[PNImage alloc] createWithMessageAndDelegate:self];
+            _adObject = [[PNImage alloc] initWithFrameData:self];
         }
     }
     return self;

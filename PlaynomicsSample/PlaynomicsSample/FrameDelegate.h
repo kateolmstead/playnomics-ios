@@ -9,6 +9,6 @@
 #import <Foundation/Foundation.h>
 #import "Playnomics.h"
 
-@interface FrameDelegate : NSObject<PNFrameDelegate>
+@interface FrameDelegate : NSObject<PlaynomicsFrameDelegate>
 
 @end

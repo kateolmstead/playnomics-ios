@@ -2,10 +2,10 @@
 // Created by jmistral on 10/3/12.
 //
 
-#import "PlaynomicsMessaging.h"
+#import "PNMessaging.h"
 #import "PNSession.h"
 
-@implementation PlaynomicsMessaging{
+@implementation PNMessaging{
     PNSession* _session;
 }
 
@@ -21,11 +21,11 @@
     [super dealloc];
 }
 
-- (PlaynomicsFrame *) createFrameWithId:(NSString*) frameId {
+- (PNFrame *) createFrameWithId:(NSString*) frameId {
     return [self createFrameWithId:frameId frameDelegate:nil];
 }
 
-- (PlaynomicsFrame *)createFrameWithId:(NSString*)frameId frameDelegate: (id<PNFrameDelegate>)frameDelegate {
+- (PNFrame *)createFrameWithId:(NSString*)frameId frameDelegate: (id<PlaynomicsFrameDelegate>)frameDelegate {
     // Get caller for debuging purposes
     NSString *sourceString = [[NSThread callStackSymbols] objectAtIndex:1];
     NSCharacterSet *separatorSet = [NSCharacterSet characterSetWithCharactersInString:@" -[]+?.,"];
@@ -36,7 +36,7 @@
     NSString *caller = [array objectAtIndex:4];
     
     NSDictionary *adResponse = [self _retrieveFramePropertiesForId:frameId withCaller:caller];
-    PlaynomicsFrame *frame = [[PlaynomicsFrame alloc] initWithProperties:adResponse frameDelegate:frameDelegate session:_session];
+    PNFrame *frame = [[PNFrame alloc] initWithProperties:adResponse frameDelegate:frameDelegate session:_session];
     return frame;
 }
 

@@ -3,11 +3,11 @@
 //
 // To change the template use AppCode | Preferences | File Templates.
 //
-#import "BaseAdComponent.h"
+#import "PNViewComponent.h"
 #import "FSNConnection.h"
 #import "PNImage.h"
 
-@implementation BaseAdComponent {
+@implementation PNViewComponent {
 @private
     NSMutableArray *_subComponents;
 }
@@ -18,9 +18,7 @@
 @synthesize status = _status;
 
 #pragma mark - Lifecycle/Memory management
--(id)createComponentViewWithDimensions:(PNViewDimensions) dimensions
-                              delegate:(id<PNBaseAdComponentDelegate>) delegate
-                                 image:(NSString*) imageUrl {
+-(id)initWithDimensions:(PNViewDimensions) dimensions delegate:(id<PNViewComponentDelegate>) delegate image:(NSString*) imageUrl {
     CGRect frame = CGRectMake(dimensions.x, dimensions.y, dimensions.width, dimensions.height);
     self = [super initWithFrame:frame];
     if(self){
@@ -82,7 +80,7 @@
 }
 
 
-- (void) addSubComponent:(BaseAdComponent *)subComponent {
+- (void) addSubComponent:(PNViewComponent *)subComponent {
     subComponent.parentComponent = self;
     [_subComponents addObject:subComponent];
     [self addSubview:subComponent];

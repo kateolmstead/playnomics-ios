@@ -15,13 +15,13 @@
     NSString *_creativeType;
 }
 
-@synthesize frameDelegate = _frameDelegate;
+@synthesize frameDelegate = _frame;
 @synthesize status = _status;
 
 #pragma mark - Lifecycle/Memory management
--(id) createWithMessageAndDelegate:(PlaynomicsFrame*) adDetails {
+-(id) initWithFrameData:(PNFrame*) adDetails {
     if (self = [super init]) {
-        _frameDelegate = adDetails;
+        _frame = adDetails;
         _creativeType = adDetails.creativeType;
         [super setDelegate:self];
         
@@ -58,7 +58,7 @@
 }
 
 -(void)dealloc{
-    _frameDelegate = nil;
+    _frame = nil;
     [super dealloc];
 }
 

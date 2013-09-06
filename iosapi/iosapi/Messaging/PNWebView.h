@@ -7,15 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "PlaynomicsFrame.h"
+#import "PNFrame.h"
 
 @interface PNWebView : UIWebView <UIWebViewDelegate>
 
 //assign, makes this reference weak. This because we aren't creating our delegate object, this prevents
 //strong references cycles.
-@property (assign) id<PlaynomicsFrameDelegate> frameDelegate;
+@property (assign) id<PNFrameDelegate> frameDelegate;
 @property (readonly) AdComponentStatus status;
 
--(id) createWithMessageAndDelegate:(PlaynomicsFrame*) adDetails;
+-(id) initWithFrameData:(PNFrame*) adDetails;
 -(void) renderAdInView: (UIView*) parentView;
 @end

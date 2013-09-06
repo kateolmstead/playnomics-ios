@@ -37,7 +37,7 @@ typedef struct {
     float y;
 } PNViewDimensions;
 
-@protocol PlaynomicsFrameDelegate <NSObject>
+@protocol PNFrameDelegate <NSObject>
 @required
 -(void) didLoad;
 -(void) didFailToLoadWithError: (NSError*) error;
@@ -50,9 +50,9 @@ typedef struct {
 //
 // This frame frame will be responsible for displaying the ad image and capturing all of
 // clicks within the ad area.
-@interface PlaynomicsFrame : NSObject <PlaynomicsFrameDelegate>
+@interface PNFrame : NSObject <PNFrameDelegate>
 @property (assign, readonly) UIView* parentView;
-@property (assign) id<PNFrameDelegate> delegate;
+@property (assign) id<PlaynomicsFrameDelegate> delegate;
 
 @property (readonly) NSDictionary* backgroundInfo;
 @property (readonly) PNViewDimensions backgroundDimensions;
@@ -82,7 +82,7 @@ typedef struct {
 @property (readonly) id adObject;
 
 // Called to display the ad frame and to begin capturing clicks within the frame.
-- (id) initWithProperties: (NSDictionary *)adResponse frameDelegate: (id<PNFrameDelegate>) frameDelegate session: (PNSession *) session;
+- (id) initWithProperties: (NSDictionary *)adResponse frameDelegate: (id<PlaynomicsFrameDelegate>) frameDelegate session: (PNSession *) session;
 - (DisplayResult) startInView:(UIView*) parentView;
 - (void) sendVideoView;
 @end

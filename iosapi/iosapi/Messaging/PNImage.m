@@ -7,27 +7,25 @@
 //
 
 #import "PNImage.h"
-#import "BaseAdComponent.h"
+#import "PNViewComponent.h"
 #import "FSNConnection.h"
-#import "PlaynomicsFrame.h"
+#import "PNFrame.h"
 
 @implementation PNImage {
 @private
-    BaseAdComponent* _background;
-    BaseAdComponent* _adArea;
-    BaseAdComponent* _closeButton;
+    PNViewComponent* _background;
+    PNViewComponent* _adArea;
+    PNViewComponent* _closeButton;
+    PNFrame* _frame;
 }
-
-@synthesize frame = _frame;
-
 #pragma mark - Lifecycle/Memory management
--(id) createWithMessageAndDelegate:(PlaynomicsFrame*) adDetails {
+-(id) initWithFrameData:(PNFrame*) adDetails {
     _frame = adDetails;
     
-    _background = [[BaseAdComponent alloc] createComponentViewWithDimensions:adDetails.backgroundDimensions delegate:self image:adDetails.backgroundImageUrl];
-    _adArea = [[BaseAdComponent alloc] createComponentViewWithDimensions:adDetails.adDimensions delegate:self image:adDetails.primaryImageUrl];
+    _background = [[PNViewComponent alloc] initWithDimensions:adDetails.backgroundDimensions delegate:self image:adDetails.backgroundImageUrl];
+    _adArea = [[PNViewComponent alloc] initWithDimensions:adDetails.adDimensions delegate:self image:adDetails.primaryImageUrl];
     if(adDetails.closeButtonImageUrl != nil){
-        _closeButton = [[BaseAdComponent alloc] createComponentViewWithDimensions:adDetails.closeButtonDimensions delegate:self image:adDetails.closeButtonImageUrl];
+        _closeButton = [[PNViewComponent alloc] initWithDimensions:adDetails.closeButtonDimensions delegate:self image:adDetails.closeButtonImageUrl];
     }
     
     [_background addSubComponent:_adArea];
@@ -77,20 +75,20 @@
 // Only notify the delegate if all the components have been loaded successfully
 - (void) componentDidLoad {
     if([self _allComponentsLoaded]){
-        [self.frame didLoad];
+        [_frame didLoad];
     }
 }
 
 // Close the ad in case of an error and notify the delegate
 -(void) componentDidFailToLoadWithError: (NSError*) error {
     [self _closeAd];
-    [self.frame didFailToLoadWithError:error];
+    [_frame didFailToLoadWithError:error];
 }
 
 // Close the ad in case of an exception and notify the delegate
 -(void) componentDidFailToLoadWithException: (NSException*) exception {
     [self _closeAd];
-    [self.frame didFailToLoadWithException:exception];
+    [_frame didFailToLoadWithException:exception];
 }
 
 // If the close button component was clicked, close the ad and notify the delegate
@@ -99,7 +97,7 @@
     if (component == _closeButton) {
         NSLog(@"Close button was pressed...");
         [self _closeAd];
-        [self.frame adClosed];
+        [_frame adClosed];
     } else if (component == _adArea) {
         CGPoint location = [touch locationInView: _adArea];
         int x = location.x;
@@ -107,7 +105,7 @@
         NSLog(@"Ad area was clicked on at location %d,%d", x, y);
         
         [self _closeAd];
-        [self.frame adClicked];
+        [_frame adClicked];
     }
 }
 

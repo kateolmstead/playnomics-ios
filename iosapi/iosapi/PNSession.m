@@ -15,7 +15,7 @@
 #import "PNEventTransaction.h"
 #import "PNEventMilestone.h"
 #import "PNDeviceManager.h"
-#import "PlaynomicsMessaging.h"
+#import "PNMessaging.h"
 
 #import <libkern/OSAtomic.h>
 
@@ -45,7 +45,7 @@
 	NSTimeInterval _pauseTime;
     
     PNEventApiClient* _apiClient;
-    PlaynomicsMessaging* _messaging;
+    PNMessaging* _messaging;
     
     volatile NSInteger _clicks;
     volatile NSInteger _totalClicks;
@@ -101,7 +101,7 @@
         
         _observers = [NSMutableArray new];
         
-        _messaging = [[PlaynomicsMessaging alloc] initWithSession: self];
+        _messaging = [[PNMessaging alloc] initWithSession: self];
         _framesById = [NSMutableDictionary new];
         
         _syncLock = [[NSObject alloc] init];
@@ -551,7 +551,7 @@
 }
 
 - (id) getOrAddFrame: (NSString *) frameID{
-    PlaynomicsFrame *frame = [_framesById valueForKey:frameID];
+    PNFrame *frame = [_framesById valueForKey:frameID];
     if(!frame){
         frame = [_messaging createFrameWithId: frameID];
         [_framesById setValue:frame forKey:frameID];
@@ -562,7 +562,7 @@
 - (void) showFrameWithID:(NSString *) frameID{
     @try{
         [self assertSessionHasStarted];
-        PlaynomicsFrame *frame = [self getOrAddFrame:frameID];
+        PNFrame *frame = [self getOrAddFrame:frameID];
         
         UIView* parentView = [[[[UIApplication sharedApplication] delegate] window] rootViewController].view;
         [frame startInView: parentView];
@@ -572,10 +572,10 @@
     }
 };
 
-- (void) showFrameWithID:(NSString *) frameID delegate:(id<PNFrameDelegate>) delegate{
+- (void) showFrameWithID:(NSString *) frameID delegate:(id<PlaynomicsFrameDelegate>) delegate{
     @try{
         [self assertSessionHasStarted];
-        PlaynomicsFrame *frame = [self getOrAddFrame:frameID];
+        PNFrame *frame = [self getOrAddFrame:frameID];
         frame.delegate = delegate;
         UIView* parentView = [[[[UIApplication sharedApplication] delegate] window] rootViewController].view;
         [frame startInView: parentView];
@@ -585,10 +585,10 @@
     }
 };
 
-- (void) showFrameWithID:(NSString *) frameID delegate:(id<PNFrameDelegate>) delegate withInSeconds: (int) timeout{
+- (void) showFrameWithID:(NSString *) frameID delegate:(id<PlaynomicsFrameDelegate>) delegate withInSeconds: (int) timeout{
     @try{
         [self assertSessionHasStarted];
-        PlaynomicsFrame *frame = [self getOrAddFrame:frameID];
+        PNFrame *frame = [self getOrAddFrame:frameID];
         frame.delegate = delegate;
         UIView* parentView = [[[[UIApplication sharedApplication] delegate] window] rootViewController].view;
         [frame startInView: parentView];

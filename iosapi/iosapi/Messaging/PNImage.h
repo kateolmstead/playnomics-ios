@@ -7,22 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "PlaynomicsFrame.h"
+#import "PNFrame.h"
+#import "PNViewComponent.h"
 
-@protocol PNBaseAdComponentDelegate
-@required
--(void) componentDidLoad;
--(void) componentDidFailToLoadWithError: (NSError*) error;
--(void) componentDidFailToLoadWithException: (NSException*) exception;
--(void) component: (id) component didReceiveTouch: (UITouch*) touch;
-@end
-
-@interface PNImage : NSObject <PNBaseAdComponentDelegate>
-
-//assign, makes this reference weak. This because we aren't creating our delegate object, this prevents
-//strong references cycles.
-@property (assign) PlaynomicsFrame *frame;
-
--(id) createWithMessageAndDelegate:(PlaynomicsFrame*) adDetails;
--(void) renderAdInView:(UIView*) parentView;
+@interface PNImage : NSObject <PNViewComponentDelegate>
+- (id) initWithFrameData:(PNFrame*) adDetails;
+- (void) renderAdInView:(UIView*) parentView;
 @end

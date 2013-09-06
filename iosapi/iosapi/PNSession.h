@@ -55,8 +55,8 @@ typedef enum {
 //Messaging
 - (void) preloadFramesWithIDs: (NSSet *) frameIDs;
 - (void) showFrameWithID:(NSString *) frameID;
-- (void) showFrameWithID:(NSString *) frameID delegate:(id<PNFrameDelegate>) delegate;
-- (void) showFrameWithID:(NSString *) frameID delegate:(id<PNFrameDelegate>) delegate withInSeconds: (int) timeout;
+- (void) showFrameWithID:(NSString *) frameID delegate:(id<PlaynomicsFrameDelegate>) delegate;
+- (void) showFrameWithID:(NSString *) frameID delegate:(id<PlaynomicsFrameDelegate>) delegate withInSeconds: (int) timeout;
 - (void) hideFrameWithID:(NSString *) frameID;
 @end
 

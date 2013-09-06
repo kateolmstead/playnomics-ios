@@ -28,7 +28,7 @@ typedef NS_ENUM(int, PNMilestoneType){
 };
 
 
-@protocol PNFrameDelegate <NSObject>
+@protocol PlaynomicsFrameDelegate <NSObject>
 @optional
 -(void) onClick: (NSDictionary*) jsonData;
 -(void) onClose: (NSDictionary*) jsonData;
@@ -55,8 +55,8 @@ typedef NS_ENUM(int, PNMilestoneType){
 + (void) preloadFramesWithIDs: (NSString *)firstFrameId, ... NS_REQUIRES_NIL_TERMINATION;
 
 + (void) showFrameWithID:(NSString *) frameID;
-+ (void) showFrameWithID:(NSString *) frameID delegate:(id<PNFrameDelegate>) delegate;
-+ (void) showFrameWithID:(NSString *) frameID delegate:(id<PNFrameDelegate>) delegate withInSeconds: (int) timeout;
++ (void) showFrameWithID:(NSString *) frameID delegate:(id<PlaynomicsFrameDelegate>) delegate;
++ (void) showFrameWithID:(NSString *) frameID delegate:(id<PlaynomicsFrameDelegate>) delegate withInSeconds: (int) timeout;
 + (void) hideFrameWithID:(NSString *) frameID;
 @end
 

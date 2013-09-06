@@ -84,11 +84,11 @@
     [[PNSession sharedInstance] showFrameWithID: frameID];
 }
 
-+ (void) showFrameWithID:(NSString *) frameID delegate:(id<PNFrameDelegate>) delegate{
++ (void) showFrameWithID:(NSString *) frameID delegate:(id<PlaynomicsFrameDelegate>) delegate{
     [[PNSession sharedInstance] showFrameWithID: frameID delegate:delegate];
 }
 
-+ (void) showFrameWithID:(NSString *) frameID delegate:(id<PNFrameDelegate>) delegate withInSeconds: (int) timeout{
++ (void) showFrameWithID:(NSString *) frameID delegate:(id<PlaynomicsFrameDelegate>) delegate withInSeconds: (int) timeout{
     [[PNSession sharedInstance] showFrameWithID: frameID delegate:delegate withInSeconds:timeout];
 }
 
