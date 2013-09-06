@@ -78,6 +78,11 @@
     }
 }
 
+- (void)componentDidFailToLoad{
+    [self _closeAd];
+    [_frame didFailToLoad];
+}
+
 // Close the ad in case of an error and notify the delegate
 -(void) componentDidFailToLoadWithError: (NSError*) error {
     [self _closeAd];

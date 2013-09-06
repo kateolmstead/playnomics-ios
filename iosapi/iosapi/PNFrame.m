@@ -241,6 +241,10 @@
     }
 }
 
+-(void) didFailToLoad{
+    
+}
+
 -(void) didFailToLoadWithError: (NSError*) error {
     NSLog(@"Frame failed to load due to error: %@", error.debugDescription);
 }

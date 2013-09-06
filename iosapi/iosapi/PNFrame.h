@@ -40,6 +40,7 @@ typedef struct {
 @protocol PNFrameDelegate <NSObject>
 @required
 -(void) didLoad;
+-(void) didFailToLoad;
 -(void) didFailToLoadWithError: (NSError*) error;
 -(void) didFailToLoadWithException: (NSException*) exception;
 -(void) adClosed;
