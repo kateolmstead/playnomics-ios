@@ -83,6 +83,12 @@
 		3290176C17DA5AE20041895A /* PNWebView.h in Headers */ = {isa = PBXBuildFile; fileRef = 3290172A17DA5AE20041895A /* PNWebView.h */; };
 		3290176D17DA5AE20041895A /* PNWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3290172B17DA5AE20041895A /* PNWebView.m */; };
 		3290177817DA64E00041895A /* PlaynomicsSDK-Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 3290177717DA64E00041895A /* PlaynomicsSDK-Prefix.pch */; };
+		3290177D17DA82F10041895A /* PNMessagingApiClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 3290177B17DA82F00041895A /* PNMessagingApiClient.h */; };
+		3290177E17DA82F10041895A /* PNMessagingApiClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 3290177C17DA82F00041895A /* PNMessagingApiClient.m */; };
+		3290178117DA84950041895A /* PNFrameRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 3290177F17DA84930041895A /* PNFrameRequest.h */; };
+		3290178217DA84950041895A /* PNFrameRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 3290178017DA84940041895A /* PNFrameRequest.m */; };
+		3290179F17DE35580041895A /* PNFrameResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = 3290179D17DE35560041895A /* PNFrameResponse.h */; };
+		329017A017DE35580041895A /* PNFrameResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 3290179E17DE35570041895A /* PNFrameResponse.m */; };
 		32A7C33017C6A36B00E959A3 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1D922811590F59700EDDE17 /* SenTestingKit.framework */; };
 		32A7C33117C6A36B00E959A3 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1D922831590F59700EDDE17 /* UIKit.framework */; };
 		32A7C33217C6A36B00E959A3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1D922731590F59600EDDE17 /* Foundation.framework */; };
@@ -174,6 +180,12 @@
 		3290172A17DA5AE20041895A /* PNWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNWebView.h; sourceTree = "<group>"; };
 		3290172B17DA5AE20041895A /* PNWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNWebView.m; sourceTree = "<group>"; };
 		3290177717DA64E00041895A /* PlaynomicsSDK-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PlaynomicsSDK-Prefix.pch"; sourceTree = "<group>"; };
+		3290177B17DA82F00041895A /* PNMessagingApiClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNMessagingApiClient.h; sourceTree = "<group>"; };
+		3290177C17DA82F00041895A /* PNMessagingApiClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNMessagingApiClient.m; sourceTree = "<group>"; };
+		3290177F17DA84930041895A /* PNFrameRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNFrameRequest.h; sourceTree = "<group>"; };
+		3290178017DA84940041895A /* PNFrameRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNFrameRequest.m; sourceTree = "<group>"; };
+		3290179D17DE35560041895A /* PNFrameResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNFrameResponse.h; sourceTree = "<group>"; };
+		3290179E17DE35570041895A /* PNFrameResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNFrameResponse.m; sourceTree = "<group>"; };
 		32A7C32F17C6A36B00E959A3 /* PlaynomicsSDKTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PlaynomicsSDKTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		32A7C33517C6A36B00E959A3 /* PlaynomicsSDKTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "PlaynomicsSDKTests-Info.plist"; sourceTree = "<group>"; };
 		32A7C33717C6A36B00E959A3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -277,6 +289,12 @@
 				329016EE17DA5AE20041895A /* PNAssetRequest.h */,
 				329016EF17DA5AE20041895A /* PNAssetRequest.m */,
 				3290172517DA5AE20041895A /* PNUrlProcessorDelegate.h */,
+				3290177B17DA82F00041895A /* PNMessagingApiClient.h */,
+				3290177C17DA82F00041895A /* PNMessagingApiClient.m */,
+				3290177F17DA84930041895A /* PNFrameRequest.h */,
+				3290178017DA84940041895A /* PNFrameRequest.m */,
+				3290179D17DE35560041895A /* PNFrameResponse.h */,
+				3290179E17DE35570041895A /* PNFrameResponse.m */,
 			);
 			name = Client;
 			sourceTree = "<group>";
@@ -485,6 +503,9 @@
 				3290176A17DA5AE20041895A /* PNViewComponent.h in Headers */,
 				3290176C17DA5AE20041895A /* PNWebView.h in Headers */,
 				3290177817DA64E00041895A /* PlaynomicsSDK-Prefix.pch in Headers */,
+				3290177D17DA82F10041895A /* PNMessagingApiClient.h in Headers */,
+				3290178117DA84950041895A /* PNFrameRequest.h in Headers */,
+				3290179F17DE35580041895A /* PNFrameResponse.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -630,6 +651,9 @@
 				3290176917DA5AE20041895A /* PNUtil.m in Sources */,
 				3290176B17DA5AE20041895A /* PNViewComponent.m in Sources */,
 				3290176D17DA5AE20041895A /* PNWebView.m in Sources */,
+				3290177E17DA82F10041895A /* PNMessagingApiClient.m in Sources */,
+				3290178217DA84950041895A /* PNFrameRequest.m in Sources */,
+				329017A017DE35580041895A /* PNFrameResponse.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

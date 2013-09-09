@@ -72,4 +72,8 @@
     return abs(*value_ptr);
 }
 
++ (CGRect) getScreenDimensions{
+    return [[UIScreen mainScreen] applicationFrame];
+}
+
 @end

@@ -5,6 +5,8 @@
 #import <Foundation/Foundation.h>
 #import "Playnomics.h"
 #import "PNSession.h"
+#import "PNFrameResponse.h"
+#import "PNMessaging.h"
 
 typedef enum {
     AdComponentStatusPending,   // Component is waiting for image download to complete
@@ -12,30 +14,12 @@ typedef enum {
     AdComponentStatusError      // Component experienced an error retrieving image
 } AdComponentStatus;
 
-typedef enum {
-    AdColony,
-    Image,
-    Video,
-    WebView,
-    AdUnknown
-} AdType;
-
-typedef enum {
-    DisplayResultNoInternetPermission,  // Communication with the ad server is impossible
-    DisplayResultStartNotCalled,  // Data collection API was not initialized
-    DisplayResultUnableToConnect,  // No successful connections to the ad server have occurred
-    DisplayResultFailUnknown,  // Any other problem (included bad responses from the ad server)
-    DisplayResultDisplayPending,  // Ad server has been reached, but assets not ready yet, will display when ready
-    DisplayAdColony,  // Show an AdColony video ad
-    DisplayResultDisplayed  // Success
-} DisplayResult;
-
-typedef struct {
-    float width;
-    float height;
-    float x;
-    float y;
-} PNViewDimensions;
+typedef NS_ENUM(int, PNFrameState){
+    PNFrameStateNotLoaded = 0,
+    PNFrameStateLoadingStarted = 1,
+    PNFrameStateLoadingComplete = 2,
+    PNFrameStateLoadingFailed = 3
+};
 
 @protocol PNFrameDelegate <NSObject>
 @required
@@ -52,38 +36,15 @@ typedef struct {
 // This frame frame will be responsible for displaying the ad image and capturing all of
 // clicks within the ad area.
 @interface PNFrame : NSObject <PNFrameDelegate>
-@property (assign, readonly) UIView* parentView;
+
+@property (assign) PNFrameState state;
+@property (readonly) NSString *frameId;
+@property (assign, readonly) UIView *parentView;
 @property (assign) id<PlaynomicsFrameDelegate> delegate;
-
-@property (readonly) NSDictionary* backgroundInfo;
-@property (readonly) PNViewDimensions backgroundDimensions;
-@property (readonly) NSString* backgroundImageUrl;
-
-@property (readonly) NSDictionary* adInfo;
-@property (readonly) PNViewDimensions adDimensions;
-@property (readonly) AdType adType;
-@property (readonly) NSString* creativeType;
-@property (readonly) NSString* adTag;
-@property (readonly) NSString* primaryImageUrl;
-@property (readonly) NSString* rolloverImageUrl;
-@property (readonly) NSString* tooltipText;
-@property (readonly) NSString* clickTarget;
-@property (readonly) NSString* clickTargetType;
-@property (readonly) NSString* clickTargetData;
-@property (readonly) NSString* preClickUrl;
-@property (readonly) NSString* postClickUrl;
-@property (readonly) NSString* impressionUrl;
-@property (readonly) NSString* flagUrl;
-@property (readonly) NSString* closeUrl;
-@property (readonly) NSString* viewUrl;
-
-@property (readonly) NSDictionary* closeButtonInfo;
-@property (readonly) NSString* closeButtonImageUrl;
-@property (readonly) PNViewDimensions closeButtonDimensions;
 @property (readonly) id adObject;
 
 // Called to display the ad frame and to begin capturing clicks within the frame.
-- (id) initWithProperties: (NSDictionary *)adResponse frameDelegate: (id<PlaynomicsFrameDelegate>) frameDelegate session: (PNSession *) session;
-- (DisplayResult) startInView:(UIView*) parentView;
-- (void) sendVideoView;
+- (id) initWithFrameId: (NSString *) frameId session: (PNSession *) session messaging: (PNMessaging *) messaging;
+- (void) startInView:(UIView *) parentView withDelegate: (id<PlaynomicsFrameDelegate>) delegate;
+- (void) updateFrameResponse: (PNFrameResponse *) frameResponse;
 @end

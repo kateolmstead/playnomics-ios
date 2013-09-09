@@ -11,20 +11,23 @@
 @implementation PNWebView {
 @private
     PNViewDimensions _backgroundDimensions;
-    PNFrame *_frame;
+    id<PNFrameDelegate> _delegate;
+    PNFrameResponse *_response;
 }
 
 @synthesize status = _status;
 
 #pragma mark - Lifecycle/Memory management
--(id) initWithFrameData:(PNFrame*) frame {
+-(id) initWithResponse:(PNFrameResponse *) response delegate:(id<PNFrameDelegate>) delegate {
     if (self = [super init]) {
-        _frame = frame;
+        _response = [response retain];
+        _delegate = delegate;
+        
         [super setDelegate:self];
         
-        if(_frame.adTag != nil && _frame.adTag != (id)[NSNull null] ){
+        if(_response.adTag != nil && _response.adTag != (id)[NSNull null] ){
             _status = AdComponentStatusPending;
-            [self loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:_frame.adTag]]];
+            [self loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:_response.adTag]]];
         }
     }
     
@@ -32,7 +35,7 @@
 }
 
 -(void) renderAdInView:(UIView *)parentView {
-    if (_frame.creativeType && [_frame.creativeType isEqualToString:@"banner"]) {
+    if (_response.creativeType && [_response.creativeType isEqualToString:@"banner"]) {
         [super setFrame:CGRectMake(_backgroundDimensions.x,
                                    _backgroundDimensions.y,
                                    _backgroundDimensions.width,
@@ -53,13 +56,14 @@
 }
 
 -(void)dealloc{
-    _frame = nil;
+    _delegate = nil;
+    [_response release];
     [super dealloc];
 }
 
 -(void) closeButtonClicked {
     [self removeFromSuperview];
-    [_frame adClosed];
+    [_delegate adClosed];
 }
 
 #pragma mark "Delegate Handlers"
@@ -70,22 +74,21 @@
     if (navigationType == UIWebViewNavigationTypeLinkClicked) {
         [[UIApplication sharedApplication] openURL:URL];
         [self removeFromSuperview];
-        [_frame adClicked];
+        [_delegate adClicked];
     }
-    
     return YES;
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
     _status = AdComponentStatusCompleted;
-    [_frame didLoad];
+    [_delegate didLoad];
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
     _status = AdComponentStatusError;
-    [PNLogger log:PNLogLevelWarning error:error format:@"Could not load the webview for url %@", _frame.adTag];
+    [PNLogger log:PNLogLevelWarning error:error format:@"Could not load the webview for url %@", _response.adTag];
     NSLog(@"Web View failed to load with error %@",error.debugDescription);
-    [_frame didFailToLoadWithError:error];
+    [_delegate didFailToLoadWithError:error];
 }
 
 @end

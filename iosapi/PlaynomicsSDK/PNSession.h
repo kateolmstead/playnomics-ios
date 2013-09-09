@@ -53,10 +53,13 @@ typedef enum {
 //UI Events/Users/jaredjenkins/Projects/mobile/playnomics-ios/iosapi/iosapi/PNSession.m
 - (void) onUIEventReceived: (UIEvent *) event;
 //Messaging
-- (void) preloadFramesWithIDs: (NSSet *) frameIDs;
-- (void) showFrameWithID:(NSString *) frameID;
-- (void) showFrameWithID:(NSString *) frameID delegate:(id<PlaynomicsFrameDelegate>) delegate;
-- (void) showFrameWithID:(NSString *) frameID delegate:(id<PlaynomicsFrameDelegate>) delegate withInSeconds: (int) timeout;
-- (void) hideFrameWithID:(NSString *) frameID;
+- (void) preloadFramesWithIds: (NSSet *) frameIDs;
+
+- (void) showFrameWithId:(NSString *) frameId;
+- (void) showFrameWithId:(NSString *) frameId inView: (UIView *) view;
+- (void) showFrameWithId:(NSString *) frameId delegate:(id<PlaynomicsFrameDelegate>) delegate;
+- (void) showFrameWithId:(NSString *) frameId delegate:(id<PlaynomicsFrameDelegate>) delegate inView:(UIView *) view;
+
+- (void) hideFrameWithID:(NSString *) frameId;
 @end
 

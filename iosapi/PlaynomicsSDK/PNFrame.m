@@ -3,11 +3,12 @@
 //
 // To change the template use AppCode | Preferences | File Templates.
 //
+#import "PNFrame.h"
 #import "PNUtil.h"
 #import "PNWebView.h"
 #import "PNSession.h"
 #import "PNImage.h"
-
+#import "PNFrameResponse.h"
 
 @implementation PNFrame {
 @private
@@ -16,191 +17,59 @@
     BOOL _shouldRenderFrame;
     BOOL _frameRenderReady;
     PNSession *_session;
+    PNFrameResponse *_response;
+    PNMessaging *_messaging;
 }
 
 @synthesize parentView = _parentView;
-@synthesize backgroundInfo = _backgroundInfo;
-@synthesize backgroundDimensions = _backgroundDimensions;
-@synthesize backgroundImageUrl = _backgroundImageUrl;
-@synthesize adInfo = _adInfo;
-@synthesize adDimensions = _adDimensions;
-@synthesize adType = _adType;
-@synthesize creativeType = _creativeType;
-@synthesize adTag = _adTag;
-@synthesize primaryImageUrl = _primaryImageUrl;
-@synthesize rolloverImageUrl = _rolloverImageUrl;
-@synthesize tooltipText = _tooltipText;
-@synthesize clickTarget = _clickTarget;
-@synthesize clickTargetType = _clickTargetType;
-@synthesize clickTargetData = _clickTargetData;
-@synthesize preClickUrl = _preClickUrl;
-@synthesize postClickUrl = _postClickUrl;
-@synthesize impressionUrl = _impressionUrl;
-@synthesize flagUrl = _flagUrl;
-@synthesize closeUrl = _closeUrl;
-@synthesize viewUrl = _viewUrl;
-@synthesize closeButtonInfo = _closeButtonInfo;
-@synthesize closeButtonImageUrl = _closeButtonImageUrl;
-@synthesize closeButtonDimensions = _closeButtonDimensions;
 @synthesize adObject = _adObject;
-
+@synthesize state;
 
 #pragma mark - Lifecycle/Memory management
-- (id) initWithProperties: (NSDictionary *)adResponse
-            frameDelegate: (id<PlaynomicsFrameDelegate>) frameDelegate
-                  session: (PNSession *) session {
+- (id) initWithFrameId: (NSString *) frameId session: (PNSession *) session messaging: (PNMessaging *) messaging{
     
     if (self = [super init]) {
+        self.state = PNFrameStateNotLoaded;
         _session = session;
-        _frameDelegate = frameDelegate;
+        _messaging = messaging;
         _shouldRenderFrame = NO;
         _frameRenderReady = NO;
-        [self _initOrientationChangeObservers];
-        [self _parseAdResponse:adResponse];
-        
-        if (_adType == WebView) {
-            _adObject = [[PNWebView alloc] initWithFrameData:self];
-        } else if (_adType == Image) {
-            _adObject = [[PNImage alloc] initWithFrameData:self];
-        }
+        _frameId = [frameId retain];
     }
     return self;
 }
 
 - (void) dealloc {
+
+    [_frameId release];
+    
     _parentView = nil;
     _frameDelegate = nil;
-    [_backgroundImageUrl release];
-    [_primaryImageUrl release];
-    [_rolloverImageUrl release];
-    [_tooltipText release];
-    [_impressionUrl release];
-    [_flagUrl release];
-    [_closeUrl release];
-    [_clickTarget release];
-    [_clickTargetType release];
-    [_clickTargetData release];
-    [_preClickUrl release];
-    [_postClickUrl release];
-    [_creativeType release];
-    [_adTag release];
-    [_viewUrl release];
-    [_closeButtonImageUrl release];
     _session = nil;
     [super dealloc];
 }
 
--(void) _parseAdResponse:(NSDictionary*) adResponse {
-    // Get the background details, which are in the key "b" and is a dictionary of data
-    _backgroundInfo = [adResponse objectForKey:FrameResponseBackgroundInfo];
-    _backgroundDimensions = [self getViewDimensions:_backgroundInfo];
-    _backgroundImageUrl = [[self getImageFromProperties:_backgroundInfo] retain];
+-(void) updateFrameResponse:(PNFrameResponse *)frameResponse{
+    _shouldRenderFrame = NO;
+    _frameRenderReady = NO;
     
-    NSDictionary *adLocationInfo = [adResponse objectForKey:FrameResponseAdLocationInfo];
-    _adDimensions = [self getViewDimensions:adLocationInfo];
-    
-    NSArray *adFrameResponse = [adResponse objectForKey:FrameResponseAds];
-    if (adFrameResponse==nil || adFrameResponse.count==0){
-        _adInfo = nil;
-    } else {
-        _adInfo = [adFrameResponse objectAtIndex:0];
-        _primaryImageUrl = [[self getImageFromProperties:_adInfo] retain];
-        _rolloverImageUrl = [[_adInfo objectForKey:FrameResponseAd_RolloverImage] retain];
-        _tooltipText = [[_adInfo objectForKey:FrameResponseAd_ToolTipText] retain];
-        _impressionUrl = [[_adInfo objectForKey:FrameResponseAd_ImpressionUrl] retain];
-        _flagUrl = [[_adInfo objectForKey:FrameResponseAd_FlagUrl] retain];
-        _closeUrl = [[_adInfo objectForKey:FrameResponseAd_CloseUrl] retain];
-        
-        _clickTargetType = [[_adInfo objectForKey:FrameResponseAd_TargetType] retain];
-        _clickTarget = [[_adInfo objectForKey:FrameResponseAd_ClickTarget] retain];
-        _preClickUrl = [[_adInfo objectForKey:FrameResponseAd_PreExecuteUrl] retain];
-        _postClickUrl =  [[_adInfo objectForKey:FrameResponseAd_PostExecuteUrl] retain];
-        _clickTargetData = [[_adInfo objectForKey:FrameResponseAd_TargetData] retain];
-        
-        NSString* adType = [_adInfo objectForKey:FrameResponseAd_AdType];
-        if (adType) {
-            if ([adType isEqualToString:@"html"]) {
-                _adType = WebView;
-                _creativeType = [[_adInfo objectForKey:FrameResponseAd_CreativeType] retain];
-                _adTag = [[_adInfo objectForKey:FrameResponseAd_AdTag] retain];
-            } else if ([adType isEqualToString:@"video"]) {
-                if ([[_adInfo objectForKey:FrameResponseAd_AdProvider] isEqualToString:@"AdColony"]) {
-                    NSLog(@"Setting ad type to AdColony");
-                    _adType = AdColony;
-                } else {
-                    _adType = Video;
-                }
-                _viewUrl = [[_adInfo objectForKey:FrameResponseAd_VideoViewUrl] retain];
-            } else if ([adType isEqualToString:@"image"]) {
-                _adType = Image;
-            } else {
-                _adType = AdUnknown;
-                NSLog(@"Encountered Unknown AdType %@", adType);
-            }
-        } else {
-            _adType = Image;
-        }
+    if(_adObject){
+        [_adObject release];
+    }
+
+    if(_response){
+        [_response release];
+    }
+    _response = [frameResponse retain];
+
+    if (_response.adType == WebView) {
+        _adObject = [[PNWebView alloc] initWithResponse: _response delegate:self];
+    } else if (_response.adType == Image) {
+        _adObject = [[PNImage alloc] initWithResponse: _response delegate:self];
     }
     
-    _closeButtonInfo = [adResponse objectForKey:FrameResponseCloseButtonInfo];
-    _closeButtonImageUrl = [[self getImageFromProperties:_closeButtonInfo] retain];
-    if (_closeButtonImageUrl != nil) {
-        _closeButtonDimensions = [self getViewDimensions:_closeButtonInfo];
-    }
+    [self _initOrientationChangeObservers];
 }
-
-
-#pragma mark "Parse Location"
--(PNViewDimensions) getViewDimensions:(NSDictionary*) componentInfo {
-    float height = [self getFloatValue:[componentInfo objectForKey:FrameResponseHeight]];
-    float width = [self getFloatValue:[componentInfo objectForKey:FrameResponseWidth]];
-    
-    NSDictionary *coordinateProps = [self extractCoordinateProps:componentInfo];
-    float x = [self getFloatValue:[coordinateProps objectForKey:FrameResponseXOffset]];
-    float y = [self getFloatValue:[coordinateProps objectForKey:FrameResponseYOffset]];
-    
-    PNViewDimensions dimensions = {.width = width, .height = height, .x = x, .y = y};
-    return dimensions;
-}
-
--(NSDictionary*) extractCoordinateProps:(NSDictionary*) componentInfo {
-    // This is dumb, but the reason for this if statement is because ad and close components
-    // both have the size and offset locations in the same dictionary whereas the background
-    // component has the coordinates in a sub-dictionary called 'l' for landscape mode and
-    // 'p' for portrait mode. This is also because the ad and close components are offsets to
-    // the background image whereas the background is just a raw location
-    if ([componentInfo objectForKey:FrameResponseBackground_Landscape] == nil) {
-        return componentInfo;
-    }
-    
-    // By default, return portrait
-    UIInterfaceOrientation orientation = [PNUtil getCurrentOrientation];
-    if (orientation == UIInterfaceOrientationPortrait || orientation == UIInterfaceOrientationPortraitUpsideDown) {
-        return [componentInfo objectForKey:FrameResponseBackground_Portrait];
-    } else if(orientation == UIInterfaceOrientationLandscapeRight || orientation == UIInterfaceOrientationLandscapeLeft) {
-        return [componentInfo objectForKey:FrameResponseBackground_Landscape];
-    } else {
-        return [componentInfo objectForKey:FrameResponseBackground_Portrait];
-    }
-}
-
--(float) getFloatValue:(NSNumber*) n {
-    @try {
-        return [n floatValue];
-    } @catch (NSException * exception) {
-        //
-    }
-    return 0;
-}
-
--(NSString*) getImageFromProperties: (NSDictionary*) properties{
-    NSString* imageUrl = [properties objectForKey:FrameResponseImageUrl];
-    if(imageUrl == nil || imageUrl == (id)[NSNull null] ){
-        return nil;
-    }
-    return imageUrl;
-}
-
 
 #pragma mark - Orientation handlers
 -(void) _initOrientationChangeObservers {
@@ -228,7 +97,7 @@
 }
 
 -(void) render {
-    [_session pingUrlForCallback: _impressionUrl];
+    [_session pingUrlForCallback: _response.impressionUrl];
     [_adObject renderAdInView:_parentView];
 }
 
@@ -254,32 +123,33 @@
 }
 
 -(void) adClosed {
-    [_session pingUrlForCallback: _closeUrl];
+    [_session pingUrlForCallback: _response.closeUrl];
     [self _destroyOrientationObservers];
+    [_messaging fetchDataForFrame:_frameId];
 }
 
 -(void) adClicked {
-    AdTarget targetType = [self toAdTarget : _clickTargetType];
+    AdTarget targetType = [self toAdTarget : _response.clickTargetType];
     
     if(targetType == AdTargetUrl) {
         //url-based target
-        AdAction actionType = [self toAdAction : _clickTarget];
+        AdAction actionType = [self toAdAction : _response.clickTarget];
         if (actionType == AdActionHTTP) {
             //just redirect to the ad
-            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:_clickTarget]];
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString: _response.clickTarget]];
         }
     } else if (targetType == AdTargetData) {
         //handle rich data
         NSInteger responseCode;
         NSException* exception = nil;
         
-        [_session pingUrlForCallback: _preClickUrl];
+        [_session pingUrlForCallback: _response.preClickUrl];
         @try {
             if(_frameDelegate == nil || ![_frameDelegate respondsToSelector:@selector(onClick:)]){
                 responseCode = -4;
                 NSLog(@"Received a click but could not send the data to the frameDelegate");
             } else {
-                NSDictionary* jsonData = [PNUtil deserializeJsonString: _clickTargetData];
+                NSDictionary* jsonData = [PNUtil deserializeJsonString: _response.clickTargetData];
                 [_frameDelegate onClick: jsonData];
                 responseCode = 1;
             }
@@ -288,7 +158,7 @@
             exception = e;
             responseCode = -4;
         }
-        [self callPostAction: _postClickUrl withException: exception andResponseCode: responseCode];
+        [self callPostAction: _response.postClickUrl withException: exception andResponseCode: responseCode];
     }
 }
 
@@ -340,33 +210,15 @@
 }
 
 #pragma mark - Public Interface
--(DisplayResult) startInView:(UIView*) parentView {
-    if (_impressionUrl==nil){
-        //this may happen due to broken JSON
-        return DisplayResultFailUnknown;
-    }
-    
+-(void) startInView:(UIView*) parentView withDelegate:(id<PlaynomicsFrameDelegate>) delegate {
+    _delegate = delegate;
     _shouldRenderFrame = YES;
     _parentView = parentView;
     
-    if (_adType == AdColony) {
-        [_session pingUrlForCallback: _impressionUrl];
-        NSLog(@"Returning DisplayAdColony");
-        return DisplayAdColony;
-    }
-    
     if (_frameRenderReady) {
         [self render];
-        return DisplayResultDisplayed;
-    } else {
-        return DisplayResultDisplayPending;
     }
 }
 
--(void) sendVideoView {
-    if (_viewUrl!=nil) {
-        [_session pingUrlForCallback: _viewUrl];
-    }
-}
 
 @end

@@ -5,12 +5,14 @@
 //
 
 #import "Playnomics.h"
-#import "PNFrame.h"
+#import "PNSession.h"
 
 @interface PNMessaging : NSObject
-// Initialize a frame using data retrieved from the Playnomics Messaging Server.  The returned instance is
-// AUTORELEASED and must be retained by the clients.
+
 - (id) initWithSession: (PNSession *) session;
-- (PNFrame *)createFrameWithId:(NSString *)frameId;
-- (PNFrame *)createFrameWithId:(NSString *)frameId frameDelegate: (id<PlaynomicsFrameDelegate>)frameDelegate;
+- (void) fetchDataForFrame:(NSString *) frameId;
+- (void) showFrame:(NSString *) frameId
+          inView:(UIView *) parentView
+    withDelegate:(id<PlaynomicsFrameDelegate>) delegate;
+
 @end

@@ -11,6 +11,6 @@
 #import "PNViewComponent.h"
 
 @interface PNImage : NSObject <PNViewComponentDelegate>
-- (id) initWithFrameData:(PNFrame*) adDetails;
+-(id) initWithResponse:(PNFrameResponse *) response delegate:(id<PNFrameDelegate>) delegate;
 - (void) renderAdInView:(UIView*) parentView;
 @end

@@ -1,6 +1,5 @@
 //
 //  Playnomics.h
-//  iosapi
 //
 //  Created by Jared Jenkins on 8/23/13.
 //
@@ -52,12 +51,14 @@ typedef NS_ENUM(int, PNMilestoneType){
 + (void) enablePushNotificationsWithToken: (NSData*)deviceToken;
 + (void) pushNotificationsWithPayload: (NSDictionary*)payload;
 //Messaging
-+ (void) preloadFramesWithIDs: (NSString *)firstFrameId, ... NS_REQUIRES_NIL_TERMINATION;
++ (void) preloadFramesWithIds: (NSString *)firstFrameId, ... NS_REQUIRES_NIL_TERMINATION;
 
-+ (void) showFrameWithID:(NSString *) frameID;
-+ (void) showFrameWithID:(NSString *) frameID delegate:(id<PlaynomicsFrameDelegate>) delegate;
-+ (void) showFrameWithID:(NSString *) frameID delegate:(id<PlaynomicsFrameDelegate>) delegate withInSeconds: (int) timeout;
-+ (void) hideFrameWithID:(NSString *) frameID;
++ (void) showFrameWithId:(NSString *) frameId;
++ (void) showFrameWithId:(NSString *) frameId inView:(UIView *) parentView;
++ (void) showFrameWithId:(NSString *) frameId delegate:(id<PlaynomicsFrameDelegate>) delegate;
++ (void) showFrameWithId:(NSString *) frameId delegate:(id<PlaynomicsFrameDelegate>) delegate inView:(UIView *) parentView;
+
++ (void) hideFrameWithId:(NSString *) frameId;
 @end
 
 @interface PNApplication : UIApplication<UIApplicationDelegate>
