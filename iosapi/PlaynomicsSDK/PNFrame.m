@@ -125,6 +125,7 @@
 -(void) adClosed {
     [_session pingUrlForCallback: _response.closeUrl];
     [self _destroyOrientationObservers];
+    //refresh the frame when the ad has been clicked
     [_messaging fetchDataForFrame:_frameId];
 }
 
@@ -160,6 +161,8 @@
         }
         [self callPostAction: _response.postClickUrl withException: exception andResponseCode: responseCode];
     }
+    //refresh the frame when the ad has been clicked
+    [_messaging fetchDataForFrame:_frameId];
 }
 
 -(NSString*) adActionMethodForURLPath: (NSString*)urlPath{
@@ -210,7 +213,7 @@
 }
 
 #pragma mark - Public Interface
--(void) startInView:(UIView*) parentView withDelegate:(id<PlaynomicsFrameDelegate>) delegate {
+-(void) showInView:(UIView*) parentView withDelegate:(id<PlaynomicsFrameDelegate>) delegate {
     _delegate = delegate;
     _shouldRenderFrame = YES;
     _parentView = parentView;

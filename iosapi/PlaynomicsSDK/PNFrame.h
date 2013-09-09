@@ -45,6 +45,6 @@ typedef NS_ENUM(int, PNFrameState){
 
 // Called to display the ad frame and to begin capturing clicks within the frame.
 - (id) initWithFrameId: (NSString *) frameId session: (PNSession *) session messaging: (PNMessaging *) messaging;
-- (void) startInView:(UIView *) parentView withDelegate: (id<PlaynomicsFrameDelegate>) delegate;
+- (void) showInView:(UIView *) parentView withDelegate: (id<PlaynomicsFrameDelegate>) delegate;
 - (void) updateFrameResponse: (PNFrameResponse *) frameResponse;
 @end

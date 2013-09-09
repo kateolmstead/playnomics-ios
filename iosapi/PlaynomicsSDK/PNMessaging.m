@@ -42,7 +42,7 @@
     if(frame.state != PNFrameStateLoadingComplete || frame.state != PNFrameStateLoadingStarted){
         [_apiClient loadDataForFrame:frame];
     }
-    [frame startInView:parentView withDelegate:delegate];
+    [frame showInView:parentView withDelegate:delegate];
 }
 
 - (id) getOrAddFrame: (NSString *) frameID{
