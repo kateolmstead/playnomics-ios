@@ -265,8 +265,13 @@
         //url-based target
         AdAction actionType = [self toAdAction : _clickTarget];
         if (actionType == AdActionHTTP) {
-            //just redirect to the ad
-            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:_clickTarget]];
+            // If we have a WebView, the click target will be the Playnomics click tracking URL
+            if (_adType == WebView) {
+                [_session pingUrlForCallback:_clickTarget];
+            } else {
+                //just redirect to the ad
+                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:_clickTarget]];
+            }
         }
     } else if (targetType == AdTargetData) {
         //handle rich data
