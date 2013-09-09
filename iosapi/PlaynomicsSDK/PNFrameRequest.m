@@ -8,11 +8,11 @@
 
 #import "PNFrameRequest.h"
 #import "PNFrameResponse.h"
+#import "PNEventApiClient.h"
 
 @implementation PNFrameRequest{
     PNFrame* _frame;
     NSString* _url;
-    NSMutableDictionary *_params;
     PNAssetRequest *_request;
 }
 
@@ -26,21 +26,23 @@
         
         NSNumber * applicationId = [NSNumber numberWithUnsignedLongLong:session.applicationId];
         
-        _params = [[NSMutableDictionary alloc] init];
-        [_params setObject:applicationId  forKey:@"a"];
-        [_params setObject:session.userId forKey:@"u"];
-        [_params setObject:requestTime forKey:@"t"];
-        [_params setObject:@"ios" forKey:@"esrc"];
-        [_params setObject:session.sdkVersion forKey:@"ever"];
-        [_params setObject:frame.frameId forKey:@"f"];
-        [_params setObject:[NSNumber numberWithInt: screenSize.size.height] forKey:@"c"];
-        [_params setObject:[NSNumber numberWithInt: screenSize.size.width] forKey:@"d"];
+        NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+        [params setObject:applicationId  forKey:@"a"];
+        [params setObject:session.userId forKey:@"u"];
+        [params setObject:requestTime forKey:@"t"];
+        [params setObject:@"ios" forKey:@"esrc"];
+        [params setObject:session.sdkVersion forKey:@"ever"];
+        [params setObject:frame.frameId forKey:@"f"];
+        [params setObject:[NSNumber numberWithInt: screenSize.size.height] forKey:@"c"];
+        [params setObject:[NSNumber numberWithInt: screenSize.size.width] forKey:@"d"];
+        
+        _url = [PNEventApiClient buildUrlWithBase:[session getMessagingUrl] withPath:@"ads" withParams:params];
+        [params release];
     }
     return self;
 }
 
 -(void) dealloc{
-    [_params release];
     [_url release];
     [_frame release];
     
@@ -53,6 +55,7 @@
 -(void) fetchFrameData{
     _frame.state = PNFrameStateLoadingStarted;
     _request = [[PNAssetRequest alloc] initWithUrl:_url delegate:self];
+    [_request start];
 }
 
 -(void) requestDidCompleteWithData:(NSData *)data{
