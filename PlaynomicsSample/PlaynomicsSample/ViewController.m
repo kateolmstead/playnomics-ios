@@ -138,7 +138,7 @@
         NSLog(@"result=%u",result);
     }
 */
-[Playnomics showFrameWithId: frameId delegate: _frameDelegate];
+    [Playnomics showFrameWithId: frameId delegate: _frameDelegate];
  }
 
 -(void)onPnx

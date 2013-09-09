@@ -39,7 +39,7 @@
      withDelegate:(id<PlaynomicsFrameDelegate>) delegate{
     
     PNFrame *frame = [self getOrAddFrame: frameId];
-    if(frame.state != PNFrameStateLoadingComplete || frame.state != PNFrameStateLoadingStarted){
+    if(!(frame.state == PNFrameStateLoadingComplete || frame.state == PNFrameStateLoadingStarted)){
         [_apiClient loadDataForFrame:frame];
     }
     [frame showInView:parentView withDelegate:delegate];
