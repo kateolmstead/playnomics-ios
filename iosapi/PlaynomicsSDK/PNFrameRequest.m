@@ -54,7 +54,8 @@
 
 -(void) fetchFrameData{
     _frame.state = PNFrameStateLoadingStarted;
-    _request = [[PNAssetRequest alloc] initWithUrl:_url delegate:self];
+    [PNLogger log:PNLogLevelDebug format:@"Fetching ad at %@", _url];
+    _request = [[PNAssetRequest alloc] initWithUrl:_url delegate:self useHttpCache:NO];
     [_request start];
 }
 
@@ -64,26 +65,26 @@
         [_frame updateFrameResponse:response];
         _frame.state = PNFrameStateLoadingComplete;
         
-        [PNLogger log:PNLogLevelVerbose format:@"Successfully fetched frame data. JSON response @%", [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease]];
+        [PNLogger log:PNLogLevelVerbose format:@"Successfully fetched frame data. JSON response %@", [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease]];
     }
     @catch(NSException *ex) {
-        [PNLogger log:PNLogLevelWarning exception:ex format:@"Could load frame @%. Got exception while deserializing JSON response"];
+        [PNLogger log:PNLogLevelWarning exception:ex format:@"Could load frame %@. Got exception while deserializing JSON response"];
         _frame.state = PNFrameStateLoadingFailed;
     }
 }
 
 -(void) requestDidFailtWithStatusCode:(int)statusCode{
-    [PNLogger log:PNLogLevelWarning format:@"Could not load frame @%. Received HTTP status code %d", _frame.frameId, statusCode];
+    [PNLogger log:PNLogLevelWarning format:@"Could not load frame %@. Received HTTP status code %d", _frame.frameId, statusCode];
     _frame.state = PNFrameStateLoadingFailed;
 }
 
 -(void) requestDidFailWithError:(NSError *)error{
-    [PNLogger log:PNLogLevelWarning error:error format:@"Could not load frame @%. Received error.", _frame.frameId];
+    [PNLogger log:PNLogLevelWarning error:error format:@"Could not load frame %@. Received error.", _frame.frameId];
     _frame.state = PNFrameStateLoadingFailed;
 }
 
 -(void) connectionDidFail{
-    [PNLogger log:PNLogLevelWarning format:@"Could not load frame @%. Connection could not be uoen", _frame.frameId];
+    [PNLogger log:PNLogLevelWarning format:@"Could not load frame %@. Connection could not be open", _frame.frameId];
     _frame.state = PNFrameStateLoadingFailed;
 }
 @end

@@ -56,8 +56,7 @@
         [self didFailToLoadWithException:nil];
         return;
     }
-    
-    _request = [[PNAssetRequest alloc] initWithUrl:_imageUrl delegate:self];
+    _request = [[PNAssetRequest alloc] initWithUrl:_imageUrl delegate:self useHttpCache:YES];
     [_request start];
 }
 

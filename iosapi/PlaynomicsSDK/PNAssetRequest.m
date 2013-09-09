@@ -13,49 +13,52 @@
     id<PNAssetRequestDelegate> _delegate;
 }
 
--(id) initWithUrl: (NSString *)urlString delegate:(id<PNAssetRequestDelegate>) delegate{
+- (id) initWithUrl: (NSString *)urlString delegate:(id<PNAssetRequestDelegate>) delegate useHttpCache:(BOOL) useHttpCache{
     if((self = [super init])){
         _delegate = delegate;
     
         const double timeOut = 3 * 60;
         NSURL *url = [NSURL URLWithString: urlString];
-        NSURLRequest *request = [NSURLRequest requestWithURL: url cachePolicy:NSURLCacheStorageAllowed timeoutInterval:timeOut];
+        NSURLRequest *request = [NSURLRequest requestWithURL: url cachePolicy: useHttpCache ? NSURLCacheStorageAllowed : NSURLCacheStorageNotAllowed timeoutInterval:timeOut];
         _connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:NO];
     }
     return self;
 }
 
--(void) dealloc{
+- (void) dealloc{
     [_connection release];
     [_responseData release];
     [super dealloc];
 }
 
--(void) start{
+- (void) start{
     [_connection start];
     if(_connection){
         _responseData = [[NSMutableData data] retain];
-    } else{
+    } else {
         [_delegate connectionDidFail];
     }
 }
 
--(void) connection:(NSURLConnection *)connection didReceiveData:(NSData *)data{
+- (void) connection:(NSURLConnection *)connection didReceiveData:(NSData *)data{
     [_responseData appendData:data];
 }
 
--(void) connection:(NSURLConnection *) connection didReceiveResponse:(NSURLResponse *)response{
+- (void) connection:(NSURLConnection *) connection didReceiveResponse:(NSURLResponse *)response{
     NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
 
-    if([httpResponse statusCode] == 200){
-        NSData *data = [[[NSData alloc] initWithData:_responseData] autorelease];
-        [_delegate requestDidCompleteWithData: data];
-    } else {
+    if([httpResponse statusCode] != 200){
+        [connection cancel];
         [_delegate requestDidFailtWithStatusCode: [httpResponse statusCode]];
     }
 }
 
--(void) connection:(NSURLConnection *) connection didFailWithError:(NSError *)error{
+- (void) connection:(NSURLConnection *) connection didFailWithError:(NSError *)error{
     [_delegate requestDidFailWithError:error];
+}
+
+-(void) connectionDidFinishLoading:(NSURLConnection *)connection{
+    NSData *data = [[[NSData alloc] initWithData:_responseData] autorelease];
+    [_delegate requestDidCompleteWithData: data];
 }
 @end
