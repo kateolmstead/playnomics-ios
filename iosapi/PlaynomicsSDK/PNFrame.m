@@ -22,13 +22,15 @@
 }
 
 @synthesize parentView = _parentView;
-@synthesize adObject = _adObject;
+@synthesize adView = _adView;
 @synthesize state;
 
 #pragma mark - Lifecycle/Memory management
-- (id) initWithFrameId: (NSString *) frameId session: (PNSession *) session messaging: (PNMessaging *) messaging{
+- (id) initWithFrameId: (NSString *) frameId
+               session: (PNSession *) session
+             messaging: (PNMessaging *) messaging{
     
-    if (self = [super init]) {
+    if ((self = [super init])) {
         self.state = PNFrameStateNotLoaded;
         _session = session;
         _messaging = messaging;
@@ -40,7 +42,6 @@
 }
 
 - (void) dealloc {
-
     [_frameId release];
     
     _parentView = nil;
@@ -53,8 +54,8 @@
     _shouldRenderFrame = NO;
     _frameRenderReady = NO;
     
-    if(_adObject){
-        [_adObject release];
+    if(_adView){
+        [_adView release];
     }
 
     if(_response){
@@ -63,9 +64,9 @@
     _response = [frameResponse retain];
 
     if (_response.adType == WebView) {
-        _adObject = [[PNWebView alloc] initWithResponse: _response delegate:self];
+        _adView = [[PNWebView alloc] initWithResponse: _response delegate:self];
     } else if (_response.adType == Image) {
-        _adObject = [[PNImage alloc] initWithResponse: _response delegate:self];
+        _adView = [[PNImage alloc] initWithResponse: _response delegate:self];
     }
     
     [self _initOrientationChangeObservers];
@@ -98,13 +99,15 @@
 
 -(void) render {
     [_session pingUrlForCallback: _response.impressionUrl];
-    [_adObject renderAdInView:_parentView];
+    [_adView renderAdInView:_parentView];
+    if(_frameDelegate && [_frameDelegate respondsToSelector:@selector(onShow:)]){
+        [_frameDelegate onShow: [_response getJSONTargetData]];
+    }
 }
 
 #pragma mark - Ad component click handlers
 -(void) didLoad {
     _frameRenderReady = YES;
-    
     if(_shouldRenderFrame) {
         [self render];
     }
@@ -125,17 +128,19 @@
 -(void) adClosed {
     [_session pingUrlForCallback: _response.closeUrl];
     [self _destroyOrientationObservers];
+    
+    if(_frameDelegate && [_frameDelegate respondsToSelector:@selector(onClose:)]){
+        //notify the delegate
+        [_frameDelegate onClose: [_response getJSONTargetData]];
+    }
     //refresh the frame when the ad has been clicked
     [_messaging fetchDataForFrame:_frameId];
 }
 
 -(void) adClicked {
-    AdTarget targetType = [self toAdTarget : _response.clickTargetType];
-    
-    if(targetType == AdTargetUrl) {
+    if(_response.targetType == AdTargetUrl) {
         //url-based target
-        AdAction actionType = [self toAdAction : _response.clickTarget];
-        if (actionType == AdActionHTTP) {
+        if (_response.actionType == AdActionHTTP) {
             // If we have a WebView, the click target will be the Playnomics click tracking URL
             if (_response.adType == WebView) {
                 [_session pingUrlForCallback:_response.clickTarget];
@@ -144,7 +149,7 @@
                 [[UIApplication sharedApplication] openURL:[NSURL URLWithString:_response.clickTarget]];
             }
         }
-    } else if (targetType == AdTargetData) {
+    } else if (_response.targetType == AdTargetData) {
         //handle rich data
         NSInteger responseCode;
         NSException* exception = nil;
@@ -170,12 +175,6 @@
     [_messaging fetchDataForFrame:_frameId];
 }
 
--(NSString*) adActionMethodForURLPath: (NSString*)urlPath{
-    NSArray *comps = [urlPath componentsSeparatedByString:@"://"];
-    NSString *resource = [comps objectAtIndex:1];
-    return [resource stringByReplacingOccurrencesOfString:@"//" withString:@""];
-}
-
 -(void) callPostAction:(NSString*) postUrl withException: (NSException*) exception andResponseCode: (NSInteger) code{
     NSString* fullPostActionUrl;
     if(exception != nil){
@@ -187,39 +186,9 @@
     [_session pingUrlForCallback: fullPostActionUrl];
 }
 
-
--(AdAction) toAdAction:(NSString*) actionUrl {
-    if(actionUrl == (id)[NSNull null]){
-        return AdActionNullTarget;
-    }
-    if([PNUtil isUrl: actionUrl]){
-        return AdActionHTTP;
-    }
-    if([actionUrl hasPrefix: @"pnx://"]){
-        return AdActionExecuteCode;
-    }
-    if([actionUrl hasPrefix: @"pna://" ]){
-        return AdActionDefinedAction;
-    }
-    return AdActionUnknown;
-}
-
--(AdTarget) toAdTarget:(NSString*) adTargetType {
-    if(adTargetType == (id)[NSNull null]){
-        return AdTargetUnknown;
-    }
-    if([adTargetType isEqualToString: @"data"]){
-        return AdTargetData;
-    }
-    if([adTargetType isEqualToString:@"url"]){
-        return AdTargetUrl;
-    }
-    return AdTargetUnknown;
-}
-
 #pragma mark - Public Interface
 -(void) showInView:(UIView*) parentView withDelegate:(id<PlaynomicsFrameDelegate>) delegate {
-    _delegate = delegate;
+    _frameDelegate = delegate;
     _shouldRenderFrame = YES;
     _parentView = parentView;
     
@@ -227,6 +196,4 @@
         [self render];
     }
 }
-
-
 @end

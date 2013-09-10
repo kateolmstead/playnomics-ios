@@ -22,7 +22,6 @@
 @synthesize rolloverImageUrl = _rolloverImageUrl;
 @synthesize tooltipText = _tooltipText;
 @synthesize clickTarget = _clickTarget;
-@synthesize clickTargetType = _clickTargetType;
 @synthesize clickTargetData = _clickTargetData;
 @synthesize preClickUrl = _preClickUrl;
 @synthesize postClickUrl = _postClickUrl;
@@ -33,6 +32,8 @@
 @synthesize closeButtonInfo = _closeButtonInfo;
 @synthesize closeButtonImageUrl = _closeButtonImageUrl;
 @synthesize closeButtonDimensions = _closeButtonDimensions;
+@synthesize targetType=_targetType;
+@synthesize actionType=_actionType;
 
 - (id) initWithJSONData:(NSData *) jsonData {
     self = [super init];
@@ -67,11 +68,14 @@
         _flagUrl = [[_adInfo objectForKey:FrameResponseAd_FlagUrl] retain];
         _closeUrl = [[_adInfo objectForKey:FrameResponseAd_CloseUrl] retain];
         
-        _clickTargetType = [[_adInfo objectForKey:FrameResponseAd_TargetType] retain];
         _clickTarget = [[_adInfo objectForKey:FrameResponseAd_ClickTarget] retain];
         _preClickUrl = [[_adInfo objectForKey:FrameResponseAd_PreExecuteUrl] retain];
         _postClickUrl =  [[_adInfo objectForKey:FrameResponseAd_PostExecuteUrl] retain];
         _clickTargetData = [[_adInfo objectForKey:FrameResponseAd_TargetData] retain];
+        
+        _actionType = [self toAdAction : _clickTarget];
+        _targetType = [self toAdTarget: [_adInfo objectForKey:FrameResponseAd_TargetType]];
+        
         
         NSString* adType = [_adInfo objectForKey:FrameResponseAd_AdType];
         if (adType) {
@@ -156,6 +160,33 @@
     return imageUrl;
 }
 
+-(NSDictionary *) getJSONTargetData{
+    if(_targetType != AdTargetData){ return nil; }
+    return [PNUtil deserializeJsonString: _clickTargetData];
+}
+
+-(AdAction) toAdAction:(NSString*) actionUrl {
+    if(actionUrl == (id)[NSNull null]){
+        return AdActionNullTarget;
+    }
+    if([PNUtil isUrl: actionUrl]){
+        return AdActionHTTP;
+    }
+    return AdActionUnknown;
+}
+
+-(AdTarget) toAdTarget:(NSString*) adTargetType {
+    if(adTargetType == (id)[NSNull null]){
+        return AdTargetUnknown;
+    }
+    if([adTargetType isEqualToString: @"data"]){
+        return AdTargetData;
+    }
+    if([adTargetType isEqualToString:@"url"]){
+        return AdTargetUrl;
+    }
+    return AdTargetUnknown;
+}
 
 
 @end

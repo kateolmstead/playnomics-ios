@@ -31,6 +31,12 @@ typedef NS_ENUM(int, PNFrameState){
 -(void) adClicked;
 @end
 
+@protocol PNAdView <NSObject>
+@required
+- (id) initWithResponse:(PNFrameResponse *) response delegate:(id<PNFrameDelegate>) delegate;
+- (void) renderAdInView:(UIView*) parentView;
+@end
+
 // Represents the container for the ad image.
 //
 // This frame frame will be responsible for displaying the ad image and capturing all of
@@ -41,7 +47,7 @@ typedef NS_ENUM(int, PNFrameState){
 @property (readonly) NSString *frameId;
 @property (assign, readonly) UIView *parentView;
 @property (assign) id<PlaynomicsFrameDelegate> delegate;
-@property (readonly) id adObject;
+@property (readonly) id<PNAdView> adView;
 
 // Called to display the ad frame and to begin capturing clicks within the frame.
 - (id) initWithFrameId: (NSString *) frameId session: (PNSession *) session messaging: (PNMessaging *) messaging;
