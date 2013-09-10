@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "PNFrame.h"
+#import "PNViewComponent.h"
 
-@interface PNWebView : UIWebView <UIWebViewDelegate>
+@interface PNWebView : UIWebView <UIWebViewDelegate, PNViewComponentDelegate>
 
 //assign, makes this reference weak. This because we aren't creating our delegate object, this prevents
 //strong references cycles.
