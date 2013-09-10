@@ -146,7 +146,8 @@
 -(float) getFloatValue:(NSNumber *) n {
     @try {
         return [n floatValue];
-    } @catch (NSException * exception) {
+    }
+    @catch (NSException * exception) {
         //
     }
     return 0;

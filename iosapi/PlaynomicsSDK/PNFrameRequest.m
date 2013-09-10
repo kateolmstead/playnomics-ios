@@ -36,7 +36,9 @@
         [params setObject:[NSNumber numberWithInt: screenSize.size.height] forKey:@"c"];
         [params setObject:[NSNumber numberWithInt: screenSize.size.width] forKey:@"d"];
         
-        _url = [PNEventApiClient buildUrlWithBase:[session getMessagingUrl] withPath:@"ads" withParams:params];
+        _url = [PNEventApiClient buildUrlWithBase:[session getMessagingUrl]
+                                         withPath:@"ads"
+                                       withParams:params];
         [params release];
     }
     return self;
@@ -66,26 +68,42 @@
         [_frame updateFrameResponse:response];
         _frame.state = PNFrameStateLoadingComplete;
         
-        [PNLogger log:PNLogLevelVerbose format:@"Successfully fetched frame data. JSON response %@", [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease]];
+        [PNLogger log:PNLogLevelVerbose
+               format:@"Successfully fetched frame data. JSON response %@", [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease]];
     }
     @catch(NSException *ex) {
-        [PNLogger log:PNLogLevelWarning exception:ex format:@"Could load frame %@. Got exception while deserializing JSON response"];
+        [PNLogger log:PNLogLevelWarning
+            exception:ex
+               format:@"Could load frame %@. Got exception while deserializing JSON response."];
         _frame.state = PNFrameStateLoadingFailed;
     }
 }
 
 -(void) requestDidFailtWithStatusCode:(int)statusCode{
-    [PNLogger log:PNLogLevelWarning format:@"Could not load frame %@. Received HTTP status code %d", _frame.frameId, statusCode];
+    [PNLogger log:PNLogLevelWarning format:@"Could not load frame %@. Received HTTP status code %d.", _frame.frameId, statusCode];
     _frame.state = PNFrameStateLoadingFailed;
 }
 
 -(void) requestDidFailWithError:(NSError *)error{
-    [PNLogger log:PNLogLevelWarning error:error format:@"Could not load frame %@. Received error.", _frame.frameId];
-    _frame.state = PNFrameStateLoadingFailed;
+    @try{
+        [PNLogger log:PNLogLevelWarning
+                error:error
+               format:@"Could not load frame %@. Received error.", _frame.frameId];
+        _frame.state = PNFrameStateLoadingFailed;
+    }
+    @catch(NSException *ex){
+        [PNLogger log:PNLogLevelWarning exception:ex format:@"Could not handle requestDidFailWithError callback."];
+    }
 }
 
 -(void) connectionDidFail{
-    [PNLogger log:PNLogLevelWarning format:@"Could not load frame %@. Connection could not be open", _frame.frameId];
-    _frame.state = PNFrameStateLoadingFailed;
+    @try{
+        [PNLogger log:PNLogLevelWarning
+               format:@"Could not load frame %@. Connection could not be open.", _frame.frameId];
+        _frame.state = PNFrameStateLoadingFailed;
+    }
+    @catch(NSException *ex){
+        [PNLogger log:PNLogLevelWarning exception:ex format:@"Could not handle connectionDidFail callback."];
+    }
 }
 @end

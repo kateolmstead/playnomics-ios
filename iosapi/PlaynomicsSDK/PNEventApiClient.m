@@ -31,13 +31,16 @@
 }
 
 - (void) enqueueEvent:(PNEvent *)event{
-    NSString* url = [PNEventApiClient buildUrlWithBase:[_session getEventsUrl]  withPath: event.baseUrlPath withParams: event.eventParameters];
+    NSString* url = [PNEventApiClient buildUrlWithBase:[_session getEventsUrl]
+                                              withPath: event.baseUrlPath
+                                            withParams: event.eventParameters];
     [self enqueueEventUrl: url];
 }
 
 - (void) enqueueEventUrl: (NSString *) url{
     if(url) {
-        PNEventRequestOperation *op = [[PNEventRequestOperation alloc] initWithUrl:url delegate:self];
+        PNEventRequestOperation *op = [[PNEventRequestOperation alloc] initWithUrl:url
+                                                                          delegate:self];
         [_operationQueue addOperation: op];
         [_inprocessEvents addObject: url];
         [op autorelease];

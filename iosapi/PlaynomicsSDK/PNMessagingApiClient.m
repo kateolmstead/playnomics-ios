@@ -24,7 +24,9 @@
 
 -(void) loadDataForFrame:(PNFrame *) frame{
     CGRect screenRect = [PNUtil getScreenDimensions];
-    PNFrameRequest *request = [[PNFrameRequest alloc] initWithFrame:frame screenSize:screenRect session:_session];
+    PNFrameRequest *request = [[PNFrameRequest alloc] initWithFrame:frame
+                                                         screenSize:screenRect
+                                                            session:_session];
     [request fetchFrameData];
 }
 @end
