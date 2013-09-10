@@ -93,7 +93,7 @@
         return;
     }
     _currentOrientation = orientation;
-    NSLog(@"Orientation changed to: %i", orientation);
+    [PNLogger log:PNLogLevelDebug format: @"Orientation changed to: %i", orientation];
     //[_background renderComponent];
 }
 
@@ -114,15 +114,15 @@
 }
 
 -(void) didFailToLoad{
-    
+    [PNLogger log: PNLogLevelWarning format:@"Frame failed to load."];
 }
 
 -(void) didFailToLoadWithError: (NSError*) error {
-    NSLog(@"Frame failed to load due to error: %@", error.debugDescription);
+    [PNLogger log: PNLogLevelWarning error:error format:@"Frame failed to load due to error."];
 }
 
 -(void) didFailToLoadWithException: (NSException*) exception {
-    NSLog(@"Frame failed to load due to exception: %@", exception.debugDescription);
+    [PNLogger log: PNLogLevelWarning exception:exception format:@"Frame failed to load due to exception."];
 }
 
 -(void) adClosed {
@@ -158,7 +158,7 @@
         @try {
             if(_frameDelegate == nil || ![_frameDelegate respondsToSelector:@selector(onClick:)]){
                 responseCode = -4;
-                NSLog(@"Received a click but could not send the data to the frameDelegate");
+                [PNLogger log:PNLogLevelDebug format:@"Received a click but could not send the data to the frameDelegate"];
             } else {
                 NSDictionary* jsonData = [PNUtil deserializeJsonString: _response.clickTargetData];
                 [_frameDelegate onClick: jsonData];

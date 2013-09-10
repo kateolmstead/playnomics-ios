@@ -126,18 +126,6 @@
 }
 
 - (void) initMsgFrame: (NSString *) frameId {
-/*
-    PlaynomicsMessaging *messaging = [PlaynomicsMessaging sharedInstance];
-    PlaynomicsFrame* frame = [messaging createFrameWithId : frameId frameDelegate : _frameDelegate];
-    NSLog(@"Window=%@",NSStringFromCGRect([[[UIApplication sharedApplication] delegate] window].rootViewController.view.bounds));
-    DisplayResult result = [frame startInView:[[[UIApplication sharedApplication] delegate] window].rootViewController.view];
-    if (result==DisplayAdColony) {
-        videoFrame = frame;
-        [AdColony playVideoAdForZone:@"vz774c388f2c404a5ca8a22a" withDelegate:self];
-    } else {
-        NSLog(@"result=%u",result);
-    }
-*/
     [Playnomics showFrameWithId: frameId delegate: _frameDelegate];
  }
 

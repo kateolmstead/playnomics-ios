@@ -104,15 +104,14 @@
 // If the ad was clicked, also close the ad and notify the delegate
 -(void) component: (id) component didReceiveTouch: (UITouch*) touch {
     if (component == _closeButton) {
-        NSLog(@"Close button was pressed...");
+        [PNLogger log:PNLogLevelVerbose format:@"Close button was pressed on PNImage"];
         [self _closeAd];
         [_delegate adClosed];
     } else if (component == _adArea) {
         CGPoint location = [touch locationInView: _adArea];
         int x = location.x;
         int y = location.y;
-        NSLog(@"Ad area was clicked on at location %d,%d", x, y);
-        
+        [PNLogger log:PNLogLevelVerbose format:@"Ad area was clicked on at location %d,%d", x, y];
         [self _closeAd];
         [_delegate adClicked];
     }

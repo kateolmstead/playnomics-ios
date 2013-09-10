@@ -85,7 +85,7 @@
                 _adTag = [[_adInfo objectForKey:FrameResponseAd_AdTag] retain];
             } else if ([adType isEqualToString:@"video"]) {
                 if ([[_adInfo objectForKey:FrameResponseAd_AdProvider] isEqualToString:@"AdColony"]) {
-                    NSLog(@"Setting ad type to AdColony");
+                    [PNLogger log:PNLogLevelWarning format:@"Setting ad type to AdColony"];
                     _adType = AdColony;
                 } else {
                     _adType = Video;
@@ -95,7 +95,7 @@
                 _adType = Image;
             } else {
                 _adType = AdUnknown;
-                NSLog(@"Encountered Unknown AdType %@", adType);
+                [PNLogger log:PNLogLevelWarning format:@"Encountered Unknown AdType %@", adType];
             }
         } else {
             _adType = Image;

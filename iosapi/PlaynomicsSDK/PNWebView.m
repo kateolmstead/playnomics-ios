@@ -87,7 +87,6 @@
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
     _status = AdComponentStatusError;
     [PNLogger log:PNLogLevelWarning error:error format:@"Could not load the webview for url %@", _response.adTag];
-    NSLog(@"Web View failed to load with error %@",error.debugDescription);
     [_delegate didFailToLoadWithError:error];
 }
 
