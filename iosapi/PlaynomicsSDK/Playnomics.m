@@ -34,7 +34,8 @@
     return session.state == PNSessionStateStarted;
 }
 
-+ (BOOL) startWithApplicationId:(unsigned long long) applicationId andUserId: (NSString *) userId{
++ (BOOL) startWithApplicationId:(unsigned long long) applicationId
+                      andUserId: (NSString *) userId{
     PNSession *session = [PNSession sharedInstance];
     session.applicationId = applicationId;
     session.userId = userId;
@@ -50,7 +51,8 @@
     [[PNSession sharedInstance] milestone: milestoneType];
 }
 
-+ (void) transactionWithUSDPrice: (NSNumber *) priceInUSD quantity: (NSInteger) quantity{
++ (void) transactionWithUSDPrice: (NSNumber *) priceInUSD
+                        quantity: (NSInteger) quantity{
     [[PNSession sharedInstance] transactionWithUSDPrice:priceInUSD quantity: quantity];
 }
 
@@ -83,15 +85,19 @@
     [[PNSession sharedInstance] showFrameWithId: frameId];
 }
 
-+(void) showFrameWithId:(NSString *)frameId inView:(UIView *)parentView{
++(void) showFrameWithId:(NSString *)frameId
+                 inView:(UIView *)parentView{
     [[PNSession sharedInstance] showFrameWithId: frameId inView: parentView];
 }
 
-+ (void) showFrameWithId:(NSString *) frameId delegate:(id<PlaynomicsFrameDelegate>) delegate{
++ (void) showFrameWithId:(NSString *) frameId
+                delegate:(id<PlaynomicsFrameDelegate>) delegate{
     [[PNSession sharedInstance] showFrameWithId: frameId delegate:delegate];
 }
 
-+ (void) showFrameWithId:(NSString *) frameID delegate:(id<PlaynomicsFrameDelegate>) delegate inView:(UIView *)parentView{
++ (void) showFrameWithId:(NSString *) frameID
+                delegate:(id<PlaynomicsFrameDelegate>) delegate
+                  inView:(UIView *)parentView{
     [[PNSession sharedInstance] showFrameWithId: frameID delegate:delegate inView:parentView];
 }
 
