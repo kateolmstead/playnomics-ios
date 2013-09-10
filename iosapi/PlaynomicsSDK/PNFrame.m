@@ -125,8 +125,11 @@
     [PNLogger log: PNLogLevelWarning exception:exception format:@"Frame failed to load due to exception."];
 }
 
--(void) adClosed {
-    [_session pingUrlForCallback: _response.closeUrl];
+-(void) adClosed:(BOOL) closedByUser {
+    if(closedByUser){
+        [_session pingUrlForCallback: _response.closeUrl];
+    }
+    
     [self _destroyOrientationObservers];
     
     if(_frameDelegate && [_frameDelegate respondsToSelector:@selector(onClose:)]){
@@ -195,5 +198,9 @@
     if (_frameRenderReady) {
         [self render];
     }
+}
+
+- (void) hide{
+    
 }
 @end

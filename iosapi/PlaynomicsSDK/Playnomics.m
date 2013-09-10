@@ -85,20 +85,9 @@
     [[PNSession sharedInstance] showFrameWithId: frameId];
 }
 
-+(void) showFrameWithId:(NSString *)frameId
-                 inView:(UIView *)parentView{
-    [[PNSession sharedInstance] showFrameWithId: frameId inView: parentView];
-}
-
 + (void) showFrameWithId:(NSString *) frameId
                 delegate:(id<PlaynomicsFrameDelegate>) delegate{
     [[PNSession sharedInstance] showFrameWithId: frameId delegate:delegate];
-}
-
-+ (void) showFrameWithId:(NSString *) frameID
-                delegate:(id<PlaynomicsFrameDelegate>) delegate
-                  inView:(UIView *)parentView{
-    [[PNSession sharedInstance] showFrameWithId: frameID delegate:delegate inView:parentView];
 }
 
 + (void) hideFrameWithId:(NSString *) frameId{

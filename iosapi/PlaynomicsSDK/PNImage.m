@@ -57,6 +57,12 @@
     [_background setNeedsDisplay];
 }
 
+
+- (void) hide{
+    [self closeAd];
+    [_delegate adClosed: NO];
+}
+
 #pragma mark "Helper Methods"
 // Returns TRUE if all instantiated components are done loading. FALSE otherwise
 - (BOOL) _allComponentsLoaded {
@@ -69,13 +75,14 @@
             && _closeButton.status == AdComponentStatusCompleted);
 }
 
+#pragma mark "Delegate Handlers"
+
 // Hide the background and since all other components are attached to the background,
 // everything else will also be hidden
--(void) _closeAd {
+-(void) closeAd{
     [_background hide];
 }
 
-#pragma mark "Delegate Handlers"
 // Only notify the delegate if all the components have been loaded successfully
 - (void) componentDidLoad {
     if([self _allComponentsLoaded]){
@@ -84,19 +91,19 @@
 }
 
 - (void)componentDidFailToLoad{
-    [self _closeAd];
+    [self closeAd];
     [_delegate didFailToLoad];
 }
 
 // Close the ad in case of an error and notify the delegate
 -(void) componentDidFailToLoadWithError: (NSError*) error {
-    [self _closeAd];
+    [self closeAd];
     [_delegate didFailToLoadWithError:error];
 }
 
 // Close the ad in case of an exception and notify the delegate
 -(void) componentDidFailToLoadWithException: (NSException*) exception {
-    [self _closeAd];
+    [self closeAd];
     [_delegate didFailToLoadWithException:exception];
 }
 
@@ -105,14 +112,14 @@
 -(void) component: (id) component didReceiveTouch: (UITouch*) touch {
     if (component == _closeButton) {
         [PNLogger log:PNLogLevelVerbose format:@"Close button was pressed on PNImage"];
-        [self _closeAd];
-        [_delegate adClosed];
+        [self closeAd];
+        [_delegate adClosed: YES];
     } else if (component == _adArea) {
         CGPoint location = [touch locationInView: _adArea];
         int x = location.x;
         int y = location.y;
         [PNLogger log:PNLogLevelVerbose format:@"Ad area was clicked on at location %d,%d", x, y];
-        [self _closeAd];
+        [self closeAd];
         [_delegate adClicked];
     }
 }

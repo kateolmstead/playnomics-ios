@@ -64,14 +64,7 @@ typedef NS_ENUM(int, PNMilestoneType){
 + (void) showFrameWithId:(NSString *) frameId;
 
 + (void) showFrameWithId:(NSString *) frameId
-                  inView:(UIView *) parentView;
-
-+ (void) showFrameWithId:(NSString *) frameId
                 delegate:(id<PlaynomicsFrameDelegate>) delegate;
-
-+ (void) showFrameWithId:(NSString *) frameId
-                delegate:(id<PlaynomicsFrameDelegate>)delegate
-                  inView:(UIView *) parentView;
 
 + (void) hideFrameWithId:(NSString *) frameId;
 @end
