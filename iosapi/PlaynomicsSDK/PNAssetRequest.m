@@ -28,6 +28,7 @@
 - (void) dealloc{
     [_connection release];
     [_responseData release];
+    
     [super dealloc];
 }
 
@@ -37,6 +38,12 @@
         _responseData = [[NSMutableData data] retain];
     } else {
         [_delegate connectionDidFail];
+    }
+}
+
+-(void) cancel {
+    if(_connection){
+        [_connection cancel];
     }
 }
 

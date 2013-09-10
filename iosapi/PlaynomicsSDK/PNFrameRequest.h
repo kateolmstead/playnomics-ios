@@ -14,4 +14,5 @@
 @interface PNFrameRequest : NSObject<PNAssetRequestDelegate>
 -(id) initWithFrame:(PNFrame *) frame screenSize:(CGRect) screenSize session:(PNSession *) session;
 -(void) fetchFrameData;
+
 @end

@@ -22,4 +22,6 @@
 @interface PNAssetRequest : NSObject<NSURLConnectionDataDelegate>
 - (id) initWithUrl: (NSString *)urlString delegate:(id<PNAssetRequestDelegate>) delegate useHttpCache:(BOOL) useHttpCache;
 -(void) start;
+-(void) cancel;
+
 @end

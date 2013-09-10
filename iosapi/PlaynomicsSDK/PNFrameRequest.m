@@ -47,6 +47,7 @@
     [_frame release];
     
     if(_request){
+        [_request cancel];
         [_request release];
     }
     [super dealloc];

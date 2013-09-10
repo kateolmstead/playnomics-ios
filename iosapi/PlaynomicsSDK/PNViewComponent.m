@@ -40,6 +40,12 @@
 
 - (void)dealloc {
     [_subComponents release];
+    
+    if(_request){
+        [_request cancel];
+        [_request release];
+    }
+    
     //just set assign references to nil
     _delegate = nil;
     _parentComponent = nil;
@@ -115,8 +121,7 @@
     NSEnumerator *enumerator = [touches objectEnumerator];
     id value;
     if ((value = [enumerator nextObject]) && [value isKindOfClass:[UITouch class]]) {
-        [self.delegate component:self
-                 didReceiveTouch:(UITouch*)value];
+        [self.delegate component:self didReceiveTouch:(UITouch *) value];
     }
 }
 
