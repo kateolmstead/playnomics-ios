@@ -48,14 +48,17 @@
     [_inprocessEvents removeObject: url];
 }
 
-- (void) onDidFailToProcessUrl: (NSString *) url tryAgain:(BOOL) tryAgain{
+- (void) onDidFailToProcessUrl: (NSString *) url
+                      tryAgain:(BOOL) tryAgain{
     if(tryAgain){
         [self enqueueEventUrl: url];
         [_inprocessEvents removeObject:url];
     }
 }
 
-+ (NSString *) buildUrlWithBase: (NSString *) base withPath:(NSString *) path withParams:(NSDictionary *) params{
++ (NSString *) buildUrlWithBase:(NSString *) base
+                       withPath:(NSString *) path
+                     withParams:(NSDictionary *) params{
     if(!base){
         return nil;
     }

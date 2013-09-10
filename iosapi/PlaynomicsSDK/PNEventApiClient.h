@@ -10,7 +10,9 @@
 - (void) enqueueEventUrl: (NSString *) url;
 
 
-+ (NSString *) buildUrlWithBase: (NSString *) base withPath:(NSString *) path withParams:(NSDictionary *) params;
++ (NSString *) buildUrlWithBase: (NSString *) base
+                       withPath: (NSString *) path
+                     withParams: (NSDictionary *) params;
 
 - (NSSet *) getAllUnprocessedUrls;
 //queue processing
