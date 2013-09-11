@@ -66,8 +66,6 @@
     @try{
         PNFrameResponse *response = [[[PNFrameResponse alloc] initWithJSONData:data] autorelease];
         [_frame updateFrameResponse:response];
-        _frame.state = PNFrameStateLoadingComplete;
-        
         [PNLogger log:PNLogLevelVerbose
                format:@"Successfully fetched frame data. JSON response %@", [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease]];
     }

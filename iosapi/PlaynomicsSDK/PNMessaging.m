@@ -57,7 +57,7 @@
 -(void) hideFrame: (NSString *) frameId{
     PNFrame *frame = [_framesById valueForKey:frameId];
     if(!frame){
-        
+        [frame hide];
     }
 }
 

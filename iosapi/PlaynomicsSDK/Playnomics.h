@@ -29,10 +29,9 @@ typedef NS_ENUM(int, PNMilestoneType){
 
 @protocol PlaynomicsFrameDelegate <NSObject>
 @optional
--(void) onClick: (NSDictionary*) jsonData;
+-(void) onTouch: (NSDictionary*) jsonData;
 -(void) onClose: (NSDictionary*) jsonData;
 -(void) onShow: (NSDictionary*) jsonData;
--(void) onHide: (NSDictionary*) jsonData;
 -(void) onDidFailToRender;
 @end
 

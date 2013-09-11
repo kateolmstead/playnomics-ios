@@ -96,13 +96,13 @@
 }
 
 // Close the ad in case of an error and notify the delegate
--(void) componentDidFailToLoadWithError: (NSError*) error {
+-(void) componentDidFailToLoadWithError: (NSError *) error {
     [self closeAd];
     [_delegate didFailToLoadWithError:error];
 }
 
 // Close the ad in case of an exception and notify the delegate
--(void) componentDidFailToLoadWithException: (NSException*) exception {
+-(void) componentDidFailToLoadWithException: (NSException *) exception {
     [self closeAd];
     [_delegate didFailToLoadWithException:exception];
 }

@@ -13,7 +13,7 @@
 @implementation FrameDelegate
 
 
-- (void) onClick:(NSDictionary *)jsonData{
+- (void) onTouch:(NSDictionary *)jsonData{
     NSString* message = [NSString stringWithFormat: @"Data for frame %@" , jsonData];
     
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"JSON Callback"

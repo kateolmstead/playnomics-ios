@@ -55,6 +55,11 @@
     [self addSubview:button];
 }
 
+-(void) hide{
+    [self removeFromSuperview];
+     [_delegate adClosed:NO];
+}
+
 -(void)dealloc{
     _delegate = nil;
     [_response release];
@@ -63,7 +68,7 @@
 
 -(void) closeButtonClicked {
     [self removeFromSuperview];
-    [_delegate adClosed];
+    [_delegate adClosed:YES];
 }
 
 #pragma mark "Delegate Handlers"

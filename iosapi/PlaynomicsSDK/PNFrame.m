@@ -15,7 +15,6 @@
     UIInterfaceOrientation _currentOrientation;
     id<PlaynomicsFrameDelegate> _frameDelegate;
     BOOL _shouldRenderFrame;
-    BOOL _frameRenderReady;
     PNSession *_session;
     PNFrameResponse *_response;
     PNMessaging *_messaging;
@@ -35,7 +34,6 @@
         _session = session;
         _messaging = messaging;
         _shouldRenderFrame = NO;
-        _frameRenderReady = NO;
         _frameId = [frameId retain];
     }
     return self;
@@ -52,7 +50,6 @@
 
 -(void) updateFrameResponse:(PNFrameResponse *)frameResponse{
     _shouldRenderFrame = NO;
-    _frameRenderReady = NO;
     
     if(_adView){
         [_adView release];
@@ -107,7 +104,7 @@
 
 #pragma mark - Ad component click handlers
 -(void) didLoad {
-    _frameRenderReady = YES;
+    self.state = PNFrameStateLoadingComplete;
     if(_shouldRenderFrame) {
         [self render];
     }
@@ -115,14 +112,24 @@
 
 -(void) didFailToLoad{
     [PNLogger log: PNLogLevelWarning format:@"Frame failed to load."];
+    [self handleFailure];
 }
 
 -(void) didFailToLoadWithError: (NSError*) error {
     [PNLogger log: PNLogLevelWarning error:error format:@"Frame failed to load due to error."];
+    [self handleFailure];
 }
 
 -(void) didFailToLoadWithException: (NSException*) exception {
     [PNLogger log: PNLogLevelWarning exception:exception format:@"Frame failed to load due to exception."];
+    [self handleFailure];
+}
+
+-(void) handleFailure{
+    self.state = PNFrameStateLoadingFailed;
+    if(_frameDelegate && [_frameDelegate respondsToSelector:@selector(onDidFailToRender)]){
+        [_frameDelegate onDidFailToRender];
+    }
 }
 
 -(void) adClosed:(BOOL) closedByUser {
@@ -159,12 +166,12 @@
         
         [_session pingUrlForCallback: _response.preClickUrl];
         @try {
-            if(_frameDelegate == nil || ![_frameDelegate respondsToSelector:@selector(onClick:)]){
+            if(_frameDelegate == nil || ![_frameDelegate respondsToSelector:@selector(onTouch:)]){
                 responseCode = -4;
                 [PNLogger log:PNLogLevelDebug format:@"Received a click but could not send the data to the frameDelegate"];
             } else {
                 NSDictionary* jsonData = [PNUtil deserializeJsonString: _response.clickTargetData];
-                [_frameDelegate onClick: jsonData];
+                [_frameDelegate onTouch: jsonData];
                 responseCode = 1;
             }
         }
@@ -195,12 +202,14 @@
     _shouldRenderFrame = YES;
     _parentView = parentView;
     
-    if (_frameRenderReady) {
+    if(self.state == PNFrameStateLoadingFailed && _frameDelegate){
+        [_frameDelegate onDidFailToRender];
+    } else if (self.state == PNFrameStateLoadingComplete) {
         [self render];
     }
 }
 
 - (void) hide{
-    
+    [_adView hide];
 }
 @end
