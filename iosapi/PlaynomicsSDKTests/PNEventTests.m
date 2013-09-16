@@ -175,8 +175,54 @@
     STAssertEqualObjects([milestone.eventParameters valueForKey:@"mn"], @"CUSTOM9", @"Milestone 9 is set");
 }
 
-- (void) testUserInfo{
+- (void) testUserInfoAttribution{
+    NSString *source = @"source";
+    NSString *campaign = @"campaign";
+    NSDate* date = [NSDate date];
+    NSNumber* unixTimeNum = [NSNumber numberWithDouble:[date timeIntervalSince1970]];
     
+    PNEventUserInfo *userInfo = [[PNEventUserInfo alloc] initWithSessionInfo:_info
+                                                                      source:source
+                                                                    campaign:campaign
+                                                                 installDate:date];
+    [self assertCommonInfoIsAvailable:userInfo sessionInfo:_info];
+    
+    STAssertEqualObjects([userInfo.eventParameters valueForKey:@"po"], source, @"Source is set");
+    STAssertEqualObjects([userInfo.eventParameters valueForKey:@"pi"], unixTimeNum, @"Install time is set");
+    STAssertEqualObjects([userInfo.eventParameters valueForKey:@"pm"], campaign, @"Campaign is set");
+    
+    
+    PNEventUserInfo *userInfo = [[PNEventUserInfo alloc] initWithSessionInfo:_info
+                                                                      source:source
+                                                                    campaign:nil
+                                                                 installDate:nil];
+    [self assertCommonInfoIsAvailable:userInfo sessionInfo:_info];
+    
+    STAssertEqualObjects([userInfo.eventParameters valueForKey:@"po"], source, @"Source is set");
+    STAssertNil([userInfo.eventParameters valueForKey:@"pi"], @"Install time is not set");
+    STAssertNil([userInfo.eventParameters valueForKey:@"pm"], @"Campaign is not set");
+}
+
+-(void) testUserInfoDevicePushToken{
+    
+    NSString *pushToken = @"token";
+    PNEventUserInfo *userInfo = [[PNEventUserInfo alloc] initWithSessionInfo:_info
+                                                                   pushToken:token];
+    
+    [self assertCommonInfoIsAvailable:userInfo sessionInfo:_info];
+    STAssertEqualObjects([userInfo.eventParameters valueForKey:@"pushTok"], pushToken, @"Push token is set");
+}
+
+-(void) testUserInfoDeviceSettings{
+    BOOL limitDeviceTracking = YES;
+    NSUUID *idfa = [[NSUUID alloc] init];
+    NSUUID *idfv = [[NSUUID alloc] init];
+    PNEventUserInfo *userInfo = [[PNEventUserInfo alloc] initWithSessionInfo:_info limitAdvertising:limitDeviceTracking idfa:idfa idfv:idfv];
+    
+    [self assertCommonInfoIsAvailable:userInfo sessionInfo:_info];
+     STAssertEqualObjects([userInfo.eventParameters valueForKey:@"idfa"], [idfa UUIDString], @"IDFA is set");
+    STAssertEqualObjects([userInfo.eventParameters valueForKey:@"idfv"], [idfv UUIDString], @"IDFV is set");
+    STAssertEqualObjects([userInfo.eventParameters valueForKey:@"limitAdvertising"], @"true", @"Limit Advertising is set");
 }
 
 @end
