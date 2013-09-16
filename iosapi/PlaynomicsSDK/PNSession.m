@@ -476,7 +476,7 @@
     }
 }
 
-- (void) attributeInstallTo:(NSString *) source withCampaign: (NSString *) campaign onInstallDate: (NSDate *) installDate{
+- (void) attributeInstallToSource:(NSString *) source withCampaign: (NSString *) campaign onInstallDate: (NSDate *) installDate{
     @try{
         [self assertSessionHasStarted];
         

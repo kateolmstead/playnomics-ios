@@ -56,20 +56,20 @@
     [[PNSession sharedInstance] transactionWithUSDPrice:priceInUSD quantity: quantity];
 }
 
-+ (void) attributeInstallTo:(NSString *) source{
-    [[PNSession sharedInstance] attributeInstallTo:source
++ (void) attributeInstallToSource:(NSString *) source{
+    [[PNSession sharedInstance] attributeInstallToSource:source
                                       withCampaign:nil
                                      onInstallDate:nil];
 }
 
-+ (void) attributeInstallTo:(NSString *) source withCampaign: (NSString*) campaign{
-    [[PNSession sharedInstance] attributeInstallTo:source
++ (void) attributeInstallToSource:(NSString *) source withCampaign: (NSString*) campaign{
+    [[PNSession sharedInstance] attributeInstallToSource:source
                                       withCampaign:campaign
                                      onInstallDate:nil];
 }
 
-+ (void) attributeInstallTo:(NSString *) source withCampaign: (NSString*) campaign onInstallDate: (NSDate *) installDate{
-    [[PNSession sharedInstance] attributeInstallTo:source
++ (void) attributeInstallToSource:(NSString *) source withCampaign: (NSString*) campaign onInstallDate: (NSDate *) installDate{
+    [[PNSession sharedInstance] attributeInstallToSource:source
                                       withCampaign:campaign
                                      onInstallDate:installDate];
 }

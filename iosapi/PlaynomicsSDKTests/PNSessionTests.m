@@ -430,8 +430,69 @@
     STAssertTrue([[_stubApiClient.events objectAtIndex:0] isKindOfClass:[PNEventAppStart class]], @"appStart is the first event");
 }
 
--(void) testApplicationLifeCycle{
+
+-(void) testAttribution{
+    NSString *breadcrumbId = @"breadcrumbId";
+    NSUUID *idfa = [[NSUUID alloc] init];
+    BOOL limitAdvertising = NO;
+    NSUUID *idfv = [[NSUUID alloc] init];
     
+    StubDeviceToken *oldToken = [[StubDeviceToken alloc] initWithToken:@"<12345 6789>" cleanToken:@"123456789"];
+    
+    _cache = [[StubPNCache alloc] initWithBreadcrumbID:breadcrumbId idfa:idfa idfv:idfv limitAdvertising:limitAdvertising deviceToken:oldToken];
+    _session.cache = [_cache getMockCache];
+    _session.deviceManager = [[PNDeviceManager alloc] initWithCache: _session.cache];
+    
+    [self mockCurrentDeviceInfo: _session.deviceManager idfa: idfa limitAdvertising:limitAdvertising idfv:idfv generatedBreadcrumbID:breadcrumbId];
+    
+    _session.applicationId = 1;
+    _session.userId = @"test-user";
+
+    [_session start];
+    
+    NSString *source=  @"source";
+    NSString *campaign=  @"campaign";
+    NSDate *installDate = [NSDate date];
+    [_session attributeInstallToSource:source withCampaign:campaign onInstallDate:installDate];
+
+    STAssertTrue(_session.applicationId == 1L, @"Application should be set");
+    STAssertEqualObjects(_session.userId, @"test-user", @"User ID should be set");
+    STAssertEqualObjects(_session.cookieId, breadcrumbId, @"Breadcrumb ID should be set");
+    STAssertTrue([_stubApiClient.events count] == 2, @"2 events should be queued");
+    STAssertTrue([[_stubApiClient.events objectAtIndex:0] isKindOfClass:[PNEventAppStart class]], @"appStart is the first event");
+    STAssertTrue([[_stubApiClient.events objectAtIndex:1] isKindOfClass:[PNEventUserInfo class]], @"userInfo is the second event");
+
+}
+
+-(void) testAttributionNoStart{
+    NSString *breadcrumbId = @"breadcrumbId";
+    NSUUID *idfa = [[NSUUID alloc] init];
+    BOOL limitAdvertising = NO;
+    NSUUID *idfv = [[NSUUID alloc] init];
+    
+    StubDeviceToken *oldToken = [[StubDeviceToken alloc] initWithToken:@"<12345 6789>" cleanToken:@"123456789"];
+    
+    _cache = [[StubPNCache alloc] initWithBreadcrumbID:breadcrumbId idfa:idfa idfv:idfv limitAdvertising:limitAdvertising deviceToken:oldToken];
+    _session.cache = [_cache getMockCache];
+    _session.deviceManager = [[PNDeviceManager alloc] initWithCache: _session.cache];
+    
+    [self mockCurrentDeviceInfo: _session.deviceManager idfa: idfa limitAdvertising:limitAdvertising idfv:idfv generatedBreadcrumbID:breadcrumbId];
+    
+    _session.applicationId = 1;
+    _session.userId = @"test-user";
+    
+    NSString *source=  @"source";
+    NSString *campaign=  @"campaign";
+    NSDate *installDate = [NSDate date];
+    [_session attributeInstallToSource:source withCampaign:campaign onInstallDate:installDate];
+    
+    STAssertTrue(_session.applicationId == 1L, @"Application should be set");
+    STAssertEqualObjects(_session.userId, @"test-user", @"User ID should be set");
+    STAssertEqualObjects(_session.cookieId, breadcrumbId, @"Breadcrumb ID should be set");
+    STAssertTrue([_stubApiClient.events count] == 0, @"0 events should be queued");
+}
+
+-(void) testApplicationLifeCycle{
     NSString *breadcrumbId = @"breadcrumbId";
     NSUUID *idfa = [[NSUUID alloc] init];
     BOOL limitAdvertising = NO;

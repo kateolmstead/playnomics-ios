@@ -54,11 +54,11 @@ typedef NS_ENUM(int, PNMilestoneType){
 + (void) transactionWithUSDPrice: (NSNumber*) priceInUSD
                         quantity: (NSInteger) quantity;
 
-+ (void) attributeInstallTo:(NSString *) source;
++ (void) attributeInstallToSource:(NSString *) source;
 
-+ (void) attributeInstallTo:(NSString *) source withCampaign: (NSString*) campaign;
++ (void) attributeInstallToSource:(NSString *) source withCampaign: (NSString*) campaign;
 
-+ (void) attributeInstallTo:(NSString *) source withCampaign: (NSString*) campaign onInstallDate: (NSDate *) installDate;
++ (void) attributeInstallToSource:(NSString *) source withCampaign: (NSString*) campaign onInstallDate: (NSDate *) installDate;
 
 
 //Push Notifications
