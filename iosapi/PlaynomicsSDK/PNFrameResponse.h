@@ -39,9 +39,10 @@ typedef struct {
 @property (readonly) NSString* primaryImageUrl;
 @property (readonly) NSString* rolloverImageUrl;
 @property (readonly) NSString* tooltipText;
+
 @property (readonly) NSString* clickTarget;
-@property (readonly) NSString* clickTargetType;
 @property (readonly) NSString* clickTargetData;
+
 @property (readonly) NSString* preClickUrl;
 @property (readonly) NSString* postClickUrl;
 @property (readonly) NSString* impressionUrl;
@@ -49,9 +50,15 @@ typedef struct {
 @property (readonly) NSString* closeUrl;
 @property (readonly) NSString* viewUrl;
 
+@property (readonly) AdTarget targetType;
+@property (readonly) AdAction actionType;
+
+
 @property (readonly) NSDictionary* closeButtonInfo;
 @property (readonly) NSString* closeButtonImageUrl;
 @property (readonly) PNViewDimensions closeButtonDimensions;
 
 - (id) initWithJSONData:(NSData *) jsonData;
+
+- (NSDictionary *) getJSONTargetData;
 @end

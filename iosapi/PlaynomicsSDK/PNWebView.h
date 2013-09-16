@@ -10,11 +10,10 @@
 #import "PNFrame.h"
 #import "PNViewComponent.h"
 
-@interface PNWebView : UIWebView <UIWebViewDelegate, PNViewComponentDelegate>
-
 //assign, makes this reference weak. This because we aren't creating our delegate object, this prevents
 //strong references cycles.
+@interface PNWebView : UIWebView <UIWebViewDelegate, PNAdView, PNViewComponentDelegate>
+
 @property (readonly) AdComponentStatus status;
--(id) initWithResponse:(PNFrameResponse *) response delegate:(id<PNFrameDelegate>) delegate;
--(void) renderAdInView: (UIView*) parentView;
+
 @end

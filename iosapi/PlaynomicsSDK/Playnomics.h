@@ -29,34 +29,41 @@ typedef NS_ENUM(int, PNMilestoneType){
 
 @protocol PlaynomicsFrameDelegate <NSObject>
 @optional
--(void) onClick: (NSDictionary*) jsonData;
+-(void) onTouch: (NSDictionary*) jsonData;
 -(void) onClose: (NSDictionary*) jsonData;
 -(void) onShow: (NSDictionary*) jsonData;
--(void) onHide: (NSDictionary*) jsonData;
 -(void) onDidFailToRender;
 @end
 
 @interface Playnomics : NSObject
 + (void) setLoggingLevel :(PNLoggingLevel) level;
+
 + (void) overrideMessagingURL: (NSString*) messagingUrl;
+
 + (void) overrideEventsURL: (NSString*) messagingUrl;
 //Engagement
 + (BOOL) startWithApplicationId:(unsigned long long) applicationId;
-+ (BOOL) startWithApplicationId:(unsigned long long) applicationId andUserId: (NSString*) userId;
+
++ (BOOL) startWithApplicationId:(unsigned long long) applicationId
+                      andUserId: (NSString*) userId;
+
 + (void) onUIEventReceived: (UIEvent*) event;
 //Explicit Events
 + (void) milestone: (PNMilestoneType) milestoneType;
-+ (void) transactionWithUSDPrice: (NSNumber*) priceInUSD quantity: (NSInteger) quantity;
+
++ (void) transactionWithUSDPrice: (NSNumber*) priceInUSD
+                        quantity: (NSInteger) quantity;
 //Push Notifications
 + (void) enablePushNotificationsWithToken: (NSData*)deviceToken;
+
 + (void) pushNotificationsWithPayload: (NSDictionary*)payload;
 //Messaging
 + (void) preloadFramesWithIds: (NSString *)firstFrameId, ... NS_REQUIRES_NIL_TERMINATION;
 
 + (void) showFrameWithId:(NSString *) frameId;
-+ (void) showFrameWithId:(NSString *) frameId inView:(UIView *) parentView;
-+ (void) showFrameWithId:(NSString *) frameId delegate:(id<PlaynomicsFrameDelegate>) delegate;
-+ (void) showFrameWithId:(NSString *) frameId delegate:(id<PlaynomicsFrameDelegate>) delegate inView:(UIView *) parentView;
+
++ (void) showFrameWithId:(NSString *) frameId
+                delegate:(id<PlaynomicsFrameDelegate>) delegate;
 
 + (void) hideFrameWithId:(NSString *) frameId;
 @end

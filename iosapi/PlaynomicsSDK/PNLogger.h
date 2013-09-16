@@ -20,9 +20,21 @@ typedef NS_ENUM(int, PNLoggingLevel){
 
 @interface PNLogger : NSObject
 +(void) setLoggingLevel: (PNLoggingLevel) level;
-+(void) log: (PNLoggingLevel) level format: (NSString *) format, ...;
-+(void) log: (PNLoggingLevel) level exception: (NSException *) exception;
-+(void) log: (PNLoggingLevel) level exception: (NSException *) exception format: (NSString *) format, ...;
-+(void) log: (PNLoggingLevel) level error: (NSError *) exception;
-+(void) log: (PNLoggingLevel) level error: (NSError *) error format: (NSString *) format, ...;
+
++(void) log: (PNLoggingLevel) level
+     format: (NSString *) format, ...;
+
++(void) log: (PNLoggingLevel) level
+  exception: (NSException *) exception;
+
++(void) log: (PNLoggingLevel) level
+  exception: (NSException *) exception
+     format: (NSString *) format, ...;
+
++(void) log: (PNLoggingLevel) level
+      error: (NSError *) exception;
+
++(void) log: (PNLoggingLevel) level
+      error: (NSError *) error
+     format: (NSString *) format, ...;
 @end

@@ -13,7 +13,7 @@
 @implementation FrameDelegate
 
 
-- (void)onClick:(NSDictionary *)jsonData{
+- (void) onTouch:(NSDictionary *)jsonData{
     NSString* message = [NSString stringWithFormat: @"Data for frame %@" , jsonData];
     
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"JSON Callback"
@@ -24,6 +24,8 @@
     [alert show];
     [alert release];
 }
+
+
 
 -(void)webView: (UIWebView*) webView shouldStartLoadWithRequest: (NSURLRequest *) request navigationType: (UIWebViewNavigationType) navigationType {
     NSLog(@"Navigation Type = %d", navigationType);

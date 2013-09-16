@@ -45,13 +45,21 @@
     [frame showInView:parentView withDelegate:delegate];
 }
 
-- (id) getOrAddFrame: (NSString *) frameID{
-    PNFrame *frame = [_framesById valueForKey:frameID];
+- (id) getOrAddFrame: (NSString *) frameId{
+    PNFrame *frame = [_framesById valueForKey:frameId];
     if(!frame){
-        frame = [[[PNFrame alloc] initWithFrameId:frameID session:_session messaging:self] autorelease];
-        [_framesById setValue:frame forKey:frameID];
+        frame = [[[PNFrame alloc] initWithFrameId:frameId session:_session messaging:self] autorelease];
+        [_framesById setValue:frame forKey:frameId];
     }
     return frame;
 }
+
+-(void) hideFrame: (NSString *) frameId{
+    PNFrame *frame = [_framesById valueForKey:frameId];
+    if(!frame){
+        [frame hide];
+    }
+}
+
 
 @end

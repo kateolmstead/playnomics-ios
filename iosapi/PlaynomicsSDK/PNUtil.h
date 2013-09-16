@@ -14,21 +14,6 @@ typedef enum
     PNErrorTypeInvalidJson
 }PNErrorType;
 
-/*
-typedef enum {
-    PNEventAppStart,
-    PNEventAppPage,
-    PNEventAppRunning,
-    PNEventAppPause,
-    PNEventAppResume,
-    PNEventUserInfo,
-    PNEventTransaction,
-    PNEventMilestone,
-    PNEventError,
-    PNEventPushNotificationToken,
-    PNEventPushNotificationPayload,
-} PNEventType;
-*/
 
 typedef enum{
     AdTargetUrl,

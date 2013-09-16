@@ -43,7 +43,7 @@
     NSError *error = nil;
     id data = [NSJSONSerialization JSONObjectWithData:jsonData options: readOptions error:&error];
     if(error){
-        NSLog(@"Could not parse JSON string. Received error: %@", [error localizedDescription]);
+        [PNLogger log:PNLogLevelWarning error:error format:@"Could not parse JSON string."];
     }
     return data;
 }

@@ -31,13 +31,16 @@
 }
 
 - (void) enqueueEvent:(PNEvent *)event{
-    NSString* url = [PNEventApiClient buildUrlWithBase:[_session getEventsUrl]  withPath: event.baseUrlPath withParams: event.eventParameters];
+    NSString* url = [PNEventApiClient buildUrlWithBase:[_session getEventsUrl]
+                                              withPath: event.baseUrlPath
+                                            withParams: event.eventParameters];
     [self enqueueEventUrl: url];
 }
 
 - (void) enqueueEventUrl: (NSString *) url{
     if(url) {
-        PNEventRequestOperation *op = [[PNEventRequestOperation alloc] initWithUrl:url delegate:self];
+        PNEventRequestOperation *op = [[PNEventRequestOperation alloc] initWithUrl:url
+                                                                          delegate:self];
         [_operationQueue addOperation: op];
         [_inprocessEvents addObject: url];
         [op autorelease];
@@ -48,14 +51,17 @@
     [_inprocessEvents removeObject: url];
 }
 
-- (void) onDidFailToProcessUrl: (NSString *) url tryAgain:(BOOL) tryAgain{
+- (void) onDidFailToProcessUrl: (NSString *) url
+                      tryAgain:(BOOL) tryAgain{
     if(tryAgain){
         [self enqueueEventUrl: url];
         [_inprocessEvents removeObject:url];
     }
 }
 
-+ (NSString *) buildUrlWithBase: (NSString *) base withPath:(NSString *) path withParams:(NSDictionary *) params{
++ (NSString *) buildUrlWithBase:(NSString *) base
+                       withPath:(NSString *) path
+                     withParams:(NSDictionary *) params{
     if(!base){
         return nil;
     }

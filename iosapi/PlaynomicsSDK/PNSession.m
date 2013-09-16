@@ -559,17 +559,6 @@
     }
 };
 
-- (void) showFrameWithId:(NSString *) frameId inView: (UIView *) view {
-    @try{
-        [self assertSessionHasStarted];
-        UIView* parentView = [[[[UIApplication sharedApplication] delegate] window] rootViewController].view;
-        NSAssert(parentView != nil, @"The root view controller must be set if you do not explicitly provide a view to render this frame %@ in.", frameId);
-        [_messaging showFrame:frameId inView:parentView withDelegate:nil];
-    }
-    @catch(NSException *exception){
-        [PNLogger log:PNLogLevelWarning exception:exception format: @"Could not show frame."];
-    }
-};
 
 - (void) showFrameWithId:(NSString *) frameId delegate:(id<PlaynomicsFrameDelegate>) delegate{
     @try{
@@ -577,16 +566,6 @@
         UIView* parentView = [[[[UIApplication sharedApplication] delegate] window] rootViewController].view;
         NSAssert(parentView != nil, @"The root view controller must be set if you do not explicitly provide a view to render this frame %@ in.", frameId);
         [_messaging showFrame:frameId inView:parentView withDelegate:delegate];
-    }
-    @catch(NSException *exception){
-        [PNLogger log:PNLogLevelWarning exception:exception format: @"Could not show frame."];
-    }
-};
-
-- (void) showFrameWithId:(NSString *) frameId delegate:(id<PlaynomicsFrameDelegate>) delegate inView:(UIView *) view{
-    @try{
-        [self assertSessionHasStarted];
-        [_messaging showFrame:frameId inView:view withDelegate:delegate];
     }
     @catch(NSException *exception){
         [PNLogger log:PNLogLevelWarning exception:exception format: @"Could not show frame."];

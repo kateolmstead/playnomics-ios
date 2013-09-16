@@ -50,19 +50,26 @@
     }
     
     NSURL *url = [[[NSURL alloc] initWithString: self.urlPath] autorelease];
-    NSURLRequest *request = [[[NSURLRequest alloc] initWithURL:url cachePolicy:NSURLCacheStorageNotAllowed timeoutInterval:PNPropertyConnectionTimeout] autorelease];
+    NSURLRequest *request = [[[NSURLRequest alloc]
+                              initWithURL:url
+                              cachePolicy:NSURLCacheStorageNotAllowed
+                              timeoutInterval:PNPropertyConnectionTimeout] autorelease];
     
     NSURLResponse *response = nil;
     NSError* error = nil;
-    [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+    [NSURLConnection sendSynchronousRequest:request
+                          returningResponse:&response
+                                      error:&error];
     
     if(error){
-        [PNLogger log:PNLogLevelDebug format:@"Request for %@ completed with error %@", _urlPath, error.description];
+        [PNLogger log:PNLogLevelDebug
+               format:@"Request for %@ completed with error %@", _urlPath, error.description];
         [_delegate onDidFailToProcessUrl:_urlPath tryAgain:YES];
         [self completeOperation];
     } else {
         NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse *)response;
-        [PNLogger log:PNLogLevelDebug format:@"Request for %@ completed with status code %d", _urlPath, [httpResponse statusCode]];
+        [PNLogger log:PNLogLevelDebug
+               format:@"Request for %@ completed with status code %d", _urlPath, [httpResponse statusCode]];
         [_delegate onDidProcessUrl: _urlPath];
         [self completeOperation];
     }

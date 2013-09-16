@@ -10,9 +10,13 @@
 @interface PNMessaging : NSObject
 
 - (id) initWithSession: (PNSession *) session;
+
 - (void) fetchDataForFrame:(NSString *) frameId;
+
 - (void) showFrame:(NSString *) frameId
-          inView:(UIView *) parentView
-    withDelegate:(id<PlaynomicsFrameDelegate>) delegate;
+            inView:(UIView *) parentView
+      withDelegate:(id<PlaynomicsFrameDelegate>) delegate;
+
+-(void) hideFrame: (NSString *) frameId;
 
 @end

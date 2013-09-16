@@ -56,6 +56,11 @@
     [parentView insertSubview:self atIndex:lastDisplayIndex+1];
 }
 
+-(void) hide{
+    [self removeFromSuperview];
+    [_delegate adClosed:NO];
+}
+
 -(void)dealloc{
     _delegate = nil;
     [_response release];
@@ -71,6 +76,7 @@
 
 -(void) _closeAd {
     [self removeFromSuperview];
+    [_delegate adClosed:YES];
 }
 
 #pragma mark "Delegate Handlers"
@@ -84,16 +90,15 @@
             if ([URL.host isEqualToString:FrameResponseAd_WebViewAdClosed]) {
                 NSLog(@"PN Web View Close button was clicked");
                 [self _closeAd];
-                [_delegate adClosed];
             } else if ([URL.host isEqualToString:FrameResponseAd_WebViewAdClicked]) {
                 NSLog(@"PN Web View Ad was clicked");
-                [self _closeAd];
+                [self removeFromSuperview];
                 [_delegate adClicked];
             }
         } else {
             NSLog(@"Web View was clicked");
             [[UIApplication sharedApplication] openURL:URL];
-            [self _closeAd];
+            [self removeFromSuperview];
             [_delegate adClicked];
         }
     }
@@ -110,7 +115,6 @@
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
     _status = AdComponentStatusError;
     [PNLogger log:PNLogLevelWarning error:error format:@"Could not load the webview for HTML Content %@", _response.htmlContent];
-    NSLog(@"Web View failed to load with error %@",error.debugDescription);
     [_delegate didFailToLoadWithError:error];
 }
 // Only notify the delegate if all the components have been loaded successfully
@@ -121,19 +125,19 @@
 }
 
 - (void)componentDidFailToLoad{
-    [self _closeAd];
+    [self removeFromSuperview];
     [_delegate didFailToLoad];
 }
 
 // Close the ad in case of an error and notify the delegate
 -(void) componentDidFailToLoadWithError: (NSError*) error {
-    [self _closeAd];
+    [self removeFromSuperview];
     [_delegate didFailToLoadWithError:error];
 }
 
 // Close the ad in case of an exception and notify the delegate
 -(void) componentDidFailToLoadWithException: (NSException*) exception {
-    [self _closeAd];
+    [self removeFromSuperview];
     [_delegate didFailToLoadWithException:exception];
 }
 
@@ -143,7 +147,6 @@
     if (component == _closeButton) {
         NSLog(@"Close button was pressed...");
         [self _closeAd];
-        [_delegate adClosed];
     }
 }
 

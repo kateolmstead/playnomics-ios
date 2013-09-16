@@ -10,7 +10,5 @@
 #import "PNFrame.h"
 #import "PNViewComponent.h"
 
-@interface PNImage : NSObject <PNViewComponentDelegate>
--(id) initWithResponse:(PNFrameResponse *) response delegate:(id<PNFrameDelegate>) delegate;
-- (void) renderAdInView:(UIView*) parentView;
+@interface PNImage : NSObject <PNViewComponentDelegate, PNAdView>
 @end

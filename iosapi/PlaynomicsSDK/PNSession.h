@@ -56,10 +56,7 @@ typedef enum {
 - (void) preloadFramesWithIds: (NSSet *) frameIDs;
 
 - (void) showFrameWithId:(NSString *) frameId;
-- (void) showFrameWithId:(NSString *) frameId inView: (UIView *) view;
 - (void) showFrameWithId:(NSString *) frameId delegate:(id<PlaynomicsFrameDelegate>) delegate;
-- (void) showFrameWithId:(NSString *) frameId delegate:(id<PlaynomicsFrameDelegate>) delegate inView:(UIView *) view;
-
 - (void) hideFrameWithID:(NSString *) frameId;
 @end
 

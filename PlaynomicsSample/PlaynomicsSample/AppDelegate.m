@@ -95,7 +95,6 @@
      */
     
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
-    
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
