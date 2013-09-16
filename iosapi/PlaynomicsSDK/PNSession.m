@@ -476,6 +476,19 @@
     }
 }
 
+- (void) attributeInstallTo:(NSString *) source withCampaign: (NSString *) campaign onInstallDate: (NSDate *) installDate{
+    @try{
+        [self assertSessionHasStarted];
+        
+        PNEventUserInfo *userInfo = [[PNEventUserInfo alloc] initWithSessionInfo:[self getGameSessionInfo] source: source campaign:campaign installDate:installDate];
+        [userInfo autorelease];
+        [_apiClient enqueueEvent:userInfo];
+    } @catch(NSException *exception){
+        [PNLogger log:PNLogLevelWarning exception:exception format: @"Could not send attribution event."];
+
+    }
+}
+
 - (void) pingUrlForCallback:(NSString *) url{
     [_apiClient enqueueEventUrl: url];
 }

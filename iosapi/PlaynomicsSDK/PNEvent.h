@@ -33,6 +33,9 @@
 #define PNEventParameterUserInfoLimitAdvertising @"limitAdvertising"
 #define PNEventParameterUserInfoIdfa @"idfa"
 #define PNEventParameterUserInfoIdfv @"idfv"
+#define PNEventParameterUserInfoSource @"po"
+#define PNEventParameterUserInfoCampaign @"pm"
+#define PNEventParameterUserInfoInstallDate @"pi"
 
 //transactions
 #define PNEventParameterTransactionId @"r"

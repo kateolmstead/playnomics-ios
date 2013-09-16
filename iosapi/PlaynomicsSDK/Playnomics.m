@@ -56,6 +56,18 @@
     [[PNSession sharedInstance] transactionWithUSDPrice:priceInUSD quantity: quantity];
 }
 
++ (void) attributeInstallTo:(NSString *) source{
+    [[PNSession sharedInstance] attributeInstallTo:source withCampaign:nil onInstallDate:nil];
+}
+
++ (void) attributeInstallTo:(NSString *) source withCampaign: (NSString*) campaign{
+    [[PNSession sharedInstance] attributeInstallTo:source withCampaign:campaign onInstallDate:nil];
+}
+
++ (void) attributeInstallTo:(NSString *) source withCampaign: (NSString*) campaign onInstallDate: (NSDate *) installDate{
+    [[PNSession sharedInstance] attributeInstallTo:source withCampaign:campaign onInstallDate:installDate];
+}
+
 + (void) enablePushNotificationsWithToken: (NSData *)deviceToken{
     [[PNSession sharedInstance] enablePushNotificationsWithToken: deviceToken];
 }

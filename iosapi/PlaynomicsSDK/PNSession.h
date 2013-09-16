@@ -46,6 +46,8 @@ typedef enum {
 //Explicit Events
 - (void) milestone: (PNMilestoneType) milestoneType;
 - (void) transactionWithUSDPrice: (NSNumber *) priceInUSD quantity: (NSInteger) quantity;
+- (void) attributeInstallTo:(NSString *) source withCampaign: (NSString*) campaign onInstallDate: (NSDate *) installDate;
+
 - (void) pingUrlForCallback:(NSString *) url;
 //push notifications
 - (void) enablePushNotificationsWithToken: (NSData *) deviceToken;
