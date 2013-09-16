@@ -17,14 +17,9 @@
 
 + (NSString *) urlEncodeValue: (NSString *) unescapedValued {
     if([unescapedValued length] ==  0){
-        return NULL;
+        return nil;
     }
-    NSString *result = (NSString *)CFURLCreateStringByAddingPercentEscapes(
-        NULL,
-        (CFStringRef)unescapedValued,
-        NULL,
-        CFSTR("!*'();:@&=+$,/?%#[]"),
-        kCFStringEncodingUTF8);
+    NSString *result = (NSString *)CFURLCreateStringByAddingPercentEscapes( NULL, (CFStringRef)unescapedValued, NULL, CFSTR("!*'();:@&=+$,/?%#[]"), kCFStringEncodingUTF8);
     return [result autorelease];
 }
 
@@ -40,24 +35,24 @@
     return [self deserializeJsonData: encodedData];
 }
 
-+ (id) deserializeJsonData: (NSData *) jsonData {
++(id) deserializeJsonData: (NSData *) jsonData {
     return [self deserializeJsonDataWithOptions: jsonData readOptions: kNilOptions];
 }
 
-+ (id) deserializeJsonDataWithOptions: (NSData *) jsonData readOptions: (NSJSONReadingOptions) readOptions {
++(id) deserializeJsonDataWithOptions: (NSData *) jsonData readOptions: (NSJSONReadingOptions) readOptions {
     NSError *error = nil;
     id data = [NSJSONSerialization JSONObjectWithData:jsonData options: readOptions error:&error];
-    if(error != nil){
+    if(error){
         NSLog(@"Could not parse JSON string. Received error: %@", [error localizedDescription]);
     }
     return data;
 }
 
-+ (NSString *) boolAsString: (BOOL) value {
++(NSString *) boolAsString: (BOOL) value {
     return value ? @"true" : @"false";
 }
 
-+ (BOOL) stringAsBool : (NSString *) value {
++(BOOL) stringAsBool : (NSString *) value {
     return (value && [[value lowercaseString] isEqualToString:@"true"]) ? YES : NO;
 }
 
@@ -70,6 +65,10 @@
     arc4random_buf(buffer, sizeof buffer);
     uint64_t* value_ptr = (uint64_t*) buffer;
     return abs(*value_ptr);
+}
+
++ (CGRect) getScreenDimensions{
+    return [[UIScreen mainScreen] applicationFrame];
 }
 
 @end

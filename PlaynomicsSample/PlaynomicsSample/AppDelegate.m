@@ -57,8 +57,8 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     long appId = 2L;
-    [Playnomics overrideEventsURL: @"https://e.a.playnomics.net/v1/"];
-    [Playnomics overrideMessagingURL: @"https://ads.a.playnomics.net/v1/"];
+    [Playnomics overrideEventsURL: @"http://e.b.playnomics.net/v1/"];
+    [Playnomics overrideMessagingURL: @"http://ads.b.playnomics.net/v1/"];
     [Playnomics setLoggingLevel:PNLogLevelVerbose];
     
     [Playnomics startWithApplicationId:appId];

@@ -4,68 +4,54 @@
 
 #import "PNMessaging.h"
 #import "PNSession.h"
+#import "PNMessagingApiClient.h"
 
 @implementation PNMessaging{
-    PNSession* _session;
+    PNSession *_session;
+    PNMessagingApiClient *_apiClient;
+    NSMutableDictionary *_framesById;
 }
 
 - (id) initWithSession: (PNSession *) session {
     if((self = [super init])){
         _session = session;
+        _apiClient = [[PNMessagingApiClient alloc] initWithSession: session];
+        
+        _framesById = [[NSMutableDictionary alloc] init];
     }
     return self;
 }
 
 - (void)dealloc {
     _session = nil;
+    [_framesById release];
+    [_apiClient release];
     [super dealloc];
 }
 
-- (PNFrame *) createFrameWithId:(NSString*) frameId {
-    return [self createFrameWithId:frameId frameDelegate:nil];
+- (void) fetchDataForFrame:(NSString *) frameId{
+    PNFrame *frame = [self getOrAddFrame:frameId];
+    [_apiClient loadDataForFrame:frame];
 }
 
-- (PNFrame *)createFrameWithId:(NSString*)frameId frameDelegate: (id<PlaynomicsFrameDelegate>)frameDelegate {
-    // Get caller for debuging purposes
-    NSString *sourceString = [[NSThread callStackSymbols] objectAtIndex:1];
-    NSCharacterSet *separatorSet = [NSCharacterSet characterSetWithCharactersInString:@" -[]+?.,"];
-    NSMutableArray *array = [NSMutableArray arrayWithArray:[sourceString  componentsSeparatedByCharactersInSet:separatorSet]];
-    [array removeObject:@""];
+- (void) showFrame:(NSString *) frameId
+     inView:(UIView *) parentView
+     withDelegate:(id<PlaynomicsFrameDelegate>) delegate{
     
-    // Caller will be the name of the method that called initFrameWithId
-    NSString *caller = [array objectAtIndex:4];
-    
-    NSDictionary *adResponse = [self _retrieveFramePropertiesForId:frameId withCaller:caller];
-    PNFrame *frame = [[PNFrame alloc] initWithProperties:adResponse frameDelegate:frameDelegate session:_session];
+    PNFrame *frame = [self getOrAddFrame: frameId];
+    if(!(frame.state == PNFrameStateLoadingComplete || frame.state == PNFrameStateLoadingStarted)){
+        [_apiClient loadDataForFrame:frame];
+    }
+    [frame showInView:parentView withDelegate:delegate];
+}
+
+- (id) getOrAddFrame: (NSString *) frameID{
+    PNFrame *frame = [_framesById valueForKey:frameID];
+    if(!frame){
+        frame = [[[PNFrame alloc] initWithFrameId:frameID session:_session messaging:self] autorelease];
+        [_framesById setValue:frame forKey:frameID];
+    }
     return frame;
 }
-
-// Make an ad request to the PN Ad Servers
-- (NSDictionary*)_retrieveFramePropertiesForId:(NSString *)frameId withCaller: (NSString *) caller
-{
-    signed long long time = [[NSDate date] timeIntervalSince1970] * 1000;
-    CGRect screenRect = [[UIScreen mainScreen] applicationFrame];
-    int screenWidth = screenRect.size.width;
-    int screenHeight = screenRect.size.height;
-    
-    NSString *queryString = [NSString stringWithFormat:@"ads?a=%lld&u=%@&p=%@&t=%lld&b=%@&f=%@&c=%d&d=%d&esrc=ios&ever=%@",
-                             _session.applicationId, _session.userId, caller, time, _session.cookieId, frameId, screenHeight, screenWidth, _session.sdkVersion];
-    NSString *serverUrl = [_session getMessagingUrl];
-    
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", serverUrl, queryString]];
-    
-    NSLog(@"calling ad server: %@", url.absoluteString);
-    NSMutableData* adResponse = [NSMutableData dataWithContentsOfURL: url];
-    
-    NSLog(@"Response data: %@", [[[NSString alloc] initWithData:adResponse encoding:NSUTF8StringEncoding] autorelease]);
-    
-    if (adResponse == nil){
-        return nil;
-    }
-    
-    NSDictionary *props = [PNUtil deserializeJsonData: adResponse];
-    return props;
-}
-
 
 @end

@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		322BEC5217A6CFF000C2623E /* FrameDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 322BEC5117A6CFF000C2623E /* FrameDelegate.m */; };
-		3290177A17DA65B90041895A /* libPlaynomicsSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3290177917DA65B90041895A /* libPlaynomicsSDK.a */; };
 		5BBAA079159BAF0000AA4993 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BBAA078159BAF0000AA4993 /* UIKit.framework */; };
 		5BBAA07B159BAF0000AA4993 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BBAA07A159BAF0000AA4993 /* Foundation.framework */; };
 		5BBAA07D159BAF0000AA4993 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BBAA07C159BAF0000AA4993 /* CoreGraphics.framework */; };
@@ -31,6 +30,7 @@
 		6811AC8E17B586F700F532E9 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6811AC8317B586F700F532E9 /* StoreKit.framework */; };
 		6811AC8F17B586F700F532E9 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6811AC8417B586F700F532E9 /* SystemConfiguration.framework */; };
 		6855CB7B17948E330058E101 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6855CB7A17948E330058E101 /* Default-568h@2x.png */; };
+		68A783B617DEA70E004057FE /* libPlaynomicsSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 681CB35617DEA3F0008F9634 /* libPlaynomicsSDK.a */; };
 		68E6DABF17AC249A00A904A8 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 681972A617AAE81100A789E8 /* AdSupport.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		A1244D5516A8A38E001A93DD /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A1244D5416A8A38D001A93DD /* Localizable.strings */; };
 		A18FFBAE16CADCA80099D6A5 /* dingdong.caf in Resources */ = {isa = PBXBuildFile; fileRef = A18FFBAD16CADCA80099D6A5 /* dingdong.caf */; };
@@ -56,7 +56,6 @@
 /* Begin PBXFileReference section */
 		322BEC5017A6CFF000C2623E /* FrameDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FrameDelegate.h; sourceTree = "<group>"; };
 		322BEC5117A6CFF000C2623E /* FrameDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FrameDelegate.m; sourceTree = "<group>"; };
-		3290177917DA65B90041895A /* libPlaynomicsSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libPlaynomicsSDK.a; path = "../iosapi/build/Release-iphoneos/libPlaynomicsSDK.a"; sourceTree = "<group>"; };
 		5BBAA074159BAEFF00AA4993 /* PlaynomicsSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PlaynomicsSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5BBAA078159BAF0000AA4993 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		5BBAA07A159BAF0000AA4993 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -96,7 +95,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3290177A17DA65B90041895A /* libPlaynomicsSDK.a in Frameworks */,
+				68A783B617DEA70E004057FE /* libPlaynomicsSDK.a in Frameworks */,
 				6811AC8517B586F700F532E9 /* AVFoundation.framework in Frameworks */,
 				6811AC8617B586F700F532E9 /* CFNetwork.framework in Frameworks */,
 				6811AC8717B586F700F532E9 /* CoreMedia.framework in Frameworks */,
@@ -122,7 +121,6 @@
 		5BBAA069159BAEFF00AA4993 = {
 			isa = PBXGroup;
 			children = (
-				3290177917DA65B90041895A /* libPlaynomicsSDK.a */,
 				6811AC7117B585A400F532E9 /* AdColony */,
 				6855CB7A17948E330058E101 /* Default-568h@2x.png */,
 				A1244D6E16A8CB0B001A93DD /* PlaynomicsSDK.xcodeproj */,
@@ -419,6 +417,7 @@
 					"\"$(SRCROOT)\"",
 					"\"$(SRCROOT)/PlaynomicsSample\"",
 				);
+				OBJROOT = "$(SYMROOT)";
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-fobjc-arc",
@@ -427,6 +426,7 @@
 				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				RUN_CLANG_STATIC_ANALYZER = YES;
+				SYMROOT = build;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -450,6 +450,7 @@
 					"\"$(SRCROOT)\"",
 					"\"$(SRCROOT)/PlaynomicsSample\"",
 				);
+				OBJROOT = "$(SYMROOT)";
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-fobjc-arc",

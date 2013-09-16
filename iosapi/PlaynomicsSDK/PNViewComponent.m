@@ -29,7 +29,12 @@
         
         if (imageUrl != nil && imageUrl != (id)[NSNull null]) {
             _imageUrl = [imageUrl copy];
-            [self loadImage];
+            if ([PNUtil isUrl:_imageUrl]) {
+                [self loadImage];
+            } else {
+                self.image = [UIImage imageNamed:_imageUrl];
+                [self didLoad];
+            }
         } else {
             [self didLoad];
         }
@@ -40,6 +45,12 @@
 
 - (void)dealloc {
     [_subComponents release];
+    
+    if(_request){
+        [_request cancel];
+        [_request release];
+    }
+    
     //just set assign references to nil
     _delegate = nil;
     _parentComponent = nil;
@@ -56,8 +67,7 @@
         [self didFailToLoadWithException:nil];
         return;
     }
-    
-    _request = [[PNAssetRequest alloc] initWithUrl:_imageUrl delegate:self];
+    _request = [[PNAssetRequest alloc] initWithUrl:_imageUrl delegate:self useHttpCache:YES];
     [_request start];
 }
 
@@ -116,8 +126,7 @@
     NSEnumerator *enumerator = [touches objectEnumerator];
     id value;
     if ((value = [enumerator nextObject]) && [value isKindOfClass:[UITouch class]]) {
-        [self.delegate component:self
-                 didReceiveTouch:(UITouch*)value];
+        [self.delegate component:self didReceiveTouch:(UITouch *) value];
     }
 }
 

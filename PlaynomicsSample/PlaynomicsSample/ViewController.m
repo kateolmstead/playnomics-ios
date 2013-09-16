@@ -29,7 +29,9 @@
 {
     _frameDelegate = [[FrameDelegate alloc] init];
     [super viewDidLoad];
-    //[Playnomics preloadFramesWithIDs:@"ec964fdf18af3d80", @"7a9138a971ce1773", @"c6877f336e9d9dda", @"546e241b9b97149b", @"15bec4e2b78424a2", nil];
+    //[Playnomics preloadFramesWithIds:@"ec964fdf18af3d80", @"7a9138a971ce1773", @"c6877f336e9d9dda", @"546e241b9b97149b", @"15bec4e2b78424a2", nil];
+    //[Playnomics preloadFramesWithIds:@"c6877f336e9d9dda", nil];
+    [Playnomics preloadFramesWithIds:@"33a3cf0ecfa71c1a", nil];
     _frameIdText.delegate = self;
 }
 
@@ -137,7 +139,7 @@
         NSLog(@"result=%u",result);
     }
 */
-    [Playnomics showFrameWithID: frameId delegate: _frameDelegate];
+    [Playnomics showFrameWithId: frameId delegate: _frameDelegate];
  }
 
 -(void)onPnx

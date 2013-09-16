@@ -52,7 +52,6 @@
     
     NSMutableArray* _observers;
     
-    NSMutableDictionary *_framesById;
 
     NSObject *_syncLock;
 }
@@ -102,7 +101,6 @@
         _observers = [NSMutableArray new];
         
         _messaging = [[PNMessaging alloc] initWithSession: self];
-        _framesById = [NSMutableDictionary new];
         
         _syncLock = [[NSObject alloc] init];
     }
@@ -124,7 +122,6 @@
     [_sdkVersion release];
     
     [_deviceManager release];
-    [_framesById release];
     
     [_syncLock release];
     
@@ -538,11 +535,11 @@
 
 #pragma mark "Messaging"
 //all of this code needs to be moved inside of PlaynomicsMessaging
-- (void) preloadFramesWithIDs: (NSSet *)frameIDs{
+- (void) preloadFramesWithIds: (NSSet *)frameIDs{
     @try{
         [self assertSessionHasStarted];
         for(NSString* frameID in frameIDs){
-            [self getOrAddFrame:frameID];
+            [_messaging fetchDataForFrame:frameID];
         }
     }
     @catch(NSException *exception){
@@ -550,56 +547,56 @@
     }
 }
 
-- (id) getOrAddFrame: (NSString *) frameID{
-    PNFrame *frame = [_framesById valueForKey:frameID];
-    if(!frame){
-        frame = [_messaging createFrameWithId: frameID];
-        [_framesById setValue:frame forKey:frameID];
-    }
-    return frame;
-}
-
-- (void) showFrameWithID:(NSString *) frameID{
+- (void) showFrameWithId:(NSString *) frameId{
     @try{
         [self assertSessionHasStarted];
-        PNFrame *frame = [self getOrAddFrame:frameID];
-        
         UIView* parentView = [[[[UIApplication sharedApplication] delegate] window] rootViewController].view;
-        [frame startInView: parentView];
+        NSAssert(parentView != nil, @"The root view controller must be set if you do not explicitly provide a view to render this frame %@ in.", frameId);
+        [_messaging showFrame:frameId inView:parentView withDelegate:nil];
     }
     @catch(NSException *exception){
         [PNLogger log:PNLogLevelWarning exception:exception format: @"Could not show frame."];
     }
 };
 
-- (void) showFrameWithID:(NSString *) frameID delegate:(id<PlaynomicsFrameDelegate>) delegate{
+- (void) showFrameWithId:(NSString *) frameId inView: (UIView *) view {
     @try{
         [self assertSessionHasStarted];
-        PNFrame *frame = [self getOrAddFrame:frameID];
-        frame.delegate = delegate;
         UIView* parentView = [[[[UIApplication sharedApplication] delegate] window] rootViewController].view;
-        [frame startInView: parentView];
+        NSAssert(parentView != nil, @"The root view controller must be set if you do not explicitly provide a view to render this frame %@ in.", frameId);
+        [_messaging showFrame:frameId inView:parentView withDelegate:nil];
     }
     @catch(NSException *exception){
         [PNLogger log:PNLogLevelWarning exception:exception format: @"Could not show frame."];
     }
 };
 
-- (void) showFrameWithID:(NSString *) frameID delegate:(id<PlaynomicsFrameDelegate>) delegate withInSeconds: (int) timeout{
+- (void) showFrameWithId:(NSString *) frameId delegate:(id<PlaynomicsFrameDelegate>) delegate{
     @try{
         [self assertSessionHasStarted];
-        PNFrame *frame = [self getOrAddFrame:frameID];
-        frame.delegate = delegate;
         UIView* parentView = [[[[UIApplication sharedApplication] delegate] window] rootViewController].view;
-        [frame startInView: parentView];
+        NSAssert(parentView != nil, @"The root view controller must be set if you do not explicitly provide a view to render this frame %@ in.", frameId);
+        [_messaging showFrame:frameId inView:parentView withDelegate:delegate];
     }
     @catch(NSException *exception){
         [PNLogger log:PNLogLevelWarning exception:exception format: @"Could not show frame."];
     }
 };
 
-- (void) hideFrameWithID:(NSString *) frameID{
+- (void) showFrameWithId:(NSString *) frameId delegate:(id<PlaynomicsFrameDelegate>) delegate inView:(UIView *) view{
+    @try{
+        [self assertSessionHasStarted];
+        [_messaging showFrame:frameId inView:view withDelegate:delegate];
+    }
+    @catch(NSException *exception){
+        [PNLogger log:PNLogLevelWarning exception:exception format: @"Could not show frame."];
+    }
+};
+
+- (void) hideFrameWithID:(NSString *) frameId{
     
 };
 @end
+
+
 

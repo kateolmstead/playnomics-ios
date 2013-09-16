@@ -12,21 +12,30 @@
 @private
     PNViewDimensions _backgroundDimensions;
     PNViewComponent *_closeButton;
-    PNFrame *_frame;
+    id<PNFrameDelegate> _delegate;
+    PNFrameResponse *_response;
 }
 
 @synthesize status = _status;
 
 #pragma mark - Lifecycle/Memory management
--(id) initWithFrameData:(PNFrame*) frame {
+-(id) initWithResponse:(PNFrameResponse *) response delegate:(id<PNFrameDelegate>) delegate {
     if (self = [super init]) {
-        _frame = frame;
+        [self setUserInteractionEnabled: YES];
+        [self setExclusiveTouch: YES];
+        _response = [response retain];
+        _delegate = delegate;
+        
         [super setDelegate:self];
         
-        if(_frame.adTag != nil && _frame.adTag != (id)[NSNull null] ){
+        if(_response.htmlContent != nil && _response.htmlContent != (id)[NSNull null] ){
             _status = AdComponentStatusPending;
-            [self loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:_frame.adTag]]];
-            _closeButton = [PNViewComponent alloc];
+            
+            if(_response.closeButtonImageUrl != nil){
+                _closeButton = [[PNViewComponent alloc] initWithDimensions:_response.closeButtonDimensions delegate:self image:_response.closeButtonImageUrl];
+            }
+            
+            [self loadHTMLString:_response.htmlContent baseURL:nil];
         }
     }
     
@@ -34,45 +43,34 @@
 }
 
 -(void) renderAdInView:(UIView *)parentView {
-    if (_frame.creativeType && [_frame.creativeType isEqualToString:@"banner"]) {
+    if (_response.fullscreen && [_response.fullscreen isEqualToString:@"true"]) {
+        [super setFrame:[[UIScreen mainScreen] applicationFrame]];
+    } else {
         [super setFrame:CGRectMake(_backgroundDimensions.x,
                                    _backgroundDimensions.y,
                                    _backgroundDimensions.width,
                                    _backgroundDimensions.height)];
-    } else {
-        [super setFrame:parentView.bounds];
     }
-    
-    PNViewDimensions closeButtonDimensions = {
-        .width = self.frame.origin.x + self.frame.size.width - 30,
-        .height = self.frame.origin.y,
-        .x = 30,
-        .y = 30
-    };
-    [_closeButton initWithDimensions:closeButtonDimensions
-                            delegate:self
-                               image:@"rounded-close-button-30x30"];
-    [self addSubview:_closeButton];
     
     int lastDisplayIndex = parentView.subviews.count;
     [parentView insertSubview:self atIndex:lastDisplayIndex+1];
 }
 
 -(void)dealloc{
-    _frame = nil;
+    _delegate = nil;
+    [_response release];
     [_closeButton release];
     [super dealloc];
 }
 
--(void) closeAd {
-    NSLog(@"Close button was pressed...");
-    [self removeFromSuperview];
-    [_frame adClosed];
+#pragma mark "Helper Methods"
+// Returns TRUE if all instantiated components are done loading. FALSE otherwise
+- (BOOL) _allComponentsLoaded {
+    return _status == AdComponentStatusCompleted && _closeButton.status == AdComponentStatusCompleted;
 }
 
-- (BOOL) _allComponentsLoaded {
-    return (_status == AdComponentStatusCompleted
-            && _closeButton.status == AdComponentStatusCompleted);
+-(void) _closeAd {
+    [self removeFromSuperview];
 }
 
 #pragma mark "Delegate Handlers"
@@ -81,56 +79,72 @@
     NSURL *URL = [request URL];
     
     if (navigationType == UIWebViewNavigationTypeLinkClicked) {
-        [[UIApplication sharedApplication] openURL:URL];
-        [self removeFromSuperview];
-        [_frame adClicked];
+        if ([URL.scheme isEqualToString:FrameResponseAd_WebViewClickProtocol]) {
+            NSLog(@"PN Web View was clicked and the type of click (host) is %@", URL.host);
+            if ([URL.host isEqualToString:FrameResponseAd_WebViewAdClosed]) {
+                NSLog(@"PN Web View Close button was clicked");
+                [self _closeAd];
+                [_delegate adClosed];
+            } else if ([URL.host isEqualToString:FrameResponseAd_WebViewAdClicked]) {
+                NSLog(@"PN Web View Ad was clicked");
+                [self _closeAd];
+                [_delegate adClicked];
+            }
+        } else {
+            NSLog(@"Web View was clicked");
+            [[UIApplication sharedApplication] openURL:URL];
+            [self _closeAd];
+            [_delegate adClicked];
+        }
     }
-    
     return YES;
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
     _status = AdComponentStatusCompleted;
-    if([self _allComponentsLoaded]){
-        [_frame didLoad];
-    }
+    [self setBackgroundColor:[UIColor clearColor]];
+    [self setOpaque:NO];
+    [_delegate didLoad];
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
     _status = AdComponentStatusError;
-    [PNLogger log:PNLogLevelWarning error:error format:@"Could not load the webview for url %@", _frame.adTag];
+    [PNLogger log:PNLogLevelWarning error:error format:@"Could not load the webview for HTML Content %@", _response.htmlContent];
     NSLog(@"Web View failed to load with error %@",error.debugDescription);
-    [_frame didFailToLoadWithError:error];
+    [_delegate didFailToLoadWithError:error];
 }
-
 // Only notify the delegate if all the components have been loaded successfully
 - (void) componentDidLoad {
     if([self _allComponentsLoaded]){
-        [_frame didLoad];
+        [_delegate didLoad];
     }
 }
 
 - (void)componentDidFailToLoad{
-    [self closeAd];
-    [_frame didFailToLoad];
+    [self _closeAd];
+    [_delegate didFailToLoad];
 }
 
 // Close the ad in case of an error and notify the delegate
 -(void) componentDidFailToLoadWithError: (NSError*) error {
-    [self closeAd];
-    [_frame didFailToLoadWithError:error];
+    [self _closeAd];
+    [_delegate didFailToLoadWithError:error];
 }
 
 // Close the ad in case of an exception and notify the delegate
 -(void) componentDidFailToLoadWithException: (NSException*) exception {
-    [self closeAd];
-    [_frame didFailToLoadWithException:exception];
+    [self _closeAd];
+    [_delegate didFailToLoadWithException:exception];
 }
 
 // If the close button component was clicked, close the ad and notify the delegate
 // If the ad was clicked, also close the ad and notify the delegate
 -(void) component: (id) component didReceiveTouch: (UITouch*) touch {
-    [self closeAd];
+    if (component == _closeButton) {
+        NSLog(@"Close button was pressed...");
+        [self _closeAd];
+        [_delegate adClosed];
+    }
 }
 
 @end

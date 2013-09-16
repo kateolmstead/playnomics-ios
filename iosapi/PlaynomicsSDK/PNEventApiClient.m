@@ -24,18 +24,18 @@
     return self;
 }
 
--(void) dealloc {
+- (void) dealloc {
     [_operationQueue release];
     _session = nil;
     [super dealloc];
 }
 
--(void) enqueueEvent:(PNEvent *)event{
+- (void) enqueueEvent:(PNEvent *)event{
     NSString* url = [PNEventApiClient buildUrlWithBase:[_session getEventsUrl]  withPath: event.baseUrlPath withParams: event.eventParameters];
     [self enqueueEventUrl: url];
 }
 
--(void) enqueueEventUrl: (NSString *) url{
+- (void) enqueueEventUrl: (NSString *) url{
     if(url) {
         PNEventRequestOperation *op = [[PNEventRequestOperation alloc] initWithUrl:url delegate:self];
         [_operationQueue addOperation: op];
@@ -44,18 +44,18 @@
     }
 }
 
--(void) onDidProcessUrl:(NSString *)url{
+- (void) onDidProcessUrl:(NSString *)url{
     [_inprocessEvents removeObject: url];
 }
 
--(void) onDidFailToProcessUrl: (NSString *) url tryAgain:(BOOL) tryAgain{
+- (void) onDidFailToProcessUrl: (NSString *) url tryAgain:(BOOL) tryAgain{
     if(tryAgain){
         [self enqueueEventUrl: url];
         [_inprocessEvents removeObject:url];
     }
 }
 
-+(NSString *) buildUrlWithBase: (NSString *) base withPath:(NSString *) path withParams:(NSDictionary *) params{
++ (NSString *) buildUrlWithBase: (NSString *) base withPath:(NSString *) path withParams:(NSDictionary *) params{
     if(!base){
         return nil;
     }
@@ -93,7 +93,7 @@
     [_operationQueue setSuspended: NO];
 }
 
--(void) pause{
+- (void) pause{
     if(!_running){ return; }
     _running = NO;
     [_operationQueue setSuspended: YES];

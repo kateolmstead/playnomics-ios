@@ -54,12 +54,16 @@
 #define FrameResponseAd_FlagUrl @"f"
 #define FrameResponseAd_CloseUrl @"d"
 #define FrameResponseAd_AdType @"adType"
-#define FrameResponseAd_CreativeType @"creativeType"
+#define FrameResponseAd_Fullscreen @"fullscreen"
 #define FrameResponseAd_VideoViewUrl @"view"
 #define FrameResponseAd_TargetType @"targetType"
 #define FrameResponseAd_TargetData @"targetData"
-#define FrameResponseAd_AdTag @"adTag"
+#define FrameResponseAd_HtmlContent @"htmlContent"
 #define FrameResponseAd_AdProvider @"adProvider"
+#define FrameResponseAd_CloseUrlPath @"/v1/closeImpression"
+#define FrameResponseAd_WebViewClickProtocol @"pn"
+#define FrameResponseAd_WebViewAdClicked @"click"
+#define FrameResponseAd_WebViewAdClosed @"close"
 
 // Ad Response: Background keys
 #define FrameResponseBackground_Landscape @"l"

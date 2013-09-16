@@ -31,7 +31,6 @@
     PNSession *session = [PNSession sharedInstance];
     session.applicationId = applicationId;
     [session start];
-    
     return session.state == PNSessionStateStarted;
 }
 
@@ -63,37 +62,41 @@
     [[PNSession sharedInstance] pushNotificationsWithPayload: payload];
 }
 
-+ (void) preloadFramesWithIDs: (NSString *)firstFrameID, ...{
-    NSMutableSet *frameIDs = [NSMutableSet new];
++ (void) preloadFramesWithIds: (NSString *)firstFrameId, ...{
+    NSMutableSet *frameIds = [NSMutableSet new];
     va_list args;
-    va_start(args, firstFrameID);
-    [frameIDs addObject:firstFrameID];
+    va_start(args, firstFrameId);
+    [frameIds addObject:firstFrameId];
    
-    NSString* frameID;
-    while( (frameID = va_arg(args, NSString *)) )
+    NSString* frameId;
+    while( (frameId = va_arg(args, NSString *)) )
     {
-        [frameIDs addObject: frameID];
+        [frameIds addObject: frameId];
     }
     va_end(args);
     
-    [[PNSession sharedInstance] preloadFramesWithIDs: frameIDs];
-    [frameIDs autorelease];
+    [[PNSession sharedInstance] preloadFramesWithIds: frameIds];
+    [frameIds autorelease];
 }
 
-+ (void) showFrameWithID:(NSString *) frameID{
-    [[PNSession sharedInstance] showFrameWithID: frameID];
++ (void) showFrameWithId:(NSString *) frameId{
+    [[PNSession sharedInstance] showFrameWithId: frameId];
 }
 
-+ (void) showFrameWithID:(NSString *) frameID delegate:(id<PlaynomicsFrameDelegate>) delegate{
-    [[PNSession sharedInstance] showFrameWithID: frameID delegate:delegate];
++(void) showFrameWithId:(NSString *)frameId inView:(UIView *)parentView{
+    [[PNSession sharedInstance] showFrameWithId: frameId inView: parentView];
 }
 
-+ (void) showFrameWithID:(NSString *) frameID delegate:(id<PlaynomicsFrameDelegate>) delegate withInSeconds: (int) timeout{
-    [[PNSession sharedInstance] showFrameWithID: frameID delegate:delegate withInSeconds:timeout];
++ (void) showFrameWithId:(NSString *) frameId delegate:(id<PlaynomicsFrameDelegate>) delegate{
+    [[PNSession sharedInstance] showFrameWithId: frameId delegate:delegate];
 }
 
-+ (void) hideFrameWithID:(NSString *) frameID{
-    [[PNSession sharedInstance] hideFrameWithID: frameID];
++ (void) showFrameWithId:(NSString *) frameID delegate:(id<PlaynomicsFrameDelegate>) delegate inView:(UIView *)parentView{
+    [[PNSession sharedInstance] showFrameWithId: frameID delegate:delegate inView:parentView];
+}
+
++ (void) hideFrameWithId:(NSString *) frameId{
+    [[PNSession sharedInstance] hideFrameWithID: frameId];
 }
 
 @end
