@@ -199,7 +199,6 @@
 		32A7C35517C6A84300E959A3 /* OCMock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCMock.h; sourceTree = "<group>"; };
 		32A7C35617C6A84300E959A3 /* OCMockObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCMockObject.h; sourceTree = "<group>"; };
 		32A7C35717C6A84300E959A3 /* OCMockRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCMockRecorder.h; sourceTree = "<group>"; };
-		68A783B817DEAA12004057FE /* rounded-close-button-30x30.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "rounded-close-button-30x30.png"; path = "Resources/rounded-close-button-30x30.png"; sourceTree = SOURCE_ROOT; };
 		68E6DABD17AC237900A904A8 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		A1244E0A16A9EADF001A93DD /* dev.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = dev.xcconfig; sourceTree = "<group>"; };
 		A1822F8116B0691300414EF1 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -417,15 +416,6 @@
 			path = OCMock;
 			sourceTree = "<group>";
 		};
-		68A783B717DEA9F4004057FE /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				68A783B817DEAA12004057FE /* rounded-close-button-30x30.png */,
-			);
-			name = Resources;
-			path = PlaynomicsSDK;
-			sourceTree = "<group>";
-		};
 		A14DA13916DFFD230040B507 /* public */ = {
 			isa = PBXGroup;
 			children = (
@@ -439,7 +429,6 @@
 		D1D922651590F59500EDDE17 = {
 			isa = PBXGroup;
 			children = (
-				68A783B717DEA9F4004057FE /* Resources */,
 				32A7C34217C6A7DE00E959A3 /* Libraries */,
 				A14DA13916DFFD230040B507 /* public */,
 				329016E917DA5AE20041895A /* PlaynomicsSDK */,

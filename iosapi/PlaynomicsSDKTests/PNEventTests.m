@@ -192,7 +192,7 @@
     STAssertEqualObjects([userInfo.eventParameters valueForKey:@"pm"], campaign, @"Campaign is set");
     
     
-    PNEventUserInfo *userInfo = [[PNEventUserInfo alloc] initWithSessionInfo:_info
+    userInfo = [[PNEventUserInfo alloc] initWithSessionInfo:_info
                                                                       source:source
                                                                     campaign:nil
                                                                  installDate:nil];
@@ -207,7 +207,7 @@
     
     NSString *pushToken = @"token";
     PNEventUserInfo *userInfo = [[PNEventUserInfo alloc] initWithSessionInfo:_info
-                                                                   pushToken:token];
+                                                                   pushToken:pushToken];
     
     [self assertCommonInfoIsAvailable:userInfo sessionInfo:_info];
     STAssertEqualObjects([userInfo.eventParameters valueForKey:@"pushTok"], pushToken, @"Push token is set");
