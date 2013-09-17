@@ -36,23 +36,21 @@ typedef NS_ENUM(int, PNMilestoneType){
 @end
 
 @interface Playnomics : NSObject
-+ (void) setLoggingLevel :(PNLoggingLevel) level;
-
-+ (void) overrideMessagingURL: (NSString*) messagingUrl;
-
-+ (void) overrideEventsURL: (NSString*) messagingUrl;
++ (void) setLoggingLevel:(PNLoggingLevel) level;
++ (void) overrideMessagingURL:(NSString *) messagingUrl;
++ (void) overrideEventsURL:(NSString *) messagingUrl;
 //Engagement
 + (BOOL) startWithApplicationId:(unsigned long long) applicationId;
 
 + (BOOL) startWithApplicationId:(unsigned long long) applicationId
-                      andUserId: (NSString*) userId;
+                      andUserId:(NSString*) userId;
 
 + (void) onUIEventReceived: (UIEvent*) event;
 //Explicit Events
-+ (void) milestone: (PNMilestoneType) milestoneType;
++ (void) milestone:(PNMilestoneType) milestoneType;
 
-+ (void) transactionWithUSDPrice: (NSNumber*) priceInUSD
-                        quantity: (NSInteger) quantity;
++ (void) transactionWithUSDPrice:(NSNumber *) priceInUSD
+                        quantity:(NSInteger) quantity;
 
 + (void) attributeInstallToSource:(NSString *) source;
 
@@ -62,11 +60,11 @@ typedef NS_ENUM(int, PNMilestoneType){
 
 
 //Push Notifications
-+ (void) enablePushNotificationsWithToken: (NSData*)deviceToken;
++ (void) enablePushNotificationsWithToken:(NSData *)deviceToken;
 
-+ (void) pushNotificationsWithPayload: (NSDictionary*)payload;
++ (void) pushNotificationsWithPayload:(NSDictionary *)payload;
 //Messaging
-+ (void) preloadFramesWithIds: (NSString *)firstFrameId, ... NS_REQUIRES_NIL_TERMINATION;
++ (void) preloadFramesWithIds:(NSString *) firstFrameId, ... NS_REQUIRES_NIL_TERMINATION;
 
 + (void) showFrameWithId:(NSString *) frameId;
 

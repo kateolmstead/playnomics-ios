@@ -586,7 +586,14 @@
 };
 
 - (void) hideFrameWithID:(NSString *) frameId{
-    
+    @try{
+        [self assertSessionHasStarted];
+        [_messaging hideFrame:frameId];
+    }
+    @catch(NSException *exception){
+        [PNLogger log:PNLogLevelWarning exception:exception format: @"Could not hide frame."];
+    }
+
 };
 @end
 
