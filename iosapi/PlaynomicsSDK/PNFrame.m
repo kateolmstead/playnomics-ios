@@ -135,15 +135,15 @@
 -(void) adClosed:(BOOL) closedByUser {
     if(closedByUser){
         [_session pingUrlForCallback: _response.closeUrl];
+        
+        if(_frameDelegate && [_frameDelegate respondsToSelector:@selector(onClose:)]){
+            //notify the delegate
+            [_frameDelegate onClose: [_response getJSONTargetData]];
+        }
     }
     
     [self _destroyOrientationObservers];
-    
-    if(_frameDelegate && [_frameDelegate respondsToSelector:@selector(onClose:)]){
-        //notify the delegate
-        [_frameDelegate onClose: [_response getJSONTargetData]];
-    }
-    //refresh the frame when the ad has been clicked
+    //refresh the frame when the ad has been closed
     [_messaging fetchDataForFrame:_frameId];
 }
 

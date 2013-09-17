@@ -58,17 +58,20 @@
 
 + (void) attributeInstallToSource:(NSString *) source{
     [[PNSession sharedInstance] attributeInstallToSource:source
-                                      withCampaign:nil
-                                     onInstallDate:nil];
+                                            withCampaign:nil
+                                           onInstallDate:nil];
 }
 
-+ (void) attributeInstallToSource:(NSString *) source withCampaign: (NSString*) campaign{
++ (void) attributeInstallToSource:(NSString *) source
+                     withCampaign: (NSString*) campaign{
     [[PNSession sharedInstance] attributeInstallToSource:source
-                                      withCampaign:campaign
-                                     onInstallDate:nil];
+                                            withCampaign:campaign
+                                           onInstallDate:nil];
 }
 
-+ (void) attributeInstallToSource:(NSString *) source withCampaign: (NSString*) campaign onInstallDate: (NSDate *) installDate{
++ (void) attributeInstallToSource: (NSString *) source
+                     withCampaign: (NSString *) campaign
+                    onInstallDate: (NSDate *) installDate{
     [[PNSession sharedInstance] attributeInstallToSource:source
                                       withCampaign:campaign
                                      onInstallDate:installDate];
@@ -105,7 +108,8 @@
 
 + (void) showFrameWithId:(NSString *) frameId
                 delegate:(id<PlaynomicsFrameDelegate>) delegate{
-    [[PNSession sharedInstance] showFrameWithId: frameId delegate:delegate];
+    [[PNSession sharedInstance] showFrameWithId: frameId
+                                       delegate: delegate];
 }
 
 + (void) hideFrameWithId:(NSString *) frameId{
