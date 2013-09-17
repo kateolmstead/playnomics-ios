@@ -163,42 +163,16 @@
             }
         }
     } else if (_response.targetType == AdTargetData) {
-        //handle rich data
-        NSInteger responseCode;
-        NSException* exception = nil;
-        
+        //ping the server
         [_session pingUrlForCallback: _response.preClickUrl];
-        @try {
-            if(_frameDelegate == nil || ![_frameDelegate respondsToSelector:@selector(onTouch:)]){
-                responseCode = -4;
-                [PNLogger log:PNLogLevelDebug format:@"Received a click but could not send the data to the frameDelegate"];
-            } else {
-                NSDictionary* jsonData = [PNUtil deserializeJsonString: _response.clickTargetData];
-                [_frameDelegate onTouch: jsonData];
-                responseCode = 1;
-            }
-        }
-        @catch (NSException *e) {
-            exception = e;
-            responseCode = -4;
-        }
-        [self callPostAction: _response.postClickUrl withException: exception andResponseCode: responseCode];
+    }
+    
+    //always notify the delegate that there was a touch event
+    if(_frameDelegate && [_frameDelegate respondsToSelector:@selector(onTouch:)]){
+        [_frameDelegate onTouch: [_response getJSONTargetData]];
     }
     //refresh the frame when the ad has been clicked
    [self reloadFrame];
-}
-
--(void) callPostAction:(NSString *) postUrl
-         withException:(NSException *) exception
-       andResponseCode:(NSInteger) code{
-    NSString* fullPostActionUrl;
-    if(exception != nil){
-        NSString* exceptionMessage = [PNUtil urlEncodeValue: [NSString stringWithFormat:@"%@+%@", exception.name, exception.reason]];
-        fullPostActionUrl = [NSString stringWithFormat:@"%@&c=%d&e=%@", postUrl, code, exceptionMessage];
-    } else {
-        fullPostActionUrl = [NSString stringWithFormat:@"%@&c=%d", postUrl, code];
-    }
-    [_session pingUrlForCallback: fullPostActionUrl];
 }
 
 #pragma mark - Public Interface
