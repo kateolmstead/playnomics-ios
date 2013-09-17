@@ -9,13 +9,4 @@
 #import <SenTestingKit/SenTestingKit.h>
 
 @interface PNUtilTests : SenTestCase
-
--(void) testIsUrlShouldHandleNil;
--(void) testIsUrlShouldAcceptHttp;
--(void) testIsUrlShouldAcceptHttps;
--(void) testIsUrlShouldNegateNonUrl;
-
--(void) testBoolAsString;
--(void) testStringAsBool;
-
 @end

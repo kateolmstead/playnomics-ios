@@ -9,8 +9,4 @@
 #import <SenTestingKit/SenTestingKit.h>
 
 @interface PNGeneratedHexIdTests : SenTestCase
-
--(void) testGeneratesSessionId;
-
-
 @end

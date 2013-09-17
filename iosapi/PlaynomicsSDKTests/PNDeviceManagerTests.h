@@ -9,7 +9,4 @@
 #import <SenTestingKit/SenTestingKit.h>
 
 @interface PNDeviceManagerTests : SenTestCase
-- (void) testGetDeviceInfoFromDevice;
-- (void) testDeviceInfoWithNewDevice;
-- (void) testDeviceInfoUpdatesStaleValues;
 @end

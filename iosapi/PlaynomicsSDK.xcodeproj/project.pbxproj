@@ -380,6 +380,7 @@
 				329016AF17D126D10041895A /* PNEventTests.m */,
 				329016B617D9196A0041895A /* PNEventApiClientTests.h */,
 				329016B717D9196A0041895A /* PNEventApiClientTests.m */,
+				D1D922721590F59600EDDE17 /* Frameworks */,
 			);
 			path = PlaynomicsSDKTests;
 			sourceTree = "<group>";
@@ -433,7 +434,6 @@
 				A14DA13916DFFD230040B507 /* public */,
 				329016E917DA5AE20041895A /* PlaynomicsSDK */,
 				32A7C33317C6A36B00E959A3 /* PlaynomicsSDKTests */,
-				D1D922721590F59600EDDE17 /* Frameworks */,
 				D1D922711590F59600EDDE17 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -458,6 +458,7 @@
 				D1D922831590F59700EDDE17 /* UIKit.framework */,
 			);
 			name = Frameworks;
+			path = ..;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

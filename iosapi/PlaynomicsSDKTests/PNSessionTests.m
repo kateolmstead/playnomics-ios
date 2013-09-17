@@ -508,7 +508,6 @@
     [_session pause];
     [_session resume];
 
-    
     STAssertTrue(_session.applicationId == 1L, @"Application should be set");
     STAssertEqualObjects(_session.userId, @"test-user", @"User ID should be set");
     STAssertEqualObjects(_session.cookieId, breadcrumbId, @"Breadcrumb ID should be set");

@@ -10,11 +10,4 @@
 #import <SenTestingKit/SenTestingKit.h>
 
 @interface PNEventTests : SenTestCase
-- (void) testAppRunning;
-- (void) testAppPause;
-- (void) testAppResume;
-- (void) testAppStart;
-- (void) testTransaction;
-- (void) testMilestone;
-- (void) testUserInfo;
 @end
