@@ -19,7 +19,6 @@
 
 #import <libkern/OSAtomic.h>
 
-
 //events
 #import "PNEventAppPage.h"
 #import "PNEventAppStart.h"
@@ -284,15 +283,11 @@
 - (void) pause {
     @try {
         [PNLogger log:PNLogLevelDebug format:@"Session paused."];
-        
-        if (_state == PNSessionStatePaused){
-            return;
-        }
+        if (_state == PNSessionStatePaused){ return;}
         
         _state = PNSessionStatePaused;
         
         [self stopEventTimer];
-        
         
         PNEventAppPause *ev = [[PNEventAppPause alloc] initWithSessionInfo:[self getGameSessionInfo] instanceId:_instanceId sessionStartTime:_sessionStartTime sequenceNumber:_sequence touches:(int)_clicks totalTouches:(int)_totalClicks];
         [ev autorelease];
@@ -316,10 +311,7 @@
 - (void) resume {
     @try {
         [PNLogger log:PNLogLevelDebug format:@"Session resumed."];
-        
-        if (_state == PNSessionStateStarted) {
-            return;
-        }
+        if (_state == PNSessionStateStarted) { return; }
         
         [self startEventTimer];
         
