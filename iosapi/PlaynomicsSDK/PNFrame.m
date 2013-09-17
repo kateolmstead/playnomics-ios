@@ -49,8 +49,6 @@
 }
 
 -(void) updateFrameResponse:(PNFrameResponse *)frameResponse{
-    _shouldRenderFrame = NO;
-    
     if(_adView){
         [_adView release];
     }
@@ -102,6 +100,11 @@
     }
 }
 
+-(void) reloadFrame{
+    _shouldRenderFrame = NO;
+    [_messaging fetchDataForFrame:_frameId];
+}
+
 #pragma mark - Ad component click handlers
 -(void) didLoad {
     self.state = PNFrameStateLoadingComplete;
@@ -144,7 +147,7 @@
     
     [self _destroyOrientationObservers];
     //refresh the frame when the ad has been closed
-    [_messaging fetchDataForFrame:_frameId];
+    [self reloadFrame];
 }
 
 -(void) adClicked {
@@ -182,7 +185,7 @@
         [self callPostAction: _response.postClickUrl withException: exception andResponseCode: responseCode];
     }
     //refresh the frame when the ad has been clicked
-    [_messaging fetchDataForFrame:_frameId];
+   [self reloadFrame];
 }
 
 -(void) callPostAction:(NSString *) postUrl
