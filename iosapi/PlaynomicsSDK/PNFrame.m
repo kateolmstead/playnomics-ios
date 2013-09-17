@@ -115,12 +115,12 @@
     [self handleFailure];
 }
 
--(void) didFailToLoadWithError: (NSError*) error {
+-(void) didFailToLoadWithError: (NSError *) error {
     [PNLogger log: PNLogLevelWarning error:error format:@"Frame failed to load due to error."];
     [self handleFailure];
 }
 
--(void) didFailToLoadWithException: (NSException*) exception {
+-(void) didFailToLoadWithException: (NSException *) exception {
     [PNLogger log: PNLogLevelWarning exception:exception format:@"Frame failed to load due to exception."];
     [self handleFailure];
 }
@@ -185,7 +185,9 @@
     [_messaging fetchDataForFrame:_frameId];
 }
 
--(void) callPostAction:(NSString*) postUrl withException: (NSException*) exception andResponseCode: (NSInteger) code{
+-(void) callPostAction:(NSString *) postUrl
+         withException:(NSException *) exception
+       andResponseCode:(NSInteger) code{
     NSString* fullPostActionUrl;
     if(exception != nil){
         NSString* exceptionMessage = [PNUtil urlEncodeValue: [NSString stringWithFormat:@"%@+%@", exception.name, exception.reason]];
@@ -197,7 +199,9 @@
 }
 
 #pragma mark - Public Interface
--(void) showInView:(UIView*) parentView withDelegate:(id<PlaynomicsFrameDelegate>) delegate {
+-(void) showInView:(UIView *) parentView
+      withDelegate:(id<PlaynomicsFrameDelegate>) delegate {
+    
     _frameDelegate = delegate;
     _shouldRenderFrame = YES;
     _parentView = parentView;

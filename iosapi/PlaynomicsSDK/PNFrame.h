@@ -25,8 +25,8 @@ typedef NS_ENUM(int, PNFrameState){
 @required
 -(void) didLoad;
 -(void) didFailToLoad;
--(void) didFailToLoadWithError: (NSError*) error;
--(void) didFailToLoadWithException: (NSException*) exception;
+-(void) didFailToLoadWithError: (NSError *) error;
+-(void) didFailToLoadWithException: (NSException *) exception;
 -(void) adClosed:(BOOL) closedByUser;
 -(void) adClicked;
 @end
@@ -34,7 +34,7 @@ typedef NS_ENUM(int, PNFrameState){
 @protocol PNAdView <NSObject>
 @required
 - (id) initWithResponse:(PNFrameResponse *) response delegate:(id<PNFrameDelegate>) delegate;
-- (void) renderAdInView:(UIView*) parentView;
+- (void) renderAdInView:(UIView *) parentView;
 - (void) hide;
 @end
 
@@ -52,15 +52,15 @@ typedef NS_ENUM(int, PNFrameState){
 
 
 // Called to display the ad frame and to begin capturing clicks within the frame.
-- (id) initWithFrameId: (NSString *) frameId
-               session: (PNSession *) session
-             messaging: (PNMessaging *) messaging;
+- (id) initWithFrameId:(NSString *) frameId
+               session:(PNSession *) session
+             messaging:(PNMessaging *) messaging;
 
 - (void) showInView:(UIView *) parentView
-       withDelegate: (id<PlaynomicsFrameDelegate>) delegate;
+       withDelegate:(id<PlaynomicsFrameDelegate>) delegate;
 
 - (void) hide;
 
-- (void) updateFrameResponse: (PNFrameResponse *) frameResponse;
+- (void) updateFrameResponse:(PNFrameResponse *) frameResponse;
 
 @end

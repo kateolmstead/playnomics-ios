@@ -12,27 +12,20 @@
 
 @implementation FrameDelegate
 
-
-- (void) onTouch:(NSDictionary *)jsonData{
-    NSString* message = [NSString stringWithFormat: @"Data for frame %@" , jsonData];
-    
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"JSON Callback"
-                                                    message:message
-                                                   delegate:self
-                                          cancelButtonTitle:@"OK"
-                                          otherButtonTitles:nil];
-    [alert show];
-    [alert release];
+-(void) onTouch:(NSDictionary *)jsonData{
+    NSLog(@"Touch was received for frame");
 }
 
-
-
--(void)webView: (UIWebView*) webView shouldStartLoadWithRequest: (NSURLRequest *) request navigationType: (UIWebViewNavigationType) navigationType {
-    NSLog(@"Navigation Type = %d", navigationType);
-    NSURL *URL = [request URL];
-    
-    if (navigationType == UIWebViewNavigationTypeLinkClicked) {
-        NSLog(@"Web View was clicked and URL is %@", URL);
-    }
+-(void) onClose:(NSDictionary *)jsonData{
+    NSLog(@"Close was received for frame.");
 }
+
+-(void) onDidFailToRender{
+    NSLog(@"Did fail to render.");
+}
+
+-(void) onShow:(NSDictionary *)jsonData{
+    NSLog(@"Did show for frame.");
+}
+
 @end

@@ -96,10 +96,9 @@
     [self addSubview:subComponent];
 }
 
-- (void)hide {
+- (void) hide{
     [self removeFromSuperview];
 }
-
 
 #pragma mark "Delegate Handlers"
 -(void) didLoad{
