@@ -83,12 +83,14 @@
 
 #pragma mark - Button receivers
 
-
 - (IBAction) onTransactionClick:(id)sender {
     NSNumber* price = [NSNumber numberWithDouble:.99];
     [Playnomics transactionWithUSDPrice: price quantity: 1];
 }
 
+- (IBAction) onUserInfo:(id)sender {
+    [Playnomics attributeInstallToSource:@"source" withCampaign:@"campaign" onInstallDate:[NSDate date]];
+}
 
 - (IBAction) onMilestoneClick:(id)sender {
     [Playnomics milestone : PNMilestoneCustom1];
@@ -130,21 +132,7 @@
     [Playnomics showFrameWithId: frameId delegate: _frameDelegate];
  }
 
--(void)onPnx
-{
-    [[[[UIAlertView alloc] initWithTitle:@"pnx success!" message:@"i am the call back from pnx" delegate:nil cancelButtonTitle:@"ok" otherButtonTitles: nil] autorelease]show];
-}
-
 #pragma mark Misc Functions
-- (void)performActionOnAdClicked {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Test Action"
-                                                    message:@"You're performing a test ACTION."
-                                                   delegate:self
-                                          cancelButtonTitle:@"OK"
-                                          otherButtonTitles:nil];
-    [alert show];
-    [alert release];
-}
 
 - (void)dealloc {
     [_frameIdText release];

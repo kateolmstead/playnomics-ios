@@ -16,7 +16,7 @@
 @property (retain, nonatomic) IBOutlet UITextField *frameIdText;
 
 - (IBAction) onTransactionClick:(id)sender;
-
+- (IBAction) onUserInfo:(id)sender;
 - (IBAction) onHttpClick: (id)sender;
 - (IBAction) onJsonClick: (id)sender;
 - (IBAction) onNullTargetClick: (id)sender;
@@ -26,6 +26,4 @@
 - (IBAction) onWebViewClick:(id)sender;
 
 - (IBAction) onMilestoneClick:(id)sender;
-
--(void)onPnx;
 @end
