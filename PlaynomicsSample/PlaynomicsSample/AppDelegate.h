@@ -8,11 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "Playnomics.h"
-#import "AdColonyPublic.h"
 
 @class ViewController;
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate, AdColonyDelegate>
+@interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 

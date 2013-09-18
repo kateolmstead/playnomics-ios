@@ -47,8 +47,8 @@
 		32306C8517E97AA0001240D7 /* PNGeneratedHexIdTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 32306C7317E97A5D001240D7 /* PNGeneratedHexIdTests.m */; };
 		32306C8717E97AA0001240D7 /* PNSessionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 32306C7517E97A5D001240D7 /* PNSessionTests.m */; };
 		32306C8917E97AA0001240D7 /* PNUtilTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 32306C7717E97A5D001240D7 /* PNUtilTests.m */; };
-		32384A1117E96CBF00DCA409 /* PNLogger.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3290171E17DA5AE20041895A /* PNLogger.h */; };
-		32384A1217E96CBF00DCA409 /* Playnomics.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 329016EB17DA5AE20041895A /* Playnomics.h */; };
+		32384A1117E96CBF00DCA409 /* PNLogger.h in Copy Files */ = {isa = PBXBuildFile; fileRef = 3290171E17DA5AE20041895A /* PNLogger.h */; };
+		32384A1217E96CBF00DCA409 /* Playnomics.h in Copy Files */ = {isa = PBXBuildFile; fileRef = 329016EB17DA5AE20041895A /* Playnomics.h */; };
 		323B353E17E9859400A2F7BC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 323B353D17E9859400A2F7BC /* Foundation.framework */; };
 		323B354017E985AD00A2F7BC /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 323B353F17E985AD00A2F7BC /* AdSupport.framework */; };
 		323B355417E9894700A2F7BC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 323B353D17E9859400A2F7BC /* Foundation.framework */; };
@@ -70,15 +70,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		3238496117E96B9100DCA409 /* CopyFiles */ = {
+		3238496117E96B9100DCA409 /* Copy Files */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "include/$(PRODUCT_NAME)";
 			dstSubfolderSpec = 16;
 			files = (
-				32384A1117E96CBF00DCA409 /* PNLogger.h in CopyFiles */,
-				32384A1217E96CBF00DCA409 /* Playnomics.h in CopyFiles */,
+				32384A1117E96CBF00DCA409 /* PNLogger.h in Copy Files */,
+				32384A1217E96CBF00DCA409 /* Playnomics.h in Copy Files */,
 			);
+			name = "Copy Files";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -457,7 +458,7 @@
 			buildPhases = (
 				3238495F17E96B9100DCA409 /* Sources */,
 				3238496017E96B9100DCA409 /* Frameworks */,
-				3238496117E96B9100DCA409 /* CopyFiles */,
+				3238496117E96B9100DCA409 /* Copy Files */,
 			);
 			buildRules = (
 			);
@@ -623,6 +624,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SYMROOT = "$(SRCROOT)/../target/$(TARGET_NAME)";
 				VALID_ARCHS = "armv7 armv7s";
 			};
 			name = Debug;
@@ -655,6 +657,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SYMROOT = "$(SRCROOT)/../target/$(TARGET_NAME)";
 				VALID_ARCHS = "armv7 armv7s";
 			};
 			name = Release;
@@ -706,6 +709,7 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SYMROOT = "$(SRCROOT)/../target/PlaynomicsSDK";
 				VALID_ARCHS = "armv7 armv7s ";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -753,6 +757,7 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SYMROOT = "$(SRCROOT)/../target/PlaynomicsSDK";
 				VALID_ARCHS = "armv7 armv7s ";
 				WRAPPER_EXTENSION = xctest;
 			};
