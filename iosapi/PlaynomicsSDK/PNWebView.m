@@ -28,7 +28,7 @@
         
         [super setDelegate:self];
         
-        if(_response.htmlContent != nil && _response.htmlContent != (id)[NSNull null] ){
+        if(_response.htmlContent != nil && _response.htmlContent != (id)[NSNull null]){
             _status = AdComponentStatusPending;
             
             if(_response.closeButtonImageUrl != nil){

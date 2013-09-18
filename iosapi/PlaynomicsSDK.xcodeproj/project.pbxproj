@@ -624,8 +624,8 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SYMROOT = "$(SRCROOT)/../target/$(TARGET_NAME)";
-				VALID_ARCHS = "armv7 armv7s";
+				SYMROOT = "$(SRCROOT)/../build/$(TARGET_NAME)";
+				VALID_ARCHS = "armv7 armv7s i386";
 			};
 			name = Debug;
 		};
@@ -657,8 +657,8 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SYMROOT = "$(SRCROOT)/../target/$(TARGET_NAME)";
-				VALID_ARCHS = "armv7 armv7s";
+				SYMROOT = "$(SRCROOT)/../build/$(TARGET_NAME)";
+				VALID_ARCHS = "armv7 armv7s i386";
 			};
 			name = Release;
 		};
@@ -709,7 +709,7 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SYMROOT = "$(SRCROOT)/../target/PlaynomicsSDK";
+				SYMROOT = "$(SRCROOT)/../build/PlaynomicsSDK";
 				VALID_ARCHS = "armv7 armv7s ";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -757,7 +757,7 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SYMROOT = "$(SRCROOT)/../target/PlaynomicsSDK";
+				SYMROOT = "$(SRCROOT)/../build/PlaynomicsSDK";
 				VALID_ARCHS = "armv7 armv7s ";
 				WRAPPER_EXTENSION = xctest;
 			};
