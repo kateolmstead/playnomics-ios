@@ -113,8 +113,10 @@
     [defaults setValue:[ self.lastSessionId toHex] forKey: PNUserDefaultsLastSessionID];
     [defaults setValue: self.lastUserId forKey: PNUserDefaultsLastUserID];
     [defaults setDouble: self.lastEventTime forKey: PNUserDefaultsLastSessionEventTime];
+    NSLog(@"Current cache value for device token is %@", [defaults stringForKey:PNUserDefaultsLastDeviceToken]);
     [defaults setValue: self.deviceToken forKey: PNUserDefaultsLastDeviceToken];
     [defaults synchronize];
+    NSLog(@"After update, cache value for device token is %@", [defaults stringForKey:PNUserDefaultsLastDeviceToken]);
 }
 
 - (UIPasteboard *) getPlaynomicsPasteboard {
