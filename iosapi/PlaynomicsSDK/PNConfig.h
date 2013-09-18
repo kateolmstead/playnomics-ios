@@ -16,8 +16,8 @@
 #define PNPropertyBaseTestUrl @"https://e.b.playnomics.net/v1/"
 #define PNPropertyBaseProdUrl @"https://e.a.playnomics.net/v1/"
 //TODO: get correct urls
-#define PNPropertyMessagingTestUrl @"https://ads.b.playnomics.net/v1/"
-#define PNPropertyMessagingProdUrl @"https://ads.a.playnomics.net/v1/"
+#define PNPropertyMessagingTestUrl @"https://ads.b.playnomics.net/v2/"
+#define PNPropertyMessagingProdUrl @"https://ads.a.playnomics.net/v2/"
 
 #define PNPropertyVersion @"9"
 // Connection timeout in seconds
