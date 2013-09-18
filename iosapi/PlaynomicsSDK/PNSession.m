@@ -232,7 +232,6 @@
 
 - (void) startSession{
     /** Setting Session variables */
-    NSLog(@"Loading Data from Cache");
     [_cache loadDataFromCache];
     
     BOOL settingsChanged = [_deviceManager syncDeviceSettingsWithCache];
@@ -522,7 +521,6 @@
 }
 
 - (void) pushNotificationsWithPayload:(NSDictionary *)payload {
-    NSLog(@"Push Message Received");
     @try {
         [self assertSessionHasStarted];
         

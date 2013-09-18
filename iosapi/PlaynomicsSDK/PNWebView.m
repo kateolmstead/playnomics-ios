@@ -86,17 +86,17 @@
     
     if (navigationType == UIWebViewNavigationTypeLinkClicked) {
         if ([URL.scheme isEqualToString:FrameResponseAd_WebViewClickProtocol]) {
-            NSLog(@"PN Web View was clicked and the type of click (host) is %@", URL.host);
+            [PNLogger log:PNLogLevelDebug format:@"PN Web View was clicked and the type of click (host) is %@", URL.host ];
             if ([URL.host isEqualToString:FrameResponseAd_WebViewAdClosed]) {
-                NSLog(@"PN Web View Close button was clicked");
+                [PNLogger log:PNLogLevelDebug format:@"PN Web View Close button was clicked"];
                 [self _closeAd];
             } else if ([URL.host isEqualToString:FrameResponseAd_WebViewAdClicked]) {
-                NSLog(@"PN Web View Ad was clicked");
+                [PNLogger log:PNLogLevelDebug format:@"PN Web View Ad was clicked"];
                 [self removeFromSuperview];
                 [_delegate adClicked];
             }
         } else {
-            NSLog(@"Web View was clicked");
+            [PNLogger log:PNLogLevelDebug format:@"Web View was clicked"];
             [[UIApplication sharedApplication] openURL:URL];
             [self removeFromSuperview];
             [_delegate adClicked];
@@ -145,7 +145,7 @@
 // If the ad was clicked, also close the ad and notify the delegate
 -(void) component: (id) component didReceiveTouch: (UITouch*) touch {
     if (component == _closeButton) {
-        NSLog(@"Close button was pressed...");
+        [PNLogger log: PNLogLevelDebug format: @"Close button was pressed..."];
         [self _closeAd];
     }
 }
