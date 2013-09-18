@@ -55,8 +55,8 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     long appId = 2L;
-    [Playnomics overrideEventsURL: @"http://e.b.playnomics.net/v1/"];
-    [Playnomics overrideMessagingURL: @"http://ads.b.playnomics.net/v1/"];
+    [Playnomics overrideEventsURL: @"http://e.c.playnomics.net/v1/"];
+    [Playnomics overrideMessagingURL: @"http://ads.c.playnomics.net/v1/"];
     [Playnomics setLoggingLevel:PNLogLevelVerbose];
     
     [Playnomics startWithApplicationId:appId];
@@ -126,6 +126,7 @@
      */
 }
 
+/*
 - (NSString*)adColonyApplicationID{
     return @"app76fb8d133f0146be909926";
 }
@@ -136,5 +137,6 @@
             @"vz642fb9a5f0e44409bd5483", [NSNumber numberWithInt:2],
             nil];
 }
+*/
 
 @end

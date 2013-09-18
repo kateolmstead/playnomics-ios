@@ -200,7 +200,7 @@
 }
 
 - (void) updateDeviceToken: (NSString *) value{
-    self.deviceToken =  value;
+    self.deviceToken = value;
 }
 
 - (NSString *) deserializeStringFromData : (NSDictionary*) dict key:(NSString*) key{
