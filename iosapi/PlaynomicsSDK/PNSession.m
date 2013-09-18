@@ -156,7 +156,8 @@
 }
 
 -(void) assertSessionHasStarted{
-    NSAssert(_state == PNSessionStateStarted, @"PlayRM session could not be started! Can't send data to Playnomics API.");
+    NSAssert(_state == PNSessionStateStarted || _state == PNSessionStatePaused,
+             @"PlayRM session could not be started! Can't send data to Playnomics API.");
 }
 
 -(void) start {
@@ -220,6 +221,7 @@
 
 - (void) startSession{
     /** Setting Session variables */
+    NSLog(@"Loading Data from Cache");
     [_cache loadDataFromCache];
     
     BOOL settingsChanged = [_deviceManager syncDeviceSettingsWithCache];
@@ -494,9 +496,9 @@
         NSString *newToken = [[deviceToken description] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]];
         newToken = [newToken stringByReplacingOccurrencesOfString:@" " withString:@""];
         
-        
         if (!(oldToken && [newToken isEqualToString:oldToken])) {
             [_cache updateDeviceToken: newToken];
+            [_cache writeDataToCache];
             
             PNEventUserInfo *ev = [[PNEventUserInfo alloc] initWithSessionInfo:[self getGameSessionInfo] pushToken: newToken];
             [ev autorelease];
@@ -509,6 +511,7 @@
 }
 
 - (void) pushNotificationsWithPayload:(NSDictionary *)payload {
+    NSLog(@"Push Message Received");
     @try {
         [self assertSessionHasStarted];
         
