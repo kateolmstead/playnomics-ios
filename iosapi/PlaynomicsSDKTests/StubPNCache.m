@@ -9,6 +9,11 @@
 #import "StubPNCache.h"
 #import "PNCache.h"
 #import "PNCache+Private.h"
+#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
+#import "OCMock.h"
+#import "OCMockObject.h"
+#import "OCMArg.h"
 
 @implementation StubPNCache{
     NSString *_initBreadcrumbId;

@@ -7,6 +7,11 @@
 //
 
 #import "StubDeviceToken.h"
+#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
+#import "OCMock.h"
+#import "OCMockObject.h"
+#import "OCMArg.h"
 
 @implementation StubDeviceToken{
     NSString* _token;

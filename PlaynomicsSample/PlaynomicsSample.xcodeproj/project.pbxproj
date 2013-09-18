@@ -8,9 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		322BEC5217A6CFF000C2623E /* FrameDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 322BEC5117A6CFF000C2623E /* FrameDelegate.m */; };
-		5BBAA079159BAF0000AA4993 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BBAA078159BAF0000AA4993 /* UIKit.framework */; };
-		5BBAA07B159BAF0000AA4993 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BBAA07A159BAF0000AA4993 /* Foundation.framework */; };
-		5BBAA07D159BAF0000AA4993 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BBAA07C159BAF0000AA4993 /* CoreGraphics.framework */; };
+		323B354817E9866C00A2F7BC /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 323B354717E9866C00A2F7BC /* AdSupport.framework */; };
+		323B354A17E9867200A2F7BC /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 323B354917E9867200A2F7BC /* AVFoundation.framework */; };
+		323B354C17E9867B00A2F7BC /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 323B354B17E9867B00A2F7BC /* CFNetwork.framework */; };
+		323B354E17E9868100A2F7BC /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 323B354D17E9868100A2F7BC /* CoreGraphics.framework */; };
+		323B355217E986A300A2F7BC /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 323B355117E986A300A2F7BC /* CoreData.framework */; };
+		32E2EFD417E9695E009A9508 /* libPlaynomicsSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 681CB35617DEA3F0008F9634 /* libPlaynomicsSDK.a */; };
 		5BBAA083159BAF0000AA4993 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5BBAA081159BAF0000AA4993 /* InfoPlist.strings */; };
 		5BBAA085159BAF0000AA4993 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BBAA084159BAF0000AA4993 /* main.m */; };
 		5BBAA089159BAF0000AA4993 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BBAA088159BAF0000AA4993 /* AppDelegate.m */; };
@@ -18,20 +21,7 @@
 		5BBAA08F159BAF0000AA4993 /* ViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BBAA08D159BAF0000AA4993 /* ViewController_iPhone.xib */; };
 		5BBAA092159BAF0000AA4993 /* ViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BBAA090159BAF0000AA4993 /* ViewController_iPad.xib */; };
 		6811AC7917B5864D00F532E9 /* libAdColony.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6811AC7817B5864D00F532E9 /* libAdColony.a */; };
-		6811AC8517B586F700F532E9 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6811AC7A17B586F700F532E9 /* AVFoundation.framework */; };
-		6811AC8617B586F700F532E9 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6811AC7B17B586F700F532E9 /* CFNetwork.framework */; };
-		6811AC8717B586F700F532E9 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6811AC7C17B586F700F532E9 /* CoreMedia.framework */; };
-		6811AC8817B586F700F532E9 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6811AC7D17B586F700F532E9 /* CoreTelephony.framework */; };
-		6811AC8917B586F700F532E9 /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6811AC7E17B586F700F532E9 /* EventKit.framework */; };
-		6811AC8A17B586F700F532E9 /* EventKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6811AC7F17B586F700F532E9 /* EventKitUI.framework */; };
-		6811AC8B17B586F700F532E9 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6811AC8017B586F700F532E9 /* MediaPlayer.framework */; };
-		6811AC8C17B586F700F532E9 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6811AC8117B586F700F532E9 /* MessageUI.framework */; };
-		6811AC8D17B586F700F532E9 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6811AC8217B586F700F532E9 /* QuartzCore.framework */; };
-		6811AC8E17B586F700F532E9 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6811AC8317B586F700F532E9 /* StoreKit.framework */; };
-		6811AC8F17B586F700F532E9 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6811AC8417B586F700F532E9 /* SystemConfiguration.framework */; };
 		6855CB7B17948E330058E101 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6855CB7A17948E330058E101 /* Default-568h@2x.png */; };
-		68A783B617DEA70E004057FE /* libPlaynomicsSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 681CB35617DEA3F0008F9634 /* libPlaynomicsSDK.a */; };
-		68E6DABF17AC249A00A904A8 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 681972A617AAE81100A789E8 /* AdSupport.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		A1244D5516A8A38E001A93DD /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A1244D5416A8A38D001A93DD /* Localizable.strings */; };
 		A18FFBAE16CADCA80099D6A5 /* dingdong.caf in Resources */ = {isa = PBXBuildFile; fileRef = A18FFBAD16CADCA80099D6A5 /* dingdong.caf */; };
 /* End PBXBuildFile section */
@@ -56,10 +46,12 @@
 /* Begin PBXFileReference section */
 		322BEC5017A6CFF000C2623E /* FrameDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FrameDelegate.h; sourceTree = "<group>"; };
 		322BEC5117A6CFF000C2623E /* FrameDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FrameDelegate.m; sourceTree = "<group>"; };
+		323B354717E9866C00A2F7BC /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
+		323B354917E9867200A2F7BC /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		323B354B17E9867B00A2F7BC /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		323B354D17E9868100A2F7BC /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		323B355117E986A300A2F7BC /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		5BBAA074159BAEFF00AA4993 /* PlaynomicsSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PlaynomicsSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		5BBAA078159BAF0000AA4993 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		5BBAA07A159BAF0000AA4993 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		5BBAA07C159BAF0000AA4993 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		5BBAA080159BAF0000AA4993 /* PlaynomicsSample-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "PlaynomicsSample-Info.plist"; sourceTree = "<group>"; };
 		5BBAA082159BAF0000AA4993 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		5BBAA084159BAF0000AA4993 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -72,18 +64,6 @@
 		5BBAA091159BAF0000AA4993 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController_iPad.xib; sourceTree = "<group>"; };
 		6811AC7717B5864D00F532E9 /* AdColonyPublic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AdColonyPublic.h; path = PlaynomicsSample/AdColonyPublic.h; sourceTree = "<group>"; };
 		6811AC7817B5864D00F532E9 /* libAdColony.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libAdColony.a; path = PlaynomicsSample/libAdColony.a; sourceTree = "<group>"; };
-		6811AC7A17B586F700F532E9 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
-		6811AC7B17B586F700F532E9 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
-		6811AC7C17B586F700F532E9 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
-		6811AC7D17B586F700F532E9 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
-		6811AC7E17B586F700F532E9 /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = System/Library/Frameworks/EventKit.framework; sourceTree = SDKROOT; };
-		6811AC7F17B586F700F532E9 /* EventKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKitUI.framework; path = System/Library/Frameworks/EventKitUI.framework; sourceTree = SDKROOT; };
-		6811AC8017B586F700F532E9 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
-		6811AC8117B586F700F532E9 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
-		6811AC8217B586F700F532E9 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		6811AC8317B586F700F532E9 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
-		6811AC8417B586F700F532E9 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		681972A617AAE81100A789E8 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		6855CB7A17948E330058E101 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		A1244D5416A8A38D001A93DD /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		A1244D6E16A8CB0B001A93DD /* PlaynomicsSDK.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PlaynomicsSDK.xcodeproj; path = ../iosapi/PlaynomicsSDK.xcodeproj; sourceTree = "<group>"; };
@@ -95,22 +75,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				68A783B617DEA70E004057FE /* libPlaynomicsSDK.a in Frameworks */,
-				6811AC8517B586F700F532E9 /* AVFoundation.framework in Frameworks */,
-				6811AC8617B586F700F532E9 /* CFNetwork.framework in Frameworks */,
-				6811AC8717B586F700F532E9 /* CoreMedia.framework in Frameworks */,
-				6811AC8817B586F700F532E9 /* CoreTelephony.framework in Frameworks */,
-				6811AC8917B586F700F532E9 /* EventKit.framework in Frameworks */,
-				6811AC8A17B586F700F532E9 /* EventKitUI.framework in Frameworks */,
-				6811AC8B17B586F700F532E9 /* MediaPlayer.framework in Frameworks */,
-				6811AC8C17B586F700F532E9 /* MessageUI.framework in Frameworks */,
-				6811AC8D17B586F700F532E9 /* QuartzCore.framework in Frameworks */,
-				6811AC8E17B586F700F532E9 /* StoreKit.framework in Frameworks */,
-				6811AC8F17B586F700F532E9 /* SystemConfiguration.framework in Frameworks */,
-				68E6DABF17AC249A00A904A8 /* AdSupport.framework in Frameworks */,
-				5BBAA07D159BAF0000AA4993 /* CoreGraphics.framework in Frameworks */,
-				5BBAA079159BAF0000AA4993 /* UIKit.framework in Frameworks */,
-				5BBAA07B159BAF0000AA4993 /* Foundation.framework in Frameworks */,
+				323B355217E986A300A2F7BC /* CoreData.framework in Frameworks */,
+				323B354E17E9868100A2F7BC /* CoreGraphics.framework in Frameworks */,
+				323B354C17E9867B00A2F7BC /* CFNetwork.framework in Frameworks */,
+				323B354A17E9867200A2F7BC /* AVFoundation.framework in Frameworks */,
+				323B354817E9866C00A2F7BC /* AdSupport.framework in Frameworks */,
+				32E2EFD417E9695E009A9508 /* libPlaynomicsSDK.a in Frameworks */,
 				6811AC7917B5864D00F532E9 /* libAdColony.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -141,21 +111,11 @@
 		5BBAA077159BAF0000AA4993 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				6811AC7A17B586F700F532E9 /* AVFoundation.framework */,
-				6811AC7B17B586F700F532E9 /* CFNetwork.framework */,
-				6811AC7C17B586F700F532E9 /* CoreMedia.framework */,
-				6811AC7D17B586F700F532E9 /* CoreTelephony.framework */,
-				6811AC7E17B586F700F532E9 /* EventKit.framework */,
-				6811AC7F17B586F700F532E9 /* EventKitUI.framework */,
-				6811AC8017B586F700F532E9 /* MediaPlayer.framework */,
-				6811AC8117B586F700F532E9 /* MessageUI.framework */,
-				6811AC8217B586F700F532E9 /* QuartzCore.framework */,
-				6811AC8317B586F700F532E9 /* StoreKit.framework */,
-				6811AC8417B586F700F532E9 /* SystemConfiguration.framework */,
-				681972A617AAE81100A789E8 /* AdSupport.framework */,
-				5BBAA078159BAF0000AA4993 /* UIKit.framework */,
-				5BBAA07A159BAF0000AA4993 /* Foundation.framework */,
-				5BBAA07C159BAF0000AA4993 /* CoreGraphics.framework */,
+				323B355117E986A300A2F7BC /* CoreData.framework */,
+				323B354D17E9868100A2F7BC /* CoreGraphics.framework */,
+				323B354B17E9867B00A2F7BC /* CFNetwork.framework */,
+				323B354917E9867200A2F7BC /* AVFoundation.framework */,
+				323B354717E9866C00A2F7BC /* AdSupport.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -210,7 +170,7 @@
 			isa = PBXGroup;
 			children = (
 				681CB35617DEA3F0008F9634 /* libPlaynomicsSDK.a */,
-				681CB35817DEA3F0008F9634 /* PlaynomicsSDKTests.octest */,
+				681CB35817DEA3F0008F9634 /* PlaynomicsSDKTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -275,10 +235,10 @@
 			remoteRef = 681CB35517DEA3F0008F9634 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		681CB35817DEA3F0008F9634 /* PlaynomicsSDKTests.octest */ = {
+		681CB35817DEA3F0008F9634 /* PlaynomicsSDKTests.xctest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
-			path = PlaynomicsSDKTests.octest;
+			path = PlaynomicsSDKTests.xctest;
 			remoteRef = 681CB35717DEA3F0008F9634 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
@@ -405,6 +365,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PlaynomicsSample/PlaynomicsSample-Prefix.pch";
 				HEADER_SEARCH_PATHS = "$(BUILT_PRODUCTS_DIR)/usr/local/include";
+				"HEADER_SEARCH_PATHS[arch=*]" = "$(BUILT_PRODUCTS_DIR)/usr/local/include";
 				INFOPLIST_FILE = "PlaynomicsSample/PlaynomicsSample-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				LIBRARY_SEARCH_PATHS = (

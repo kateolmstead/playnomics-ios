@@ -9,17 +9,22 @@
 #import "PNGeneratedHexIdTests.h"
 #import "PNGeneratedHexId.h"
 
+#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
+#import "OCMock.h"
+#import "OCMockObject.h"
+#import "OCMArg.h"
 @implementation PNGeneratedHexIdTests
 
 -(void) testGeneratesSessionId{
     PNGeneratedHexId *genId = [[PNGeneratedHexId alloc] initAndGenerateValue];
-    STAssertTrue(genId.generatedId > 0, @"Generated ID must be greater than 0");
+    XCTAssertTrue(genId.generatedId > 0, @"Generated ID must be greater than 0");
     
     NSString* hexString = [genId toHex];
     
     PNGeneratedHexId *cloneGenId = [[PNGeneratedHexId alloc] initWithValue: hexString];
 
-    STAssertEquals(genId.generatedId, cloneGenId.generatedId, @"Generated ID should be parsed from it's HEX represention.");
+    XCTAssertEqual(genId.generatedId, cloneGenId.generatedId, @"Generated ID should be parsed from it's HEX represention.");
 }
 
 @end

@@ -19,14 +19,10 @@
 @synthesize fullscreen = _fullscreen;
 @synthesize htmlContent = _htmlContent;
 @synthesize primaryImageUrl = _primaryImageUrl;
-@synthesize rolloverImageUrl = _rolloverImageUrl;
-@synthesize tooltipText = _tooltipText;
 @synthesize clickTarget = _clickTarget;
 @synthesize clickTargetData = _clickTargetData;
 @synthesize preClickUrl = _preClickUrl;
-@synthesize postClickUrl = _postClickUrl;
 @synthesize impressionUrl = _impressionUrl;
-@synthesize flagUrl = _flagUrl;
 @synthesize closeUrl = _closeUrl;
 @synthesize viewUrl = _viewUrl;
 @synthesize closeButtonInfo = _closeButtonInfo;
@@ -62,10 +58,7 @@
     } else {
         _adInfo = [adResponse objectAtIndex:0];
         _primaryImageUrl = [[self getImageFromProperties:_adInfo] retain];
-        _rolloverImageUrl = [[_adInfo objectForKey:FrameResponseAd_RolloverImage] retain];
-        _tooltipText = [[_adInfo objectForKey:FrameResponseAd_ToolTipText] retain];
         _impressionUrl = [[_adInfo objectForKey:FrameResponseAd_ImpressionUrl] retain];
-        _flagUrl = [[_adInfo objectForKey:FrameResponseAd_FlagUrl] retain];
         _closeUrl = [[_adInfo objectForKey:FrameResponseAd_CloseUrl] retain];
         
         _clickTarget = [[_adInfo objectForKey:FrameResponseAd_ClickTarget] retain];
@@ -75,7 +68,6 @@
         
         _actionType = [self toAdAction : _clickTarget];
         _targetType = [self toAdTarget: [_adInfo objectForKey:FrameResponseAd_TargetType]];
-        
         
         NSString* adType = [_adInfo objectForKey:FrameResponseAd_AdType];
         if (adType) {

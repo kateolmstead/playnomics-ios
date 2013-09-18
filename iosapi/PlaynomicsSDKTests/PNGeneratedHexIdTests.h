@@ -1,12 +1,12 @@
 //
 //  PNGeneratedHexIdTests.h
-//  iosapi
+//  PlaynomicsSDKTests
 //
 //  Created by Jared Jenkins on 8/27/13.
 //
 //
 
-#import <SenTestingKit/SenTestingKit.h>
+#import <XCTest/XCTest.h>
 
-@interface PNGeneratedHexIdTests : SenTestCase
+@interface PNGeneratedHexIdTests : XCTestCase
 @end

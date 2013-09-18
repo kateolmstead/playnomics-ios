@@ -7,4 +7,5 @@
     #import <Foundation/Foundation.h>
     #import "OCMock.h"
     #import "OCMockObject.h"
+    #import "OCMArg.h"
 #endif

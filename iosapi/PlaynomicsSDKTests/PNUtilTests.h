@@ -1,12 +1,12 @@
 //
 //  PNUtilTests.h
-//  iosapi
+//  PlaynomicsSDKTests
 //
 //  Created by Jared Jenkins on 8/27/13.
 //
 //
 
-#import <SenTestingKit/SenTestingKit.h>
+#import <XCTest/XCTest.h>
 
-@interface PNUtilTests : SenTestCase
+@interface PNUtilTests : XCTestCase
 @end

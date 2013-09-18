@@ -6,7 +6,6 @@
 //
 //
 
-#import <SenTestingKit/SenTestingKit.h>
-
-@interface PNDeviceManagerTests : SenTestCase
+#import <XCTest/XCTest.h>
+@interface PNDeviceManagerTests : XCTestCase
 @end

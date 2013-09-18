@@ -15,7 +15,11 @@
 #import "PNConstants.h"
 #import "PNDeviceManager.h"
 #import "PNDeviceManager+Private.h"
-
+#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
+#import "OCMock.h"
+#import "OCMockObject.h"
+#import "OCMArg.h"
 
 @implementation PNDeviceManagerTests
 
@@ -62,19 +66,19 @@
     
     BOOL dataChanged = [info syncDeviceSettingsWithCache];
     //Verify no data has changed
-    STAssertFalse(dataChanged, @"No data should have changed");
+    XCTAssertFalse(dataChanged, @"No data should have changed");
     
-    STAssertEquals([mockCache getBreadcrumbID], breadcrumbId , @"Breadcrumb should be loaded from cache");
-    STAssertFalse([mockCache breadcrumbIDChanged], @"Breadcrumb should not have changed.");
+    XCTAssertEqual([mockCache getBreadcrumbID], breadcrumbId , @"Breadcrumb should be loaded from cache");
+    XCTAssertFalse([mockCache breadcrumbIDChanged], @"Breadcrumb should not have changed.");
     //use isEqualToString for string comparison
-    STAssertTrue([[mockCache getIdfa] isEqual: idfa], @"IDFA should be loaded from cache");
-    STAssertFalse([mockCache idfaChanged], @"IDFA should not have changed.");
+    XCTAssertTrue([[mockCache getIdfa] isEqual: idfa], @"IDFA should be loaded from cache");
+    XCTAssertFalse([mockCache idfaChanged], @"IDFA should not have changed.");
 
-    STAssertTrue([[mockCache getIdfv] isEqual: idfv], @"IDFV should be loaded from cache");
-    STAssertFalse([mockCache idfvChanged], @"IDFA should not have changed.");
+    XCTAssertTrue([[mockCache getIdfv] isEqual: idfv], @"IDFV should be loaded from cache");
+    XCTAssertFalse([mockCache idfvChanged], @"IDFA should not have changed.");
 
-    STAssertEquals([mockCache getLimitAdvertising], limitAdvertising, @"Limit advertising should be loaded from cache");
-    STAssertFalse([mockCache limitAdvertisingChanged], @"Limit advertising should not have changed.");
+    XCTAssertEqual([mockCache getLimitAdvertising], limitAdvertising, @"Limit advertising should be loaded from cache");
+    XCTAssertFalse([mockCache limitAdvertisingChanged], @"Limit advertising should not have changed.");
 }
 
 - (void) testDeviceInfoWithNewDevice{
@@ -99,18 +103,18 @@
     
     BOOL dataChanged = [info syncDeviceSettingsWithCache];
     //Verify no data has changed
-    STAssertTrue(dataChanged, @"Cached device data should have changed");
+    XCTAssertTrue(dataChanged, @"Cached device data should have changed");
     
-    STAssertTrue([[mockCache getBreadcrumbID] isEqualToString: newBreadcrumb], @"Breadcrumb should be newly generated.");
+    XCTAssertTrue([[mockCache getBreadcrumbID] isEqualToString: newBreadcrumb], @"Breadcrumb should be newly generated.");
     //use isEqualToString for string comparison
-    STAssertTrue([[mockCache getIdfa] isEqual: currentIdfa], @"IDFA should be set from device.");
-    STAssertTrue([mockCache idfaChanged], @"IDFA should have changed.");
+    XCTAssertTrue([[mockCache getIdfa] isEqual: currentIdfa], @"IDFA should be set from device.");
+    XCTAssertTrue([mockCache idfaChanged], @"IDFA should have changed.");
     
-    STAssertTrue([[mockCache getIdfv] isEqual: currentIdfv], @"IDFV should be set from device.");
-    STAssertTrue([mockCache idfvChanged], @"IDFA should have changed.");
+    XCTAssertTrue([[mockCache getIdfv] isEqual: currentIdfv], @"IDFV should be set from device.");
+    XCTAssertTrue([mockCache idfvChanged], @"IDFA should have changed.");
     
-    STAssertEquals([mockCache getLimitAdvertising], newlimitAdvertising, @"Limit advertising should be set from device.");
-    STAssertTrue([mockCache idfvChanged], @"Limit advertising should have changed.");
+    XCTAssertEqual([mockCache getLimitAdvertising], newlimitAdvertising, @"Limit advertising should be set from device.");
+    XCTAssertTrue([mockCache idfvChanged], @"Limit advertising should have changed.");
 }
 
 -(void) testDeviceInfoUpdatesStaleValues{
@@ -133,20 +137,20 @@
     
     BOOL dataChanged = [info syncDeviceSettingsWithCache];
     //Verify no data has changed
-    STAssertTrue(dataChanged, @"Cached device data should have changed");
+    XCTAssertTrue(dataChanged, @"Cached device data should have changed");
     
-    STAssertFalse([mockCache breadcrumbIDChanged], @"Breadcrumb did not change");
-    STAssertTrue([[mockCache getBreadcrumbID] isEqualToString: breadcrumbId], @"Breadcrumb value is still the initial cache value.");
-    STAssertFalse([mockCache breadcrumbIDChanged], @"Breadcrumb should not have changed.");
+    XCTAssertFalse([mockCache breadcrumbIDChanged], @"Breadcrumb did not change");
+    XCTAssertTrue([[mockCache getBreadcrumbID] isEqualToString: breadcrumbId], @"Breadcrumb value is still the initial cache value.");
+    XCTAssertFalse([mockCache breadcrumbIDChanged], @"Breadcrumb should not have changed.");
     
-    STAssertTrue([[mockCache getIdfa] isEqual: currentIdfa], @"IDFA should be updated.");
-    STAssertTrue([mockCache idfaChanged], @"IDFA should be updated.");
+    XCTAssertTrue([[mockCache getIdfa] isEqual: currentIdfa], @"IDFA should be updated.");
+    XCTAssertTrue([mockCache idfaChanged], @"IDFA should be updated.");
     
-    STAssertTrue([[mockCache getIdfv] isEqual: currentIdfv], @"IDFV should be updated.");
-    STAssertTrue([mockCache idfvChanged], @"IDFA should be updated.");
+    XCTAssertTrue([[mockCache getIdfv] isEqual: currentIdfv], @"IDFV should be updated.");
+    XCTAssertTrue([mockCache idfvChanged], @"IDFA should be updated.");
     
-    STAssertEquals([mockCache getLimitAdvertising], newlimitAdvertising, @"Limit advertising should be updated.");
-    STAssertTrue([mockCache limitAdvertisingChanged], @"Limit advertising should be updated.");
+    XCTAssertEqual([mockCache getLimitAdvertising], newlimitAdvertising, @"Limit advertising should be updated.");
+    XCTAssertTrue([mockCache limitAdvertisingChanged], @"Limit advertising should be updated.");
 }
 
 

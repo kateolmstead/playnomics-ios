@@ -6,8 +6,6 @@
 //
 //
 
-#import <Foundation/Foundation.h>
-
 // The purpose of this class is stub out with a fake queue. Events
 // won't be sent to the server.
 @interface StubPNEventApiClient : NSObject

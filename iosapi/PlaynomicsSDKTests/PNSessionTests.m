@@ -80,15 +80,15 @@
     [_session start];
     
     
-    STAssertTrue(_session.applicationId == 1L, @"Application should be set");
-    STAssertEqualObjects(_session.userId,  @"test-user", @"User ID should be set");
-    STAssertEqualObjects(_session.cookieId, breadcrumb, @"Breadcrumb ID should be set");
+    XCTAssertTrue(_session.applicationId == 1L, @"Application should be set");
+    XCTAssertEqualObjects(_session.userId,  @"test-user", @"User ID should be set");
+    XCTAssertEqualObjects(_session.cookieId, breadcrumb, @"Breadcrumb ID should be set");
     
-    STAssertTrue([_stubApiClient.events count] == 2, @"2 events should be queued");
-    STAssertTrue([[_stubApiClient.events objectAtIndex:0] isKindOfClass:[PNEventAppStart class]], @"appStart is the first event");
-    STAssertTrue([[_stubApiClient.events objectAtIndex:1] isKindOfClass:[PNEventUserInfo class]], @"userInfo is the second event");
+    XCTAssertTrue([_stubApiClient.events count] == 2, @"2 events should be queued");
+    XCTAssertTrue([[_stubApiClient.events objectAtIndex:0] isKindOfClass:[PNEventAppStart class]], @"appStart is the first event");
+    XCTAssertTrue([[_stubApiClient.events objectAtIndex:1] isKindOfClass:[PNEventUserInfo class]], @"userInfo is the second event");
     
-    STAssertTrue(_session.sessionId.generatedId == _session.instanceId.generatedId, @"Instance ID and Session ID should be equal.");
+    XCTAssertTrue(_session.sessionId.generatedId == _session.instanceId.generatedId, @"Instance ID and Session ID should be equal.");
 }
 
 //runs app start with initial device data, expects 1 event: appStart
@@ -109,15 +109,15 @@
     
     [_session start];
     
-    STAssertTrue(_session.applicationId == 1L, @"Application should be set");
-    STAssertEqualObjects(_session.userId,  @"test-user", @"User ID should be set");
-    STAssertEqualObjects(_session.cookieId, breadcrumbId, @"Breadcrumb ID should be set");
+    XCTAssertTrue(_session.applicationId == 1L, @"Application should be set");
+    XCTAssertEqualObjects(_session.userId,  @"test-user", @"User ID should be set");
+    XCTAssertEqualObjects(_session.cookieId, breadcrumbId, @"Breadcrumb ID should be set");
     
-    STAssertTrue([_stubApiClient.events count] == 1, @"1 events should be queued");
+    XCTAssertTrue([_stubApiClient.events count] == 1, @"1 events should be queued");
     PNEventAppStart *appStart = [_stubApiClient.events objectAtIndex:0];
-    STAssertNotNil(appStart, @"appStart is the first event");
+    XCTAssertNotNil(appStart, @"appStart is the first event");
 
-    STAssertTrue(_session.sessionId.generatedId == _session.instanceId.generatedId, @"Instance ID and Session ID should be equal.");
+    XCTAssertTrue(_session.sessionId.generatedId == _session.instanceId.generatedId, @"Instance ID and Session ID should be equal.");
 }
 
 //runs session start with initial device data, and lapsed previous session, expects 1 event: appStart
@@ -145,15 +145,15 @@
     [_session start];
     
     
-    STAssertTrue(_session.applicationId == 1L, @"Application should be set");
-    STAssertEqualObjects(_session.userId, breadcrumbId, @"User ID should be set");
-    STAssertEqualObjects(_session.cookieId, breadcrumbId, @"Breadcrumb ID should be set");
+    XCTAssertTrue(_session.applicationId == 1L, @"Application should be set");
+    XCTAssertEqualObjects(_session.userId, breadcrumbId, @"User ID should be set");
+    XCTAssertEqualObjects(_session.cookieId, breadcrumbId, @"Breadcrumb ID should be set");
     
-    STAssertTrue([_stubApiClient.events count] == 1, @"1 events should be queued");
-    STAssertTrue([[_stubApiClient.events objectAtIndex:0] isKindOfClass:[PNEventAppStart class]], @"appStart generated after session has lapsed");
+    XCTAssertTrue([_stubApiClient.events count] == 1, @"1 events should be queued");
+    XCTAssertTrue([[_stubApiClient.events objectAtIndex:0] isKindOfClass:[PNEventAppStart class]], @"appStart generated after session has lapsed");
 
-    STAssertTrue(lastSessionId.generatedId != _session.sessionId.generatedId, @"Session ID should be new.");
-    STAssertTrue(_session.sessionId.generatedId == _session.instanceId.generatedId, @"Instance ID and Session ID should be equal.");
+    XCTAssertTrue(lastSessionId.generatedId != _session.sessionId.generatedId, @"Session ID should be new.");
+    XCTAssertTrue(_session.sessionId.generatedId == _session.instanceId.generatedId, @"Instance ID and Session ID should be equal.");
 }
 
 //runs session start with initial device data, and lapsed previous session, expects 1 event: appStart
@@ -180,15 +180,15 @@
     _session.applicationId = 1;
     [_session start];
     
-    STAssertTrue(_session.applicationId == 1L, @"Application should be set");
-    STAssertEqualObjects(_session.userId, breadcrumbId, @"User ID should be set");
-    STAssertEqualObjects(_session.cookieId, breadcrumbId, @"Breadcrumb ID should be set");
+    XCTAssertTrue(_session.applicationId == 1L, @"Application should be set");
+    XCTAssertEqualObjects(_session.userId, breadcrumbId, @"User ID should be set");
+    XCTAssertEqualObjects(_session.cookieId, breadcrumbId, @"Breadcrumb ID should be set");
 
-    STAssertTrue([_stubApiClient.events count] == 1, @"1 events should be queued");
-    STAssertTrue([[_stubApiClient.events objectAtIndex:0] isKindOfClass:[PNEventAppStart class]], @"appStart is generated when a new user appears");
+    XCTAssertTrue([_stubApiClient.events count] == 1, @"1 events should be queued");
+    XCTAssertTrue([[_stubApiClient.events objectAtIndex:0] isKindOfClass:[PNEventAppStart class]], @"appStart is generated when a new user appears");
     
-    STAssertTrue(lastSessionId.generatedId != _session.sessionId.generatedId, @"Session ID should be new.");
-    STAssertTrue(_session.sessionId.generatedId == _session.instanceId.generatedId, @"Instance ID and Session ID should be equal.");
+    XCTAssertTrue(lastSessionId.generatedId != _session.sessionId.generatedId, @"Session ID should be new.");
+    XCTAssertTrue(_session.sessionId.generatedId == _session.instanceId.generatedId, @"Instance ID and Session ID should be equal.");
 }
 
 //runs session start with device data changes, a previous startTime, expects 2 events: appPage and userInfo
@@ -213,16 +213,16 @@
     _session.applicationId = 1L;
     [_session start];
     
-    STAssertTrue(_session.applicationId == 1L, @"Application should be set");
-    STAssertEqualObjects(_session.userId, @"breadcrumbId", @"User ID should be set");
-    STAssertEqualObjects(_session.cookieId, @"breadcrumbId", @"Breadcrumb ID should be set");
+    XCTAssertTrue(_session.applicationId == 1L, @"Application should be set");
+    XCTAssertEqualObjects(_session.userId, @"breadcrumbId", @"User ID should be set");
+    XCTAssertEqualObjects(_session.cookieId, @"breadcrumbId", @"Breadcrumb ID should be set");
     
-    STAssertTrue([_stubApiClient.events count] == 2, @"2 events should be queued");
-    STAssertTrue([[_stubApiClient.events objectAtIndex:0] isKindOfClass:[PNEventAppPage class]], @"appPage is the first event");
-    STAssertTrue([[_stubApiClient.events objectAtIndex:1] isKindOfClass:[PNEventUserInfo class]], @"userInfo is the second event");
+    XCTAssertTrue([_stubApiClient.events count] == 2, @"2 events should be queued");
+    XCTAssertTrue([[_stubApiClient.events objectAtIndex:0] isKindOfClass:[PNEventAppPage class]], @"appPage is the first event");
+    XCTAssertTrue([[_stubApiClient.events objectAtIndex:1] isKindOfClass:[PNEventUserInfo class]], @"userInfo is the second event");
     
-    STAssertTrue(lastSessionId.generatedId == _session.sessionId.generatedId, @"Session ID should be loaded from cache.");
-    STAssertTrue(_session.sessionId.generatedId != _session.instanceId.generatedId, @"Instance ID and Session ID should be different.");
+    XCTAssertTrue(lastSessionId.generatedId == _session.sessionId.generatedId, @"Session ID should be loaded from cache.");
+    XCTAssertTrue(_session.sessionId.generatedId != _session.instanceId.generatedId, @"Instance ID and Session ID should be different.");
 }
 
 //runs session start with initial device data, a previous startTime, expects 2 events: appPage
@@ -248,13 +248,13 @@
     _session.applicationId = 1;
     [_session start];
     
-    STAssertTrue(_session.applicationId == 1L, @"Application should be set");
-    STAssertEqualObjects(_session.userId, breadcrumbId, @"User ID should be set");
-    STAssertEqualObjects(_session.cookieId, breadcrumbId, @"Breadcrumb ID should be set");
-    STAssertTrue([_stubApiClient.events count] == 1, @"1 event should be queued");
-    STAssertTrue([[_stubApiClient.events objectAtIndex:0] isKindOfClass:[PNEventAppPage class]], @"appPage is the first event");
-    STAssertTrue(lastSessionId.generatedId == _session.sessionId.generatedId, @"Session ID should be loaded from cache.");
-    STAssertTrue(_session.sessionId.generatedId != _session.instanceId.generatedId, @"Instance ID and Session ID should be different.");
+    XCTAssertTrue(_session.applicationId == 1L, @"Application should be set");
+    XCTAssertEqualObjects(_session.userId, breadcrumbId, @"User ID should be set");
+    XCTAssertEqualObjects(_session.cookieId, breadcrumbId, @"Breadcrumb ID should be set");
+    XCTAssertTrue([_stubApiClient.events count] == 1, @"1 event should be queued");
+    XCTAssertTrue([[_stubApiClient.events objectAtIndex:0] isKindOfClass:[PNEventAppPage class]], @"appPage is the first event");
+    XCTAssertTrue(lastSessionId.generatedId == _session.sessionId.generatedId, @"Session ID should be loaded from cache.");
+    XCTAssertTrue(_session.sessionId.generatedId != _session.instanceId.generatedId, @"Instance ID and Session ID should be different.");
 }
 
 //runs the start, and then milestone. expects 2 events: appStart and milestone
@@ -276,12 +276,12 @@
     [_session start];
     [_session milestone:PNMilestoneCustom1];
     
-    STAssertTrue(_session.applicationId == 1L, @"Application should be set");
-    STAssertEqualObjects(_session.userId, @"test-user", @"User ID should be set");
-    STAssertEqualObjects(_session.cookieId, breadcrumbId, @"Breadcrumb ID should be set");
-    STAssertTrue([_stubApiClient.events count] == 2, @"2 events should be queued");
-    STAssertTrue([[_stubApiClient.events objectAtIndex:0] isKindOfClass:[PNEventAppStart class]], @"appStart is the first event");
-    STAssertTrue([[_stubApiClient.events objectAtIndex:1] isKindOfClass:[PNEventMilestone class]], @"milestone is the second event");
+    XCTAssertTrue(_session.applicationId == 1L, @"Application should be set");
+    XCTAssertEqualObjects(_session.userId, @"test-user", @"User ID should be set");
+    XCTAssertEqualObjects(_session.cookieId, breadcrumbId, @"Breadcrumb ID should be set");
+    XCTAssertTrue([_stubApiClient.events count] == 2, @"2 events should be queued");
+    XCTAssertTrue([[_stubApiClient.events objectAtIndex:0] isKindOfClass:[PNEventAppStart class]], @"appStart is the first event");
+    XCTAssertTrue([[_stubApiClient.events objectAtIndex:1] isKindOfClass:[PNEventMilestone class]], @"milestone is the second event");
 }
 
 //runs the milestone without calling start first. expects 0 events
@@ -299,7 +299,7 @@
     
     [_session milestone:PNMilestoneCustom1];
     
-    STAssertTrue([_stubApiClient.events count] == 0, @"No events should be queued");
+    XCTAssertTrue([_stubApiClient.events count] == 0, @"No events should be queued");
 }
 
 //runs start, and then transaction. expects 2 events: appStart and milestone
@@ -321,12 +321,12 @@
     [_session start];
     [_session transactionWithUSDPrice:[NSNumber numberWithDouble:0.99] quantity:1];
     
-    STAssertTrue(_session.applicationId == 1L, @"Application should be set");
-    STAssertEqualObjects(_session.userId, @"test-user", @"User ID should be set");
-    STAssertEqualObjects(_session.cookieId, breadcrumbId, @"Breadcrumb ID should be set");
-    STAssertTrue([_stubApiClient.events count] == 2, @"2 events should be queued");
-    STAssertTrue([[_stubApiClient.events objectAtIndex:0] isKindOfClass:[PNEventAppStart class]], @"appStart is the first event");
-    STAssertTrue([[_stubApiClient.events objectAtIndex:1] isKindOfClass:[PNEventTransaction class]], @"transaction is the second event");
+    XCTAssertTrue(_session.applicationId == 1L, @"Application should be set");
+    XCTAssertEqualObjects(_session.userId, @"test-user", @"User ID should be set");
+    XCTAssertEqualObjects(_session.cookieId, breadcrumbId, @"Breadcrumb ID should be set");
+    XCTAssertTrue([_stubApiClient.events count] == 2, @"2 events should be queued");
+    XCTAssertTrue([[_stubApiClient.events objectAtIndex:0] isKindOfClass:[PNEventAppStart class]], @"appStart is the first event");
+    XCTAssertTrue([[_stubApiClient.events objectAtIndex:1] isKindOfClass:[PNEventTransaction class]], @"transaction is the second event");
 
 }
 //runs  transaction without calling start first. expects 0 events
@@ -344,7 +344,7 @@
     
     [_session transactionWithUSDPrice:[NSNumber numberWithDouble:0.99] quantity:1];
     
-    STAssertTrue([_stubApiClient.events count] == 0, @"No events should be queued");
+    XCTAssertTrue([_stubApiClient.events count] == 0, @"No events should be queued");
 }
 
 //runs start, and then enablePushNotifications, expects 2 events: appStart and enable push notifications
@@ -371,12 +371,12 @@
     [_session enablePushNotificationsWithToken: newToken];
     
     
-    STAssertTrue(_session.applicationId == 1L, @"Application should be set");
-    STAssertEqualObjects(_session.userId, @"test-user", @"User ID should be set");
-    STAssertEqualObjects(_session.cookieId, breadcrumbId, @"Breadcrumb ID should be set");
-    STAssertTrue([_stubApiClient.events count] == 2, @"2 events should be queued");
-    STAssertTrue([[_stubApiClient.events objectAtIndex:0] isKindOfClass:[PNEventAppStart class]], @"appStart is the first event");
-    STAssertTrue([[_stubApiClient.events objectAtIndex:1] isKindOfClass:[PNEventUserInfo class]], @"userInfo is the second event");
+    XCTAssertTrue(_session.applicationId == 1L, @"Application should be set");
+    XCTAssertEqualObjects(_session.userId, @"test-user", @"User ID should be set");
+    XCTAssertEqualObjects(_session.cookieId, breadcrumbId, @"Breadcrumb ID should be set");
+    XCTAssertTrue([_stubApiClient.events count] == 2, @"2 events should be queued");
+    XCTAssertTrue([[_stubApiClient.events objectAtIndex:0] isKindOfClass:[PNEventAppStart class]], @"appStart is the first event");
+    XCTAssertTrue([[_stubApiClient.events objectAtIndex:1] isKindOfClass:[PNEventUserInfo class]], @"userInfo is the second event");
 }
 
 //runs enablePushNotifications without calling start first. expects 0 events
@@ -398,7 +398,7 @@
     StubDeviceToken *newToken = [[StubDeviceToken alloc] initWithToken:@"<9876 54321>" cleanToken:@"987654321"];
     [_session enablePushNotificationsWithToken: newToken];
 
-    STAssertTrue([_stubApiClient.events count] == 0, @"0 events should be queued");
+    XCTAssertTrue([_stubApiClient.events count] == 0, @"0 events should be queued");
 }
 
 //runs enablePushTokens but the token has not changed. expects 1 event: appStart
@@ -423,11 +423,11 @@
     //token does not change
     [_session enablePushNotificationsWithToken: oldToken];
 
-    STAssertTrue(_session.applicationId == 1L, @"Application should be set");
-    STAssertEqualObjects(_session.userId, @"test-user", @"User ID should be set");
-    STAssertEqualObjects(_session.cookieId, breadcrumbId, @"Breadcrumb ID should be set");
-    STAssertTrue([_stubApiClient.events count] == 1, @"1 event should be queued");
-    STAssertTrue([[_stubApiClient.events objectAtIndex:0] isKindOfClass:[PNEventAppStart class]], @"appStart is the first event");
+    XCTAssertTrue(_session.applicationId == 1L, @"Application should be set");
+    XCTAssertEqualObjects(_session.userId, @"test-user", @"User ID should be set");
+    XCTAssertEqualObjects(_session.cookieId, breadcrumbId, @"Breadcrumb ID should be set");
+    XCTAssertTrue([_stubApiClient.events count] == 1, @"1 event should be queued");
+    XCTAssertTrue([[_stubApiClient.events objectAtIndex:0] isKindOfClass:[PNEventAppStart class]], @"appStart is the first event");
 }
 
 
@@ -455,12 +455,12 @@
     NSDate *installDate = [NSDate date];
     [_session attributeInstallToSource:source withCampaign:campaign onInstallDate:installDate];
 
-    STAssertTrue(_session.applicationId == 1L, @"Application should be set");
-    STAssertEqualObjects(_session.userId, @"test-user", @"User ID should be set");
-    STAssertEqualObjects(_session.cookieId, breadcrumbId, @"Breadcrumb ID should be set");
-    STAssertTrue([_stubApiClient.events count] == 2, @"2 events should be queued");
-    STAssertTrue([[_stubApiClient.events objectAtIndex:0] isKindOfClass:[PNEventAppStart class]], @"appStart is the first event");
-    STAssertTrue([[_stubApiClient.events objectAtIndex:1] isKindOfClass:[PNEventUserInfo class]], @"userInfo is the second event");
+    XCTAssertTrue(_session.applicationId == 1L, @"Application should be set");
+    XCTAssertEqualObjects(_session.userId, @"test-user", @"User ID should be set");
+    XCTAssertEqualObjects(_session.cookieId, breadcrumbId, @"Breadcrumb ID should be set");
+    XCTAssertTrue([_stubApiClient.events count] == 2, @"2 events should be queued");
+    XCTAssertTrue([[_stubApiClient.events objectAtIndex:0] isKindOfClass:[PNEventAppStart class]], @"appStart is the first event");
+    XCTAssertTrue([[_stubApiClient.events objectAtIndex:1] isKindOfClass:[PNEventUserInfo class]], @"userInfo is the second event");
 
 }
 
@@ -486,7 +486,7 @@
     NSDate *installDate = [NSDate date];
     [_session attributeInstallToSource:source withCampaign:campaign onInstallDate:installDate];
     
-    STAssertTrue([_stubApiClient.events count] == 0, @"0 events should be queued");
+    XCTAssertTrue([_stubApiClient.events count] == 0, @"0 events should be queued");
 }
 
 -(void) testApplicationLifeCycle{
@@ -508,13 +508,13 @@
     [_session pause];
     [_session resume];
 
-    STAssertTrue(_session.applicationId == 1L, @"Application should be set");
-    STAssertEqualObjects(_session.userId, @"test-user", @"User ID should be set");
-    STAssertEqualObjects(_session.cookieId, breadcrumbId, @"Breadcrumb ID should be set");
+    XCTAssertTrue(_session.applicationId == 1L, @"Application should be set");
+    XCTAssertEqualObjects(_session.userId, @"test-user", @"User ID should be set");
+    XCTAssertEqualObjects(_session.cookieId, breadcrumbId, @"Breadcrumb ID should be set");
     
-    STAssertTrue([_stubApiClient.events count] == 3, @"3 events should be queued");
-    STAssertTrue([[_stubApiClient.events objectAtIndex:0] isKindOfClass:[PNEventAppStart class]], @"appStart is the first event");
-    STAssertTrue([[_stubApiClient.events objectAtIndex:0] isKindOfClass:[PNEventAppStart class]], @"appPause is the first event");
-    STAssertTrue([[_stubApiClient.events objectAtIndex:0] isKindOfClass:[PNEventAppStart class]], @"appResume is the first event");
+    XCTAssertTrue([_stubApiClient.events count] == 3, @"3 events should be queued");
+    XCTAssertTrue([[_stubApiClient.events objectAtIndex:0] isKindOfClass:[PNEventAppStart class]], @"appStart is the first event");
+    XCTAssertTrue([[_stubApiClient.events objectAtIndex:0] isKindOfClass:[PNEventAppStart class]], @"appPause is the first event");
+    XCTAssertTrue([[_stubApiClient.events objectAtIndex:0] isKindOfClass:[PNEventAppStart class]], @"appResume is the first event");
 }
 @end
