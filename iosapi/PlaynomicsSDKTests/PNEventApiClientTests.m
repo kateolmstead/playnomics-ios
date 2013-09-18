@@ -21,17 +21,17 @@
 
 -(void) testNilUrl{
     NSString* url = [PNEventApiClient buildUrlWithBase:nil withPath: nil withParams:nil];
-    STAssertNil(url, @"url should be nil");
+    XCTAssertNil(url, @"url should be nil");
 }
 
 -(void) testUrlWithNoPath{
     NSString* url = [PNEventApiClient buildUrlWithBase:@"http://google.com" withPath: nil withParams:nil];
-    STAssertEqualObjects(url, @"http://google.com", @"URL is set");
+    XCTAssertEqualObjects(url, @"http://google.com", @"URL is set");
 }
 
 -(void) testUrlWithBasePath{
     NSString* url = [PNEventApiClient buildUrlWithBase:@"http://google.com" withPath: @"path" withParams:nil];
-    STAssertEqualObjects(url, @"http://google.com/path", @"URL is set");
+    XCTAssertEqualObjects(url, @"http://google.com/path", @"URL is set");
 }
 
 -(void) testUrlWithParamsNoPath{
@@ -40,7 +40,7 @@
     [params setObject:@"100" forKey:@"y"];
     
     NSString* url = [PNEventApiClient buildUrlWithBase:@"http://google.com" withPath: nil withParams:params];
-    STAssertEqualObjects(url, @"http://google.com?x=10&y=100", @"URL is set");
+    XCTAssertEqualObjects(url, @"http://google.com?x=10&y=100", @"URL is set");
 }
 
 -(void) testUrlWithParamsAndPath{
@@ -49,7 +49,7 @@
     [params setObject:@"100" forKey:@"y"];
     
     NSString* url = [PNEventApiClient buildUrlWithBase:@"http://google.com" withPath: @"path" withParams:params];
-    STAssertEqualObjects(url, @"http://google.com/path?x=10&y=100", @"URL is set");
+    XCTAssertEqualObjects(url, @"http://google.com/path?x=10&y=100", @"URL is set");
 }
 
 -(void) testUrlWithParamsAndQueryStringPath{
@@ -58,7 +58,7 @@
     [params setObject:@"100" forKey:@"y"];
     
     NSString* url = [PNEventApiClient buildUrlWithBase:@"http://google.com" withPath: @"?type=path" withParams:params];
-    STAssertEqualObjects(url, @"http://google.com/?type=path&x=10&y=100", @"URL is set");
+    XCTAssertEqualObjects(url, @"http://google.com/?type=path&x=10&y=100", @"URL is set");
 }
 
 

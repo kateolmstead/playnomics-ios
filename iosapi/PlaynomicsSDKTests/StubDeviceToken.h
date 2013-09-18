@@ -6,8 +6,6 @@
 //
 //
 
-#import <Foundation/Foundation.h>
-
 @interface StubDeviceToken : NSData
 - (id) initWithToken: (NSString *) token cleanToken: (NSString *) cleanToken;
 - (NSString*) cleanToken;

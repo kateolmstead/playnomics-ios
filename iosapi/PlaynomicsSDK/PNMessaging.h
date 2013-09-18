@@ -9,7 +9,7 @@
 
 @interface PNMessaging : NSObject
 
-- (id) initWithSession: (PNSession *) session;
+- (id) initWithSession:(PNSession *) session;
 
 - (void) fetchDataForFrame:(NSString *) frameId;
 
@@ -17,6 +17,6 @@
             inView:(UIView *) parentView
       withDelegate:(id<PlaynomicsFrameDelegate>) delegate;
 
--(void) hideFrame: (NSString *) frameId;
+-(void) hideFrame:(NSString *) frameId;
 
 @end

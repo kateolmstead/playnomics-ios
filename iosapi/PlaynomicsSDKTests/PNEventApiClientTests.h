@@ -1,13 +1,13 @@
 //
 //  PNEventApiClientTests.h
-//  iosapi
+//  PlaynomicsSDKTests
 //
 //  Created by Jared Jenkins on 9/5/13.
 //
 //
+#import <Foundation/Foundation.h>
+#import <XCTest/XCTest.h>
 
-#import <SenTestingKit/SenTestingKit.h>
-
-@interface PNEventApiClientTests : SenTestCase
+@interface PNEventApiClientTests : XCTestCase
 
 @end

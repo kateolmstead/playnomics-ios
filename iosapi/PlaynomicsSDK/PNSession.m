@@ -197,9 +197,20 @@
             }
         };
         [_observers addObject: [center addObserverForName:UIApplicationWillResignActiveNotification object:nil queue:mainQueue usingBlock:applicationPaused]];
-        [_observers addObject: [center addObserverForName:UIApplicationWillTerminateNotification object:nil queue:mainQueue usingBlock:applicationTerminating]];
-        [_observers addObject: [center addObserverForName:UIApplicationDidFinishLaunchingNotification object:nil queue:mainQueue usingBlock:applicationLaunched]];
-        [_observers addObject: [center addObserverForName:UIApplicationDidBecomeActiveNotification object:nil queue:mainQueue usingBlock:applicationResumed]];
+        [_observers addObject: [center addObserverForName:UIApplicationWillTerminateNotification
+                                                   object:nil
+                                                    queue:mainQueue
+                                               usingBlock:applicationTerminating]];
+        
+        [_observers addObject: [center addObserverForName:UIApplicationDidFinishLaunchingNotification
+                                                   object:nil
+                                                    queue:mainQueue
+                                               usingBlock:applicationLaunched]];
+        
+        [_observers addObject: [center addObserverForName:UIApplicationDidBecomeActiveNotification
+                                                   object:nil
+                                                    queue:mainQueue
+                                               usingBlock:applicationResumed]];
         
         // Retrieve stored Event List
         NSArray *storedEvents = (NSArray *) [NSKeyedUnarchiver unarchiveObjectWithFile:PNFileEventArchive];

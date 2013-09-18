@@ -30,8 +30,6 @@
 
 -(void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 {
-    NSLog(@"device token found\r\n---> %@",deviceToken);
-
     [Playnomics enablePushNotificationsWithToken:deviceToken];
 }
 
@@ -63,7 +61,7 @@
     
     [Playnomics startWithApplicationId:appId];
     
-    [AdColony initAdColonyWithDelegate:self];
+    //[AdColony initAdColonyWithDelegate:self];
     
     //enable notifications
     UIApplication *app = [UIApplication sharedApplication];

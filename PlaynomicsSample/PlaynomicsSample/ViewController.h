@@ -8,9 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "Playnomics.h"
-#import "AdColonyPublic.h"
 
-@interface ViewController : UIViewController <UITextFieldDelegate, AdColonyTakeoverAdDelegate>
+@interface ViewController : UIViewController <UITextFieldDelegate>
 
 @property (nonatomic, retain) IBOutlet UITextField *transactionCount;
 @property (retain, nonatomic) IBOutlet UITextField *frameIdText;
