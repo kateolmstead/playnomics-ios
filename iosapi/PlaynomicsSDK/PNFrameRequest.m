@@ -35,6 +35,7 @@
         [params setObject:frame.frameId forKey:@"f"];
         [params setObject:[NSNumber numberWithInt: screenSize.size.height] forKey:@"c"];
         [params setObject:[NSNumber numberWithInt: screenSize.size.width] forKey:@"d"];
+        [params setObject:[PNUtil getLanguage] forKey:@"lang"];
         
         _url = [PNEventApiClient buildUrlWithBase:[session getMessagingUrl]
                                          withPath:@"ads"
