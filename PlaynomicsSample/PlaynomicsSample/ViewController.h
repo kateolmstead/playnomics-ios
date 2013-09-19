@@ -19,10 +19,7 @@
 - (IBAction) onHttpClick: (id)sender;
 - (IBAction) onJsonClick: (id)sender;
 - (IBAction) onNullTargetClick: (id)sender;
-- (IBAction) onPnxClick: (id)sender;
 - (IBAction) onNoAdsClick:(id)sender;
-- (IBAction) onVideoAdClick:(id)sender;
-- (IBAction) onWebViewClick:(id)sender;
-
+- (IBAction) onThirdPartyAd:(id) sender;
 - (IBAction) onMilestoneClick:(id)sender;
 @end

@@ -5,8 +5,6 @@
 //
 //
 
-#import "PNEventTests.h"
-
 #import "PNEventAppPage.h"
 #import "PNEventAppStart.h"
 #import "PNEventAppPause.h"
@@ -19,11 +17,11 @@
 #import "PNConstants.h"
 #import "PNConfig.h"
 #import "PNUtil.h"
-#import <UIKit/UIKit.h>
-#import <Foundation/Foundation.h>
-#import "OCMock.h"
-#import "OCMockObject.h"
-#import "OCMArg.h"
+
+#import <XCTest/XCTest.h>
+
+@interface PNEventTests : XCTestCase
+@end
 
 @implementation PNEventTests{
     PNGameSessionInfo *_info;

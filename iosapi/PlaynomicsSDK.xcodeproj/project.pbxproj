@@ -156,17 +156,11 @@
 		32306C4317E97108001240D7 /* PNUrlProcessorDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PNUrlProcessorDelegate.h; path = PlaynomicsSDK/PNUrlProcessorDelegate.h; sourceTree = SOURCE_ROOT; };
 		32306C4417E97108001240D7 /* PNViewComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PNViewComponent.h; path = PlaynomicsSDK/PNViewComponent.h; sourceTree = SOURCE_ROOT; };
 		32306C6717E97462001240D7 /* PlaynomicsSDKTests-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "PlaynomicsSDKTests-Prefix.pch"; path = "PlaynomicsSDKTests/PlaynomicsSDKTests-Prefix.pch"; sourceTree = SOURCE_ROOT; };
-		32306C6C17E97A5D001240D7 /* PNDeviceManagerTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PNDeviceManagerTests.h; path = PlaynomicsSDKTests/PNDeviceManagerTests.h; sourceTree = SOURCE_ROOT; };
 		32306C6D17E97A5D001240D7 /* PNDeviceManagerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PNDeviceManagerTests.m; path = PlaynomicsSDKTests/PNDeviceManagerTests.m; sourceTree = SOURCE_ROOT; };
-		32306C6E17E97A5D001240D7 /* PNEventApiClientTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PNEventApiClientTests.h; path = PlaynomicsSDKTests/PNEventApiClientTests.h; sourceTree = SOURCE_ROOT; };
 		32306C6F17E97A5D001240D7 /* PNEventApiClientTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PNEventApiClientTests.m; path = PlaynomicsSDKTests/PNEventApiClientTests.m; sourceTree = SOURCE_ROOT; };
-		32306C7017E97A5D001240D7 /* PNEventTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PNEventTests.h; path = PlaynomicsSDKTests/PNEventTests.h; sourceTree = SOURCE_ROOT; };
 		32306C7117E97A5D001240D7 /* PNEventTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PNEventTests.m; path = PlaynomicsSDKTests/PNEventTests.m; sourceTree = SOURCE_ROOT; };
-		32306C7217E97A5D001240D7 /* PNGeneratedHexIdTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PNGeneratedHexIdTests.h; path = PlaynomicsSDKTests/PNGeneratedHexIdTests.h; sourceTree = SOURCE_ROOT; };
 		32306C7317E97A5D001240D7 /* PNGeneratedHexIdTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PNGeneratedHexIdTests.m; path = PlaynomicsSDKTests/PNGeneratedHexIdTests.m; sourceTree = SOURCE_ROOT; };
-		32306C7417E97A5D001240D7 /* PNSessionTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PNSessionTests.h; path = PlaynomicsSDKTests/PNSessionTests.h; sourceTree = SOURCE_ROOT; };
 		32306C7517E97A5D001240D7 /* PNSessionTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PNSessionTests.m; path = PlaynomicsSDKTests/PNSessionTests.m; sourceTree = SOURCE_ROOT; };
-		32306C7617E97A5D001240D7 /* PNUtilTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PNUtilTests.h; path = PlaynomicsSDKTests/PNUtilTests.h; sourceTree = SOURCE_ROOT; };
 		32306C7717E97A5D001240D7 /* PNUtilTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PNUtilTests.m; path = PlaynomicsSDKTests/PNUtilTests.m; sourceTree = SOURCE_ROOT; };
 		3238496317E96B9100DCA409 /* libPlaynomicsSDK.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPlaynomicsSDK.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		3238497017E96B9100DCA409 /* PlaynomicsSDKTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PlaynomicsSDKTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -220,17 +214,11 @@
 		32306C6B17E97A3B001240D7 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				32306C6C17E97A5D001240D7 /* PNDeviceManagerTests.h */,
 				32306C6D17E97A5D001240D7 /* PNDeviceManagerTests.m */,
-				32306C6E17E97A5D001240D7 /* PNEventApiClientTests.h */,
 				32306C6F17E97A5D001240D7 /* PNEventApiClientTests.m */,
-				32306C7017E97A5D001240D7 /* PNEventTests.h */,
 				32306C7117E97A5D001240D7 /* PNEventTests.m */,
-				32306C7217E97A5D001240D7 /* PNGeneratedHexIdTests.h */,
 				32306C7317E97A5D001240D7 /* PNGeneratedHexIdTests.m */,
-				32306C7417E97A5D001240D7 /* PNSessionTests.h */,
 				32306C7517E97A5D001240D7 /* PNSessionTests.m */,
-				32306C7617E97A5D001240D7 /* PNUtilTests.h */,
 				32306C7717E97A5D001240D7 /* PNUtilTests.m */,
 			);
 			name = Tests;

@@ -6,7 +6,6 @@
 //
 //
 
-#import "PNGeneratedHexIdTests.h"
 #import "PNGeneratedHexId.h"
 
 #import <UIKit/UIKit.h>
@@ -14,6 +13,12 @@
 #import "OCMock.h"
 #import "OCMockObject.h"
 #import "OCMArg.h"
+#import <XCTest/XCTest.h>
+
+@interface PNGeneratedHexIdTests : XCTestCase
+@end
+
+
 @implementation PNGeneratedHexIdTests
 
 -(void) testGeneratesSessionId{
@@ -27,4 +32,9 @@
     XCTAssertEqual(genId.generatedId, cloneGenId.generatedId, @"Generated ID should be parsed from it's HEX represention.");
 }
 
+-(void) testGeneratesSessionIdMultipleTimes{
+    for(int i = 0; i < 1000; i ++){
+        [self testGeneratesSessionId];
+    }
+}
 @end

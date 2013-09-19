@@ -6,8 +6,12 @@
 //
 //
 
-#import "PNEventApiClientTests.h"
 #import "PNEventApiClient.h"
+#import <XCTest/XCTest.h>
+
+@interface PNEventApiClientTests : XCTestCase
+
+@end
 
 @implementation PNEventApiClientTests
 

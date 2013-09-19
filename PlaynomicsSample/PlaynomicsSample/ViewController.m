@@ -29,7 +29,7 @@
 {
     _frameDelegate = [[FrameDelegate alloc] init];
     [super viewDidLoad];
-    [Playnomics preloadFramesWithIds:@"ec964fdf18af3d80", @"7a9138a971ce1773", @"c6877f336e9d9dda", @"546e241b9b97149b", @"15bec4e2b78424a2", nil];
+    [Playnomics preloadFramesWithIds:@"546e241b9b97149b", @"c6877f336e9d9dda", @"7a9138a971ce1773", @"15bec4e2b78424a2", @"33a3cf0ecfa71c1a", nil];
     _frameIdText.delegate = self;
 }
 
@@ -99,30 +99,22 @@
 }
 
 - (IBAction)onHttpClick:(id)sender {
-    [self initMsgFrame:@"ec964fdf18af3d80"];
+    [self initMsgFrame:@"546e241b9b97149b"];
 }
 
 - (IBAction)onJsonClick:(id)sender {
-    [self initMsgFrame:@"7a9138a971ce1773"];    
+    [self initMsgFrame:@"c6877f336e9d9dda"];
 }
 
 - (IBAction)onNullTargetClick:(id)sender {
-    [self initMsgFrame:@"c6877f336e9d9dda"];    
-}
-
-- (IBAction)onPnxClick:(id)sender {
-    [self initMsgFrame:@"546e241b9b97149b"];   
+    [self initMsgFrame:@"7a9138a971ce1773"];
 }
 
 -(IBAction)onNoAdsClick:(id)sender{
     [self initMsgFrame:@"15bec4e2b78424a2"];
 }
 
--(IBAction)onVideoAdClick:(id)sender{
-    [self initMsgFrame:@"e028a4547a9e438f"];
-}
-
--(IBAction)onWebViewClick:(id)sender{
+-(IBAction) onThirdPartyAd:(id) sender{
     [self initMsgFrame:@"33a3cf0ecfa71c1a"];
 }
 

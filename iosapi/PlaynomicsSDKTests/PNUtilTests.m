@@ -6,8 +6,11 @@
 //
 //
 
-#import "PNUtilTests.h"
 #import "PNUtil.h"
+#import <XCTest/XCTest.h>
+
+@interface PNUtilTests : XCTestCase
+@end
 
 @implementation PNUtilTests
 
