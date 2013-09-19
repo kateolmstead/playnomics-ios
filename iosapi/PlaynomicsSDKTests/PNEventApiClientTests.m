@@ -6,7 +6,6 @@
 //
 //
 
-#import "PNEventApiClientTests.h"
 #import "PNEventApiClient.h"
 #import <XCTest/XCTest.h>
 

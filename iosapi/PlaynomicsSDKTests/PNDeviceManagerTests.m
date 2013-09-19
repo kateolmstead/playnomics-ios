@@ -7,7 +7,6 @@
 //
 
 
-#import "PNDeviceManagerTests.h"
 #import "StubPNCache.h"
 
 #import <AdSupport/AdSupport.h>
