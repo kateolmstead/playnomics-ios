@@ -6,7 +6,6 @@
 //
 //
 
-#import "PNSessionTests.h"
 #import "PNSession.h"
 #import "PNSession+Private.h"
 
@@ -21,6 +20,10 @@
 #import "PNEventUserInfo.h"
 #import "PNEventMilestone.h"
 #import "PNEventTransaction.h"
+#import <XCTest/XCTest.h>
+
+@interface PNSessionTests : XCTestCase
+@end
 
 @implementation PNSessionTests{
     PNSession *_session;

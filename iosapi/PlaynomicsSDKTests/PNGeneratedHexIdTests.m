@@ -6,7 +6,6 @@
 //
 //
 
-#import "PNGeneratedHexIdTests.h"
 #import "PNGeneratedHexId.h"
 
 #import <UIKit/UIKit.h>
@@ -14,6 +13,12 @@
 #import "OCMock.h"
 #import "OCMockObject.h"
 #import "OCMArg.h"
+#import <XCTest/XCTest.h>
+
+@interface PNGeneratedHexIdTests : XCTestCase
+@end
+
+
 @implementation PNGeneratedHexIdTests
 
 -(void) testGeneratesSessionId{

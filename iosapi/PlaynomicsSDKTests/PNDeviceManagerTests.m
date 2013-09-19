@@ -15,11 +15,10 @@
 #import "PNConstants.h"
 #import "PNDeviceManager.h"
 #import "PNDeviceManager+Private.h"
-#import <UIKit/UIKit.h>
-#import <Foundation/Foundation.h>
-#import "OCMock.h"
-#import "OCMockObject.h"
-#import "OCMArg.h"
+
+#import <XCTest/XCTest.h>
+@interface PNDeviceManagerTests : XCTestCase
+@end
 
 @implementation PNDeviceManagerTests
 
