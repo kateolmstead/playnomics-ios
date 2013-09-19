@@ -72,22 +72,20 @@
 }
 
 + (NSString *) getLanguage {
-    // Get language as 2-letter ISO 639-1 alpha-2 code
+    // Get language as 2-letter ISO 639-1 alpha-2 code. Default to English
+    NSString *language = @"en";
     NSArray *languages = [NSLocale preferredLanguages];
     if ([languages count] > 0) {
-        NSString *languageTag = [languages objectAtIndex:0];
-        [PNLogger log:PNLogLevelDebug format: @"Language tag is %@ and substring of that is %@", languageTag, [languageTag substringToIndex:2]];
-        return [languageTag substringToIndex:2];
+        language = [[languages objectAtIndex:0] substringToIndex:2];
     } else {
         NSArray *localizations = [[NSBundle mainBundle] preferredLocalizations];
         if ([localizations count] > 0) {
-            [PNLogger log:PNLogLevelDebug format: @"Preferred Localization is %@", [localizations objectAtIndex:0]];
-            return [localizations objectAtIndex:0];
+            language = [[localizations objectAtIndex:0] substringToIndex:2];
         }
-        
-        // Assume English
-        return @"en";
     }
+    
+    [PNLogger log:PNLogLevelDebug format: @"Device Language is set to %@", language];
+    return language;
 }
 
 @end
