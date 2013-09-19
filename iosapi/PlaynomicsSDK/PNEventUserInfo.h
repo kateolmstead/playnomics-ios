@@ -7,8 +7,8 @@
 
 - (id) initWithSessionInfo:(PNGameSessionInfo *)info
           limitAdvertising:(BOOL) limitAdvertising
-                      idfa:(NSUUID *) idfa
-                      idfv:(NSUUID *) idfv;
+                      idfa:(NSString *) idfa
+                      idfv:(NSString *) idfv;
 
 -(id) initWithSessionInfo:(PNGameSessionInfo *)info
                    source:(NSString *) source

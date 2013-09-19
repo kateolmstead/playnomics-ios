@@ -56,10 +56,7 @@
         NSDictionary *data = [playnomicsPasteboard items][0];
         self.breadcrumbID = [self deserializeStringFromData: data key: PNPasteboardLastBreadcrumbID];
         
-        NSString *idfaString =  [self deserializeStringFromData:data key:PNPasteboardLastIDFA];
-        if(idfaString){
-            self.idfa = [[[NSUUID alloc] initWithUUIDString: idfaString] autorelease];
-        }
+        self.idfa = [self deserializeStringFromData:data key:PNPasteboardLastIDFA];
         
         self.limitAdvertising = [PNUtil stringAsBool: [self deserializeStringFromData:data key:PNPasteboardLastLimitAdvertising]];
     }
@@ -71,10 +68,7 @@
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
-    NSString *idfvString = [defaults stringForKey:PNUserDefaultsLastIDFV];
-    if(idfvString){
-        self.idfv = [[[NSUUID alloc] initWithUUIDString: idfvString] autorelease];
-    }
+    self.idfv = [defaults stringForKey:PNUserDefaultsLastIDFV];
     
     NSString *lastSessionIdHex = [defaults stringForKey:PNUserDefaultsLastSessionID];
     if (lastSessionIdHex) {
@@ -94,7 +88,7 @@
                                     [NSMutableDictionary new];
 
         if(_idfaChanged){
-            [pasteboardData setValue:[self.idfa UUIDString] forKey:PNPasteboardLastIDFA];
+            [pasteboardData setValue:self.idfa forKey:PNPasteboardLastIDFA];
         }
         if(_breadcrumbIDChanged){
             [pasteboardData setValue:self.breadcrumbID forKey:PNPasteboardLastBreadcrumbID];
@@ -107,7 +101,7 @@
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
     if(_idfvChanged){
-        [defaults setValue:[self.idfv UUIDString] forKey: PNUserDefaultsLastIDFV];
+        [defaults setValue:self.idfv forKey: PNUserDefaultsLastIDFV];
     }
     
     [defaults setValue:[ self.lastSessionId toHex] forKey: PNUserDefaultsLastSessionID];
@@ -134,23 +128,23 @@
     }
 }
 
-- (NSUUID *) getIdfa{
+- (NSString *) getIdfa{
     return self.idfa;
 }
 
-- (void) updateIdfa: (NSUUID *) value{
-    if(!(self.idfa && [value isEqual:self.idfa])){
+- (void) updateIdfa: (NSString *) value{
+    if(!(self.idfa && [value isEqualToString:self.idfa])){
         self.idfa = value;
         _idfaChanged = TRUE;
     }
 }
 
-- (NSUUID *) getIdfv {
+- (NSString *) getIdfv {
     return self.idfv;
 }
 
-- (void) updateIdfv : (NSUUID *) value{
-    if(!(self.idfv && [value isEqual: self.idfv])){
+- (void) updateIdfv : (NSString *) value{
+    if(!(self.idfv && [value isEqualToString: self.idfv])){
         self.idfv = value;
         _idfvChanged = TRUE;
     }

@@ -19,14 +19,14 @@ typedef enum {
 
 @interface PNSession : NSObject
 
-@property (nonatomic, assign) bool testMode;
-@property (nonatomic, copy) NSString *overrideEventsUrl;
-@property (nonatomic, copy) NSString *overrideMessagingUrl;
+@property (atomic, assign) bool testMode;
+@property (atomic, copy) NSString *overrideEventsUrl;
+@property (atomic, copy) NSString *overrideMessagingUrl;
 
-@property (nonatomic, readonly) NSString *sdkVersion;
+@property (atomic, readonly) NSString *sdkVersion;
 
-@property (nonatomic, assign) signed long long applicationId;
-@property (nonatomic, copy) NSString *userId;
+@property (atomic, assign) signed long long applicationId;
+@property (atomic, copy) NSString *userId;
 
 @property (nonatomic, readonly) NSString *cookieId;
 @property (nonatomic, readonly) PNGeneratedHexId *sessionId;

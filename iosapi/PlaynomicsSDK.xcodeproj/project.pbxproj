@@ -611,6 +611,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos5;
 				SKIP_INSTALL = YES;
 				SYMROOT = "$(SRCROOT)/../build/$(TARGET_NAME)";
 				VALID_ARCHS = "armv7 armv7s i386";
@@ -644,6 +645,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos5;
 				SKIP_INSTALL = YES;
 				SYMROOT = "$(SRCROOT)/../build/$(TARGET_NAME)";
 				VALID_ARCHS = "armv7 armv7s i386";

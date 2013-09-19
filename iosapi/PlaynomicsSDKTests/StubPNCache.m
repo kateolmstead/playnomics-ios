@@ -17,8 +17,8 @@
 
 @implementation StubPNCache{
     NSString *_initBreadcrumbId;
-    NSUUID *_initIdfa;
-    NSUUID *_initIdfv;
+    NSString *_initIdfa;
+    NSString *_initIdfv;
     BOOL _initLimitAdvertising;
     
     NSTimeInterval _initLastEventTime;
@@ -31,7 +31,7 @@
     PNCache *_cache;
 }
 
--(id) initWithBreadcrumbID: (NSString *) breadcrumb idfa: (NSUUID *) idfa idfv: (NSUUID *) idfv limitAdvertising: (BOOL) limitAdvertising{
+-(id) initWithBreadcrumbID: (NSString *) breadcrumb idfa: (NSString *) idfa idfv: (NSString *) idfv limitAdvertising: (BOOL) limitAdvertising{
   
     if((self = [super init])){
         _cache = [[PNCache alloc] init];
@@ -46,7 +46,7 @@
     return self;
 }
 
--(id) initWithBreadcrumbID: (NSString *) breadcrumb idfa: (NSUUID *) idfa idfv: (NSUUID *) idfv limitAdvertising: (BOOL) limitAdvertising
+-(id) initWithBreadcrumbID: (NSString *) breadcrumb idfa: (NSString *) idfa idfv: (NSString *) idfv limitAdvertising: (BOOL) limitAdvertising
 lastEventTime: (NSTimeInterval) lastEventTime lastUserId: (NSString *)lastUserId lastSessionId: (PNGeneratedHexId *) sessionId
 {
     if((self = [super init])){
@@ -64,7 +64,7 @@ lastEventTime: (NSTimeInterval) lastEventTime lastUserId: (NSString *)lastUserId
     return self;
 }
 
--(id) initWithBreadcrumbID: (NSString *) breadcrumb idfa: (NSUUID *) idfa idfv: (NSUUID *) idfv limitAdvertising: (BOOL) limitAdvertising deviceToken:(StubDeviceToken *) token{
+-(id) initWithBreadcrumbID: (NSString *) breadcrumb idfa: (NSString *) idfa idfv: (NSString *) idfv limitAdvertising: (BOOL) limitAdvertising deviceToken:(StubDeviceToken *) token{
     
     if((self = [super init])){
         _cache = [[PNCache alloc] init];

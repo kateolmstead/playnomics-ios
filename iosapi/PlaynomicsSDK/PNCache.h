@@ -19,11 +19,11 @@
 - (NSString *) getBreadcrumbID;
 - (void) updateBreadcrumbID: (NSString*) value;
 
-- (NSUUID *) getIdfa;
-- (void) updateIdfa: (NSUUID *) value;
+- (NSString *) getIdfa;
+- (void) updateIdfa: (NSString *) value;
 
-- (NSUUID *) getIdfv;
-- (void) updateIdfv : (NSUUID *) value;
+- (NSString *) getIdfv;
+- (void) updateIdfv : (NSString *) value;
 
 - (BOOL) getLimitAdvertising;
 - (void) updateLimitAdvertising : (BOOL) value;
