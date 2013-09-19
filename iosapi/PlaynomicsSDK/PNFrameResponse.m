@@ -95,9 +95,11 @@
     }
     
     _closeButtonInfo = [frameResponse objectForKey:FrameResponseCloseButtonInfo];
-    _closeButtonImageUrl = [[self getImageFromProperties:_closeButtonInfo] retain];
-    if (_closeButtonImageUrl != nil) {
-        _closeButtonDimensions = [self getViewDimensions:_closeButtonInfo];
+    if(_closeButtonInfo){
+        _closeButtonImageUrl = [[self getImageFromProperties:_closeButtonInfo] retain];
+        if (_closeButtonImageUrl != nil) {
+            _closeButtonDimensions = [self getViewDimensions:_closeButtonInfo];
+        }
     }
 }
 
