@@ -48,4 +48,5 @@ typedef enum {
 + (unsigned long long) generateRandomLongLong;
 
 + (CGRect) getScreenDimensions;
++ (NSString *) getLanguage;
 @end
