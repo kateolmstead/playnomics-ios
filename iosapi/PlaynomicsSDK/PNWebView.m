@@ -40,8 +40,18 @@
                                            _backgroundDimensions.height)];
             }
             
+            // Close button should only be non-nil for 3rd party ads
             if(_response.closeButtonImageUrl != nil){
-                _closeButton = [[PNViewComponent alloc] initWithDimensions:_response.closeButtonDimensions delegate:self image:_response.closeButtonImageUrl];
+                PNViewDimensions dimensions = {
+                    .width = _response.closeButtonDimensions.width,
+                    .height = _response.closeButtonDimensions.height,
+                    .x = [super frame].origin.x + [super frame].size.width - _response.closeButtonDimensions.width,
+                    .y = [super frame].origin.y
+                };
+                _closeButton = [[PNViewComponent alloc] initWithDimensions:dimensions delegate:self image:_response.closeButtonImageUrl];
+                if(_closeButton !=  nil){
+                    [self addSubview:_closeButton];
+                }
             }
             
             self.scrollView.scrollEnabled = NO;
