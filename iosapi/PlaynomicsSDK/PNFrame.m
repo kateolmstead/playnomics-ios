@@ -74,6 +74,7 @@
                                              selector:@selector(_deviceOrientationDidChange:)
                                                  name:UIDeviceOrientationDidChangeNotification
                                                object: nil];
+    
 }
 
 -(void) _destroyOrientationObservers {
