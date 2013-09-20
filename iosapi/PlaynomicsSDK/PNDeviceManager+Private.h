@@ -8,7 +8,7 @@
 
 @interface PNDeviceManager(Private)
 - (BOOL) isAdvertisingTrackingEnabledFromDevice;
-- (NSUUID *) getAdvertisingIdentifierFromDevice;
-- (NSUUID *) getVendorIdentifierFromDevice;
+- (NSString *) getAdvertisingIdentifierFromDevice;
+- (NSString *) getVendorIdentifierFromDevice;
 - (NSString *) generateBreadcrumbId;
 @end

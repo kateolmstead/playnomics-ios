@@ -13,18 +13,18 @@
 
 - (id) initWithSessionInfo:(PNGameSessionInfo *)info
           limitAdvertising: (BOOL) limitAdvertising
-                      idfa: (NSUUID *) idfa
-                      idfv: (NSUUID *) idfv {
+                      idfa: (NSString *) idfa
+                      idfv: (NSString *) idfv {
     if((self = [super initWithSessionInfo: info])){
         
         [self appendParameter:[PNUtil boolAsString:limitAdvertising] forKey:PNEventParameterUserInfoLimitAdvertising];
         
         if(idfa) {
-            [self appendParameter:[idfa UUIDString] forKey:PNEventParameterUserInfoIdfa];
+            [self appendParameter:idfa forKey:PNEventParameterUserInfoIdfa];
         }
         
         if(idfv) {
-            [self appendParameter:[idfv UUIDString] forKey:PNEventParameterUserInfoIdfv];
+            [self appendParameter:idfv forKey:PNEventParameterUserInfoIdfv];
         }
         [self appendParameter:@"update" forKey:PNEventParameterUserInfoType];
     }

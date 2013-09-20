@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		322BEC5217A6CFF000C2623E /* FrameDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 322BEC5117A6CFF000C2623E /* FrameDelegate.m */; };
-		323B354817E9866C00A2F7BC /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 323B354717E9866C00A2F7BC /* AdSupport.framework */; };
+		323B354817E9866C00A2F7BC /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 323B354717E9866C00A2F7BC /* AdSupport.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		323B354A17E9867200A2F7BC /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 323B354917E9867200A2F7BC /* AVFoundation.framework */; };
 		323B354C17E9867B00A2F7BC /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 323B354B17E9867B00A2F7BC /* CFNetwork.framework */; };
 		323B354E17E9868100A2F7BC /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 323B354D17E9868100A2F7BC /* CoreGraphics.framework */; };

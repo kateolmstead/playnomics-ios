@@ -32,7 +32,7 @@
     [super tearDown];
 }
 
--(id) mockCurrentDeviceInfo:(PNDeviceManager*) deviceInfo idfa: (NSUUID *) currentIdfa limitAdvertising : (BOOL) limitAdvertising idfv: (NSUUID *) currentIdfv generatedBreadcrumbID: (NSString*) breadcrumbId {
+-(id) mockCurrentDeviceInfo:(PNDeviceManager*) deviceInfo idfa: (NSString *) currentIdfa limitAdvertising : (BOOL) limitAdvertising idfv: (NSString *) currentIdfv generatedBreadcrumbID: (NSString*) breadcrumbId {
     
     id mock = [OCMockObject partialMockForObject:deviceInfo];
     
@@ -50,9 +50,9 @@
 
 - (void) testGetDeviceInfoFromDevice {
     NSString *breadcrumbId = @"breadcrumbId";
-    NSUUID *idfa = [[NSUUID alloc] init];
+    NSString *idfa = [[[NSUUID alloc] init] UUIDString];
     BOOL limitAdvertising = NO;
-    NSUUID *idfv = [[NSUUID alloc] init];
+    NSString *idfv = [[[NSUUID alloc] init] UUIDString];
     
     StubPNCache *cache = [[StubPNCache  alloc] initWithBreadcrumbID:breadcrumbId idfa:idfa idfv:idfv limitAdvertising:limitAdvertising];
     id mockCache = [cache getMockCache];
@@ -81,16 +81,16 @@
 
 - (void) testDeviceInfoWithNewDevice{
     NSString *breadcrumbId = nil;
-    NSUUID *idfa = nil;
+    NSString *idfa = nil;
     BOOL limitAdvertising = NO;
-    NSUUID *idfv = nil;
+    NSString *idfv = nil;
     
     StubPNCache *cache = [[StubPNCache  alloc] initWithBreadcrumbID:breadcrumbId idfa:idfa idfv:idfv limitAdvertising:limitAdvertising];
     id mockCache = [cache getMockCache];
     [cache loadDataFromCache];
 
-    NSUUID *currentIdfa = [[NSUUID alloc] init];
-    NSUUID *currentIdfv = [[NSUUID alloc] init];
+    NSString *currentIdfa = [[[NSUUID alloc] init] UUIDString];
+    NSString *currentIdfv = [[[NSUUID alloc] init] UUIDString];
     BOOL newlimitAdvertising  = YES;
 
     PNDeviceManager *info = [[PNDeviceManager alloc] initWithCache: mockCache];
@@ -117,16 +117,16 @@
 
 -(void) testDeviceInfoUpdatesStaleValues{
     NSString *breadcrumbId = @"breadcrumbId";
-    NSUUID *idfa = [[NSUUID alloc] init];
+    NSString *idfa = [[[NSUUID alloc] init] UUIDString];
     BOOL limitAdvertising = NO;
-    NSUUID *idfv = [[NSUUID alloc] init];
+    NSString *idfv = [[[NSUUID alloc] init] UUIDString];
     
     StubPNCache *cache = [[StubPNCache  alloc] initWithBreadcrumbID:breadcrumbId idfa:idfa idfv:idfv limitAdvertising:limitAdvertising];
     id mockCache = [cache getMockCache];
     [cache loadDataFromCache];
     
-    NSUUID *currentIdfa = [[NSUUID alloc] init];
-    NSUUID *currentIdfv = [[NSUUID alloc] init];
+    NSString *currentIdfa = [[[NSUUID alloc] init] UUIDString];
+    NSString *currentIdfv = [[[NSUUID alloc] init] UUIDString];
     BOOL newlimitAdvertising  = YES;
     
     PNDeviceManager *info = [[PNDeviceManager alloc] initWithCache: mockCache];

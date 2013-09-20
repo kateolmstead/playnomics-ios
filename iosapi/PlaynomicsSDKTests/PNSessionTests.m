@@ -43,7 +43,7 @@
     [_session release];
 }
 
--(id) mockCurrentDeviceInfo:(PNDeviceManager*) deviceInfo idfa: (NSUUID *) currentIdfa limitAdvertising : (BOOL) limitAdvertising idfv: (NSUUID *) currentIdfv generatedBreadcrumbID: (NSString*) breadcrumbId {
+-(id) mockCurrentDeviceInfo:(PNDeviceManager*) deviceInfo idfa: (NSString *) currentIdfa limitAdvertising : (BOOL) limitAdvertising idfv: (NSString *) currentIdfv generatedBreadcrumbID: (NSString*) breadcrumbId {
     
     id mock = [OCMockObject partialMockForObject:deviceInfo];
     
@@ -61,16 +61,16 @@
 //runs app start with no initial device data, expects 2 events: appStart and userInfo
 -(void) testAppStartNewDevice{
     NSString *breadcrumbId = nil;
-    NSUUID *idfa = nil;
+    NSString *idfa = nil;
     BOOL limitAdvertising = NO;
-    NSUUID *idfv = nil;
+    NSString *idfv = nil;
     
     _cache = [[StubPNCache alloc] initWithBreadcrumbID:breadcrumbId idfa:idfa idfv:idfv limitAdvertising:limitAdvertising];
     _session.cache = [_cache getMockCache];
     _session.deviceManager = [[PNDeviceManager alloc] initWithCache: _session.cache];
     
-    NSUUID *currentIdfa = [[NSUUID alloc] init];
-    NSUUID *currentIdfv = [[NSUUID alloc] init];
+    NSString *currentIdfa = [[[NSUUID alloc] init] UUIDString];
+    NSString *currentIdfv = [[[NSUUID alloc] init] UUIDString];
     BOOL currentLimit = NO;
     
     NSString *breadcrumb = [_session.deviceManager generateBreadcrumbId];
@@ -97,9 +97,9 @@
 //runs app start with initial device data, expects 1 event: appStart
 -(void) testAppStartNoDeviceChanges{
     NSString *breadcrumbId = @"breadcrumbId";
-    NSUUID *idfa = [[NSUUID alloc] init];
+    NSString *idfa = [[[NSUUID alloc] init] UUIDString];
     BOOL limitAdvertising = NO;
-    NSUUID *idfv = [[NSUUID alloc] init];
+    NSString *idfv = [[[NSUUID alloc] init] UUIDString];
     
     _cache = [[StubPNCache alloc] initWithBreadcrumbID:breadcrumbId idfa:idfa idfv:idfv limitAdvertising:limitAdvertising];
     _session.cache = [_cache getMockCache];
@@ -126,9 +126,9 @@
 //runs session start with initial device data, and lapsed previous session, expects 1 event: appStart
 -(void) testAppStartLapsedSession {
     NSString *breadcrumbId = @"breadcrumbId";
-    NSUUID *idfa = [[NSUUID alloc] init];
+    NSString *idfa = [[[NSUUID alloc] init] UUIDString];
     BOOL limitAdvertising = NO;
-    NSUUID *idfv = [[NSUUID alloc] init];
+    NSString *idfv = [[[NSUUID alloc] init] UUIDString];
     
     NSString *lastUserId = breadcrumbId;
     
@@ -162,9 +162,9 @@
 //runs session start with initial device data, and lapsed previous session, expects 1 event: appStart
 -(void) testAppStartSwappedUser {
     NSString *breadcrumbId = @"breadcrumbId";
-    NSUUID *idfa = [[NSUUID alloc] init];
+    NSString *idfa = [[[NSUUID alloc] init] UUIDString];
     BOOL limitAdvertising = NO;
-    NSUUID *idfv = [[NSUUID alloc] init];
+    NSString *idfv = [[[NSUUID alloc] init] UUIDString];
     
     NSString *lastUserId = @"old-user-id";
     
@@ -197,9 +197,9 @@
 //runs session start with device data changes, a previous startTime, expects 2 events: appPage and userInfo
 -(void) testAppPauseDeviceChanges{
     NSString *breadcrumbId = @"breadcrumbId";
-    NSUUID *idfa = [[NSUUID alloc] init];
+    NSString *idfa = [[[NSUUID alloc] init] UUIDString];
     BOOL limitAdvertising = NO;
-    NSUUID *idfv = [[NSUUID alloc] init];
+    NSString *idfv = [[[NSUUID alloc] init] UUIDString];
     
     NSString *lastUserId = breadcrumbId;
     NSTimeInterval now = [[NSDate new] timeIntervalSince1970];
@@ -211,7 +211,7 @@
     _session.cache = [_cache getMockCache];
     _session.deviceManager = [[PNDeviceManager alloc] initWithCache: _session.cache];
     
-    [self mockCurrentDeviceInfo: _session.deviceManager idfa: [[NSUUID alloc] init] limitAdvertising: limitAdvertising idfv: idfv generatedBreadcrumbID: breadcrumbId];
+    [self mockCurrentDeviceInfo: _session.deviceManager idfa: [[[NSUUID alloc] init] UUIDString] limitAdvertising: limitAdvertising idfv: idfv generatedBreadcrumbID: breadcrumbId];
 
     _session.applicationId = 1L;
     [_session start];
@@ -231,9 +231,9 @@
 //runs session start with initial device data, a previous startTime, expects 2 events: appPage
 -(void) testAppPauseNoDeviceChanges{
     NSString *breadcrumbId = @"breadcrumbId";
-    NSUUID *idfa = [[NSUUID alloc] init];
+    NSString *idfa = [[[NSUUID alloc] init] UUIDString];
     BOOL limitAdvertising = NO;
-    NSUUID *idfv = [[NSUUID alloc] init];
+    NSString *idfv = [[[NSUUID alloc] init] UUIDString];
     
     NSString *lastUserId = [breadcrumbId retain];
     
@@ -263,9 +263,9 @@
 //runs the start, and then milestone. expects 2 events: appStart and milestone
 -(void) testMilestone{
     NSString *breadcrumbId = @"breadcrumbId";
-    NSUUID *idfa = [[NSUUID alloc] init];
+    NSString *idfa = [[[NSUUID alloc] init] UUIDString];
     BOOL limitAdvertising = NO;
-    NSUUID *idfv = [[NSUUID alloc] init];
+    NSString *idfv = [[[NSUUID alloc] init] UUIDString];
     
     _cache = [[StubPNCache alloc] initWithBreadcrumbID:breadcrumbId idfa:idfa idfv:idfv limitAdvertising:limitAdvertising];
     _session.cache = [_cache getMockCache];
@@ -290,9 +290,9 @@
 //runs the milestone without calling start first. expects 0 events
 -(void) testMilestoneNoStart{
     NSString *breadcrumbId = @"breadcrumbId";
-    NSUUID *idfa = [[NSUUID alloc] init];
+    NSString *idfa = [[[NSUUID alloc] init] UUIDString];
     BOOL limitAdvertising = NO;
-    NSUUID *idfv = [[NSUUID alloc] init];
+    NSString *idfv = [[[NSUUID alloc] init] UUIDString];
     
     _cache = [[StubPNCache alloc] initWithBreadcrumbID:breadcrumbId idfa:idfa idfv:idfv limitAdvertising:limitAdvertising];
     _session.cache = [_cache getMockCache];
@@ -308,9 +308,9 @@
 //runs start, and then transaction. expects 2 events: appStart and milestone
 -(void) testTransaction{
     NSString *breadcrumbId = @"breadcrumbId";
-    NSUUID *idfa = [[NSUUID alloc] init];
+    NSString *idfa = [[[NSUUID alloc] init] UUIDString];
     BOOL limitAdvertising = NO;
-    NSUUID *idfv = [[NSUUID alloc] init];
+    NSString *idfv = [[[NSUUID alloc] init] UUIDString];
     
     _cache = [[StubPNCache alloc] initWithBreadcrumbID:breadcrumbId idfa:idfa idfv:idfv limitAdvertising:limitAdvertising];
     _session.cache = [_cache getMockCache];
@@ -335,9 +335,9 @@
 //runs  transaction without calling start first. expects 0 events
 -(void) testTransactionNoStart{
     NSString *breadcrumbId = @"breadcrumbId";
-    NSUUID *idfa = [[NSUUID alloc] init];
+    NSString *idfa = [[[NSUUID alloc] init] UUIDString];
     BOOL limitAdvertising = NO;
-    NSUUID *idfv = [[NSUUID alloc] init];
+    NSString *idfv = [[[NSUUID alloc] init] UUIDString];
     
     _cache = [[StubPNCache alloc] initWithBreadcrumbID:breadcrumbId idfa:idfa idfv:idfv limitAdvertising:limitAdvertising];
     _session.cache = [_cache getMockCache];
@@ -353,9 +353,9 @@
 //runs start, and then enablePushNotifications, expects 2 events: appStart and enable push notifications
 -(void) testEnabledPush{
     NSString *breadcrumbId = @"breadcrumbId";
-    NSUUID *idfa = [[NSUUID alloc] init];
+    NSString *idfa = [[[NSUUID alloc] init] UUIDString];
     BOOL limitAdvertising = NO;
-    NSUUID *idfv = [[NSUUID alloc] init];
+    NSString *idfv = [[[NSUUID alloc] init] UUIDString];
     
     StubDeviceToken *oldToken = [[StubDeviceToken alloc] initWithToken:@"<12345 6789>" cleanToken:@"123456789"];
     
@@ -385,9 +385,9 @@
 //runs enablePushNotifications without calling start first. expects 0 events
 -(void) testEnabledPushNoStart{
     NSString *breadcrumbId = @"breadcrumbId";
-    NSUUID *idfa = [[NSUUID alloc] init];
+    NSString *idfa = [[[NSUUID alloc] init] UUIDString];
     BOOL limitAdvertising = NO;
-    NSUUID *idfv = [[NSUUID alloc] init];
+    NSString *idfv = [[[NSUUID alloc] init] UUIDString];
     
     StubDeviceToken *oldToken = [[StubDeviceToken alloc] initWithToken:@"<12345 6789>" cleanToken:@"123456789"];
     
@@ -407,9 +407,9 @@
 //runs enablePushTokens but the token has not changed. expects 1 event: appStart
 -(void) testEnabledPushNoTokenChange{
     NSString *breadcrumbId = @"breadcrumbId";
-    NSUUID *idfa = [[NSUUID alloc] init];
+    NSString *idfa = [[[NSUUID alloc] init] UUIDString];
     BOOL limitAdvertising = NO;
-    NSUUID *idfv = [[NSUUID alloc] init];
+    NSString *idfv = [[[NSUUID alloc] init] UUIDString];
     
     StubDeviceToken *oldToken = [[StubDeviceToken alloc] initWithToken:@"<12345 6789>" cleanToken:@"123456789"];
     
@@ -436,9 +436,9 @@
 
 -(void) testAttribution{
     NSString *breadcrumbId = @"breadcrumbId";
-    NSUUID *idfa = [[NSUUID alloc] init];
+    NSString *idfa = [[[NSUUID alloc] init] UUIDString];
     BOOL limitAdvertising = NO;
-    NSUUID *idfv = [[NSUUID alloc] init];
+    NSString *idfv = [[[NSUUID alloc] init] UUIDString];
     
     StubDeviceToken *oldToken = [[StubDeviceToken alloc] initWithToken:@"<12345 6789>" cleanToken:@"123456789"];
     
@@ -469,9 +469,9 @@
 
 -(void) testAttributionNoStart{
     NSString *breadcrumbId = @"breadcrumbId";
-    NSUUID *idfa = [[NSUUID alloc] init];
+    NSString *idfa = [[[NSUUID alloc] init] UUIDString];
     BOOL limitAdvertising = NO;
-    NSUUID *idfv = [[NSUUID alloc] init];
+    NSString *idfv = [[[NSUUID alloc] init] UUIDString];
     
     StubDeviceToken *oldToken = [[StubDeviceToken alloc] initWithToken:@"<12345 6789>" cleanToken:@"123456789"];
     
@@ -494,9 +494,9 @@
 
 -(void) testApplicationLifeCycle{
     NSString *breadcrumbId = @"breadcrumbId";
-    NSUUID *idfa = [[NSUUID alloc] init];
+    NSString *idfa = [[[NSUUID alloc] init] UUIDString];
     BOOL limitAdvertising = NO;
-    NSUUID *idfv = [[NSUUID alloc] init];
+    NSString *idfv = [[[NSUUID alloc] init] UUIDString];
     
     _cache = [[StubPNCache alloc] initWithBreadcrumbID:breadcrumbId idfa:idfa idfv:idfv limitAdvertising:limitAdvertising];
     _session.cache = [_cache getMockCache];

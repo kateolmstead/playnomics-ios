@@ -57,13 +57,19 @@
     return manager.isAdvertisingTrackingEnabled;
 }
 
-- (NSUUID *) getAdvertisingIdentifierFromDevice {
-    ASIdentifierManager *manager = [ASIdentifierManager sharedManager];
-    return manager.advertisingIdentifier;
+- (NSString *) getAdvertisingIdentifierFromDevice {
+    if(NSClassFromString(@"ASIdentifierManager")){
+        ASIdentifierManager *manager = [ASIdentifierManager sharedManager];
+        return [manager.advertisingIdentifier UUIDString];
+    }
+    return nil;
 }
 
-- (NSUUID *) getVendorIdentifierFromDevice {
-    return [[UIDevice currentDevice] identifierForVendor];
+- (NSString *) getVendorIdentifierFromDevice {
+    if([[UIDevice currentDevice] respondsToSelector:@selector(identifierForVendor)]){
+        return [[[UIDevice currentDevice] identifierForVendor] UUIDString];
+    }
+    return nil;
 }
 
 @end

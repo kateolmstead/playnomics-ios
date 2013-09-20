@@ -12,8 +12,7 @@
 #import "AppDelegate.h"
 
 #import "RootViewController.h"
-#import "PlaynomicsSession.h"
-#import "PlaynomicsMessaging.h"
+#import "Playnomics.h"
 
 @implementation AppController
 
@@ -27,9 +26,9 @@
 static AppDelegate s_sharedApplication;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    long long appId = 2;
+    unsigned long long appId = 3588475575140958849L;
     
-    [PlaynomicsSession startWithApplicationId:appId userId:@"JaredIsAngry"];
+    [Playnomics startWithApplicationId:appId];
     
     // Override point for customization after application launch.
 
@@ -57,6 +56,8 @@ static AppDelegate s_sharedApplication;
         // use this method on ios6
         [window setRootViewController:viewController];
     }
+    
+    [window setRootViewController:viewController];
     [window makeKeyAndVisible];
 
     [[UIApplication sharedApplication] setStatusBarHidden: YES];
