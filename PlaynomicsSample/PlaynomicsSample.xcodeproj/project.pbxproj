@@ -372,8 +372,8 @@
 		5BBAA096159BAF0000AA4993 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: Shiraz Khan (LEV6CH2NX4)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Shiraz Khan (LEV6CH2NX4)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Turiya Media, Inc. (3XGDM87KDL)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Turiya Media, Inc. (3XGDM87KDL)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PlaynomicsSample/PlaynomicsSample-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
@@ -381,16 +381,17 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "PlaynomicsSample/PlaynomicsSample-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				OBJROOT = "$(SYMROOT)";
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-fobjc-arc",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "461AD27C-CC10-4F2C-BE41-6131FE5B93BB";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "461AD27C-CC10-4F2C-BE41-6131FE5B93BB";
+				PROVISIONING_PROFILE = "323C2FA4-7404-4207-84F4-3F3CC2D5383E";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "323C2FA4-7404-4207-84F4-3F3CC2D5383E";
 				RUN_CLANG_STATIC_ANALYZER = YES;
+				SKIP_INSTALL = YES;
 				SYMROOT = build;
 				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
@@ -400,8 +401,8 @@
 		5BBAA097159BAF0000AA4993 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: Shiraz Khan (LEV6CH2NX4)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Shiraz Khan (LEV6CH2NX4)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Turiya Media, Inc. (3XGDM87KDL)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Turiya Media, Inc. (3XGDM87KDL)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PlaynomicsSample/PlaynomicsSample-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
@@ -409,16 +410,17 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "PlaynomicsSample/PlaynomicsSample-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				OBJROOT = "$(SYMROOT)";
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-fobjc-arc",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "461AD27C-CC10-4F2C-BE41-6131FE5B93BB";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "461AD27C-CC10-4F2C-BE41-6131FE5B93BB";
+				PROVISIONING_PROFILE = "323C2FA4-7404-4207-84F4-3F3CC2D5383E";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "323C2FA4-7404-4207-84F4-3F3CC2D5383E";
 				RUN_CLANG_STATIC_ANALYZER = YES;
+				SKIP_INSTALL = YES;
 				SYMROOT = build;
 				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;

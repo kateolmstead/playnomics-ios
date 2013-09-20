@@ -11,8 +11,15 @@
 #import "PNAssetRequest.h"
 #import "PNGameSessionInfo.h"
 
+@protocol PNFrameRequestDelegate <NSObject>
+-(void) onFrameUrlCompleted:(NSString *) url;
+@end
+
 @interface PNFrameRequest : NSObject<PNAssetRequestDelegate>
--(id) initWithFrame:(PNFrame *) frame screenSize:(CGRect) screenSize session:(PNSession *) session;
+-(id) initWithFrame:(PNFrame *) frame
+                url:(NSString *) requestUrl
+          delegate:(id<PNFrameRequestDelegate>) delegate;
+
 -(void) fetchFrameData;
 
 @end

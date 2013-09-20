@@ -20,6 +20,9 @@
 }
 #pragma mark - Lifecycle/Memory management
 -(id) initWithResponse:(PNFrameResponse *) response delegate:(id<PNFrameDelegate>) delegate {
+    
+    self = [super init];
+    
     _response = [response retain];
     _delegate = delegate;
     

@@ -15,7 +15,7 @@
 @required
 -(void) connectionDidFail;
 -(void) requestDidFailWithError: (NSError *) error;
--(void) requestDidFailtWithStatusCode: (int) statusCode;
+-(void) requestDidFailWithStatusCode: (int) statusCode;
 -(void) requestDidCompleteWithData: (NSData *) data;
 @end
 

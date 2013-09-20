@@ -14,33 +14,18 @@
     PNFrame* _frame;
     NSString* _url;
     PNAssetRequest *_request;
+    id<PNFrameRequestDelegate> _delegate;
 }
 
--(id) initWithFrame:(PNFrame *) frame screenSize:(CGRect) screenSize session:(PNSession *) session{
+-(id) initWithFrame:(PNFrame *) frame
+                url:(NSString *) requestUrl
+           delegate:(id<PNFrameRequestDelegate>) delegate
+{
+    
     if((self = [super init])){
         _frame = [frame retain];
-        
-        long long timeInMilliseconds = ([[NSDate date] timeIntervalSince1970] * 1000);
-        
-        NSNumber *requestTime = [NSNumber numberWithLongLong: timeInMilliseconds];
-        
-        NSNumber * applicationId = [NSNumber numberWithUnsignedLongLong:session.applicationId];
-        
-        NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-        [params setObject:applicationId  forKey:@"a"];
-        [params setObject:session.userId forKey:@"u"];
-        [params setObject:requestTime forKey:@"t"];
-        [params setObject:@"ios" forKey:@"esrc"];
-        [params setObject:session.sdkVersion forKey:@"ever"];
-        [params setObject:frame.frameId forKey:@"f"];
-        [params setObject:[NSNumber numberWithInt: screenSize.size.height] forKey:@"c"];
-        [params setObject:[NSNumber numberWithInt: screenSize.size.width] forKey:@"d"];
-        [params setObject:[PNUtil getLanguage] forKey:@"lang"];
-        
-        _url = [PNEventApiClient buildUrlWithBase:[session getMessagingUrl]
-                                         withPath:@"ads"
-                                       withParams:params];
-        [params release];
+        _url = [requestUrl retain];
+        _delegate = delegate;
     }
     return self;
 }
@@ -69,6 +54,7 @@
         [_frame updateFrameResponse:response];
         [PNLogger log:PNLogLevelVerbose
                format:@"Successfully fetched frame data. JSON response %@", [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease]];
+        [_delegate onFrameUrlCompleted: _url];
     }
     @catch(NSException *ex) {
         [PNLogger log:PNLogLevelWarning
@@ -76,11 +62,13 @@
                format:@"Could load frame %@. Got exception while deserializing JSON response."];
         _frame.state = PNFrameStateLoadingFailed;
     }
+   
 }
 
--(void) requestDidFailtWithStatusCode:(int)statusCode{
+-(void) requestDidFailWithStatusCode:(int)statusCode{
     [PNLogger log:PNLogLevelWarning format:@"Could not load frame %@. Received HTTP status code %d.", _frame.frameId, statusCode];
     _frame.state = PNFrameStateLoadingFailed;
+    [_delegate onFrameUrlCompleted: _url];
 }
 
 -(void) requestDidFailWithError:(NSError *)error{
@@ -89,10 +77,13 @@
                 error:error
                format:@"Could not load frame %@. Received error.", _frame.frameId];
         _frame.state = PNFrameStateLoadingFailed;
+        
+        [_delegate onFrameUrlCompleted: _url];
     }
     @catch(NSException *ex){
         [PNLogger log:PNLogLevelWarning exception:ex format:@"Could not handle requestDidFailWithError callback."];
     }
+    
 }
 
 -(void) connectionDidFail{
@@ -100,6 +91,8 @@
         [PNLogger log:PNLogLevelWarning
                format:@"Could not load frame %@. Connection could not be open.", _frame.frameId];
         _frame.state = PNFrameStateLoadingFailed;
+        
+        [_delegate onFrameUrlCompleted: _url];
     }
     @catch(NSException *ex){
         [PNLogger log:PNLogLevelWarning exception:ex format:@"Could not handle connectionDidFail callback."];
