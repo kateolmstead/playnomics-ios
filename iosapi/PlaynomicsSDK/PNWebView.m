@@ -39,12 +39,7 @@
             
             // Close button should only be non-nil for 3rd party ads
             if(_response.closeButtonImageUrl != nil){
-                PNViewDimensions dimensions = {
-                    .width = _response.closeButtonDimensions.width,
-                    .height = _response.closeButtonDimensions.height,
-                    .x = [super frame].origin.x + [super frame].size.width - _response.closeButtonDimensions.width,
-                    .y = [super frame].origin.y
-                };
+                CGRect dimensions = [self getFrameForCloseButton];
                 _closeButton = [[PNViewComponent alloc] initWithDimensions:dimensions delegate:self image:_response.closeButtonImageUrl];
                 if(_closeButton !=  nil){
                     [self addSubview:_closeButton];
@@ -60,6 +55,14 @@
     return self;
 }
 
+-(CGRect) getFrameForCloseButton{
+    //always place the close button in the top right of the web view
+    return CGRectMake([super frame].origin.x + [super frame].size.width - _response.closeButtonDimensions.size.width,
+                      [super frame].origin.y,
+                      _response.closeButtonDimensions.size.width,
+                      _response.closeButtonDimensions.size.height);
+}
+
 -(void) renderAdInView:(UIView *)parentView {
     int lastDisplayIndex = parentView.subviews.count;
     [parentView insertSubview:self atIndex:lastDisplayIndex+1];
@@ -71,7 +74,9 @@
 }
 
 -(void) rotate{
-    
+    if(_closeButton){
+        _closeButton.frame = [self getFrameForCloseButton];
+    }
 }
 
 -(void)dealloc{
