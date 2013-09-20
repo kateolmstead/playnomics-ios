@@ -612,6 +612,10 @@
 - (void) setFrameParentView:(UIView *) parentView{
     @try{
         [self assertSessionHasStarted];
+        if(_parentView){
+            [_parentView release];
+        }
+        
         _parentView = [parentView retain];
     } @catch(NSException *exception){
         [PNLogger log:PNLogLevelWarning exception:exception format: @"Could not set parent view."];
