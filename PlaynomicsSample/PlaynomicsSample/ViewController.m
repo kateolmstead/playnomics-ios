@@ -35,8 +35,12 @@
     
     _frameDelegate = [[FrameDelegate alloc] init];
     [super viewDidLoad];
-    //[Playnomics preloadFramesWithIds:@"546e241b9b97149b", @"c6877f336e9d9dda", @"7a9138a971ce1773", @"15bec4e2b78424a2", @"33a3cf0ecfa71c1a", nil];
+    [Playnomics preloadFramesWithIds:@"546e241b9b97149b", @"c6877f336e9d9dda", @"7a9138a971ce1773", @"15bec4e2b78424a2", @"33a3cf0ecfa71c1a", nil];
     _frameIdText.delegate = self;
+
+    UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didReceiveTap:)];
+    [self.view addGestureRecognizer:gestureRecognizer];
+    [gestureRecognizer release];
 }
 
 - (void)viewDidUnload
@@ -146,6 +150,10 @@
 
 - (void)adColonyVideoAdNotServedForZone:(NSString*)zone {
     NSLog(@"AdColonydidnotserveavideoforzone%@",zone);
+}
+
+-(void) didReceiveTap:(UITapGestureRecognizer *)sender{
+    NSLog(@"The View Controller received a touch event");
 }
 
 @end
