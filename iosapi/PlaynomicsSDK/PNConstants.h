@@ -45,19 +45,16 @@
 
 // Ad Response: Ad information keys
 #define FrameResponseAd_PrimaryImage @"i"
-#define FrameResponseAd_RolloverImage @"r"
-#define FrameResponseAd_ToolTipText @"x"
-#define FrameResponseAd_ClickTarget @"t"
-#define FrameResponseAd_PreExecuteUrl @"u"
-#define FrameResponseAd_PostExecuteUrl @"v"
+
+#define FrameResponseAd_ClickUrl @"t"
 #define FrameResponseAd_ImpressionUrl @"s"
-#define FrameResponseAd_FlagUrl @"f"
 #define FrameResponseAd_CloseUrl @"d"
 #define FrameResponseAd_AdType @"adType"
 #define FrameResponseAd_Fullscreen @"fullscreen"
 #define FrameResponseAd_VideoViewUrl @"view"
 #define FrameResponseAd_TargetType @"targetType"
 #define FrameResponseAd_TargetData @"targetData"
+#define FrameResponseAd_TargetUrl @"targetURL"
 #define FrameResponseAd_HtmlContent @"htmlContent"
 #define FrameResponseAd_AdProvider @"adProvider"
 #define FrameResponseAd_CloseUrlPath @"/v1/closeImpression"

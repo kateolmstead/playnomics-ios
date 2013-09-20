@@ -151,20 +151,25 @@
 }
 
 -(void) adClicked {
-    if(_response.targetType == AdTargetUrl) {
+    
+    if(_response.clickUrl){
+        [_session pingUrlForCallback:_response.clickUrl];
+    }
+    
+    if(_response.targetType == AdTargetUrl ) {
         //url-based target
         if (_response.actionType == AdActionHTTP) {
             // If we have a WebView, the click target will be the Playnomics click tracking URL
             if (_response.adType == WebView) {
-                [_session pingUrlForCallback:_response.clickTarget];
+                
             } else {
                 //just redirect to the ad
-                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:_response.clickTarget]];
+                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:_response.clickUrl]];
             }
         }
     } else if (_response.targetType == AdTargetData || _response.targetType == AdTargetExternal) {
         //ping the server
-        [_session pingUrlForCallback: _response.preClickUrl];
+        [_session pingUrlForCallback: _response.clickUrl];
     }
     
     //always notify the delegate that there was a touch event

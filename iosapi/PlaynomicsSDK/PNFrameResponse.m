@@ -19,9 +19,10 @@
 @synthesize fullscreen = _fullscreen;
 @synthesize htmlContent = _htmlContent;
 @synthesize primaryImageUrl = _primaryImageUrl;
-@synthesize clickTarget = _clickTarget;
+@synthesize clickUrl = _clickUrl;
 @synthesize clickTargetData = _clickTargetData;
-@synthesize preClickUrl = _preClickUrl;
+
+
 @synthesize impressionUrl = _impressionUrl;
 @synthesize closeUrl = _closeUrl;
 @synthesize viewUrl = _viewUrl;
@@ -61,12 +62,11 @@
         _impressionUrl = [[_adInfo objectForKey:FrameResponseAd_ImpressionUrl] retain];
         _closeUrl = [[_adInfo objectForKey:FrameResponseAd_CloseUrl] retain];
         
-        _clickTarget = [[_adInfo objectForKey:FrameResponseAd_ClickTarget] retain];
-        _preClickUrl = [[_adInfo objectForKey:FrameResponseAd_PreExecuteUrl] retain];
-        _postClickUrl =  [[_adInfo objectForKey:FrameResponseAd_PostExecuteUrl] retain];
+        _clickUrl = [[_adInfo objectForKey:FrameResponseAd_ClickUrl] retain];
         _clickTargetData = [[_adInfo objectForKey:FrameResponseAd_TargetData] retain];
+        _clickTargetUrl = [[_adInfo objectForKey:FrameResponseAd_TargetUrl] retain];
         
-        _actionType = [self toAdAction : _clickTarget];
+        _actionType = [self toAdAction : _clickUrl];
         _targetType = [self toAdTarget: [_adInfo objectForKey:FrameResponseAd_TargetType]];
         
         NSString* adType = [_adInfo objectForKey:FrameResponseAd_AdType];
@@ -156,7 +156,9 @@
 }
 
 -(NSDictionary *) getJSONTargetData{
-    if(_targetType != AdTargetData){ return nil; }
+    if( !(_targetType == AdTargetData && _clickTargetData) ){
+        return nil;
+    }
     return [PNUtil deserializeJsonString: _clickTargetData];
 }
 

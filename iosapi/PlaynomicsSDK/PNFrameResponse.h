@@ -37,16 +37,11 @@ typedef struct {
 @property (readonly) NSNumber* fullscreen;
 @property (readonly) NSString* htmlContent;
 @property (readonly) NSString* primaryImageUrl;
-@property (readonly) NSString* rolloverImageUrl;
-@property (readonly) NSString* tooltipText;
 
-@property (readonly) NSString* clickTarget;
+@property (readonly) NSString* clickUrl;
 @property (readonly) NSString* clickTargetData;
-
-@property (readonly) NSString* preClickUrl;
-@property (readonly) NSString* postClickUrl;
+@property (readonly) NSString* clickTargetUrl;
 @property (readonly) NSString* impressionUrl;
-@property (readonly) NSString* flagUrl;
 @property (readonly) NSString* closeUrl;
 @property (readonly) NSString* viewUrl;
 
