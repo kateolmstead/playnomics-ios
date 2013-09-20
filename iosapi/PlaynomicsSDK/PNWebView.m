@@ -47,7 +47,7 @@
             }
             
             self.scrollView.scrollEnabled = NO;
-            self.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
+            self.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
             [self loadHTMLString:_response.htmlContent baseURL:nil];
         }
     }
@@ -57,7 +57,6 @@
 
 -(CGRect) getFrameForCloseButton{
     //always place the close button in the top right of the web view
-    
     [PNLogger log:PNLogLevelDebug format:@"Frame width %f height %f x %f y %f", [super frame].size.width, [super frame].size.height,
      [super frame].origin.x, [super frame].origin.y];
     
@@ -68,6 +67,12 @@
 }
 
 -(void) renderAdInView:(UIView *)parentView {
+    [super setFrame:[PNUtil getScreenDimensionsInView]];
+    
+    if(_closeButton){
+        _closeButton.frame = [self getFrameForCloseButton];
+    }
+    
     int lastDisplayIndex = parentView.subviews.count;
     [parentView insertSubview:self atIndex:lastDisplayIndex+1];
     //[super setFrame: parentView.bounds];
@@ -79,7 +84,7 @@
 }
 
 -(void) rotate{
-    //[super setFrame:[PNUtil getScreenDimensionsInView]];
+    [super setFrame:[PNUtil getScreenDimensionsInView]];
     if(_closeButton){
         _closeButton.frame = [self getFrameForCloseButton];
     }
