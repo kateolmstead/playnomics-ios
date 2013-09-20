@@ -158,9 +158,14 @@
     
     if(_response.targetType == AdTargetUrl ) {
         //url-based target
-        if (_response.actionType == AdActionHTTP && _response.clickTargetUrl) {
-            //just redirect to the ad
-            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:_response.clickTargetUrl]];
+        if (_response.actionType == AdActionHTTP
+            && _response.clickTargetUrl
+            && _response.clickTargetUrl != (id)[NSNull null] ) {
+
+            NSURL *url = [NSURL URLWithString:_response.clickTargetUrl];
+            if([[UIApplication sharedApplication] canOpenURL:url]){
+                 [[UIApplication sharedApplication] openURL:url];
+            }
         }
     }
     
