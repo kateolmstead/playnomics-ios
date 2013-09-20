@@ -43,7 +43,7 @@
         return;
     }
     // Get the background details, which are in the key "b" and is a dictionary of data
-    _backgroundInfo = [frameResponse objectForKey:FrameResponseBackgroundInfo];
+    _backgroundInfo = [[frameResponse objectForKey:FrameResponseBackgroundInfo] retain];
     _backgroundImageUrl = [[self getImageFromProperties:_backgroundInfo] retain];
     
     NSDictionary *adLocationInfo = [frameResponse objectForKey:FrameResponseAdLocationInfo];
