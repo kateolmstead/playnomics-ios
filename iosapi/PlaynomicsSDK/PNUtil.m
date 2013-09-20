@@ -74,7 +74,6 @@
 
 + (CGRect) getScreenDimensionsInView{
     CGRect dimensions = [PNUtil getScreenDimensions];
-    
     if([PNUtil getCurrentOrientation] == UIInterfaceOrientationLandscapeLeft
        || [PNUtil getCurrentOrientation] == UIInterfaceOrientationLandscapeRight){
        

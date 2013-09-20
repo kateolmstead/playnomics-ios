@@ -125,10 +125,14 @@
 
 #pragma mark "Touch Events"
 -(void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
-    NSEnumerator *enumerator = [touches objectEnumerator];
-    id value;
-    if ((value = [enumerator nextObject]) && [value isKindOfClass:[UITouch class]]) {
-        [self.delegate component:self didReceiveTouch:(UITouch *) value];
+    @try{
+        NSEnumerator *enumerator = [touches objectEnumerator];
+        id value;
+        if ((value = [enumerator nextObject]) && [value isKindOfClass:[UITouch class]]) {
+            [self.delegate component:self didReceiveTouch:(UITouch *) value];
+        }
+    } @catch(NSException* exception){
+        [PNLogger log:PNLogLevelError exception:exception format:@"Could not handle click"];
     }
 }
 

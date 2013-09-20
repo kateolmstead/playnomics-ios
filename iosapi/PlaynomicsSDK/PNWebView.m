@@ -47,7 +47,7 @@
             }
             
             self.scrollView.scrollEnabled = NO;
-            self.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+            self.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
             [self loadHTMLString:_response.htmlContent baseURL:nil];
         }
     }
@@ -78,7 +78,7 @@
 }
 
 -(void) rotate{
-    [super setFrame:[PNUtil getScreenDimensionsInView]];
+    //[super setFrame:[PNUtil getScreenDimensionsInView]];
     if(_closeButton){
         _closeButton.frame = [self getFrameForCloseButton];
     }
