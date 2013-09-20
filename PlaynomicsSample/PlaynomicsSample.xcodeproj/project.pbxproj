@@ -377,7 +377,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PlaynomicsSample/PlaynomicsSample-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
-					"$(SRCROOT)/../build/PlaynomicsSDK/Debug-iphonesimulator/include/PlaynomicsSDK/**",
+					"$(SRCROOT)/../iosapi/PlaynomicsSDK/**",
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "PlaynomicsSample/PlaynomicsSample-Info.plist";
@@ -391,7 +391,7 @@
 				PROVISIONING_PROFILE = "461AD27C-CC10-4F2C-BE41-6131FE5B93BB";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "461AD27C-CC10-4F2C-BE41-6131FE5B93BB";
 				RUN_CLANG_STATIC_ANALYZER = YES;
-				SYMROOT = "$(SRCROOT)/../build/$(TARGET_NAME)";
+				SYMROOT = build;
 				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};
@@ -405,7 +405,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PlaynomicsSample/PlaynomicsSample-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
-					"$(SRCROOT)/../build/PlaynomicsSDK/Debug-iphonesimulator/include/PlaynomicsSDK/**",
+					"$(SRCROOT)/../iosapi/PlaynomicsSDK/**",
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "PlaynomicsSample/PlaynomicsSample-Info.plist";
@@ -419,7 +419,7 @@
 				PROVISIONING_PROFILE = "461AD27C-CC10-4F2C-BE41-6131FE5B93BB";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "461AD27C-CC10-4F2C-BE41-6131FE5B93BB";
 				RUN_CLANG_STATIC_ANALYZER = YES;
-				SYMROOT = "$(SRCROOT)/../build/$(TARGET_NAME)";
+				SYMROOT = build;
 				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};
