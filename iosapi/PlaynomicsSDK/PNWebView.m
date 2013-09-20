@@ -70,6 +70,7 @@
 -(void) renderAdInView:(UIView *)parentView {
     int lastDisplayIndex = parentView.subviews.count;
     [parentView insertSubview:self atIndex:lastDisplayIndex+1];
+    //[super setFrame: parentView.bounds];
 }
 
 -(void) hide{

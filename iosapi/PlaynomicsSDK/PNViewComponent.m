@@ -85,7 +85,7 @@
     [self didLoad];
 }
 
--(void) requestDidFailtWithStatusCode:(int)statusCode{
+-(void) requestDidFailWithStatusCode:(int)statusCode{
     [PNLogger log:PNLogLevelWarning format:@"Could not load image asset %@, received status code %@", _imageUrl, [NSHTTPURLResponse localizedStringForStatusCode: statusCode]];
 }
 

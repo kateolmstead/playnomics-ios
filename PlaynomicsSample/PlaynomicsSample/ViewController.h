@@ -22,4 +22,5 @@
 - (IBAction) onNoAdsClick:(id)sender;
 - (IBAction) onThirdPartyAd:(id) sender;
 - (IBAction) onMilestoneClick:(id)sender;
+- (IBAction) onClearCache:(id)sender;
 @end

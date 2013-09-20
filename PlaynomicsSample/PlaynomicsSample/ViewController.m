@@ -7,6 +7,12 @@
 //  Copyright (c) 2012 Grio. All rights reserved.
 //
 
+#define PNUserDefaultsLastSessionEventTime @"com.playnomics.lastSessionStartTime"
+#define PNUserDefaultsLastSessionID @"com.playnomics.lastSessionId"
+#define PNUserDefaultsLastUserID @"com.playnomics.lastUserId"
+#define PNUserDefaultsLastDeviceToken @"com.playnomics.lastDeviceToken"
+#define PNUserDefaultsLastIDFV @"com.playnomics.lastIDFV"
+
 #import "ViewController.h"
 #import "Playnomics.h"
 #import "FrameDelegate.h"
@@ -128,9 +134,25 @@
     [self initMsgFrame:@"33a3cf0ecfa71c1a"];
 }
 
+- (IBAction) onClearCache:(id)sender{
+    UIPasteboard *pasteboard = [UIPasteboard pasteboardWithName:@"com.playnomics.pasteboardData" create:YES];
+    pasteboard.items = nil;
+    
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    [defaults setValue:nil forKey: PNUserDefaultsLastIDFV];
+    [defaults setValue:nil forKey: PNUserDefaultsLastSessionID];
+    [defaults setValue:nil forKey: PNUserDefaultsLastUserID];
+    [defaults setDouble:0 forKey: PNUserDefaultsLastSessionEventTime];
+    [defaults setValue:nil forKey: PNUserDefaultsLastDeviceToken];
+}
+
 - (void) initMsgFrame: (NSString *) frameId {
     [Playnomics showFrameWithId: frameId delegate: _frameDelegate];
  }
+
+
 
 #pragma mark Misc Functions
 

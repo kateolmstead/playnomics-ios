@@ -14,5 +14,4 @@
 @interface PNMessagingApiClient : NSObject<PNFrameRequestDelegate>
 -(id) initWithSession:(PNSession *) session;
 -(void) loadDataForFrame:(PNFrame *) frame;
--(void) onFrameRequestCompleted:(PNFrameRequest *) request;
 @end

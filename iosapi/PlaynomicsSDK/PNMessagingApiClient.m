@@ -46,8 +46,6 @@
     NSString *url = [PNEventApiClient buildUrlWithBase:[_session getMessagingUrl]
                                      withPath:@"ads"
                                     withParams:params];
-
-    
     
     PNFrameRequest *request = [[PNFrameRequest alloc] initWithFrame:frame url:url delegate:self];
     [request fetchFrameData];
