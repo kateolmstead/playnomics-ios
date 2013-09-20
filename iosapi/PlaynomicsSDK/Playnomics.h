@@ -72,6 +72,8 @@ typedef NS_ENUM(int, PNMilestoneType){
                 delegate:(id<PlaynomicsFrameDelegate>) delegate;
 
 + (void) hideFrameWithId:(NSString *) frameId;
+
++ (void) setFrameParentView:(UIView *) parentView;
 @end
 
 @interface PNApplication : UIApplication<UIApplicationDelegate>

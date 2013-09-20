@@ -116,4 +116,8 @@
     [[PNSession sharedInstance] hideFrameWithID: frameId];
 }
 
++ (void) setFrameParentView:(UIView *) parentView{
+    
+}
+
 @end

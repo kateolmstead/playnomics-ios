@@ -60,5 +60,6 @@ typedef enum {
 - (void) showFrameWithId:(NSString *) frameId;
 - (void) showFrameWithId:(NSString *) frameId delegate:(id<PlaynomicsFrameDelegate>) delegate;
 - (void) hideFrameWithID:(NSString *) frameId;
+- (void) setFrameParentView:(UIView *) parentView;
 @end
 
