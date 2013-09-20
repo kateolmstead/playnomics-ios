@@ -170,7 +170,7 @@
     return AdActionUnknown;
 }
 
--(AdTarget) toAdTarget:(NSString*) adTargetType {
+-(AdTarget) toAdTarget:(NSString *) adTargetType {
     if(adTargetType == (id)[NSNull null]){
         return AdTargetUnknown;
     }
@@ -179,6 +179,9 @@
     }
     if([adTargetType isEqualToString:@"url"]){
         return AdTargetUrl;
+    }
+    if([adTargetType isEqualToString:@"external"]){
+        return AdTargetExternal;
     }
     return AdTargetUnknown;
 }

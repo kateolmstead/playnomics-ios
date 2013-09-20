@@ -162,7 +162,7 @@
                 [[UIApplication sharedApplication] openURL:[NSURL URLWithString:_response.clickTarget]];
             }
         }
-    } else if (_response.targetType == AdTargetData) {
+    } else if (_response.targetType == AdTargetData || _response.targetType == AdTargetExternal) {
         //ping the server
         [_session pingUrlForCallback: _response.preClickUrl];
     }

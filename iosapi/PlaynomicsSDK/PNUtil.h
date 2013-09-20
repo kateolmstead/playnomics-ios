@@ -18,7 +18,8 @@ typedef enum
 typedef enum{
     AdTargetUrl,
     AdTargetData,
-    AdTargetUnknown
+    AdTargetUnknown,
+    AdTargetExternal
 } AdTarget;
 
 typedef enum {
