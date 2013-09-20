@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>FB4918F1-3505-445F-98A2-2F93141F78D6</string>
+	<key>IDESourceControlProjectName</key>
+	<string>Cocoas2dxSample</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>F0ADC9AA-88F9-475B-98B6-36AA5733C96C</key>
+		<string>ssh://github.com/playnomics/playnomics-ios.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>cocos2dxSample/Cocoas2dxSample.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>F0ADC9AA-88F9-475B-98B6-36AA5733C96C</key>
+		<string>../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>ssh://github.com/playnomics/playnomics-ios.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>F0ADC9AA-88F9-475B-98B6-36AA5733C96C</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>F0ADC9AA-88F9-475B-98B6-36AA5733C96C</string>
+			<key>IDESourceControlWCCName</key>
+			<string>playnomics-ios</string>
+		</dict>
+	</array>
+</dict>
+</plist>

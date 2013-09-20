@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		321B589B17BC510100DD36DE /* libiosapi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 321B589817BC50C600DD36DE /* libiosapi.a */; };
 		32551FAD17BD398F00DA55ED /* MarshalLayer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 32551FAC17BD398F00DA55ED /* MarshalLayer.mm */; };
 		326DE5E017BC58FA006C8F89 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 326DE5DF17BC58FA006C8F89 /* AdSupport.framework */; };
 		329132F017BC3F1C00B65E21 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 329132EF17BC3F1C00B65E21 /* QuartzCore.framework */; };
@@ -283,27 +282,34 @@
 		3291368D17BC3F1F00B65E21 /* libwebsockets.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3291368C17BC3F1F00B65E21 /* libwebsockets.a */; };
 		3291369317BC3F1F00B65E21 /* AppDelegate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3291369217BC3F1F00B65E21 /* AppDelegate.cpp */; };
 		3291369617BC3F1F00B65E21 /* HelloWorldScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3291369517BC3F1F00B65E21 /* HelloWorldScene.cpp */; };
+		32E2917517EBC5BB0045DDFB /* libPlaynomicsSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 32E2917017EBC5990045DDFB /* libPlaynomicsSDK.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		321B589717BC50C600DD36DE /* PBXContainerItemProxy */ = {
+		32E2916F17EBC5990045DDFB /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 321B589217BC50C500DD36DE /* iosapi.xcodeproj */;
+			containerPortal = 32E2916A17EBC5990045DDFB /* PlaynomicsSDK.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = D1D922701590F59600EDDE17;
-			remoteInfo = iosapi;
+			remoteGlobalIDString = 3238496317E96B9100DCA409;
+			remoteInfo = PlaynomicsSDK;
 		};
-		321B589917BC50C600DD36DE /* PBXContainerItemProxy */ = {
+		32E2917117EBC5990045DDFB /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 321B589217BC50C500DD36DE /* iosapi.xcodeproj */;
+			containerPortal = 32E2916A17EBC5990045DDFB /* PlaynomicsSDK.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = D1D922801590F59700EDDE17;
-			remoteInfo = iosapiTests;
+			remoteGlobalIDString = 3238497017E96B9100DCA409;
+			remoteInfo = PlaynomicsSDKTests;
+		};
+		32E2917317EBC5B30045DDFB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 32E2916A17EBC5990045DDFB /* PlaynomicsSDK.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 3238496217E96B9100DCA409;
+			remoteInfo = PlaynomicsSDK;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		321B589217BC50C500DD36DE /* iosapi.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = iosapi.xcodeproj; path = ../iosapi/iosapi.xcodeproj; sourceTree = "<group>"; };
 		32551FAC17BD398F00DA55ED /* MarshalLayer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = MarshalLayer.mm; path = ios/MarshalLayer.mm; sourceTree = "<group>"; };
 		32551FB117BD5ECB00DA55ED /* MarshalLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MarshalLayer.h; path = ios/MarshalLayer.h; sourceTree = "<group>"; };
 		326DE5DF17BC58FA006C8F89 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
@@ -897,6 +903,7 @@
 		3291369217BC3F1F00B65E21 /* AppDelegate.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = AppDelegate.cpp; path = Classes/AppDelegate.cpp; sourceTree = "<group>"; };
 		3291369417BC3F1F00B65E21 /* HelloWorldScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = HelloWorldScene.h; path = Classes/HelloWorldScene.h; sourceTree = "<group>"; };
 		3291369517BC3F1F00B65E21 /* HelloWorldScene.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = HelloWorldScene.cpp; path = Classes/HelloWorldScene.cpp; sourceTree = "<group>"; };
+		32E2916A17EBC5990045DDFB /* PlaynomicsSDK.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PlaynomicsSDK.xcodeproj; path = ../iosapi/PlaynomicsSDK.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -904,8 +911,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				32E2917517EBC5BB0045DDFB /* libPlaynomicsSDK.a in Frameworks */,
 				326DE5E017BC58FA006C8F89 /* AdSupport.framework in Frameworks */,
-				321B589B17BC510100DD36DE /* libiosapi.a in Frameworks */,
 				329132F017BC3F1C00B65E21 /* QuartzCore.framework in Frameworks */,
 				329132F217BC3F1C00B65E21 /* OpenGLES.framework in Frameworks */,
 				329132F417BC3F1C00B65E21 /* OpenAL.framework in Frameworks */,
@@ -923,19 +930,10 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		321B589317BC50C500DD36DE /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				321B589817BC50C600DD36DE /* libiosapi.a */,
-				321B589A17BC50C600DD36DE /* iosapiTests.octest */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		329132E317BC3F1B00B65E21 = {
 			isa = PBXGroup;
 			children = (
-				321B589217BC50C500DD36DE /* iosapi.xcodeproj */,
+				32E2916A17EBC5990045DDFB /* PlaynomicsSDK.xcodeproj */,
 				329132FF17BC3F1C00B65E21 /* Cocoas2dxSample */,
 				329132EE17BC3F1C00B65E21 /* Frameworks */,
 				329132ED17BC3F1C00B65E21 /* Products */,
@@ -2140,6 +2138,15 @@
 			name = Classes;
 			sourceTree = "<group>";
 		};
+		32E2916B17EBC5990045DDFB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				32E2917017EBC5990045DDFB /* libPlaynomicsSDK.a */,
+				32E2917217EBC5990045DDFB /* PlaynomicsSDKTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -2154,6 +2161,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				32E2917417EBC5B30045DDFB /* PBXTargetDependency */,
 			);
 			name = Cocoas2dxSample;
 			productName = Cocoas2dxSample;
@@ -2180,8 +2188,8 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = 321B589317BC50C500DD36DE /* Products */;
-					ProjectRef = 321B589217BC50C500DD36DE /* iosapi.xcodeproj */;
+					ProductGroup = 32E2916B17EBC5990045DDFB /* Products */;
+					ProjectRef = 32E2916A17EBC5990045DDFB /* PlaynomicsSDK.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -2192,18 +2200,18 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		321B589817BC50C600DD36DE /* libiosapi.a */ = {
+		32E2917017EBC5990045DDFB /* libPlaynomicsSDK.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
-			path = libiosapi.a;
-			remoteRef = 321B589717BC50C600DD36DE /* PBXContainerItemProxy */;
+			path = libPlaynomicsSDK.a;
+			remoteRef = 32E2916F17EBC5990045DDFB /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		321B589A17BC50C600DD36DE /* iosapiTests.octest */ = {
+		32E2917217EBC5990045DDFB /* PlaynomicsSDKTests.xctest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
-			path = iosapiTests.octest;
-			remoteRef = 321B589917BC50C600DD36DE /* PBXContainerItemProxy */;
+			path = PlaynomicsSDKTests.xctest;
+			remoteRef = 32E2917117EBC5990045DDFB /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -2491,6 +2499,14 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		32E2917417EBC5B30045DDFB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = PlaynomicsSDK;
+			targetProxy = 32E2917317EBC5B30045DDFB /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
 		3291369717BC3F1F00B65E21 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -2576,6 +2592,7 @@
 					"$(BUILT_PRODUCTS_DIR)/usr/local/include",
 				);
 				INFOPLIST_FILE = Cocoas2dxSample/Resources/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -2589,7 +2606,7 @@
 					"-websockets",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				USER_HEADER_SEARCH_PATHS = "\"Cocoas2dxSample/libs/Chipmunk/include/chipmunk\"";
+				USER_HEADER_SEARCH_PATHS = "\"Cocoas2dxSample/libs/Chipmunk/include/chipmunk\" $(SRCROOT)/../build/PlaynomicsSDK/Debug-iphoneos/include/PlaynomicsSDK/";
 				VALID_ARCHS = "armv7 armv7s i386";
 				WRAPPER_EXTENSION = app;
 			};
@@ -2615,6 +2632,7 @@
 					"\"$(PROJECT_NAME)/libs/cocos2dx/platform/ios\"",
 				);
 				INFOPLIST_FILE = Cocoas2dxSample/Resources/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -2628,7 +2646,7 @@
 					"-websockets",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				USER_HEADER_SEARCH_PATHS = "\"Cocoas2dxSample/libs/Chipmunk/include/chipmunk\"";
+				USER_HEADER_SEARCH_PATHS = "\"Cocoas2dxSample/libs/Chipmunk/include/chipmunk\" $(SRCROOT)/../build/PlaynomicsSDK/Debug-iphoneos/include/PlaynomicsSDK/";
 				VALIDATE_PRODUCT = YES;
 				VALID_ARCHS = "armv7 armv7s i386";
 				WRAPPER_EXTENSION = app;
