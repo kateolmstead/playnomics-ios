@@ -114,7 +114,7 @@
 }
 
 - (NSSet *) getAllUnprocessedUrls{
-    return [_inprocessEvents copyOfData];
+    return [[_inprocessEvents copyOfData] autorelease];
 }
 
 @end

@@ -47,7 +47,7 @@
 -(NSSet *) copyOfData{
     @synchronized(_syncLock){
         NSSet* setCopy = [[NSSet alloc] initWithSet:_set copyItems:YES];
-        return [setCopy autorelease];
+        return setCopy;
     }
 }
 @end

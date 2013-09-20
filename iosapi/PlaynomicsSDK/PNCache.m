@@ -24,26 +24,6 @@
 @synthesize deviceToken=_deviceToken;
 
 - (void)dealloc{
-    if(self.breadcrumbID){
-        [self.breadcrumbID release];
-    }
-    
-    if(self.idfa){
-        [self.idfa release];
-    }
-
-    if(self.idfv){
-        [self.idfv release];
-    }
-    
-    if(self.lastSessionId){
-        [self.lastSessionId release];
-    }
-    
-    if(self.deviceToken){
-        [self.deviceToken release];
-    }
-    
     [super dealloc];
 }
 
@@ -63,7 +43,7 @@
     
     if(self.breadcrumbID && [self.breadcrumbID length] == 0){
         //it's possible that we get back a false positive
-        [self.breadcrumbID release];
+        self.breadcrumbID=nil;
     }
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -85,17 +65,14 @@
         UIPasteboard *playnomicsPasteboard = [self getPlaynomicsPasteboard];
         NSMutableDictionary *pasteboardData = ([[playnomicsPasteboard items] count] == 1) ?
                                     [[playnomicsPasteboard items] objectAtIndex:0] :
-                                    [NSMutableDictionary new];
+                                    [[NSMutableDictionary new] autorelease];
 
-        if(_idfaChanged){
-            [pasteboardData setValue:self.idfa forKey:PNPasteboardLastIDFA];
-        }
-        if(_breadcrumbIDChanged){
-            [pasteboardData setValue:self.breadcrumbID forKey:PNPasteboardLastBreadcrumbID];
-        }
-        if(_limitAdvertisingChanged){
-            [pasteboardData setValue:[PNUtil boolAsString: self.limitAdvertising] forKey: PNPasteboardLastLimitAdvertising];
-        }
+        
+        [pasteboardData setValue:self.idfa forKey:PNPasteboardLastIDFA];
+        [pasteboardData setValue:self.breadcrumbID forKey:PNPasteboardLastBreadcrumbID];
+        [pasteboardData setValue:[PNUtil boolAsString: self.limitAdvertising] forKey: PNPasteboardLastLimitAdvertising];
+        
+        playnomicsPasteboard.items = [[[NSArray alloc] initWithObjects:pasteboardData, nil] autorelease];
     }
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];

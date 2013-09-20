@@ -9,8 +9,10 @@
 #import <Foundation/Foundation.h>
 #import "PNSession.h"
 #import "PNFrame.h"
+#import "PNFrameRequest.h"
 
-@interface PNMessagingApiClient : NSObject
+@interface PNMessagingApiClient : NSObject<PNFrameRequestDelegate>
 -(id) initWithSession:(PNSession *) session;
 -(void) loadDataForFrame:(PNFrame *) frame;
+-(void) onFrameRequestCompleted:(PNFrameRequest *) request;
 @end
