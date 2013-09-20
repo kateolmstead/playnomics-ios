@@ -11,10 +11,6 @@
 #import "PNFrame.h"
 
 @interface PNMessagingApiClient : NSObject
-
 -(id) initWithSession:(PNSession *) session;
-
 -(void) loadDataForFrame:(PNFrame *) frame;
-
-
 @end

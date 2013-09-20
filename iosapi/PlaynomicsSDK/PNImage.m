@@ -63,6 +63,10 @@
     [_delegate adClosed: NO];
 }
 
+-(void) rotate{
+    _background.frame = [_response backgroundDimensions];
+}
+
 #pragma mark "Helper Methods"
 // Returns TRUE if all instantiated components are done loading. FALSE otherwise
 - (BOOL) _allComponentsLoaded {

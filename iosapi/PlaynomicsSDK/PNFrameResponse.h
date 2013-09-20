@@ -17,22 +17,17 @@ typedef enum {
 } AdType;
 
 //we should just make this into CGRect, no point in having our own type definition
-typedef struct {
-    float width;
-    float height;
-    float x;
-    float y;
-} PNViewDimensions;
+
 
 
 @interface PNFrameResponse : NSObject
 
 @property (readonly) NSDictionary* backgroundInfo;
-@property (readonly) PNViewDimensions backgroundDimensions;
+@property (readonly) CGRect backgroundDimensions;
 @property (readonly) NSString* backgroundImageUrl;
 
 @property (readonly) NSDictionary* adInfo;
-@property (readonly) PNViewDimensions adDimensions;
+@property (readonly) CGRect adDimensions;
 @property (readonly) AdType adType;
 @property (readonly) NSNumber* fullscreen;
 @property (readonly) NSString* htmlContent;
@@ -51,7 +46,7 @@ typedef struct {
 
 @property (readonly) NSDictionary* closeButtonInfo;
 @property (readonly) NSString* closeButtonImageUrl;
-@property (readonly) PNViewDimensions closeButtonDimensions;
+@property (readonly) CGRect closeButtonDimensions;
 
 - (id) initWithJSONData:(NSData *) jsonData;
 

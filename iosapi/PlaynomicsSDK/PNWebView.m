@@ -10,7 +10,7 @@
 
 @implementation PNWebView {
 @private
-    PNViewDimensions _backgroundDimensions;
+    CGRect _backgroundDimensions;
     PNViewComponent *_closeButton;
     id<PNFrameDelegate> _delegate;
     PNFrameResponse *_response;
@@ -34,10 +34,7 @@
             if (_response.fullscreen && [_response.fullscreen boolValue] == YES) {
                 [super setFrame:[[UIScreen mainScreen] bounds]];
             } else {
-                [super setFrame:CGRectMake(_backgroundDimensions.x,
-                                           _backgroundDimensions.y,
-                                           _backgroundDimensions.width,
-                                           _backgroundDimensions.height)];
+                [super setFrame:_backgroundDimensions];
             }
             
             if(_response.closeButtonImageUrl != nil){
@@ -61,6 +58,10 @@
 -(void) hide{
     [self removeFromSuperview];
     [_delegate adClosed:NO];
+}
+
+-(void) rotate{
+    
 }
 
 -(void)dealloc{

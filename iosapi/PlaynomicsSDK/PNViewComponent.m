@@ -18,8 +18,11 @@
 @synthesize status = _status;
 
 #pragma mark - Lifecycle/Memory management
--(id)initWithDimensions:(PNViewDimensions) dimensions delegate:(id<PNViewComponentDelegate>) delegate image:(NSString*) imageUrl {
-    CGRect frame = CGRectMake(dimensions.x, dimensions.y, dimensions.width, dimensions.height);
+-(id)initWithDimensions:(CGRect) dimensions
+               delegate:(id<PNViewComponentDelegate>) delegate
+                  image:(NSString*) imageUrl
+{
+    CGRect frame = dimensions;
     self = [super initWithFrame:frame];
     if(self){
         [self setUserInteractionEnabled: YES];

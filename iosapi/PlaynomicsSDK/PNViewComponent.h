@@ -22,7 +22,7 @@
 @property (assign) NSString* imageUrl;
 @property (assign) PNViewComponent *parentComponent;
 @property (readonly) AdComponentStatus status;
-- (id) initWithDimensions:(PNViewDimensions) dimensions delegate:(id<PNViewComponentDelegate>) delegate image:(NSString*) imageUrl;
+- (id) initWithDimensions:(CGRect) dimensions delegate:(id<PNViewComponentDelegate>) delegate image:(NSString*) imageUrl;
 - (void) addSubComponent:(PNViewComponent *)subView;
 - (void) hide;
 @end

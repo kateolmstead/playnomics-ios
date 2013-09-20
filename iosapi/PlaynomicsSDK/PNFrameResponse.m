@@ -11,7 +11,6 @@
 @implementation PNFrameResponse
 
 @synthesize backgroundInfo = _backgroundInfo;
-@synthesize backgroundDimensions = _backgroundDimensions;
 @synthesize backgroundImageUrl = _backgroundImageUrl;
 @synthesize adInfo = _adInfo;
 @synthesize adDimensions = _adDimensions;
@@ -21,8 +20,6 @@
 @synthesize primaryImageUrl = _primaryImageUrl;
 @synthesize clickUrl = _clickUrl;
 @synthesize clickTargetData = _clickTargetData;
-
-
 @synthesize impressionUrl = _impressionUrl;
 @synthesize closeUrl = _closeUrl;
 @synthesize viewUrl = _viewUrl;
@@ -47,7 +44,6 @@
     }
     // Get the background details, which are in the key "b" and is a dictionary of data
     _backgroundInfo = [frameResponse objectForKey:FrameResponseBackgroundInfo];
-    _backgroundDimensions = [self getViewDimensions:_backgroundInfo];
     _backgroundImageUrl = [[self getImageFromProperties:_backgroundInfo] retain];
     
     NSDictionary *adLocationInfo = [frameResponse objectForKey:FrameResponseAdLocationInfo];
@@ -103,17 +99,19 @@
     }
 }
 
+-(CGRect) backgroundDimensions{
+    return [self getViewDimensions:_backgroundInfo];
+}
 
--(PNViewDimensions) getViewDimensions:(NSDictionary*) componentInfo {
+-(CGRect) getViewDimensions:(NSDictionary*) componentInfo {
     float height = [self getFloatValue:[componentInfo objectForKey:FrameResponseHeight]];
     float width = [self getFloatValue:[componentInfo objectForKey:FrameResponseWidth]];
     
     NSDictionary *coordinateProps = [self extractCoordinateProps:componentInfo];
     float x = [self getFloatValue:[coordinateProps objectForKey:FrameResponseXOffset]];
     float y = [self getFloatValue:[coordinateProps objectForKey:FrameResponseYOffset]];
-    
-    PNViewDimensions dimensions = {.width = width, .height = height, .x = x, .y = y};
-    return dimensions;
+    CGRect rect = CGRectMake(x, y, width, height);
+    return rect;
 }
 
 -(NSDictionary *) extractCoordinateProps:(NSDictionary*) componentInfo {

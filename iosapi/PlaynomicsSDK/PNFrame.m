@@ -89,7 +89,7 @@
     }
     _currentOrientation = orientation;
     [PNLogger log:PNLogLevelDebug format: @"Orientation changed to: %i", orientation];
-    //[_background renderComponent];
+    [_adView rotate];
 }
 
 -(void) render {

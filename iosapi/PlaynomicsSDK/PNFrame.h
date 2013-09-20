@@ -36,6 +36,7 @@ typedef NS_ENUM(int, PNFrameState){
 - (id) initWithResponse:(PNFrameResponse *) response delegate:(id<PNFrameDelegate>) delegate;
 - (void) renderAdInView:(UIView *) parentView;
 - (void) hide;
+- (void) rotate;
 @end
 
 // Represents the container for the ad image.
