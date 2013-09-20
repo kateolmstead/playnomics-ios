@@ -45,6 +45,7 @@
             }
             
             self.scrollView.scrollEnabled = NO;
+            self.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
             [self loadHTMLString:_response.htmlContent baseURL:nil];
         }
     }
