@@ -31,10 +31,20 @@
         if(_response.htmlContent != nil && _response.htmlContent != (id)[NSNull null]){
             _status = AdComponentStatusPending;
             
+            if (_response.fullscreen && [_response.fullscreen boolValue] == YES) {
+                [super setFrame:[[UIScreen mainScreen] bounds]];
+            } else {
+                [super setFrame:CGRectMake(_backgroundDimensions.x,
+                                           _backgroundDimensions.y,
+                                           _backgroundDimensions.width,
+                                           _backgroundDimensions.height)];
+            }
+            
             if(_response.closeButtonImageUrl != nil){
                 _closeButton = [[PNViewComponent alloc] initWithDimensions:_response.closeButtonDimensions delegate:self image:_response.closeButtonImageUrl];
             }
             
+            self.scrollView.scrollEnabled = NO;
             [self loadHTMLString:_response.htmlContent baseURL:nil];
         }
     }
@@ -43,15 +53,6 @@
 }
 
 -(void) renderAdInView:(UIView *)parentView {
-    if (_response.fullscreen && [_response.fullscreen isEqualToString:@"true"]) {
-        [super setFrame:[[UIScreen mainScreen] applicationFrame]];
-    } else {
-        [super setFrame:CGRectMake(_backgroundDimensions.x,
-                                   _backgroundDimensions.y,
-                                   _backgroundDimensions.width,
-                                   _backgroundDimensions.height)];
-    }
-    
     int lastDisplayIndex = parentView.subviews.count;
     [parentView insertSubview:self atIndex:lastDisplayIndex+1];
 }
@@ -90,16 +91,19 @@
             if ([URL.host isEqualToString:FrameResponseAd_WebViewAdClosed]) {
                 [PNLogger log:PNLogLevelDebug format:@"PN Web View Close button was clicked"];
                 [self _closeAd];
+                return NO;
             } else if ([URL.host isEqualToString:FrameResponseAd_WebViewAdClicked]) {
                 [PNLogger log:PNLogLevelDebug format:@"PN Web View Ad was clicked"];
                 [self removeFromSuperview];
                 [_delegate adClicked];
+                return NO;
             }
         } else {
             [PNLogger log:PNLogLevelDebug format:@"Web View was clicked"];
             [[UIApplication sharedApplication] openURL:URL];
             [self removeFromSuperview];
             [_delegate adClicked];
+            return NO;
         }
     }
     return YES;

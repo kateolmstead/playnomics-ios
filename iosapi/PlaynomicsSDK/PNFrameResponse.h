@@ -34,7 +34,7 @@ typedef struct {
 @property (readonly) NSDictionary* adInfo;
 @property (readonly) PNViewDimensions adDimensions;
 @property (readonly) AdType adType;
-@property (readonly) NSString* fullscreen;
+@property (readonly) NSNumber* fullscreen;
 @property (readonly) NSString* htmlContent;
 @property (readonly) NSString* primaryImageUrl;
 @property (readonly) NSString* rolloverImageUrl;

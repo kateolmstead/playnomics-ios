@@ -120,7 +120,7 @@
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <connections>
-                                <action selector="onThirdPartyAd" destination="-1" eventType="touchUpInside" id="Sg1-PQ-uJa"/>
+                                <action selector="onThirdPartyAd:" destination="-1" eventType="touchUpInside" id="3mv-VR-xk7"/>
                             </connections>
                         </button>
                     </subviews>

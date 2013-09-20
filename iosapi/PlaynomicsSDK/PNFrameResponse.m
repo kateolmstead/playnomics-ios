@@ -73,7 +73,7 @@
         if (adType) {
             if ([adType isEqualToString:@"html"]) {
                 _adType = WebView;
-                _fullscreen = [[_adInfo objectForKey:FrameResponseAd_Fullscreen] retain];
+                _fullscreen = (NSNumber *)[[_adInfo objectForKey:FrameResponseAd_Fullscreen] retain];
                 _htmlContent = [[_adInfo objectForKey:FrameResponseAd_HtmlContent] retain];
             } else if ([adType isEqualToString:@"video"]) {
                 if ([[_adInfo objectForKey:FrameResponseAd_AdProvider] isEqualToString:@"AdColony"]) {
