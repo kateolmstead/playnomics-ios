@@ -27,7 +27,12 @@
 
 - (void)viewDidLoad
 {
-    self.extendedLayoutIncludesOpaqueBars = YES;
+    if([self respondsToSelector:@selector(extendedLayoutIncludesOpaqueBars)]){
+        self.extendedLayoutIncludesOpaqueBars = YES;
+    } else {
+        self.wantsFullScreenLayout = YES;
+    }
+    
     _frameDelegate = [[FrameDelegate alloc] init];
     [super viewDidLoad];
     //[Playnomics preloadFramesWithIds:@"546e241b9b97149b", @"c6877f336e9d9dda", @"7a9138a971ce1773", @"15bec4e2b78424a2", @"33a3cf0ecfa71c1a", nil];
