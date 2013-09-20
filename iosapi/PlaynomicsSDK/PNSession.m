@@ -33,27 +33,25 @@
 @implementation PNSession {
 @private
     int _sequence;
-    NSTimer* _eventTimer;
+    NSTimer *_eventTimer;
     
-    NSString* _testEventsUrl;
-    NSString* _prodEventsUrl;
-    NSString* _testMessagingUrl;
-    NSString* _prodMessagingUrl;
+    NSString *_testEventsUrl;
+    NSString *_prodEventsUrl;
+    NSString *_testMessagingUrl;
+    NSString *_prodMessagingUrl;
     
     NSTimeInterval _sessionStartTime;
 	NSTimeInterval _pauseTime;
     
-    PNEventApiClient* _apiClient;
-    PNMessaging* _messaging;
+    PNEventApiClient *_apiClient;
+    PNMessaging *_messaging;
     
     volatile NSInteger _clicks;
     volatile NSInteger _totalClicks;
     
-    NSMutableArray* _observers;
-    
-
+    NSMutableArray *_observers;
     NSObject *_syncLock;
-    UIView* _parentView;
+    UIView *_parentView;
 }
 
 
@@ -140,7 +138,7 @@
     return _prodEventsUrl;
 }
 
--(NSString*) getMessagingUrl{
+-(NSString *) getMessagingUrl{
     if(_overrideMessagingUrl){
         return _overrideMessagingUrl;
     }
@@ -450,7 +448,8 @@
 
 #pragma mark - Explicit Events
 
-- (void) transactionWithUSDPrice: (NSNumber *) priceInUSD quantity: (NSInteger) quantity  {
+- (void) transactionWithUSDPrice:(NSNumber *) priceInUSD
+                        quantity:(NSInteger) quantity  {
     @try {
         [self assertSessionHasStarted];
         
@@ -482,7 +481,9 @@
     }
 }
 
-- (void) attributeInstallToSource:(NSString *) source withCampaign: (NSString *) campaign onInstallDate: (NSDate *) installDate{
+- (void) attributeInstallToSource:(NSString *) source
+                     withCampaign:(NSString *) campaign
+                    onInstallDate:(NSDate *) installDate{
     @try{
         [self assertSessionHasStarted];
         
@@ -501,7 +502,7 @@
 
 #pragma mark "Push Notifications"
 
-- (void) enablePushNotificationsWithToken:(NSData*)deviceToken {
+- (void) enablePushNotificationsWithToken:(NSData *)deviceToken {
     @try {
         [self assertSessionHasStarted];
         NSString *oldToken = [_cache getDeviceToken];

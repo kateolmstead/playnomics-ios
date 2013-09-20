@@ -30,23 +30,16 @@ typedef enum {
 } AdAction;
 
 @interface PNUtil : NSObject
-
 + (UIInterfaceOrientation) getCurrentOrientation;
 + (NSString *) urlEncodeValue: (NSString*) unescapedValue;
-
 + (BOOL) isUrl:(NSString *) url;
-
 + (NSString *) boolAsString: (BOOL) value;
-+ (BOOL) stringAsBool : (NSString*) value;
-
++ (BOOL) stringAsBool : (NSString *) value;
 + (id) deserializeJsonData: (NSData *) jsonData ;
 + (id) deserializeJsonDataWithOptions: (NSData *) jsonData readOptions: (NSJSONReadingOptions) readOptions ;
 + (id) deserializeJsonString:(NSString *)jsonString;
-
 + (int) timezoneOffet;
-
 + (unsigned long long) generateRandomLongLong;
-
 + (CGRect) getScreenDimensions;
 + (NSString *) getLanguage;
 @end

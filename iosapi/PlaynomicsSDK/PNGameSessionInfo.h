@@ -16,6 +16,9 @@
 @property (nonatomic, readonly) NSString *breadcrumbId;
 @property (nonatomic, readonly) PNGeneratedHexId *sessionId;
 
--(id) initWithApplicationId:(unsigned long long)applicationId userId:(NSString *) userId breadcrumbId: (NSString *) breadcrumbId sessionId:(PNGeneratedHexId *)sessionId;
+-(id) initWithApplicationId:(unsigned long long)applicationId
+                     userId:(NSString *) userId
+               breadcrumbId:(NSString *) breadcrumbId
+                  sessionId:(PNGeneratedHexId *)sessionId;
 
 @end

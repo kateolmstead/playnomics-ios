@@ -29,9 +29,9 @@ typedef NS_ENUM(int, PNMilestoneType){
 
 @protocol PlaynomicsFrameDelegate <NSObject>
 @optional
--(void) onTouch: (NSDictionary*) jsonData;
--(void) onClose: (NSDictionary*) jsonData;
--(void) onShow: (NSDictionary*) jsonData;
+-(void) onTouch:(NSDictionary *) jsonData;
+-(void) onClose:(NSDictionary *) jsonData;
+-(void) onShow:(NSDictionary *) jsonData;
 -(void) onDidFailToRender;
 @end
 
@@ -45,7 +45,7 @@ typedef NS_ENUM(int, PNMilestoneType){
 + (BOOL) startWithApplicationId:(unsigned long long) applicationId
                       andUserId:(NSString*) userId;
 
-+ (void) onUIEventReceived: (UIEvent*) event;
++ (void) onUIEventReceived: (UIEvent *) event;
 //Explicit Events
 + (void) milestone:(PNMilestoneType) milestoneType;
 
@@ -54,9 +54,12 @@ typedef NS_ENUM(int, PNMilestoneType){
 
 + (void) attributeInstallToSource:(NSString *) source;
 
-+ (void) attributeInstallToSource:(NSString *) source withCampaign: (NSString*) campaign;
++ (void) attributeInstallToSource:(NSString *) source
+                     withCampaign:(NSString *) campaign;
 
-+ (void) attributeInstallToSource:(NSString *) source withCampaign: (NSString*) campaign onInstallDate: (NSDate *) installDate;
++ (void) attributeInstallToSource:(NSString *) source
+                     withCampaign:(NSString *) campaign
+                    onInstallDate:(NSDate *) installDate;
 
 
 //Push Notifications

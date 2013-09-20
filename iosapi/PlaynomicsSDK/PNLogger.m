@@ -16,7 +16,8 @@ static PNLoggingLevel _logLevel = PNLogLevelError;
     _logLevel = level;
 }
 
-+(void) log: (PNLoggingLevel) level format: (NSString *) format, ...{
++(void) log: (PNLoggingLevel) level
+     format: (NSString *) format, ...{
     if(level >= _logLevel){
         va_list args;
         va_start(args, format);
@@ -25,7 +26,8 @@ static PNLoggingLevel _logLevel = PNLogLevelError;
     }
 }
 
-+(void) log: (PNLoggingLevel) level exception: (NSException *) exception{
++(void) log: (PNLoggingLevel) level
+  exception: (NSException *) exception{
     if(level >= _logLevel){
         NSLog(@"Exception details:");
         NSLog(@"Name: %@", exception.name);
@@ -33,7 +35,9 @@ static PNLoggingLevel _logLevel = PNLogLevelError;
     }
 }
 
-+(void) log: (PNLoggingLevel) level exception: (NSException *) exception format: (NSString *) format, ...{
++(void) log: (PNLoggingLevel) level
+  exception: (NSException *) exception
+     format: (NSString *) format, ...{
     if(level >= _logLevel){
         va_list args;
         va_start(args, format);
@@ -45,14 +49,17 @@ static PNLoggingLevel _logLevel = PNLogLevelError;
     }
 }
 
-+(void) log: (PNLoggingLevel) level error: (NSError *) error{
++(void) log: (PNLoggingLevel) level
+      error: (NSError *) error{
     if(level >= _logLevel){
         NSLog(@"Error details:");
         NSLog(@"Description: %@", error.debugDescription);
     }
 }
 
-+(void) log: (PNLoggingLevel) level error: (NSError *) error format: (NSString *) format, ...{
++(void) log: (PNLoggingLevel) level
+      error: (NSError *) error
+     format: (NSString *) format, ...{
     if(level >= _logLevel){
         va_list args;
         va_start(args, format);

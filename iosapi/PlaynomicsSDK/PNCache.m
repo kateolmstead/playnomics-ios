@@ -53,7 +53,7 @@
         UIPasteboard *pasteBoard = [UIPasteboard pasteboardWithName:PNUserDefaultsLastDeviceID create:NO];
         self.breadcrumbID = [pasteBoard string];
     } else {
-        NSDictionary *data = [playnomicsPasteboard items][0];
+        NSDictionary *data = [[playnomicsPasteboard items] objectAtIndex:0];
         self.breadcrumbID = [self deserializeStringFromData: data key: PNPasteboardLastBreadcrumbID];
         
         self.idfa = [self deserializeStringFromData:data key:PNPasteboardLastIDFA];
@@ -84,7 +84,7 @@
     if(_breadcrumbIDChanged || _idfaChanged || _limitAdvertisingChanged){
         UIPasteboard *playnomicsPasteboard = [self getPlaynomicsPasteboard];
         NSMutableDictionary *pasteboardData = ([[playnomicsPasteboard items] count] == 1) ?
-                                    [playnomicsPasteboard items][0] :
+                                    [[playnomicsPasteboard items] objectAtIndex:0] :
                                     [NSMutableDictionary new];
 
         if(_idfaChanged){

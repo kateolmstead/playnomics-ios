@@ -16,7 +16,10 @@
 @synthesize applicationId = _applicationId;
 @synthesize breadcrumbId = _breadcrumbId;
 
--(id) initWithApplicationId:(unsigned long long)applicationId userId:(NSString *) userId breadcrumbId: (NSString *) breadcrumbId sessionId:(PNGeneratedHexId *)sessionId{
+-(id) initWithApplicationId:(unsigned long long)applicationId
+                     userId:(NSString *) userId
+               breadcrumbId:(NSString *) breadcrumbId
+                  sessionId:(PNGeneratedHexId *)sessionId{
     if((self = [super init])){
         _sessionId = [sessionId retain];
         _breadcrumbId = [breadcrumbId copy];

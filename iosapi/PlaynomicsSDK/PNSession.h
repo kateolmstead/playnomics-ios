@@ -45,20 +45,26 @@ typedef enum {
 - (void) stop;
 //Explicit Events
 - (void) milestone: (PNMilestoneType) milestoneType;
-- (void) transactionWithUSDPrice: (NSNumber *) priceInUSD quantity: (NSInteger) quantity;
-- (void) attributeInstallToSource:(NSString *) source withCampaign: (NSString*) campaign onInstallDate: (NSDate *) installDate;
+
+- (void) transactionWithUSDPrice:(NSNumber *) priceInUSD
+                        quantity:(NSInteger) quantity;
+
+- (void) attributeInstallToSource:(NSString *) source
+                     withCampaign:(NSString*) campaign
+                    onInstallDate:(NSDate *) installDate;
 
 - (void) pingUrlForCallback:(NSString *) url;
 //push notifications
-- (void) enablePushNotificationsWithToken: (NSData *) deviceToken;
-- (void) pushNotificationsWithPayload: (NSDictionary *) payload;
+- (void) enablePushNotificationsWithToken:(NSData *) deviceToken;
+- (void) pushNotificationsWithPayload:(NSDictionary *) payload;
 //UI Events/Users/jaredjenkins/Projects/mobile/playnomics-ios/iosapi/iosapi/PNSession.m
-- (void) onUIEventReceived: (UIEvent *) event;
+- (void) onUIEventReceived:(UIEvent *) event;
 //Messaging
-- (void) preloadFramesWithIds: (NSSet *) frameIDs;
+- (void) preloadFramesWithIds:(NSSet *) frameIDs;
 
 - (void) showFrameWithId:(NSString *) frameId;
-- (void) showFrameWithId:(NSString *) frameId delegate:(id<PlaynomicsFrameDelegate>) delegate;
+- (void) showFrameWithId:(NSString *) frameId
+                delegate:(id<PlaynomicsFrameDelegate>) delegate;
 - (void) hideFrameWithID:(NSString *) frameId;
 - (void) setFrameParentView:(UIView *) parentView;
 @end
