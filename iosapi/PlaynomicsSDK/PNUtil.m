@@ -72,6 +72,18 @@
     return [[UIScreen mainScreen] applicationFrame];
 }
 
++ (CGRect) getScreenDimensionsInView{
+    CGRect dimensions = [PNUtil getScreenDimensions];
+    
+    if([PNUtil getCurrentOrientation] == UIInterfaceOrientationLandscapeLeft
+       || [PNUtil getCurrentOrientation] == UIInterfaceOrientationLandscapeRight){
+       
+        //swap height, width, x, and y
+        return CGRectMake(dimensions.origin.y, dimensions.origin.x, dimensions.size.height, dimensions.size.width);
+    }
+    return dimensions;
+}
+
 + (NSString *) getLanguage {
     // Get language as 2-letter ISO 639-1 alpha-2 code. Default to English
     NSString *language = @"en";

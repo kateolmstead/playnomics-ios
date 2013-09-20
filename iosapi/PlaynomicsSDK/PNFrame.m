@@ -151,7 +151,6 @@
 }
 
 -(void) adClicked {
-    
     if(_response.clickUrl){
         [_session pingUrlForCallback:_response.clickUrl];
     }

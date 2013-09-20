@@ -32,7 +32,7 @@
             _status = AdComponentStatusPending;
             
             if (_response.fullscreen && [_response.fullscreen boolValue] == YES) {
-                [super setFrame:[PNUtil getScreenDimensions]];
+                [super setFrame:[PNUtil getScreenDimensionsInView]];
             } else {
                 [super setFrame:_backgroundDimensions];
             }
@@ -61,8 +61,8 @@
     [PNLogger log:PNLogLevelDebug format:@"Frame width %f height %f x %f y %f", [super frame].size.width, [super frame].size.height,
      [super frame].origin.x, [super frame].origin.y];
     
-    
-    return CGRectMake([super frame].size.width - _response.closeButtonDimensions.size.width, 0,
+    float padding = 5.0;
+    return CGRectMake([super frame].size.width - (_response.closeButtonDimensions.size.width + padding), padding,
                       _response.closeButtonDimensions.size.width,
                       _response.closeButtonDimensions.size.height);
 }
@@ -78,6 +78,7 @@
 }
 
 -(void) rotate{
+    [super setFrame:[PNUtil getScreenDimensionsInView]];
     if(_closeButton){
         _closeButton.frame = [self getFrameForCloseButton];
     }
@@ -132,8 +133,14 @@
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
     _status = AdComponentStatusCompleted;
-    [self setBackgroundColor:[UIColor colorWithRed:204 green:204 blue:204 alpha:.70f]];
-    [self setOpaque:YES];
+    if(_closeButton){
+        //third party ad, use a native opacity
+        [self setBackgroundColor:[UIColor colorWithRed:204/255.0 green:204/255.0 blue:204/255.0 alpha:.40f]];
+        [self setOpaque:NO];
+    } else {
+        [self setBackgroundColor:[UIColor clearColor]];
+        [self setOpaque:NO];
+    }
     [_delegate didLoad];
 }
 

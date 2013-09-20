@@ -42,5 +42,6 @@ typedef enum {
 + (int) timezoneOffet;
 + (unsigned long long) generateRandomLongLong;
 + (CGRect) getScreenDimensions;
++ (CGRect) getScreenDimensionsInView;
 + (NSString *) getLanguage;
 @end
