@@ -59,7 +59,7 @@
     [Playnomics overrideMessagingURL: @"http://ads.c.playnomics.net/v2/"];
     [Playnomics setLoggingLevel:PNLogLevelDebug];
     
-    [Playnomics startWithApplicationId:appId andUserId:@"43499EC6-1C44-4540-8581-51B5843812FB"];
+    [Playnomics startWithApplicationId:appId];
     
     //[AdColony initAdColonyWithDelegate:self];
     

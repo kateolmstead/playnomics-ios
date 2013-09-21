@@ -47,7 +47,6 @@
     [_background release];
     [_adArea release];
     [_closeButton release];
-    
     _delegate = nil;
     [super dealloc];
 }
