@@ -16,7 +16,14 @@
     NSLog(@"Touch was received for frame");
     
     if(jsonData){
-        NSLog(@" JSON data is %@ ", jsonData);
+        NSString* message = [NSString stringWithFormat: @"Data for frame %@" , jsonData];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"JSON Callback"
+                                                        message:message
+                                                       delegate:self
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+        [alert show];
+        [alert release];
     }
 }
 
