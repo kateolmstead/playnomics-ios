@@ -100,7 +100,7 @@
     [_adView renderAdInView:_parentView];
     
     _statusBar = [UIApplication sharedApplication].statusBarHidden;
-    [[UIApplication sharedApplication] setStatusBarHidden : NO];
+    [[UIApplication sharedApplication] setStatusBarHidden : YES];
     if(_frameDelegate && [_frameDelegate respondsToSelector:@selector(onShow:)]){
         [_frameDelegate onShow: [_response getJSONTargetData]];
     }
