@@ -14,18 +14,29 @@
 
 -(void) onTouch:(NSDictionary *)jsonData{
     NSLog(@"Touch was received for frame");
+    
+    if(jsonData){
+        NSLog(@" JSON data is %@ ", jsonData);
+    }
 }
 
 -(void) onClose:(NSDictionary *)jsonData{
     NSLog(@"Close was received for frame.");
+    if(jsonData){
+        NSLog(@" JSON data is %@ ", jsonData);
+    }
 }
 
 -(void) onDidFailToRender{
     NSLog(@"Did fail to render.");
+    
 }
 
 -(void) onShow:(NSDictionary *)jsonData{
     NSLog(@"Did show for frame.");
+    if(jsonData){
+        NSLog(@" JSON data is %@ ", jsonData);
+    }
 }
 
 @end
