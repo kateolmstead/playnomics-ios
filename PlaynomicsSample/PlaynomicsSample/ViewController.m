@@ -34,9 +34,9 @@
 - (void)viewDidLoad
 {
     if([self respondsToSelector:@selector(extendedLayoutIncludesOpaqueBars)]){
-        self.extendedLayoutIncludesOpaqueBars = YES;
+    //    self.extendedLayoutIncludesOpaqueBars = YES;
     } else {
-        self.wantsFullScreenLayout = YES;
+    //    self.wantsFullScreenLayout = YES;
     }
     
     _frameDelegate = [[FrameDelegate alloc] init];

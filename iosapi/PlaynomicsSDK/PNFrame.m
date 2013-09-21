@@ -18,6 +18,7 @@
     PNSession *_session;
     PNFrameResponse *_response;
     PNMessaging *_messaging;
+    BOOL _statusBar;
 }
 
 @synthesize parentView = _parentView;
@@ -35,6 +36,7 @@
         _messaging = messaging;
         _shouldRenderFrame = NO;
         _frameId = [frameId retain];
+        
     }
     return self;
 }
@@ -96,9 +98,13 @@
 -(void) render {
     [_session pingUrlForCallback: _response.impressionUrl];
     [_adView renderAdInView:_parentView];
+    
+    _statusBar = [UIApplication sharedApplication].statusBarHidden;
+    [[UIApplication sharedApplication] setStatusBarHidden : NO];
     if(_frameDelegate && [_frameDelegate respondsToSelector:@selector(onShow:)]){
         [_frameDelegate onShow: [_response getJSONTargetData]];
     }
+    
 }
 
 -(void) reloadFrame{
@@ -147,6 +153,7 @@
     }
     
     [self _destroyOrientationObservers];
+    [[UIApplication sharedApplication] setStatusBarHidden : _statusBar];
     //refresh the frame when the ad has been closed
     [self reloadFrame];
 }
@@ -174,7 +181,9 @@
         [_frameDelegate onTouch: [_response getJSONTargetData]];
     }
     //refresh the frame when the ad has been clicked
-   [self reloadFrame];
+    
+    [[UIApplication sharedApplication] setStatusBarHidden : _statusBar];
+    [self reloadFrame];
 }
 
 #pragma mark - Public Interface
