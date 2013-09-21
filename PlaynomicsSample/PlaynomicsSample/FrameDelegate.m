@@ -41,7 +41,7 @@
     }
 }
 
--(void) onDidFailToRender{
+-(void) onDidFailToRender:(NSDictionary *)jsonData{
     NSLog(@"Did fail to render.");
     NSString* message = [NSString stringWithFormat: @"Could not render the frame %@" , jsonData];
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"JSON Callback"
