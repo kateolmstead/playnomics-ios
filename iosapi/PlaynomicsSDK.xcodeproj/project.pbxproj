@@ -74,8 +74,8 @@
 		3238496117E96B9100DCA409 /* Copy Files */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "$(SRCROOT)/../build/PlaynomicsSDK/headers";
-			dstSubfolderSpec = 0;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
 			files = (
 				32384A1117E96CBF00DCA409 /* PNLogger.h in Copy Files */,
 				32384A1217E96CBF00DCA409 /* Playnomics.h in Copy Files */,
