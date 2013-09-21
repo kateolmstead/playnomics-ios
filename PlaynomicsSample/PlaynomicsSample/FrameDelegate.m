@@ -16,7 +16,7 @@
     NSLog(@"Touch was received for frame");
     
     if(jsonData){
-        NSString* message = [NSString stringWithFormat: @"Data for frame %@" , jsonData];
+        NSString* message = [NSString stringWithFormat: @"Click data for frame %@" , jsonData];
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"JSON Callback"
                                                         message:message
                                                        delegate:self
@@ -30,18 +30,37 @@
 -(void) onClose:(NSDictionary *)jsonData{
     NSLog(@"Close was received for frame.");
     if(jsonData){
+        NSString* message = [NSString stringWithFormat: @"Close data for frame %@" , jsonData];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"JSON Callback"
+                                                        message:message
+                                                       delegate:self
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+        
         NSLog(@" JSON data is %@ ", jsonData);
     }
 }
 
 -(void) onDidFailToRender{
     NSLog(@"Did fail to render.");
+    NSString* message = [NSString stringWithFormat: @"Could not render the frame %@" , jsonData];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"JSON Callback"
+                                                    message:message
+                                                   delegate:self
+                                          cancelButtonTitle:@"OK"
+                                          otherButtonTitles:nil];
     
 }
 
 -(void) onShow:(NSDictionary *)jsonData{
     NSLog(@"Did show for frame.");
     if(jsonData){
+        NSString* message = [NSString stringWithFormat: @"Impression data for frame %@" , jsonData];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"JSON Callback"
+                                                        message:message
+                                                       delegate:self
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
         NSLog(@" JSON data is %@ ", jsonData);
     }
 }
