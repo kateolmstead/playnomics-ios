@@ -201,6 +201,11 @@
 			attributes = {
 				LastUpgradeCheck = 0460;
 				ORGANIZATIONNAME = Grio;
+				TargetAttributes = {
+					5BBAA073159BAEFF00AA4993 = {
+						DevelopmentTeam = 3XGDM87KDL;
+					};
+				};
 			};
 			buildConfigurationList = 5BBAA06E159BAEFF00AA4993 /* Build configuration list for PBXProject "PlaynomicsSample" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -317,8 +322,8 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Turiya Media, Inc. (3XGDM87KDL)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -334,7 +339,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "9A7E35FF-3A9B-4D5E-8BA4-1E43C00031CB";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "";
@@ -350,8 +355,8 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Turiya Media, Inc. (3XGDM87KDL)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
@@ -361,7 +366,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "9A7E35FF-3A9B-4D5E-8BA4-1E43C00031CB";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "";
@@ -372,8 +377,8 @@
 		5BBAA096159BAF0000AA4993 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Turiya Media, Inc. (3XGDM87KDL)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Turiya Media, Inc. (3XGDM87KDL)";
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PlaynomicsSample/PlaynomicsSample-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
@@ -388,8 +393,8 @@
 					"-fobjc-arc",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "461AD27C-CC10-4F2C-BE41-6131FE5B93BB";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "461AD27C-CC10-4F2C-BE41-6131FE5B93BB";
+				PROVISIONING_PROFILE = "9A7E35FF-3A9B-4D5E-8BA4-1E43C00031CB";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "9A7E35FF-3A9B-4D5E-8BA4-1E43C00031CB";
 				RUN_CLANG_STATIC_ANALYZER = YES;
 				SKIP_INSTALL = NO;
 				SYMROOT = build;
@@ -401,8 +406,8 @@
 		5BBAA097159BAF0000AA4993 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Turiya Media, Inc. (3XGDM87KDL)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Turiya Media, Inc. (3XGDM87KDL)";
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PlaynomicsSample/PlaynomicsSample-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
@@ -417,8 +422,8 @@
 					"-fobjc-arc",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "323C2FA4-7404-4207-84F4-3F3CC2D5383E";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "323C2FA4-7404-4207-84F4-3F3CC2D5383E";
+				PROVISIONING_PROFILE = "9A7E35FF-3A9B-4D5E-8BA4-1E43C00031CB";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "9A7E35FF-3A9B-4D5E-8BA4-1E43C00031CB";
 				RUN_CLANG_STATIC_ANALYZER = YES;
 				SKIP_INSTALL = NO;
 				SYMROOT = build;
