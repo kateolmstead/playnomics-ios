@@ -36,20 +36,21 @@
                                                        delegate:self
                                               cancelButtonTitle:@"OK"
                                               otherButtonTitles:nil];
-        
-        NSLog(@" JSON data is %@ ", jsonData);
+        [alert show];
+        [alert release];
     }
 }
 
 -(void) onDidFailToRender{
     NSLog(@"Did fail to render.");
-    NSString* message = [NSString stringWithFormat: @"Could not render the frame %@" , jsonData];
+    NSString* message = [NSString stringWithFormat: @"Could not render the frame"];
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"JSON Callback"
                                                     message:message
                                                    delegate:self
                                           cancelButtonTitle:@"OK"
                                           otherButtonTitles:nil];
-    
+    [alert show];
+    [alert release];
 }
 
 -(void) onShow:(NSDictionary *)jsonData{
@@ -61,6 +62,8 @@
                                                        delegate:self
                                               cancelButtonTitle:@"OK"
                                               otherButtonTitles:nil];
+        [alert show];
+        [alert release];
         NSLog(@" JSON data is %@ ", jsonData);
     }
 }
