@@ -11,6 +11,7 @@
     NSOperationQueue *_operationQueue;
     
     PNConcurrentSet *_inprocessEvents;
+    NSObject* _syncLock;
 }
 
 - (id) initWithSession: (PNSession *) session {
@@ -20,12 +21,14 @@
         _inprocessEvents = [[PNConcurrentSet alloc] init];
         _session = session;
         _running = NO;
+        _syncLock = [[NSObject alloc] init];
     }
     return self;
 }
 
 - (void) dealloc {
     [_operationQueue release];
+    [_syncLock release];
     _session = nil;
     [super dealloc];
 }
@@ -47,6 +50,18 @@
     }
 }
 
+-(BOOL) running{
+    @synchronized(_syncLock){
+        return _running;
+    }
+}
+
+-(void) setRunning:(BOOL) running{
+    @synchronized(_syncLock){
+        _running = running;
+    }
+}
+
 - (void) onDidProcessUrl:(NSString *)url{
     [_inprocessEvents removeObject: url];
 }
@@ -59,6 +74,24 @@
     }
 }
 
+-(void) onInternetUnavailable{
+    if([self running]){
+        [PNLogger log:PNLogLevelWarning format:@"Can't make an internet connection, pausing the event queue."];
+        [self pause];
+        [self performSelectorOnMainThread:@selector(scheduleRestartQueue) withObject:nil waitUntilDone:NO];
+    }
+}
+
+-(void) scheduleRestartQueue{
+    NSTimeInterval restartTimeInSeconds = 60 * 2;
+    [NSTimer scheduledTimerWithTimeInterval:restartTimeInSeconds target:self selector:@selector(delayedRestartQueue:) userInfo:nil repeats:NO];
+}
+
+- (void) delayedRestartQueue:(NSTimer *)timer{
+    [PNLogger log:PNLogLevelWarning format:@"Attempting to restart the event queue."];
+    [self start];
+}
+     
 + (NSString *) buildUrlWithBase:(NSString *) base
                        withPath:(NSString *) path
                      withParams:(NSDictionary *) params{
@@ -94,14 +127,14 @@
 }
 
 - (void) start{
-    if(_running){ return; }
-    _running = YES;
+    if([self running]){ return; }
+    [self setRunning: YES];
     [_operationQueue setSuspended: NO];
 }
 
 - (void) pause{
-    if(!_running){ return; }
-    _running = NO;
+    if(![self running]){ return; }
+    [self setRunning: NO];
     [_operationQueue setSuspended: YES];
 }
 

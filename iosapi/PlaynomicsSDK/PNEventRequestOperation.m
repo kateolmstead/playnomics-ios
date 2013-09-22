@@ -64,6 +64,10 @@
         [PNLogger log:PNLogLevelDebug
                format:@"Request for %@ completed with error %@", _urlPath, error.description];
         [_delegate onDidFailToProcessUrl:_urlPath tryAgain:YES];
+        
+        if([error code] == NSURLErrorNotConnectedToInternet){
+            [_delegate onInternetUnavailable];
+        }
     } else {
         NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse *)response;
         [PNLogger log:PNLogLevelDebug
