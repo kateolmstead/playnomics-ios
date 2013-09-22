@@ -123,7 +123,6 @@
             [_delegate adClicked];
         } else {
             [PNLogger log:PNLogLevelDebug format:@"Web View was clicked"];
-            
             if([[UIApplication sharedApplication] canOpenURL:url]){
                 [[UIApplication sharedApplication] openURL:url];
             }

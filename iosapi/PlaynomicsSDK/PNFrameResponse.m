@@ -71,6 +71,9 @@
         _actionType = [self toAdAction : _clickUrl];
         _targetType = [self toAdTarget: [_adInfo objectForKey:FrameResponseAd_TargetType]];
         
+        _closeButtonType = [self toCloseButtonType:[_adInfo objectForKey:FrameResponseAd_CloseButtonType]];
+        _closeButtonLink = [[_adInfo objectForKey:FrameResponseAd_CloseButtonLink] retain];
+        
         NSString* adType = [_adInfo objectForKey:FrameResponseAd_AdType];
         if (adType) {
             if ([adType isEqualToString:@"html"]) {
@@ -96,8 +99,6 @@
         }
     }
     
-    _closeButtonType = [self toCloseButtonType:[frameResponse objectForKey:FrameResponseAd_CloseButtonType]];
-    _closeButtonLink = [[frameResponse objectForKey:FrameResponseAd_CloseButtonLink] retain];
     _closeButtonInfo = [frameResponse objectForKey:FrameResponseCloseButtonInfo];
     if(_closeButtonInfo){
         _closeButtonImageUrl = [[self getImageFromProperties:_closeButtonInfo] retain];
