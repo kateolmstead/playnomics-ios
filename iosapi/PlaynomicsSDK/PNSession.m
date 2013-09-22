@@ -213,13 +213,11 @@
                                                usingBlock:applicationResumed]];
         
         // Retrieve stored Event List
-        NSArray *storedEvents = (NSArray *) [NSKeyedUnarchiver unarchiveObjectWithFile:PNFileEventArchive];
-        if ([storedEvents count] > 0) {
-            for(int i = 0; i < [storedEvents count]; i ++){
-                NSString* eventUrl = [storedEvents objectAtIndex:i];
+        NSSet *storedEvents = (NSSet *) [NSKeyedUnarchiver unarchiveObjectWithFile:PNFileEventArchive];
+        if (storedEvents) {
+            for(NSString *eventUrl in storedEvents){
                 [_apiClient enqueueEventUrl: eventUrl];
             }
-            
             // Remove archive so as not to pick up bad events when starting up next time.
             [[NSFileManager defaultManager] removeItemAtPath:PNFileEventArchive error:nil];
         }
@@ -608,7 +606,6 @@
     }
 
 }
-
 
 - (void) setFrameParentView:(UIView *) parentView{
     @try{
