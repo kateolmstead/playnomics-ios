@@ -182,7 +182,7 @@
     NSString *source = @"source";
     NSString *campaign = @"campaign";
     NSDate* date = [NSDate date];
-    NSNumber* unixTimeNum = [NSNumber numberWithDouble:[date timeIntervalSince1970]];
+    NSNumber* unixTimeNum = [NSNumber numberWithInt:[date timeIntervalSince1970]];
     
     PNEventUserInfo *userInfo = [[PNEventUserInfo alloc] initWithSessionInfo:_info
                                                                       source:source

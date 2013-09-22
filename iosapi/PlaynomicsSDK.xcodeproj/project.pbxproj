@@ -49,7 +49,7 @@
 		32306C8917E97AA0001240D7 /* PNUtilTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 32306C7717E97A5D001240D7 /* PNUtilTests.m */; };
 		32384A1117E96CBF00DCA409 /* PNLogger.h in Copy Files */ = {isa = PBXBuildFile; fileRef = 3290171E17DA5AE20041895A /* PNLogger.h */; };
 		32384A1217E96CBF00DCA409 /* Playnomics.h in Copy Files */ = {isa = PBXBuildFile; fileRef = 329016EB17DA5AE20041895A /* Playnomics.h */; };
-		323B353E17E9859400A2F7BC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 323B353D17E9859400A2F7BC /* Foundation.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		323B353E17E9859400A2F7BC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 323B353D17E9859400A2F7BC /* Foundation.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		323B354017E985AD00A2F7BC /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 323B353F17E985AD00A2F7BC /* AdSupport.framework */; };
 		323B355417E9894700A2F7BC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 323B353D17E9859400A2F7BC /* Foundation.framework */; };
 		328D497217E990EA0067DAB7 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 323B354117E985B100A2F7BC /* XCTest.framework */; };
@@ -57,7 +57,7 @@
 		329D460B17EA266A001A95BB /* StubPNCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 323B353717E980BA00A2F7BC /* StubPNCache.m */; };
 		329D460C17EA2673001A95BB /* StubDeviceToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 323B353517E980BA00A2F7BC /* StubDeviceToken.m */; };
 		329D460D17EA267A001A95BB /* StubPNEventApiClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 323B353917E980BA00A2F7BC /* StubPNEventApiClient.m */; };
-		32C8495917EBE03E006411BD /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 323B353F17E985AD00A2F7BC /* AdSupport.framework */; };
+		32C8495917EBE03E006411BD /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 323B353F17E985AD00A2F7BC /* AdSupport.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -701,6 +701,7 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos7.0;
 				SYMROOT = build;
 				VALID_ARCHS = "armv7 armv7s ";
 				WRAPPER_EXTENSION = xctest;
@@ -749,6 +750,7 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos7.0;
 				SYMROOT = build;
 				VALID_ARCHS = "armv7 armv7s ";
 				WRAPPER_EXTENSION = xctest;

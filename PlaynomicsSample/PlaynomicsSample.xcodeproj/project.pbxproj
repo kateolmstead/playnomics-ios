@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		322BEC5217A6CFF000C2623E /* FrameDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 322BEC5117A6CFF000C2623E /* FrameDelegate.m */; };
-		323B354817E9866C00A2F7BC /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 323B354717E9866C00A2F7BC /* AdSupport.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		323B354817E9866C00A2F7BC /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 323B354717E9866C00A2F7BC /* AdSupport.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		323B354A17E9867200A2F7BC /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 323B354917E9867200A2F7BC /* AVFoundation.framework */; };
 		323B354C17E9867B00A2F7BC /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 323B354B17E9867B00A2F7BC /* CFNetwork.framework */; };
 		323B354E17E9868100A2F7BC /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 323B354D17E9868100A2F7BC /* CoreGraphics.framework */; };
@@ -386,15 +386,15 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "PlaynomicsSample/PlaynomicsSample-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				OBJROOT = "$(SYMROOT)";
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-fobjc-arc",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "9A7E35FF-3A9B-4D5E-8BA4-1E43C00031CB";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "9A7E35FF-3A9B-4D5E-8BA4-1E43C00031CB";
+				PROVISIONING_PROFILE = "4C020E7C-C891-4FB4-92FF-6B60BDA8C5E4";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "4C020E7C-C891-4FB4-92FF-6B60BDA8C5E4";
 				RUN_CLANG_STATIC_ANALYZER = YES;
 				SKIP_INSTALL = NO;
 				SYMROOT = build;
@@ -406,8 +406,8 @@
 		5BBAA097159BAF0000AA4993 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Turiya Media, Inc. (3XGDM87KDL)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Turiya Media, Inc. (3XGDM87KDL)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PlaynomicsSample/PlaynomicsSample-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
@@ -415,7 +415,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "PlaynomicsSample/PlaynomicsSample-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				OBJROOT = "$(SYMROOT)";
 				OTHER_LDFLAGS = (
 					"-ObjC",

@@ -42,7 +42,7 @@
         [self appendParameter:campaign forKey:PNEventParameterUserInfoCampaign];
         if(installDate){
             NSTimeInterval unixTime = [installDate timeIntervalSince1970];
-            NSNumber* unixTimeNum = [NSNumber numberWithDouble: unixTime];
+            NSNumber* unixTimeNum = [NSNumber numberWithInt: unixTime];
             [self appendParameter:unixTimeNum forKey:PNEventParameterUserInfoInstallDate];
         }
         
