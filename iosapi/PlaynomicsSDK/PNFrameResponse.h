@@ -16,9 +16,12 @@ typedef enum {
     AdUnknown
 } AdType;
 
+typedef enum{
+    CloseButtonHtml,
+    CloseButtonNative,
+    CloseButtonUnknown
+}CloseButtonType;
 //we should just make this into CGRect, no point in having our own type definition
-
-
 
 @interface PNFrameResponse : NSObject
 
@@ -34,15 +37,20 @@ typedef enum {
 @property (readonly) NSString* primaryImageUrl;
 
 @property (readonly) NSString* clickUrl;
+@property (readonly) NSString* clickLink;
+
 @property (readonly) NSString* clickTargetData;
 @property (readonly) NSString* clickTargetUrl;
 @property (readonly) NSString* impressionUrl;
 @property (readonly) NSString* closeUrl;
 @property (readonly) NSString* viewUrl;
 
+
 @property (readonly) AdTarget targetType;
 @property (readonly) AdAction actionType;
 
+@property (readonly) CloseButtonType closeButtonType;
+@property (readonly) NSString* closeButtonLink;
 
 @property (readonly) NSDictionary* closeButtonInfo;
 @property (readonly) NSString* closeButtonImageUrl;

@@ -20,12 +20,15 @@
 @synthesize primaryImageUrl = _primaryImageUrl;
 @synthesize clickUrl = _clickUrl;
 @synthesize clickTargetData = _clickTargetData;
+@synthesize clickLink = _clickLink;
 @synthesize impressionUrl = _impressionUrl;
 @synthesize closeUrl = _closeUrl;
 @synthesize viewUrl = _viewUrl;
 @synthesize closeButtonInfo = _closeButtonInfo;
 @synthesize closeButtonImageUrl = _closeButtonImageUrl;
 @synthesize closeButtonDimensions = _closeButtonDimensions;
+@synthesize closeButtonType = _closeButtonType;
+
 @synthesize targetType=_targetType;
 @synthesize actionType=_actionType;
 
@@ -61,6 +64,9 @@
         _clickUrl = [[_adInfo objectForKey:FrameResponseAd_ClickUrl] retain];
         _clickTargetData = [[_adInfo objectForKey:FrameResponseAd_TargetData] retain];
         _clickTargetUrl = [[_adInfo objectForKey:FrameResponseAd_TargetUrl] retain];
+        _clickLink = [_adInfo objectForKey:FrameResponseAd_ClickLink] != (id)[NSNull null]
+                            ? [[_adInfo objectForKey:FrameResponseAd_ClickLink] retain]
+                            : nil;
         
         _actionType = [self toAdAction : _clickUrl];
         _targetType = [self toAdTarget: [_adInfo objectForKey:FrameResponseAd_TargetType]];
@@ -90,6 +96,8 @@
         }
     }
     
+    _closeButtonType = [self toCloseButtonType:[frameResponse objectForKey:FrameResponseAd_CloseButtonType]];
+    _closeButtonLink = [[frameResponse objectForKey:FrameResponseAd_CloseButtonLink] retain];
     _closeButtonInfo = [frameResponse objectForKey:FrameResponseCloseButtonInfo];
     if(_closeButtonInfo){
         _closeButtonImageUrl = [[self getImageFromProperties:_closeButtonInfo] retain];
@@ -102,6 +110,7 @@
 -(CGRect) backgroundDimensions{
     return [self getViewDimensions:_backgroundInfo];
 }
+
 
 -(CGRect) getViewDimensions:(NSDictionary*) componentInfo {
     float height = [self getFloatValue:[componentInfo objectForKey:FrameResponseHeight]];
@@ -186,5 +195,20 @@
     return AdTargetUnknown;
 }
 
+-(CloseButtonType) toCloseButtonType:(NSString *) closeButtonType{
+    if(closeButtonType == (id)[NSNull null]){
+        return CloseButtonUnknown;
+    }
+    
+    if([closeButtonType isEqualToString:@"html"]){
+        return CloseButtonHtml;
+    }
+    
+    if([closeButtonType isEqualToString:@"native"]){
+        return CloseButtonNative;
+    }
+    
+    return CloseButtonUnknown;
+}
 
 @end

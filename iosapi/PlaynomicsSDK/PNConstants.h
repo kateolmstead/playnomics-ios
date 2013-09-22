@@ -57,10 +57,9 @@
 #define FrameResponseAd_TargetUrl @"targetURL"
 #define FrameResponseAd_HtmlContent @"htmlContent"
 #define FrameResponseAd_AdProvider @"adProvider"
-#define FrameResponseAd_CloseUrlPath @"/v1/closeImpression"
-#define FrameResponseAd_WebViewClickProtocol @"pn"
-#define FrameResponseAd_WebViewAdClicked @"click"
-#define FrameResponseAd_WebViewAdClosed @"close"
+#define FrameResponseAd_ClickLink @"clickLink"
+#define FrameResponseAd_CloseButtonType @"closeButtonType"
+#define FrameResponseAd_CloseButtonLink @"closeButtonLink"
 
 // Ad Response: Background keys
 #define FrameResponseBackground_Landscape @"l"

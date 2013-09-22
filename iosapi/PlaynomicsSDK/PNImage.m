@@ -29,7 +29,7 @@
     _background = [[PNViewComponent alloc] initWithDimensions:_response.backgroundDimensions delegate:self image:_response.backgroundImageUrl];
     _adArea = [[PNViewComponent alloc] initWithDimensions:_response.adDimensions delegate:self image:_response.primaryImageUrl];
     
-    if(_response.closeButtonImageUrl != nil){
+    if(_response.closeButtonType == CloseButtonNative && _response.closeButtonImageUrl != nil){
         _closeButton = [[PNViewComponent alloc] initWithDimensions:_response.closeButtonDimensions delegate:self image:_response.closeButtonImageUrl];
     }
     

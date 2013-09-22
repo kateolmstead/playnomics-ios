@@ -38,7 +38,7 @@
             }
             
             // Close button should only be non-nil for 3rd party ads
-            if(_response.closeButtonImageUrl != nil){
+            if(_response.closeButtonType == CloseButtonNative && _response.closeButtonImageUrl != nil){
                 CGRect dimensions = [self getFrameForCloseButton];
                 _closeButton = [[PNViewComponent alloc] initWithDimensions:dimensions delegate:self image:_response.closeButtonImageUrl];
                 if(_closeButton !=  nil){
@@ -111,28 +111,25 @@
 #pragma mark "Delegate Handlers"
 -(BOOL) webView:(UIWebView*) webView shouldStartLoadWithRequest:(NSURLRequest *) request
  navigationType:(UIWebViewNavigationType) navigationType {
-    NSURL *URL = [request URL];
+    NSURL *url = [request URL];
     
     if (navigationType == UIWebViewNavigationTypeLinkClicked) {
-        if ([URL.scheme isEqualToString:FrameResponseAd_WebViewClickProtocol]) {
-            [PNLogger log:PNLogLevelDebug format:@"PN Web View was clicked and the type of click (host) is %@", URL.host ];
-            if ([URL.host isEqualToString:FrameResponseAd_WebViewAdClosed]) {
-                [PNLogger log:PNLogLevelDebug format:@"PN Web View Close button was clicked"];
-                [self _closeAd];
-                return NO;
-            } else if ([URL.host isEqualToString:FrameResponseAd_WebViewAdClicked]) {
-                [PNLogger log:PNLogLevelDebug format:@"PN Web View Ad was clicked"];
-                [self removeFromSuperview];
-                [_delegate adClicked];
-                return NO;
-            }
+        [self removeFromSuperview];
+        if (_response.closeButtonLink &&  [_response.closeButtonLink isEqualToString: url.absoluteString]){
+            [PNLogger log:PNLogLevelDebug format:@"PN Web View Close button was clicked"];
+            [_delegate adClosed:YES];
+        } else if (_response.clickLink && [_response.clickLink isEqualToString:url.absoluteString]){
+            [PNLogger log:PNLogLevelDebug format:@"PN Web View Ad was clicked"];
+            [_delegate adClicked];
         } else {
             [PNLogger log:PNLogLevelDebug format:@"Web View was clicked"];
-            [[UIApplication sharedApplication] openURL:URL];
-            [self removeFromSuperview];
+            
+            if([[UIApplication sharedApplication] canOpenURL:url]){
+                [[UIApplication sharedApplication] openURL:url];
+            }
             [_delegate adClicked];
-            return NO;
         }
+        return NO;
     }
     return YES;
 }
