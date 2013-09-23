@@ -85,7 +85,7 @@
 
 + (NSString *) getLanguage {
     // Get language as 2-letter ISO 639-1 alpha-2 code. Default to English
-    NSString *language = @"en";
+    NSString *language = nil;
     NSArray *languages = [NSLocale preferredLanguages];
     if ([languages count] > 0) {
         language = [[languages objectAtIndex:0] substringToIndex:2];
