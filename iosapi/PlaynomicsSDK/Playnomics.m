@@ -117,7 +117,7 @@
 }
 
 + (void) setFrameParentView:(UIView *) parentView{
-    
+    [[PNSession sharedInstance] setFrameParentView:parentView];
 }
 
 @end

@@ -52,6 +52,7 @@ static AppDelegate s_sharedApplication;
     if ( [[UIDevice currentDevice].systemVersion floatValue] < 6.0){
         // warning: addSubView doesn't work on iOS6
         [window addSubview: viewController.view];
+        [Playnomics setFrameParentView: viewController.view];
     } else {
         // use this method on ios6
         [window setRootViewController:viewController];

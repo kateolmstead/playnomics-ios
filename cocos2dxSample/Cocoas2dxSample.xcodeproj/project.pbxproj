@@ -2606,7 +2606,7 @@
 					"-websockets",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				USER_HEADER_SEARCH_PATHS = "\"Cocoas2dxSample/libs/Chipmunk/include/chipmunk\" $(SRCROOT)/../build/PlaynomicsSDK/Debug-iphoneos/include/PlaynomicsSDK/";
+				USER_HEADER_SEARCH_PATHS = "\"Cocoas2dxSample/libs/Chipmunk/include/chipmunk\" $(SRCROOT)/../iosapi/PlaynomicsSDK";
 				VALID_ARCHS = "armv7 armv7s i386";
 				WRAPPER_EXTENSION = app;
 			};
@@ -2646,7 +2646,7 @@
 					"-websockets",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				USER_HEADER_SEARCH_PATHS = "\"Cocoas2dxSample/libs/Chipmunk/include/chipmunk\" $(SRCROOT)/../build/PlaynomicsSDK/Debug-iphoneos/include/PlaynomicsSDK/";
+				USER_HEADER_SEARCH_PATHS = "\"Cocoas2dxSample/libs/Chipmunk/include/chipmunk\" $(SRCROOT)/../iosapi/PlaynomicsSDK";
 				VALIDATE_PRODUCT = YES;
 				VALID_ARCHS = "armv7 armv7s i386";
 				WRAPPER_EXTENSION = app;
