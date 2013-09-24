@@ -47,8 +47,6 @@
 		32306C8517E97AA0001240D7 /* PNGeneratedHexIdTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 32306C7317E97A5D001240D7 /* PNGeneratedHexIdTests.m */; };
 		32306C8717E97AA0001240D7 /* PNSessionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 32306C7517E97A5D001240D7 /* PNSessionTests.m */; };
 		32306C8917E97AA0001240D7 /* PNUtilTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 32306C7717E97A5D001240D7 /* PNUtilTests.m */; };
-		32384A1117E96CBF00DCA409 /* PNLogger.h in Copy Files */ = {isa = PBXBuildFile; fileRef = 3290171E17DA5AE20041895A /* PNLogger.h */; };
-		32384A1217E96CBF00DCA409 /* Playnomics.h in Copy Files */ = {isa = PBXBuildFile; fileRef = 329016EB17DA5AE20041895A /* Playnomics.h */; };
 		323B353E17E9859400A2F7BC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 323B353D17E9859400A2F7BC /* Foundation.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		323B354017E985AD00A2F7BC /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 323B353F17E985AD00A2F7BC /* AdSupport.framework */; };
 		323B355417E9894700A2F7BC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 323B353D17E9859400A2F7BC /* Foundation.framework */; };
@@ -77,8 +75,6 @@
 			dstPath = "include/$(PRODUCT_NAME)";
 			dstSubfolderSpec = 16;
 			files = (
-				32384A1117E96CBF00DCA409 /* PNLogger.h in Copy Files */,
-				32384A1217E96CBF00DCA409 /* Playnomics.h in Copy Files */,
 			);
 			name = "Copy Files";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -175,8 +171,6 @@
 		323B353F17E985AD00A2F7BC /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		323B354117E985B100A2F7BC /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		328D497317E993790067DAB7 /* PlaynomicsSDKTests-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "PlaynomicsSDKTests-Info.plist"; path = "PlaynomicsSDKTests/PlaynomicsSDKTests-Info.plist"; sourceTree = SOURCE_ROOT; };
-		329016EB17DA5AE20041895A /* Playnomics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Playnomics.h; path = PlaynomicsSDK/Playnomics.h; sourceTree = "<group>"; };
-		3290171E17DA5AE20041895A /* PNLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PNLogger.h; path = PlaynomicsSDK/PNLogger.h; sourceTree = "<group>"; };
 		329D45EA17E9952C001A95BB /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		32A7C35017C6A84300E959A3 /* libOCMock.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libOCMock.a; sourceTree = "<group>"; };
 		32A7C35217C6A84300E959A3 /* NSNotificationCenter+OCMAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNotificationCenter+OCMAdditions.h"; sourceTree = "<group>"; };
@@ -185,7 +179,9 @@
 		32A7C35517C6A84300E959A3 /* OCMock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCMock.h; sourceTree = "<group>"; };
 		32A7C35617C6A84300E959A3 /* OCMockObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCMockObject.h; sourceTree = "<group>"; };
 		32A7C35717C6A84300E959A3 /* OCMockRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCMockRecorder.h; sourceTree = "<group>"; };
-		A1244E0A16A9EADF001A93DD /* dev.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = dev.xcconfig; sourceTree = "<group>"; };
+		32D54F5B17F209490029848E /* Playnomics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Playnomics.h; path = PlaynomicsSDK/Playnomics.h; sourceTree = "<group>"; };
+		32D54F5C17F2096C0029848E /* PNLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PNLogger.h; path = PlaynomicsSDK/PNLogger.h; sourceTree = "<group>"; };
+		32D54F5D17F209770029848E /* dev.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = dev.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -239,9 +235,8 @@
 				3290177017DA5BCD0041895A /* Util */,
 				3290176E17DA5BAF0041895A /* Messaging */,
 			);
-			name = PlaynomicsSDK;
-			path = PlaynomicsSDKTemp;
-			sourceTree = "<group>";
+			path = PlaynomicsSDK;
+			sourceTree = SOURCE_ROOT;
 		};
 		3238497717E96B9100DCA409 /* PlaynomicsSDKTests */ = {
 			isa = PBXGroup;
@@ -408,22 +403,22 @@
 			path = OCMock;
 			sourceTree = "<group>";
 		};
-		A14DA13916DFFD230040B507 /* public */ = {
+		32D54F5A17F209370029848E /* Public */ = {
 			isa = PBXGroup;
 			children = (
-				3290171E17DA5AE20041895A /* PNLogger.h */,
-				329016EB17DA5AE20041895A /* Playnomics.h */,
-				A1244E0A16A9EADF001A93DD /* dev.xcconfig */,
+				32D54F5D17F209770029848E /* dev.xcconfig */,
+				32D54F5C17F2096C0029848E /* PNLogger.h */,
+				32D54F5B17F209490029848E /* Playnomics.h */,
 			);
-			name = public;
+			name = Public;
 			sourceTree = "<group>";
 		};
 		D1D922651590F59500EDDE17 = {
 			isa = PBXGroup;
 			children = (
+				32D54F5A17F209370029848E /* Public */,
 				323B355317E986D400A2F7BC /* Frameworks */,
 				32A7C34217C6A7DE00E959A3 /* Libraries */,
-				A14DA13916DFFD230040B507 /* public */,
 				3238496517E96B9100DCA409 /* PlaynomicsSDK */,
 				3238497717E96B9100DCA409 /* PlaynomicsSDKTests */,
 				D1D922711590F59600EDDE17 /* Products */,
