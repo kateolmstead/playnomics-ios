@@ -56,6 +56,13 @@
 		329D460C17EA2673001A95BB /* StubDeviceToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 323B353517E980BA00A2F7BC /* StubDeviceToken.m */; };
 		329D460D17EA267A001A95BB /* StubPNEventApiClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 323B353917E980BA00A2F7BC /* StubPNEventApiClient.m */; };
 		32C8495917EBE03E006411BD /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 323B353F17E985AD00A2F7BC /* AdSupport.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		32D54F6B17F20FB50029848E /* PNAd.m in Sources */ = {isa = PBXBuildFile; fileRef = 32D54F6417F20FB50029848E /* PNAd.m */; };
+		32D54F6C17F20FB50029848E /* PNBackground.m in Sources */ = {isa = PBXBuildFile; fileRef = 32D54F6517F20FB50029848E /* PNBackground.m */; };
+		32D54F6D17F20FB50029848E /* PNCloseButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 32D54F6617F20FB50029848E /* PNCloseButton.m */; };
+		32D54F6E17F20FB50029848E /* PNHtmlAd.m in Sources */ = {isa = PBXBuildFile; fileRef = 32D54F6717F20FB50029848E /* PNHtmlAd.m */; };
+		32D54F6F17F20FB50029848E /* PNHtmlCloseButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 32D54F6817F20FB50029848E /* PNHtmlCloseButton.m */; };
+		32D54F7017F20FB50029848E /* PNNativeCloseButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 32D54F6917F20FB50029848E /* PNNativeCloseButton.m */; };
+		32D54F7117F20FB50029848E /* PNStaticAd.m in Sources */ = {isa = PBXBuildFile; fileRef = 32D54F6A17F20FB50029848E /* PNStaticAd.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -182,6 +189,14 @@
 		32D54F5B17F209490029848E /* Playnomics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Playnomics.h; path = PlaynomicsSDK/Playnomics.h; sourceTree = "<group>"; };
 		32D54F5C17F2096C0029848E /* PNLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PNLogger.h; path = PlaynomicsSDK/PNLogger.h; sourceTree = "<group>"; };
 		32D54F5D17F209770029848E /* dev.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = dev.xcconfig; sourceTree = "<group>"; };
+		32D54F6117F20A550029848E /* PNAdData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNAdData.h; sourceTree = "<group>"; };
+		32D54F6417F20FB50029848E /* PNAd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNAd.m; sourceTree = "<group>"; };
+		32D54F6517F20FB50029848E /* PNBackground.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNBackground.m; sourceTree = "<group>"; };
+		32D54F6617F20FB50029848E /* PNCloseButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNCloseButton.m; sourceTree = "<group>"; };
+		32D54F6717F20FB50029848E /* PNHtmlAd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNHtmlAd.m; sourceTree = "<group>"; };
+		32D54F6817F20FB50029848E /* PNHtmlCloseButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNHtmlCloseButton.m; sourceTree = "<group>"; };
+		32D54F6917F20FB50029848E /* PNNativeCloseButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNNativeCloseButton.m; sourceTree = "<group>"; };
+		32D54F6A17F20FB50029848E /* PNStaticAd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNStaticAd.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -296,6 +311,13 @@
 		3290176F17DA5BB40041895A /* Client */ = {
 			isa = PBXGroup;
 			children = (
+				32D54F6517F20FB50029848E /* PNBackground.m */,
+				32D54F6617F20FB50029848E /* PNCloseButton.m */,
+				32D54F6817F20FB50029848E /* PNHtmlCloseButton.m */,
+				32D54F6917F20FB50029848E /* PNNativeCloseButton.m */,
+				32D54F6417F20FB50029848E /* PNAd.m */,
+				32D54F6717F20FB50029848E /* PNHtmlAd.m */,
+				32D54F6A17F20FB50029848E /* PNStaticAd.m */,
 				32306C1A17E97108001240D7 /* PNEventApiClient.h */,
 				32306C1917E97108001240D7 /* PNEventApiClient.m */,
 				32306C1317E97108001240D7 /* PNFrameResponse.h */,
@@ -309,6 +331,7 @@
 				32306C4317E97108001240D7 /* PNUrlProcessorDelegate.h */,
 				32306C1E17E97108001240D7 /* PNMessagingApiClient.h */,
 				32306C1817E97108001240D7 /* PNMessagingApiClient.m */,
+				32D54F6117F20A550029848E /* PNAdData.h */,
 			);
 			name = Client;
 			path = ../PlaynomicsSDK;
@@ -515,6 +538,7 @@
 			files = (
 				32306C4F17E97108001240D7 /* PNEventUserInfo.m in Sources */,
 				32306C5617E97108001240D7 /* PNApplication.m in Sources */,
+				32D54F7117F20FB50029848E /* PNStaticAd.m in Sources */,
 				32306C4617E97108001240D7 /* PNFrame.m in Sources */,
 				32306C5717E97108001240D7 /* PNCache.m in Sources */,
 				32306C4517E97108001240D7 /* PNFrameResponse.m in Sources */,
@@ -522,8 +546,10 @@
 				32306C4717E97108001240D7 /* PNUtil.m in Sources */,
 				32306C5B17E97108001240D7 /* PNEventAppPage.m in Sources */,
 				32306C5F17E97108001240D7 /* PNEventAppStart.m in Sources */,
+				32D54F6F17F20FB50029848E /* PNHtmlCloseButton.m in Sources */,
 				32306C6117E97108001240D7 /* PNExplicitEvent.m in Sources */,
 				32306C6417E97108001240D7 /* PNImplicitEvent.m in Sources */,
+				32D54F7017F20FB50029848E /* PNNativeCloseButton.m in Sources */,
 				32306C4B17E97108001240D7 /* PNViewComponent.m in Sources */,
 				32306C4817E97108001240D7 /* PNEventTransaction.m in Sources */,
 				32306C5A17E97108001240D7 /* PNEvent.m in Sources */,
@@ -531,16 +557,20 @@
 				32306C5817E97108001240D7 /* PNConcurrentQueue.m in Sources */,
 				32306C5917E97108001240D7 /* PNConcurrentSet.m in Sources */,
 				32306C4917E97108001240D7 /* PNFrameRequest.m in Sources */,
+				32D54F6D17F20FB50029848E /* PNCloseButton.m in Sources */,
 				32306C5117E97108001240D7 /* PNAssetRequest.m in Sources */,
+				32D54F6C17F20FB50029848E /* PNBackground.m in Sources */,
 				32306C4C17E97108001240D7 /* PNWebView.m in Sources */,
 				32306C5217E97108001240D7 /* PNEventRequestOperation.m in Sources */,
 				32306C6317E97108001240D7 /* PNGeneratedHexId.m in Sources */,
 				32306C5517E97108001240D7 /* PNDeviceManager.m in Sources */,
 				32306C5E17E97108001240D7 /* PNEventAppRunning.m in Sources */,
 				32306C6017E97108001240D7 /* PNEventMilestone.m in Sources */,
+				32D54F6E17F20FB50029848E /* PNHtmlAd.m in Sources */,
 				32306C5017E97108001240D7 /* PNMessaging.m in Sources */,
 				32306C6517E97108001240D7 /* PNLogger.m in Sources */,
 				32306C5D17E97108001240D7 /* PNEventAppResume.m in Sources */,
+				32D54F6B17F20FB50029848E /* PNAd.m in Sources */,
 				32306C4A17E97108001240D7 /* PNImage.m in Sources */,
 				32306C4D17E97108001240D7 /* PNSession.m in Sources */,
 				32306C6217E97108001240D7 /* PNGameSessionInfo.m in Sources */,
