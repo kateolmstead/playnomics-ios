@@ -36,6 +36,7 @@ typedef NS_ENUM(int, PNMilestoneType){
 @end
 
 @interface Playnomics : NSObject
++ (void) setTestMode : (BOOL) testMode;
 + (void) setLoggingLevel:(PNLoggingLevel) level;
 + (void) overrideMessagingURL:(NSString *) messagingUrl;
 + (void) overrideEventsURL:(NSString *) messagingUrl;
