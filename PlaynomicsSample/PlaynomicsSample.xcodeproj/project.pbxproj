@@ -386,7 +386,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "PlaynomicsSample/PlaynomicsSample-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				OBJROOT = "$(SYMROOT)";
 				OTHER_LDFLAGS = (
 					"-ObjC",
@@ -415,7 +415,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "PlaynomicsSample/PlaynomicsSample-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				OBJROOT = "$(SYMROOT)";
 				OTHER_LDFLAGS = (
 					"-ObjC",

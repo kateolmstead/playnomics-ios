@@ -30,7 +30,10 @@
 }
 
 - (void) appendParameter: (id) value  forKey:(NSString *) key{
-    [_eventParameters setValue: value forKey: key];
+    if(value && key){
+        //only append parameters when the key and value are both not nil
+        [_eventParameters setValue: value forKey: key];
+    }
 }
 
 - (NSString*) sessionKey{
