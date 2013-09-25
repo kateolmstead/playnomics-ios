@@ -60,13 +60,36 @@
     }
     _response = [frameResponse retain];
 
-    if (_response.adType == WebView) {
-        _adView = [[PNWebView alloc] initWithResponse: _response delegate:self];
-    } else if (_response.adType == Image) {
-        _adView = [[PNImage alloc] initWithResponse: _response delegate:self];
+    if(_response.ad){
+        if([_response.ad isKindOfClass:[PNHtmlAd class]]){
+            PNHtmlAd *ad = (PNHtmlAd *)_response.ad;
+            
+            if(_response.closeButton && [_response.closeButton isKindOfClass:[PNHtmlCloseButton class]]){
+                _adView = [[PNWebView alloc] initWithAd:ad
+                                        htmlCloseButton:_response.closeButton
+                                               delegate:self];
+            } else if(_response.closeButton && [_response.closeButton isKindOfClass:[PNNativeCloseButton class]]) {
+                _adView = [[PNWebView alloc] initWithAd:ad
+                                      nativeCloseButton:_response.closeButton
+                                               delegate:self];
+            }
+        } else if([_response.ad isKindOfClass:[PNStaticAd class]]){
+             PNStaticAd *ad = (PNStaticAd *)_response.ad;
+            
+            if(_response.closeButton && [_response.closeButton isKindOfClass:[PNNativeCloseButton class]]){
+                _adView = [[PNImage alloc] initWithAd:ad
+                                           background:_response.background
+                                          closeButton:_response.closeButton
+                                             delegate:self];
+            } else {
+                _adView = [[PNImage alloc] initWithAd:ad
+                                           background:_response.background
+                                             delegate:self];
+            }
+        }
+        
+        [self _initOrientationChangeObservers];
     }
-    
-    [self _initOrientationChangeObservers];
 }
 
 #pragma mark - Orientation handlers
@@ -96,13 +119,13 @@
 }
 
 -(void) render {
-    [_session pingUrlForCallback: _response.impressionUrl];
+    [_session pingUrlForCallback: _response.ad.impressionUrl];
     [_adView renderAdInView:_parentView];
     
     _statusBar = [UIApplication sharedApplication].statusBarHidden;
     [[UIApplication sharedApplication] setStatusBarHidden : YES];
     if(_frameDelegate && [_frameDelegate respondsToSelector:@selector(onShow:)]){
-        [_frameDelegate onShow: [_response getJSONTargetData]];
+        [_frameDelegate onShow: _response.ad.targetData];
     }
     
 }
@@ -144,11 +167,11 @@
 
 -(void) adClosed:(BOOL) closedByUser {
     if(closedByUser){
-        [_session pingUrlForCallback: _response.closeUrl];
+        [_session pingUrlForCallback: _response.ad.closeUrl];
         
         if(_frameDelegate && [_frameDelegate respondsToSelector:@selector(onClose:)]){
             //notify the delegate
-            [_frameDelegate onClose: [_response getJSONTargetData]];
+            [_frameDelegate onClose: _response.ad.targetData];
         }
     }
     
@@ -159,26 +182,22 @@
 }
 
 -(void) adClicked {
-    if(_response.clickUrl){
-        [_session pingUrlForCallback:_response.clickUrl];
+    if(_response.ad.clickUrl){
+        [_session pingUrlForCallback:_response.ad.clickUrl];
     }
     
-    if(_response.targetType == AdTargetUrl ) {
+    if(_response.ad.targetType == AdTargetUrl && _response.ad.targetUrl){
         //url-based target
-        if (_response.actionType == AdActionHTTP
-            && _response.clickTargetUrl
-            && _response.clickTargetUrl != (id)[NSNull null] ) {
 
-            NSURL *url = [NSURL URLWithString:_response.clickTargetUrl];
-            if([[UIApplication sharedApplication] canOpenURL:url]){
-                 [[UIApplication sharedApplication] openURL:url];
-            }
+        NSURL *url = [NSURL URLWithString:_response.ad.targetUrl];
+        if([[UIApplication sharedApplication] canOpenURL:url]){
+            [[UIApplication sharedApplication] openURL:url];
         }
     }
     
     //always notify the delegate that there was a touch event
     if(_frameDelegate && [_frameDelegate respondsToSelector:@selector(onTouch:)]){
-        [_frameDelegate onTouch: [_response getJSONTargetData]];
+        [_frameDelegate onTouch: _response.ad.targetData];
     }
     //refresh the frame when the ad has been clicked
     

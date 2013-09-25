@@ -6,27 +6,36 @@
 //
 //
 
-#import <Foundation/Foundation.h>
+#ifndef NS_ENUM
+#define NS_ENUM(_type, _name) enum _name : _type _name; enum _name : _type
+#endif
 
+typedef NS_ENUM(int, AdTarget){
+    AdTargetUnknown = 0,
+    AdTargetUrl = 1,
+    AdTargetData = 2,
+    AdTargetExternal = 3
+};
 
-typedef enum {
-    AdColony,
-    Image,
-    Video,
-    WebView,
-    AdUnknown
-} AdType;
+typedef NS_ENUM(int, AdType){
+    AdTypeImage = 0,
+    AdTypeVideo = 1,
+    AdTypeWebView = 2,
+    AdTypeUnknown = 3
+};
 
-typedef enum{
-    CloseButtonHtml,
-    CloseButtonNative,
-    CloseButtonUnknown
-}CloseButtonType;
+typedef NS_ENUM(int, CloseButtonType){
+    CloseButtonHtml = 0,
+    CloseButtonNative = 1,
+    CloseButtonUnknown = 2
+};
 
 @interface PNBackground : NSObject
 @property (assign) CGRect landscapeDimensions;
 @property (assign) CGRect portraitDimensions;
 @property (retain) NSString *imageUrl;
+
+-(CGRect) dimensionsForCurrentOrientation;
 @end
 
 @interface PNAd : NSObject
@@ -39,9 +48,10 @@ typedef enum{
 
 @property (retain) NSString *clickUrl;
 @property (retain) NSDictionary *targetData;
-@property (readonly) AdTarget targetType;
-@property (readonly) AdAction actionType;
+@property (retain) NSString *targetUrl;
 
+@property (assign) AdType adType;
+@property (assign) AdTarget targetType;
 @property (assign) BOOL fullscreen;
 @end
 
@@ -54,14 +64,11 @@ typedef enum{
 @property (retain) NSString *imageUrl;
 @end
 
-@interface PNCloseButton : NSObject
+@interface PNNativeCloseButton : NSObject
+@property (retain) NSString *imageUrl;
 @property (assign) CGRect dimensions;
 @end
 
-@interface PNNativeCloseButton : PNCloseButton
-@property (retain) NSString *imageUrl;
-@end
-
-@interface PNHtmlCloseButton : PNCloseButton
-@property (assign) CGRect closeButtonLink;
+@interface PNHtmlCloseButton : NSObject
+@property (retain) NSString *closeButtonLink;
 @end

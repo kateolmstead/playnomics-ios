@@ -2,4 +2,5 @@
 
 @implementation PNNativeCloseButton
 @synthesize imageUrl;
+@synthesize dimensions;
 @end

@@ -45,7 +45,6 @@
 
 // Ad Response: Ad information keys
 #define FrameResponseAd_PrimaryImage @"i"
-
 #define FrameResponseAd_ClickUrl @"t"
 #define FrameResponseAd_ImpressionUrl @"s"
 #define FrameResponseAd_CloseUrl @"d"

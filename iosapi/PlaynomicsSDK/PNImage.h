@@ -11,4 +11,14 @@
 #import "PNViewComponent.h"
 
 @interface PNImage : NSObject <PNViewComponentDelegate, PNAdView>
+
+-(id) initWithAd:(PNStaticAd *) staticAd
+      background:(PNBackground *) background
+        delegate:(id<PNFrameDelegate>) delegate;
+
+-(id) initWithAd:(PNStaticAd *) staticAd
+      background:(PNBackground *) background
+     closeButton:(PNNativeCloseButton *) closeButton
+        delegate:(id<PNFrameDelegate>) delegate;
+
 @end

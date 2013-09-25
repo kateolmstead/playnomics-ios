@@ -14,22 +14,6 @@ typedef enum
     PNErrorTypeInvalidJson
 }PNErrorType;
 
-
-typedef enum{
-    AdTargetUrl,
-    AdTargetData,
-    AdTargetUnknown,
-    AdTargetExternal
-} AdTarget;
-
-typedef enum {
-    AdActionHTTP,           // Standard HTTP/HTTPS page to open in a browser
-    AdActionDefinedAction,  // Defined selector to execute on a registered delegate
-    AdActionExecuteCode,    // Submit the action on the delegate
-    AdActionUnknown,        // Unknown ad action specified
-    AdActionNullTarget,     // No target was specified
-} AdAction;
-
 @interface PNUtil : NSObject
 + (UIInterfaceOrientation) getCurrentOrientation;
 + (NSString *) urlEncodeValue: (NSString*) unescapedValue;

@@ -58,7 +58,6 @@
 		32C8495917EBE03E006411BD /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 323B353F17E985AD00A2F7BC /* AdSupport.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		32D54F6B17F20FB50029848E /* PNAd.m in Sources */ = {isa = PBXBuildFile; fileRef = 32D54F6417F20FB50029848E /* PNAd.m */; };
 		32D54F6C17F20FB50029848E /* PNBackground.m in Sources */ = {isa = PBXBuildFile; fileRef = 32D54F6517F20FB50029848E /* PNBackground.m */; };
-		32D54F6D17F20FB50029848E /* PNCloseButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 32D54F6617F20FB50029848E /* PNCloseButton.m */; };
 		32D54F6E17F20FB50029848E /* PNHtmlAd.m in Sources */ = {isa = PBXBuildFile; fileRef = 32D54F6717F20FB50029848E /* PNHtmlAd.m */; };
 		32D54F6F17F20FB50029848E /* PNHtmlCloseButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 32D54F6817F20FB50029848E /* PNHtmlCloseButton.m */; };
 		32D54F7017F20FB50029848E /* PNNativeCloseButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 32D54F6917F20FB50029848E /* PNNativeCloseButton.m */; };
@@ -192,7 +191,6 @@
 		32D54F6117F20A550029848E /* PNAdData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNAdData.h; sourceTree = "<group>"; };
 		32D54F6417F20FB50029848E /* PNAd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNAd.m; sourceTree = "<group>"; };
 		32D54F6517F20FB50029848E /* PNBackground.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNBackground.m; sourceTree = "<group>"; };
-		32D54F6617F20FB50029848E /* PNCloseButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNCloseButton.m; sourceTree = "<group>"; };
 		32D54F6717F20FB50029848E /* PNHtmlAd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNHtmlAd.m; sourceTree = "<group>"; };
 		32D54F6817F20FB50029848E /* PNHtmlCloseButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNHtmlCloseButton.m; sourceTree = "<group>"; };
 		32D54F6917F20FB50029848E /* PNNativeCloseButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNNativeCloseButton.m; sourceTree = "<group>"; };
@@ -312,7 +310,6 @@
 			isa = PBXGroup;
 			children = (
 				32D54F6517F20FB50029848E /* PNBackground.m */,
-				32D54F6617F20FB50029848E /* PNCloseButton.m */,
 				32D54F6817F20FB50029848E /* PNHtmlCloseButton.m */,
 				32D54F6917F20FB50029848E /* PNNativeCloseButton.m */,
 				32D54F6417F20FB50029848E /* PNAd.m */,
@@ -557,7 +554,6 @@
 				32306C5817E97108001240D7 /* PNConcurrentQueue.m in Sources */,
 				32306C5917E97108001240D7 /* PNConcurrentSet.m in Sources */,
 				32306C4917E97108001240D7 /* PNFrameRequest.m in Sources */,
-				32D54F6D17F20FB50029848E /* PNCloseButton.m in Sources */,
 				32306C5117E97108001240D7 /* PNAssetRequest.m in Sources */,
 				32D54F6C17F20FB50029848E /* PNBackground.m in Sources */,
 				32306C4C17E97108001240D7 /* PNWebView.m in Sources */,

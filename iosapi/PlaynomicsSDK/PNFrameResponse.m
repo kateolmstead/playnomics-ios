@@ -9,28 +9,9 @@
 #import "PNFrameResponse.h"
 
 @implementation PNFrameResponse
-
-@synthesize backgroundInfo = _backgroundInfo;
-@synthesize backgroundImageUrl = _backgroundImageUrl;
-@synthesize adInfo = _adInfo;
-@synthesize adDimensions = _adDimensions;
-@synthesize adType = _adType;
-@synthesize fullscreen = _fullscreen;
-@synthesize htmlContent = _htmlContent;
-@synthesize primaryImageUrl = _primaryImageUrl;
-@synthesize clickUrl = _clickUrl;
-@synthesize clickTargetData = _clickTargetData;
-@synthesize clickLink = _clickLink;
-@synthesize impressionUrl = _impressionUrl;
-@synthesize closeUrl = _closeUrl;
-@synthesize viewUrl = _viewUrl;
-@synthesize closeButtonInfo = _closeButtonInfo;
-@synthesize closeButtonImageUrl = _closeButtonImageUrl;
-@synthesize closeButtonDimensions = _closeButtonDimensions;
-@synthesize closeButtonType = _closeButtonType;
-
-@synthesize targetType=_targetType;
-@synthesize actionType=_actionType;
+@synthesize ad = _ad;
+@synthesize background = _background;
+@synthesize closeButton = _closeButton;
 
 - (id) initWithJSONData:(NSData *) jsonData {
     self = [super init];
@@ -45,143 +26,135 @@
     if(frameResponse == nil){
         return;
     }
-    // Get the background details, which are in the key "b" and is a dictionary of data
-    _backgroundInfo = [[frameResponse objectForKey:FrameResponseBackgroundInfo] retain];
-    _backgroundImageUrl = [[self getImageFromProperties:_backgroundInfo] retain];
     
-    NSDictionary *adLocationInfo = [frameResponse objectForKey:FrameResponseAdLocationInfo];
-    _adDimensions = [self getViewDimensions:adLocationInfo];
-    
-    NSArray *adResponse = [frameResponse objectForKey:FrameResponseAds];
-    if (!adResponse || adResponse.count == 0){
-        _adInfo = nil;
-    } else {
-        _adInfo = [adResponse objectAtIndex:0];
-        _primaryImageUrl = [[self getImageFromProperties:_adInfo] retain];
-        _impressionUrl = [[_adInfo objectForKey:FrameResponseAd_ImpressionUrl] retain];
-        _closeUrl = [[_adInfo objectForKey:FrameResponseAd_CloseUrl] retain];
-        
-        _clickUrl = [[_adInfo objectForKey:FrameResponseAd_ClickUrl] retain];
-        _clickTargetData = [[_adInfo objectForKey:FrameResponseAd_TargetData] retain];
-        _clickTargetUrl = [[_adInfo objectForKey:FrameResponseAd_TargetUrl] retain];
-        _clickLink = [_adInfo objectForKey:FrameResponseAd_ClickLink] != (id)[NSNull null]
-                            ? [[_adInfo objectForKey:FrameResponseAd_ClickLink] retain]
-                            : nil;
-        
-        _actionType = [self toAdAction : _clickUrl];
-        _targetType = [self toAdTarget: [_adInfo objectForKey:FrameResponseAd_TargetType]];
-        
-        _closeButtonType = [self toCloseButtonType:[_adInfo objectForKey:FrameResponseAd_CloseButtonType]];
-        _closeButtonLink = [[_adInfo objectForKey:FrameResponseAd_CloseButtonLink] retain];
-        
-        NSString* adType = [_adInfo objectForKey:FrameResponseAd_AdType];
-        if (adType) {
-            if ([adType isEqualToString:@"html"]) {
-                _adType = WebView;
-                _fullscreen = (NSNumber *)[[_adInfo objectForKey:FrameResponseAd_Fullscreen] retain];
-                _htmlContent = [[_adInfo objectForKey:FrameResponseAd_HtmlContent] retain];
-            } else if ([adType isEqualToString:@"video"]) {
-                if ([[_adInfo objectForKey:FrameResponseAd_AdProvider] isEqualToString:@"AdColony"]) {
-                    [PNLogger log:PNLogLevelWarning format:@"Setting ad type to AdColony"];
-                    _adType = AdColony;
-                } else {
-                    _adType = Video;
-                }
-                _viewUrl = [[_adInfo objectForKey:FrameResponseAd_VideoViewUrl] retain];
-            } else if ([adType isEqualToString:@"image"]) {
-                _adType = Image;
-            } else {
-                _adType = AdUnknown;
-                [PNLogger log:PNLogLevelWarning format:@"Encountered Unknown AdType %@", adType];
-            }
-        } else {
-            _adType = Image;
-        }
+    NSDictionary *backgroundInfo = (NSDictionary *)[self cleanValue: [frameResponse objectForKey:FrameResponseBackgroundInfo]];
+    if(backgroundInfo){
+        _background = [self parseBackgroundResponse:backgroundInfo];
     }
     
-    _closeButtonInfo = [frameResponse objectForKey:FrameResponseCloseButtonInfo];
-    if(_closeButtonInfo){
-        _closeButtonImageUrl = [[self getImageFromProperties:_closeButtonInfo] retain];
-        if (_closeButtonImageUrl != nil) {
-            _closeButtonDimensions = [self getViewDimensions:_closeButtonInfo];
+    NSArray *adsSet = [frameResponse objectForKey:FrameResponseAds];
+    if (adsSet && adsSet.count > 0){
+        NSDictionary *adInfo = [adsSet objectAtIndex:0];
+        NSDictionary *adLocationInfo = [frameResponse objectForKey:FrameResponseAdLocationInfo];
+        
+        if(adLocationInfo && adInfo){
+            NSString *closeButtonLink = nil;
+            CloseButtonType *closeButtonType = nil;
+            
+            _ad = [self parseAdFromResponse:adInfo adLocation:adLocationInfo closeButtonLink:&closeButtonLink closeButtonType:closeButtonType];
+            
+            if(*closeButtonType == CloseButtonNative){
+                NSDictionary *closeButtonInfo = [frameResponse objectForKey:FrameResponseCloseButtonInfo];
+                
+                if(closeButtonInfo){
+                    NSString * closeButtonImage = [self getImageFromProperties:closeButtonInfo];
+                    
+                    if(closeButtonImage){
+                        _closeButton = [[PNNativeCloseButton alloc] init];
+                        ((PNNativeCloseButton *)_closeButton).imageUrl = [self getImageFromProperties:closeButtonInfo];
+                        ((PNNativeCloseButton *)_closeButton).dimensions = [self getViewDimensions:closeButtonInfo];
+                    }
+                }
+            } else if(*closeButtonType == CloseButtonHtml && closeButtonLink) {
+                _closeButton = [[PNHtmlCloseButton alloc] init];
+                ((PNHtmlCloseButton *) _closeButton).closeButtonLink = closeButtonLink;
+            }
         }
     }
 }
 
--(CGRect) backgroundDimensions{
-    return [self getViewDimensions:_backgroundInfo];
+-(PNBackground *) parseBackgroundResponse:(NSDictionary *) backgroundData{
+    if(!backgroundData){ return nil; }
+    
+    PNBackground *background = [[PNBackground alloc] init];
+    float height = [self getFloatValue:[backgroundData objectForKey:FrameResponseHeight]];
+    float width = [self getFloatValue:[backgroundData objectForKey:FrameResponseWidth]];
+    
+    NSDictionary *landscapeData =[backgroundData objectForKey:FrameResponseBackground_Landscape];
+    float x = [self getFloatValue:[landscapeData objectForKey:FrameResponseXOffset]];
+    float y = [self getFloatValue:[landscapeData objectForKey:FrameResponseYOffset]];
+    background.landscapeDimensions = CGRectMake(x, y, width, height);
+    
+    NSDictionary *portraitData =[backgroundData objectForKey:FrameResponseBackground_Portrait];
+    x = [self getFloatValue:[portraitData objectForKey:FrameResponseXOffset]];
+    y = [self getFloatValue:[portraitData objectForKey:FrameResponseYOffset]];
+    background.portraitDimensions = CGRectMake(x, y, width, height);
+    
+    background.imageUrl = [self getImageFromProperties:backgroundData];
+    return background;
+}
+
+-(PNAd *) parseAdFromResponse:(NSDictionary *) adResponse
+                   adLocation:(NSDictionary *) location
+              closeButtonLink:(NSString **) closeButtonLink
+              closeButtonType:(CloseButtonType *) type
+{
+
+    NSString *adTypeString = [self cleanValue:[adResponse objectForKey:FrameResponseAd_AdType]];
+    AdType adType = adTypeString == nil ? AdTypeImage : [self toAdType:adTypeString];
+    PNAd *ad = nil;
+
+    if(adType == AdTypeImage){
+        ad = [[PNStaticAd alloc] init];
+        ((PNStaticAd *) ad).imageUrl = [self getImageFromProperties:adResponse];
+    } else if (adType == AdTypeWebView){
+        ad = [[PNHtmlAd alloc] init];
+        ((PNHtmlAd *) ad).htmlContent = [self cleanValue:[adResponse objectForKey:FrameResponseAd_HtmlContent]];
+        ((PNHtmlAd *) ad).clickLink = [self cleanValue:[adResponse objectForKey:FrameResponseAd_ClickUrl]];
+    }
+    
+    ad.dimensions = [self getViewDimensions:location];
+    ad.impressionUrl = [self cleanValue: [adResponse objectForKey:FrameResponseAd_ImpressionUrl]];
+    ad.closeUrl = [self cleanValue: [adResponse objectForKey:FrameResponseAd_CloseUrl]];
+    ad.clickUrl = [self cleanValue: [adResponse objectForKey:FrameResponseAd_ClickUrl]];
+    
+    ad.targetType = [self toAdTarget: [adResponse objectForKey:FrameResponseAd_TargetType]];
+    
+    if(ad.targetType == AdTargetData){
+        NSString *targetDataString = [self cleanValue:[adResponse objectForKey:FrameResponseAd_TargetData]];
+        if(targetDataString){
+            ad.targetData = [PNUtil deserializeJsonString: targetDataString];
+        }
+    } else if(ad.targetType == AdTargetUrl){
+        ad.targetUrl = [adResponse objectForKey:FrameResponseAd_TargetUrl];
+    }
+    
+    *type = [self toCloseButtonType:[adResponse objectForKey:FrameResponseAd_CloseButtonType]];
+    *closeButtonLink = [[adResponse objectForKey:FrameResponseAd_CloseButtonLink] retain];
+    
+    NSNumber *fullscreenAsNum = (NSNumber *)[adResponse objectForKey:FrameResponseAd_Fullscreen];
+    ad.fullscreen = [fullscreenAsNum boolValue];
+    return ad;
 }
 
 
 -(CGRect) getViewDimensions:(NSDictionary*) componentInfo {
     float height = [self getFloatValue:[componentInfo objectForKey:FrameResponseHeight]];
     float width = [self getFloatValue:[componentInfo objectForKey:FrameResponseWidth]];
-    
-    NSDictionary *coordinateProps = [self extractCoordinateProps:componentInfo];
-    float x = [self getFloatValue:[coordinateProps objectForKey:FrameResponseXOffset]];
-    float y = [self getFloatValue:[coordinateProps objectForKey:FrameResponseYOffset]];
-    CGRect rect = CGRectMake(x, y, width, height);
-    return rect;
+    float x = [self getFloatValue:[componentInfo objectForKey:FrameResponseXOffset]];
+    float y = [self getFloatValue:[componentInfo objectForKey:FrameResponseYOffset]];
+    return CGRectMake(x, y, width, height);
 }
 
--(NSDictionary *) extractCoordinateProps:(NSDictionary*) componentInfo {
-    // This is dumb, but the reason for this if statement is because ad and close components
-    // both have the size and offset locations in the same dictionary whereas the background
-    // component has the coordinates in a sub-dictionary called 'l' for landscape mode and
-    // 'p' for portrait mode. This is also because the ad and close components are offsets to
-    // the background image whereas the background is just a raw location
-    if ([componentInfo objectForKey:FrameResponseBackground_Landscape] == nil) {
-        return componentInfo;
+-(id) cleanValue:(id) value{
+    if(!value || value == (id)[NSNull null]){
+        return nil;
     }
-    
-    // By default, return portrait
-    UIInterfaceOrientation orientation = [PNUtil getCurrentOrientation];
-    if (orientation == UIInterfaceOrientationPortrait || orientation == UIInterfaceOrientationPortraitUpsideDown) {
-        return [componentInfo objectForKey:FrameResponseBackground_Portrait];
-    } else if(orientation == UIInterfaceOrientationLandscapeRight || orientation == UIInterfaceOrientationLandscapeLeft) {
-        return [componentInfo objectForKey:FrameResponseBackground_Landscape];
-    } else {
-        return [componentInfo objectForKey:FrameResponseBackground_Portrait];
-    }
+    return value;
 }
 
 -(float) getFloatValue:(NSNumber *) n {
-    @try {
-        return [n floatValue];
-    }
-    @catch (NSException * exception) {
-        //
-    }
-    return 0;
+    return [n floatValue];
 }
 
 -(NSString *) getImageFromProperties: (NSDictionary *) properties{
-    NSString *imageUrl = [properties objectForKey:FrameResponseImageUrl];
-    if(imageUrl == nil || imageUrl == (id)[NSNull null] ){
-        return nil;
-    }
-    return imageUrl;
+    return [self cleanValue: [properties objectForKey:FrameResponseImageUrl]];
 }
 
--(NSDictionary *) getJSONTargetData{
-    if( !(_targetType == AdTargetData && _clickTargetData) ){
-        return nil;
-    }
-    return [PNUtil deserializeJsonString: _clickTargetData];
-}
-
--(AdAction) toAdAction:(NSString*) actionUrl {
-    if(actionUrl == (id)[NSNull null]){
-        return AdActionNullTarget;
-    }
-    if([PNUtil isUrl: actionUrl]){
-        return AdActionHTTP;
-    }
-    return AdActionUnknown;
-}
 
 -(AdTarget) toAdTarget:(NSString *) adTargetType {
-    if(adTargetType == (id)[NSNull null]){
+    adTargetType = [self cleanValue:adTargetType];
+    if(!adTargetType){
         return AdTargetUnknown;
     }
     if([adTargetType isEqualToString: @"data"]){
@@ -197,7 +170,9 @@
 }
 
 -(CloseButtonType) toCloseButtonType:(NSString *) closeButtonType{
-    if(closeButtonType == (id)[NSNull null]){
+    closeButtonType = [self cleanValue:closeButtonType];
+    
+    if(!closeButtonType){
         return CloseButtonUnknown;
     }
     
@@ -212,4 +187,23 @@
     return CloseButtonUnknown;
 }
 
+-(AdType) toAdType:(NSString *) adType{
+    adType = [self cleanValue:adType];
+    if(!adType){
+        return AdTypeUnknown;
+    }
+    
+    if([adType isEqualToString:@"html"]){
+        return AdTypeWebView;
+    }
+    
+    if([adType isEqualToString:@"image"]){
+        return AdTypeImage;
+    }
+    
+    if([adType isEqualToString:@"video"]){
+        return AdTypeVideo;
+    }
+    return AdTypeUnknown;
+}
 @end

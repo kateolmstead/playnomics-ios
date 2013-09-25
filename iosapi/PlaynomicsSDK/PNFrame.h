@@ -33,7 +33,6 @@ typedef NS_ENUM(int, PNFrameState){
 
 @protocol PNAdView <NSObject>
 @required
-- (id) initWithResponse:(PNFrameResponse *) response delegate:(id<PNFrameDelegate>) delegate;
 - (void) renderAdInView:(UIView *) parentView;
 - (void) hide;
 - (void) rotate;

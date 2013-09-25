@@ -12,41 +12,64 @@
 
 @implementation PNImage {
 @private
-    PNViewComponent* _background;
-    PNViewComponent* _adArea;
-    PNViewComponent* _closeButton;
-    PNFrameResponse* _response;
+    PNViewComponent* _backgroundView;
+    PNViewComponent* _adAreaView;
+    PNViewComponent* _closeButtonView;
+    
+    PNStaticAd *_staticAd;
+    PNBackground *_background;
+    PNNativeCloseButton *_closeButton;
     id<PNFrameDelegate> _delegate;
 }
 #pragma mark - Lifecycle/Memory management
--(id) initWithResponse:(PNFrameResponse *) response delegate:(id<PNFrameDelegate>) delegate {
-    
+
+-(id) initWithAd:(PNStaticAd *) staticAd
+      background:(PNBackground *) background
+        delegate:(id<PNFrameDelegate>) delegate
+{
     self = [super init];
     
-    _response = [response retain];
-    _delegate = delegate;
-    
-    _background = [[PNViewComponent alloc] initWithDimensions:_response.backgroundDimensions delegate:self image:_response.backgroundImageUrl];
-    _adArea = [[PNViewComponent alloc] initWithDimensions:_response.adDimensions delegate:self image:_response.primaryImageUrl];
-    
-    if(_response.closeButtonType == CloseButtonNative && _response.closeButtonImageUrl != nil){
-        _closeButton = [[PNViewComponent alloc] initWithDimensions:_response.closeButtonDimensions delegate:self image:_response.closeButtonImageUrl];
+    if(self){
+        _delegate = delegate;
+        _background = [background retain];
+        _staticAd = [staticAd retain];
+        _backgroundView = [[PNViewComponent alloc] initWithDimensions:[_background dimensionsForCurrentOrientation]
+                                                             delegate:self
+                                                                image:_background.imageUrl];
+        
+        _adAreaView = [[PNViewComponent alloc] initWithDimensions:_staticAd.dimensions
+                                                         delegate:self
+                                                            image:_staticAd.imageUrl];
+        [_backgroundView addSubComponent: _adAreaView];
+        _backgroundView.hidden = YES;
     }
-    
-    [_background addSubComponent:_adArea];
-    if(_closeButton !=  nil){
-        [_background addSubComponent:_closeButton];
-    }
-    _background.hidden = YES;
     
     return self;
 }
 
+
+
+-(id) initWithAd:(PNStaticAd *) staticAd
+      background:(PNBackground *) background
+     closeButton:(PNNativeCloseButton *) closeButton
+        delegate:(id<PNFrameDelegate>) delegate
+{
+    self = [self initWithAd:staticAd background:background delegate:delegate];
+    if(self){
+        _closeButton = [closeButton retain];
+        _closeButtonView = [[PNViewComponent alloc] initWithDimensions:_closeButton.dimensions
+                                                              delegate:self
+                                                                 image:_closeButton.imageUrl];
+        [_backgroundView addSubComponent: _closeButtonView];
+    }
+    return self;
+}
+
+
 -(void) dealloc {
-    [_response release];
-    [_background release];
-    [_adArea release];
-    [_closeButton release];
+    [_backgroundView release];
+    [_adAreaView release];
+    [_closeButtonView release];
     _delegate = nil;
     [super dealloc];
 }
@@ -54,9 +77,9 @@
 #pragma mark "Public Interface"
 -(void) renderAdInView:(UIView*) parentView {
     int lastDisplayIndex = parentView.subviews.count;
-    [parentView insertSubview: _background atIndex:lastDisplayIndex + 1];
-    _background.hidden = NO;
-    [_background setNeedsDisplay];
+    [parentView insertSubview: _backgroundView atIndex:lastDisplayIndex + 1];
+    _backgroundView.hidden = NO;
+    [_backgroundView setNeedsDisplay];
 }
 
 
@@ -66,19 +89,19 @@
 }
 
 -(void) rotate{
-    _background.frame = [_response backgroundDimensions];
+    _backgroundView.frame = [_background dimensionsForCurrentOrientation];
 }
 
 #pragma mark "Helper Methods"
 // Returns TRUE if all instantiated components are done loading. FALSE otherwise
 - (BOOL) _allComponentsLoaded {
-    if(_closeButton == nil){
-        return (_background.status == AdComponentStatusCompleted
-                && _adArea.status == AdComponentStatusCompleted);
+    if(!_closeButtonView){
+        return (_backgroundView.status == AdComponentStatusCompleted
+                && _adAreaView.status == AdComponentStatusCompleted);
     }
-    return (_background.status == AdComponentStatusCompleted
-            && _adArea.status == AdComponentStatusCompleted
-            && _closeButton.status == AdComponentStatusCompleted);
+    return (_backgroundView.status == AdComponentStatusCompleted
+            && _adAreaView.status == AdComponentStatusCompleted
+            && _closeButtonView.status == AdComponentStatusCompleted);
 }
 
 #pragma mark "Delegate Handlers"
@@ -86,7 +109,7 @@
 // Hide the background and since all other components are attached to the background,
 // everything else will also be hidden
 -(void) closeAd{
-    [_background hide];
+    [_backgroundView hide];
 }
 
 // Only notify the delegate if all the components have been loaded successfully
@@ -116,12 +139,12 @@
 // If the close button component was clicked, close the ad and notify the delegate
 // If the ad was clicked, also close the ad and notify the delegate
 -(void) component: (id) component didReceiveTouch: (UITouch*) touch {
-    if (component == _closeButton) {
+    if (component == _closeButtonView) {
         [PNLogger log:PNLogLevelVerbose format:@"Close button was pressed on PNImage"];
         [self closeAd];
         [_delegate adClosed: YES];
-    } else if (component == _adArea) {
-        CGPoint location = [touch locationInView: _adArea];
+    } else if (component == _adAreaView) {
+        CGPoint location = [touch locationInView: _adAreaView];
         int x = location.x;
         int y = location.y;
         [PNLogger log:PNLogLevelVerbose format:@"Ad area was clicked on at location %d,%d", x, y];

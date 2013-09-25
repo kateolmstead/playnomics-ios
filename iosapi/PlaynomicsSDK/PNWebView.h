@@ -14,6 +14,14 @@
 //strong references cycles.
 @interface PNWebView : UIWebView <UIWebViewDelegate, PNAdView, PNViewComponentDelegate>
 
+-(id)     initWithAd:(PNHtmlAd *) ad
+     htmlCloseButton:(PNHtmlCloseButton *) htmlCloseButton
+            delegate:(id<PNFrameDelegate>) delegate;
+
+-(id)  initWithAd:(PNHtmlAd *) ad
+nativeCloseButton:(PNNativeCloseButton *)nativeCloseButton
+         delegate:(id<PNFrameDelegate>)delegate;
+
 @property (readonly) AdComponentStatus status;
 
 @end
