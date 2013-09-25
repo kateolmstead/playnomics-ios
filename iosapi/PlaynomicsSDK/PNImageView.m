@@ -6,11 +6,11 @@
 //
 //
 
-#import "PNImage.h"
+#import "PNImageView.h"
 #import "PNViewComponent.h"
 #import "PNFrame.h"
 
-@implementation PNImage {
+@implementation PNImageView {
 @private
     PNViewComponent* _backgroundView;
     PNViewComponent* _adAreaView;

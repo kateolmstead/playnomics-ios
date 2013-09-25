@@ -10,7 +10,7 @@
 #import "PNFrame.h"
 #import "PNViewComponent.h"
 
-@interface PNImage : NSObject <PNViewComponentDelegate, PNAdView>
+@interface PNImageView : NSObject <PNViewComponentDelegate, PNAdView>
 
 -(id) initWithAd:(PNStaticAd *) staticAd
       background:(PNBackground *) background

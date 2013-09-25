@@ -7,7 +7,7 @@
 #import "PNUtil.h"
 #import "PNWebView.h"
 #import "PNSession.h"
-#import "PNImage.h"
+#import "PNImageView.h"
 #import "PNFrameResponse.h"
 
 @implementation PNFrame {
@@ -77,12 +77,12 @@
              PNStaticAd *ad = (PNStaticAd *)_response.ad;
             
             if(_response.closeButton && [_response.closeButton isKindOfClass:[PNNativeCloseButton class]]){
-                _adView = [[PNImage alloc] initWithAd:ad
+                _adView = [[PNImageView alloc] initWithAd:ad
                                            background:_response.background
                                           closeButton:_response.closeButton
                                              delegate:self];
             } else {
-                _adView = [[PNImage alloc] initWithAd:ad
+                _adView = [[PNImageView alloc] initWithAd:ad
                                            background:_response.background
                                              delegate:self];
             }

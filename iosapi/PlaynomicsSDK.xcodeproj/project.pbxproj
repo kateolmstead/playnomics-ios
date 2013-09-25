@@ -12,7 +12,7 @@
 		32306C4717E97108001240D7 /* PNUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 32306C0317E97107001240D7 /* PNUtil.m */; };
 		32306C4817E97108001240D7 /* PNEventTransaction.m in Sources */ = {isa = PBXBuildFile; fileRef = 32306C0517E97107001240D7 /* PNEventTransaction.m */; };
 		32306C4917E97108001240D7 /* PNFrameRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 32306C0617E97107001240D7 /* PNFrameRequest.m */; };
-		32306C4A17E97108001240D7 /* PNImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 32306C0717E97107001240D7 /* PNImage.m */; };
+		32306C4A17E97108001240D7 /* PNImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 32306C0717E97107001240D7 /* PNImageView.m */; };
 		32306C4B17E97108001240D7 /* PNViewComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = 32306C0817E97107001240D7 /* PNViewComponent.m */; };
 		32306C4C17E97108001240D7 /* PNWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 32306C0917E97107001240D7 /* PNWebView.m */; };
 		32306C4D17E97108001240D7 /* PNSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 32306C0A17E97107001240D7 /* PNSession.m */; };
@@ -96,12 +96,12 @@
 		32306C0417E97107001240D7 /* PNAssetRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PNAssetRequest.h; path = PlaynomicsSDK/PNAssetRequest.h; sourceTree = SOURCE_ROOT; };
 		32306C0517E97107001240D7 /* PNEventTransaction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PNEventTransaction.m; path = PlaynomicsSDK/PNEventTransaction.m; sourceTree = SOURCE_ROOT; };
 		32306C0617E97107001240D7 /* PNFrameRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PNFrameRequest.m; path = PlaynomicsSDK/PNFrameRequest.m; sourceTree = SOURCE_ROOT; };
-		32306C0717E97107001240D7 /* PNImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PNImage.m; path = PlaynomicsSDK/PNImage.m; sourceTree = SOURCE_ROOT; };
+		32306C0717E97107001240D7 /* PNImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PNImageView.m; path = PlaynomicsSDK/PNImageView.m; sourceTree = SOURCE_ROOT; };
 		32306C0817E97107001240D7 /* PNViewComponent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PNViewComponent.m; path = PlaynomicsSDK/PNViewComponent.m; sourceTree = SOURCE_ROOT; };
 		32306C0917E97107001240D7 /* PNWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PNWebView.m; path = PlaynomicsSDK/PNWebView.m; sourceTree = SOURCE_ROOT; };
 		32306C0A17E97107001240D7 /* PNSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PNSession.m; path = PlaynomicsSDK/PNSession.m; sourceTree = SOURCE_ROOT; };
 		32306C0B17E97107001240D7 /* PNFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PNFrame.h; path = PlaynomicsSDK/PNFrame.h; sourceTree = SOURCE_ROOT; };
-		32306C0C17E97107001240D7 /* PNImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PNImage.h; path = PlaynomicsSDK/PNImage.h; sourceTree = SOURCE_ROOT; };
+		32306C0C17E97107001240D7 /* PNImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PNImageView.h; path = PlaynomicsSDK/PNImageView.h; sourceTree = SOURCE_ROOT; };
 		32306C0D17E97108001240D7 /* Playnomics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Playnomics.m; path = PlaynomicsSDK/Playnomics.m; sourceTree = SOURCE_ROOT; };
 		32306C0E17E97108001240D7 /* PNEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PNEvent.h; path = PlaynomicsSDK/PNEvent.h; sourceTree = SOURCE_ROOT; };
 		32306C0F17E97108001240D7 /* PNEventUserInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PNEventUserInfo.h; path = PlaynomicsSDK/PNEventUserInfo.h; sourceTree = SOURCE_ROOT; };
@@ -291,8 +291,8 @@
 		3290176E17DA5BAF0041895A /* Messaging */ = {
 			isa = PBXGroup;
 			children = (
-				32306C0C17E97107001240D7 /* PNImage.h */,
-				32306C0717E97107001240D7 /* PNImage.m */,
+				32306C0C17E97107001240D7 /* PNImageView.h */,
+				32306C0717E97107001240D7 /* PNImageView.m */,
 				32306C1417E97108001240D7 /* PNWebView.h */,
 				32306C0917E97107001240D7 /* PNWebView.m */,
 				32306C4417E97108001240D7 /* PNViewComponent.h */,
@@ -567,7 +567,7 @@
 				32306C6517E97108001240D7 /* PNLogger.m in Sources */,
 				32306C5D17E97108001240D7 /* PNEventAppResume.m in Sources */,
 				32D54F6B17F20FB50029848E /* PNAd.m in Sources */,
-				32306C4A17E97108001240D7 /* PNImage.m in Sources */,
+				32306C4A17E97108001240D7 /* PNImageView.m in Sources */,
 				32306C4D17E97108001240D7 /* PNSession.m in Sources */,
 				32306C6217E97108001240D7 /* PNGameSessionInfo.m in Sources */,
 				32306C4E17E97108001240D7 /* Playnomics.m in Sources */,
