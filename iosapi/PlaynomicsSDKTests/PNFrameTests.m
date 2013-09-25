@@ -29,12 +29,12 @@
 
 -(void) testWebViewCreated
 {
-    //given some FrameResponse for a WebView is sent, the adView of the frame is a WebView
+    //given some FrameResponse for a WebView is sent, the adView of the frame is a PNWebView
 }
 
 -(void) testImageViewCreated
 {
-    //given some FrameResponse for a WebView is sent, the adView of the frame is a WebVie
+    //given some FrameResponse for an ImageView is sent, the adView of the frame is an PNImageView
 }
 
 @end

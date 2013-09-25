@@ -62,6 +62,9 @@
 		32D54F6F17F20FB50029848E /* PNHtmlCloseButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 32D54F6817F20FB50029848E /* PNHtmlCloseButton.m */; };
 		32D54F7017F20FB50029848E /* PNNativeCloseButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 32D54F6917F20FB50029848E /* PNNativeCloseButton.m */; };
 		32D54F7117F20FB50029848E /* PNStaticAd.m in Sources */ = {isa = PBXBuildFile; fileRef = 32D54F6A17F20FB50029848E /* PNStaticAd.m */; };
+		32D54F7F17F271DB0029848E /* PNBackgroundTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 32D54F7917F271230029848E /* PNBackgroundTests.m */; };
+		32D54F8017F271DB0029848E /* PNFrameResponseTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 32D54F7A17F271230029848E /* PNFrameResponseTests.m */; };
+		32D54F8117F271DB0029848E /* PNFrameTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 32D54F7B17F271230029848E /* PNFrameTests.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -195,6 +198,9 @@
 		32D54F6817F20FB50029848E /* PNHtmlCloseButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNHtmlCloseButton.m; sourceTree = "<group>"; };
 		32D54F6917F20FB50029848E /* PNNativeCloseButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNNativeCloseButton.m; sourceTree = "<group>"; };
 		32D54F6A17F20FB50029848E /* PNStaticAd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNStaticAd.m; sourceTree = "<group>"; };
+		32D54F7917F271230029848E /* PNBackgroundTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PNBackgroundTests.m; path = PlaynomicsSDKTests/PNBackgroundTests.m; sourceTree = SOURCE_ROOT; };
+		32D54F7A17F271230029848E /* PNFrameResponseTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PNFrameResponseTests.m; path = PlaynomicsSDKTests/PNFrameResponseTests.m; sourceTree = SOURCE_ROOT; };
+		32D54F7B17F271230029848E /* PNFrameTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PNFrameTests.m; path = PlaynomicsSDKTests/PNFrameTests.m; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -225,6 +231,9 @@
 		32306C6B17E97A3B001240D7 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				32D54F7917F271230029848E /* PNBackgroundTests.m */,
+				32D54F7A17F271230029848E /* PNFrameResponseTests.m */,
+				32D54F7B17F271230029848E /* PNFrameTests.m */,
 				32306C6D17E97A5D001240D7 /* PNDeviceManagerTests.m */,
 				32306C6F17E97A5D001240D7 /* PNEventApiClientTests.m */,
 				32306C7117E97A5D001240D7 /* PNEventTests.m */,
@@ -254,6 +263,7 @@
 		3238497717E96B9100DCA409 /* PlaynomicsSDKTests */ = {
 			isa = PBXGroup;
 			children = (
+				32D54F7517F270000029848E /* Resources */,
 				328D497317E993790067DAB7 /* PlaynomicsSDKTests-Info.plist */,
 				3290166717CD0B740041895A /* Mocks */,
 				32306C6B17E97A3B001240D7 /* Tests */,
@@ -433,6 +443,13 @@
 			name = Public;
 			sourceTree = "<group>";
 		};
+		32D54F7517F270000029848E /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
 		D1D922651590F59500EDDE17 = {
 			isa = PBXGroup;
 			children = (
@@ -579,6 +596,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				32D54F7F17F271DB0029848E /* PNBackgroundTests.m in Sources */,
+				32D54F8017F271DB0029848E /* PNFrameResponseTests.m in Sources */,
+				32D54F8117F271DB0029848E /* PNFrameTests.m in Sources */,
 				329D460D17EA267A001A95BB /* StubPNEventApiClient.m in Sources */,
 				329D460C17EA2673001A95BB /* StubDeviceToken.m in Sources */,
 				329D460B17EA266A001A95BB /* StubPNCache.m in Sources */,

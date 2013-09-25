@@ -39,11 +39,16 @@
         
         if(adLocationInfo && adInfo){
             NSString *closeButtonLink = nil;
-            CloseButtonType *closeButtonType = nil;
+            NSString *closeButtonTypeString = nil;
             
-            _ad = [self parseAdFromResponse:adInfo adLocation:adLocationInfo closeButtonLink:&closeButtonLink closeButtonType:closeButtonType];
+            _ad = [self parseAdFromResponse:adInfo
+                                 adLocation:adLocationInfo
+                            closeButtonLink:&closeButtonLink
+                            closeButtonType:&closeButtonTypeString];
             
-            if(*closeButtonType == CloseButtonNative){
+            CloseButtonType closeButtonType = [self toCloseButtonType:closeButtonTypeString];
+            
+            if(closeButtonType == CloseButtonNative){
                 NSDictionary *closeButtonInfo = [frameResponse objectForKey:FrameResponseCloseButtonInfo];
                 
                 if(closeButtonInfo){
@@ -55,7 +60,7 @@
                         ((PNNativeCloseButton *)_closeButton).dimensions = [self getViewDimensions:closeButtonInfo];
                     }
                 }
-            } else if(*closeButtonType == CloseButtonHtml && closeButtonLink) {
+            } else if(closeButtonType == CloseButtonHtml && closeButtonLink) {
                 _closeButton = [[PNHtmlCloseButton alloc] init];
                 ((PNHtmlCloseButton *) _closeButton).closeButtonLink = closeButtonLink;
             }
@@ -87,7 +92,7 @@
 -(PNAd *) parseAdFromResponse:(NSDictionary *) adResponse
                    adLocation:(NSDictionary *) location
               closeButtonLink:(NSString **) closeButtonLink
-              closeButtonType:(CloseButtonType *) type
+              closeButtonType:(NSString **) type
 {
 
     NSString *adTypeString = [self cleanValue:[adResponse objectForKey:FrameResponseAd_AdType]];
@@ -119,8 +124,8 @@
         ad.targetUrl = [adResponse objectForKey:FrameResponseAd_TargetUrl];
     }
     
-    *type = [self toCloseButtonType:[adResponse objectForKey:FrameResponseAd_CloseButtonType]];
-    *closeButtonLink = [[adResponse objectForKey:FrameResponseAd_CloseButtonLink] retain];
+    *type = [adResponse objectForKey:FrameResponseAd_CloseButtonType];
+    *closeButtonLink = [adResponse objectForKey:FrameResponseAd_CloseButtonLink];
     
     NSNumber *fullscreenAsNum = (NSNumber *)[adResponse objectForKey:FrameResponseAd_Fullscreen];
     ad.fullscreen = [fullscreenAsNum boolValue];

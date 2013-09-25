@@ -47,8 +47,6 @@
     return self;
 }
 
-
-
 -(id) initWithAd:(PNStaticAd *) staticAd
       background:(PNBackground *) background
      closeButton:(PNNativeCloseButton *) closeButton
