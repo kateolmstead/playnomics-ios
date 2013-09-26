@@ -24,6 +24,21 @@ typedef NS_ENUM(int, PNMilestoneType){
     PNMilestoneCustom8 = 8,
     PNMilestoneCustom9 = 9,
     PNMilestoneCustom10 = 10,
+    PNMilestoneCustom11 = 11,
+    PNMilestoneCustom12 = 12,
+    PNMilestoneCustom13 = 13,
+    PNMilestoneCustom14 = 14,
+    PNMilestoneCustom15 = 15,
+    PNMilestoneCustom16 = 16,
+    PNMilestoneCustom17 = 17,
+    PNMilestoneCustom18 = 18,
+    PNMilestoneCustom19 = 19,
+    PNMilestoneCustom20 = 20,
+    PNMilestoneCustom21 = 21,
+    PNMilestoneCustom22 = 22,
+    PNMilestoneCustom23 = 23,
+    PNMilestoneCustom24 = 24,
+    PNMilestoneCustom25 = 25
 };
 
 
