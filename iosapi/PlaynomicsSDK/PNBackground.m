@@ -7,7 +7,7 @@
 
 -(CGRect) dimensionsForCurrentOrientation{
     UIInterfaceOrientation currentOrientation = [PNUtil getCurrentOrientation];
-    if(currentOrientation & UIInterfaceOrientationMaskLandscape){
+    if(UIInterfaceOrientationIsLandscape(currentOrientation)){
         return self.landscapeDimensions;
     }
     return self.portraitDimensions;
