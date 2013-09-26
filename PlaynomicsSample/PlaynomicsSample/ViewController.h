@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "Playnomics.h"
 
-@interface ViewController : UIViewController <UITextFieldDelegate>
+@interface ViewController : UIViewController <UITextFieldDelegate, UIAlertViewDelegate>
 
 @property (nonatomic, retain) IBOutlet UITextField *transactionCount;
 @property (retain, nonatomic) IBOutlet UITextField *frameIdText;

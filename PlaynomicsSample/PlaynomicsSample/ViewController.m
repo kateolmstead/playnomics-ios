@@ -137,24 +137,33 @@
 }
 
 - (IBAction) onClearCache:(id)sender{
-    UIPasteboard *pasteboard = [UIPasteboard pasteboardWithName:@"com.playnomics.pasteboardData" create:YES];
-    pasteboard.items = nil;
     
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Confirm cache clear"
+message:@"This clears the app cache, so that you'll be treated like a new user. You need to close this app and restart once this is done. Are you sure you want to do this?"
+delegate:self cancelButtonTitle:@"No thanks"
+otherButtonTitles:@"Yes, do it!", nil];
     
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    
-    [defaults setValue:nil forKey: PNUserDefaultsLastIDFV];
-    [defaults setValue:nil forKey: PNUserDefaultsLastSessionID];
-    [defaults setValue:nil forKey: PNUserDefaultsLastUserID];
-    [defaults setDouble:0 forKey: PNUserDefaultsLastSessionEventTime];
-    [defaults setValue:nil forKey: PNUserDefaultsLastDeviceToken];
+    [alert show];
+}
+
+-(void) alertView:(UIAlertView *) alertView clickedButtonAtIndex:(NSInteger) buttonIndex{
+    [alertView release];
+    if(buttonIndex == 1){
+        UIPasteboard *pasteboard = [UIPasteboard pasteboardWithName:@"com.playnomics.pasteboardData" create:YES];
+        pasteboard.items = nil;
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        
+        [defaults setValue:nil forKey: PNUserDefaultsLastIDFV];
+        [defaults setValue:nil forKey: PNUserDefaultsLastSessionID];
+        [defaults setValue:nil forKey: PNUserDefaultsLastUserID];
+        [defaults setDouble:0 forKey: PNUserDefaultsLastSessionEventTime];
+        [defaults setValue:nil forKey: PNUserDefaultsLastDeviceToken];
+    }
 }
 
 - (void) initMsgFrame: (NSString *) frameId {
     [Playnomics showFrameWithId: frameId delegate: _frameDelegate];
- }
-
-
+}
 
 #pragma mark Misc Functions
 
