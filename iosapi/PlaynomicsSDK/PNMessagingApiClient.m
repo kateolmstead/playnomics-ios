@@ -55,6 +55,7 @@
     [request fetchFrameData];
     [_requestsByUrl setValue:request forKey:url];
     [request autorelease];
+    [params autorelease];
 }
 
 -(void) onFrameUrlCompleted:(NSString *)url{
