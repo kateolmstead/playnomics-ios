@@ -55,6 +55,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     long appId = 2L;
+    [Playnomics setTestMode:YES];
     [Playnomics setLoggingLevel:PNLogLevelDebug];
     [Playnomics startWithApplicationId:appId];
     

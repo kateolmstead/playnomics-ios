@@ -39,9 +39,6 @@ typedef NS_ENUM(int, CloseButtonType){
 @end
 
 @interface PNAd : NSObject
-
-@property (assign) CGRect dimensions;
-
 @property (retain) NSString *closeUrl;
 
 @property (retain) NSString *impressionUrl;
@@ -62,6 +59,7 @@ typedef NS_ENUM(int, CloseButtonType){
 
 @interface PNStaticAd : PNAd
 @property (retain) NSString *imageUrl;
+@property (assign) CGRect dimensions;
 @end
 
 @interface PNNativeCloseButton : NSObject

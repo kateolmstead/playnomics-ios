@@ -37,7 +37,7 @@
         NSDictionary *adInfo = [adsSet objectAtIndex:0];
         NSDictionary *adLocationInfo = [frameResponse objectForKey:FrameResponseAdLocationInfo];
         
-        if(adLocationInfo && adInfo){
+        if(adInfo){
             NSString *closeButtonLink = nil;
             NSString *closeButtonTypeString = nil;
             
@@ -102,13 +102,13 @@
     if(adType == AdTypeImage){
         ad = [[PNStaticAd alloc] init];
         ((PNStaticAd *) ad).imageUrl = [self getImageFromProperties:adResponse];
+        ((PNStaticAd *) ad).dimensions = [self getViewDimensions:location];
     } else if (adType == AdTypeWebView){
         ad = [[PNHtmlAd alloc] init];
         ((PNHtmlAd *) ad).htmlContent = [self cleanValue:[adResponse objectForKey:FrameResponseAd_HtmlContent]];
-        ((PNHtmlAd *) ad).clickLink = [self cleanValue:[adResponse objectForKey:FrameResponseAd_ClickUrl]];
+        ((PNHtmlAd *) ad).clickLink = [self cleanValue:[adResponse objectForKey:FrameResponseAd_ClickLink]];
     }
     
-    ad.dimensions = [self getViewDimensions:location];
     ad.impressionUrl = [self cleanValue: [adResponse objectForKey:FrameResponseAd_ImpressionUrl]];
     ad.closeUrl = [self cleanValue: [adResponse objectForKey:FrameResponseAd_CloseUrl]];
     ad.clickUrl = [self cleanValue: [adResponse objectForKey:FrameResponseAd_ClickUrl]];

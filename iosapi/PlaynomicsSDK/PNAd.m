@@ -3,7 +3,6 @@
 @implementation PNAd
 @synthesize clickUrl;
 @synthesize closeUrl;
-@synthesize dimensions;
 @synthesize fullscreen;
 @synthesize impressionUrl;
 @synthesize targetData;

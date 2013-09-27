@@ -2,4 +2,5 @@
 
 @implementation PNStaticAd
 @synthesize imageUrl;
+@synthesize dimensions;
 @end

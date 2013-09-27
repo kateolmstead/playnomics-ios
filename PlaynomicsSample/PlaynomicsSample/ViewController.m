@@ -149,6 +149,7 @@ otherButtonTitles:@"Yes, do it!", nil];
 -(void) alertView:(UIAlertView *) alertView clickedButtonAtIndex:(NSInteger) buttonIndex{
     [alertView release];
     if(buttonIndex == 1){
+        
         UIPasteboard *pasteboard = [UIPasteboard pasteboardWithName:@"com.playnomics.pasteboardData" create:YES];
         pasteboard.items = nil;
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
