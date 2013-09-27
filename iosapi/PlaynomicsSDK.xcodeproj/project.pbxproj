@@ -263,7 +263,6 @@
 		3238497717E96B9100DCA409 /* PlaynomicsSDKTests */ = {
 			isa = PBXGroup;
 			children = (
-				32D54F7517F270000029848E /* Resources */,
 				328D497317E993790067DAB7 /* PlaynomicsSDKTests-Info.plist */,
 				3290166717CD0B740041895A /* Mocks */,
 				32306C6B17E97A3B001240D7 /* Tests */,
@@ -441,13 +440,6 @@
 				32D54F5B17F209490029848E /* Playnomics.h */,
 			);
 			name = Public;
-			sourceTree = "<group>";
-		};
-		32D54F7517F270000029848E /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Resources;
 			sourceTree = "<group>";
 		};
 		D1D922651590F59500EDDE17 = {

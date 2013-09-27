@@ -122,7 +122,6 @@ nativeCloseButton:(PNNativeCloseButton *)nativeCloseButton
     if (navigationType == UIWebViewNavigationTypeLinkClicked) {
         [self removeFromSuperview];
         
-        
         if([_closeButton isKindOfClass:[PNHtmlCloseButton class]]){
             PNHtmlCloseButton *htmlCloseButton = (PNHtmlCloseButton *) _closeButton;
             
@@ -131,8 +130,12 @@ nativeCloseButton:(PNNativeCloseButton *)nativeCloseButton
                 
                 [PNLogger log:PNLogLevelDebug format:@"PN Web View Close button was clicked"];
                 [_delegate adClosed:YES];
+                
+                return NO;
             }
-        } else if (_htmlAd.clickLink && [_htmlAd.clickLink isEqualToString:url.absoluteString]){
+        }
+        
+        if (_htmlAd.clickLink && [_htmlAd.clickLink isEqualToString:url.absoluteString]){
             [PNLogger log:PNLogLevelDebug format:@"PN Web View Ad was clicked"];
             [_delegate adClicked];
         } else {
