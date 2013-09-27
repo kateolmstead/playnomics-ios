@@ -11,7 +11,7 @@
 @implementation PNWebView {
 @private
     CGRect _backgroundDimensions;
-    PNViewComponent *_closeButtonView;
+    PNNativeViewComponent *_closeButtonView;
     id<PNFrameDelegate> _delegate;
     id _closeButton;
     PNHtmlAd *_htmlAd;
@@ -42,7 +42,7 @@ nativeCloseButton:(PNNativeCloseButton *)nativeCloseButton
         [self setViewData:ad delegate:delegate];
         _closeButton = [nativeCloseButton retain];
         
-        _closeButtonView = [[PNViewComponent alloc] initWithDimensions:nativeCloseButton.dimensions
+        _closeButtonView = [[PNNativeViewComponent alloc] initWithDimensions:nativeCloseButton.dimensions
                                                           delegate:self
                                                              image:nativeCloseButton.imageUrl];
         [self addSubview:_closeButtonView];

@@ -17,12 +17,12 @@
 -(void) component: (id) component didReceiveTouch: (UITouch*) touch;
 @end
 
-@interface PNViewComponent : UIImageView<PNAssetRequestDelegate>
+@interface PNNativeViewComponent : UIImageView<PNAssetRequestDelegate>
 @property (assign) id<PNViewComponentDelegate> delegate;
 @property (assign) NSString* imageUrl;
-@property (assign) PNViewComponent *parentComponent;
+@property (assign) PNNativeViewComponent *parentComponent;
 @property (readonly) AdComponentStatus status;
 - (id) initWithDimensions:(CGRect) dimensions delegate:(id<PNViewComponentDelegate>) delegate image:(NSString*) imageUrl;
-- (void) addSubComponent:(PNViewComponent *)subView;
+- (void) addSubComponent:(PNNativeViewComponent *)subView;
 - (void) hide;
 @end

@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "PNFrame.h"
-#import "PNViewComponent.h"
+#import "PNNativeViewComponent.h"
 
 //assign, makes this reference weak. This because we aren't creating our delegate object, this prevents
 //strong references cycles.

@@ -1,6 +1,6 @@
 #import "PNAdData.h"
 
-@implementation PNStaticAd
+@implementation PNNativeImageAd
 @synthesize imageUrl;
 @synthesize dimensions;
 @end

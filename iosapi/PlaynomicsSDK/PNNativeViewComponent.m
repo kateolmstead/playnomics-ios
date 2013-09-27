@@ -3,10 +3,10 @@
 //
 // To change the template use AppCode | Preferences | File Templates.
 //
-#import "PNViewComponent.h"
-#import "PNImageView.h"
+#import "PNNativeViewComponent.h"
+#import "PNNativeImageView.h"
 
-@implementation PNViewComponent {
+@implementation PNNativeViewComponent {
 @private
     NSMutableArray *_subComponents;
     PNAssetRequest *_request;
@@ -93,7 +93,7 @@
     [PNLogger log:PNLogLevelWarning error:error format:@"Could not load image asset %@", _imageUrl];
 }
 
-- (void) addSubComponent:(PNViewComponent *)subComponent {
+- (void) addSubComponent:(PNNativeViewComponent *)subComponent {
     subComponent.parentComponent = self;
     [_subComponents addObject:subComponent];
     [self addSubview:subComponent];

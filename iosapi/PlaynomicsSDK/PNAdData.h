@@ -57,7 +57,7 @@ typedef NS_ENUM(int, CloseButtonType){
 @property (retain) NSString *clickLink;
 @end
 
-@interface PNStaticAd : PNAd
+@interface PNNativeImageAd : PNAd
 @property (retain) NSString *imageUrl;
 @property (assign) CGRect dimensions;
 @end

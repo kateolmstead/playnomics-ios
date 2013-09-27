@@ -100,9 +100,9 @@
     PNAd *ad = nil;
 
     if(adType == AdTypeImage){
-        ad = [[PNStaticAd alloc] init];
-        ((PNStaticAd *) ad).imageUrl = [self getImageFromProperties:adResponse];
-        ((PNStaticAd *) ad).dimensions = [self getViewDimensions:location];
+        ad = [[PNNativeImageAd alloc] init];
+        ((PNNativeImageAd *) ad).imageUrl = [self getImageFromProperties:adResponse];
+        ((PNNativeImageAd *) ad).dimensions = [self getViewDimensions:location];
     } else if (adType == AdTypeWebView){
         ad = [[PNHtmlAd alloc] init];
         ((PNHtmlAd *) ad).htmlContent = [self cleanValue:[adResponse objectForKey:FrameResponseAd_HtmlContent]];

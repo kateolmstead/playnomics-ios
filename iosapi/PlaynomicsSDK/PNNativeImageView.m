@@ -6,24 +6,24 @@
 //
 //
 
-#import "PNImageView.h"
-#import "PNViewComponent.h"
+#import "PNNativeImageView.h"
+#import "PNNativeViewComponent.h"
 #import "PNFrame.h"
 
-@implementation PNImageView {
+@implementation PNNativeImageView {
 @private
-    PNViewComponent* _backgroundView;
-    PNViewComponent* _adAreaView;
-    PNViewComponent* _closeButtonView;
+    PNNativeViewComponent* _backgroundView;
+    PNNativeViewComponent* _adAreaView;
+    PNNativeViewComponent* _closeButtonView;
     
-    PNStaticAd *_staticAd;
+    PNNativeImageAd *_staticAd;
     PNBackground *_background;
     PNNativeCloseButton *_closeButton;
     id<PNFrameDelegate> _delegate;
 }
 #pragma mark - Lifecycle/Memory management
 
--(id) initWithAd:(PNStaticAd *) staticAd
+-(id) initWithAd:(PNNativeImageAd *) staticAd
       background:(PNBackground *) background
         delegate:(id<PNFrameDelegate>) delegate
 {
@@ -33,11 +33,11 @@
         _delegate = delegate;
         _background = [background retain];
         _staticAd = [staticAd retain];
-        _backgroundView = [[PNViewComponent alloc] initWithDimensions:[_background dimensionsForCurrentOrientation]
+        _backgroundView = [[PNNativeViewComponent alloc] initWithDimensions:[_background dimensionsForCurrentOrientation]
                                                              delegate:self
                                                                 image:_background.imageUrl];
         
-        _adAreaView = [[PNViewComponent alloc] initWithDimensions:_staticAd.dimensions
+        _adAreaView = [[PNNativeViewComponent alloc] initWithDimensions:_staticAd.dimensions
                                                          delegate:self
                                                             image:_staticAd.imageUrl];
         [_backgroundView addSubComponent: _adAreaView];
@@ -47,7 +47,7 @@
     return self;
 }
 
--(id) initWithAd:(PNStaticAd *) staticAd
+-(id) initWithAd:(PNNativeImageAd *) staticAd
       background:(PNBackground *) background
      closeButton:(PNNativeCloseButton *) closeButton
         delegate:(id<PNFrameDelegate>) delegate
@@ -55,7 +55,7 @@
     self = [self initWithAd:staticAd background:background delegate:delegate];
     if(self){
         _closeButton = [closeButton retain];
-        _closeButtonView = [[PNViewComponent alloc] initWithDimensions:_closeButton.dimensions
+        _closeButtonView = [[PNNativeViewComponent alloc] initWithDimensions:_closeButton.dimensions
                                                               delegate:self
                                                                  image:_closeButton.imageUrl];
         [_backgroundView addSubComponent: _closeButtonView];

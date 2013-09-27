@@ -336,7 +336,7 @@ typedef enum{
     XCTAssertEqualObjects(closeButton.imageUrl, TestCloseButtonImage, @"Close button image is set");
     XCTAssertEqual(closeButton.dimensions, CGRectMake(270, 0, 30, 30), @"Close button dimensions is set");
     
-    PNStaticAd *staticAd = (PNStaticAd *)frame.ad;
+    PNNativeImageAd *staticAd = (PNNativeImageAd *)frame.ad;
     XCTAssertEqualObjects(staticAd.imageUrl, TestImageUrl, @"Ad image is set");
     XCTAssertEqual(staticAd.dimensions, CGRectMake(0, 0, 300, 250), @"Close button dimensions is set");
     

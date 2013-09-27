@@ -8,15 +8,15 @@
 
 #import <UIKit/UIKit.h>
 #import "PNFrame.h"
-#import "PNViewComponent.h"
+#import "PNNativeViewComponent.h"
 
-@interface PNImageView : NSObject <PNViewComponentDelegate, PNAdView>
+@interface PNNativeImageView : NSObject <PNViewComponentDelegate, PNAdView>
 
--(id) initWithAd:(PNStaticAd *) staticAd
+-(id) initWithAd:(PNNativeImageAd *) staticAd
       background:(PNBackground *) background
         delegate:(id<PNFrameDelegate>) delegate;
 
--(id) initWithAd:(PNStaticAd *) staticAd
+-(id) initWithAd:(PNNativeImageAd *) staticAd
       background:(PNBackground *) background
      closeButton:(PNNativeCloseButton *) closeButton
         delegate:(id<PNFrameDelegate>) delegate;
