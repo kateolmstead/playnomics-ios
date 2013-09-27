@@ -121,7 +121,7 @@
             ad.targetData = [PNUtil deserializeJsonString: targetDataString];
         }
     } else if(ad.targetType == AdTargetUrl){
-        ad.targetUrl = [adResponse objectForKey:FrameResponseAd_TargetUrl];
+        ad.targetUrl = [self cleanValue: [adResponse objectForKey:FrameResponseAd_TargetUrl]];
     }
     
     *type = [adResponse objectForKey:FrameResponseAd_CloseButtonType];
