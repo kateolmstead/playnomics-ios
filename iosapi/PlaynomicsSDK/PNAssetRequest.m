@@ -13,6 +13,14 @@
     id<PNAssetRequestDelegate> _delegate;
 }
 
+
++(id) loadDataForUrl: (NSString *)urlString
+              delegate: (id<PNAssetRequestDelegate>) delegate
+          useHttpCache: (BOOL) useHttpCache
+{
+    return [[PNAssetRequest alloc] initWithUrl:urlString delegate:delegate useHttpCache:useHttpCache];
+}
+
 - (id) initWithUrl: (NSString *)urlString
           delegate: (id<PNAssetRequestDelegate>) delegate
       useHttpCache: (BOOL) useHttpCache{

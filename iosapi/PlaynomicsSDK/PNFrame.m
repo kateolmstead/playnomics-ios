@@ -96,19 +96,19 @@
 -(void) _initOrientationChangeObservers {
     [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(_deviceOrientationDidChange:)
+                                             selector:@selector(deviceOrientationDidChange:)
                                                  name:UIDeviceOrientationDidChangeNotification
                                                object: nil];
     
 }
 
--(void) _destroyOrientationObservers {
+-(void) destroyOrientationObservers {
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:UIDeviceOrientationDidChangeNotification
                                                   object:nil];
 }
 
--(void) _deviceOrientationDidChange: (NSNotification *)notification {
+-(void) deviceOrientationDidChange: (NSNotification *)notification {
     UIInterfaceOrientation orientation = [PNUtil getCurrentOrientation];
     if (_currentOrientation == orientation) {
         return;
@@ -175,7 +175,7 @@
         }
     }
     
-    [self _destroyOrientationObservers];
+    [self destroyOrientationObservers];
     [[UIApplication sharedApplication] setStatusBarHidden : _statusBar];
     //refresh the frame when the ad has been closed
     [self reloadFrame];
@@ -188,7 +188,6 @@
     
     if(_response.ad.targetType == AdTargetUrl && _response.ad.targetUrl){
         //url-based target
-
         NSURL *url = [NSURL URLWithString:_response.ad.targetUrl];
         if([[UIApplication sharedApplication] canOpenURL:url]){
             [[UIApplication sharedApplication] openURL:url];

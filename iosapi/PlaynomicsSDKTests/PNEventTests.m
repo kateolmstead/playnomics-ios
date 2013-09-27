@@ -38,7 +38,10 @@
 }
 
 - (PNGameSessionInfo *) getGameSessionInfo{
-    PNGameSessionInfo *info = [[PNGameSessionInfo alloc] initWithApplicationId:1 userId:@"user-name" breadcrumbId:@"breadcrumbId" sessionId:[[PNGeneratedHexId alloc] initAndGenerateValue]];
+    PNGameSessionInfo *info = [[PNGameSessionInfo alloc] initWithApplicationId:1
+                                                                        userId:@"user-name"
+                                                                  breadcrumbId:@"breadcrumbId"
+                                                                     sessionId:[[PNGeneratedHexId alloc] initAndGenerateValue]];
     return [info autorelease];
 }
 

@@ -44,7 +44,7 @@
 -(void) fetchFrameData{
     _frame.state = PNFrameStateLoadingStarted;
     [PNLogger log:PNLogLevelDebug format:@"Fetching ad at %@", _url];
-    _request = [[PNAssetRequest alloc] initWithUrl:_url delegate:self useHttpCache:NO];
+    _request = [PNAssetRequest loadDataForUrl:_url delegate:self useHttpCache:NO];
     [_request start];
 }
 
