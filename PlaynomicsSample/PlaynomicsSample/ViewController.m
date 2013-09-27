@@ -19,7 +19,6 @@
 
 @implementation ViewController{
     FrameDelegate* _frameDelegate;
-//    PlaynomicsFrame *videoFrame;
 }
 @synthesize transactionCount;
 
@@ -42,7 +41,6 @@
     _frameDelegate = [[FrameDelegate alloc] init];
     [super viewDidLoad];
     [Playnomics preloadFramesWithIds:@"546e241b9b97149b", @"c6877f336e9d9dda", @"7a9138a971ce1773", @"15bec4e2b78424a2", @"33a3cf0ecfa71c1a", nil];
-    _frameIdText.delegate = self;
 
     /*
     UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didReceiveTap:)];
@@ -54,7 +52,6 @@
 - (void)viewDidUnload
 {
     [_frameDelegate release];
-    [self setFrameIdText:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -90,15 +87,7 @@
     }
 }
 
-- (BOOL)textFieldShouldReturn:(UITextField *)textField
-{
-    [_frameIdText resignFirstResponder];
-    
-    return YES;
-}
-
 #pragma mark - Button receivers
-
 - (IBAction) onTransactionClick:(id)sender {
     NSNumber* price = [NSNumber numberWithDouble:.99];
     [Playnomics transactionWithUSDPrice: price quantity: 1];
@@ -117,39 +106,38 @@
 }
 
 - (IBAction)onHttpClick:(id)sender {
-    [self initMsgFrame:@"546e241b9b97149b"];
+    [self showFrame:@"546e241b9b97149b"];
 }
 
 - (IBAction)onJsonClick:(id)sender {
-    [self initMsgFrame:@"c6877f336e9d9dda"];
+    [self showFrame:@"c6877f336e9d9dda"];
 }
 
 - (IBAction)onNullTargetClick:(id)sender {
-    [self initMsgFrame:@"7a9138a971ce1773"];
+    [self showFrame:@"7a9138a971ce1773"];
 }
 
 -(IBAction)onNoAdsClick:(id)sender{
-    [self initMsgFrame:@"15bec4e2b78424a2"];
+    [self showFrame:@"15bec4e2b78424a2"];
 }
 
 -(IBAction) onThirdPartyAd:(id) sender{
-    [self initMsgFrame:@"33a3cf0ecfa71c1a"];
+    [self showFrame:@"33a3cf0ecfa71c1a"];
 }
 
 - (IBAction) onClearCache:(id)sender{
     
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Confirm cache clear"
-message:@"This clears the app cache, so that you'll be treated like a new user. You need to close this app and restart once this is done. Are you sure you want to do this?"
-delegate:self cancelButtonTitle:@"No thanks"
-otherButtonTitles:@"Yes, do it!", nil];
-    
+                                                    message:@"This clears the app cache, so that you'll be treated like a new user. You need to close this app and restart once this is done. Are you sure you want to do this?"
+                                                   delegate:self
+                                          cancelButtonTitle:@"No thanks"
+                                          otherButtonTitles:@"Yes, do it!", nil];
     [alert show];
 }
 
 -(void) alertView:(UIAlertView *) alertView clickedButtonAtIndex:(NSInteger) buttonIndex{
     [alertView release];
     if(buttonIndex == 1){
-        
         UIPasteboard *pasteboard = [UIPasteboard pasteboardWithName:@"com.playnomics.pasteboardData" create:YES];
         pasteboard.items = nil;
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -162,14 +150,13 @@ otherButtonTitles:@"Yes, do it!", nil];
     }
 }
 
-- (void) initMsgFrame: (NSString *) frameId {
+- (void) showFrame: (NSString *) frameId {
     [Playnomics showFrameWithId: frameId delegate: _frameDelegate];
 }
 
 #pragma mark Misc Functions
 
 - (void)dealloc {
-    [_frameIdText release];
     [super dealloc];
 }
 

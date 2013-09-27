@@ -12,7 +12,6 @@
 @interface ViewController : UIViewController <UITextFieldDelegate, UIAlertViewDelegate>
 
 @property (nonatomic, retain) IBOutlet UITextField *transactionCount;
-@property (retain, nonatomic) IBOutlet UITextField *frameIdText;
 
 - (IBAction) onTransactionClick:(id)sender;
 - (IBAction) onUserInfo:(id)sender;
@@ -23,4 +22,5 @@
 - (IBAction) onThirdPartyAd:(id) sender;
 - (IBAction) onMilestoneClick:(id)sender;
 - (IBAction) onClearCache:(id)sender;
+
 @end
