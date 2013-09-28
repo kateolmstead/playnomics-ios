@@ -10,13 +10,16 @@ Getting Started
 
 ## Download and Installing the SDK
 
-You can download the SDK by forking this repo or [downloading](https://github.com/playnomics/ios-sdk/archive/master.zip) the archived files. All of the necessary install files are in the *build* folder:
+You can download the SDK from our [releases page](https://github.com/playnomics/playnomics-ios/releases).
 
-* libplaynomics.a
+All of the necessary install files are in the *Playnomics* folder:
+* libPlaynomics.a
 * Playnomics.h
 * PNLogger.h
 
-Then import the SDK files into your existing game through Xcode.
+You can also forking this [repo](https://github.com/playnomics/playnomics-ios), building the PlaynomicsSDK project.
+
+Import the SDK files into your existing game through Xcode.
 
 ## Starting a PlayRM Session
 
@@ -855,4 +858,4 @@ support for iOS version 4.x
 #### Version 2
 * First production release
 
-View version tags <a href="https://github.com/playnomics/ios-sdk/tags">here</a>
+View version tags <a href="https://github.com/playnomics/playnomics-ios/tags">here</a>
