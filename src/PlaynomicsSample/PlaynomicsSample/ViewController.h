@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Playnomics.h"
+
 
 @interface ViewController : UIViewController <UITextFieldDelegate, UIAlertViewDelegate>
 

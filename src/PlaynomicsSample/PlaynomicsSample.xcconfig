@@ -1,0 +1,9 @@
+//
+//  PlaynomicsSample.xcconfig
+//  PlaynomicsSample
+//
+//  Created by Jared Jenkins on 9/28/13.
+//  Copyright (c) 2013 Grio. All rights reserved.
+//
+HEADER_SEARCH_PATHS = "${SDK_ROOT}"
+SDK_ROOT = ${SRCROOT}/../PlaynomicsSDK

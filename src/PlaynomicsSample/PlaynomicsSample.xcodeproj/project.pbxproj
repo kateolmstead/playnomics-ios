@@ -13,8 +13,9 @@
 		323B354C17E9867B00A2F7BC /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 323B354B17E9867B00A2F7BC /* CFNetwork.framework */; };
 		323B354E17E9868100A2F7BC /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 323B354D17E9868100A2F7BC /* CoreGraphics.framework */; };
 		323B355217E986A300A2F7BC /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 323B355117E986A300A2F7BC /* CoreData.framework */; };
-		324160B517EA487A00D471C4 /* libPlaynomicsSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 681CB35617DEA3F0008F9634 /* libPlaynomicsSDK.a */; };
 		324160B717EA488200D471C4 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 324160B617EA488200D471C4 /* UIKit.framework */; };
+		328652E617F75AF0007C461F /* PlaynomicsSample.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 328652E517F75AF0007C461F /* PlaynomicsSample.xcconfig */; };
+		328D118617F755820064BD18 /* libPlaynomicsSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 328D118517F755820064BD18 /* libPlaynomicsSDK.a */; };
 		5BBAA083159BAF0000AA4993 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5BBAA081159BAF0000AA4993 /* InfoPlist.strings */; };
 		5BBAA085159BAF0000AA4993 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BBAA084159BAF0000AA4993 /* main.m */; };
 		5BBAA089159BAF0000AA4993 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BBAA088159BAF0000AA4993 /* AppDelegate.m */; };
@@ -26,30 +27,6 @@
 		A18FFBAE16CADCA80099D6A5 /* dingdong.caf in Resources */ = {isa = PBXBuildFile; fileRef = A18FFBAD16CADCA80099D6A5 /* dingdong.caf */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		324160B217EA3C1200D471C4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = A1244D6E16A8CB0B001A93DD /* PlaynomicsSDK.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 3238496217E96B9100DCA409;
-			remoteInfo = PlaynomicsSDK;
-		};
-		681CB35517DEA3F0008F9634 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = A1244D6E16A8CB0B001A93DD /* PlaynomicsSDK.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = D1D922701590F59600EDDE17;
-			remoteInfo = PlaynomicsSDK;
-		};
-		681CB35717DEA3F0008F9634 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = A1244D6E16A8CB0B001A93DD /* PlaynomicsSDK.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 32A7C32F17C6A36B00E959A3;
-			remoteInfo = PlaynomicsSDKTests;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
 		322BEC5017A6CFF000C2623E /* FrameDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FrameDelegate.h; sourceTree = "<group>"; };
 		322BEC5117A6CFF000C2623E /* FrameDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FrameDelegate.m; sourceTree = "<group>"; };
@@ -59,6 +36,8 @@
 		323B354D17E9868100A2F7BC /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		323B355117E986A300A2F7BC /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		324160B617EA488200D471C4 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		328652E517F75AF0007C461F /* PlaynomicsSample.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = PlaynomicsSample.xcconfig; sourceTree = "<group>"; };
+		328D118517F755820064BD18 /* libPlaynomicsSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libPlaynomicsSDK.a; path = "../../../../../Library/Developer/Xcode/DerivedData/PlaynomicsSDK-cminaroadxelqabgcrfantmzxswd/Build/Products/Debug-iphoneos/libPlaynomicsSDK.a"; sourceTree = "<group>"; };
 		5BBAA074159BAEFF00AA4993 /* PlaynomicsSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PlaynomicsSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5BBAA080159BAF0000AA4993 /* PlaynomicsSample-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "PlaynomicsSample-Info.plist"; sourceTree = "<group>"; };
 		5BBAA082159BAF0000AA4993 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -72,7 +51,6 @@
 		5BBAA091159BAF0000AA4993 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController_iPad.xib; sourceTree = "<group>"; };
 		6855CB7A17948E330058E101 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		A1244D5416A8A38D001A93DD /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
-		A1244D6E16A8CB0B001A93DD /* PlaynomicsSDK.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PlaynomicsSDK.xcodeproj; path = ../iosapi/PlaynomicsSDK.xcodeproj; sourceTree = "<group>"; };
 		A18FFBAD16CADCA80099D6A5 /* dingdong.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = dingdong.caf; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -81,8 +59,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				328D118617F755820064BD18 /* libPlaynomicsSDK.a in Frameworks */,
 				324160B717EA488200D471C4 /* UIKit.framework in Frameworks */,
-				324160B517EA487A00D471C4 /* libPlaynomicsSDK.a in Frameworks */,
 				323B355217E986A300A2F7BC /* CoreData.framework in Frameworks */,
 				323B354E17E9868100A2F7BC /* CoreGraphics.framework in Frameworks */,
 				323B354C17E9867B00A2F7BC /* CFNetwork.framework in Frameworks */,
@@ -98,10 +76,10 @@
 			isa = PBXGroup;
 			children = (
 				6855CB7A17948E330058E101 /* Default-568h@2x.png */,
-				A1244D6E16A8CB0B001A93DD /* PlaynomicsSDK.xcodeproj */,
 				5BBAA07E159BAF0000AA4993 /* PlaynomicsSample */,
 				5BBAA077159BAF0000AA4993 /* Frameworks */,
 				5BBAA075159BAEFF00AA4993 /* Products */,
+				328652E517F75AF0007C461F /* PlaynomicsSample.xcconfig */,
 			);
 			sourceTree = "<group>";
 		};
@@ -116,6 +94,7 @@
 		5BBAA077159BAF0000AA4993 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				328D118517F755820064BD18 /* libPlaynomicsSDK.a */,
 				324160B617EA488200D471C4 /* UIKit.framework */,
 				323B355117E986A300A2F7BC /* CoreData.framework */,
 				323B354D17E9868100A2F7BC /* CoreGraphics.framework */,
@@ -163,15 +142,6 @@
 			name = xib;
 			sourceTree = "<group>";
 		};
-		681CB35117DEA3F0008F9634 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				681CB35617DEA3F0008F9634 /* libPlaynomicsSDK.a */,
-				681CB35817DEA3F0008F9634 /* PlaynomicsSDKTests.xctest */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -186,7 +156,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				324160B317EA3C1200D471C4 /* PBXTargetDependency */,
 			);
 			name = PlaynomicsSample;
 			productName = PlaynomicsSample;
@@ -217,35 +186,12 @@
 			mainGroup = 5BBAA069159BAEFF00AA4993;
 			productRefGroup = 5BBAA075159BAEFF00AA4993 /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 681CB35117DEA3F0008F9634 /* Products */;
-					ProjectRef = A1244D6E16A8CB0B001A93DD /* PlaynomicsSDK.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				5BBAA073159BAEFF00AA4993 /* PlaynomicsSample */,
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		681CB35617DEA3F0008F9634 /* libPlaynomicsSDK.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libPlaynomicsSDK.a;
-			remoteRef = 681CB35517DEA3F0008F9634 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		681CB35817DEA3F0008F9634 /* PlaynomicsSDKTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = PlaynomicsSDKTests.xctest;
-			remoteRef = 681CB35717DEA3F0008F9634 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		5BBAA072159BAEFF00AA4993 /* Resources */ = {
@@ -258,6 +204,7 @@
 				A1244D5516A8A38E001A93DD /* Localizable.strings in Resources */,
 				A18FFBAE16CADCA80099D6A5 /* dingdong.caf in Resources */,
 				6855CB7B17948E330058E101 /* Default-568h@2x.png in Resources */,
+				328652E617F75AF0007C461F /* PlaynomicsSample.xcconfig in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -276,14 +223,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		324160B317EA3C1200D471C4 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = PlaynomicsSDK;
-			targetProxy = 324160B217EA3C1200D471C4 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		5BBAA081159BAF0000AA4993 /* InfoPlist.strings */ = {
@@ -315,6 +254,7 @@
 /* Begin XCBuildConfiguration section */
 		5BBAA093159BAF0000AA4993 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 328652E517F75AF0007C461F /* PlaynomicsSample.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
@@ -348,6 +288,7 @@
 		};
 		5BBAA094159BAF0000AA4993 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 328652E517F75AF0007C461F /* PlaynomicsSample.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
@@ -376,17 +317,19 @@
 		};
 		5BBAA096159BAF0000AA4993 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 328652E517F75AF0007C461F /* PlaynomicsSample.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PlaynomicsSample/PlaynomicsSample-Prefix.pch";
-				HEADER_SEARCH_PATHS = (
-					"$(SRCROOT)/../iosapi/PlaynomicsSDK/**",
-					"$(inherited)",
-				);
+				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "PlaynomicsSample/PlaynomicsSample-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/PlaynomicsSDK-cminaroadxelqabgcrfantmzxswd/Build/Products/Debug-iphoneos",
+				);
 				OBJROOT = "$(SYMROOT)";
 				OTHER_LDFLAGS = (
 					"-ObjC",
@@ -405,17 +348,19 @@
 		};
 		5BBAA097159BAF0000AA4993 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 328652E517F75AF0007C461F /* PlaynomicsSample.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Turiya Media, Inc. (3XGDM87KDL)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Turiya Media, Inc. (3XGDM87KDL)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PlaynomicsSample/PlaynomicsSample-Prefix.pch";
-				HEADER_SEARCH_PATHS = (
-					"$(SRCROOT)/../iosapi/PlaynomicsSDK/**",
-					"$(inherited)",
-				);
+				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "PlaynomicsSample/PlaynomicsSample-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/PlaynomicsSDK-cminaroadxelqabgcrfantmzxswd/Build/Products/Debug-iphoneos",
+				);
 				OBJROOT = "$(SYMROOT)";
 				OTHER_LDFLAGS = (
 					"-ObjC",
