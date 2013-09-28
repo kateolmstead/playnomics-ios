@@ -48,3 +48,7 @@ lipo -create -output "${FINAL_FILE_NAME}" "${SRC_PATH}/${RELEASE_DEVICE_ARMV7_DI
 
 cp ${SRC_PATH}/PlaynomicsSDK/Playnomics.h ${TARGET_PATH}
 cp ${SRC_PATH}/PlaynomicsSDK/PNLogger.h ${TARGET_PATH}
+
+echo "Compressing build into file ${TARGET_PATH}/../playnomics_ios_sdk.tar.gz"
+
+tar -zcf ${TARGET_PATH}/../playnomics_ios_sdk.tar.gz ${TARGET_PATH}
