@@ -2,7 +2,7 @@
 .idea
 xcuserdata/
 libplaynomics.a
-iosapi/build
+src/build
 
 build.log
 target

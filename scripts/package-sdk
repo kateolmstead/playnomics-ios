@@ -8,7 +8,7 @@ TARGET_PATH=${BIN_PATH}/../target/Playnomics
 
 XCODE5="/Applications/Xcode5.app/Contents/Developer/usr/bin/xcodebuild"
 
-SRC_PATH=${BIN_PATH}/../iosapi
+SRC_PATH=${BIN_PATH}/../src
 
 FILE_NAME="libPlaynomicsSDK.a"
 FINAL_FILE_NAME=${TARGET_PATH}/libPlaynomics.a
