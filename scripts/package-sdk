@@ -5,6 +5,13 @@ set -e
 FULLSCRIPT=$(which $0)
 BIN_PATH=`dirname ${FULLSCRIPT}`
 TARGET_PATH=${BIN_PATH}/../target/Playnomics
+VERSION_NUM=$1
+
+if [[ -z "$1" ]]; then
+    echo "Version number is not set!"
+    exit 1
+fi
+
 
 XCODE5="/Applications/Xcode5.app/Contents/Developer/usr/bin/xcodebuild"
 
@@ -49,6 +56,7 @@ lipo -create -output "${FINAL_FILE_NAME}" "${SRC_PATH}/${RELEASE_DEVICE_ARMV7_DI
 cp ${SRC_PATH}/PlaynomicsSDK/Playnomics.h ${TARGET_PATH}
 cp ${SRC_PATH}/PlaynomicsSDK/PNLogger.h ${TARGET_PATH}
 
-echo "Compressing build into file ${TARGET_PATH}/../playnomics_ios_sdk.tar.gz"
+echo "Compressing build into file ${TARGET_PATH}/../playnomics_ios_sdk_v${VERSION_NUM}.tar.gz"
 
-tar -zcf ${TARGET_PATH}/../playnomics_ios_sdk.tar.gz ${TARGET_PATH}
+cd ${TARGET_PATH}/../
+tar -zcf playnomics_ios_sdk_v${VERSION_NUM}.tar.gz Playnomics
