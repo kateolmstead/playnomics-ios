@@ -1,0 +1,6 @@
+---
+  language: objective-c
+  before_install:
+    - brew update
+    - brew install xctool
+  script: xctool -workspace src/PlaynomicsSDK.xcworkspace -scheme PlaynomicsSDKTests test -test-sdk iphonesimulator7.0
