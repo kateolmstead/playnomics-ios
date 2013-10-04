@@ -10,7 +10,7 @@ Getting Started
 
 ## Download and Installing the SDK
 
-You can download the SDK from our [releases page](https://github.com/playnomics/playnomics-ios/releases).
+You can download the SDK from our [releases page](https://github.com/playnomics/playnomics-ios/releases), or you can add our SDK to your [CocoaPods](http://github.com/CocoaPods) `Podfile` with `pod "Playnomics"`.
 
 All of the necessary install files are in the *Playnomics* folder:
 * libPlaynomics.a
