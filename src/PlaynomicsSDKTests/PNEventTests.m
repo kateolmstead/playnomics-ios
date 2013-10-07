@@ -141,7 +141,7 @@
     PNEventAppStart *start = [[PNEventAppStart alloc] initWithSessionInfo:_info instanceId:_instanceId];
     [self assertCommonInfoIsAvailable:start sessionInfo:_info];
     XCTAssertEqualObjects([start.eventParameters valueForKey:@"i"], [_instanceId toHex], @"Instance ID is set");
-    XCTAssertEqualObjects([start.eventParameters valueForKey:@"z"], [NSNumber numberWithInt:[PNUtil timezoneOffet]], @"Instance ID is set");
+    XCTAssertEqualObjects([start.eventParameters valueForKey:@"z"], [NSNumber numberWithInt:[PNUtil timezoneOffet]], @"Time zone is set");
 }
 
 -(void) testAppPage{
