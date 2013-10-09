@@ -42,6 +42,11 @@
     [params setObject:[NSNumber numberWithInt: screenRect.size.height] forKey:@"c"];
     [params setObject:[NSNumber numberWithInt: screenRect.size.width] forKey:@"d"];
     
+    if(_session.cache.getIdfa){
+        [params setObject:_session.cache.getIdfa forKey:@"idfa"];
+    }
+    [params setObject:[PNUtil boolAsString:!_session.cache.getLimitAdvertising] forKey:@"allowTracking"];
+    
     NSString *language = [PNUtil getLanguage];
     if (language) {
         [params setObject:language forKey:@"lang"];

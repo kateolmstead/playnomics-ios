@@ -8,6 +8,7 @@
 #import "Playnomics.h"
 #import "PNGeneratedHexId.h"
 #import "PNCache.h"
+#import "PNDeviceManager.h"
 
 typedef enum {
     PNSessionStateUnkown,
@@ -32,6 +33,9 @@ typedef enum {
 @property (nonatomic, readonly) PNGeneratedHexId *sessionId;
 @property (nonatomic, readonly) PNGeneratedHexId *instanceId;
 @property (nonatomic, readonly) PNSessionState state;
+
+@property (retain) PNCache *cache;
+
 
 + (PNSession*) sharedInstance;
 
