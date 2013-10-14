@@ -604,7 +604,7 @@ And then attaching this AwardFrameDelegate class to the frame shown in the first
 
 -(void) viewDidLoad{
     _awardDelegate = [[AwardFrameDelegate alloc] init];
-    [Playnomics showFrameWithId: frameId delegate: _frameDelegate];
+    [Playnomics showFrameWithId: frameId delegate: _awardDelegate];
 }
 
 -(void) dealloc{
