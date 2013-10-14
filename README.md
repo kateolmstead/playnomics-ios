@@ -802,6 +802,8 @@ If you have any questions or issues, please contact <a href="mailto:support@play
 
 Change Log
 ==========
+#### Version 1.1.1
+* Send IDFA and allowTracking every time we request an ad for a frame.
 
 #### Version 1.1.0
 * Support up to 25 custom milestones in the SDK
