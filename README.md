@@ -170,7 +170,7 @@ Optionally, associate a class that can respond to the `PlaynomicsFrameDelegate` 
             <td><code>frameDelegate</code></td>
             <td>id&lt;PlaynomicsFrameDelegate&gt;</td>
             <td>
-                Processes rich data callbacks, see <a href="#using-rich-data-callbacks">Using Rich Data Callbacks</a>
+                Processes rich data callbacks, see <a href="#using-rich-data-callbacks">Using Rich Data Callbacks</a>. This delegate is not <strong>retained</strong>, you are responsible for managing the lifecycle of this object.
             </td>
         </tr>
     </tbody>
@@ -574,7 +574,7 @@ In this use-case, we want to configure a frame that is always shown to players w
 #import "Inventory.h"
 
 @implementation AwardFrameDelegate
-- (void)onClick:(NSDictionary *)jsonData{
+- (void)onTouch:(NSDictionary *)jsonData{
     
     if(jsonData){
         if([jsonData objectForKey: @"type"] != (id)[NSNull null] &&
@@ -708,7 +708,7 @@ In particular one event, for examle, a player may deplete their premium currency
 #import "Inventory.h"
 
 @implementation StoreFrameDelegate
-- (void)onClick:(NSDictionary *)jsonData{
+- (void)onTouch:(NSDictionary *)jsonData{
     if(jsonData){
         if([jsonData objectForKey: @"type"] != (id)[NSNull null] && 
             [[jsonData objectForKey:@"type"] isEqualToString: @"action"]){
